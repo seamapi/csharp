@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1444EB3-69DB-4DC7-B1DA-798B74419077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Co.Seam", "src\Co.Seam\Co.Seam.csproj", "{9A33E809-F95A-4E65-A9F8-145A49A16EBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Co.Seam.Test", "src\Co.Seam.Test\Co.Seam.Test.csproj", "{B6EDC1FF-9838-4997-B98E-62B768430DF3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A33E809-F95A-4E65-A9F8-145A49A16EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A33E809-F95A-4E65-A9F8-145A49A16EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A33E809-F95A-4E65-A9F8-145A49A16EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A33E809-F95A-4E65-A9F8-145A49A16EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6EDC1FF-9838-4997-B98E-62B768430DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6EDC1FF-9838-4997-B98E-62B768430DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6EDC1FF-9838-4997-B98E-62B768430DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6EDC1FF-9838-4997-B98E-62B768430DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A33E809-F95A-4E65-A9F8-145A49A16EBC} = {E1444EB3-69DB-4DC7-B1DA-798B74419077}
+		{B6EDC1FF-9838-4997-B98E-62B768430DF3} = {E1444EB3-69DB-4DC7-B1DA-798B74419077}
+	EndGlobalSection
+EndGlobal
