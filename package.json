@@ -33,11 +33,7 @@
     "!**/*.test.ts"
   ],
   "scripts": {
-    "build": "npm run build:ts",
-    "postbuild": "node ./index.js",
-    "build:ts": "tsc --project tsconfig.build.json",
-    "prebuild:ts": "del 'index.*' lib",
-    "postbuild:ts": "tsc-alias --project tsconfig.build.json",
+    "build": "npm run generate",
     "typecheck": "tsc",
     "test": "dotnet test ./output/csharp",
     "pretest": "npm run generate",
@@ -52,7 +48,8 @@
     "format": "echo \"No linting yet...\" && exit 0",
     "preformat": "prettier --write --ignore-path .gitignore .",
     "report": "c8 report",
-    "generate": "tsx src/index.ts && dotnet csharpier ./output/csharp"
+    "generate": "tsx src/index.ts && npm run generate:nuspec && dotnet csharpier ./output/csharp",
+    "generate:nuspec": "tsx src/generate-nuspec.ts"
   },
   "engines": {
     "node": ">=16.13.0",

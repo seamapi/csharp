@@ -23,6 +23,7 @@
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
+    "resolveJsonModule": true,
     "paths": {
       "@seamapi/nextlove-sdk-csharp": ["./src/index.ts"],
       "lib/*": ["./src/lib/*"]

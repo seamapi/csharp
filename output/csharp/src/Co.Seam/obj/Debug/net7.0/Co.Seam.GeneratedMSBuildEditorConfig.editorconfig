@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Co.Seam
-build_property.ProjectDir = /Users/mxsdev/Projects/nextlove-sdk-csharp/src/templates/fs/src/Co.Seam/
+build_property.ProjectDir = /Users/mxsdev/Projects/nextlove-sdk-csharp/output/csharp/src/Co.Seam/
