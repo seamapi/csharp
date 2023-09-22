@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_clientSession_model")]
+    [DataContract(Name = "seamModel_clientSession_model")]
     public class ClientSession
     {
         [JsonConstructorAttribute]

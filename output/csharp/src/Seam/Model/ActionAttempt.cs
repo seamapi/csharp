@@ -15,7 +15,7 @@ namespace Seam.Model
         public abstract string Status { get; }
     }
 
-    [DataContract(Name = "coSeamModel_actionAttemptSuccess_model")]
+    [DataContract(Name = "seamModel_actionAttemptSuccess_model")]
     public class ActionAttemptSuccess : ActionAttempt
     {
         [JsonConstructorAttribute]
@@ -52,7 +52,7 @@ namespace Seam.Model
         public string? Error { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_actionAttemptPending_model")]
+    [DataContract(Name = "seamModel_actionAttemptPending_model")]
     public class ActionAttemptPending : ActionAttempt
     {
         [JsonConstructorAttribute]
@@ -89,7 +89,7 @@ namespace Seam.Model
         public string? Error { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_actionAttemptError_model")]
+    [DataContract(Name = "seamModel_actionAttemptError_model")]
     public class ActionAttemptError : ActionAttempt
     {
         [JsonConstructorAttribute]
@@ -126,7 +126,7 @@ namespace Seam.Model
         public ActionAttemptErrorError Error { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_actionAttemptErrorError_model")]
+    [DataContract(Name = "seamModel_actionAttemptErrorError_model")]
     public class ActionAttemptErrorError
     {
         [JsonConstructorAttribute]

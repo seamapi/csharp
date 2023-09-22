@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_connectedAccount_model")]
+    [DataContract(Name = "seamModel_connectedAccount_model")]
     public class ConnectedAccount
     {
         [JsonConstructorAttribute]
@@ -62,7 +62,7 @@ namespace Seam.Model
         public object? CustomMetadata { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_connectedAccountUserIdentifier_model")]
+    [DataContract(Name = "seamModel_connectedAccountUserIdentifier_model")]
     public class ConnectedAccountUserIdentifier
     {
         [JsonConstructorAttribute]

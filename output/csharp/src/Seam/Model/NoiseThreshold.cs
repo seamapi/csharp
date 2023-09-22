@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_noiseThreshold_model")]
+    [DataContract(Name = "seamModel_noiseThreshold_model")]
     public class NoiseThreshold
     {
         [JsonConstructorAttribute]

@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_unmanagedDevice_model")]
+    [DataContract(Name = "seamModel_unmanagedDevice_model")]
     public class UnmanagedDevice
     {
         [JsonConstructorAttribute]
@@ -178,7 +178,7 @@ namespace Seam.Model
         public UnmanagedDeviceProperties Properties { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_unmanagedDeviceErrors_model")]
+    [DataContract(Name = "seamModel_unmanagedDeviceErrors_model")]
     public class UnmanagedDeviceErrors
     {
         [JsonConstructorAttribute]
@@ -197,7 +197,7 @@ namespace Seam.Model
         public string Message { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_unmanagedDeviceWarnings_model")]
+    [DataContract(Name = "seamModel_unmanagedDeviceWarnings_model")]
     public class UnmanagedDeviceWarnings
     {
         [JsonConstructorAttribute]
@@ -216,7 +216,7 @@ namespace Seam.Model
         public string Message { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_unmanagedDeviceProperties_model")]
+    [DataContract(Name = "seamModel_unmanagedDeviceProperties_model")]
     public class UnmanagedDeviceProperties
     {
         [JsonConstructorAttribute]
@@ -258,7 +258,7 @@ namespace Seam.Model
         public UnmanagedDevicePropertiesModel Model { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_unmanagedDevicePropertiesModel_model")]
+    [DataContract(Name = "seamModel_unmanagedDevicePropertiesModel_model")]
     public class UnmanagedDevicePropertiesModel
     {
         [JsonConstructorAttribute]

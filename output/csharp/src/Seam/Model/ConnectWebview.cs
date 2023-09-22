@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_connectWebview_model")]
+    [DataContract(Name = "seamModel_connectWebview_model")]
     public class ConnectWebview
     {
         [JsonConstructorAttribute]

@@ -1,6 +1,5 @@
 namespace Seam.Test;
 
-using Seam.Client;
 using Seam.Model;
 
 public class UnitTest1 : SeamConnectTest

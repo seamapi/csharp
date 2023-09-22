@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_device_model")]
+    [DataContract(Name = "seamModel_device_model")]
     public class Device
     {
         [JsonConstructorAttribute]
@@ -183,7 +183,7 @@ namespace Seam.Model
         public bool IsManaged { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_deviceProperties_model")]
+    [DataContract(Name = "seamModel_deviceProperties_model")]
     public class DeviceProperties
     {
         [JsonConstructorAttribute]
@@ -417,7 +417,7 @@ namespace Seam.Model
         public bool? DoorOpen { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesModel_model")]
+    [DataContract(Name = "seamModel_devicePropertiesModel_model")]
     public class DevicePropertiesModel
     {
         [JsonConstructorAttribute]
@@ -443,7 +443,7 @@ namespace Seam.Model
         public string ManufacturerDisplayName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesBattery_model")]
+    [DataContract(Name = "seamModel_devicePropertiesBattery_model")]
     public class DevicePropertiesBattery
     {
         [JsonConstructorAttribute]
@@ -481,7 +481,7 @@ namespace Seam.Model
         public DevicePropertiesBattery.StatusEnum Status { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesAugustMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesAugustMetadata_model")]
     public class DevicePropertiesAugustMetadata
     {
         [JsonConstructorAttribute]
@@ -528,7 +528,7 @@ namespace Seam.Model
         public string? HouseId { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesAvigilonAltaMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesAvigilonAltaMetadata_model")]
     public class DevicePropertiesAvigilonAltaMetadata
     {
         [JsonConstructorAttribute]
@@ -570,7 +570,7 @@ namespace Seam.Model
         public string SiteName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesSchlageMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesSchlageMetadata_model")]
     public class DevicePropertiesSchlageMetadata
     {
         [JsonConstructorAttribute]
@@ -602,7 +602,7 @@ namespace Seam.Model
         public string? Model { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesSmartthingsMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesSmartthingsMetadata_model")]
     public class DevicePropertiesSmartthingsMetadata
     {
         [JsonConstructorAttribute]
@@ -634,7 +634,7 @@ namespace Seam.Model
         public string? LocationId { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesLocklyMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesLocklyMetadata_model")]
     public class DevicePropertiesLocklyMetadata
     {
         [JsonConstructorAttribute]
@@ -661,7 +661,7 @@ namespace Seam.Model
         public string? Model { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesNukiMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesNukiMetadata_model")]
     public class DevicePropertiesNukiMetadata
     {
         [JsonConstructorAttribute]
@@ -688,7 +688,7 @@ namespace Seam.Model
         public bool? KeypadBatteryCritical { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesKwiksetMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesKwiksetMetadata_model")]
     public class DevicePropertiesKwiksetMetadata
     {
         [JsonConstructorAttribute]
@@ -715,7 +715,7 @@ namespace Seam.Model
         public string ModelNumber { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesSaltoMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesSaltoMetadata_model")]
     public class DevicePropertiesSaltoMetadata
     {
         [JsonConstructorAttribute]
@@ -757,7 +757,7 @@ namespace Seam.Model
         public string? Model { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesGenieMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesGenieMetadata_model")]
     public class DevicePropertiesGenieMetadata
     {
         [JsonConstructorAttribute]
@@ -776,7 +776,7 @@ namespace Seam.Model
         public string DoorName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesBrivoMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesBrivoMetadata_model")]
     public class DevicePropertiesBrivoMetadata
     {
         [JsonConstructorAttribute]
@@ -791,7 +791,7 @@ namespace Seam.Model
         public string DeviceName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesIglooMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesIglooMetadata_model")]
     public class DevicePropertiesIglooMetadata
     {
         [JsonConstructorAttribute]
@@ -818,7 +818,7 @@ namespace Seam.Model
         public string? Model { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesNoiseawareMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesNoiseawareMetadata_model")]
     public class DevicePropertiesNoiseawareMetadata
     {
         [JsonConstructorAttribute]
@@ -865,7 +865,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesMinutMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesMinutMetadata_model")]
     public class DevicePropertiesMinutMetadata
     {
         [JsonConstructorAttribute]
@@ -892,7 +892,7 @@ namespace Seam.Model
         public DevicePropertiesMinutMetadataLatestSensorValues LatestSensorValues { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValues_model")]
+    [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValues_model")]
     public class DevicePropertiesMinutMetadataLatestSensorValues
     {
         [JsonConstructorAttribute]
@@ -930,7 +930,7 @@ namespace Seam.Model
     }
 
     [DataContract(
-        Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValuesTemperature_model"
+        Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesTemperature_model"
     )]
     public class DevicePropertiesMinutMetadataLatestSensorValuesTemperature
     {
@@ -953,7 +953,7 @@ namespace Seam.Model
         public float Value { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValuesSound_model")]
+    [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesSound_model")]
     public class DevicePropertiesMinutMetadataLatestSensorValuesSound
     {
         [JsonConstructorAttribute]
@@ -975,9 +975,7 @@ namespace Seam.Model
         public float Value { get; set; }
     }
 
-    [DataContract(
-        Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValuesHumidity_model"
-    )]
+    [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesHumidity_model")]
     public class DevicePropertiesMinutMetadataLatestSensorValuesHumidity
     {
         [JsonConstructorAttribute]
@@ -999,9 +997,7 @@ namespace Seam.Model
         public float Value { get; set; }
     }
 
-    [DataContract(
-        Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValuesPressure_model"
-    )]
+    [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesPressure_model")]
     public class DevicePropertiesMinutMetadataLatestSensorValuesPressure
     {
         [JsonConstructorAttribute]
@@ -1024,7 +1020,7 @@ namespace Seam.Model
     }
 
     [DataContract(
-        Name = "coSeamModel_devicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ_model"
+        Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ_model"
     )]
     public class DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ
     {
@@ -1047,7 +1043,7 @@ namespace Seam.Model
         public float Value { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesFourSuitesMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesFourSuitesMetadata_model")]
     public class DevicePropertiesFourSuitesMetadata
     {
         [JsonConstructorAttribute]
@@ -1074,7 +1070,7 @@ namespace Seam.Model
         public float RecloseDelayInSeconds { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesTwoNMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesTwoNMetadata_model")]
     public class DevicePropertiesTwoNMetadata
     {
         [JsonConstructorAttribute]
@@ -1093,7 +1089,7 @@ namespace Seam.Model
         public string DeviceName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesControlbywebMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesControlbywebMetadata_model")]
     public class DevicePropertiesControlbywebMetadata
     {
         [JsonConstructorAttribute]
@@ -1120,7 +1116,7 @@ namespace Seam.Model
         public string? RelayName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesTtlockMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesTtlockMetadata_model")]
     public class DevicePropertiesTtlockMetadata
     {
         [JsonConstructorAttribute]
@@ -1139,7 +1135,7 @@ namespace Seam.Model
         public string LockAlias { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesSeamBridgeMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesSeamBridgeMetadata_model")]
     public class DevicePropertiesSeamBridgeMetadata
     {
         [JsonConstructorAttribute]
@@ -1176,7 +1172,7 @@ namespace Seam.Model
         public string Name { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesIgloohomeMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesIgloohomeMetadata_model")]
     public class DevicePropertiesIgloohomeMetadata
     {
         [JsonConstructorAttribute]
@@ -1208,7 +1204,7 @@ namespace Seam.Model
         public string BridgeName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesNestMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesNestMetadata_model")]
     public class DevicePropertiesNestMetadata
     {
         [JsonConstructorAttribute]
@@ -1235,7 +1231,7 @@ namespace Seam.Model
         public string CustomName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesEcobeeMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesEcobeeMetadata_model")]
     public class DevicePropertiesEcobeeMetadata
     {
         [JsonConstructorAttribute]
@@ -1257,7 +1253,7 @@ namespace Seam.Model
         public string DeviceName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesHubitatMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesHubitatMetadata_model")]
     public class DevicePropertiesHubitatMetadata
     {
         [JsonConstructorAttribute]
@@ -1284,7 +1280,7 @@ namespace Seam.Model
         public string DeviceLabel { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesDormakabaOracodeMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesDormakabaOracodeMetadata_model")]
     public class DevicePropertiesDormakabaOracodeMetadata
     {
         [JsonConstructorAttribute]
@@ -1321,7 +1317,7 @@ namespace Seam.Model
         public string SiteName { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesWyzeMetadata_model")]
+    [DataContract(Name = "seamModel_devicePropertiesWyzeMetadata_model")]
     public class DevicePropertiesWyzeMetadata
     {
         [JsonConstructorAttribute]
@@ -1358,7 +1354,7 @@ namespace Seam.Model
         public string DeviceInfoModel { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_devicePropertiesKeypadBattery_model")]
+    [DataContract(Name = "seamModel_devicePropertiesKeypadBattery_model")]
     public class DevicePropertiesKeypadBattery
     {
         [JsonConstructorAttribute]
@@ -1373,7 +1369,7 @@ namespace Seam.Model
         public float Level { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_deviceLocation_model")]
+    [DataContract(Name = "seamModel_deviceLocation_model")]
     public class DeviceLocation
     {
         [JsonConstructorAttribute]
@@ -1392,7 +1388,7 @@ namespace Seam.Model
         public string? Timezone { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_deviceErrors_model")]
+    [DataContract(Name = "seamModel_deviceErrors_model")]
     public class DeviceErrors
     {
         [JsonConstructorAttribute]
@@ -1411,7 +1407,7 @@ namespace Seam.Model
         public string Message { get; set; }
     }
 
-    [DataContract(Name = "coSeamModel_deviceWarnings_model")]
+    [DataContract(Name = "seamModel_deviceWarnings_model")]
     public class DeviceWarnings
     {
         [JsonConstructorAttribute]

@@ -9,7 +9,7 @@ import {
   type RefSchema,
 } from '@seamapi/nextlove-sdk-generator'
 import assert from 'assert'
-import { GLOBAL_NAMESPACE } from '../generate-csharp-sdk.js'
+import { GLOBAL_NAMESPACE } from '../constants.js'
 
 const FALLBACK_TYPE = new cs.TypeNode(cs.TokenNode.TYPE_OBJECT, true)
 

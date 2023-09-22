@@ -6,7 +6,7 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "coSeamModel_webhook_model")]
+    [DataContract(Name = "seamModel_webhook_model")]
     public class Webhook
     {
         [JsonConstructorAttribute]

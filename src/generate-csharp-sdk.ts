@@ -16,10 +16,9 @@ import {
   generateDataclassFileForSchema,
   generateDataclassFileForRoutes,
 } from './templates/dataclass.js'
+import { GLOBAL_NAMESPACE } from './constants.js'
 
 Error.stackTraceLimit = Infinity
-
-export const GLOBAL_NAMESPACE = ['Seam']
 
 export const generateCSharpSDK = async () => {
   const openapi: OpenAPISchema = await axios

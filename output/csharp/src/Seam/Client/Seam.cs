@@ -29,6 +29,7 @@ using RestSharp;
 using RestSharp.Serializers;
 using RestSharpMethod = RestSharp.Method;
 using Polly;
+using Seam.Model;
 
 namespace Seam.Client
 {
@@ -69,15 +70,7 @@ namespace Seam.Client
         /// <returns>A JSON string.</returns>
         public string Serialize(object obj)
         {
-            if (obj != null && obj is Seam.Model.AbstractModelSchema)
-            {
-                // the object to be serialized is an oneOf/anyOf schema
-                return ((Seam.Model.AbstractModelSchema)obj).ToJson();
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(obj, _serializerSettings);
-            }
+            return JsonConvert.SerializeObject(obj, _serializerSettings);
         }
 
         public string Serialize(Parameter bodyParameter) => Serialize(bodyParameter.Value);
@@ -550,7 +543,7 @@ namespace Seam.Client
                 }
 
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
+                if (typeof(AbstractModelSchema).IsAssignableFrom(typeof(T)))
                 {
                     try
                     {
@@ -673,7 +666,7 @@ namespace Seam.Client
                 }
 
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
+                if (typeof(AbstractModelSchema).IsAssignableFrom(typeof(T)))
                 {
                     response.Data = (T)
                         typeof(T)
