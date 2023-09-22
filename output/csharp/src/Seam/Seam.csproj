@@ -5,51 +5,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>annotations</Nullable>
 
-    <!-- Identifier that must be unique within the hosting gallery -->
-    <id>Seam</id>
+    <PackageId>Seam</PackageId>
 
-    <!-- Package version number that is used when resolving dependencies -->
-    <version>0.0.1</version>
+    <PackageVersion>0.0.1</PackageVersion>
 
-    <!-- Authors contain text that appears directly on the gallery -->
-    <authors>Seam</authors>
+    <Authors>Seam</Authors>
 
-    <!--
-        Owners are typically nuget.org identities that allow gallery
-        users to easily find other packages by the same owners.
-    -->
-    <owners>Seam</owners>
+    <Owners>Seam</Owners>
 
-     <!-- Project URL provides a link for the gallery -->
-    <projectUrl>http://github.com/seamapi/seam-connect</projectUrl>
+    <PackageProjectUrl>http://github.com/seamapi/seam-connect</PackageProjectUrl>
 
-     <!-- License information is displayed on the gallery -->
-    <license>Copyright (c) 2021-2023 Seam Labs, Inc.</license>
+    <PackageIcon>icon.png</PackageIcon>
 
+    <Description>Seam API for C#</Description>
 
-    <!-- Icon is used in Visual Studio's package manager UI -->
-    <icon>icon.png</icon>
+    <Copyright>Copyright (c) 2021-2023 Seam Labs, Inc.</Copyright>
 
-    <!--
-        If true, this value prompts the user to accept the license when
-        installing the package.
-    -->
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
-
-    <!--
-        The description can be used in package manager UI. Note that the
-        nuget.org gallery uses information you add in the portal.
-    -->
-    <description>Seam API for C#</description>
-
-    <!-- Copyright information -->
-    <copyright>Copyright (c) 2021-2023 Seam Labs, Inc.</copyright>
-
-    <!-- Tags appear in the gallery and can be used for tag searches -->
-    <tags>api iot</tags>
+    <PackageTags>api iot</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="icon.png" />
+
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Polly" Version="7.2.4" />
