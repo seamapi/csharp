@@ -51,7 +51,7 @@
     "report": "c8 report",
     "generate": "tsx src/index.ts && npm run generate:csproj && npm run format:csharp",
     "generate:csproj": "tsx src/generate-csproj.ts",
-    "pack": "dotnet pack ./output/csharp/src/Seam -o ./"
+    "pack": "npm run generate:csproj && dotnet pack ./output/csharp/src/Seam -o ./"
   },
   "engines": {
     "node": ">=16.13.0",
