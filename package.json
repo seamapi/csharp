@@ -49,8 +49,8 @@
     "preformat": "prettier --write --ignore-path .gitignore .",
     "format:csharp": "dotnet csharpier ./output/csharp",
     "report": "c8 report",
-    "generate": "tsx src/index.ts && npm run generate:nuspec && npm run format:csharp",
-    "generate:nuspec": "tsx src/generate-nuspec.ts"
+    "generate": "tsx src/index.ts && npm run generate:csproj && npm run format:csharp",
+    "generate:csproj": "tsx src/generate-csproj.ts"
   },
   "engines": {
     "node": ">=16.13.0",

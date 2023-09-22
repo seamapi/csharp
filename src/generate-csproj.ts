@@ -30,7 +30,7 @@ const xml = (version: string) =>
     <projectUrl>http://github.com/seamapi/seam-connect</projectUrl>
 
      <!-- License information is displayed on the gallery -->
-    <license type="expression">Copyright (c) 2021-2023 Seam Labs, Inc.</license>
+    <license>Copyright (c) 2021-2023 Seam Labs, Inc.</license>
 
 
     <!-- Icon is used in Visual Studio's package manager UI -->
