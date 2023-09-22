@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using Co.Seam.Client;
+using Seam.Client;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Provides a non-generic contract for the ApiResponse wrapper.

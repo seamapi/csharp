@@ -1,6 +1,6 @@
 using System;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// A delegate to ExceptionFactory method

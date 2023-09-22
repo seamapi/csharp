@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1444EB3-69DB-4DC7-B1DA-798B74419077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Co.Seam", "src\Co.Seam\Co.Seam.csproj", "{9A33E809-F95A-4E65-A9F8-145A49A16EBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seam", "src\Seam\Seam.csproj", "{9A33E809-F95A-4E65-A9F8-145A49A16EBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Co.Seam.Test", "src\Co.Seam.Test\Co.Seam.Test.csproj", "{B6EDC1FF-9838-4997-B98E-62B768430DF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seam.Test", "src\Seam.Test\Seam.Test.csproj", "{B6EDC1FF-9838-4997-B98E-62B768430DF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

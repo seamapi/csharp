@@ -1,4 +1,4 @@
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Http methods supported by swagger

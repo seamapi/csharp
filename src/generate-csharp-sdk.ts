@@ -19,6 +19,8 @@ import {
 
 Error.stackTraceLimit = Infinity
 
+export const GLOBAL_NAMESPACE = ['Seam']
+
 export const generateCSharpSDK = async () => {
   const openapi: OpenAPISchema = await axios
     .get('https://connect.getseam.com/openapi.json')
@@ -80,10 +82,10 @@ export const generateCSharpSDK = async () => {
     const { classFile, className } = generateDataclassFileForRoutes(
       class_name,
       routes,
-      ['Co', 'Seam', 'Api'],
+      [...GLOBAL_NAMESPACE, 'Api'],
     )
 
-    fs[`src/Co.Seam/Api/${className}.cs`] = classFile.serialize(compilerCtx)
+    fs[`src/Seam/Api/${className}.cs`] = classFile.serialize(compilerCtx)
   }
 
   Object.entries(openapi.components.schemas)
@@ -104,10 +106,10 @@ export const generateCSharpSDK = async () => {
           schema_name,
           schema,
           'model',
-          ['Co', 'Seam', 'Model'],
+          [...GLOBAL_NAMESPACE, 'Model'],
         )
 
-        fs[`src/Co.Seam/Model/${name}.cs`] = classFile.serialize(compilerCtx)
+        fs[`src/Seam/Model/${name}.cs`] = classFile.serialize(compilerCtx)
       } catch (e) {
         console.log(`Failed at ${schema_name}`)
         throw e

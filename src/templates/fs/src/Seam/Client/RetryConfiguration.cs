@@ -1,7 +1,7 @@
 using Polly;
 using RestSharp;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Configuration class to set the polly retry policies to be applied to the requests.

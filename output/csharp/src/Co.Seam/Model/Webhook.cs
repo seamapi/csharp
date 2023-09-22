@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using JsonSubTypes;
 
-namespace Co.Seam.Model
+namespace Seam.Model
 {
     [DataContract(Name = "coSeamModel_webhook_model")]
     public class Webhook

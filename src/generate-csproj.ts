@@ -69,6 +69,6 @@ const xml = (version: string) =>
 const nuspecData = xml(packageJson.version)
 
 writeFileSync(
-  path.join(process.cwd(), 'output/csharp/src/Co.Seam/Co.Seam.csproj'),
+  path.join(process.cwd(), 'output/csharp/src/Seam/Seam.csproj'),
   nuspecData,
 )

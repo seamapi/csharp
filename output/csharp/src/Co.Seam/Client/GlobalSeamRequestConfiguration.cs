@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Co.Seam.Client;
+using Seam.Client;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// <see cref="GlobalConfiguration"/> provides a compile-time extension point for globally configuring

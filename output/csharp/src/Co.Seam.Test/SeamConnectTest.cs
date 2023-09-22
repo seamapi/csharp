@@ -1,6 +1,6 @@
-namespace Co.Seam.Test;
+namespace Seam.Test;
 
-using Co.Seam.Client;
+using Seam.Client;
 
 public class SeamConnectTest : IDisposable
 {

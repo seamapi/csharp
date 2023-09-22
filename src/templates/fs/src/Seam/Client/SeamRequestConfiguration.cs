@@ -10,7 +10,7 @@ using System.Text;
 using System.Net.Http;
 using System.Net.Security;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Represents a set of configuration settings
@@ -568,7 +568,7 @@ namespace Co.Seam.Client
         /// </summary>
         public static string ToDebugReport()
         {
-            string report = "C# SDK (Co.Seam) Debug Report:\n";
+            string report = "C# SDK (Seam) Debug Report:\n";
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version + "\n";
             report += "    Version of the API: 1.0.0\n";

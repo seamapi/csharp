@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using JsonSubTypes;
-using Co.Seam.Client;
-using Co.Seam.Model;
+using Seam.Client;
+using Seam.Model;
 
-namespace Co.Seam.Api
+namespace Seam.Api
 {
     public class Devices
     {
@@ -520,7 +520,7 @@ namespace Co.Seam.Api
     }
 }
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     public partial class Seam
     {

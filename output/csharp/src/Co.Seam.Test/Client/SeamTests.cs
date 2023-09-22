@@ -1,7 +1,7 @@
-namespace Co.Seam.Test;
+namespace Seam.Test;
 
-using Co.Seam.Client;
-using Co.Seam.Model;
+using Seam.Client;
+using Seam.Model;
 
 public class UnitTest1 : SeamConnectTest
 {

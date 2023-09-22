@@ -30,7 +30,7 @@ using RestSharp.Serializers;
 using RestSharpMethod = RestSharp.Method;
 using Polly;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Allows RestSharp to Serialize/Deserialize JSON using our custom logic, but only when ContentType is JSON.
@@ -69,10 +69,10 @@ namespace Co.Seam.Client
         /// <returns>A JSON string.</returns>
         public string Serialize(object obj)
         {
-            if (obj != null && obj is Co.Seam.Model.AbstractModelSchema)
+            if (obj != null && obj is Seam.Model.AbstractModelSchema)
             {
                 // the object to be serialized is an oneOf/anyOf schema
-                return ((Co.Seam.Model.AbstractModelSchema)obj).ToJson();
+                return ((Seam.Model.AbstractModelSchema)obj).ToJson();
             }
             else
             {
@@ -550,7 +550,7 @@ namespace Co.Seam.Client
                 }
 
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(Co.Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
+                if (typeof(Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
                 {
                     try
                     {
@@ -673,7 +673,7 @@ namespace Co.Seam.Client
                 }
 
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(Co.Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
+                if (typeof(Seam.Model.AbstractModelSchema).IsAssignableFrom(typeof(T)))
                 {
                     response.Data = (T)
                         typeof(T)

@@ -11,7 +11,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Co.Seam.Client
+namespace Seam.Client
 {
     /// <summary>
     /// Contract for Asynchronous RESTful API interactions.

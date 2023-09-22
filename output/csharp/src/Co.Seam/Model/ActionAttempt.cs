@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using JsonSubTypes;
 
-namespace Co.Seam.Model
+namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "Status")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptError), "error")]

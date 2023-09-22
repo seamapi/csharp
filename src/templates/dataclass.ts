@@ -9,6 +9,7 @@ import {
   type RefSchema,
 } from '@seamapi/nextlove-sdk-generator'
 import assert from 'assert'
+import { GLOBAL_NAMESPACE } from '../generate-csharp-sdk.js'
 
 const FALLBACK_TYPE = new cs.TypeNode(cs.TokenNode.TYPE_OBJECT, true)
 
@@ -33,8 +34,8 @@ export const DATA_CLASS_IMPORT_BLOCKS = new cs.StatementBlock([
 
 export const API_IMPORT_BLOCKS = new cs.StatementBlock([
   ...DATA_CLASS_IMPORT_BLOCKS.statements,
-  new cs.UsingStatement(['Co', 'Seam', 'Client']),
-  new cs.UsingStatement(['Co', 'Seam', 'Model']),
+  new cs.UsingStatement([...GLOBAL_NAMESPACE, 'Client']),
+  new cs.UsingStatement([...GLOBAL_NAMESPACE, 'Model']),
 ])
 
 const wrapNamespace = (statements: cs.Statement[], namespace?: string[]) => {
@@ -339,7 +340,7 @@ export const generateDataclassFileForRoutes = (
         wrapNamespace([cl], namespace),
         wrapNamespace(
           [extendedClass, extendedInterface],
-          ['Co', 'Seam', 'Client'],
+          [...GLOBAL_NAMESPACE, 'Client'],
         ),
       ].map((s) => new cs.StatementBlock([s])),
     ),
