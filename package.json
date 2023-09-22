@@ -47,8 +47,9 @@
     "example:inspect": "tsx --inspect examples",
     "format": "echo \"No linting yet...\" && exit 0",
     "preformat": "prettier --write --ignore-path .gitignore .",
+    "format:csharp": "dotnet csharpier ./output/csharp",
     "report": "c8 report",
-    "generate": "tsx src/index.ts && npm run generate:nuspec && dotnet csharpier ./output/csharp",
+    "generate": "tsx src/index.ts && npm run generate:nuspec && npm run format:csharp",
     "generate:nuspec": "tsx src/generate-nuspec.ts"
   },
   "engines": {
