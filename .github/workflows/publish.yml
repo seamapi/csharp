@@ -27,6 +27,8 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: npm ci --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Package .NET module
         shell: bash
         run: npm run pack
