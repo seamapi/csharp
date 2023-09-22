@@ -26,9 +26,7 @@ jobs:
           fetch-depth: 0
       - name: Install Dependencies
         shell: bash
-        run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.node_auth_token }}
+        run: npm i tsx -D --ignore-scripts
       - name: Package .NET module
         shell: bash
         run: npm run pack
