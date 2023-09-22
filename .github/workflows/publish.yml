@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: npm ci --ignore-scripts
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.node_auth_token }}
       - name: Package .NET module
         shell: bash
         run: npm run pack
