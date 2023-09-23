@@ -2,7 +2,7 @@
 
 [![GitHub Actions](https://github.com/seamapi/nextlove-sdk-csharp/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/nextlove-sdk-csharp/actions/workflows/check.yml)
 
-Seam 
+Seam
 
 ## Installation
 
@@ -11,7 +11,7 @@ Use [nuget](https://www.nuget.org/packages/Seam) to install.
 ## Usage
 
 ```csharp
-var seam = new Seam(apiToken: "YOUR_API_KEY");
+var seam = new Seam.Client.Seam(apiToken: "YOUR_API_KEY");
 
 var myDevices = seam.Devices.List();
 
