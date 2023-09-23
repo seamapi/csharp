@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
       - name: Install Dependencies
         shell: bash
-        run: npm i tsx -D --ignore-scripts
+        run: npm i tsx -g
       - name: Package .NET module
         shell: bash
         run: npm run pack
