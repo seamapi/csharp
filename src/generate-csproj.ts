@@ -19,6 +19,8 @@ const xml = (version: string) =>
 
     <Owners>Seam</Owners>
 
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
     <PackageProjectUrl>http://github.com/seamapi/seam-connect</PackageProjectUrl>
 
     <PackageIcon>icon.png</PackageIcon>
@@ -32,6 +34,7 @@ const xml = (version: string) =>
 
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="icon.png" />
+    <None Include="README.md" Pack="true" PackagePath="README.md" />
 
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
