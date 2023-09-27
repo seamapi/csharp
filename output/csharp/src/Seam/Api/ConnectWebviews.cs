@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class ConnectWebviews
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public ConnectWebviews(ISeam seam)
+        public ConnectWebviews(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -415,12 +415,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.ConnectWebviews ConnectWebviews => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.ConnectWebviews ConnectWebviews { get; }
     }

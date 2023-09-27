@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class Thermostats
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public Thermostats(ISeam seam)
+        public Thermostats(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -524,12 +524,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.Thermostats Thermostats => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.Thermostats Thermostats { get; }
     }

@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class NoiseThresholdsNoiseSensors
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public NoiseThresholdsNoiseSensors(ISeam seam)
+        public NoiseThresholdsNoiseSensors(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -527,12 +527,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.NoiseThresholdsNoiseSensors NoiseThresholdsNoiseSensors => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.NoiseThresholdsNoiseSensors NoiseThresholdsNoiseSensors { get; }
     }

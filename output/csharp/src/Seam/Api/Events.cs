@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class Events
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public Events(ISeam seam)
+        public Events(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -465,12 +465,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.Events Events => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.Events Events { get; }
     }

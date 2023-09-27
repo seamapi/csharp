@@ -19,6 +19,8 @@ namespace Seam.Model
             string name = default,
             AcsAccessGroup.AccessGroupTypeEnum accessGroupType = default,
             string accessGroupTypeDisplayName = default,
+            AcsAccessGroup.ExternalTypeEnum externalType = default,
+            string externalTypeDisplayName = default,
             string createdAt = default
         )
         {
@@ -28,11 +30,20 @@ namespace Seam.Model
             Name = name;
             AccessGroupType = accessGroupType;
             AccessGroupTypeDisplayName = accessGroupTypeDisplayName;
+            ExternalType = externalType;
+            ExternalTypeDisplayName = externalTypeDisplayName;
             CreatedAt = createdAt;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AccessGroupTypeEnum
+        {
+            [EnumMember(Value = "pti_unit")]
+            PtiUnit = 0
+        }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ExternalTypeEnum
         {
             [EnumMember(Value = "pti_unit")]
             PtiUnit = 0
@@ -59,6 +70,16 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string AccessGroupTypeDisplayName { get; set; }
+
+        [DataMember(Name = "external_type", IsRequired = true, EmitDefaultValue = false)]
+        public AcsAccessGroup.ExternalTypeEnum ExternalType { get; set; }
+
+        [DataMember(
+            Name = "external_type_display_name",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public string ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }

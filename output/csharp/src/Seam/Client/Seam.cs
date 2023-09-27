@@ -168,13 +168,13 @@ namespace Seam.Client
         public DataFormat DataFormat => DataFormat.Json;
     }
 
-    public partial interface ISeam : ISynchronousSeam, IAsynchronousSeam, IDisposable { }
+    public partial interface ISeamClient : ISynchronousSeam, IAsynchronousSeam, IDisposable { }
 
     /// <summary>
     /// Provides a default implementation of an Api client (both synchronous and asynchronous implementations),
     /// encapsulating general REST accessor use cases.
     /// </summary>
-    public partial class Seam : ISeam
+    public partial class SeamClient : ISeamClient
     {
         private readonly string _baseUrl;
         private readonly string _apiToken;
@@ -213,7 +213,7 @@ namespace Seam.Client
         /// <param name="basePath">The target service's base path in URL format.</param>
         /// <param name="apiToken">The target service's API Token.</param>
         /// <exception cref="ArgumentException"></exception>
-        public Seam(string apiToken)
+        public SeamClient(string apiToken)
             : this(GlobalSeamRequestConfiguration.Instance.BasePath, apiToken) { }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Seam.Client
         /// <param name="basePath">The target service's base path in URL format.</param>
         /// <param name="apiToken">The target service's API Token.</param>
         /// <exception cref="ArgumentException"></exception>
-        public Seam(string basePath, string apiToken)
+        public SeamClient(string basePath, string apiToken)
         {
             if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
@@ -1034,5 +1034,15 @@ namespace Seam.Client
 
         #endregion ISynchronousClient
         public void Dispose() { }
+    }
+
+    [Obsolete("Please use Seam.Client.SeamClient instead")]
+    public class Seam : SeamClient
+    {
+        public Seam(string apiToken)
+            : base(apiToken) { }
+
+        public Seam(string basePath, string apiToken)
+            : base(basePath, apiToken) { }
     }
 }

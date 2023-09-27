@@ -11,7 +11,9 @@ Use [nuget](https://www.nuget.org/packages/Seam) to install.
 ## Usage
 
 ```csharp
-var seam = new Seam.Client.Seam(apiToken: "YOUR_API_KEY");
+using Seam.Client;
+
+var seam = new SeamClient(apiToken: "YOUR_API_KEY");
 
 var myDevices = seam.Devices.List();
 

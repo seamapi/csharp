@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class Locks
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public Locks(ISeam seam)
+        public Locks(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -151,12 +151,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.Locks Locks => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.Locks Locks { get; }
     }

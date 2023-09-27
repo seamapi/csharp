@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class UnmanagedAccessCodes
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public UnmanagedAccessCodes(ISeam seam)
+        public UnmanagedAccessCodes(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -91,12 +91,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.UnmanagedAccessCodes UnmanagedAccessCodes => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.UnmanagedAccessCodes UnmanagedAccessCodes { get; }
     }
