@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class Webhooks
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public Webhooks(ISeam seam)
+        public Webhooks(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -140,12 +140,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.Webhooks Webhooks => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.Webhooks Webhooks { get; }
     }

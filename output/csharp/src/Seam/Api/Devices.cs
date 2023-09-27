@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class Devices
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public Devices(ISeam seam)
+        public Devices(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -522,12 +522,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.Devices Devices => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.Devices Devices { get; }
     }

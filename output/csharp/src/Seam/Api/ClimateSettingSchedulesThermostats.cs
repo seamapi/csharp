@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class ClimateSettingSchedulesThermostats
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public ClimateSettingSchedulesThermostats(ISeam seam)
+        public ClimateSettingSchedulesThermostats(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -364,13 +364,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string deviceId = default)
+            public ListRequest(string deviceId = default, string? userIdentifierKey = default)
             {
                 DeviceId = deviceId;
+                UserIdentifierKey = userIdentifierKey;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
         }
 
         [DataContract(Name = "listResponse_response")]
@@ -401,9 +405,12 @@ namespace Seam.Api
                 .Data.ClimateSettingSchedules;
         }
 
-        public List<ClimateSettingSchedule> List(string deviceId = default)
+        public List<ClimateSettingSchedule> List(
+            string deviceId = default,
+            string? userIdentifierKey = default
+        )
         {
-            return List(new ListRequest(deviceId: deviceId));
+            return List(new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey));
         }
 
         public async Task<List<ClimateSettingSchedule>> ListAsync(ListRequest request)
@@ -420,9 +427,16 @@ namespace Seam.Api
                 .ClimateSettingSchedules;
         }
 
-        public async Task<List<ClimateSettingSchedule>> ListAsync(string deviceId = default)
+        public async Task<List<ClimateSettingSchedule>> ListAsync(
+            string deviceId = default,
+            string? userIdentifierKey = default
+        )
         {
-            return (await ListAsync(new ListRequest(deviceId: deviceId)));
+            return (
+                await ListAsync(
+                    new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey)
+                )
+            );
         }
 
         [DataContract(Name = "updateRequest_request")]
@@ -678,13 +692,13 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.ClimateSettingSchedulesThermostats ClimateSettingSchedulesThermostats =>
             new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.ClimateSettingSchedulesThermostats ClimateSettingSchedulesThermostats { get; }
     }

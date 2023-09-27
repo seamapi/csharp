@@ -18,6 +18,9 @@ namespace Seam.Model
             string workspaceId = default,
             string createdAt = default,
             string displayName = default,
+            AcsUser.ExternalTypeEnum externalType = default,
+            string externalTypeDisplayName = default,
+            bool isBeingDeleted = default,
             string? fullName = default,
             string? email = default,
             string? phoneNumber = default
@@ -28,9 +31,19 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
             CreatedAt = createdAt;
             DisplayName = displayName;
+            ExternalType = externalType;
+            ExternalTypeDisplayName = externalTypeDisplayName;
+            IsBeingDeleted = isBeingDeleted;
             FullName = fullName;
             Email = email;
             PhoneNumber = phoneNumber;
+        }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ExternalTypeEnum
+        {
+            [EnumMember(Value = "pti_user")]
+            PtiUser = 0
         }
 
         [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
@@ -47,6 +60,19 @@ namespace Seam.Model
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
+
+        [DataMember(Name = "external_type", IsRequired = true, EmitDefaultValue = false)]
+        public AcsUser.ExternalTypeEnum ExternalType { get; set; }
+
+        [DataMember(
+            Name = "external_type_display_name",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public string ExternalTypeDisplayName { get; set; }
+
+        [DataMember(Name = "is_being_deleted", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsBeingDeleted { get; set; }
 
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? FullName { get; set; }

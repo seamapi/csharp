@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class ActionAttempts
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public ActionAttempts(ISeam seam)
+        public ActionAttempts(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -137,12 +137,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.ActionAttempts ActionAttempts => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.ActionAttempts ActionAttempts { get; }
     }

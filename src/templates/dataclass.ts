@@ -82,7 +82,10 @@ export const generateDataclassFileForRoutes = (
 ) => {
   const classStatements: cs.Statement[] = []
 
-  const seamInterfaceType = new cs.TypeNode(new cs.TokenNode('ISeam'), false)
+  const seamInterfaceType = new cs.TypeNode(
+    new cs.TokenNode('ISeamClient'),
+    false,
+  )
   const seamInterfaceName = new cs.TokenNode('_seam')
 
   const seamClient = new cs.FieldDeclaration(
@@ -96,7 +99,7 @@ export const generateDataclassFileForRoutes = (
     undefined,
     new cs.MethodNode(new cs.TokenNode(class_name), [
       new cs.ParameterNode(
-        new cs.TypeNode(new cs.TokenNode('ISeam')),
+        new cs.TypeNode(new cs.TokenNode('ISeamClient')),
         new cs.TokenNode('seam'),
       ),
     ]),
@@ -280,7 +283,7 @@ export const generateDataclassFileForRoutes = (
 
   const extendedClass = new cs.Class(
     new cs.ClassDeclarationSpecifier(
-      new cs.TokenNode('Seam'),
+      new cs.TokenNode('SeamClient'),
       undefined,
       new cs.VisibilityModifiers(['public', 'partial']),
     ),
@@ -306,7 +309,7 @@ export const generateDataclassFileForRoutes = (
 
   const extendedInterface = new cs.Class(
     new cs.ClassDeclarationSpecifier(
-      new cs.TokenNode('ISeam'),
+      new cs.TokenNode('ISeamClient'),
       undefined,
       new cs.VisibilityModifiers(['public', 'partial']),
       new cs.TokenNode('interface'),

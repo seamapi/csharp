@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class ConnectedAccounts
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public ConnectedAccounts(ISeam seam)
+        public ConnectedAccounts(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -142,12 +142,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.ConnectedAccounts ConnectedAccounts => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.ConnectedAccounts ConnectedAccounts { get; }
     }

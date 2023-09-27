@@ -10,9 +10,9 @@ namespace Seam.Api
 {
     public class ClientSessions
     {
-        private ISeam _seam;
+        private ISeamClient _seam;
 
-        public ClientSessions(ISeam seam)
+        public ClientSessions(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -307,12 +307,12 @@ namespace Seam.Api
 
 namespace Seam.Client
 {
-    public partial class Seam
+    public partial class SeamClient
     {
         public Api.ClientSessions ClientSessions => new(this);
     }
 
-    public partial interface ISeam
+    public partial interface ISeamClient
     {
         public Api.ClientSessions ClientSessions { get; }
     }
