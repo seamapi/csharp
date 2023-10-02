@@ -135,6 +135,54 @@ namespace Seam.Api
         {
             return (await GetAsync(new GetRequest(webhookId: webhookId)));
         }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            public ListRequest() { }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<Webhook> webhooks = default)
+            {
+                Webhooks = webhooks;
+            }
+
+            [DataMember(Name = "webhooks", IsRequired = false, EmitDefaultValue = false)]
+            public List<Webhook> Webhooks { get; set; }
+        }
+
+        public List<Webhook> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<ListResponse>("/webhooks/list", requestOptions).Data.Webhooks;
+        }
+
+        public List<Webhook> List()
+        {
+            return List(new ListRequest());
+        }
+
+        public async Task<List<Webhook>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<ListResponse>("/webhooks/list", requestOptions))
+                .Data
+                .Webhooks;
+        }
+
+        public async Task<List<Webhook>> ListAsync()
+        {
+            return (await ListAsync(new ListRequest()));
+        }
     }
 }
 

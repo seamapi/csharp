@@ -474,6 +474,69 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "generateCodeRequest_request")]
+        public class GenerateCodeRequest
+        {
+            [JsonConstructorAttribute]
+            protected GenerateCodeRequest() { }
+
+            public GenerateCodeRequest(string deviceId = default)
+            {
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+        }
+
+        [DataContract(Name = "generateCodeResponse_response")]
+        public class GenerateCodeResponse
+        {
+            [JsonConstructorAttribute]
+            protected GenerateCodeResponse() { }
+
+            public GenerateCodeResponse(AccessCode generatedCode = default)
+            {
+                GeneratedCode = generatedCode;
+            }
+
+            [DataMember(Name = "generated_code", IsRequired = false, EmitDefaultValue = false)]
+            public AccessCode GeneratedCode { get; set; }
+        }
+
+        public AccessCode GenerateCode(GenerateCodeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GenerateCodeResponse>("/access_codes/generate_code", requestOptions)
+                .Data.GeneratedCode;
+        }
+
+        public AccessCode GenerateCode(string deviceId = default)
+        {
+            return GenerateCode(new GenerateCodeRequest(deviceId: deviceId));
+        }
+
+        public async Task<AccessCode> GenerateCodeAsync(GenerateCodeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GenerateCodeResponse>(
+                    "/access_codes/generate_code",
+                    requestOptions
+                )
+            )
+                .Data
+                .GeneratedCode;
+        }
+
+        public async Task<AccessCode> GenerateCodeAsync(string deviceId = default)
+        {
+            return (await GenerateCodeAsync(new GenerateCodeRequest(deviceId: deviceId)));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

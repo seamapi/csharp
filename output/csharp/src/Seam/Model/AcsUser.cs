@@ -20,7 +20,7 @@ namespace Seam.Model
             string displayName = default,
             AcsUser.ExternalTypeEnum externalType = default,
             string externalTypeDisplayName = default,
-            bool isBeingDeleted = default,
+            bool isSuspended = default,
             string? fullName = default,
             string? email = default,
             string? phoneNumber = default
@@ -33,7 +33,7 @@ namespace Seam.Model
             DisplayName = displayName;
             ExternalType = externalType;
             ExternalTypeDisplayName = externalTypeDisplayName;
-            IsBeingDeleted = isBeingDeleted;
+            IsSuspended = isSuspended;
             FullName = fullName;
             Email = email;
             PhoneNumber = phoneNumber;
@@ -71,8 +71,8 @@ namespace Seam.Model
         )]
         public string ExternalTypeDisplayName { get; set; }
 
-        [DataMember(Name = "is_being_deleted", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsBeingDeleted { get; set; }
+        [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsSuspended { get; set; }
 
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? FullName { get; set; }
