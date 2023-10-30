@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -181,6 +182,25 @@ namespace Seam.Model
 
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_deviceProperties_model")]
@@ -200,6 +220,7 @@ namespace Seam.Model
             string? imageUrl = default,
             string? imageAltText = default,
             string? serialNumber = default,
+            bool? supportsAccessoryKeypad = default,
             DevicePropertiesAugustMetadata? augustMetadata = default,
             DevicePropertiesAvigilonAltaMetadata? avigilonAltaMetadata = default,
             DevicePropertiesSchlageMetadata? schlageMetadata = default,
@@ -244,6 +265,7 @@ namespace Seam.Model
             ImageUrl = imageUrl;
             ImageAltText = imageAltText;
             SerialNumber = serialNumber;
+            SupportsAccessoryKeypad = supportsAccessoryKeypad;
             AugustMetadata = augustMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
             SchlageMetadata = schlageMetadata;
@@ -307,6 +329,13 @@ namespace Seam.Model
 
         [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
         public string? SerialNumber { get; set; }
+
+        [DataMember(
+            Name = "supports_accessory_keypad",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? SupportsAccessoryKeypad { get; set; }
 
         [DataMember(Name = "august_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAugustMetadata? AugustMetadata { get; set; }
@@ -415,6 +444,25 @@ namespace Seam.Model
 
         [DataMember(Name = "door_open", IsRequired = false, EmitDefaultValue = false)]
         public bool? DoorOpen { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesModel_model")]
@@ -441,6 +489,25 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string ManufacturerDisplayName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesBattery_model")]
@@ -479,6 +546,25 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public DevicePropertiesBattery.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesAugustMetadata_model")]
@@ -526,6 +612,25 @@ namespace Seam.Model
 
         [DataMember(Name = "house_id", IsRequired = false, EmitDefaultValue = false)]
         public string? HouseId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesAvigilonAltaMetadata_model")]
@@ -568,6 +673,25 @@ namespace Seam.Model
 
         [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
         public string SiteName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesSchlageMetadata_model")]
@@ -600,6 +724,25 @@ namespace Seam.Model
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public string? Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesSmartthingsMetadata_model")]
@@ -632,6 +775,25 @@ namespace Seam.Model
 
         [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
         public string? LocationId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesLocklyMetadata_model")]
@@ -659,6 +821,25 @@ namespace Seam.Model
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public string? Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesNukiMetadata_model")]
@@ -686,6 +867,25 @@ namespace Seam.Model
 
         [DataMember(Name = "keypad_battery_critical", IsRequired = false, EmitDefaultValue = false)]
         public bool? KeypadBatteryCritical { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesKwiksetMetadata_model")]
@@ -713,6 +913,25 @@ namespace Seam.Model
 
         [DataMember(Name = "model_number", IsRequired = true, EmitDefaultValue = false)]
         public string ModelNumber { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesSaltoMetadata_model")]
@@ -755,6 +974,25 @@ namespace Seam.Model
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public string? Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesGenieMetadata_model")]
@@ -774,6 +1012,25 @@ namespace Seam.Model
 
         [DataMember(Name = "door_name", IsRequired = true, EmitDefaultValue = false)]
         public string DoorName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesBrivoMetadata_model")]
@@ -789,6 +1046,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_name", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesIglooMetadata_model")]
@@ -816,6 +1092,25 @@ namespace Seam.Model
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public string? Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesNoiseawareMetadata_model")]
@@ -863,6 +1158,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesMinutMetadata_model")]
@@ -890,6 +1204,25 @@ namespace Seam.Model
 
         [DataMember(Name = "latest_sensor_values", IsRequired = true, EmitDefaultValue = false)]
         public DevicePropertiesMinutMetadataLatestSensorValues LatestSensorValues { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValues_model")]
@@ -927,6 +1260,25 @@ namespace Seam.Model
 
         [DataMember(Name = "accelerometer_z", IsRequired = true, EmitDefaultValue = false)]
         public DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ AccelerometerZ { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(
@@ -951,6 +1303,25 @@ namespace Seam.Model
 
         [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
         public float Value { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesSound_model")]
@@ -973,6 +1344,25 @@ namespace Seam.Model
 
         [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
         public float Value { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesHumidity_model")]
@@ -995,6 +1385,25 @@ namespace Seam.Model
 
         [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
         public float Value { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesMinutMetadataLatestSensorValuesPressure_model")]
@@ -1017,6 +1426,25 @@ namespace Seam.Model
 
         [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
         public float Value { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(
@@ -1041,6 +1469,25 @@ namespace Seam.Model
 
         [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
         public float Value { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesFourSuitesMetadata_model")]
@@ -1068,6 +1515,25 @@ namespace Seam.Model
 
         [DataMember(Name = "reclose_delay_in_seconds", IsRequired = true, EmitDefaultValue = false)]
         public float RecloseDelayInSeconds { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesTwoNMetadata_model")]
@@ -1087,6 +1553,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_name", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesControlbywebMetadata_model")]
@@ -1114,6 +1599,25 @@ namespace Seam.Model
 
         [DataMember(Name = "relay_name", IsRequired = false, EmitDefaultValue = false)]
         public string? RelayName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesTtlockMetadata_model")]
@@ -1133,6 +1637,25 @@ namespace Seam.Model
 
         [DataMember(Name = "lock_alias", IsRequired = true, EmitDefaultValue = false)]
         public string LockAlias { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesSeamBridgeMetadata_model")]
@@ -1170,6 +1693,25 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesIgloohomeMetadata_model")]
@@ -1202,6 +1744,25 @@ namespace Seam.Model
 
         [DataMember(Name = "bridge_name", IsRequired = true, EmitDefaultValue = false)]
         public string BridgeName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesNestMetadata_model")]
@@ -1229,6 +1790,25 @@ namespace Seam.Model
 
         [DataMember(Name = "custom_name", IsRequired = true, EmitDefaultValue = false)]
         public string CustomName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesEcobeeMetadata_model")]
@@ -1251,6 +1831,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_name", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesHubitatMetadata_model")]
@@ -1278,6 +1877,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_label", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceLabel { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesDormakabaOracodeMetadata_model")]
@@ -1315,6 +1933,25 @@ namespace Seam.Model
 
         [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
         public string SiteName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesWyzeMetadata_model")]
@@ -1357,6 +1994,25 @@ namespace Seam.Model
 
         [DataMember(Name = "device_info_model", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceInfoModel { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_devicePropertiesKeypadBattery_model")]
@@ -1372,6 +2028,25 @@ namespace Seam.Model
 
         [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
         public float Level { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_deviceLocation_model")]
@@ -1391,6 +2066,25 @@ namespace Seam.Model
 
         [DataMember(Name = "timezone", IsRequired = false, EmitDefaultValue = false)]
         public string? Timezone { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_deviceErrors_model")]
@@ -1410,6 +2104,25 @@ namespace Seam.Model
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
         public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 
     [DataContract(Name = "seamModel_deviceWarnings_model")]
@@ -1429,5 +2142,24 @@ namespace Seam.Model
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
         public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 }
