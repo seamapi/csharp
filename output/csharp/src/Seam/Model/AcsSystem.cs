@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -19,7 +20,8 @@ namespace Seam.Model
             AcsSystem.SystemTypeEnum systemType = default,
             string systemTypeDisplayName = default,
             string name = default,
-            string createdAt = default
+            string createdAt = default,
+            List<string> connectedAccountIds = default
         )
         {
             AcsSystemId = acsSystemId;
@@ -29,6 +31,7 @@ namespace Seam.Model
             SystemTypeDisplayName = systemTypeDisplayName;
             Name = name;
             CreatedAt = createdAt;
+            ConnectedAccountIds = connectedAccountIds;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -75,5 +78,27 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> ConnectedAccountIds { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
     }
 }

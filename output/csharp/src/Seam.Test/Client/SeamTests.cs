@@ -1,6 +1,7 @@
 namespace Seam.Test;
 
 using Seam.Model;
+using Seam.Client;
 
 public class UnitTest1 : SeamConnectTest
 {
@@ -12,7 +13,7 @@ public class UnitTest1 : SeamConnectTest
             .First(d => d.DeviceType == Device.DeviceTypeEnum.AugustLock);
 
         Assert.NotNull(device);
-        Assert.Equal("Front Door", device.Properties.Name);
+        Assert.Equal("Fake August Lock 1", device.Properties.Name);
     }
 
     [Fact]
@@ -23,7 +24,7 @@ public class UnitTest1 : SeamConnectTest
         );
 
         Assert.NotNull(device);
-        Assert.Equal("Front Door", device.Properties.Name);
+        Assert.Equal("Fake August Lock 1", device.Properties.Name);
     }
 
     [Fact]
@@ -79,5 +80,11 @@ public class UnitTest1 : SeamConnectTest
 
         Assert.IsType<ActionAttemptPending>(action_attempt);
         Assert.Equal("LOCK_DOOR", (action_attempt as ActionAttemptPending)!.ActionType);
+    }
+
+    [Fact]
+    public void Test()
+    {
+        Assert.Throws<SeamException>(() => seam.AccessCodes.Get(accessCodeId: "nonexistent"));
     }
 }

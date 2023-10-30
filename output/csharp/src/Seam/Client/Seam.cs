@@ -605,6 +605,17 @@ namespace Seam.Client
                         result.Cookies.Add(cookie);
                     }
                 }
+
+                var exceptionFactory = SeamRequestConfiguration.DefaultExceptionFactory;
+                if (exceptionFactory != null)
+                {
+                    var exception = exceptionFactory(request.Resource, result);
+                    if (exception != null)
+                    {
+                        throw exception;
+                    }
+                }
+
                 return result;
             }
         }
@@ -717,6 +728,17 @@ namespace Seam.Client
                         result.Cookies.Add(cookie);
                     }
                 }
+
+                var exceptionFactory = SeamRequestConfiguration.DefaultExceptionFactory;
+                if (exceptionFactory != null)
+                {
+                    var exception = exceptionFactory(request.Resource, result);
+                    if (exception != null)
+                    {
+                        throw exception;
+                    }
+                }
+
                 return result;
             }
         }

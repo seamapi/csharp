@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -34,7 +35,8 @@ namespace Seam.Api
                 string? commonCodeKey = default,
                 bool? preferNativeScheduling = default,
                 bool? useBackupAccessCodePool = default,
-                bool? allowExternalModification = default
+                bool? allowExternalModification = default,
+                bool? isExternalModificationAllowed = default
             )
             {
                 DeviceId = deviceId;
@@ -48,6 +50,7 @@ namespace Seam.Api
                 PreferNativeScheduling = preferNativeScheduling;
                 UseBackupAccessCodePool = useBackupAccessCodePool;
                 AllowExternalModification = allowExternalModification;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -98,6 +101,32 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? AllowExternalModification { get; set; }
+
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "createResponse_response")]
@@ -113,6 +142,25 @@ namespace Seam.Api
 
             [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
             public AccessCode AccessCode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public AccessCode Create(CreateRequest request)
@@ -135,7 +183,8 @@ namespace Seam.Api
             string? commonCodeKey = default,
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default
         )
         {
             return Create(
@@ -150,7 +199,8 @@ namespace Seam.Api
                     commonCodeKey: commonCodeKey,
                     preferNativeScheduling: preferNativeScheduling,
                     useBackupAccessCodePool: useBackupAccessCodePool,
-                    allowExternalModification: allowExternalModification
+                    allowExternalModification: allowExternalModification,
+                    isExternalModificationAllowed: isExternalModificationAllowed
                 )
             );
         }
@@ -175,7 +225,8 @@ namespace Seam.Api
             string? commonCodeKey = default,
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default
         )
         {
             return (
@@ -191,7 +242,8 @@ namespace Seam.Api
                         commonCodeKey: commonCodeKey,
                         preferNativeScheduling: preferNativeScheduling,
                         useBackupAccessCodePool: useBackupAccessCodePool,
-                        allowExternalModification: allowExternalModification
+                        allowExternalModification: allowExternalModification,
+                        isExternalModificationAllowed: isExternalModificationAllowed
                     )
                 )
             );
@@ -214,7 +266,8 @@ namespace Seam.Api
                 bool? attemptForOfflineDevice = default,
                 bool? preferNativeScheduling = default,
                 bool? useBackupAccessCodePool = default,
-                bool? allowExternalModification = default
+                bool? allowExternalModification = default,
+                bool? isExternalModificationAllowed = default
             )
             {
                 DeviceIds = deviceIds;
@@ -227,6 +280,7 @@ namespace Seam.Api
                 PreferNativeScheduling = preferNativeScheduling;
                 UseBackupAccessCodePool = useBackupAccessCodePool;
                 AllowExternalModification = allowExternalModification;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -288,6 +342,32 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? AllowExternalModification { get; set; }
+
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "createMultipleResponse_response")]
@@ -303,6 +383,25 @@ namespace Seam.Api
 
             [DataMember(Name = "access_codes", IsRequired = false, EmitDefaultValue = false)]
             public List<AccessCode> AccessCodes { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public List<AccessCode> CreateMultiple(CreateMultipleRequest request)
@@ -325,7 +424,8 @@ namespace Seam.Api
             bool? attemptForOfflineDevice = default,
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default
         )
         {
             return CreateMultiple(
@@ -339,7 +439,8 @@ namespace Seam.Api
                     attemptForOfflineDevice: attemptForOfflineDevice,
                     preferNativeScheduling: preferNativeScheduling,
                     useBackupAccessCodePool: useBackupAccessCodePool,
-                    allowExternalModification: allowExternalModification
+                    allowExternalModification: allowExternalModification,
+                    isExternalModificationAllowed: isExternalModificationAllowed
                 )
             );
         }
@@ -369,7 +470,8 @@ namespace Seam.Api
             bool? attemptForOfflineDevice = default,
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default
         )
         {
             return (
@@ -384,7 +486,8 @@ namespace Seam.Api
                         attemptForOfflineDevice: attemptForOfflineDevice,
                         preferNativeScheduling: preferNativeScheduling,
                         useBackupAccessCodePool: useBackupAccessCodePool,
-                        allowExternalModification: allowExternalModification
+                        allowExternalModification: allowExternalModification,
+                        isExternalModificationAllowed: isExternalModificationAllowed
                     )
                 )
             );
@@ -415,6 +518,25 @@ namespace Seam.Api
 
             [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
             public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "deleteResponse_response")]
@@ -430,6 +552,25 @@ namespace Seam.Api
 
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public ActionAttempt Delete(DeleteRequest request)
@@ -487,6 +628,25 @@ namespace Seam.Api
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "generateCodeResponse_response")]
@@ -502,6 +662,25 @@ namespace Seam.Api
 
             [DataMember(Name = "generated_code", IsRequired = false, EmitDefaultValue = false)]
             public AccessCode GeneratedCode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public AccessCode GenerateCode(GenerateCodeRequest request)
@@ -562,6 +741,25 @@ namespace Seam.Api
 
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "getResponse_response")]
@@ -577,6 +775,25 @@ namespace Seam.Api
 
             [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
             public AccessCode AccessCode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public AccessCode Get(GetRequest request)
@@ -642,6 +859,25 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "listResponse_response")]
@@ -657,6 +893,25 @@ namespace Seam.Api
 
             [DataMember(Name = "access_codes", IsRequired = false, EmitDefaultValue = false)]
             public List<AccessCode> AccessCodes { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public List<AccessCode> List(ListRequest request)
@@ -720,6 +975,25 @@ namespace Seam.Api
 
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "pullBackupAccessCodeResponse_response")]
@@ -735,6 +1009,25 @@ namespace Seam.Api
 
             [DataMember(Name = "backup_access_code", IsRequired = false, EmitDefaultValue = false)]
             public AccessCode BackupAccessCode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public AccessCode PullBackupAccessCode(PullBackupAccessCodeRequest request)
@@ -795,6 +1088,7 @@ namespace Seam.Api
                 bool? preferNativeScheduling = default,
                 bool? useBackupAccessCodePool = default,
                 bool? allowExternalModification = default,
+                bool? isExternalModificationAllowed = default,
                 string accessCodeId = default,
                 string? deviceId = default,
                 UpdateRequest.TypeEnum? type = default,
@@ -810,6 +1104,7 @@ namespace Seam.Api
                 PreferNativeScheduling = preferNativeScheduling;
                 UseBackupAccessCodePool = useBackupAccessCodePool;
                 AllowExternalModification = allowExternalModification;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
                 AccessCodeId = accessCodeId;
                 DeviceId = deviceId;
                 Type = type;
@@ -869,6 +1164,13 @@ namespace Seam.Api
             )]
             public bool? AllowExternalModification { get; set; }
 
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
 
@@ -880,6 +1182,25 @@ namespace Seam.Api
 
             [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsManaged { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "updateResponse_response")]
@@ -895,6 +1216,25 @@ namespace Seam.Api
 
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public ActionAttempt Update(UpdateRequest request)
@@ -916,6 +1256,7 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
             bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default,
             string accessCodeId = default,
             string? deviceId = default,
             UpdateRequest.TypeEnum? type = default,
@@ -933,6 +1274,7 @@ namespace Seam.Api
                     preferNativeScheduling: preferNativeScheduling,
                     useBackupAccessCodePool: useBackupAccessCodePool,
                     allowExternalModification: allowExternalModification,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
                     accessCodeId: accessCodeId,
                     deviceId: deviceId,
                     type: type,
@@ -960,6 +1302,7 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             bool? useBackupAccessCodePool = default,
             bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default,
             string accessCodeId = default,
             string? deviceId = default,
             UpdateRequest.TypeEnum? type = default,
@@ -978,6 +1321,7 @@ namespace Seam.Api
                         preferNativeScheduling: preferNativeScheduling,
                         useBackupAccessCodePool: useBackupAccessCodePool,
                         allowExternalModification: allowExternalModification,
+                        isExternalModificationAllowed: isExternalModificationAllowed,
                         accessCodeId: accessCodeId,
                         deviceId: deviceId,
                         type: type,

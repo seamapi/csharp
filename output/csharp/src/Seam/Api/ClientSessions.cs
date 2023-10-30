@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -46,6 +47,25 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? ConnectedAccountIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "createResponse_response")]
@@ -61,6 +81,25 @@ namespace Seam.Api
 
             [DataMember(Name = "client_session", IsRequired = false, EmitDefaultValue = false)]
             public ClientSession ClientSession { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public ClientSession Create(CreateRequest request)
@@ -135,6 +174,25 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "getResponse_response")]
@@ -150,6 +208,25 @@ namespace Seam.Api
 
             [DataMember(Name = "client_session", IsRequired = false, EmitDefaultValue = false)]
             public ClientSession ClientSession { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public ClientSession Get(GetRequest request)
@@ -198,6 +275,145 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "getOrCreateRequest_request")]
+        public class GetOrCreateRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetOrCreateRequest() { }
+
+            public GetOrCreateRequest(
+                string? userIdentifierKey = default,
+                List<string>? connectWebviewIds = default,
+                List<string>? connectedAccountIds = default
+            )
+            {
+                UserIdentifierKey = userIdentifierKey;
+                ConnectWebviewIds = connectWebviewIds;
+                ConnectedAccountIds = connectedAccountIds;
+            }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ConnectWebviewIds { get; set; }
+
+            [DataMember(
+                Name = "connected_account_ids",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? ConnectedAccountIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getOrCreateResponse_response")]
+        public class GetOrCreateResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetOrCreateResponse() { }
+
+            public GetOrCreateResponse(ClientSession clientSession = default)
+            {
+                ClientSession = clientSession;
+            }
+
+            [DataMember(Name = "client_session", IsRequired = false, EmitDefaultValue = false)]
+            public ClientSession ClientSession { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ClientSession GetOrCreate(GetOrCreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetOrCreateResponse>("/client_sessions/get_or_create", requestOptions)
+                .Data.ClientSession;
+        }
+
+        public ClientSession GetOrCreate(
+            string? userIdentifierKey = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default
+        )
+        {
+            return GetOrCreate(
+                new GetOrCreateRequest(
+                    userIdentifierKey: userIdentifierKey,
+                    connectWebviewIds: connectWebviewIds,
+                    connectedAccountIds: connectedAccountIds
+                )
+            );
+        }
+
+        public async Task<ClientSession> GetOrCreateAsync(GetOrCreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetOrCreateResponse>(
+                    "/client_sessions/get_or_create",
+                    requestOptions
+                )
+            )
+                .Data
+                .ClientSession;
+        }
+
+        public async Task<ClientSession> GetOrCreateAsync(
+            string? userIdentifierKey = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default
+        )
+        {
+            return (
+                await GetOrCreateAsync(
+                    new GetOrCreateRequest(
+                        userIdentifierKey: userIdentifierKey,
+                        connectWebviewIds: connectWebviewIds,
+                        connectedAccountIds: connectedAccountIds
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -232,6 +448,25 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? WithoutUserIdentifierKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "listResponse_response")]
@@ -247,6 +482,25 @@ namespace Seam.Api
 
             [DataMember(Name = "client_sessions", IsRequired = false, EmitDefaultValue = false)]
             public List<ClientSession> ClientSessions { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         public List<ClientSession> List(ListRequest request)
