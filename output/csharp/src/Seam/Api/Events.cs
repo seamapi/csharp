@@ -160,86 +160,98 @@ namespace Seam.Api
                 [EnumMember(Value = "device.third_party_integration_detected")]
                 DeviceThirdPartyIntegrationDetected = 10,
 
+                [EnumMember(Value = "device.third_party_integration_no_longer_detected")]
+                DeviceThirdPartyIntegrationNoLongerDetected = 11,
+
                 [EnumMember(Value = "device.salto.privacy_mode_activated")]
-                DeviceSaltoPrivacyModeActivated = 11,
+                DeviceSaltoPrivacyModeActivated = 12,
 
                 [EnumMember(Value = "device.salto.privacy_mode_deactivated")]
-                DeviceSaltoPrivacyModeDeactivated = 12,
+                DeviceSaltoPrivacyModeDeactivated = 13,
+
+                [EnumMember(Value = "device.connection_became_flaky")]
+                DeviceConnectionBecameFlaky = 14,
+
+                [EnumMember(Value = "device.connection_stabilized")]
+                DeviceConnectionStabilized = 15,
 
                 [EnumMember(Value = "access_code.created")]
-                AccessCodeCreated = 13,
+                AccessCodeCreated = 16,
 
                 [EnumMember(Value = "access_code.changed")]
-                AccessCodeChanged = 14,
+                AccessCodeChanged = 17,
 
                 [EnumMember(Value = "access_code.scheduled_on_device")]
-                AccessCodeScheduledOnDevice = 15,
+                AccessCodeScheduledOnDevice = 18,
 
                 [EnumMember(Value = "access_code.set_on_device")]
-                AccessCodeSetOnDevice = 16,
+                AccessCodeSetOnDevice = 19,
 
                 [EnumMember(Value = "access_code.deleted")]
-                AccessCodeDeleted = 17,
+                AccessCodeDeleted = 20,
 
                 [EnumMember(Value = "access_code.removed_from_device")]
-                AccessCodeRemovedFromDevice = 18,
+                AccessCodeRemovedFromDevice = 21,
 
                 [EnumMember(Value = "access_code.failed_to_set_on_device")]
-                AccessCodeFailedToSetOnDevice = 19,
+                AccessCodeFailedToSetOnDevice = 22,
 
                 [EnumMember(Value = "access_code.delay_in_setting_on_device")]
-                AccessCodeDelayInSettingOnDevice = 20,
+                AccessCodeDelayInSettingOnDevice = 23,
 
                 [EnumMember(Value = "access_code.failed_to_remove_from_device")]
-                AccessCodeFailedToRemoveFromDevice = 21,
+                AccessCodeFailedToRemoveFromDevice = 24,
 
                 [EnumMember(Value = "access_code.delay_in_removing_from_device")]
-                AccessCodeDelayInRemovingFromDevice = 22,
+                AccessCodeDelayInRemovingFromDevice = 25,
+
+                [EnumMember(Value = "access_code.deleted_external_to_seam")]
+                AccessCodeDeletedExternalToSeam = 26,
 
                 [EnumMember(Value = "access_code.modified_external_to_seam")]
-                AccessCodeModifiedExternalToSeam = 23,
+                AccessCodeModifiedExternalToSeam = 27,
 
                 [EnumMember(Value = "access_code.unmanaged.converted_to_managed")]
-                AccessCodeUnmanagedConvertedToManaged = 24,
+                AccessCodeUnmanagedConvertedToManaged = 28,
 
                 [EnumMember(Value = "access_code.unmanaged.failed_to_convert_to_managed")]
-                AccessCodeUnmanagedFailedToConvertToManaged = 25,
+                AccessCodeUnmanagedFailedToConvertToManaged = 29,
 
                 [EnumMember(Value = "access_code.unmanaged.created")]
-                AccessCodeUnmanagedCreated = 26,
+                AccessCodeUnmanagedCreated = 30,
 
                 [EnumMember(Value = "access_code.unmanaged.removed")]
-                AccessCodeUnmanagedRemoved = 27,
+                AccessCodeUnmanagedRemoved = 31,
 
                 [EnumMember(Value = "lock.locked")]
-                LockLocked = 28,
+                LockLocked = 32,
 
                 [EnumMember(Value = "lock.unlocked")]
-                LockUnlocked = 29,
+                LockUnlocked = 33,
 
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 30,
+                ConnectedAccountConnected = 34,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 31,
+                ConnectedAccountSuccessfulLogin = 35,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 32,
+                ConnectedAccountCreated = 36,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 33,
+                ConnectedAccountDeleted = 37,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 34,
+                ConnectedAccountDisconnected = 38,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 35,
+                ConnectedAccountCompletedFirstSync = 39,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 36,
+                NoiseSensorNoiseThresholdTriggered = 40,
 
                 [EnumMember(Value = "access_code.backup_access_code_pulled")]
-                AccessCodeBackupAccessCodePulled = 37
+                AccessCodeBackupAccessCodePulled = 41
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -278,86 +290,98 @@ namespace Seam.Api
                 [EnumMember(Value = "device.third_party_integration_detected")]
                 DeviceThirdPartyIntegrationDetected = 10,
 
+                [EnumMember(Value = "device.third_party_integration_no_longer_detected")]
+                DeviceThirdPartyIntegrationNoLongerDetected = 11,
+
                 [EnumMember(Value = "device.salto.privacy_mode_activated")]
-                DeviceSaltoPrivacyModeActivated = 11,
+                DeviceSaltoPrivacyModeActivated = 12,
 
                 [EnumMember(Value = "device.salto.privacy_mode_deactivated")]
-                DeviceSaltoPrivacyModeDeactivated = 12,
+                DeviceSaltoPrivacyModeDeactivated = 13,
+
+                [EnumMember(Value = "device.connection_became_flaky")]
+                DeviceConnectionBecameFlaky = 14,
+
+                [EnumMember(Value = "device.connection_stabilized")]
+                DeviceConnectionStabilized = 15,
 
                 [EnumMember(Value = "access_code.created")]
-                AccessCodeCreated = 13,
+                AccessCodeCreated = 16,
 
                 [EnumMember(Value = "access_code.changed")]
-                AccessCodeChanged = 14,
+                AccessCodeChanged = 17,
 
                 [EnumMember(Value = "access_code.scheduled_on_device")]
-                AccessCodeScheduledOnDevice = 15,
+                AccessCodeScheduledOnDevice = 18,
 
                 [EnumMember(Value = "access_code.set_on_device")]
-                AccessCodeSetOnDevice = 16,
+                AccessCodeSetOnDevice = 19,
 
                 [EnumMember(Value = "access_code.deleted")]
-                AccessCodeDeleted = 17,
+                AccessCodeDeleted = 20,
 
                 [EnumMember(Value = "access_code.removed_from_device")]
-                AccessCodeRemovedFromDevice = 18,
+                AccessCodeRemovedFromDevice = 21,
 
                 [EnumMember(Value = "access_code.failed_to_set_on_device")]
-                AccessCodeFailedToSetOnDevice = 19,
+                AccessCodeFailedToSetOnDevice = 22,
 
                 [EnumMember(Value = "access_code.delay_in_setting_on_device")]
-                AccessCodeDelayInSettingOnDevice = 20,
+                AccessCodeDelayInSettingOnDevice = 23,
 
                 [EnumMember(Value = "access_code.failed_to_remove_from_device")]
-                AccessCodeFailedToRemoveFromDevice = 21,
+                AccessCodeFailedToRemoveFromDevice = 24,
 
                 [EnumMember(Value = "access_code.delay_in_removing_from_device")]
-                AccessCodeDelayInRemovingFromDevice = 22,
+                AccessCodeDelayInRemovingFromDevice = 25,
+
+                [EnumMember(Value = "access_code.deleted_external_to_seam")]
+                AccessCodeDeletedExternalToSeam = 26,
 
                 [EnumMember(Value = "access_code.modified_external_to_seam")]
-                AccessCodeModifiedExternalToSeam = 23,
+                AccessCodeModifiedExternalToSeam = 27,
 
                 [EnumMember(Value = "access_code.unmanaged.converted_to_managed")]
-                AccessCodeUnmanagedConvertedToManaged = 24,
+                AccessCodeUnmanagedConvertedToManaged = 28,
 
                 [EnumMember(Value = "access_code.unmanaged.failed_to_convert_to_managed")]
-                AccessCodeUnmanagedFailedToConvertToManaged = 25,
+                AccessCodeUnmanagedFailedToConvertToManaged = 29,
 
                 [EnumMember(Value = "access_code.unmanaged.created")]
-                AccessCodeUnmanagedCreated = 26,
+                AccessCodeUnmanagedCreated = 30,
 
                 [EnumMember(Value = "access_code.unmanaged.removed")]
-                AccessCodeUnmanagedRemoved = 27,
+                AccessCodeUnmanagedRemoved = 31,
 
                 [EnumMember(Value = "lock.locked")]
-                LockLocked = 28,
+                LockLocked = 32,
 
                 [EnumMember(Value = "lock.unlocked")]
-                LockUnlocked = 29,
+                LockUnlocked = 33,
 
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 30,
+                ConnectedAccountConnected = 34,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 31,
+                ConnectedAccountSuccessfulLogin = 35,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 32,
+                ConnectedAccountCreated = 36,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 33,
+                ConnectedAccountDeleted = 37,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 34,
+                ConnectedAccountDisconnected = 38,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 35,
+                ConnectedAccountCompletedFirstSync = 39,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 36,
+                NoiseSensorNoiseThresholdTriggered = 40,
 
                 [EnumMember(Value = "access_code.backup_access_code_pulled")]
-                AccessCodeBackupAccessCodePulled = 37
+                AccessCodeBackupAccessCodePulled = 41
             }
 
             [DataMember(Name = "since", IsRequired = false, EmitDefaultValue = false)]

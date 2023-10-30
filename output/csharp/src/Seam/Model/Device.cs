@@ -1326,6 +1326,7 @@ namespace Seam.Model
         public DevicePropertiesWyzeMetadata(
             string deviceId = default,
             string deviceName = default,
+            string productName = default,
             string productType = default,
             string productModel = default,
             string deviceInfoModel = default
@@ -1333,6 +1334,7 @@ namespace Seam.Model
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
+            ProductName = productName;
             ProductType = productType;
             ProductModel = productModel;
             DeviceInfoModel = deviceInfoModel;
@@ -1343,6 +1345,9 @@ namespace Seam.Model
 
         [DataMember(Name = "device_name", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceName { get; set; }
+
+        [DataMember(Name = "product_name", IsRequired = true, EmitDefaultValue = false)]
+        public string ProductName { get; set; }
 
         [DataMember(Name = "product_type", IsRequired = true, EmitDefaultValue = false)]
         public string ProductType { get; set; }

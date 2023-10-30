@@ -41,6 +41,8 @@ namespace Seam.Client
         /// </summary>
         public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, response) =>
         {
+            Console.WriteLine("LOLOLOLOL");
+
             var status = (int)response.StatusCode;
             if (status >= 400)
             {

@@ -39,14 +39,32 @@ namespace Seam.Model
         public enum AccessGroupTypeEnum
         {
             [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0
+            PtiUnit = 0,
+
+            [EnumMember(Value = "pti_access_level")]
+            PtiAccessLevel = 1,
+
+            [EnumMember(Value = "salto_access_group")]
+            SaltoAccessGroup = 2,
+
+            [EnumMember(Value = "brivo_group")]
+            BrivoGroup = 3
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ExternalTypeEnum
         {
             [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0
+            PtiUnit = 0,
+
+            [EnumMember(Value = "pti_access_level")]
+            PtiAccessLevel = 1,
+
+            [EnumMember(Value = "salto_access_group")]
+            SaltoAccessGroup = 2,
+
+            [EnumMember(Value = "brivo_group")]
+            BrivoGroup = 3
         }
 
         [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]

@@ -198,6 +198,107 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "getOrCreateRequest_request")]
+        public class GetOrCreateRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetOrCreateRequest() { }
+
+            public GetOrCreateRequest(
+                string? userIdentifierKey = default,
+                List<string>? connectWebviewIds = default,
+                List<string>? connectedAccountIds = default
+            )
+            {
+                UserIdentifierKey = userIdentifierKey;
+                ConnectWebviewIds = connectWebviewIds;
+                ConnectedAccountIds = connectedAccountIds;
+            }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ConnectWebviewIds { get; set; }
+
+            [DataMember(
+                Name = "connected_account_ids",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? ConnectedAccountIds { get; set; }
+        }
+
+        [DataContract(Name = "getOrCreateResponse_response")]
+        public class GetOrCreateResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetOrCreateResponse() { }
+
+            public GetOrCreateResponse(ClientSession clientSession = default)
+            {
+                ClientSession = clientSession;
+            }
+
+            [DataMember(Name = "client_session", IsRequired = false, EmitDefaultValue = false)]
+            public ClientSession ClientSession { get; set; }
+        }
+
+        public ClientSession GetOrCreate(GetOrCreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetOrCreateResponse>("/client_sessions/get_or_create", requestOptions)
+                .Data.ClientSession;
+        }
+
+        public ClientSession GetOrCreate(
+            string? userIdentifierKey = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default
+        )
+        {
+            return GetOrCreate(
+                new GetOrCreateRequest(
+                    userIdentifierKey: userIdentifierKey,
+                    connectWebviewIds: connectWebviewIds,
+                    connectedAccountIds: connectedAccountIds
+                )
+            );
+        }
+
+        public async Task<ClientSession> GetOrCreateAsync(GetOrCreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetOrCreateResponse>(
+                    "/client_sessions/get_or_create",
+                    requestOptions
+                )
+            )
+                .Data
+                .ClientSession;
+        }
+
+        public async Task<ClientSession> GetOrCreateAsync(
+            string? userIdentifierKey = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default
+        )
+        {
+            return (
+                await GetOrCreateAsync(
+                    new GetOrCreateRequest(
+                        userIdentifierKey: userIdentifierKey,
+                        connectWebviewIds: connectWebviewIds,
+                        connectedAccountIds: connectedAccountIds
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
