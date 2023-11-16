@@ -7,17 +7,14 @@ using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_accessCode_model")]
-    public class AccessCode
+    [DataContract(Name = "seamModel_unmanagedAccessCode_model")]
+    public class UnmanagedAccessCode
     {
         [JsonConstructorAttribute]
-        protected AccessCode() { }
+        protected UnmanagedAccessCode() { }
 
-        public AccessCode(
-            string? commonCodeKey = default,
-            bool? isScheduledOnDevice = default,
-            AccessCode.TypeEnum type = default,
-            bool? isWaitingForCodeAssignment = default,
+        public UnmanagedAccessCode(
+            UnmanagedAccessCode.TypeEnum type = default,
             string accessCodeId = default,
             string deviceId = default,
             string? name = default,
@@ -28,19 +25,10 @@ namespace Seam.Model
             bool isManaged = default,
             string? startsAt = default,
             string? endsAt = default,
-            AccessCode.StatusEnum status = default,
-            bool isBackupAccessCodeAvailable = default,
-            bool? isBackup = default,
-            string? pulledBackupAccessCodeId = default,
-            bool isExternalModificationAllowed = default,
-            bool isOneTimeUse = default,
-            bool isOfflineAccessCode = default
+            UnmanagedAccessCode.StatusEnum status = default
         )
         {
-            CommonCodeKey = commonCodeKey;
-            IsScheduledOnDevice = isScheduledOnDevice;
             Type = type;
-            IsWaitingForCodeAssignment = isWaitingForCodeAssignment;
             AccessCodeId = accessCodeId;
             DeviceId = deviceId;
             Name = name;
@@ -52,12 +40,6 @@ namespace Seam.Model
             StartsAt = startsAt;
             EndsAt = endsAt;
             Status = status;
-            IsBackupAccessCodeAvailable = isBackupAccessCodeAvailable;
-            IsBackup = isBackup;
-            PulledBackupAccessCodeId = pulledBackupAccessCodeId;
-            IsExternalModificationAllowed = isExternalModificationAllowed;
-            IsOneTimeUse = isOneTimeUse;
-            IsOfflineAccessCode = isOfflineAccessCode;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -73,37 +55,12 @@ namespace Seam.Model
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
-            [EnumMember(Value = "setting")]
-            Setting = 0,
-
             [EnumMember(Value = "set")]
-            Set = 1,
-
-            [EnumMember(Value = "unset")]
-            Unset = 2,
-
-            [EnumMember(Value = "removing")]
-            Removing = 3,
-
-            [EnumMember(Value = "unknown")]
-            Unknown = 4
+            Set = 0
         }
 
-        [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? CommonCodeKey { get; set; }
-
-        [DataMember(Name = "is_scheduled_on_device", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsScheduledOnDevice { get; set; }
-
         [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
-        public AccessCode.TypeEnum Type { get; set; }
-
-        [DataMember(
-            Name = "is_waiting_for_code_assignment",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? IsWaitingForCodeAssignment { get; set; }
+        public UnmanagedAccessCode.TypeEnum Type { get; set; }
 
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
@@ -136,37 +93,7 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public AccessCode.StatusEnum Status { get; set; }
-
-        [DataMember(
-            Name = "is_backup_access_code_available",
-            IsRequired = true,
-            EmitDefaultValue = false
-        )]
-        public bool IsBackupAccessCodeAvailable { get; set; }
-
-        [DataMember(Name = "is_backup", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsBackup { get; set; }
-
-        [DataMember(
-            Name = "pulled_backup_access_code_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? PulledBackupAccessCodeId { get; set; }
-
-        [DataMember(
-            Name = "is_external_modification_allowed",
-            IsRequired = true,
-            EmitDefaultValue = false
-        )]
-        public bool IsExternalModificationAllowed { get; set; }
-
-        [DataMember(Name = "is_one_time_use", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsOneTimeUse { get; set; }
-
-        [DataMember(Name = "is_offline_access_code", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsOfflineAccessCode { get; set; }
+        public UnmanagedAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {

@@ -30,8 +30,8 @@ namespace Seam.Api
                 string? name = default,
                 string startsDailyAt = default,
                 string endsDailyAt = default,
-                float noiseThresholdDecibels = default,
-                float noiseThresholdNrs = default
+                float? noiseThresholdDecibels = default,
+                float? noiseThresholdNrs = default
             )
             {
                 DeviceId = deviceId;
@@ -63,10 +63,10 @@ namespace Seam.Api
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float NoiseThresholdDecibels { get; set; }
+            public float? NoiseThresholdDecibels { get; set; }
 
             [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
-            public float NoiseThresholdNrs { get; set; }
+            public float? NoiseThresholdNrs { get; set; }
 
             public override string ToString()
             {
@@ -137,8 +137,8 @@ namespace Seam.Api
             string? name = default,
             string startsDailyAt = default,
             string endsDailyAt = default,
-            float noiseThresholdDecibels = default,
-            float noiseThresholdNrs = default
+            float? noiseThresholdDecibels = default,
+            float? noiseThresholdNrs = default
         )
         {
             return Create(
@@ -174,8 +174,8 @@ namespace Seam.Api
             string? name = default,
             string startsDailyAt = default,
             string endsDailyAt = default,
-            float noiseThresholdDecibels = default,
-            float noiseThresholdNrs = default
+            float? noiseThresholdDecibels = default,
+            float? noiseThresholdNrs = default
         )
         {
             return (
@@ -543,8 +543,8 @@ namespace Seam.Api
                 string? name = default,
                 string? startsDailyAt = default,
                 string? endsDailyAt = default,
-                float noiseThresholdDecibels = default,
-                float noiseThresholdNrs = default
+                float? noiseThresholdDecibels = default,
+                float? noiseThresholdNrs = default
             )
             {
                 NoiseThresholdId = noiseThresholdId;
@@ -580,10 +580,10 @@ namespace Seam.Api
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float NoiseThresholdDecibels { get; set; }
+            public float? NoiseThresholdDecibels { get; set; }
 
             [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
-            public float NoiseThresholdNrs { get; set; }
+            public float? NoiseThresholdNrs { get; set; }
 
             public override string ToString()
             {
@@ -655,8 +655,8 @@ namespace Seam.Api
             string? name = default,
             string? startsDailyAt = default,
             string? endsDailyAt = default,
-            float noiseThresholdDecibels = default,
-            float noiseThresholdNrs = default
+            float? noiseThresholdDecibels = default,
+            float? noiseThresholdNrs = default
         )
         {
             return Update(
@@ -694,8 +694,8 @@ namespace Seam.Api
             string? name = default,
             string? startsDailyAt = default,
             string? endsDailyAt = default,
-            float noiseThresholdDecibels = default,
-            float noiseThresholdNrs = default
+            float? noiseThresholdDecibels = default,
+            float? noiseThresholdNrs = default
         )
         {
             return (

@@ -25,7 +25,14 @@ namespace Seam.Model
             bool anyDeviceAllowed = default,
             string createdAt = default,
             bool loginSuccessful = default,
-            ConnectWebview.StatusEnum status = default
+            ConnectWebview.StatusEnum status = default,
+            string? customRedirectUrl = default,
+            string? customRedirectFailureUrl = default,
+            object? customMetadata = default,
+            bool automaticallyManageNewDevices = default,
+            bool waitForDeviceCreation = default,
+            string? authorizedAt = default,
+            string? selectedProvider = default
         )
         {
             ConnectWebviewId = connectWebviewId;
@@ -40,6 +47,13 @@ namespace Seam.Model
             CreatedAt = createdAt;
             LoginSuccessful = loginSuccessful;
             Status = status;
+            CustomRedirectUrl = customRedirectUrl;
+            CustomRedirectFailureUrl = customRedirectFailureUrl;
+            CustomMetadata = customMetadata;
+            AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+            WaitForDeviceCreation = waitForDeviceCreation;
+            AuthorizedAt = authorizedAt;
+            SelectedProvider = selectedProvider;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -103,6 +117,35 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ConnectWebview.StatusEnum Status { get; set; }
+
+        [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomRedirectUrl { get; set; }
+
+        [DataMember(
+            Name = "custom_redirect_failure_url",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? CustomRedirectFailureUrl { get; set; }
+
+        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        public object? CustomMetadata { get; set; }
+
+        [DataMember(
+            Name = "automatically_manage_new_devices",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public bool AutomaticallyManageNewDevices { get; set; }
+
+        [DataMember(Name = "wait_for_device_creation", IsRequired = true, EmitDefaultValue = false)]
+        public bool WaitForDeviceCreation { get; set; }
+
+        [DataMember(Name = "authorized_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? AuthorizedAt { get; set; }
+
+        [DataMember(Name = "selected_provider", IsRequired = false, EmitDefaultValue = false)]
+        public string? SelectedProvider { get; set; }
 
         public override string ToString()
         {

@@ -24,6 +24,7 @@ namespace Seam.Model
             bool isSuspended = default,
             string? fullName = default,
             string? email = default,
+            string? emailAddress = default,
             string? phoneNumber = default
         )
         {
@@ -37,6 +38,7 @@ namespace Seam.Model
             IsSuspended = isSuspended;
             FullName = fullName;
             Email = email;
+            EmailAddress = emailAddress;
             PhoneNumber = phoneNumber;
         }
 
@@ -44,7 +46,13 @@ namespace Seam.Model
         public enum ExternalTypeEnum
         {
             [EnumMember(Value = "pti_user")]
-            PtiUser = 0
+            PtiUser = 0,
+
+            [EnumMember(Value = "brivo_user")]
+            BrivoUser = 1,
+
+            [EnumMember(Value = "hid_cm_user")]
+            HidCmUser = 2
         }
 
         [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
@@ -80,6 +88,9 @@ namespace Seam.Model
 
         [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
         public string? Email { get; set; }
+
+        [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+        public string? EmailAddress { get; set; }
 
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }

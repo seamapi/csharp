@@ -21,6 +21,7 @@ namespace Seam.Model
             float deviceCount = default,
             List<string> connectedAccountIds = default,
             List<string> connectWebviewIds = default,
+            List<string> userIdentityIds = default,
             string workspaceId = default
         )
         {
@@ -31,6 +32,7 @@ namespace Seam.Model
             DeviceCount = deviceCount;
             ConnectedAccountIds = connectedAccountIds;
             ConnectWebviewIds = connectWebviewIds;
+            UserIdentityIds = userIdentityIds;
             WorkspaceId = workspaceId;
         }
 
@@ -54,6 +56,9 @@ namespace Seam.Model
 
         [DataMember(Name = "connect_webview_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> ConnectWebviewIds { get; set; }
+
+        [DataMember(Name = "user_identity_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> UserIdentityIds { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

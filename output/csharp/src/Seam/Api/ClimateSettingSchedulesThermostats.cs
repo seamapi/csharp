@@ -33,10 +33,10 @@ namespace Seam.Api
                 bool? automaticHeatingEnabled = default,
                 bool? automaticCoolingEnabled = default,
                 CreateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-                float coolingSetPointCelsius = default,
-                float heatingSetPointCelsius = default,
-                float coolingSetPointFahrenheit = default,
-                float heatingSetPointFahrenheit = default,
+                float? coolingSetPointCelsius = default,
+                float? heatingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                float? heatingSetPointFahrenheit = default,
                 bool? manualOverrideAllowed = default
             )
             {
@@ -115,28 +115,28 @@ namespace Seam.Api
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float CoolingSetPointCelsius { get; set; }
+            public float? CoolingSetPointCelsius { get; set; }
 
             [DataMember(
                 Name = "heating_set_point_celsius",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float HeatingSetPointCelsius { get; set; }
+            public float? HeatingSetPointCelsius { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_fahrenheit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float CoolingSetPointFahrenheit { get; set; }
+            public float? CoolingSetPointFahrenheit { get; set; }
 
             [DataMember(
                 Name = "heating_set_point_fahrenheit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float HeatingSetPointFahrenheit { get; set; }
+            public float? HeatingSetPointFahrenheit { get; set; }
 
             [DataMember(
                 Name = "manual_override_allowed",
@@ -224,10 +224,10 @@ namespace Seam.Api
             bool? automaticHeatingEnabled = default,
             bool? automaticCoolingEnabled = default,
             CreateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            float coolingSetPointCelsius = default,
-            float heatingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            float heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? heatingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointFahrenheit = default,
             bool? manualOverrideAllowed = default
         )
         {
@@ -273,10 +273,10 @@ namespace Seam.Api
             bool? automaticHeatingEnabled = default,
             bool? automaticCoolingEnabled = default,
             CreateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            float coolingSetPointCelsius = default,
-            float heatingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            float heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? heatingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointFahrenheit = default,
             bool? manualOverrideAllowed = default
         )
         {
@@ -569,10 +569,10 @@ namespace Seam.Api
                 bool? automaticHeatingEnabled = default,
                 bool? automaticCoolingEnabled = default,
                 UpdateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-                float coolingSetPointCelsius = default,
-                float heatingSetPointCelsius = default,
-                float coolingSetPointFahrenheit = default,
-                float heatingSetPointFahrenheit = default,
+                float? coolingSetPointCelsius = default,
+                float? heatingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                float? heatingSetPointFahrenheit = default,
                 bool? manualOverrideAllowed = default
             )
             {
@@ -655,28 +655,28 @@ namespace Seam.Api
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float CoolingSetPointCelsius { get; set; }
+            public float? CoolingSetPointCelsius { get; set; }
 
             [DataMember(
                 Name = "heating_set_point_celsius",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float HeatingSetPointCelsius { get; set; }
+            public float? HeatingSetPointCelsius { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_fahrenheit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float CoolingSetPointFahrenheit { get; set; }
+            public float? CoolingSetPointFahrenheit { get; set; }
 
             [DataMember(
                 Name = "heating_set_point_fahrenheit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public float HeatingSetPointFahrenheit { get; set; }
+            public float? HeatingSetPointFahrenheit { get; set; }
 
             [DataMember(
                 Name = "manual_override_allowed",
@@ -764,10 +764,10 @@ namespace Seam.Api
             bool? automaticHeatingEnabled = default,
             bool? automaticCoolingEnabled = default,
             UpdateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            float coolingSetPointCelsius = default,
-            float heatingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            float heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? heatingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointFahrenheit = default,
             bool? manualOverrideAllowed = default
         )
         {
@@ -813,10 +813,10 @@ namespace Seam.Api
             bool? automaticHeatingEnabled = default,
             bool? automaticCoolingEnabled = default,
             UpdateRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            float coolingSetPointCelsius = default,
-            float heatingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            float heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? heatingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointFahrenheit = default,
             bool? manualOverrideAllowed = default
         )
         {

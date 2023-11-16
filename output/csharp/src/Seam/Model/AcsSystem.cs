@@ -41,7 +41,16 @@ namespace Seam.Model
             PtiSite = 0,
 
             [EnumMember(Value = "alta_org")]
-            AltaOrg = 1
+            AltaOrg = 1,
+
+            [EnumMember(Value = "salto_site")]
+            SaltoSite = 2,
+
+            [EnumMember(Value = "brivo_system")]
+            BrivoSystem = 3,
+
+            [EnumMember(Value = "hid_cm_org")]
+            HidCmOrg = 4
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -51,7 +60,16 @@ namespace Seam.Model
             PtiSite = 0,
 
             [EnumMember(Value = "alta_org")]
-            AltaOrg = 1
+            AltaOrg = 1,
+
+            [EnumMember(Value = "salto_site")]
+            SaltoSite = 2,
+
+            [EnumMember(Value = "brivo_system")]
+            BrivoSystem = 3,
+
+            [EnumMember(Value = "hid_cm_org")]
+            HidCmOrg = 4
         }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]

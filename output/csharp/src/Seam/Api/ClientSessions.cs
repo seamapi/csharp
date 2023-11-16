@@ -27,12 +27,16 @@ namespace Seam.Api
             public CreateRequest(
                 string? userIdentifierKey = default,
                 List<string>? connectWebviewIds = default,
-                List<string>? connectedAccountIds = default
+                List<string>? connectedAccountIds = default,
+                List<string>? userIdentityIds = default,
+                string? expiresAt = default
             )
             {
                 UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
+                UserIdentityIds = userIdentityIds;
+                ExpiresAt = expiresAt;
             }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
@@ -47,6 +51,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? ConnectedAccountIds { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
+
+            [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? ExpiresAt { get; set; }
 
             public override string ToString()
             {
@@ -114,14 +124,18 @@ namespace Seam.Api
         public ClientSession Create(
             string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
-            List<string>? connectedAccountIds = default
+            List<string>? connectedAccountIds = default,
+            List<string>? userIdentityIds = default,
+            string? expiresAt = default
         )
         {
             return Create(
                 new CreateRequest(
                     userIdentifierKey: userIdentifierKey,
                     connectWebviewIds: connectWebviewIds,
-                    connectedAccountIds: connectedAccountIds
+                    connectedAccountIds: connectedAccountIds,
+                    userIdentityIds: userIdentityIds,
+                    expiresAt: expiresAt
                 )
             );
         }
@@ -140,7 +154,9 @@ namespace Seam.Api
         public async Task<ClientSession> CreateAsync(
             string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
-            List<string>? connectedAccountIds = default
+            List<string>? connectedAccountIds = default,
+            List<string>? userIdentityIds = default,
+            string? expiresAt = default
         )
         {
             return (
@@ -148,7 +164,9 @@ namespace Seam.Api
                     new CreateRequest(
                         userIdentifierKey: userIdentifierKey,
                         connectWebviewIds: connectWebviewIds,
-                        connectedAccountIds: connectedAccountIds
+                        connectedAccountIds: connectedAccountIds,
+                        userIdentityIds: userIdentityIds,
+                        expiresAt: expiresAt
                     )
                 )
             );
@@ -284,12 +302,16 @@ namespace Seam.Api
             public GetOrCreateRequest(
                 string? userIdentifierKey = default,
                 List<string>? connectWebviewIds = default,
-                List<string>? connectedAccountIds = default
+                List<string>? connectedAccountIds = default,
+                List<string>? userIdentityIds = default,
+                string? expiresAt = default
             )
             {
                 UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
+                UserIdentityIds = userIdentityIds;
+                ExpiresAt = expiresAt;
             }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
@@ -304,6 +326,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? ConnectedAccountIds { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
+
+            [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? ExpiresAt { get; set; }
 
             public override string ToString()
             {
@@ -371,14 +399,18 @@ namespace Seam.Api
         public ClientSession GetOrCreate(
             string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
-            List<string>? connectedAccountIds = default
+            List<string>? connectedAccountIds = default,
+            List<string>? userIdentityIds = default,
+            string? expiresAt = default
         )
         {
             return GetOrCreate(
                 new GetOrCreateRequest(
                     userIdentifierKey: userIdentifierKey,
                     connectWebviewIds: connectWebviewIds,
-                    connectedAccountIds: connectedAccountIds
+                    connectedAccountIds: connectedAccountIds,
+                    userIdentityIds: userIdentityIds,
+                    expiresAt: expiresAt
                 )
             );
         }
@@ -400,7 +432,9 @@ namespace Seam.Api
         public async Task<ClientSession> GetOrCreateAsync(
             string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
-            List<string>? connectedAccountIds = default
+            List<string>? connectedAccountIds = default,
+            List<string>? userIdentityIds = default,
+            string? expiresAt = default
         )
         {
             return (
@@ -408,7 +442,9 @@ namespace Seam.Api
                     new GetOrCreateRequest(
                         userIdentifierKey: userIdentifierKey,
                         connectWebviewIds: connectWebviewIds,
-                        connectedAccountIds: connectedAccountIds
+                        connectedAccountIds: connectedAccountIds,
+                        userIdentityIds: userIdentityIds,
+                        expiresAt: expiresAt
                     )
                 )
             );

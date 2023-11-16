@@ -151,8 +151,14 @@ namespace Seam.Api
                 [EnumMember(Value = "wyze")]
                 Wyze = 29,
 
+                [EnumMember(Value = "seam_passport")]
+                SeamPassport = 30,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 30
+                YaleAccess = 31,
+
+                [EnumMember(Value = "hid_cm")]
+                HidCm = 32
             }
 
             [JsonConverter(typeof(StringEnumConverter))]

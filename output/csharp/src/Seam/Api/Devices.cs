@@ -128,7 +128,7 @@ namespace Seam.Api
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 List<string>? deviceIds = default,
-                float limit = default,
+                float? limit = default,
                 string? createdBefore = default,
                 string? userIdentifierKey = default
             )
@@ -457,7 +457,7 @@ namespace Seam.Api
             public List<string>? DeviceIds { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-            public float Limit { get; set; }
+            public float? Limit { get; set; }
 
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
@@ -534,7 +534,7 @@ namespace Seam.Api
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             List<string>? deviceIds = default,
-            float limit = default,
+            float? limit = default,
             string? createdBefore = default,
             string? userIdentifierKey = default
         )
@@ -572,7 +572,7 @@ namespace Seam.Api
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             List<string>? deviceIds = default,
-            float limit = default,
+            float? limit = default,
             string? createdBefore = default,
             string? userIdentifierKey = default
         )
@@ -591,6 +591,131 @@ namespace Seam.Api
                         createdBefore: createdBefore,
                         userIdentifierKey: userIdentifierKey
                     )
+                )
+            );
+        }
+
+        [DataContract(Name = "listDeviceProvidersRequest_request")]
+        public class ListDeviceProvidersRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListDeviceProvidersRequest() { }
+
+            public ListDeviceProvidersRequest(
+                ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
+            )
+            {
+                ProviderCategory = providerCategory;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum ProviderCategoryEnum
+            {
+                [EnumMember(Value = "stable")]
+                Stable = 0,
+
+                [EnumMember(Value = "consumer_smartlocks")]
+                ConsumerSmartlocks = 1
+            }
+
+            [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
+            public ListDeviceProvidersRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listDeviceProvidersResponse_response")]
+        public class ListDeviceProvidersResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListDeviceProvidersResponse() { }
+
+            public ListDeviceProvidersResponse(List<DeviceProvider> deviceProviders = default)
+            {
+                DeviceProviders = deviceProviders;
+            }
+
+            [DataMember(Name = "device_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<DeviceProvider> DeviceProviders { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<DeviceProvider> ListDeviceProviders(ListDeviceProvidersRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListDeviceProvidersResponse>("/devices/list_device_providers", requestOptions)
+                .Data.DeviceProviders;
+        }
+
+        public List<DeviceProvider> ListDeviceProviders(
+            ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
+        )
+        {
+            return ListDeviceProviders(
+                new ListDeviceProvidersRequest(providerCategory: providerCategory)
+            );
+        }
+
+        public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
+            ListDeviceProvidersRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListDeviceProvidersResponse>(
+                    "/devices/list_device_providers",
+                    requestOptions
+                )
+            )
+                .Data
+                .DeviceProviders;
+        }
+
+        public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
+            ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
+        )
+        {
+            return (
+                await ListDeviceProvidersAsync(
+                    new ListDeviceProvidersRequest(providerCategory: providerCategory)
                 )
             );
         }

@@ -103,6 +103,92 @@ namespace Seam.Api
         {
             return (await GetAsync(new GetRequest()));
         }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            public ListRequest() { }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<Workspace> workspaces = default)
+            {
+                Workspaces = workspaces;
+            }
+
+            [DataMember(Name = "workspaces", IsRequired = false, EmitDefaultValue = false)]
+            public List<Workspace> Workspaces { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<Workspace> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<ListResponse>("/workspaces/list", requestOptions).Data.Workspaces;
+        }
+
+        public List<Workspace> List()
+        {
+            return List(new ListRequest());
+        }
+
+        public async Task<List<Workspace>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<ListResponse>("/workspaces/list", requestOptions))
+                .Data
+                .Workspaces;
+        }
+
+        public async Task<List<Workspace>> ListAsync()
+        {
+            return (await ListAsync(new ListRequest()));
+        }
     }
 }
 
