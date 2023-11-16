@@ -17,7 +17,7 @@ namespace Seam.Model
             string noiseThresholdId = default,
             string deviceId = default,
             string name = default,
-            float noiseThresholdNrs = default,
+            float? noiseThresholdNrs = default,
             string startsDailyAt = default,
             string endsDailyAt = default,
             float noiseThresholdDecibels = default
@@ -42,7 +42,7 @@ namespace Seam.Model
         public string Name { get; set; }
 
         [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
-        public float NoiseThresholdNrs { get; set; }
+        public float? NoiseThresholdNrs { get; set; }
 
         [DataMember(Name = "starts_daily_at", IsRequired = true, EmitDefaultValue = false)]
         public string StartsDailyAt { get; set; }

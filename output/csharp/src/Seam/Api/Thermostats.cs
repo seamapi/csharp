@@ -130,7 +130,7 @@ namespace Seam.Api
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 List<string>? deviceIds = default,
-                float limit = default,
+                float? limit = default,
                 string? createdBefore = default,
                 string? userIdentifierKey = default
             )
@@ -459,7 +459,7 @@ namespace Seam.Api
             public List<string>? DeviceIds { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-            public float Limit { get; set; }
+            public float? Limit { get; set; }
 
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
@@ -536,7 +536,7 @@ namespace Seam.Api
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             List<string>? deviceIds = default,
-            float limit = default,
+            float? limit = default,
             string? createdBefore = default,
             string? userIdentifierKey = default
         )
@@ -574,7 +574,7 @@ namespace Seam.Api
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             List<string>? deviceIds = default,
-            float limit = default,
+            float? limit = default,
             string? createdBefore = default,
             string? userIdentifierKey = default
         )
