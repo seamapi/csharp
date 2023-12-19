@@ -16,12 +16,16 @@ namespace Seam.Model
         public AcsUser(
             string acsUserId = default,
             string acsSystemId = default,
+            string? hidAcsSystemId = default,
             string workspaceId = default,
             string createdAt = default,
             string displayName = default,
-            AcsUser.ExternalTypeEnum externalType = default,
-            string externalTypeDisplayName = default,
+            AcsUser.ExternalTypeEnum? externalType = default,
+            string? externalTypeDisplayName = default,
             bool isSuspended = default,
+            string? startsAt = default,
+            string? endsAt = default,
+            bool isVirtual = default,
             string? fullName = default,
             string? email = default,
             string? emailAddress = default,
@@ -30,12 +34,16 @@ namespace Seam.Model
         {
             AcsUserId = acsUserId;
             AcsSystemId = acsSystemId;
+            HidAcsSystemId = hidAcsSystemId;
             WorkspaceId = workspaceId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             ExternalType = externalType;
             ExternalTypeDisplayName = externalTypeDisplayName;
             IsSuspended = isSuspended;
+            StartsAt = startsAt;
+            EndsAt = endsAt;
+            IsVirtual = isVirtual;
             FullName = fullName;
             Email = email;
             EmailAddress = emailAddress;
@@ -52,7 +60,10 @@ namespace Seam.Model
             BrivoUser = 1,
 
             [EnumMember(Value = "hid_cm_user")]
-            HidCmUser = 2
+            HidCmUser = 2,
+
+            [EnumMember(Value = "salto_site_user")]
+            SaltoSiteUser = 3
         }
 
         [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
@@ -60,6 +71,9 @@ namespace Seam.Model
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "hid_acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? HidAcsSystemId { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -70,18 +84,27 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "external_type", IsRequired = true, EmitDefaultValue = false)]
-        public AcsUser.ExternalTypeEnum ExternalType { get; set; }
+        [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
+        public AcsUser.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public string? ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
         public bool IsSuspended { get; set; }
+
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? StartsAt { get; set; }
+
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndsAt { get; set; }
+
+        [DataMember(Name = "is_virtual", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsVirtual { get; set; }
 
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? FullName { get; set; }

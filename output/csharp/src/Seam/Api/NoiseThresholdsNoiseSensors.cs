@@ -435,13 +435,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string deviceId = default)
+            public ListRequest(string deviceId = default, bool? isProgrammed = default)
             {
                 DeviceId = deviceId;
+                IsProgrammed = isProgrammed;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            [DataMember(Name = "is_programmed", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsProgrammed { get; set; }
 
             public override string ToString()
             {
@@ -506,9 +510,9 @@ namespace Seam.Api
                 .Data.NoiseThresholds;
         }
 
-        public List<NoiseThreshold> List(string deviceId = default)
+        public List<NoiseThreshold> List(string deviceId = default, bool? isProgrammed = default)
         {
-            return List(new ListRequest(deviceId: deviceId));
+            return List(new ListRequest(deviceId: deviceId, isProgrammed: isProgrammed));
         }
 
         public async Task<List<NoiseThreshold>> ListAsync(ListRequest request)
@@ -525,9 +529,14 @@ namespace Seam.Api
                 .NoiseThresholds;
         }
 
-        public async Task<List<NoiseThreshold>> ListAsync(string deviceId = default)
+        public async Task<List<NoiseThreshold>> ListAsync(
+            string deviceId = default,
+            bool? isProgrammed = default
+        )
         {
-            return (await ListAsync(new ListRequest(deviceId: deviceId)));
+            return (
+                await ListAsync(new ListRequest(deviceId: deviceId, isProgrammed: isProgrammed))
+            );
         }
 
         [DataContract(Name = "updateRequest_request")]

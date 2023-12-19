@@ -21,7 +21,8 @@ namespace Seam.Model
             string accountTypeDisplayName = default,
             Object errors = default,
             Object warnings = default,
-            object? customMetadata = default
+            object? customMetadata = default,
+            bool automaticallyManageNewDevices = default
         )
         {
             ConnectedAccountId = connectedAccountId;
@@ -32,6 +33,7 @@ namespace Seam.Model
             Errors = errors;
             Warnings = warnings;
             CustomMetadata = customMetadata;
+            AutomaticallyManageNewDevices = automaticallyManageNewDevices;
         }
 
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
@@ -61,6 +63,13 @@ namespace Seam.Model
 
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? CustomMetadata { get; set; }
+
+        [DataMember(
+            Name = "automatically_manage_new_devices",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public bool AutomaticallyManageNewDevices { get; set; }
 
         public override string ToString()
         {

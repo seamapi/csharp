@@ -21,6 +21,7 @@ namespace Seam.Model
             string scheduleStartsAt = default,
             string scheduleEndsAt = default,
             string createdAt = default,
+            Object errors = default,
             bool? automaticHeatingEnabled = default,
             bool? automaticCoolingEnabled = default,
             ClimateSettingSchedule.HvacModeSettingEnum? hvacModeSetting = default,
@@ -38,6 +39,7 @@ namespace Seam.Model
             ScheduleStartsAt = scheduleStartsAt;
             ScheduleEndsAt = scheduleEndsAt;
             CreatedAt = createdAt;
+            Errors = errors;
             AutomaticHeatingEnabled = automaticHeatingEnabled;
             AutomaticCoolingEnabled = automaticCoolingEnabled;
             HvacModeSetting = hvacModeSetting;
@@ -95,6 +97,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
+        public Object Errors { get; set; }
 
         [DataMember(
             Name = "automatic_heating_enabled",

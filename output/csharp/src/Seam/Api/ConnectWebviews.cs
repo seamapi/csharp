@@ -154,11 +154,17 @@ namespace Seam.Api
                 [EnumMember(Value = "seam_passport")]
                 SeamPassport = 30,
 
+                [EnumMember(Value = "visionline")]
+                Visionline = 31,
+
+                [EnumMember(Value = "assa_abloy_credential_service")]
+                AssaAbloyCredentialService = 32,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 31,
+                YaleAccess = 33,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 32
+                HidCm = 34
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
