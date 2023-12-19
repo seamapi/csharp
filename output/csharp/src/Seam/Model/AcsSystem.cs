@@ -21,6 +21,7 @@ namespace Seam.Model
             string systemTypeDisplayName = default,
             string name = default,
             string createdAt = default,
+            string workspaceId = default,
             List<string> connectedAccountIds = default
         )
         {
@@ -31,6 +32,7 @@ namespace Seam.Model
             SystemTypeDisplayName = systemTypeDisplayName;
             Name = name;
             CreatedAt = createdAt;
+            WorkspaceId = workspaceId;
             ConnectedAccountIds = connectedAccountIds;
         }
 
@@ -46,11 +48,17 @@ namespace Seam.Model
             [EnumMember(Value = "salto_site")]
             SaltoSite = 2,
 
-            [EnumMember(Value = "brivo_system")]
-            BrivoSystem = 3,
+            [EnumMember(Value = "brivo_account")]
+            BrivoAccount = 3,
 
-            [EnumMember(Value = "hid_cm_org")]
-            HidCmOrg = 4
+            [EnumMember(Value = "hid_credential_manager_organization")]
+            HidCredentialManagerOrganization = 4,
+
+            [EnumMember(Value = "visionline_system")]
+            VisionlineSystem = 5,
+
+            [EnumMember(Value = "assa_abloy_credential_service_user")]
+            AssaAbloyCredentialServiceUser = 6
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -65,11 +73,17 @@ namespace Seam.Model
             [EnumMember(Value = "salto_site")]
             SaltoSite = 2,
 
-            [EnumMember(Value = "brivo_system")]
-            BrivoSystem = 3,
+            [EnumMember(Value = "brivo_account")]
+            BrivoAccount = 3,
 
-            [EnumMember(Value = "hid_cm_org")]
-            HidCmOrg = 4
+            [EnumMember(Value = "hid_credential_manager_organization")]
+            HidCredentialManagerOrganization = 4,
+
+            [EnumMember(Value = "visionline_system")]
+            VisionlineSystem = 5,
+
+            [EnumMember(Value = "assa_abloy_credential_service_user")]
+            AssaAbloyCredentialServiceUser = 6
         }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
@@ -96,6 +110,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }

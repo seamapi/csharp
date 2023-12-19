@@ -509,7 +509,7 @@ namespace Seam.Client
                 // UseDefaultCredentials = configuration.UseDefaultCredentials,
                 RemoteCertificateValidationCallback =
                     configuration.RemoteCertificateValidationCallback,
-                ThrowOnAnyError = true
+                ThrowOnAnyError = false
             };
 
             using (
@@ -636,7 +636,7 @@ namespace Seam.Client
                 MaxTimeout = configuration.Timeout,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
-                ThrowOnAnyError = true
+                ThrowOnAnyError = false
             };
 
             using (

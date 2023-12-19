@@ -214,6 +214,133 @@ namespace Seam.Api
         {
             return (await ListAsync(new ListRequest()));
         }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string connectedAccountId = default,
+                bool? automaticallyManageNewDevices = default
+            )
+            {
+                ConnectedAccountId = connectedAccountId;
+                AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+            }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            [DataMember(
+                Name = "automatically_manage_new_devices",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AutomaticallyManageNewDevices { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "updateResponse_response")]
+        public class UpdateResponse
+        {
+            [JsonConstructorAttribute]
+            protected UpdateResponse() { }
+
+            public UpdateResponse(ConnectedAccount connectedAccount = default)
+            {
+                ConnectedAccount = connectedAccount;
+            }
+
+            [DataMember(Name = "connected_account", IsRequired = false, EmitDefaultValue = false)]
+            public ConnectedAccount ConnectedAccount { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ConnectedAccount Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<UpdateResponse>("/connected_accounts/update", requestOptions)
+                .Data.ConnectedAccount;
+        }
+
+        public ConnectedAccount Update(
+            string connectedAccountId = default,
+            bool? automaticallyManageNewDevices = default
+        )
+        {
+            return Update(
+                new UpdateRequest(
+                    connectedAccountId: connectedAccountId,
+                    automaticallyManageNewDevices: automaticallyManageNewDevices
+                )
+            );
+        }
+
+        public async Task<ConnectedAccount> UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<UpdateResponse>("/connected_accounts/update", requestOptions)
+            )
+                .Data
+                .ConnectedAccount;
+        }
+
+        public async Task<ConnectedAccount> UpdateAsync(
+            string connectedAccountId = default,
+            bool? automaticallyManageNewDevices = default
+        )
+        {
+            return (
+                await UpdateAsync(
+                    new UpdateRequest(
+                        connectedAccountId: connectedAccountId,
+                        automaticallyManageNewDevices: automaticallyManageNewDevices
+                    )
+                )
+            );
+        }
     }
 }
 

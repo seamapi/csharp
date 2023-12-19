@@ -233,7 +233,13 @@ namespace Seam.Api
                 EcobeeThermostat = 27,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 28
+                NestThermostat = 28,
+
+                [EnumMember(Value = "ios_phone")]
+                IosPhone = 29,
+
+                [EnumMember(Value = "android_phone")]
+                AndroidPhone = 30
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -324,7 +330,13 @@ namespace Seam.Api
                 EcobeeThermostat = 27,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 28
+                NestThermostat = 28,
+
+                [EnumMember(Value = "ios_phone")]
+                IosPhone = 29,
+
+                [EnumMember(Value = "android_phone")]
+                AndroidPhone = 30
             }
 
             [JsonConverter(typeof(StringEnumConverter))]

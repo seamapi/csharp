@@ -128,7 +128,13 @@ namespace Seam.Model
             EcobeeThermostat = 27,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 28
+            NestThermostat = 28,
+
+            [EnumMember(Value = "ios_phone")]
+            IosPhone = 29,
+
+            [EnumMember(Value = "android_phone")]
+            AndroidPhone = 30
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -147,7 +153,10 @@ namespace Seam.Model
             Thermostat = 3,
 
             [EnumMember(Value = "battery")]
-            Battery = 4
+            Battery = 4,
+
+            [EnumMember(Value = "phone")]
+            Phone = 5
         }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -502,14 +511,14 @@ namespace Seam.Model
             string? displayName = default,
             string? manufacturerDisplayName = default,
             bool? offlineAccessCodesSupported = default,
-            bool? accessCodesSupported = default,
+            bool? onlineAccessCodesSupported = default,
             bool? accessoryKeypadSupported = default
         )
         {
             DisplayName = displayName;
             ManufacturerDisplayName = manufacturerDisplayName;
             OfflineAccessCodesSupported = offlineAccessCodesSupported;
-            AccessCodesSupported = accessCodesSupported;
+            OnlineAccessCodesSupported = onlineAccessCodesSupported;
             AccessoryKeypadSupported = accessoryKeypadSupported;
         }
 
@@ -530,8 +539,12 @@ namespace Seam.Model
         )]
         public bool? OfflineAccessCodesSupported { get; set; }
 
-        [DataMember(Name = "access_codes_supported", IsRequired = false, EmitDefaultValue = false)]
-        public bool? AccessCodesSupported { get; set; }
+        [DataMember(
+            Name = "online_access_codes_supported",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? OnlineAccessCodesSupported { get; set; }
 
         [DataMember(
             Name = "accessory_keypad_supported",
@@ -1966,7 +1979,10 @@ namespace Seam.Model
             string? doorName = default,
             float? deviceId = default,
             float? siteId = default,
-            string? siteName = default
+            string? siteName = default,
+            string? ianaTimezone = default,
+            List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots>? predefinedTimeSlots =
+                default
         )
         {
             DoorId = doorId;
@@ -1974,6 +1990,8 @@ namespace Seam.Model
             DeviceId = deviceId;
             SiteId = siteId;
             SiteName = siteName;
+            IanaTimezone = ianaTimezone;
+            PredefinedTimeSlots = predefinedTimeSlots;
         }
 
         [DataMember(Name = "door_id", IsRequired = false, EmitDefaultValue = false)]
@@ -1990,6 +2008,103 @@ namespace Seam.Model
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
         public string? SiteName { get; set; }
+
+        [DataMember(Name = "iana_timezone", IsRequired = false, EmitDefaultValue = false)]
+        public string? IanaTimezone { get; set; }
+
+        [DataMember(Name = "predefined_time_slots", IsRequired = false, EmitDefaultValue = false)]
+        public List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots>? PredefinedTimeSlots { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_devicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots_model"
+    )]
+    public class DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots() { }
+
+        public DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots(
+            string? name = default,
+            float? prefix = default,
+            string? checkInTime = default,
+            string? checkOutTime = default,
+            bool? is_24Hour = default,
+            bool? isBiweeklyMode = default,
+            bool? isOneShot = default,
+            bool? isMaster = default,
+            float? extDormakabaOracodeUserLevelPrefix = default,
+            string? dormakabaOracodeUserLevelId = default
+        )
+        {
+            Name = name;
+            Prefix = prefix;
+            CheckInTime = checkInTime;
+            CheckOutTime = checkOutTime;
+            Is_24Hour = is_24Hour;
+            IsBiweeklyMode = isBiweeklyMode;
+            IsOneShot = isOneShot;
+            IsMaster = isMaster;
+            ExtDormakabaOracodeUserLevelPrefix = extDormakabaOracodeUserLevelPrefix;
+            DormakabaOracodeUserLevelId = dormakabaOracodeUserLevelId;
+        }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
+
+        [DataMember(Name = "prefix", IsRequired = false, EmitDefaultValue = false)]
+        public float? Prefix { get; set; }
+
+        [DataMember(Name = "check_in_time", IsRequired = false, EmitDefaultValue = false)]
+        public string? CheckInTime { get; set; }
+
+        [DataMember(Name = "check_out_time", IsRequired = false, EmitDefaultValue = false)]
+        public string? CheckOutTime { get; set; }
+
+        [DataMember(Name = "is_24_hour", IsRequired = false, EmitDefaultValue = false)]
+        public bool? Is_24Hour { get; set; }
+
+        [DataMember(Name = "is_biweekly_mode", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsBiweeklyMode { get; set; }
+
+        [DataMember(Name = "is_one_shot", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOneShot { get; set; }
+
+        [DataMember(Name = "is_master", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsMaster { get; set; }
+
+        [DataMember(
+            Name = "ext_dormakaba_oracode_user_level_prefix",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? ExtDormakabaOracodeUserLevelPrefix { get; set; }
+
+        [DataMember(
+            Name = "dormakaba_oracode_user_level_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? DormakabaOracodeUserLevelId { get; set; }
 
         public override string ToString()
         {

@@ -126,7 +126,13 @@ namespace Seam.Model
             EcobeeThermostat = 27,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 28
+            NestThermostat = 28,
+
+            [EnumMember(Value = "ios_phone")]
+            IosPhone = 29,
+
+            [EnumMember(Value = "android_phone")]
+            AndroidPhone = 30
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -145,7 +151,10 @@ namespace Seam.Model
             Thermostat = 3,
 
             [EnumMember(Value = "battery")]
-            Battery = 4
+            Battery = 4,
+
+            [EnumMember(Value = "phone")]
+            Phone = 5
         }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -286,6 +295,10 @@ namespace Seam.Model
             string? manufacturer = default,
             string? imageUrl = default,
             string? imageAltText = default,
+            float? batteryLevel = default,
+            UnmanagedDevicePropertiesBattery? battery = default,
+            bool? onlineAccessCodesEnabled = default,
+            bool? offlineAccessCodesEnabled = default,
             UnmanagedDevicePropertiesModel model = default
         )
         {
@@ -294,6 +307,10 @@ namespace Seam.Model
             Manufacturer = manufacturer;
             ImageUrl = imageUrl;
             ImageAltText = imageAltText;
+            BatteryLevel = batteryLevel;
+            Battery = battery;
+            OnlineAccessCodesEnabled = onlineAccessCodesEnabled;
+            OfflineAccessCodesEnabled = offlineAccessCodesEnabled;
             Model = model;
         }
 
@@ -312,8 +329,85 @@ namespace Seam.Model
         [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageAltText { get; set; }
 
+        [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
+        public float? BatteryLevel { get; set; }
+
+        [DataMember(Name = "battery", IsRequired = false, EmitDefaultValue = false)]
+        public UnmanagedDevicePropertiesBattery? Battery { get; set; }
+
+        [DataMember(
+            Name = "online_access_codes_enabled",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? OnlineAccessCodesEnabled { get; set; }
+
+        [DataMember(
+            Name = "offline_access_codes_enabled",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? OfflineAccessCodesEnabled { get; set; }
+
         [DataMember(Name = "model", IsRequired = true, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesModel Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_unmanagedDevicePropertiesBattery_model")]
+    public class UnmanagedDevicePropertiesBattery
+    {
+        [JsonConstructorAttribute]
+        protected UnmanagedDevicePropertiesBattery() { }
+
+        public UnmanagedDevicePropertiesBattery(
+            float level = default,
+            UnmanagedDevicePropertiesBattery.StatusEnum status = default
+        )
+        {
+            Level = level;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "critical")]
+            Critical = 0,
+
+            [EnumMember(Value = "low")]
+            Low = 1,
+
+            [EnumMember(Value = "good")]
+            Good = 2,
+
+            [EnumMember(Value = "full")]
+            Full = 3
+        }
+
+        [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
+        public float Level { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public UnmanagedDevicePropertiesBattery.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -343,11 +437,17 @@ namespace Seam.Model
 
         public UnmanagedDevicePropertiesModel(
             string displayName = default,
-            string manufacturerDisplayName = default
+            string manufacturerDisplayName = default,
+            bool? offlineAccessCodesSupported = default,
+            bool? onlineAccessCodesSupported = default,
+            bool? accessoryKeypadSupported = default
         )
         {
             DisplayName = displayName;
             ManufacturerDisplayName = manufacturerDisplayName;
+            OfflineAccessCodesSupported = offlineAccessCodesSupported;
+            OnlineAccessCodesSupported = onlineAccessCodesSupported;
+            AccessoryKeypadSupported = accessoryKeypadSupported;
         }
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
@@ -359,6 +459,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string ManufacturerDisplayName { get; set; }
+
+        [DataMember(
+            Name = "offline_access_codes_supported",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? OfflineAccessCodesSupported { get; set; }
+
+        [DataMember(
+            Name = "online_access_codes_supported",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? OnlineAccessCodesSupported { get; set; }
+
+        [DataMember(
+            Name = "accessory_keypad_supported",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? AccessoryKeypadSupported { get; set; }
 
         public override string ToString()
         {
