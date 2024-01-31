@@ -23,9 +23,10 @@ namespace Seam.Model
             AcsUser.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
             bool isSuspended = default,
-            string? startsAt = default,
-            string? endsAt = default,
-            bool isVirtual = default,
+            AcsUserAccessSchedule? accessSchedule = default,
+            string? userIdentityId = default,
+            string? userIdentityEmailAddress = default,
+            string? userIdentityPhoneNumber = default,
             string? fullName = default,
             string? email = default,
             string? emailAddress = default,
@@ -41,9 +42,10 @@ namespace Seam.Model
             ExternalType = externalType;
             ExternalTypeDisplayName = externalTypeDisplayName;
             IsSuspended = isSuspended;
-            StartsAt = startsAt;
-            EndsAt = endsAt;
-            IsVirtual = isVirtual;
+            AccessSchedule = accessSchedule;
+            UserIdentityId = userIdentityId;
+            UserIdentityEmailAddress = userIdentityEmailAddress;
+            UserIdentityPhoneNumber = userIdentityPhoneNumber;
             FullName = fullName;
             Email = email;
             EmailAddress = emailAddress;
@@ -59,8 +61,8 @@ namespace Seam.Model
             [EnumMember(Value = "brivo_user")]
             BrivoUser = 1,
 
-            [EnumMember(Value = "hid_cm_user")]
-            HidCmUser = 2,
+            [EnumMember(Value = "hid_credential_manager_user")]
+            HidCredentialManagerUser = 2,
 
             [EnumMember(Value = "salto_site_user")]
             SaltoSiteUser = 3
@@ -97,14 +99,25 @@ namespace Seam.Model
         [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
         public bool IsSuspended { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? StartsAt { get; set; }
+        [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
+        public AcsUserAccessSchedule? AccessSchedule { get; set; }
 
-        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? EndsAt { get; set; }
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
-        [DataMember(Name = "is_virtual", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsVirtual { get; set; }
+        [DataMember(
+            Name = "user_identity_email_address",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserIdentityEmailAddress { get; set; }
+
+        [DataMember(
+            Name = "user_identity_phone_number",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserIdentityPhoneNumber { get; set; }
 
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? FullName { get; set; }
@@ -117,6 +130,44 @@ namespace Seam.Model
 
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsUserAccessSchedule_model")]
+    public class AcsUserAccessSchedule
+    {
+        [JsonConstructorAttribute]
+        protected AcsUserAccessSchedule() { }
+
+        public AcsUserAccessSchedule(string startsAt = default, string endsAt = default)
+        {
+            StartsAt = startsAt;
+            EndsAt = endsAt;
+        }
+
+        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        public string StartsAt { get; set; }
+
+        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        public string EndsAt { get; set; }
 
         public override string ToString()
         {

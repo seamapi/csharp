@@ -135,7 +135,8 @@ namespace Seam.Api
                 List<string>? deviceIds = default,
                 float? limit = default,
                 string? createdBefore = default,
-                string? userIdentifierKey = default
+                string? userIdentifierKey = default,
+                object? customMetadataHas = default
             )
             {
                 ConnectedAccountId = connectedAccountId;
@@ -148,6 +149,7 @@ namespace Seam.Api
                 Limit = limit;
                 CreatedBefore = createdBefore;
                 UserIdentifierKey = userIdentifierKey;
+                CustomMetadataHas = customMetadataHas;
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -482,6 +484,9 @@ namespace Seam.Api
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
+            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadataHas { get; set; }
+
             public override string ToString()
             {
                 JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
@@ -553,7 +558,8 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default
+            string? userIdentifierKey = default,
+            object? customMetadataHas = default
         )
         {
             return List(
@@ -567,7 +573,8 @@ namespace Seam.Api
                     deviceIds: deviceIds,
                     limit: limit,
                     createdBefore: createdBefore,
-                    userIdentifierKey: userIdentifierKey
+                    userIdentifierKey: userIdentifierKey,
+                    customMetadataHas: customMetadataHas
                 )
             );
         }
@@ -591,7 +598,8 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default
+            string? userIdentifierKey = default,
+            object? customMetadataHas = default
         )
         {
             return (
@@ -606,7 +614,8 @@ namespace Seam.Api
                         deviceIds: deviceIds,
                         limit: limit,
                         createdBefore: createdBefore,
-                        userIdentifierKey: userIdentifierKey
+                        userIdentifierKey: userIdentifierKey,
+                        customMetadataHas: customMetadataHas
                     )
                 )
             );

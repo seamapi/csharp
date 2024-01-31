@@ -160,11 +160,17 @@ namespace Seam.Api
                 [EnumMember(Value = "assa_abloy_credential_service")]
                 AssaAbloyCredentialService = 32,
 
+                [EnumMember(Value = "seam_bridge")]
+                SeamBridge = 33,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 33,
+                YaleAccess = 34,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 34
+                HidCm = 35,
+
+                [EnumMember(Value = "google_nest")]
+                GoogleNest = 36
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -448,13 +454,20 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? userIdentifierKey = default)
+            public ListRequest(
+                string? userIdentifierKey = default,
+                object? customMetadataHas = default
+            )
             {
                 UserIdentifierKey = userIdentifierKey;
+                CustomMetadataHas = customMetadataHas;
             }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadataHas { get; set; }
 
             public override string ToString()
             {
@@ -519,9 +532,17 @@ namespace Seam.Api
                 .Data.ConnectWebviews;
         }
 
-        public List<ConnectWebview> List(string? userIdentifierKey = default)
+        public List<ConnectWebview> List(
+            string? userIdentifierKey = default,
+            object? customMetadataHas = default
+        )
         {
-            return List(new ListRequest(userIdentifierKey: userIdentifierKey));
+            return List(
+                new ListRequest(
+                    userIdentifierKey: userIdentifierKey,
+                    customMetadataHas: customMetadataHas
+                )
+            );
         }
 
         public async Task<List<ConnectWebview>> ListAsync(ListRequest request)
@@ -533,9 +554,19 @@ namespace Seam.Api
                 .ConnectWebviews;
         }
 
-        public async Task<List<ConnectWebview>> ListAsync(string? userIdentifierKey = default)
+        public async Task<List<ConnectWebview>> ListAsync(
+            string? userIdentifierKey = default,
+            object? customMetadataHas = default
+        )
         {
-            return (await ListAsync(new ListRequest(userIdentifierKey: userIdentifierKey)));
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        userIdentifierKey: userIdentifierKey,
+                        customMetadataHas: customMetadataHas
+                    )
+                )
+            );
         }
     }
 }
