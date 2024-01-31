@@ -131,7 +131,15 @@ namespace Seam.Api
         public class ListRequest
         {
             [JsonConstructorAttribute]
-            public ListRequest() { }
+            protected ListRequest() { }
+
+            public ListRequest(object? customMetadataHas = default)
+            {
+                CustomMetadataHas = customMetadataHas;
+            }
+
+            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadataHas { get; set; }
 
             public override string ToString()
             {
@@ -196,9 +204,9 @@ namespace Seam.Api
                 .Data.ConnectedAccounts;
         }
 
-        public List<ConnectedAccount> List()
+        public List<ConnectedAccount> List(object? customMetadataHas = default)
         {
-            return List(new ListRequest());
+            return List(new ListRequest(customMetadataHas: customMetadataHas));
         }
 
         public async Task<List<ConnectedAccount>> ListAsync(ListRequest request)
@@ -210,9 +218,9 @@ namespace Seam.Api
                 .ConnectedAccounts;
         }
 
-        public async Task<List<ConnectedAccount>> ListAsync()
+        public async Task<List<ConnectedAccount>> ListAsync(object? customMetadataHas = default)
         {
-            return (await ListAsync(new ListRequest()));
+            return (await ListAsync(new ListRequest(customMetadataHas: customMetadataHas)));
         }
 
         [DataContract(Name = "updateRequest_request")]
@@ -223,11 +231,13 @@ namespace Seam.Api
 
             public UpdateRequest(
                 string connectedAccountId = default,
-                bool? automaticallyManageNewDevices = default
+                bool? automaticallyManageNewDevices = default,
+                object? customMetadata = default
             )
             {
                 ConnectedAccountId = connectedAccountId;
                 AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+                CustomMetadata = customMetadata;
             }
 
             [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
@@ -239,6 +249,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? AutomaticallyManageNewDevices { get; set; }
+
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
 
             public override string ToString()
             {
@@ -305,13 +318,15 @@ namespace Seam.Api
 
         public ConnectedAccount Update(
             string connectedAccountId = default,
-            bool? automaticallyManageNewDevices = default
+            bool? automaticallyManageNewDevices = default,
+            object? customMetadata = default
         )
         {
             return Update(
                 new UpdateRequest(
                     connectedAccountId: connectedAccountId,
-                    automaticallyManageNewDevices: automaticallyManageNewDevices
+                    automaticallyManageNewDevices: automaticallyManageNewDevices,
+                    customMetadata: customMetadata
                 )
             );
         }
@@ -329,14 +344,16 @@ namespace Seam.Api
 
         public async Task<ConnectedAccount> UpdateAsync(
             string connectedAccountId = default,
-            bool? automaticallyManageNewDevices = default
+            bool? automaticallyManageNewDevices = default,
+            object? customMetadata = default
         )
         {
             return (
                 await UpdateAsync(
                     new UpdateRequest(
                         connectedAccountId: connectedAccountId,
-                        automaticallyManageNewDevices: automaticallyManageNewDevices
+                        automaticallyManageNewDevices: automaticallyManageNewDevices,
+                        customMetadata: customMetadata
                     )
                 )
             );

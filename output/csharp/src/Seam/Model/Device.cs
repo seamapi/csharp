@@ -24,7 +24,8 @@ namespace Seam.Model
             List<DeviceErrors> errors = default,
             List<DeviceWarnings> warnings = default,
             string createdAt = default,
-            bool isManaged = default
+            bool isManaged = default,
+            object? customMetadata = default
         )
         {
             DeviceId = deviceId;
@@ -38,6 +39,7 @@ namespace Seam.Model
             Warnings = warnings;
             CreatedAt = createdAt;
             IsManaged = isManaged;
+            CustomMetadata = customMetadata;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -192,6 +194,9 @@ namespace Seam.Model
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
+        [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? CustomMetadata { get; set; }
+
         public override string ToString()
         {
             JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
@@ -233,6 +238,8 @@ namespace Seam.Model
             bool? offlineAccessCodesEnabled = default,
             bool? supportsAccessoryKeypad = default,
             bool? supportsOfflineAccessCodes = default,
+            DevicePropertiesAssaAbloyCredentialServiceMetadata? assaAbloyCredentialServiceMetadata =
+                default,
             DevicePropertiesAugustMetadata? augustMetadata = default,
             DevicePropertiesAvigilonAltaMetadata? avigilonAltaMetadata = default,
             DevicePropertiesSchlageMetadata? schlageMetadata = default,
@@ -257,6 +264,7 @@ namespace Seam.Model
             DevicePropertiesHubitatMetadata? hubitatMetadata = default,
             DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             DevicePropertiesWyzeMetadata? wyzeMetadata = default,
+            List<float>? experimentalSupportedCodeFromAccessCodesLengths = default,
             List<JObject>? codeConstraints = default,
             List<float>? supportedCodeLengths = default,
             float? maxActiveCodesSupported = default,
@@ -281,6 +289,7 @@ namespace Seam.Model
             OfflineAccessCodesEnabled = offlineAccessCodesEnabled;
             SupportsAccessoryKeypad = supportsAccessoryKeypad;
             SupportsOfflineAccessCodes = supportsOfflineAccessCodes;
+            AssaAbloyCredentialServiceMetadata = assaAbloyCredentialServiceMetadata;
             AugustMetadata = augustMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
             SchlageMetadata = schlageMetadata;
@@ -305,6 +314,8 @@ namespace Seam.Model
             HubitatMetadata = hubitatMetadata;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             WyzeMetadata = wyzeMetadata;
+            ExperimentalSupportedCodeFromAccessCodesLengths =
+                experimentalSupportedCodeFromAccessCodesLengths;
             CodeConstraints = codeConstraints;
             SupportedCodeLengths = supportedCodeLengths;
             MaxActiveCodesSupported = maxActiveCodesSupported;
@@ -372,6 +383,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? SupportsOfflineAccessCodes { get; set; }
+
+        [DataMember(
+            Name = "assa_abloy_credential_service_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public DevicePropertiesAssaAbloyCredentialServiceMetadata? AssaAbloyCredentialServiceMetadata { get; set; }
 
         [DataMember(Name = "august_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAugustMetadata? AugustMetadata { get; set; }
@@ -448,6 +466,13 @@ namespace Seam.Model
 
         [DataMember(Name = "wyze_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesWyzeMetadata? WyzeMetadata { get; set; }
+
+        [DataMember(
+            Name = "experimental_supported_code_from_access_codes_lengths",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<float>? ExperimentalSupportedCodeFromAccessCodesLengths { get; set; }
 
         [DataMember(Name = "code_constraints", IsRequired = false, EmitDefaultValue = false)]
         public List<JObject>? CodeConstraints { get; set; }
@@ -609,6 +634,90 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesBattery.StatusEnum? Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesAssaAbloyCredentialServiceMetadata_model")]
+    public class DevicePropertiesAssaAbloyCredentialServiceMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAssaAbloyCredentialServiceMetadata() { }
+
+        public DevicePropertiesAssaAbloyCredentialServiceMetadata(
+            bool? hasActiveEndpoint = default,
+            List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? endpoints = default
+        )
+        {
+            HasActiveEndpoint = hasActiveEndpoint;
+            Endpoints = endpoints;
+        }
+
+        [DataMember(Name = "has_active_endpoint", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasActiveEndpoint { get; set; }
+
+        [DataMember(Name = "endpoints", IsRequired = false, EmitDefaultValue = false)]
+        public List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? Endpoints { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_devicePropertiesAssaAbloyCredentialServiceMetadataEndpoints_model"
+    )]
+    public class DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints() { }
+
+        public DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints(
+            string? endpointId = default,
+            bool? isActive = default
+        )
+        {
+            EndpointId = endpointId;
+            IsActive = isActive;
+        }
+
+        [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndpointId { get; set; }
+
+        [DataMember(Name = "is_active", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsActive { get; set; }
 
         public override string ToString()
         {

@@ -57,8 +57,8 @@ namespace Seam.Model
             [EnumMember(Value = "visionline_system")]
             VisionlineSystem = 5,
 
-            [EnumMember(Value = "assa_abloy_credential_service_user")]
-            AssaAbloyCredentialServiceUser = 6
+            [EnumMember(Value = "assa_abloy_credential_service")]
+            AssaAbloyCredentialService = 6
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -82,8 +82,8 @@ namespace Seam.Model
             [EnumMember(Value = "visionline_system")]
             VisionlineSystem = 5,
 
-            [EnumMember(Value = "assa_abloy_credential_service_user")]
-            AssaAbloyCredentialServiceUser = 6
+            [EnumMember(Value = "assa_abloy_credential_service")]
+            AssaAbloyCredentialService = 6
         }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
