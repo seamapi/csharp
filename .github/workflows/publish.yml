@@ -4,63 +4,63 @@ name: Publish
 run-name: Publish ${{ github.ref_name }}
 
 on:
-    push:
-        tags:
-            - v*
+  push:
+    tags:
+      - v*
 
 jobs:
-    build:
-        name: Build
-        uses: ./.github/workflows/_build.yml
-        secrets:
-            node_auth_token: ${{ secrets.GH_TOKEN }}
-    release:
-        name: GitHub Releases
-        runs-on: ubuntu-latest
-        timeout-minutes: 30
-        needs: build
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - name: Install Dependencies
-              shell: bash
-              run: npm i tsx -g
-            - name: Package .NET module
-              shell: bash
-              run: npm run pack
-            - name: Generate release notes
-              id: changelog
-              run: |
-                  mkdir tmp
-                  outfile=tmp/changelog.txt
-                  echo "outfile=${outfile}" >> $GITHUB_OUTPUT
-                  npx standard-changelog@^2.0.0 --release-count 2 --infile $outfile.tmp --outfile $outfile.tmp
-                  sed '1,3d' $outfile.tmp > $outfile
-            - name: Create GitHub release
-              uses: softprops/action-gh-release@v1
-              with:
-                  token: ${{ secrets.GH_TOKEN }}
-                  fail_on_unmatched_files: true
-                  prerelease: ${{ contains(github.ref_name, '-') }}
-                  files: '*.nupkg'
-                  body_path: ${{ github.workspace }}/${{ steps.changelog.outputs.outfile }}
-            - name: Publish .NET module to nuget
-              shell: bash
-              run: dotnet nuget push *.nupkg --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
-              env:
-                  NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-    github:
-        name: GitHub Packages
-        uses: ./.github/workflows/_publish.yml
-        permissions:
-            contents: read
-            packages: write
-        needs: build
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
+    secrets:
+      node_auth_token: ${{ secrets.GH_TOKEN }}
+  release:
+    name: GitHub Releases
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-            artifact_name: ${{ needs.build.outputs.artifact_name }}
-            registry_url: https://npm.pkg.github.com
-        secrets:
-            registry_token: ${{ secrets.GITHUB_TOKEN }}
-            node_auth_token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      - name: Install Dependencies
+        shell: bash
+        run: npm i tsx -g
+      - name: Package .NET module
+        shell: bash
+        run: npm run pack
+      - name: Generate release notes
+        id: changelog
+        run: |
+          mkdir tmp
+          outfile=tmp/changelog.txt
+          echo "outfile=${outfile}" >> $GITHUB_OUTPUT
+          npx standard-changelog@^2.0.0 --release-count 2 --infile $outfile.tmp --outfile $outfile.tmp
+          sed '1,3d' $outfile.tmp > $outfile
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fail_on_unmatched_files: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          files: '*.nupkg'
+          body_path: ${{ github.workspace }}/${{ steps.changelog.outputs.outfile }}
+      - name: Publish .NET module to nuget
+        shell: bash
+        run: dotnet nuget push *.nupkg --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+  github:
+    name: GitHub Packages
+    uses: ./.github/workflows/_publish.yml
+    permissions:
+      contents: read
+      packages: write
+    needs: build
+    with:
+      artifact_name: ${{ needs.build.outputs.artifact_name }}
+      registry_url: https://npm.pkg.github.com
+    secrets:
+      registry_token: ${{ secrets.GITHUB_TOKEN }}
+      node_auth_token: ${{ secrets.GH_TOKEN }}

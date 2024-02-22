@@ -3,13 +3,13 @@ import { writeFileSync } from 'fs'
 import packageJson from '../package.json'
 
 export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
-    `
+  `
 <Project Sdk="Microsoft.NET.Sdk">
 
 <PropertyGroup>
   <TargetFrameworks>${dotNetVersions
-      .map((v) => `net${v}`)
-      .join(';')}</TargetFrameworks>
+    .map((v) => `net${v}`)
+    .join(';')}</TargetFrameworks>
   <ImplicitUsings>enable</ImplicitUsings>
   <Nullable>annotations</Nullable>
 
@@ -49,10 +49,10 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 `.trim()
 
 const main = async () => {
-    writeFileSync(
-        './output/csharp/src/Seam/Seam.csproj',
-        csprojTemplate(packageJson.version, ['6.0', '7.0']),
-    )
+  writeFileSync(
+    './output/csharp/src/Seam/Seam.csproj',
+    csprojTemplate(packageJson.version, ['6.0', '7.0']),
+  )
 }
 
 main()

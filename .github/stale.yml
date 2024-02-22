@@ -2,17 +2,17 @@
 daysUntilStale: 21
 daysUntilClose: 7
 exemptLabels:
-    - pinned
-    - security
+  - pinned
+  - security
 staleLabel: wontfix
 markComment: >
-    This issue has been automatically marked as stale because it has not had
-    recent activity. It will be closed if no further activity occurs.
+  This issue has been automatically marked as stale because it has not had
+  recent activity. It will be closed if no further activity occurs.
 closeComment: false
 pulls:
-    daysUntilStale: 3
-    daysUntilClose: 1
-    staleLabel: stale
-    markComment: >
-        This pull request has been automatically marked as stale because it has not had
-        recent activity. It will be closed if no further activity occurs.
+  daysUntilStale: 3
+  daysUntilClose: 1
+  staleLabel: stale
+  markComment: >
+    This pull request has been automatically marked as stale because it has not had
+    recent activity. It will be closed if no further activity occurs.
