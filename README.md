@@ -22,7 +22,7 @@ Finally, install csharpier
 # if you don't yet have a .config/dotnet-tools.json file
 dotnet new tool-manifest
 
-dotnet tool install csharpier
+dotnet tool install -g csharpier
 ```
 
 ## How to update the SDK
