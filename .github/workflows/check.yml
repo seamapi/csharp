@@ -2,78 +2,78 @@
 name: Check
 
 on:
-  push:
-    branches:
-      - '**'
+    push:
+        branches:
+            - '**'
 
 jobs:
-  test:
-    name: Test (Node.js v${{ matrix.node }} on ${{ matrix.os_name }})
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        node:
-          - '16'
-          - '18'
-        include:
-          - os: ubuntu-latest
-            os_name: Linux
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
-      - name: Test
-        run: npm test
-  lint:
-    name: Lint (Node.js v${{ matrix.node }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - '16'
-          - '18'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
-      - name: Lint
-        run: npm run lint
-  build:
-    name: Build
-    uses: ./.github/workflows/_build.yml
-    secrets:
-      node_auth_token: ${{ secrets.GH_TOKEN }}
-  typecheck:
-    name: Typecheck (Node.js v${{ matrix.node }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - '16'
-          - '18'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
-      - name: Typecheck
-        run: npm run typecheck
+    test:
+        name: Test (Node.js v${{ matrix.node }} on ${{ matrix.os_name }})
+        runs-on: ${{ matrix.os }}
+        timeout-minutes: 30
+        strategy:
+            fail-fast: false
+            matrix:
+                os:
+                    - ubuntu-latest
+                node:
+                    - '16'
+                    - '18'
+                include:
+                    - os: ubuntu-latest
+                      os_name: Linux
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Setup
+              uses: ./.github/actions/setup
+              with:
+                  node_version: ${{ matrix.node }}
+                  node_auth_token: ${{ secrets.GH_TOKEN }}
+            - name: Test
+              run: npm test
+    lint:
+        name: Lint (Node.js v${{ matrix.node }})
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        strategy:
+            fail-fast: false
+            matrix:
+                node:
+                    - '16'
+                    - '18'
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Setup
+              uses: ./.github/actions/setup
+              with:
+                  node_version: ${{ matrix.node }}
+                  node_auth_token: ${{ secrets.GH_TOKEN }}
+            - name: Lint
+              run: npm run lint
+    build:
+        name: Build
+        uses: ./.github/workflows/_build.yml
+        secrets:
+            node_auth_token: ${{ secrets.GH_TOKEN }}
+    typecheck:
+        name: Typecheck (Node.js v${{ matrix.node }})
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        strategy:
+            fail-fast: false
+            matrix:
+                node:
+                    - '16'
+                    - '18'
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Setup
+              uses: ./.github/actions/setup
+              with:
+                  node_version: ${{ matrix.node }}
+                  node_auth_token: ${{ secrets.GH_TOKEN }}
+            - name: Typecheck
+              run: npm run typecheck
