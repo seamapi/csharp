@@ -23,7 +23,9 @@ namespace Seam.Model
             List<UnmanagedDeviceWarnings> warnings = default,
             string createdAt = default,
             bool isManaged = default,
-            UnmanagedDeviceProperties properties = default
+            UnmanagedDeviceProperties properties = default,
+            bool? canRemotelyUnlock = default,
+            bool? canProgramOnlineAccessCodes = default
         )
         {
             DeviceId = deviceId;
@@ -36,6 +38,8 @@ namespace Seam.Model
             CreatedAt = createdAt;
             IsManaged = isManaged;
             Properties = properties;
+            CanRemotelyUnlock = canRemotelyUnlock;
+            CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -116,23 +120,29 @@ namespace Seam.Model
             [EnumMember(Value = "dormakaba_oracode_door")]
             DormakabaOracodeDoor = 24,
 
+            [EnumMember(Value = "tedee_lock")]
+            TedeeLock = 25,
+
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 25,
+            NoiseawareActivityZone = 26,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 26,
+            MinutSensor = 27,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 27,
+            EcobeeThermostat = 28,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 28,
+            NestThermostat = 29,
+
+            [EnumMember(Value = "honeywell_thermostat")]
+            HoneywellThermostat = 30,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 29,
+            IosPhone = 31,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 30
+            AndroidPhone = 32
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -186,6 +196,16 @@ namespace Seam.Model
 
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
         public UnmanagedDeviceProperties Properties { get; set; }
+
+        [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(
+            Name = "can_program_online_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOnlineAccessCodes { get; set; }
 
         public override string ToString()
         {

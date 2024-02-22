@@ -25,7 +25,9 @@ namespace Seam.Model
             List<DeviceWarnings> warnings = default,
             string createdAt = default,
             bool isManaged = default,
-            object? customMetadata = default
+            object? customMetadata = default,
+            bool? canRemotelyUnlock = default,
+            bool? canProgramOnlineAccessCodes = default
         )
         {
             DeviceId = deviceId;
@@ -40,6 +42,8 @@ namespace Seam.Model
             CreatedAt = createdAt;
             IsManaged = isManaged;
             CustomMetadata = customMetadata;
+            CanRemotelyUnlock = canRemotelyUnlock;
+            CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -120,23 +124,29 @@ namespace Seam.Model
             [EnumMember(Value = "dormakaba_oracode_door")]
             DormakabaOracodeDoor = 24,
 
+            [EnumMember(Value = "tedee_lock")]
+            TedeeLock = 25,
+
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 25,
+            NoiseawareActivityZone = 26,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 26,
+            MinutSensor = 27,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 27,
+            EcobeeThermostat = 28,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 28,
+            NestThermostat = 29,
+
+            [EnumMember(Value = "honeywell_thermostat")]
+            HoneywellThermostat = 30,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 29,
+            IosPhone = 31,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 30
+            AndroidPhone = 32
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -196,6 +206,16 @@ namespace Seam.Model
 
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? CustomMetadata { get; set; }
+
+        [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(
+            Name = "can_program_online_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOnlineAccessCodes { get; set; }
 
         public override string ToString()
         {
@@ -261,9 +281,11 @@ namespace Seam.Model
             DevicePropertiesIgloohomeMetadata? igloohomeMetadata = default,
             DevicePropertiesNestMetadata? nestMetadata = default,
             DevicePropertiesEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesHoneywellMetadata? honeywellMetadata = default,
             DevicePropertiesHubitatMetadata? hubitatMetadata = default,
             DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             DevicePropertiesWyzeMetadata? wyzeMetadata = default,
+            DevicePropertiesTedeeMetadata? tedeeMetadata = default,
             List<float>? experimentalSupportedCodeFromAccessCodesLengths = default,
             List<JObject>? codeConstraints = default,
             List<float>? supportedCodeLengths = default,
@@ -311,9 +333,11 @@ namespace Seam.Model
             IgloohomeMetadata = igloohomeMetadata;
             NestMetadata = nestMetadata;
             EcobeeMetadata = ecobeeMetadata;
+            HoneywellMetadata = honeywellMetadata;
             HubitatMetadata = hubitatMetadata;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             WyzeMetadata = wyzeMetadata;
+            TedeeMetadata = tedeeMetadata;
             ExperimentalSupportedCodeFromAccessCodesLengths =
                 experimentalSupportedCodeFromAccessCodesLengths;
             CodeConstraints = codeConstraints;
@@ -454,6 +478,9 @@ namespace Seam.Model
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesEcobeeMetadata? EcobeeMetadata { get; set; }
 
+        [DataMember(Name = "honeywell_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesHoneywellMetadata? HoneywellMetadata { get; set; }
+
         [DataMember(Name = "hubitat_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesHubitatMetadata? HubitatMetadata { get; set; }
 
@@ -466,6 +493,9 @@ namespace Seam.Model
 
         [DataMember(Name = "wyze_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesWyzeMetadata? WyzeMetadata { get; set; }
+
+        [DataMember(Name = "tedee_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesTedeeMetadata? TedeeMetadata { get; set; }
 
         [DataMember(
             Name = "experimental_supported_code_from_access_codes_lengths",
@@ -2031,6 +2061,47 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesHoneywellMetadata_model")]
+    public class DevicePropertiesHoneywellMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesHoneywellMetadata() { }
+
+        public DevicePropertiesHoneywellMetadata(
+            string? honeywellDeviceId = default,
+            string? deviceName = default
+        )
+        {
+            HoneywellDeviceId = honeywellDeviceId;
+            DeviceName = deviceName;
+        }
+
+        [DataMember(Name = "honeywell_device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? HoneywellDeviceId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesHubitatMetadata_model")]
     public class DevicePropertiesHubitatMetadata
     {
@@ -2275,6 +2346,67 @@ namespace Seam.Model
 
         [DataMember(Name = "device_info_model", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceInfoModel { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesTedeeMetadata_model")]
+    public class DevicePropertiesTedeeMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesTedeeMetadata() { }
+
+        public DevicePropertiesTedeeMetadata(
+            float? deviceId = default,
+            string? serialNumber = default,
+            string? deviceName = default,
+            string? deviceModel = default,
+            float? bridgeId = default,
+            string? bridgeName = default
+        )
+        {
+            DeviceId = deviceId;
+            SerialNumber = serialNumber;
+            DeviceName = deviceName;
+            DeviceModel = deviceModel;
+            BridgeId = bridgeId;
+            BridgeName = bridgeName;
+        }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public float? DeviceId { get; set; }
+
+        [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
+        public string? SerialNumber { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceModel { get; set; }
+
+        [DataMember(Name = "bridge_id", IsRequired = false, EmitDefaultValue = false)]
+        public float? BridgeId { get; set; }
+
+        [DataMember(Name = "bridge_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? BridgeName { get; set; }
 
         public override string ToString()
         {

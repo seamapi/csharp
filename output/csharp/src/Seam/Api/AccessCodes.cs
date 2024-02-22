@@ -319,6 +319,7 @@ namespace Seam.Api
                 List<string> deviceIds = default,
                 CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                     default,
+                float? preferredCodeLength = default,
                 string? name = default,
                 string? startsAt = default,
                 string? endsAt = default,
@@ -336,6 +337,7 @@ namespace Seam.Api
             {
                 DeviceIds = deviceIds;
                 BehaviorWhenCodeCannotBeShared = behaviorWhenCodeCannotBeShared;
+                PreferredCodeLength = preferredCodeLength;
                 Name = name;
                 StartsAt = startsAt;
                 EndsAt = endsAt;
@@ -386,6 +388,13 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? BehaviorWhenCodeCannotBeShared { get; set; }
+
+            [DataMember(
+                Name = "preferred_code_length",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? PreferredCodeLength { get; set; }
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
@@ -521,6 +530,7 @@ namespace Seam.Api
             List<string> deviceIds = default,
             CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                 default,
+            float? preferredCodeLength = default,
             string? name = default,
             string? startsAt = default,
             string? endsAt = default,
@@ -540,6 +550,7 @@ namespace Seam.Api
                 new CreateMultipleRequest(
                     deviceIds: deviceIds,
                     behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
+                    preferredCodeLength: preferredCodeLength,
                     name: name,
                     startsAt: startsAt,
                     endsAt: endsAt,
@@ -575,6 +586,7 @@ namespace Seam.Api
             List<string> deviceIds = default,
             CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                 default,
+            float? preferredCodeLength = default,
             string? name = default,
             string? startsAt = default,
             string? endsAt = default,
@@ -595,6 +607,7 @@ namespace Seam.Api
                     new CreateMultipleRequest(
                         deviceIds: deviceIds,
                         behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
+                        preferredCodeLength: preferredCodeLength,
                         name: name,
                         startsAt: startsAt,
                         endsAt: endsAt,

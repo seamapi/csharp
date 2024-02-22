@@ -163,14 +163,20 @@ namespace Seam.Api
                 [EnumMember(Value = "seam_bridge")]
                 SeamBridge = 33,
 
+                [EnumMember(Value = "tedee")]
+                Tedee = 34,
+
+                [EnumMember(Value = "honeywell")]
+                Honeywell = 35,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 34,
+                YaleAccess = 36,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 35,
+                HidCm = 37,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 36
+                GoogleNest = 38
             }
 
             [JsonConverter(typeof(StringEnumConverter))]

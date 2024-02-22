@@ -94,13 +94,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected CreateResponse() { }
 
-            public CreateResponse(ActionAttempt actionAttempt = default)
+            public CreateResponse(NoiseThreshold noiseThreshold = default)
             {
-                ActionAttempt = actionAttempt;
+                NoiseThreshold = noiseThreshold;
             }
 
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
+            [DataMember(Name = "noise_threshold", IsRequired = false, EmitDefaultValue = false)]
+            public NoiseThreshold NoiseThreshold { get; set; }
 
             public override string ToString()
             {
@@ -122,16 +122,16 @@ namespace Seam.Api
             }
         }
 
-        public ActionAttempt Create(CreateRequest request)
+        public NoiseThreshold Create(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/noise_sensors/noise_thresholds/create", requestOptions)
-                .Data.ActionAttempt;
+                .Data.NoiseThreshold;
         }
 
-        public ActionAttempt Create(
+        public NoiseThreshold Create(
             string deviceId = default,
             bool? sync = default,
             string? name = default,
@@ -154,7 +154,7 @@ namespace Seam.Api
             );
         }
 
-        public async Task<ActionAttempt> CreateAsync(CreateRequest request)
+        public async Task<NoiseThreshold> CreateAsync(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -165,10 +165,10 @@ namespace Seam.Api
                 )
             )
                 .Data
-                .ActionAttempt;
+                .NoiseThreshold;
         }
 
-        public async Task<ActionAttempt> CreateAsync(
+        public async Task<NoiseThreshold> CreateAsync(
             string deviceId = default,
             bool? sync = default,
             string? name = default,

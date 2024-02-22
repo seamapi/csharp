@@ -24,7 +24,9 @@ namespace Seam.Model
             List<PhoneWarnings> warnings = default,
             string createdAt = default,
             bool isManaged = default,
-            object? customMetadata = default
+            object? customMetadata = default,
+            bool? canRemotelyUnlock = default,
+            bool? canProgramOnlineAccessCodes = default
         )
         {
             DeviceId = deviceId;
@@ -38,6 +40,8 @@ namespace Seam.Model
             CreatedAt = createdAt;
             IsManaged = isManaged;
             CustomMetadata = customMetadata;
+            CanRemotelyUnlock = canRemotelyUnlock;
+            CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -104,6 +108,16 @@ namespace Seam.Model
 
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? CustomMetadata { get; set; }
+
+        [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(
+            Name = "can_program_online_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOnlineAccessCodes { get; set; }
 
         public override string ToString()
         {
