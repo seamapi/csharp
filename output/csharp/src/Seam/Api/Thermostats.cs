@@ -227,23 +227,29 @@ namespace Seam.Api
                 [EnumMember(Value = "dormakaba_oracode_door")]
                 DormakabaOracodeDoor = 24,
 
+                [EnumMember(Value = "tedee_lock")]
+                TedeeLock = 25,
+
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 25,
+                NoiseawareActivityZone = 26,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 26,
+                MinutSensor = 27,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 27,
+                EcobeeThermostat = 28,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 28,
+                NestThermostat = 29,
+
+                [EnumMember(Value = "honeywell_thermostat")]
+                HoneywellThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 29,
+                IosPhone = 31,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 30
+                AndroidPhone = 32
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -324,23 +330,29 @@ namespace Seam.Api
                 [EnumMember(Value = "dormakaba_oracode_door")]
                 DormakabaOracodeDoor = 24,
 
+                [EnumMember(Value = "tedee_lock")]
+                TedeeLock = 25,
+
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 25,
+                NoiseawareActivityZone = 26,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 26,
+                MinutSensor = 27,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 27,
+                EcobeeThermostat = 28,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 28,
+                NestThermostat = 29,
+
+                [EnumMember(Value = "honeywell_thermostat")]
+                HoneywellThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 29,
+                IosPhone = 31,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 30
+                AndroidPhone = 32
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -440,7 +452,13 @@ namespace Seam.Api
                 Smartthings = 30,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 31
+                DormakabaOracode = 31,
+
+                [EnumMember(Value = "tedee")]
+                Tedee = 32,
+
+                [EnumMember(Value = "honeywell")]
+                Honeywell = 33
             }
 
             [DataMember(

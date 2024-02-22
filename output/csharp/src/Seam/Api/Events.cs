@@ -274,29 +274,35 @@ namespace Seam.Api
                 [EnumMember(Value = "lock.unlocked")]
                 LockUnlocked = 35,
 
+                [EnumMember(Value = "phone.deactivated")]
+                PhoneDeactivated = 36,
+
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 36,
+                ConnectedAccountConnected = 37,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 37,
+                ConnectedAccountSuccessfulLogin = 38,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 38,
+                ConnectedAccountCreated = 39,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 39,
+                ConnectedAccountDeleted = 40,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 40,
+                ConnectedAccountDisconnected = 41,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 41,
+                ConnectedAccountCompletedFirstSync = 42,
+
+                [EnumMember(Value = "connected_account.completed_first_sync_after_reconnection")]
+                ConnectedAccountCompletedFirstSyncAfterReconnection = 43,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 42,
+                NoiseSensorNoiseThresholdTriggered = 44,
 
                 [EnumMember(Value = "access_code.backup_access_code_pulled")]
-                AccessCodeBackupAccessCodePulled = 43
+                AccessCodeBackupAccessCodePulled = 45
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -410,29 +416,35 @@ namespace Seam.Api
                 [EnumMember(Value = "lock.unlocked")]
                 LockUnlocked = 35,
 
+                [EnumMember(Value = "phone.deactivated")]
+                PhoneDeactivated = 36,
+
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 36,
+                ConnectedAccountConnected = 37,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 37,
+                ConnectedAccountSuccessfulLogin = 38,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 38,
+                ConnectedAccountCreated = 39,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 39,
+                ConnectedAccountDeleted = 40,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 40,
+                ConnectedAccountDisconnected = 41,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 41,
+                ConnectedAccountCompletedFirstSync = 42,
+
+                [EnumMember(Value = "connected_account.completed_first_sync_after_reconnection")]
+                ConnectedAccountCompletedFirstSyncAfterReconnection = 43,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 42,
+                NoiseSensorNoiseThresholdTriggered = 44,
 
                 [EnumMember(Value = "access_code.backup_access_code_pulled")]
-                AccessCodeBackupAccessCodePulled = 43
+                AccessCodeBackupAccessCodePulled = 45
             }
 
             [DataMember(Name = "since", IsRequired = false, EmitDefaultValue = false)]
