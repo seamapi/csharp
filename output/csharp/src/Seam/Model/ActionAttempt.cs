@@ -1,226 +1,226 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
-    [JsonConverter(typeof(JsonSubtypes), "Status")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptError), "error")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptPending), "pending")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSuccess), "success")]
-    public abstract class ActionAttempt
-    {
-        public abstract string Status { get; }
+  [JsonConverter(typeof(JsonSubtypes), "Status")]
+  [JsonSubtypes.KnownSubType(typeof(ActionAttemptError), "error")]
+  [JsonSubtypes.KnownSubType(typeof(ActionAttemptPending), "pending")]
+  [JsonSubtypes.KnownSubType(typeof(ActionAttemptSuccess), "success")]
+  public abstract class ActionAttempt
+  {
+    public abstract string Status { get; }
 
-        public abstract override string ToString();
+    public abstract override string ToString();
+  }
+
+  [DataContract(Name = "seamModel_actionAttemptSuccess_model")]
+  public class ActionAttemptSuccess : ActionAttempt
+  {
+    [JsonConstructorAttribute]
+    protected ActionAttemptSuccess() { }
+
+    public ActionAttemptSuccess(
+      string status = default,
+      string actionType = default,
+      string actionAttemptId = default,
+      Object result = default,
+      string? error = default
+    )
+    {
+      Status = status;
+      ActionType = actionType;
+      ActionAttemptId = actionAttemptId;
+      Result = result;
+      Error = error;
     }
 
-    [DataContract(Name = "seamModel_actionAttemptSuccess_model")]
-    public class ActionAttemptSuccess : ActionAttempt
+    [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+    public override string Status { get; } = "success";
+
+    [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionType { get; set; }
+
+    [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionAttemptId { get; set; }
+
+    [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+    public Object Result { get; set; }
+
+    [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+    public string? Error { get; set; }
+
+    public override string ToString()
     {
-        [JsonConstructorAttribute]
-        protected ActionAttemptSuccess() { }
+      JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public ActionAttemptSuccess(
-            string status = default,
-            string actionType = default,
-            string actionAttemptId = default,
-            Object result = default,
-            string? error = default
-        )
-        {
-            Status = status;
-            ActionType = actionType;
-            ActionAttemptId = actionAttemptId;
-            Result = result;
-            Error = error;
-        }
+      StringWriter stringWriter = new StringWriter(
+        new StringBuilder(256),
+        System.Globalization.CultureInfo.InvariantCulture
+      );
+      using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+      {
+        jsonTextWriter.IndentChar = ' ';
+        jsonTextWriter.Indentation = 2;
+        jsonTextWriter.Formatting = Formatting.Indented;
+        jsonSerializer.Serialize(jsonTextWriter, this, null);
+      }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public override string Status { get; } = "success";
+      return stringWriter.ToString();
+    }
+  }
 
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionType { get; set; }
+  [DataContract(Name = "seamModel_actionAttemptPending_model")]
+  public class ActionAttemptPending : ActionAttempt
+  {
+    [JsonConstructorAttribute]
+    protected ActionAttemptPending() { }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
-
-        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public string? Error { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
+    public ActionAttemptPending(
+      string status = default,
+      string actionType = default,
+      string actionAttemptId = default,
+      string? result = default,
+      string? error = default
+    )
+    {
+      Status = status;
+      ActionType = actionType;
+      ActionAttemptId = actionAttemptId;
+      Result = result;
+      Error = error;
     }
 
-    [DataContract(Name = "seamModel_actionAttemptPending_model")]
-    public class ActionAttemptPending : ActionAttempt
+    [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+    public override string Status { get; } = "pending";
+
+    [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionType { get; set; }
+
+    [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionAttemptId { get; set; }
+
+    [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+    public string? Result { get; set; }
+
+    [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+    public string? Error { get; set; }
+
+    public override string ToString()
     {
-        [JsonConstructorAttribute]
-        protected ActionAttemptPending() { }
+      JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public ActionAttemptPending(
-            string status = default,
-            string actionType = default,
-            string actionAttemptId = default,
-            string? result = default,
-            string? error = default
-        )
-        {
-            Status = status;
-            ActionType = actionType;
-            ActionAttemptId = actionAttemptId;
-            Result = result;
-            Error = error;
-        }
+      StringWriter stringWriter = new StringWriter(
+        new StringBuilder(256),
+        System.Globalization.CultureInfo.InvariantCulture
+      );
+      using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+      {
+        jsonTextWriter.IndentChar = ' ';
+        jsonTextWriter.Indentation = 2;
+        jsonTextWriter.Formatting = Formatting.Indented;
+        jsonSerializer.Serialize(jsonTextWriter, this, null);
+      }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public override string Status { get; } = "pending";
+      return stringWriter.ToString();
+    }
+  }
 
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionType { get; set; }
+  [DataContract(Name = "seamModel_actionAttemptError_model")]
+  public class ActionAttemptError : ActionAttempt
+  {
+    [JsonConstructorAttribute]
+    protected ActionAttemptError() { }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public string? Result { get; set; }
-
-        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public string? Error { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
+    public ActionAttemptError(
+      string status = default,
+      string actionType = default,
+      string actionAttemptId = default,
+      string? result = default,
+      ActionAttemptErrorError error = default
+    )
+    {
+      Status = status;
+      ActionType = actionType;
+      ActionAttemptId = actionAttemptId;
+      Result = result;
+      Error = error;
     }
 
-    [DataContract(Name = "seamModel_actionAttemptError_model")]
-    public class ActionAttemptError : ActionAttempt
+    [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+    public override string Status { get; } = "error";
+
+    [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionType { get; set; }
+
+    [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+    public string ActionAttemptId { get; set; }
+
+    [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+    public string? Result { get; set; }
+
+    [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+    public ActionAttemptErrorError Error { get; set; }
+
+    public override string ToString()
     {
-        [JsonConstructorAttribute]
-        protected ActionAttemptError() { }
+      JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public ActionAttemptError(
-            string status = default,
-            string actionType = default,
-            string actionAttemptId = default,
-            string? result = default,
-            ActionAttemptErrorError error = default
-        )
-        {
-            Status = status;
-            ActionType = actionType;
-            ActionAttemptId = actionAttemptId;
-            Result = result;
-            Error = error;
-        }
+      StringWriter stringWriter = new StringWriter(
+        new StringBuilder(256),
+        System.Globalization.CultureInfo.InvariantCulture
+      );
+      using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+      {
+        jsonTextWriter.IndentChar = ' ';
+        jsonTextWriter.Indentation = 2;
+        jsonTextWriter.Formatting = Formatting.Indented;
+        jsonSerializer.Serialize(jsonTextWriter, this, null);
+      }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public override string Status { get; } = "error";
+      return stringWriter.ToString();
+    }
+  }
 
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionType { get; set; }
+  [DataContract(Name = "seamModel_actionAttemptErrorError_model")]
+  public class ActionAttemptErrorError
+  {
+    [JsonConstructorAttribute]
+    protected ActionAttemptErrorError() { }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public string? Result { get; set; }
-
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptErrorError Error { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
+    public ActionAttemptErrorError(string type = default, string message = default)
+    {
+      Type = type;
+      Message = message;
     }
 
-    [DataContract(Name = "seamModel_actionAttemptErrorError_model")]
-    public class ActionAttemptErrorError
+    [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+    public string Type { get; set; }
+
+    [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+    public string Message { get; set; }
+
+    public override string ToString()
     {
-        [JsonConstructorAttribute]
-        protected ActionAttemptErrorError() { }
+      JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public ActionAttemptErrorError(string type = default, string message = default)
-        {
-            Type = type;
-            Message = message;
-        }
+      StringWriter stringWriter = new StringWriter(
+        new StringBuilder(256),
+        System.Globalization.CultureInfo.InvariantCulture
+      );
+      using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+      {
+        jsonTextWriter.IndentChar = ' ';
+        jsonTextWriter.Indentation = 2;
+        jsonTextWriter.Formatting = Formatting.Indented;
+        jsonSerializer.Serialize(jsonTextWriter, this, null);
+      }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
-        public string Type { get; set; }
-
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
+      return stringWriter.ToString();
     }
+  }
 }
