@@ -166,17 +166,20 @@ namespace Seam.Api
                 [EnumMember(Value = "tedee")]
                 Tedee = 34,
 
-                [EnumMember(Value = "honeywell")]
-                Honeywell = 35,
+                [EnumMember(Value = "honeywell_resideo")]
+                HoneywellResideo = 35,
+
+                [EnumMember(Value = "latch")]
+                Latch = 36,
 
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 36,
+                YaleAccess = 37,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 37,
+                HidCm = 38,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 38
+                GoogleNest = 39
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -188,8 +191,17 @@ namespace Seam.Api
                 [EnumMember(Value = "consumer_smartlocks")]
                 ConsumerSmartlocks = 1,
 
+                [EnumMember(Value = "thermostats")]
+                Thermostats = 2,
+
+                [EnumMember(Value = "noise_sensors")]
+                NoiseSensors = 3,
+
+                [EnumMember(Value = "access_control_systems")]
+                AccessControlSystems = 4,
+
                 [EnumMember(Value = "internal_beta")]
-                InternalBeta = 2
+                InternalBeta = 5
             }
 
             [DataMember(

@@ -25,6 +25,7 @@ namespace Seam.Model
             bool isManaged = default,
             UnmanagedDeviceProperties properties = default,
             bool? canRemotelyUnlock = default,
+            bool? canRemotelyLock = default,
             bool? canProgramOnlineAccessCodes = default
         )
         {
@@ -39,6 +40,7 @@ namespace Seam.Model
             IsManaged = isManaged;
             Properties = properties;
             CanRemotelyUnlock = canRemotelyUnlock;
+            CanRemotelyLock = canRemotelyLock;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
@@ -135,8 +137,8 @@ namespace Seam.Model
             [EnumMember(Value = "nest_thermostat")]
             NestThermostat = 29,
 
-            [EnumMember(Value = "honeywell_thermostat")]
-            HoneywellThermostat = 30,
+            [EnumMember(Value = "honeywell_resideo_thermostat")]
+            HoneywellResideoThermostat = 30,
 
             [EnumMember(Value = "ios_phone")]
             IosPhone = 31,
@@ -199,6 +201,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyLock { get; set; }
 
         [DataMember(
             Name = "can_program_online_access_codes",

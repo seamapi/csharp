@@ -16,6 +16,8 @@ namespace Seam.Model
         public Device(
             string deviceId = default,
             Device.DeviceTypeEnum deviceType = default,
+            string? nickname = default,
+            string displayName = default,
             List<Device.CapabilitiesSupportedEnum> capabilitiesSupported = default,
             DeviceProperties properties = default,
             DeviceLocation? location = default,
@@ -27,11 +29,14 @@ namespace Seam.Model
             bool isManaged = default,
             object? customMetadata = default,
             bool? canRemotelyUnlock = default,
+            bool? canRemotelyLock = default,
             bool? canProgramOnlineAccessCodes = default
         )
         {
             DeviceId = deviceId;
             DeviceType = deviceType;
+            Nickname = nickname;
+            DisplayName = displayName;
             CapabilitiesSupported = capabilitiesSupported;
             Properties = properties;
             Location = location;
@@ -43,6 +48,7 @@ namespace Seam.Model
             IsManaged = isManaged;
             CustomMetadata = customMetadata;
             CanRemotelyUnlock = canRemotelyUnlock;
+            CanRemotelyLock = canRemotelyLock;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
@@ -139,8 +145,8 @@ namespace Seam.Model
             [EnumMember(Value = "nest_thermostat")]
             NestThermostat = 29,
 
-            [EnumMember(Value = "honeywell_thermostat")]
-            HoneywellThermostat = 30,
+            [EnumMember(Value = "honeywell_resideo_thermostat")]
+            HoneywellResideoThermostat = 30,
 
             [EnumMember(Value = "ios_phone")]
             IosPhone = 31,
@@ -177,6 +183,12 @@ namespace Seam.Model
         [DataMember(Name = "device_type", IsRequired = true, EmitDefaultValue = false)]
         public Device.DeviceTypeEnum DeviceType { get; set; }
 
+        [DataMember(Name = "nickname", IsRequired = false, EmitDefaultValue = false)]
+        public string? Nickname { get; set; }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
         [DataMember(Name = "capabilities_supported", IsRequired = true, EmitDefaultValue = false)]
         public List<Device.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
 
@@ -209,6 +221,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyLock { get; set; }
 
         [DataMember(
             Name = "can_program_online_access_codes",
@@ -246,6 +261,7 @@ namespace Seam.Model
         public DeviceProperties(
             bool? online = default,
             string? name = default,
+            DevicePropertiesAppearance? appearance = default,
             DevicePropertiesModel? model = default,
             bool? hasDirectPower = default,
             float? batteryLevel = default,
@@ -281,7 +297,7 @@ namespace Seam.Model
             DevicePropertiesIgloohomeMetadata? igloohomeMetadata = default,
             DevicePropertiesNestMetadata? nestMetadata = default,
             DevicePropertiesEcobeeMetadata? ecobeeMetadata = default,
-            DevicePropertiesHoneywellMetadata? honeywellMetadata = default,
+            DevicePropertiesHoneywellResideoMetadata? honeywellResideoMetadata = default,
             DevicePropertiesHubitatMetadata? hubitatMetadata = default,
             DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             DevicePropertiesWyzeMetadata? wyzeMetadata = default,
@@ -299,6 +315,7 @@ namespace Seam.Model
         {
             Online = online;
             Name = name;
+            Appearance = appearance;
             Model = model;
             HasDirectPower = hasDirectPower;
             BatteryLevel = batteryLevel;
@@ -333,7 +350,7 @@ namespace Seam.Model
             IgloohomeMetadata = igloohomeMetadata;
             NestMetadata = nestMetadata;
             EcobeeMetadata = ecobeeMetadata;
-            HoneywellMetadata = honeywellMetadata;
+            HoneywellResideoMetadata = honeywellResideoMetadata;
             HubitatMetadata = hubitatMetadata;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             WyzeMetadata = wyzeMetadata;
@@ -355,6 +372,9 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
+
+        [DataMember(Name = "appearance", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAppearance? Appearance { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesModel? Model { get; set; }
@@ -478,8 +498,12 @@ namespace Seam.Model
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesEcobeeMetadata? EcobeeMetadata { get; set; }
 
-        [DataMember(Name = "honeywell_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesHoneywellMetadata? HoneywellMetadata { get; set; }
+        [DataMember(
+            Name = "honeywell_resideo_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public DevicePropertiesHoneywellResideoMetadata? HoneywellResideoMetadata { get; set; }
 
         [DataMember(Name = "hubitat_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesHubitatMetadata? HubitatMetadata { get; set; }
@@ -535,6 +559,40 @@ namespace Seam.Model
 
         [DataMember(Name = "door_open", IsRequired = false, EmitDefaultValue = false)]
         public bool? DoorOpen { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesAppearance_model")]
+    public class DevicePropertiesAppearance
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAppearance() { }
+
+        public DevicePropertiesAppearance(string? name = default)
+        {
+            Name = name;
+        }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
 
         public override string ToString()
         {
@@ -2061,23 +2119,27 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_devicePropertiesHoneywellMetadata_model")]
-    public class DevicePropertiesHoneywellMetadata
+    [DataContract(Name = "seamModel_devicePropertiesHoneywellResideoMetadata_model")]
+    public class DevicePropertiesHoneywellResideoMetadata
     {
         [JsonConstructorAttribute]
-        protected DevicePropertiesHoneywellMetadata() { }
+        protected DevicePropertiesHoneywellResideoMetadata() { }
 
-        public DevicePropertiesHoneywellMetadata(
-            string? honeywellDeviceId = default,
+        public DevicePropertiesHoneywellResideoMetadata(
+            string? honeywellResideoDeviceId = default,
             string? deviceName = default
         )
         {
-            HoneywellDeviceId = honeywellDeviceId;
+            HoneywellResideoDeviceId = honeywellResideoDeviceId;
             DeviceName = deviceName;
         }
 
-        [DataMember(Name = "honeywell_device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? HoneywellDeviceId { get; set; }
+        [DataMember(
+            Name = "honeywell_resideo_device_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? HoneywellResideoDeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceName { get; set; }

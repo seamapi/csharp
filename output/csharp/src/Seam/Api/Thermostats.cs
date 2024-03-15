@@ -18,6 +18,151 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "coolRequest_request")]
+        public class CoolRequest
+        {
+            [JsonConstructorAttribute]
+            protected CoolRequest() { }
+
+            public CoolRequest(
+                string deviceId = default,
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                bool? sync = default
+            )
+            {
+                DeviceId = deviceId;
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "coolResponse_response")]
+        public class CoolResponse
+        {
+            [JsonConstructorAttribute]
+            protected CoolResponse() { }
+
+            public CoolResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt Cool(CoolRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<CoolResponse>("/thermostats/cool", requestOptions).Data.ActionAttempt;
+        }
+
+        public ActionAttempt Cool(
+            string deviceId = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return Cool(
+                new CoolRequest(
+                    deviceId: deviceId,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    sync: sync
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> CoolAsync(CoolRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<CoolResponse>("/thermostats/cool", requestOptions))
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> CoolAsync(
+            string deviceId = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return (
+                await CoolAsync(
+                    new CoolRequest(
+                        deviceId: deviceId,
+                        coolingSetPointCelsius: coolingSetPointCelsius,
+                        coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                        sync: sync
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -114,6 +259,326 @@ namespace Seam.Api
         public async Task<Device> GetAsync(string? deviceId = default, string? name = default)
         {
             return (await GetAsync(new GetRequest(deviceId: deviceId, name: name)));
+        }
+
+        [DataContract(Name = "heatRequest_request")]
+        public class HeatRequest
+        {
+            [JsonConstructorAttribute]
+            protected HeatRequest() { }
+
+            public HeatRequest(
+                string deviceId = default,
+                float? heatingSetPointCelsius = default,
+                float? heatingSetPointFahrenheit = default,
+                bool? sync = default
+            )
+            {
+                DeviceId = deviceId;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
+                HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "heatResponse_response")]
+        public class HeatResponse
+        {
+            [JsonConstructorAttribute]
+            protected HeatResponse() { }
+
+            public HeatResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt Heat(HeatRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<HeatResponse>("/thermostats/heat", requestOptions).Data.ActionAttempt;
+        }
+
+        public ActionAttempt Heat(
+            string deviceId = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return Heat(
+                new HeatRequest(
+                    deviceId: deviceId,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    sync: sync
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> HeatAsync(HeatRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<HeatResponse>("/thermostats/heat", requestOptions))
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> HeatAsync(
+            string deviceId = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return (
+                await HeatAsync(
+                    new HeatRequest(
+                        deviceId: deviceId,
+                        heatingSetPointCelsius: heatingSetPointCelsius,
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                        sync: sync
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "heatCoolRequest_request")]
+        public class HeatCoolRequest
+        {
+            [JsonConstructorAttribute]
+            protected HeatCoolRequest() { }
+
+            public HeatCoolRequest(
+                string deviceId = default,
+                float? heatingSetPointCelsius = default,
+                float? heatingSetPointFahrenheit = default,
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                bool? sync = default
+            )
+            {
+                DeviceId = deviceId;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
+                HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointFahrenheit { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "heatCoolResponse_response")]
+        public class HeatCoolResponse
+        {
+            [JsonConstructorAttribute]
+            protected HeatCoolResponse() { }
+
+            public HeatCoolResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt HeatCool(HeatCoolRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<HeatCoolResponse>("/thermostats/heat_cool", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt HeatCool(
+            string deviceId = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return HeatCool(
+                new HeatCoolRequest(
+                    deviceId: deviceId,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    sync: sync
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> HeatCoolAsync(HeatCoolRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<HeatCoolResponse>("/thermostats/heat_cool", requestOptions)
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> HeatCoolAsync(
+            string deviceId = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            bool? sync = default
+        )
+        {
+            return (
+                await HeatCoolAsync(
+                    new HeatCoolRequest(
+                        deviceId: deviceId,
+                        heatingSetPointCelsius: heatingSetPointCelsius,
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                        coolingSetPointCelsius: coolingSetPointCelsius,
+                        coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                        sync: sync
+                    )
+                )
+            );
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -242,8 +707,8 @@ namespace Seam.Api
                 [EnumMember(Value = "nest_thermostat")]
                 NestThermostat = 29,
 
-                [EnumMember(Value = "honeywell_thermostat")]
-                HoneywellThermostat = 30,
+                [EnumMember(Value = "honeywell_resideo_thermostat")]
+                HoneywellResideoThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
                 IosPhone = 31,
@@ -345,8 +810,8 @@ namespace Seam.Api
                 [EnumMember(Value = "nest_thermostat")]
                 NestThermostat = 29,
 
-                [EnumMember(Value = "honeywell_thermostat")]
-                HoneywellThermostat = 30,
+                [EnumMember(Value = "honeywell_resideo_thermostat")]
+                HoneywellResideoThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
                 IosPhone = 31,
@@ -457,8 +922,8 @@ namespace Seam.Api
                 [EnumMember(Value = "tedee")]
                 Tedee = 32,
 
-                [EnumMember(Value = "honeywell")]
-                Honeywell = 33
+                [EnumMember(Value = "honeywell_resideo")]
+                HoneywellResideo = 33
             }
 
             [DataMember(
@@ -631,6 +1096,268 @@ namespace Seam.Api
                         createdBefore: createdBefore,
                         userIdentifierKey: userIdentifierKey,
                         customMetadataHas: customMetadataHas
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "offRequest_request")]
+        public class OffRequest
+        {
+            [JsonConstructorAttribute]
+            protected OffRequest() { }
+
+            public OffRequest(string deviceId = default, bool? sync = default)
+            {
+                DeviceId = deviceId;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "offResponse_response")]
+        public class OffResponse
+        {
+            [JsonConstructorAttribute]
+            protected OffResponse() { }
+
+            public OffResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt Off(OffRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<OffResponse>("/thermostats/off", requestOptions).Data.ActionAttempt;
+        }
+
+        public ActionAttempt Off(string deviceId = default, bool? sync = default)
+        {
+            return Off(new OffRequest(deviceId: deviceId, sync: sync));
+        }
+
+        public async Task<ActionAttempt> OffAsync(OffRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<OffResponse>("/thermostats/off", requestOptions))
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> OffAsync(string deviceId = default, bool? sync = default)
+        {
+            return (await OffAsync(new OffRequest(deviceId: deviceId, sync: sync)));
+        }
+
+        [DataContract(Name = "setFanModeRequest_request")]
+        public class SetFanModeRequest
+        {
+            [JsonConstructorAttribute]
+            protected SetFanModeRequest() { }
+
+            public SetFanModeRequest(
+                string deviceId = default,
+                SetFanModeRequest.FanModeEnum? fanMode = default,
+                SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
+                bool? sync = default
+            )
+            {
+                DeviceId = deviceId;
+                FanMode = fanMode;
+                FanModeSetting = fanModeSetting;
+                Sync = sync;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum FanModeEnum
+            {
+                [EnumMember(Value = "auto")]
+                Auto = 0,
+
+                [EnumMember(Value = "on")]
+                On = 1
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum FanModeSettingEnum
+            {
+                [EnumMember(Value = "auto")]
+                Auto = 0,
+
+                [EnumMember(Value = "on")]
+                On = 1
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "fan_mode", IsRequired = false, EmitDefaultValue = false)]
+            public SetFanModeRequest.FanModeEnum? FanMode { get; set; }
+
+            [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public SetFanModeRequest.FanModeSettingEnum? FanModeSetting { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "setFanModeResponse_response")]
+        public class SetFanModeResponse
+        {
+            [JsonConstructorAttribute]
+            protected SetFanModeResponse() { }
+
+            public SetFanModeResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt SetFanMode(SetFanModeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<SetFanModeResponse>("/thermostats/set_fan_mode", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt SetFanMode(
+            string deviceId = default,
+            SetFanModeRequest.FanModeEnum? fanMode = default,
+            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
+            bool? sync = default
+        )
+        {
+            return SetFanMode(
+                new SetFanModeRequest(
+                    deviceId: deviceId,
+                    fanMode: fanMode,
+                    fanModeSetting: fanModeSetting,
+                    sync: sync
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> SetFanModeAsync(SetFanModeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<SetFanModeResponse>(
+                    "/thermostats/set_fan_mode",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> SetFanModeAsync(
+            string deviceId = default,
+            SetFanModeRequest.FanModeEnum? fanMode = default,
+            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
+            bool? sync = default
+        )
+        {
+            return (
+                await SetFanModeAsync(
+                    new SetFanModeRequest(
+                        deviceId: deviceId,
+                        fanMode: fanMode,
+                        fanModeSetting: fanModeSetting,
+                        sync: sync
                     )
                 )
             );

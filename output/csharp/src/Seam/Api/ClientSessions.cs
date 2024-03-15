@@ -460,13 +460,15 @@ namespace Seam.Api
                 string? clientSessionId = default,
                 string? userIdentifierKey = default,
                 string? connectWebviewId = default,
-                bool? withoutUserIdentifierKey = default
+                bool? withoutUserIdentifierKey = default,
+                string? userIdentityId = default
             )
             {
                 ClientSessionId = clientSessionId;
                 UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewId = connectWebviewId;
                 WithoutUserIdentifierKey = withoutUserIdentifierKey;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
@@ -484,6 +486,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? WithoutUserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -552,7 +557,8 @@ namespace Seam.Api
             string? clientSessionId = default,
             string? userIdentifierKey = default,
             string? connectWebviewId = default,
-            bool? withoutUserIdentifierKey = default
+            bool? withoutUserIdentifierKey = default,
+            string? userIdentityId = default
         )
         {
             return List(
@@ -560,7 +566,8 @@ namespace Seam.Api
                     clientSessionId: clientSessionId,
                     userIdentifierKey: userIdentifierKey,
                     connectWebviewId: connectWebviewId,
-                    withoutUserIdentifierKey: withoutUserIdentifierKey
+                    withoutUserIdentifierKey: withoutUserIdentifierKey,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -578,7 +585,8 @@ namespace Seam.Api
             string? clientSessionId = default,
             string? userIdentifierKey = default,
             string? connectWebviewId = default,
-            bool? withoutUserIdentifierKey = default
+            bool? withoutUserIdentifierKey = default,
+            string? userIdentityId = default
         )
         {
             return (
@@ -587,7 +595,8 @@ namespace Seam.Api
                         clientSessionId: clientSessionId,
                         userIdentifierKey: userIdentifierKey,
                         connectWebviewId: connectWebviewId,
-                        withoutUserIdentifierKey: withoutUserIdentifierKey
+                        withoutUserIdentifierKey: withoutUserIdentifierKey,
+                        userIdentityId: userIdentityId
                     )
                 )
             );
