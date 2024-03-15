@@ -25,26 +25,17 @@ namespace Seam.Api
             protected CreateSandboxPhoneRequest() { }
 
             public CreateSandboxPhoneRequest(
-                string assaAbloyCredentialServiceAcsSystemId = default,
                 string? customSdkInstallationId = default,
                 string userIdentityId = default,
                 CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
                 CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default
             )
             {
-                AssaAbloyCredentialServiceAcsSystemId = assaAbloyCredentialServiceAcsSystemId;
                 CustomSdkInstallationId = customSdkInstallationId;
                 UserIdentityId = userIdentityId;
                 PhoneMetadata = phoneMetadata;
                 AssaAbloyMetadata = assaAbloyMetadata;
             }
-
-            [DataMember(
-                Name = "assa_abloy_credential_service_acs_system_id",
-                IsRequired = true,
-                EmitDefaultValue = false
-            )]
-            public string AssaAbloyCredentialServiceAcsSystemId { get; set; }
 
             [DataMember(
                 Name = "custom_sdk_installation_id",
@@ -256,7 +247,6 @@ namespace Seam.Api
         }
 
         public Phone CreateSandboxPhone(
-            string assaAbloyCredentialServiceAcsSystemId = default,
             string? customSdkInstallationId = default,
             string userIdentityId = default,
             CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
@@ -265,7 +255,6 @@ namespace Seam.Api
         {
             return CreateSandboxPhone(
                 new CreateSandboxPhoneRequest(
-                    assaAbloyCredentialServiceAcsSystemId: assaAbloyCredentialServiceAcsSystemId,
                     customSdkInstallationId: customSdkInstallationId,
                     userIdentityId: userIdentityId,
                     phoneMetadata: phoneMetadata,
@@ -289,7 +278,6 @@ namespace Seam.Api
         }
 
         public async Task<Phone> CreateSandboxPhoneAsync(
-            string assaAbloyCredentialServiceAcsSystemId = default,
             string? customSdkInstallationId = default,
             string userIdentityId = default,
             CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
@@ -299,7 +287,6 @@ namespace Seam.Api
             return (
                 await CreateSandboxPhoneAsync(
                     new CreateSandboxPhoneRequest(
-                        assaAbloyCredentialServiceAcsSystemId: assaAbloyCredentialServiceAcsSystemId,
                         customSdkInstallationId: customSdkInstallationId,
                         userIdentityId: userIdentityId,
                         phoneMetadata: phoneMetadata,

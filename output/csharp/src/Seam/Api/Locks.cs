@@ -240,8 +240,8 @@ namespace Seam.Api
                 [EnumMember(Value = "nest_thermostat")]
                 NestThermostat = 29,
 
-                [EnumMember(Value = "honeywell_thermostat")]
-                HoneywellThermostat = 30,
+                [EnumMember(Value = "honeywell_resideo_thermostat")]
+                HoneywellResideoThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
                 IosPhone = 31,
@@ -343,8 +343,8 @@ namespace Seam.Api
                 [EnumMember(Value = "nest_thermostat")]
                 NestThermostat = 29,
 
-                [EnumMember(Value = "honeywell_thermostat")]
-                HoneywellThermostat = 30,
+                [EnumMember(Value = "honeywell_resideo_thermostat")]
+                HoneywellResideoThermostat = 30,
 
                 [EnumMember(Value = "ios_phone")]
                 IosPhone = 31,
@@ -455,8 +455,8 @@ namespace Seam.Api
                 [EnumMember(Value = "tedee")]
                 Tedee = 32,
 
-                [EnumMember(Value = "honeywell")]
-                Honeywell = 33
+                [EnumMember(Value = "honeywell_resideo")]
+                HoneywellResideo = 33
             }
 
             [DataMember(

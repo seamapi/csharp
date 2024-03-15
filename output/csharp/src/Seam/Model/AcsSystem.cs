@@ -22,7 +22,10 @@ namespace Seam.Model
             string name = default,
             string createdAt = default,
             string workspaceId = default,
-            List<string> connectedAccountIds = default
+            List<string> connectedAccountIds = default,
+            string imageUrl = default,
+            string imageAltText = default,
+            bool? canAutomateEnrollment = default
         )
         {
             AcsSystemId = acsSystemId;
@@ -34,6 +37,9 @@ namespace Seam.Model
             CreatedAt = createdAt;
             WorkspaceId = workspaceId;
             ConnectedAccountIds = connectedAccountIds;
+            ImageUrl = imageUrl;
+            ImageAltText = imageAltText;
+            CanAutomateEnrollment = canAutomateEnrollment;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -116,6 +122,15 @@ namespace Seam.Model
 
         [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = true, EmitDefaultValue = false)]
+        public string ImageUrl { get; set; }
+
+        [DataMember(Name = "image_alt_text", IsRequired = true, EmitDefaultValue = false)]
+        public string ImageAltText { get; set; }
+
+        [DataMember(Name = "can_automate_enrollment", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanAutomateEnrollment { get; set; }
 
         public override string ToString()
         {

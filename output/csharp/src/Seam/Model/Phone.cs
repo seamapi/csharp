@@ -16,6 +16,8 @@ namespace Seam.Model
         public Phone(
             string deviceId = default,
             Phone.DeviceTypeEnum deviceType = default,
+            string? nickname = default,
+            string displayName = default,
             List<Phone.CapabilitiesSupportedEnum> capabilitiesSupported = default,
             PhoneProperties properties = default,
             PhoneLocation? location = default,
@@ -26,11 +28,14 @@ namespace Seam.Model
             bool isManaged = default,
             object? customMetadata = default,
             bool? canRemotelyUnlock = default,
+            bool? canRemotelyLock = default,
             bool? canProgramOnlineAccessCodes = default
         )
         {
             DeviceId = deviceId;
             DeviceType = deviceType;
+            Nickname = nickname;
+            DisplayName = displayName;
             CapabilitiesSupported = capabilitiesSupported;
             Properties = properties;
             Location = location;
@@ -41,6 +46,7 @@ namespace Seam.Model
             IsManaged = isManaged;
             CustomMetadata = customMetadata;
             CanRemotelyUnlock = canRemotelyUnlock;
+            CanRemotelyLock = canRemotelyLock;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
         }
 
@@ -82,6 +88,12 @@ namespace Seam.Model
         [DataMember(Name = "device_type", IsRequired = true, EmitDefaultValue = false)]
         public Phone.DeviceTypeEnum DeviceType { get; set; }
 
+        [DataMember(Name = "nickname", IsRequired = false, EmitDefaultValue = false)]
+        public string? Nickname { get; set; }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
         [DataMember(Name = "capabilities_supported", IsRequired = true, EmitDefaultValue = false)]
         public List<Phone.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
 
@@ -111,6 +123,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyLock { get; set; }
 
         [DataMember(
             Name = "can_program_online_access_codes",
