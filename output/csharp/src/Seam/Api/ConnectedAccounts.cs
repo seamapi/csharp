@@ -18,6 +18,70 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string connectedAccountId = default, bool? sync = default)
+            {
+                ConnectedAccountId = connectedAccountId;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/connected_accounts/delete", requestOptions);
+        }
+
+        public void Delete(string connectedAccountId = default, bool? sync = default)
+        {
+            Delete(new DeleteRequest(connectedAccountId: connectedAccountId, sync: sync));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/connected_accounts/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string connectedAccountId = default, bool? sync = default)
+        {
+            await DeleteAsync(
+                new DeleteRequest(connectedAccountId: connectedAccountId, sync: sync)
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

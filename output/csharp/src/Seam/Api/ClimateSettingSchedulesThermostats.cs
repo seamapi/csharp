@@ -301,6 +301,73 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string climateSettingScheduleId = default)
+            {
+                ClimateSettingScheduleId = climateSettingScheduleId;
+            }
+
+            [DataMember(
+                Name = "climate_setting_schedule_id",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public string ClimateSettingScheduleId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/climate_setting_schedules/delete", requestOptions);
+        }
+
+        public void Delete(string climateSettingScheduleId = default)
+        {
+            Delete(new DeleteRequest(climateSettingScheduleId: climateSettingScheduleId));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>(
+                "/thermostats/climate_setting_schedules/delete",
+                requestOptions
+            );
+        }
+
+        public async Task DeleteAsync(string climateSettingScheduleId = default)
+        {
+            await DeleteAsync(
+                new DeleteRequest(climateSettingScheduleId: climateSettingScheduleId)
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

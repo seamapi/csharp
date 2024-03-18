@@ -119,6 +119,64 @@ namespace Seam.Api
             return (await CreateAsync(new CreateRequest(url: url, eventTypes: eventTypes)));
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string webhookId = default)
+            {
+                WebhookId = webhookId;
+            }
+
+            [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+            public string WebhookId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/webhooks/delete", requestOptions);
+        }
+
+        public void Delete(string webhookId = default)
+        {
+            Delete(new DeleteRequest(webhookId: webhookId));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/webhooks/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string webhookId = default)
+        {
+            await DeleteAsync(new DeleteRequest(webhookId: webhookId));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -297,6 +355,68 @@ namespace Seam.Api
         public async Task<List<Webhook>> ListAsync()
         {
             return (await ListAsync(new ListRequest()));
+        }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(string webhookId = default, List<string> eventTypes = default)
+            {
+                WebhookId = webhookId;
+                EventTypes = eventTypes;
+            }
+
+            [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+            public string WebhookId { get; set; }
+
+            [DataMember(Name = "event_types", IsRequired = true, EmitDefaultValue = false)]
+            public List<string> EventTypes { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/webhooks/update", requestOptions);
+        }
+
+        public void Update(string webhookId = default, List<string> eventTypes = default)
+        {
+            Update(new UpdateRequest(webhookId: webhookId, eventTypes: eventTypes));
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/webhooks/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(string webhookId = default, List<string> eventTypes = default)
+        {
+            await UpdateAsync(new UpdateRequest(webhookId: webhookId, eventTypes: eventTypes));
         }
     }
 }
