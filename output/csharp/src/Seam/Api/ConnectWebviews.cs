@@ -370,6 +370,64 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string connectWebviewId = default)
+            {
+                ConnectWebviewId = connectWebviewId;
+            }
+
+            [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectWebviewId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/connect_webviews/delete", requestOptions);
+        }
+
+        public void Delete(string connectWebviewId = default)
+        {
+            Delete(new DeleteRequest(connectWebviewId: connectWebviewId));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/connect_webviews/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string connectWebviewId = default)
+        {
+            await DeleteAsync(new DeleteRequest(connectWebviewId: connectWebviewId));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

@@ -1362,6 +1362,200 @@ namespace Seam.Api
                 )
             );
         }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string deviceId = default,
+                UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+            )
+            {
+                DeviceId = deviceId;
+                DefaultClimateSetting = defaultClimateSetting;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(
+                Name = "default_climate_setting",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public UpdateRequestDefaultClimateSetting DefaultClimateSetting { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "updateRequestDefaultClimateSetting_model")]
+        public class UpdateRequestDefaultClimateSetting
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequestDefaultClimateSetting() { }
+
+            public UpdateRequestDefaultClimateSetting(
+                bool? automaticHeatingEnabled = default,
+                bool? automaticCoolingEnabled = default,
+                UpdateRequestDefaultClimateSetting.HvacModeSettingEnum? hvacModeSetting = default,
+                float? coolingSetPointCelsius = default,
+                float? heatingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                float? heatingSetPointFahrenheit = default,
+                bool? manualOverrideAllowed = default
+            )
+            {
+                AutomaticHeatingEnabled = automaticHeatingEnabled;
+                AutomaticCoolingEnabled = automaticCoolingEnabled;
+                HvacModeSetting = hvacModeSetting;
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                ManualOverrideAllowed = manualOverrideAllowed;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum HvacModeSettingEnum
+            {
+                [EnumMember(Value = "off")]
+                Off = 0,
+
+                [EnumMember(Value = "heat")]
+                Heat = 1,
+
+                [EnumMember(Value = "cool")]
+                Cool = 2,
+
+                [EnumMember(Value = "heat_cool")]
+                HeatCool = 3
+            }
+
+            [DataMember(
+                Name = "automatic_heating_enabled",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AutomaticHeatingEnabled { get; set; }
+
+            [DataMember(
+                Name = "automatic_cooling_enabled",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AutomaticCoolingEnabled { get; set; }
+
+            [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequestDefaultClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointFahrenheit { get; set; }
+
+            [DataMember(
+                Name = "manual_override_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ManualOverrideAllowed { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/update", requestOptions);
+        }
+
+        public void Update(
+            string deviceId = default,
+            UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+        )
+        {
+            Update(
+                new UpdateRequest(deviceId: deviceId, defaultClimateSetting: defaultClimateSetting)
+            );
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/thermostats/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            string deviceId = default,
+            UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(deviceId: deviceId, defaultClimateSetting: defaultClimateSetting)
+            );
+        }
     }
 }
 

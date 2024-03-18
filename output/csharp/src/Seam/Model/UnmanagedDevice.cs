@@ -461,19 +461,30 @@ namespace Seam.Model
         protected UnmanagedDevicePropertiesModel() { }
 
         public UnmanagedDevicePropertiesModel(
+            bool? canConnectAccessoryKeypad = default,
             string displayName = default,
             string manufacturerDisplayName = default,
+            bool? hasBuiltInKeypad = default,
             bool? offlineAccessCodesSupported = default,
             bool? onlineAccessCodesSupported = default,
             bool? accessoryKeypadSupported = default
         )
         {
+            CanConnectAccessoryKeypad = canConnectAccessoryKeypad;
             DisplayName = displayName;
             ManufacturerDisplayName = manufacturerDisplayName;
+            HasBuiltInKeypad = hasBuiltInKeypad;
             OfflineAccessCodesSupported = offlineAccessCodesSupported;
             OnlineAccessCodesSupported = onlineAccessCodesSupported;
             AccessoryKeypadSupported = accessoryKeypadSupported;
         }
+
+        [DataMember(
+            Name = "can_connect_accessory_keypad",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanConnectAccessoryKeypad { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
@@ -484,6 +495,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string ManufacturerDisplayName { get; set; }
+
+        [DataMember(Name = "has_built_in_keypad", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasBuiltInKeypad { get; set; }
 
         [DataMember(
             Name = "offline_access_codes_supported",

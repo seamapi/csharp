@@ -638,6 +638,68 @@ namespace Seam.Api
                 )
             );
         }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(string deviceId = default, bool isManaged = default)
+            {
+                DeviceId = deviceId;
+                IsManaged = isManaged;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsManaged { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/unmanaged/update", requestOptions);
+        }
+
+        public void Update(string deviceId = default, bool isManaged = default)
+        {
+            Update(new UpdateRequest(deviceId: deviceId, isManaged: isManaged));
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/unmanaged/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(string deviceId = default, bool isManaged = default)
+        {
+            await UpdateAsync(new UpdateRequest(deviceId: deviceId, isManaged: isManaged));
+        }
     }
 }
 

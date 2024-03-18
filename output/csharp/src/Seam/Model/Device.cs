@@ -261,6 +261,7 @@ namespace Seam.Model
         public DeviceProperties(
             bool? online = default,
             string? name = default,
+            DevicePropertiesAccessoryKeypad? accessoryKeypad = default,
             DevicePropertiesAppearance? appearance = default,
             DevicePropertiesModel? model = default,
             bool? hasDirectPower = default,
@@ -315,6 +316,7 @@ namespace Seam.Model
         {
             Online = online;
             Name = name;
+            AccessoryKeypad = accessoryKeypad;
             Appearance = appearance;
             Model = model;
             HasDirectPower = hasDirectPower;
@@ -372,6 +374,9 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
+
+        [DataMember(Name = "accessory_keypad", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAccessoryKeypad? AccessoryKeypad { get; set; }
 
         [DataMember(Name = "appearance", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAppearance? Appearance { get; set; }
@@ -580,6 +585,40 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesAccessoryKeypad_model")]
+    public class DevicePropertiesAccessoryKeypad
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAccessoryKeypad() { }
+
+        public DevicePropertiesAccessoryKeypad(bool? isConnected = default)
+        {
+            IsConnected = isConnected;
+        }
+
+        [DataMember(Name = "is_connected", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsConnected { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesAppearance_model")]
     public class DevicePropertiesAppearance
     {
@@ -621,19 +660,30 @@ namespace Seam.Model
         protected DevicePropertiesModel() { }
 
         public DevicePropertiesModel(
+            bool? canConnectAccessoryKeypad = default,
             string? displayName = default,
             string? manufacturerDisplayName = default,
+            bool? hasBuiltInKeypad = default,
             bool? offlineAccessCodesSupported = default,
             bool? onlineAccessCodesSupported = default,
             bool? accessoryKeypadSupported = default
         )
         {
+            CanConnectAccessoryKeypad = canConnectAccessoryKeypad;
             DisplayName = displayName;
             ManufacturerDisplayName = manufacturerDisplayName;
+            HasBuiltInKeypad = hasBuiltInKeypad;
             OfflineAccessCodesSupported = offlineAccessCodesSupported;
             OnlineAccessCodesSupported = onlineAccessCodesSupported;
             AccessoryKeypadSupported = accessoryKeypadSupported;
         }
+
+        [DataMember(
+            Name = "can_connect_accessory_keypad",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanConnectAccessoryKeypad { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
@@ -644,6 +694,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string? ManufacturerDisplayName { get; set; }
+
+        [DataMember(Name = "has_built_in_keypad", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasBuiltInKeypad { get; set; }
 
         [DataMember(
             Name = "offline_access_codes_supported",

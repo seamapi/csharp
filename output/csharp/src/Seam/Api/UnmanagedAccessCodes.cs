@@ -18,6 +18,125 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "convertToManagedRequest_request")]
+        public class ConvertToManagedRequest
+        {
+            [JsonConstructorAttribute]
+            protected ConvertToManagedRequest() { }
+
+            public ConvertToManagedRequest(
+                string accessCodeId = default,
+                bool? isExternalModificationAllowed = default,
+                bool? allowExternalModification = default,
+                bool? force = default,
+                bool? sync = default
+            )
+            {
+                AccessCodeId = accessCodeId;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
+                AllowExternalModification = allowExternalModification;
+                Force = force;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
+            [DataMember(
+                Name = "allow_external_modification",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowExternalModification { get; set; }
+
+            [DataMember(Name = "force", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Force { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void ConvertToManaged(ConvertToManagedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/unmanaged/convert_to_managed", requestOptions);
+        }
+
+        public void ConvertToManaged(
+            string accessCodeId = default,
+            bool? isExternalModificationAllowed = default,
+            bool? allowExternalModification = default,
+            bool? force = default,
+            bool? sync = default
+        )
+        {
+            ConvertToManaged(
+                new ConvertToManagedRequest(
+                    accessCodeId: accessCodeId,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    allowExternalModification: allowExternalModification,
+                    force: force,
+                    sync: sync
+                )
+            );
+        }
+
+        public async Task ConvertToManagedAsync(ConvertToManagedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>(
+                "/access_codes/unmanaged/convert_to_managed",
+                requestOptions
+            );
+        }
+
+        public async Task ConvertToManagedAsync(
+            string accessCodeId = default,
+            bool? isExternalModificationAllowed = default,
+            bool? allowExternalModification = default,
+            bool? force = default,
+            bool? sync = default
+        )
+        {
+            await ConvertToManagedAsync(
+                new ConvertToManagedRequest(
+                    accessCodeId: accessCodeId,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    allowExternalModification: allowExternalModification,
+                    force: force,
+                    sync: sync
+                )
+            );
+        }
+
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -356,6 +475,122 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey)
+                )
+            );
+        }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string accessCodeId = default,
+                bool isManaged = default,
+                bool? allowExternalModification = default,
+                bool? isExternalModificationAllowed = default,
+                bool? force = default
+            )
+            {
+                AccessCodeId = accessCodeId;
+                IsManaged = isManaged;
+                AllowExternalModification = allowExternalModification;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
+                Force = force;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsManaged { get; set; }
+
+            [DataMember(
+                Name = "allow_external_modification",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowExternalModification { get; set; }
+
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
+            [DataMember(Name = "force", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Force { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/unmanaged/update", requestOptions);
+        }
+
+        public void Update(
+            string accessCodeId = default,
+            bool isManaged = default,
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default,
+            bool? force = default
+        )
+        {
+            Update(
+                new UpdateRequest(
+                    accessCodeId: accessCodeId,
+                    isManaged: isManaged,
+                    allowExternalModification: allowExternalModification,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    force: force
+                )
+            );
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/access_codes/unmanaged/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            string accessCodeId = default,
+            bool isManaged = default,
+            bool? allowExternalModification = default,
+            bool? isExternalModificationAllowed = default,
+            bool? force = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(
+                    accessCodeId: accessCodeId,
+                    isManaged: isManaged,
+                    allowExternalModification: allowExternalModification,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    force: force
                 )
             );
         }

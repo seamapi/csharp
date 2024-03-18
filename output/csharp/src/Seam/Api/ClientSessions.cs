@@ -172,6 +172,64 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string clientSessionId = default)
+            {
+                ClientSessionId = clientSessionId;
+            }
+
+            [DataMember(Name = "client_session_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ClientSessionId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/client_sessions/delete", requestOptions);
+        }
+
+        public void Delete(string clientSessionId = default)
+        {
+            Delete(new DeleteRequest(clientSessionId: clientSessionId));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/client_sessions/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string clientSessionId = default)
+        {
+            await DeleteAsync(new DeleteRequest(clientSessionId: clientSessionId));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -600,6 +658,64 @@ namespace Seam.Api
                     )
                 )
             );
+        }
+
+        [DataContract(Name = "revokeRequest_request")]
+        public class RevokeRequest
+        {
+            [JsonConstructorAttribute]
+            protected RevokeRequest() { }
+
+            public RevokeRequest(string clientSessionId = default)
+            {
+                ClientSessionId = clientSessionId;
+            }
+
+            [DataMember(Name = "client_session_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ClientSessionId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Revoke(RevokeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/client_sessions/revoke", requestOptions);
+        }
+
+        public void Revoke(string clientSessionId = default)
+        {
+            Revoke(new RevokeRequest(clientSessionId: clientSessionId));
+        }
+
+        public async Task RevokeAsync(RevokeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/client_sessions/revoke", requestOptions);
+        }
+
+        public async Task RevokeAsync(string clientSessionId = default)
+        {
+            await RevokeAsync(new RevokeRequest(clientSessionId: clientSessionId));
         }
     }
 }

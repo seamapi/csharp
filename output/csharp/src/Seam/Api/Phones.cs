@@ -18,6 +18,64 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "deactivateRequest_request")]
+        public class DeactivateRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeactivateRequest() { }
+
+            public DeactivateRequest(string deviceId = default)
+            {
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Deactivate(DeactivateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/phones/deactivate", requestOptions);
+        }
+
+        public void Deactivate(string deviceId = default)
+        {
+            Deactivate(new DeactivateRequest(deviceId: deviceId));
+        }
+
+        public async Task DeactivateAsync(DeactivateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/phones/deactivate", requestOptions);
+        }
+
+        public async Task DeactivateAsync(string deviceId = default)
+        {
+            await DeactivateAsync(new DeactivateRequest(deviceId: deviceId));
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
