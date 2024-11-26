@@ -138,7 +138,10 @@ namespace Seam.Model
             HoneywellResideo = 35,
 
             [EnumMember(Value = "latch")]
-            Latch = 36
+            Latch = 36,
+
+            [EnumMember(Value = "akiles")]
+            Akiles = 37
         }
 
         [JsonConverter(typeof(StringEnumConverter))]

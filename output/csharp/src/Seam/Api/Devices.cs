@@ -514,7 +514,10 @@ namespace Seam.Api
                 Tedee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33
+                HoneywellResideo = 33,
+
+                [EnumMember(Value = "akiles")]
+                Akiles = 34,
             }
 
             [DataMember(

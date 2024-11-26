@@ -17,6 +17,15 @@ public class UnitTest1 : SeamConnectTest
     }
 
     [Fact]
+    public async void TestGetDeviceProviderList()
+    {
+        var providers = await seam.Devices
+            .ListDeviceProvidersAsync();
+
+        Assert.True(providers.First((p) => p.DeviceProviderName == DeviceProvider.DeviceProviderNameEnum.August) != null);
+    }
+
+    [Fact]
     public async void TestGetDeviceListAsync()
     {
         var device = (await seam.Devices.ListAsync()).First(
