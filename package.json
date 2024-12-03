@@ -49,7 +49,7 @@
     "preformat": "prettier --write --ignore-path .gitignore .",
     "format:csharp": "dotnet csharpier ./output/csharp",
     "report": "c8 report",
-    "generate": "tsx src/index.ts && npm run generate:csproj && npm run format:csharp",
+    "generate": "true",
     "generate:csproj": "tsx src/generate-csproj.ts",
     "pack": "npm run generate:csproj && dotnet pack ./output/csharp/src/Seam -o ./"
   },
