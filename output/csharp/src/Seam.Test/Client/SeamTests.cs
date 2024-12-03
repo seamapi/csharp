@@ -65,8 +65,8 @@ public class UnitTest1 : SeamConnectTest
 
         var action_attempt = seam.Locks.LockDoor(deviceId: device.DeviceId);
 
-        Assert.IsType<ActionAttemptPending>(action_attempt);
-        Assert.Equal("LOCK_DOOR", (action_attempt as ActionAttemptPending)!.ActionType);
+        Assert.IsType<ActionAttemptLockDoor>(action_attempt);
+        Assert.Equal("LOCK_DOOR", (action_attempt as ActionAttemptLockDoor)!.ActionType);
     }
 
     [Fact]
@@ -78,8 +78,8 @@ public class UnitTest1 : SeamConnectTest
 
         var action_attempt = await seam.Locks.LockDoorAsync(deviceId: device.DeviceId);
 
-        Assert.IsType<ActionAttemptPending>(action_attempt);
-        Assert.Equal("LOCK_DOOR", (action_attempt as ActionAttemptPending)!.ActionType);
+        Assert.IsType<ActionAttemptLockDoor>(action_attempt);
+        Assert.Equal("LOCK_DOOR", (action_attempt as ActionAttemptLockDoor)!.ActionType);
     }
 
     [Fact]
