@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -54,7 +54,7 @@ namespace Seam.Model
         public enum ScheduleTypeEnum
         {
             [EnumMember(Value = "time_bound")]
-            TimeBound = 0
+            TimeBound = 0,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -70,7 +70,7 @@ namespace Seam.Model
             Cool = 2,
 
             [EnumMember(Value = "heat_cool")]
-            HeatCool = 3
+            HeatCool = 3,
         }
 
         [DataMember(

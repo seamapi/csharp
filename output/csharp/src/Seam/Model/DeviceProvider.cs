@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -14,12 +14,34 @@ namespace Seam.Model
         protected DeviceProvider() { }
 
         public DeviceProvider(
+            bool? canHvacCool = default,
+            bool? canHvacHeat = default,
+            bool? canHvacHeatCool = default,
+            bool? canProgramOfflineAccessCodes = default,
+            bool? canProgramOnlineAccessCodes = default,
+            bool? canRemotelyLock = default,
+            bool? canRemotelyUnlock = default,
+            bool? canSimulateConnection = default,
+            bool? canSimulateDisconnection = default,
+            bool? canSimulateRemoval = default,
+            bool? canTurnOffHvac = default,
             DeviceProvider.DeviceProviderNameEnum deviceProviderName = default,
             string displayName = default,
             string imageUrl = default,
             List<DeviceProvider.ProviderCategoriesEnum> providerCategories = default
         )
         {
+            CanHvacCool = canHvacCool;
+            CanHvacHeat = canHvacHeat;
+            CanHvacHeatCool = canHvacHeatCool;
+            CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
+            CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
+            CanRemotelyLock = canRemotelyLock;
+            CanRemotelyUnlock = canRemotelyUnlock;
+            CanSimulateConnection = canSimulateConnection;
+            CanSimulateDisconnection = canSimulateDisconnection;
+            CanSimulateRemoval = canSimulateRemoval;
+            CanTurnOffHvac = canTurnOffHvac;
             DeviceProviderName = deviceProviderName;
             DisplayName = displayName;
             ImageUrl = imageUrl;
@@ -29,116 +51,134 @@ namespace Seam.Model
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DeviceProviderNameEnum
         {
+            [EnumMember(Value = "dormakaba_community")]
+            DormakabaCommunity = 0,
+
+            [EnumMember(Value = "legic_connect")]
+            LegicConnect = 1,
+
             [EnumMember(Value = "akuvox")]
-            Akuvox = 0,
+            Akuvox = 2,
 
             [EnumMember(Value = "august")]
-            August = 1,
+            August = 3,
 
             [EnumMember(Value = "avigilon_alta")]
-            AvigilonAlta = 2,
+            AvigilonAlta = 4,
 
             [EnumMember(Value = "brivo")]
-            Brivo = 3,
+            Brivo = 5,
 
             [EnumMember(Value = "butterflymx")]
-            Butterflymx = 4,
+            Butterflymx = 6,
 
             [EnumMember(Value = "schlage")]
-            Schlage = 5,
+            Schlage = 7,
 
             [EnumMember(Value = "smartthings")]
-            Smartthings = 6,
+            Smartthings = 8,
 
             [EnumMember(Value = "yale")]
-            Yale = 7,
+            Yale = 9,
 
             [EnumMember(Value = "genie")]
-            Genie = 8,
+            Genie = 10,
 
             [EnumMember(Value = "doorking")]
-            Doorking = 9,
+            Doorking = 11,
 
             [EnumMember(Value = "salto")]
-            Salto = 10,
+            Salto = 12,
+
+            [EnumMember(Value = "salto_ks")]
+            SaltoKs = 13,
 
             [EnumMember(Value = "lockly")]
-            Lockly = 11,
+            Lockly = 14,
 
             [EnumMember(Value = "ttlock")]
-            Ttlock = 12,
+            Ttlock = 15,
 
             [EnumMember(Value = "linear")]
-            Linear = 13,
+            Linear = 16,
 
             [EnumMember(Value = "noiseaware")]
-            Noiseaware = 14,
+            Noiseaware = 17,
 
             [EnumMember(Value = "nuki")]
-            Nuki = 15,
+            Nuki = 18,
 
             [EnumMember(Value = "seam_relay_admin")]
-            SeamRelayAdmin = 16,
+            SeamRelayAdmin = 19,
 
             [EnumMember(Value = "igloo")]
-            Igloo = 17,
+            Igloo = 20,
 
             [EnumMember(Value = "kwikset")]
-            Kwikset = 18,
+            Kwikset = 21,
 
             [EnumMember(Value = "minut")]
-            Minut = 19,
+            Minut = 22,
 
             [EnumMember(Value = "my_2n")]
-            My_2n = 20,
+            My_2n = 23,
 
             [EnumMember(Value = "controlbyweb")]
-            Controlbyweb = 21,
+            Controlbyweb = 24,
 
             [EnumMember(Value = "nest")]
-            Nest = 22,
+            Nest = 25,
 
             [EnumMember(Value = "igloohome")]
-            Igloohome = 23,
+            Igloohome = 26,
 
             [EnumMember(Value = "ecobee")]
-            Ecobee = 24,
+            Ecobee = 27,
 
             [EnumMember(Value = "hubitat")]
-            Hubitat = 25,
+            Hubitat = 28,
 
             [EnumMember(Value = "four_suites")]
-            FourSuites = 26,
+            FourSuites = 29,
 
             [EnumMember(Value = "dormakaba_oracode")]
-            DormakabaOracode = 27,
+            DormakabaOracode = 30,
 
             [EnumMember(Value = "pti")]
-            Pti = 28,
+            Pti = 31,
 
             [EnumMember(Value = "wyze")]
-            Wyze = 29,
+            Wyze = 32,
 
             [EnumMember(Value = "seam_passport")]
-            SeamPassport = 30,
+            SeamPassport = 33,
 
             [EnumMember(Value = "visionline")]
-            Visionline = 31,
+            Visionline = 34,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 32,
+            AssaAbloyCredentialService = 35,
 
             [EnumMember(Value = "seam_bridge")]
-            SeamBridge = 33,
+            SeamBridge = 36,
 
             [EnumMember(Value = "tedee")]
-            Tedee = 34,
+            Tedee = 37,
 
             [EnumMember(Value = "honeywell_resideo")]
-            HoneywellResideo = 35,
+            HoneywellResideo = 38,
 
             [EnumMember(Value = "latch")]
-            Latch = 36
+            Latch = 39,
+
+            [EnumMember(Value = "akiles")]
+            Akiles = 40,
+
+            [EnumMember(Value = "assa_abloy_vostio")]
+            AssaAbloyVostio = 41,
+
+            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
+            AssaAbloyVostioCredentialService = 42,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -157,8 +197,53 @@ namespace Seam.Model
             NoiseSensors = 3,
 
             [EnumMember(Value = "access_control_systems")]
-            AccessControlSystems = 4
+            AccessControlSystems = 4,
         }
+
+        [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacCool { get; set; }
+
+        [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacHeat { get; set; }
+
+        [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacHeatCool { get; set; }
+
+        [DataMember(
+            Name = "can_program_offline_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOfflineAccessCodes { get; set; }
+
+        [DataMember(
+            Name = "can_program_online_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOnlineAccessCodes { get; set; }
+
+        [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyLock { get; set; }
+
+        [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyUnlock { get; set; }
+
+        [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanSimulateConnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_disconnection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateDisconnection { get; set; }
+
+        [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanSimulateRemoval { get; set; }
+
+        [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanTurnOffHvac { get; set; }
 
         [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
         public DeviceProvider.DeviceProviderNameEnum DeviceProviderName { get; set; }

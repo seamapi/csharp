@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -14,60 +14,50 @@ namespace Seam.Model
         protected AccessCode() { }
 
         public AccessCode(
-            string? commonCodeKey = default,
-            bool? isScheduledOnDevice = default,
-            AccessCode.TypeEnum type = default,
-            bool? isWaitingForCodeAssignment = default,
             string accessCodeId = default,
-            string deviceId = default,
-            string? name = default,
             string? code = default,
+            string? commonCodeKey = default,
             string createdAt = default,
-            Object errors = default,
-            Object warnings = default,
-            bool isManaged = default,
-            string? startsAt = default,
+            string deviceId = default,
             string? endsAt = default,
-            AccessCode.StatusEnum status = default,
-            bool isBackupAccessCodeAvailable = default,
+            List<JObject> errors = default,
             bool? isBackup = default,
-            string? pulledBackupAccessCodeId = default,
+            bool isBackupAccessCodeAvailable = default,
             bool isExternalModificationAllowed = default,
+            bool isManaged = default,
+            bool isOfflineAccessCode = default,
             bool isOneTimeUse = default,
-            bool isOfflineAccessCode = default
+            bool? isScheduledOnDevice = default,
+            bool? isWaitingForCodeAssignment = default,
+            string? name = default,
+            string? pulledBackupAccessCodeId = default,
+            string? startsAt = default,
+            AccessCode.StatusEnum status = default,
+            AccessCode.TypeEnum type = default,
+            List<AccessCodeWarnings> warnings = default
         )
         {
-            CommonCodeKey = commonCodeKey;
-            IsScheduledOnDevice = isScheduledOnDevice;
-            Type = type;
-            IsWaitingForCodeAssignment = isWaitingForCodeAssignment;
             AccessCodeId = accessCodeId;
-            DeviceId = deviceId;
-            Name = name;
             Code = code;
+            CommonCodeKey = commonCodeKey;
             CreatedAt = createdAt;
-            Errors = errors;
-            Warnings = warnings;
-            IsManaged = isManaged;
-            StartsAt = startsAt;
+            DeviceId = deviceId;
             EndsAt = endsAt;
-            Status = status;
-            IsBackupAccessCodeAvailable = isBackupAccessCodeAvailable;
+            Errors = errors;
             IsBackup = isBackup;
-            PulledBackupAccessCodeId = pulledBackupAccessCodeId;
+            IsBackupAccessCodeAvailable = isBackupAccessCodeAvailable;
             IsExternalModificationAllowed = isExternalModificationAllowed;
-            IsOneTimeUse = isOneTimeUse;
+            IsManaged = isManaged;
             IsOfflineAccessCode = isOfflineAccessCode;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum TypeEnum
-        {
-            [EnumMember(Value = "time_bound")]
-            TimeBound = 0,
-
-            [EnumMember(Value = "ongoing")]
-            Ongoing = 1
+            IsOneTimeUse = isOneTimeUse;
+            IsScheduledOnDevice = isScheduledOnDevice;
+            IsWaitingForCodeAssignment = isWaitingForCodeAssignment;
+            Name = name;
+            PulledBackupAccessCodeId = pulledBackupAccessCodeId;
+            StartsAt = startsAt;
+            Status = status;
+            Type = type;
+            Warnings = warnings;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -86,57 +76,42 @@ namespace Seam.Model
             Removing = 3,
 
             [EnumMember(Value = "unknown")]
-            Unknown = 4
+            Unknown = 4,
         }
 
-        [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? CommonCodeKey { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            [EnumMember(Value = "time_bound")]
+            TimeBound = 0,
 
-        [DataMember(Name = "is_scheduled_on_device", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsScheduledOnDevice { get; set; }
-
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
-        public AccessCode.TypeEnum Type { get; set; }
-
-        [DataMember(
-            Name = "is_waiting_for_code_assignment",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? IsWaitingForCodeAssignment { get; set; }
+            [EnumMember(Value = "ongoing")]
+            Ongoing = 1,
+        }
 
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
-
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string? Name { get; set; }
-
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
+
+        [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CommonCodeKey { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public Object Errors { get; set; }
-
-        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public Object Warnings { get; set; }
-
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsManaged { get; set; }
-
-        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? StartsAt { get; set; }
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public AccessCode.StatusEnum Status { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<JObject> Errors { get; set; }
+
+        [DataMember(Name = "is_backup", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsBackup { get; set; }
 
         [DataMember(
             Name = "is_backup_access_code_available",
@@ -145,8 +120,34 @@ namespace Seam.Model
         )]
         public bool IsBackupAccessCodeAvailable { get; set; }
 
-        [DataMember(Name = "is_backup", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsBackup { get; set; }
+        [DataMember(
+            Name = "is_external_modification_allowed",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public bool IsExternalModificationAllowed { get; set; }
+
+        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsManaged { get; set; }
+
+        [DataMember(Name = "is_offline_access_code", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsOfflineAccessCode { get; set; }
+
+        [DataMember(Name = "is_one_time_use", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsOneTimeUse { get; set; }
+
+        [DataMember(Name = "is_scheduled_on_device", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsScheduledOnDevice { get; set; }
+
+        [DataMember(
+            Name = "is_waiting_for_code_assignment",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? IsWaitingForCodeAssignment { get; set; }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
 
         [DataMember(
             Name = "pulled_backup_access_code_id",
@@ -155,18 +156,55 @@ namespace Seam.Model
         )]
         public string? PulledBackupAccessCodeId { get; set; }
 
-        [DataMember(
-            Name = "is_external_modification_allowed",
-            IsRequired = true,
-            EmitDefaultValue = false
-        )]
-        public bool IsExternalModificationAllowed { get; set; }
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? StartsAt { get; set; }
 
-        [DataMember(Name = "is_one_time_use", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsOneTimeUse { get; set; }
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public AccessCode.StatusEnum Status { get; set; }
 
-        [DataMember(Name = "is_offline_access_code", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsOfflineAccessCode { get; set; }
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        public AccessCode.TypeEnum Type { get; set; }
+
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<AccessCodeWarnings> Warnings { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_accessCodeWarnings_model")]
+    public class AccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected AccessCodeWarnings() { }
+
+        public AccessCodeWarnings(string message = default, string warningCode = default)
+        {
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {

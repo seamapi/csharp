@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -26,37 +26,31 @@ namespace Seam.Api
 
             public CreateRequest(
                 string deviceId = default,
-                bool? sync = default,
-                string? name = default,
-                string startsDailyAt = default,
                 string endsDailyAt = default,
+                string? name = default,
                 float? noiseThresholdDecibels = default,
-                float? noiseThresholdNrs = default
+                float? noiseThresholdNrs = default,
+                string startsDailyAt = default,
+                bool? sync = default
             )
             {
                 DeviceId = deviceId;
-                Sync = sync;
-                Name = name;
-                StartsDailyAt = startsDailyAt;
                 EndsDailyAt = endsDailyAt;
+                Name = name;
                 NoiseThresholdDecibels = noiseThresholdDecibels;
                 NoiseThresholdNrs = noiseThresholdNrs;
+                StartsDailyAt = startsDailyAt;
+                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
+            [DataMember(Name = "ends_daily_at", IsRequired = true, EmitDefaultValue = false)]
+            public string EndsDailyAt { get; set; }
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
-
-            [DataMember(Name = "starts_daily_at", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsDailyAt { get; set; }
-
-            [DataMember(Name = "ends_daily_at", IsRequired = true, EmitDefaultValue = false)]
-            public string EndsDailyAt { get; set; }
 
             [DataMember(
                 Name = "noise_threshold_decibels",
@@ -67,6 +61,12 @@ namespace Seam.Api
 
             [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
             public float? NoiseThresholdNrs { get; set; }
+
+            [DataMember(Name = "starts_daily_at", IsRequired = true, EmitDefaultValue = false)]
+            public string StartsDailyAt { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -133,23 +133,23 @@ namespace Seam.Api
 
         public NoiseThreshold Create(
             string deviceId = default,
-            bool? sync = default,
-            string? name = default,
-            string startsDailyAt = default,
             string endsDailyAt = default,
+            string? name = default,
             float? noiseThresholdDecibels = default,
-            float? noiseThresholdNrs = default
+            float? noiseThresholdNrs = default,
+            string startsDailyAt = default,
+            bool? sync = default
         )
         {
             return Create(
                 new CreateRequest(
                     deviceId: deviceId,
-                    sync: sync,
-                    name: name,
-                    startsDailyAt: startsDailyAt,
                     endsDailyAt: endsDailyAt,
+                    name: name,
                     noiseThresholdDecibels: noiseThresholdDecibels,
-                    noiseThresholdNrs: noiseThresholdNrs
+                    noiseThresholdNrs: noiseThresholdNrs,
+                    startsDailyAt: startsDailyAt,
+                    sync: sync
                 )
             );
         }
@@ -170,158 +170,23 @@ namespace Seam.Api
 
         public async Task<NoiseThreshold> CreateAsync(
             string deviceId = default,
-            bool? sync = default,
-            string? name = default,
-            string startsDailyAt = default,
             string endsDailyAt = default,
+            string? name = default,
             float? noiseThresholdDecibels = default,
-            float? noiseThresholdNrs = default
+            float? noiseThresholdNrs = default,
+            string startsDailyAt = default,
+            bool? sync = default
         )
         {
             return (
                 await CreateAsync(
                     new CreateRequest(
                         deviceId: deviceId,
-                        sync: sync,
-                        name: name,
-                        startsDailyAt: startsDailyAt,
                         endsDailyAt: endsDailyAt,
+                        name: name,
                         noiseThresholdDecibels: noiseThresholdDecibels,
-                        noiseThresholdNrs: noiseThresholdNrs
-                    )
-                )
-            );
-        }
-
-        [DataContract(Name = "deleteRequest_request")]
-        public class DeleteRequest
-        {
-            [JsonConstructorAttribute]
-            protected DeleteRequest() { }
-
-            public DeleteRequest(
-                string noiseThresholdId = default,
-                string deviceId = default,
-                bool? sync = default
-            )
-            {
-                NoiseThresholdId = noiseThresholdId;
-                DeviceId = deviceId;
-                Sync = sync;
-            }
-
-            [DataMember(Name = "noise_threshold_id", IsRequired = true, EmitDefaultValue = false)]
-            public string NoiseThresholdId { get; set; }
-
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "deleteResponse_response")]
-        public class DeleteResponse
-        {
-            [JsonConstructorAttribute]
-            protected DeleteResponse() { }
-
-            public DeleteResponse(ActionAttempt actionAttempt = default)
-            {
-                ActionAttempt = actionAttempt;
-            }
-
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public ActionAttempt Delete(DeleteRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return _seam
-                .Post<DeleteResponse>("/noise_sensors/noise_thresholds/delete", requestOptions)
-                .Data.ActionAttempt;
-        }
-
-        public ActionAttempt Delete(
-            string noiseThresholdId = default,
-            string deviceId = default,
-            bool? sync = default
-        )
-        {
-            return Delete(
-                new DeleteRequest(
-                    noiseThresholdId: noiseThresholdId,
-                    deviceId: deviceId,
-                    sync: sync
-                )
-            );
-        }
-
-        public async Task<ActionAttempt> DeleteAsync(DeleteRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<DeleteResponse>(
-                    "/noise_sensors/noise_thresholds/delete",
-                    requestOptions
-                )
-            )
-                .Data
-                .ActionAttempt;
-        }
-
-        public async Task<ActionAttempt> DeleteAsync(
-            string noiseThresholdId = default,
-            string deviceId = default,
-            bool? sync = default
-        )
-        {
-            return (
-                await DeleteAsync(
-                    new DeleteRequest(
-                        noiseThresholdId: noiseThresholdId,
-                        deviceId: deviceId,
+                        noiseThresholdNrs: noiseThresholdNrs,
+                        startsDailyAt: startsDailyAt,
                         sync: sync
                     )
                 )
@@ -536,190 +401,6 @@ namespace Seam.Api
         {
             return (
                 await ListAsync(new ListRequest(deviceId: deviceId, isProgrammed: isProgrammed))
-            );
-        }
-
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
-        {
-            [JsonConstructorAttribute]
-            protected UpdateRequest() { }
-
-            public UpdateRequest(
-                string noiseThresholdId = default,
-                string deviceId = default,
-                bool? sync = default,
-                string? name = default,
-                string? startsDailyAt = default,
-                string? endsDailyAt = default,
-                float? noiseThresholdDecibels = default,
-                float? noiseThresholdNrs = default
-            )
-            {
-                NoiseThresholdId = noiseThresholdId;
-                DeviceId = deviceId;
-                Sync = sync;
-                Name = name;
-                StartsDailyAt = startsDailyAt;
-                EndsDailyAt = endsDailyAt;
-                NoiseThresholdDecibels = noiseThresholdDecibels;
-                NoiseThresholdNrs = noiseThresholdNrs;
-            }
-
-            [DataMember(Name = "noise_threshold_id", IsRequired = true, EmitDefaultValue = false)]
-            public string NoiseThresholdId { get; set; }
-
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
-
-            [DataMember(Name = "starts_daily_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? StartsDailyAt { get; set; }
-
-            [DataMember(Name = "ends_daily_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? EndsDailyAt { get; set; }
-
-            [DataMember(
-                Name = "noise_threshold_decibels",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? NoiseThresholdDecibels { get; set; }
-
-            [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
-            public float? NoiseThresholdNrs { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "updateResponse_response")]
-        public class UpdateResponse
-        {
-            [JsonConstructorAttribute]
-            protected UpdateResponse() { }
-
-            public UpdateResponse(ActionAttempt actionAttempt = default)
-            {
-                ActionAttempt = actionAttempt;
-            }
-
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public ActionAttempt Update(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return _seam
-                .Post<UpdateResponse>("/noise_sensors/noise_thresholds/update", requestOptions)
-                .Data.ActionAttempt;
-        }
-
-        public ActionAttempt Update(
-            string noiseThresholdId = default,
-            string deviceId = default,
-            bool? sync = default,
-            string? name = default,
-            string? startsDailyAt = default,
-            string? endsDailyAt = default,
-            float? noiseThresholdDecibels = default,
-            float? noiseThresholdNrs = default
-        )
-        {
-            return Update(
-                new UpdateRequest(
-                    noiseThresholdId: noiseThresholdId,
-                    deviceId: deviceId,
-                    sync: sync,
-                    name: name,
-                    startsDailyAt: startsDailyAt,
-                    endsDailyAt: endsDailyAt,
-                    noiseThresholdDecibels: noiseThresholdDecibels,
-                    noiseThresholdNrs: noiseThresholdNrs
-                )
-            );
-        }
-
-        public async Task<ActionAttempt> UpdateAsync(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<UpdateResponse>(
-                    "/noise_sensors/noise_thresholds/update",
-                    requestOptions
-                )
-            )
-                .Data
-                .ActionAttempt;
-        }
-
-        public async Task<ActionAttempt> UpdateAsync(
-            string noiseThresholdId = default,
-            string deviceId = default,
-            bool? sync = default,
-            string? name = default,
-            string? startsDailyAt = default,
-            string? endsDailyAt = default,
-            float? noiseThresholdDecibels = default,
-            float? noiseThresholdNrs = default
-        )
-        {
-            return (
-                await UpdateAsync(
-                    new UpdateRequest(
-                        noiseThresholdId: noiseThresholdId,
-                        deviceId: deviceId,
-                        sync: sync,
-                        name: name,
-                        startsDailyAt: startsDailyAt,
-                        endsDailyAt: endsDailyAt,
-                        noiseThresholdDecibels: noiseThresholdDecibels,
-                        noiseThresholdNrs: noiseThresholdNrs
-                    )
-                )
             );
         }
     }

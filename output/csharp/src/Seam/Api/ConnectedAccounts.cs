@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -197,13 +197,20 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(object? customMetadataHas = default)
+            public ListRequest(
+                object? customMetadataHas = default,
+                string? userIdentifierKey = default
+            )
             {
                 CustomMetadataHas = customMetadataHas;
+                UserIdentifierKey = userIdentifierKey;
             }
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
 
             public override string ToString()
             {
@@ -268,9 +275,17 @@ namespace Seam.Api
                 .Data.ConnectedAccounts;
         }
 
-        public List<ConnectedAccount> List(object? customMetadataHas = default)
+        public List<ConnectedAccount> List(
+            object? customMetadataHas = default,
+            string? userIdentifierKey = default
+        )
         {
-            return List(new ListRequest(customMetadataHas: customMetadataHas));
+            return List(
+                new ListRequest(
+                    customMetadataHas: customMetadataHas,
+                    userIdentifierKey: userIdentifierKey
+                )
+            );
         }
 
         public async Task<List<ConnectedAccount>> ListAsync(ListRequest request)
@@ -282,142 +297,16 @@ namespace Seam.Api
                 .ConnectedAccounts;
         }
 
-        public async Task<List<ConnectedAccount>> ListAsync(object? customMetadataHas = default)
-        {
-            return (await ListAsync(new ListRequest(customMetadataHas: customMetadataHas)));
-        }
-
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
-        {
-            [JsonConstructorAttribute]
-            protected UpdateRequest() { }
-
-            public UpdateRequest(
-                string connectedAccountId = default,
-                bool? automaticallyManageNewDevices = default,
-                object? customMetadata = default
-            )
-            {
-                ConnectedAccountId = connectedAccountId;
-                AutomaticallyManageNewDevices = automaticallyManageNewDevices;
-                CustomMetadata = customMetadata;
-            }
-
-            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
-            public string ConnectedAccountId { get; set; }
-
-            [DataMember(
-                Name = "automatically_manage_new_devices",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AutomaticallyManageNewDevices { get; set; }
-
-            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
-            public object? CustomMetadata { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "updateResponse_response")]
-        public class UpdateResponse
-        {
-            [JsonConstructorAttribute]
-            protected UpdateResponse() { }
-
-            public UpdateResponse(ConnectedAccount connectedAccount = default)
-            {
-                ConnectedAccount = connectedAccount;
-            }
-
-            [DataMember(Name = "connected_account", IsRequired = false, EmitDefaultValue = false)]
-            public ConnectedAccount ConnectedAccount { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public ConnectedAccount Update(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return _seam
-                .Post<UpdateResponse>("/connected_accounts/update", requestOptions)
-                .Data.ConnectedAccount;
-        }
-
-        public ConnectedAccount Update(
-            string connectedAccountId = default,
-            bool? automaticallyManageNewDevices = default,
-            object? customMetadata = default
-        )
-        {
-            return Update(
-                new UpdateRequest(
-                    connectedAccountId: connectedAccountId,
-                    automaticallyManageNewDevices: automaticallyManageNewDevices,
-                    customMetadata: customMetadata
-                )
-            );
-        }
-
-        public async Task<ConnectedAccount> UpdateAsync(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<UpdateResponse>("/connected_accounts/update", requestOptions)
-            )
-                .Data
-                .ConnectedAccount;
-        }
-
-        public async Task<ConnectedAccount> UpdateAsync(
-            string connectedAccountId = default,
-            bool? automaticallyManageNewDevices = default,
-            object? customMetadata = default
+        public async Task<List<ConnectedAccount>> ListAsync(
+            object? customMetadataHas = default,
+            string? userIdentifierKey = default
         )
         {
             return (
-                await UpdateAsync(
-                    new UpdateRequest(
-                        connectedAccountId: connectedAccountId,
-                        automaticallyManageNewDevices: automaticallyManageNewDevices,
-                        customMetadata: customMetadata
+                await ListAsync(
+                    new ListRequest(
+                        customMetadataHas: customMetadataHas,
+                        userIdentifierKey: userIdentifierKey
                     )
                 )
             );

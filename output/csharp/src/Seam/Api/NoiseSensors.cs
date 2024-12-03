@@ -9,114 +9,13 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-    public class UnmanagedDevices
+    public class NoiseSensors
     {
         private ISeamClient _seam;
 
-        public UnmanagedDevices(ISeamClient seam)
+        public NoiseSensors(ISeamClient seam)
         {
             _seam = seam;
-        }
-
-        [DataContract(Name = "getRequest_request")]
-        public class GetRequest
-        {
-            [JsonConstructorAttribute]
-            protected GetRequest() { }
-
-            public GetRequest(string? deviceId = default, string? name = default)
-            {
-                DeviceId = deviceId;
-                Name = name;
-            }
-
-            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceId { get; set; }
-
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "getResponse_response")]
-        public class GetResponse
-        {
-            [JsonConstructorAttribute]
-            protected GetResponse() { }
-
-            public GetResponse(UnmanagedDevice device = default)
-            {
-                Device = device;
-            }
-
-            [DataMember(Name = "device", IsRequired = false, EmitDefaultValue = false)]
-            public UnmanagedDevice Device { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public UnmanagedDevice Get(GetRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/devices/unmanaged/get", requestOptions).Data.Device;
-        }
-
-        public UnmanagedDevice Get(string? deviceId = default, string? name = default)
-        {
-            return Get(new GetRequest(deviceId: deviceId, name: name));
-        }
-
-        public async Task<UnmanagedDevice> GetAsync(GetRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/devices/unmanaged/get", requestOptions))
-                .Data
-                .Device;
-        }
-
-        public async Task<UnmanagedDevice> GetAsync(
-            string? deviceId = default,
-            string? name = default
-        )
-        {
-            return (await GetAsync(new GetRequest(deviceId: deviceId, name: name)));
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -518,13 +417,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<UnmanagedDevice> devices = default)
+            public ListResponse(List<Device> devices = default)
             {
                 Devices = devices;
             }
 
             [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
-            public List<UnmanagedDevice> Devices { get; set; }
+            public List<Device> Devices { get; set; }
 
             public override string ToString()
             {
@@ -546,14 +445,14 @@ namespace Seam.Api
             }
         }
 
-        public List<UnmanagedDevice> List(ListRequest request)
+        public List<Device> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/devices/unmanaged/list", requestOptions).Data.Devices;
+            return _seam.Post<ListResponse>("/noise_sensors/list", requestOptions).Data.Devices;
         }
 
-        public List<UnmanagedDevice> List(
+        public List<Device> List(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
@@ -588,16 +487,16 @@ namespace Seam.Api
             );
         }
 
-        public async Task<List<UnmanagedDevice>> ListAsync(ListRequest request)
+        public async Task<List<Device>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/devices/unmanaged/list", requestOptions))
+            return (await _seam.PostAsync<ListResponse>("/noise_sensors/list", requestOptions))
                 .Data
                 .Devices;
         }
 
-        public async Task<List<UnmanagedDevice>> ListAsync(
+        public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
@@ -633,68 +532,6 @@ namespace Seam.Api
                 )
             );
         }
-
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
-        {
-            [JsonConstructorAttribute]
-            protected UpdateRequest() { }
-
-            public UpdateRequest(string deviceId = default, bool isManaged = default)
-            {
-                DeviceId = deviceId;
-                IsManaged = isManaged;
-            }
-
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
-            public bool IsManaged { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public void Update(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>("/devices/unmanaged/update", requestOptions);
-        }
-
-        public void Update(string deviceId = default, bool isManaged = default)
-        {
-            Update(new UpdateRequest(deviceId: deviceId, isManaged: isManaged));
-        }
-
-        public async Task UpdateAsync(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>("/devices/unmanaged/update", requestOptions);
-        }
-
-        public async Task UpdateAsync(string deviceId = default, bool isManaged = default)
-        {
-            await UpdateAsync(new UpdateRequest(deviceId: deviceId, isManaged: isManaged));
-        }
     }
 }
 
@@ -702,11 +539,11 @@ namespace Seam.Client
 {
     public partial class SeamClient
     {
-        public Api.UnmanagedDevices UnmanagedDevices => new(this);
+        public Api.NoiseSensors NoiseSensors => new(this);
     }
 
     public partial interface ISeamClient
     {
-        public Api.UnmanagedDevices UnmanagedDevices { get; }
+        public Api.NoiseSensors NoiseSensors { get; }
     }
 }

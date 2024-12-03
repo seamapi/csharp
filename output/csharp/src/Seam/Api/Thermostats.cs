@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -18,6 +18,137 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "activateClimatePresetRequest_request")]
+        public class ActivateClimatePresetRequest
+        {
+            [JsonConstructorAttribute]
+            protected ActivateClimatePresetRequest() { }
+
+            public ActivateClimatePresetRequest(
+                string climatePresetKey = default,
+                string deviceId = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "activateClimatePresetResponse_response")]
+        public class ActivateClimatePresetResponse
+        {
+            [JsonConstructorAttribute]
+            protected ActivateClimatePresetResponse() { }
+
+            public ActivateClimatePresetResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt ActivateClimatePreset(ActivateClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ActivateClimatePresetResponse>(
+                    "/thermostats/activate_climate_preset",
+                    requestOptions
+                )
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt ActivateClimatePreset(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            return ActivateClimatePreset(
+                new ActivateClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    deviceId: deviceId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> ActivateClimatePresetAsync(
+            ActivateClimatePresetRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ActivateClimatePresetResponse>(
+                    "/thermostats/activate_climate_preset",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> ActivateClimatePresetAsync(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            return (
+                await ActivateClimatePresetAsync(
+                    new ActivateClimatePresetRequest(
+                        climatePresetKey: climatePresetKey,
+                        deviceId: deviceId
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "coolRequest_request")]
         public class CoolRequest
         {
@@ -25,20 +156,17 @@ namespace Seam.Api
             protected CoolRequest() { }
 
             public CoolRequest(
-                string deviceId = default,
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
+                string deviceId = default,
                 bool? sync = default
             )
             {
-                DeviceId = deviceId;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                DeviceId = deviceId;
                 Sync = sync;
             }
-
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_celsius",
@@ -53,6 +181,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
 
             [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
             public bool? Sync { get; set; }
@@ -119,17 +250,17 @@ namespace Seam.Api
         }
 
         public ActionAttempt Cool(
-            string deviceId = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             bool? sync = default
         )
         {
             return Cool(
                 new CoolRequest(
-                    deviceId: deviceId,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
                     sync: sync
                 )
             );
@@ -145,20 +276,303 @@ namespace Seam.Api
         }
 
         public async Task<ActionAttempt> CoolAsync(
-            string deviceId = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             bool? sync = default
         )
         {
             return (
                 await CoolAsync(
                     new CoolRequest(
-                        deviceId: deviceId,
                         coolingSetPointCelsius: coolingSetPointCelsius,
                         coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                        deviceId: deviceId,
                         sync: sync
                     )
+                )
+            );
+        }
+
+        [DataContract(Name = "createClimatePresetRequest_request")]
+        public class CreateClimatePresetRequest
+        {
+            [JsonConstructorAttribute]
+            protected CreateClimatePresetRequest() { }
+
+            public CreateClimatePresetRequest(
+                string climatePresetKey = default,
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                string deviceId = default,
+                CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+                float? heatingSetPointCelsius = default,
+                float? heatingSetPointFahrenheit = default,
+                CreateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+                bool? manualOverrideAllowed = default,
+                string? name = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                DeviceId = deviceId;
+                FanModeSetting = fanModeSetting;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
+                HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                HvacModeSetting = hvacModeSetting;
+                ManualOverrideAllowed = manualOverrideAllowed;
+                Name = name;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum FanModeSettingEnum
+            {
+                [EnumMember(Value = "auto")]
+                Auto = 0,
+
+                [EnumMember(Value = "on")]
+                On = 1,
+
+                [EnumMember(Value = "circulate")]
+                Circulate = 2,
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum HvacModeSettingEnum
+            {
+                [EnumMember(Value = "off")]
+                Off = 0,
+
+                [EnumMember(Value = "heat")]
+                Heat = 1,
+
+                [EnumMember(Value = "cool")]
+                Cool = 2,
+
+                [EnumMember(Value = "heat_cool")]
+                HeatCool = 3,
+            }
+
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public CreateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public CreateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; set; }
+
+            [DataMember(
+                Name = "manual_override_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ManualOverrideAllowed { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void CreateClimatePreset(CreateClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/create_climate_preset", requestOptions);
+        }
+
+        public void CreateClimatePreset(
+            string climatePresetKey = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
+            CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            CreateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+            bool? manualOverrideAllowed = default,
+            string? name = default
+        )
+        {
+            CreateClimatePreset(
+                new CreateClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
+                    fanModeSetting: fanModeSetting,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacModeSetting: hvacModeSetting,
+                    manualOverrideAllowed: manualOverrideAllowed,
+                    name: name
+                )
+            );
+        }
+
+        public async Task CreateClimatePresetAsync(CreateClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/thermostats/create_climate_preset", requestOptions);
+        }
+
+        public async Task CreateClimatePresetAsync(
+            string climatePresetKey = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
+            CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            CreateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+            bool? manualOverrideAllowed = default,
+            string? name = default
+        )
+        {
+            await CreateClimatePresetAsync(
+                new CreateClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
+                    fanModeSetting: fanModeSetting,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacModeSetting: hvacModeSetting,
+                    manualOverrideAllowed: manualOverrideAllowed,
+                    name: name
+                )
+            );
+        }
+
+        [DataContract(Name = "deleteClimatePresetRequest_request")]
+        public class DeleteClimatePresetRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteClimatePresetRequest() { }
+
+            public DeleteClimatePresetRequest(
+                string climatePresetKey = default,
+                string deviceId = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void DeleteClimatePreset(DeleteClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/delete_climate_preset", requestOptions);
+        }
+
+        public void DeleteClimatePreset(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            DeleteClimatePreset(
+                new DeleteClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    deviceId: deviceId
+                )
+            );
+        }
+
+        public async Task DeleteClimatePresetAsync(DeleteClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/thermostats/delete_climate_preset", requestOptions);
+        }
+
+        public async Task DeleteClimatePresetAsync(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            await DeleteClimatePresetAsync(
+                new DeleteClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    deviceId: deviceId
                 )
             );
         }
@@ -413,21 +827,35 @@ namespace Seam.Api
             protected HeatCoolRequest() { }
 
             public HeatCoolRequest(
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
                 float? heatingSetPointCelsius = default,
                 float? heatingSetPointFahrenheit = default,
-                float? coolingSetPointCelsius = default,
-                float? coolingSetPointFahrenheit = default,
                 bool? sync = default
             )
             {
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
-                CoolingSetPointCelsius = coolingSetPointCelsius;
-                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 Sync = sync;
             }
+
+            [DataMember(
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
@@ -445,20 +873,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
-
-            [DataMember(
-                Name = "cooling_set_point_celsius",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? CoolingSetPointCelsius { get; set; }
-
-            [DataMember(
-                Name = "cooling_set_point_fahrenheit",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? CoolingSetPointFahrenheit { get; set; }
 
             [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
             public bool? Sync { get; set; }
@@ -527,21 +941,21 @@ namespace Seam.Api
         }
 
         public ActionAttempt HeatCool(
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
             string deviceId = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
-            float? coolingSetPointCelsius = default,
-            float? coolingSetPointFahrenheit = default,
             bool? sync = default
         )
         {
             return HeatCool(
                 new HeatCoolRequest(
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
                     heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                    coolingSetPointCelsius: coolingSetPointCelsius,
-                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     sync: sync
                 )
             );
@@ -559,22 +973,22 @@ namespace Seam.Api
         }
 
         public async Task<ActionAttempt> HeatCoolAsync(
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
             string deviceId = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
-            float? coolingSetPointCelsius = default,
-            float? coolingSetPointFahrenheit = default,
             bool? sync = default
         )
         {
             return (
                 await HeatCoolAsync(
                     new HeatCoolRequest(
+                        coolingSetPointCelsius: coolingSetPointCelsius,
+                        coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                         deviceId: deviceId,
                         heatingSetPointCelsius: heatingSetPointCelsius,
                         heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                        coolingSetPointCelsius: coolingSetPointCelsius,
-                        coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                         sync: sync
                     )
                 )
@@ -588,133 +1002,34 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 List<string>? connectedAccountIds = default,
-                string? connectWebviewId = default,
-                ListRequest.DeviceTypeEnum? deviceType = default,
-                List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-                ListRequest.ManufacturerEnum? manufacturer = default,
-                List<string>? deviceIds = default,
-                float? limit = default,
                 string? createdBefore = default,
-                string? userIdentifierKey = default,
-                object? customMetadataHas = default
+                object? customMetadataHas = default,
+                List<string>? deviceIds = default,
+                string? deviceType = default,
+                List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+                List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+                List<ListRequest.IncludeIfEnum>? includeIf = default,
+                float? limit = default,
+                ListRequest.ManufacturerEnum? manufacturer = default,
+                string? userIdentifierKey = default
             )
             {
+                ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
                 ConnectedAccountIds = connectedAccountIds;
-                ConnectWebviewId = connectWebviewId;
+                CreatedBefore = createdBefore;
+                CustomMetadataHas = customMetadataHas;
+                DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
-                Manufacturer = manufacturer;
-                DeviceIds = deviceIds;
+                ExcludeIf = excludeIf;
+                IncludeIf = includeIf;
                 Limit = limit;
-                CreatedBefore = createdBefore;
+                Manufacturer = manufacturer;
                 UserIdentifierKey = userIdentifierKey;
-                CustomMetadataHas = customMetadataHas;
-            }
-
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum DeviceTypeEnum
-            {
-                [EnumMember(Value = "akuvox_lock")]
-                AkuvoxLock = 0,
-
-                [EnumMember(Value = "august_lock")]
-                AugustLock = 1,
-
-                [EnumMember(Value = "brivo_access_point")]
-                BrivoAccessPoint = 2,
-
-                [EnumMember(Value = "butterflymx_panel")]
-                ButterflymxPanel = 3,
-
-                [EnumMember(Value = "avigilon_alta_entry")]
-                AvigilonAltaEntry = 4,
-
-                [EnumMember(Value = "doorking_lock")]
-                DoorkingLock = 5,
-
-                [EnumMember(Value = "genie_door")]
-                GenieDoor = 6,
-
-                [EnumMember(Value = "igloo_lock")]
-                IglooLock = 7,
-
-                [EnumMember(Value = "linear_lock")]
-                LinearLock = 8,
-
-                [EnumMember(Value = "lockly_lock")]
-                LocklyLock = 9,
-
-                [EnumMember(Value = "kwikset_lock")]
-                KwiksetLock = 10,
-
-                [EnumMember(Value = "nuki_lock")]
-                NukiLock = 11,
-
-                [EnumMember(Value = "salto_lock")]
-                SaltoLock = 12,
-
-                [EnumMember(Value = "schlage_lock")]
-                SchlageLock = 13,
-
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 14,
-
-                [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 15,
-
-                [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 16,
-
-                [EnumMember(Value = "yale_lock")]
-                YaleLock = 17,
-
-                [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 18,
-
-                [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 19,
-
-                [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 20,
-
-                [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 21,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 22,
-
-                [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 23,
-
-                [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 24,
-
-                [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 25,
-
-                [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 26,
-
-                [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 27,
-
-                [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 28,
-
-                [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 29,
-
-                [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 30,
-
-                [EnumMember(Value = "ios_phone")]
-                IosPhone = 31,
-
-                [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -798,26 +1113,103 @@ namespace Seam.Api
                 [EnumMember(Value = "tedee_lock")]
                 TedeeLock = 25,
 
+                [EnumMember(Value = "akiles_lock")]
+                AkilesLock = 26,
+
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 26,
+                NoiseawareActivityZone = 27,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 27,
+                MinutSensor = 28,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 28,
+                EcobeeThermostat = 29,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 29,
+                NestThermostat = 30,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 30,
+                HoneywellResideoThermostat = 31,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 31,
+                IosPhone = 32,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32
+                AndroidPhone = 33,
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum ExcludeIfEnum
+            {
+                [EnumMember(Value = "can_remotely_unlock")]
+                CanRemotelyUnlock = 0,
+
+                [EnumMember(Value = "can_remotely_lock")]
+                CanRemotelyLock = 1,
+
+                [EnumMember(Value = "can_program_offline_access_codes")]
+                CanProgramOfflineAccessCodes = 2,
+
+                [EnumMember(Value = "can_program_online_access_codes")]
+                CanProgramOnlineAccessCodes = 3,
+
+                [EnumMember(Value = "can_hvac_heat")]
+                CanHvacHeat = 4,
+
+                [EnumMember(Value = "can_hvac_cool")]
+                CanHvacCool = 5,
+
+                [EnumMember(Value = "can_hvac_heat_cool")]
+                CanHvacHeatCool = 6,
+
+                [EnumMember(Value = "can_turn_off_hvac")]
+                CanTurnOffHvac = 7,
+
+                [EnumMember(Value = "can_simulate_removal")]
+                CanSimulateRemoval = 8,
+
+                [EnumMember(Value = "can_simulate_connection")]
+                CanSimulateConnection = 9,
+
+                [EnumMember(Value = "can_simulate_disconnection")]
+                CanSimulateDisconnection = 10,
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum IncludeIfEnum
+            {
+                [EnumMember(Value = "can_remotely_unlock")]
+                CanRemotelyUnlock = 0,
+
+                [EnumMember(Value = "can_remotely_lock")]
+                CanRemotelyLock = 1,
+
+                [EnumMember(Value = "can_program_offline_access_codes")]
+                CanProgramOfflineAccessCodes = 2,
+
+                [EnumMember(Value = "can_program_online_access_codes")]
+                CanProgramOnlineAccessCodes = 3,
+
+                [EnumMember(Value = "can_hvac_heat")]
+                CanHvacHeat = 4,
+
+                [EnumMember(Value = "can_hvac_cool")]
+                CanHvacCool = 5,
+
+                [EnumMember(Value = "can_hvac_heat_cool")]
+                CanHvacHeatCool = 6,
+
+                [EnumMember(Value = "can_turn_off_hvac")]
+                CanTurnOffHvac = 7,
+
+                [EnumMember(Value = "can_simulate_removal")]
+                CanSimulateRemoval = 8,
+
+                [EnumMember(Value = "can_simulate_connection")]
+                CanSimulateConnection = 9,
+
+                [EnumMember(Value = "can_simulate_disconnection")]
+                CanSimulateDisconnection = 10,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -923,8 +1315,14 @@ namespace Seam.Api
                 Tedee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33
+                HoneywellResideo = 33,
+
+                [EnumMember(Value = "akiles")]
+                Akiles = 34,
             }
+
+            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ConnectWebviewId { get; set; }
 
             [DataMember(
                 Name = "connected_account_id",
@@ -940,32 +1338,35 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
-            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ConnectWebviewId { get; set; }
+            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedBefore { get; set; }
 
-            [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-            public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
-
-            [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
-
-            [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
-            public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
+            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadataHas { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceType { get; set; }
+
+            [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
+
+            [DataMember(Name = "exclude_if", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.ExcludeIfEnum>? ExcludeIf { get; set; }
+
+            [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.IncludeIfEnum>? IncludeIf { get; set; }
+
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
-            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
-            public string? CreatedBefore { get; set; }
+            [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
+            public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
-
-            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
-            public object? CustomMetadataHas { get; set; }
 
             public override string ToString()
             {
@@ -993,13 +1394,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<Device> thermostats = default)
+            public ListResponse(List<Device> devices = default)
             {
-                Thermostats = thermostats;
+                Devices = devices;
             }
 
-            [DataMember(Name = "thermostats", IsRequired = false, EmitDefaultValue = false)]
-            public List<Device> Thermostats { get; set; }
+            [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
+            public List<Device> Devices { get; set; }
 
             public override string ToString()
             {
@@ -1025,36 +1426,40 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/thermostats/list", requestOptions).Data.Thermostats;
+            return _seam.Post<ListResponse>("/thermostats/list", requestOptions).Data.Devices;
         }
 
         public List<Device> List(
+            string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
-            string? connectWebviewId = default,
-            ListRequest.DeviceTypeEnum? deviceType = default,
-            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            ListRequest.ManufacturerEnum? manufacturer = default,
-            List<string>? deviceIds = default,
-            float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            List<string>? deviceIds = default,
+            string? deviceType = default,
+            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+            List<ListRequest.IncludeIfEnum>? includeIf = default,
+            float? limit = default,
+            ListRequest.ManufacturerEnum? manufacturer = default,
+            string? userIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
+                    connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
                     connectedAccountIds: connectedAccountIds,
-                    connectWebviewId: connectWebviewId,
+                    createdBefore: createdBefore,
+                    customMetadataHas: customMetadataHas,
+                    deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
-                    manufacturer: manufacturer,
-                    deviceIds: deviceIds,
+                    excludeIf: excludeIf,
+                    includeIf: includeIf,
                     limit: limit,
-                    createdBefore: createdBefore,
-                    userIdentifierKey: userIdentifierKey,
-                    customMetadataHas: customMetadataHas
+                    manufacturer: manufacturer,
+                    userIdentifierKey: userIdentifierKey
                 )
             );
         }
@@ -1065,37 +1470,41 @@ namespace Seam.Api
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/thermostats/list", requestOptions))
                 .Data
-                .Thermostats;
+                .Devices;
         }
 
         public async Task<List<Device>> ListAsync(
+            string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
-            string? connectWebviewId = default,
-            ListRequest.DeviceTypeEnum? deviceType = default,
-            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            ListRequest.ManufacturerEnum? manufacturer = default,
-            List<string>? deviceIds = default,
-            float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            List<string>? deviceIds = default,
+            string? deviceType = default,
+            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+            List<ListRequest.IncludeIfEnum>? includeIf = default,
+            float? limit = default,
+            ListRequest.ManufacturerEnum? manufacturer = default,
+            string? userIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
+                        connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
                         connectedAccountIds: connectedAccountIds,
-                        connectWebviewId: connectWebviewId,
+                        createdBefore: createdBefore,
+                        customMetadataHas: customMetadataHas,
+                        deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,
-                        manufacturer: manufacturer,
-                        deviceIds: deviceIds,
+                        excludeIf: excludeIf,
+                        includeIf: includeIf,
                         limit: limit,
-                        createdBefore: createdBefore,
-                        userIdentifierKey: userIdentifierKey,
-                        customMetadataHas: customMetadataHas
+                        manufacturer: manufacturer,
+                        userIdentifierKey: userIdentifierKey
                     )
                 )
             );
@@ -1199,6 +1608,90 @@ namespace Seam.Api
             return (await OffAsync(new OffRequest(deviceId: deviceId, sync: sync)));
         }
 
+        [DataContract(Name = "setFallbackClimatePresetRequest_request")]
+        public class SetFallbackClimatePresetRequest
+        {
+            [JsonConstructorAttribute]
+            protected SetFallbackClimatePresetRequest() { }
+
+            public SetFallbackClimatePresetRequest(
+                string climatePresetKey = default,
+                string deviceId = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void SetFallbackClimatePreset(SetFallbackClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/set_fallback_climate_preset", requestOptions);
+        }
+
+        public void SetFallbackClimatePreset(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            SetFallbackClimatePreset(
+                new SetFallbackClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    deviceId: deviceId
+                )
+            );
+        }
+
+        public async Task SetFallbackClimatePresetAsync(SetFallbackClimatePresetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>(
+                "/thermostats/set_fallback_climate_preset",
+                requestOptions
+            );
+        }
+
+        public async Task SetFallbackClimatePresetAsync(
+            string climatePresetKey = default,
+            string deviceId = default
+        )
+        {
+            await SetFallbackClimatePresetAsync(
+                new SetFallbackClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    deviceId: deviceId
+                )
+            );
+        }
+
         [DataContract(Name = "setFanModeRequest_request")]
         public class SetFanModeRequest
         {
@@ -1225,7 +1718,10 @@ namespace Seam.Api
                 Auto = 0,
 
                 [EnumMember(Value = "on")]
-                On = 1
+                On = 1,
+
+                [EnumMember(Value = "circulate")]
+                Circulate = 2,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -1235,7 +1731,10 @@ namespace Seam.Api
                 Auto = 0,
 
                 [EnumMember(Value = "on")]
-                On = 1
+                On = 1,
+
+                [EnumMember(Value = "circulate")]
+                Circulate = 2,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1363,30 +1862,69 @@ namespace Seam.Api
             );
         }
 
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
+        [DataContract(Name = "setHvacModeRequest_request")]
+        public class SetHvacModeRequest
         {
             [JsonConstructorAttribute]
-            protected UpdateRequest() { }
+            protected SetHvacModeRequest() { }
 
-            public UpdateRequest(
+            public SetHvacModeRequest(
                 string deviceId = default,
-                UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+                SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                float? heatingSetPointCelsius = default,
+                float? heatingSetPointFahrenheit = default
             )
             {
                 DeviceId = deviceId;
-                DefaultClimateSetting = defaultClimateSetting;
+                HvacModeSetting = hvacModeSetting;
+                CoolingSetPointCelsius = coolingSetPointCelsius;
+                CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
+                HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum HvacModeSettingEnum
+            {
+                [EnumMember(Value = "heat_cool")]
+                HeatCool = 0,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            [DataMember(Name = "hvac_mode_setting", IsRequired = true, EmitDefaultValue = false)]
+            public SetHvacModeRequest.HvacModeSettingEnum HvacModeSetting { get; set; }
+
             [DataMember(
-                Name = "default_climate_setting",
-                IsRequired = true,
+                Name = "cooling_set_point_celsius",
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public UpdateRequestDefaultClimateSetting DefaultClimateSetting { get; set; }
+            public float? CoolingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "cooling_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointFahrenheit { get; set; }
 
             public override string ToString()
             {
@@ -1408,31 +1946,265 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "updateRequestDefaultClimateSetting_model")]
-        public class UpdateRequestDefaultClimateSetting
+        [DataContract(Name = "setHvacModeResponse_response")]
+        public class SetHvacModeResponse
         {
             [JsonConstructorAttribute]
-            protected UpdateRequestDefaultClimateSetting() { }
+            protected SetHvacModeResponse() { }
 
-            public UpdateRequestDefaultClimateSetting(
-                bool? automaticHeatingEnabled = default,
-                bool? automaticCoolingEnabled = default,
-                UpdateRequestDefaultClimateSetting.HvacModeSettingEnum? hvacModeSetting = default,
-                float? coolingSetPointCelsius = default,
-                float? heatingSetPointCelsius = default,
-                float? coolingSetPointFahrenheit = default,
-                float? heatingSetPointFahrenheit = default,
-                bool? manualOverrideAllowed = default
+            public SetHvacModeResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt SetHvacMode(SetHvacModeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<SetHvacModeResponse>("/thermostats/set_hvac_mode", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt SetHvacMode(
+            string deviceId = default,
+            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default
+        )
+        {
+            return SetHvacMode(
+                new SetHvacModeRequest(
+                    deviceId: deviceId,
+                    hvacModeSetting: hvacModeSetting,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> SetHvacModeAsync(SetHvacModeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<SetHvacModeResponse>(
+                    "/thermostats/set_hvac_mode",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> SetHvacModeAsync(
+            string deviceId = default,
+            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default
+        )
+        {
+            return (
+                await SetHvacModeAsync(
+                    new SetHvacModeRequest(
+                        deviceId: deviceId,
+                        hvacModeSetting: hvacModeSetting,
+                        coolingSetPointCelsius: coolingSetPointCelsius,
+                        coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                        heatingSetPointCelsius: heatingSetPointCelsius,
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "setTemperatureThresholdRequest_request")]
+        public class SetTemperatureThresholdRequest
+        {
+            [JsonConstructorAttribute]
+            protected SetTemperatureThresholdRequest() { }
+
+            public SetTemperatureThresholdRequest(
+                string deviceId = default,
+                float? lowerLimitCelsius = default,
+                float? lowerLimitFahrenheit = default,
+                float? upperLimitCelsius = default,
+                float? upperLimitFahrenheit = default
             )
             {
-                AutomaticHeatingEnabled = automaticHeatingEnabled;
-                AutomaticCoolingEnabled = automaticCoolingEnabled;
-                HvacModeSetting = hvacModeSetting;
+                DeviceId = deviceId;
+                LowerLimitCelsius = lowerLimitCelsius;
+                LowerLimitFahrenheit = lowerLimitFahrenheit;
+                UpperLimitCelsius = upperLimitCelsius;
+                UpperLimitFahrenheit = upperLimitFahrenheit;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "lower_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
+            public float? LowerLimitCelsius { get; set; }
+
+            [DataMember(
+                Name = "lower_limit_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? LowerLimitFahrenheit { get; set; }
+
+            [DataMember(Name = "upper_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
+            public float? UpperLimitCelsius { get; set; }
+
+            [DataMember(
+                Name = "upper_limit_fahrenheit",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? UpperLimitFahrenheit { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void SetTemperatureThreshold(SetTemperatureThresholdRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/thermostats/set_temperature_threshold", requestOptions);
+        }
+
+        public void SetTemperatureThreshold(
+            string deviceId = default,
+            float? lowerLimitCelsius = default,
+            float? lowerLimitFahrenheit = default,
+            float? upperLimitCelsius = default,
+            float? upperLimitFahrenheit = default
+        )
+        {
+            SetTemperatureThreshold(
+                new SetTemperatureThresholdRequest(
+                    deviceId: deviceId,
+                    lowerLimitCelsius: lowerLimitCelsius,
+                    lowerLimitFahrenheit: lowerLimitFahrenheit,
+                    upperLimitCelsius: upperLimitCelsius,
+                    upperLimitFahrenheit: upperLimitFahrenheit
+                )
+            );
+        }
+
+        public async Task SetTemperatureThresholdAsync(SetTemperatureThresholdRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/thermostats/set_temperature_threshold", requestOptions);
+        }
+
+        public async Task SetTemperatureThresholdAsync(
+            string deviceId = default,
+            float? lowerLimitCelsius = default,
+            float? lowerLimitFahrenheit = default,
+            float? upperLimitCelsius = default,
+            float? upperLimitFahrenheit = default
+        )
+        {
+            await SetTemperatureThresholdAsync(
+                new SetTemperatureThresholdRequest(
+                    deviceId: deviceId,
+                    lowerLimitCelsius: lowerLimitCelsius,
+                    lowerLimitFahrenheit: lowerLimitFahrenheit,
+                    upperLimitCelsius: upperLimitCelsius,
+                    upperLimitFahrenheit: upperLimitFahrenheit
+                )
+            );
+        }
+
+        [DataContract(Name = "updateClimatePresetRequest_request")]
+        public class UpdateClimatePresetRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateClimatePresetRequest() { }
+
+            public UpdateClimatePresetRequest(
+                string climatePresetKey = default,
+                float? coolingSetPointCelsius = default,
+                float? coolingSetPointFahrenheit = default,
+                string deviceId = default,
+                UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+                float? heatingSetPointCelsius = default,
+                float? heatingSetPointFahrenheit = default,
+                UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+                bool manualOverrideAllowed = default,
+                string? name = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
-                HeatingSetPointCelsius = heatingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                DeviceId = deviceId;
+                FanModeSetting = fanModeSetting;
+                HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                HvacModeSetting = hvacModeSetting;
                 ManualOverrideAllowed = manualOverrideAllowed;
+                Name = name;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum FanModeSettingEnum
+            {
+                [EnumMember(Value = "auto")]
+                Auto = 0,
+
+                [EnumMember(Value = "on")]
+                On = 1,
+
+                [EnumMember(Value = "circulate")]
+                Circulate = 2,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -1448,25 +2220,11 @@ namespace Seam.Api
                 Cool = 2,
 
                 [EnumMember(Value = "heat_cool")]
-                HeatCool = 3
+                HeatCool = 3,
             }
 
-            [DataMember(
-                Name = "automatic_heating_enabled",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AutomaticHeatingEnabled { get; set; }
-
-            [DataMember(
-                Name = "automatic_cooling_enabled",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AutomaticCoolingEnabled { get; set; }
-
-            [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-            public UpdateRequestDefaultClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_celsius",
@@ -1476,18 +2234,24 @@ namespace Seam.Api
             public float? CoolingSetPointCelsius { get; set; }
 
             [DataMember(
-                Name = "heating_set_point_celsius",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? HeatingSetPointCelsius { get; set; }
-
-            [DataMember(
                 Name = "cooling_set_point_fahrenheit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
             public float? CoolingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; set; }
+
+            [DataMember(
+                Name = "heating_set_point_celsius",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? HeatingSetPointCelsius { get; set; }
 
             [DataMember(
                 Name = "heating_set_point_fahrenheit",
@@ -1496,12 +2260,18 @@ namespace Seam.Api
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
 
+            [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; set; }
+
             [DataMember(
                 Name = "manual_override_allowed",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
-            public bool? ManualOverrideAllowed { get; set; }
+            public bool ManualOverrideAllowed { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -1523,37 +2293,75 @@ namespace Seam.Api
             }
         }
 
-        public void Update(UpdateRequest request)
+        public void UpdateClimatePreset(UpdateClimatePresetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/update", requestOptions);
+            _seam.Post<object>("/thermostats/update_climate_preset", requestOptions);
         }
 
-        public void Update(
+        public void UpdateClimatePreset(
+            string climatePresetKey = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
             string deviceId = default,
-            UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+            UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+            bool manualOverrideAllowed = default,
+            string? name = default
         )
         {
-            Update(
-                new UpdateRequest(deviceId: deviceId, defaultClimateSetting: defaultClimateSetting)
+            UpdateClimatePreset(
+                new UpdateClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
+                    fanModeSetting: fanModeSetting,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacModeSetting: hvacModeSetting,
+                    manualOverrideAllowed: manualOverrideAllowed,
+                    name: name
+                )
             );
         }
 
-        public async Task UpdateAsync(UpdateRequest request)
+        public async Task UpdateClimatePresetAsync(UpdateClimatePresetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/update", requestOptions);
+            await _seam.PostAsync<object>("/thermostats/update_climate_preset", requestOptions);
         }
 
-        public async Task UpdateAsync(
+        public async Task UpdateClimatePresetAsync(
+            string climatePresetKey = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
             string deviceId = default,
-            UpdateRequestDefaultClimateSetting defaultClimateSetting = default
+            UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
+            bool manualOverrideAllowed = default,
+            string? name = default
         )
         {
-            await UpdateAsync(
-                new UpdateRequest(deviceId: deviceId, defaultClimateSetting: defaultClimateSetting)
+            await UpdateClimatePresetAsync(
+                new UpdateClimatePresetRequest(
+                    climatePresetKey: climatePresetKey,
+                    coolingSetPointCelsius: coolingSetPointCelsius,
+                    coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
+                    fanModeSetting: fanModeSetting,
+                    heatingSetPointCelsius: heatingSetPointCelsius,
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacModeSetting: hvacModeSetting,
+                    manualOverrideAllowed: manualOverrideAllowed,
+                    name: name
+                )
             );
         }
     }

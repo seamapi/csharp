@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -25,22 +25,19 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
-                string? userIdentifierKey = default,
                 List<string>? connectWebviewIds = default,
                 List<string>? connectedAccountIds = default,
-                List<string>? userIdentityIds = default,
-                string? expiresAt = default
+                string? expiresAt = default,
+                string? userIdentifierKey = default,
+                List<string>? userIdentityIds = default
             )
             {
-                UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
-                UserIdentityIds = userIdentityIds;
                 ExpiresAt = expiresAt;
+                UserIdentifierKey = userIdentifierKey;
+                UserIdentityIds = userIdentityIds;
             }
-
-            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentifierKey { get; set; }
 
             [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ConnectWebviewIds { get; set; }
@@ -52,11 +49,14 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
-            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? UserIdentityIds { get; set; }
-
             [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
             public string? ExpiresAt { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
 
             public override string ToString()
             {
@@ -122,20 +122,20 @@ namespace Seam.Api
         }
 
         public ClientSession Create(
-            string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
-            List<string>? userIdentityIds = default,
-            string? expiresAt = default
+            string? expiresAt = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
         )
         {
             return Create(
                 new CreateRequest(
-                    userIdentifierKey: userIdentifierKey,
                     connectWebviewIds: connectWebviewIds,
                     connectedAccountIds: connectedAccountIds,
-                    userIdentityIds: userIdentityIds,
-                    expiresAt: expiresAt
+                    expiresAt: expiresAt,
+                    userIdentifierKey: userIdentifierKey,
+                    userIdentityIds: userIdentityIds
                 )
             );
         }
@@ -152,21 +152,21 @@ namespace Seam.Api
         }
 
         public async Task<ClientSession> CreateAsync(
-            string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
-            List<string>? userIdentityIds = default,
-            string? expiresAt = default
+            string? expiresAt = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
         )
         {
             return (
                 await CreateAsync(
                     new CreateRequest(
-                        userIdentifierKey: userIdentifierKey,
                         connectWebviewIds: connectWebviewIds,
                         connectedAccountIds: connectedAccountIds,
-                        userIdentityIds: userIdentityIds,
-                        expiresAt: expiresAt
+                        expiresAt: expiresAt,
+                        userIdentifierKey: userIdentifierKey,
+                        userIdentityIds: userIdentityIds
                     )
                 )
             );
@@ -358,22 +358,19 @@ namespace Seam.Api
             protected GetOrCreateRequest() { }
 
             public GetOrCreateRequest(
-                string? userIdentifierKey = default,
                 List<string>? connectWebviewIds = default,
                 List<string>? connectedAccountIds = default,
-                List<string>? userIdentityIds = default,
-                string? expiresAt = default
+                string? expiresAt = default,
+                string? userIdentifierKey = default,
+                List<string>? userIdentityIds = default
             )
             {
-                UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
-                UserIdentityIds = userIdentityIds;
                 ExpiresAt = expiresAt;
+                UserIdentifierKey = userIdentifierKey;
+                UserIdentityIds = userIdentityIds;
             }
-
-            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentifierKey { get; set; }
 
             [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ConnectWebviewIds { get; set; }
@@ -385,11 +382,14 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
-            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? UserIdentityIds { get; set; }
-
             [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
             public string? ExpiresAt { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
 
             public override string ToString()
             {
@@ -455,20 +455,20 @@ namespace Seam.Api
         }
 
         public ClientSession GetOrCreate(
-            string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
-            List<string>? userIdentityIds = default,
-            string? expiresAt = default
+            string? expiresAt = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
         )
         {
             return GetOrCreate(
                 new GetOrCreateRequest(
-                    userIdentifierKey: userIdentifierKey,
                     connectWebviewIds: connectWebviewIds,
                     connectedAccountIds: connectedAccountIds,
-                    userIdentityIds: userIdentityIds,
-                    expiresAt: expiresAt
+                    expiresAt: expiresAt,
+                    userIdentifierKey: userIdentifierKey,
+                    userIdentityIds: userIdentityIds
                 )
             );
         }
@@ -488,21 +488,21 @@ namespace Seam.Api
         }
 
         public async Task<ClientSession> GetOrCreateAsync(
-            string? userIdentifierKey = default,
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
-            List<string>? userIdentityIds = default,
-            string? expiresAt = default
+            string? expiresAt = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
         )
         {
             return (
                 await GetOrCreateAsync(
                     new GetOrCreateRequest(
-                        userIdentifierKey: userIdentifierKey,
                         connectWebviewIds: connectWebviewIds,
                         connectedAccountIds: connectedAccountIds,
-                        userIdentityIds: userIdentityIds,
-                        expiresAt: expiresAt
+                        expiresAt: expiresAt,
+                        userIdentifierKey: userIdentifierKey,
+                        userIdentityIds: userIdentityIds
                     )
                 )
             );
@@ -516,27 +516,30 @@ namespace Seam.Api
 
             public ListRequest(
                 string? clientSessionId = default,
-                string? userIdentifierKey = default,
                 string? connectWebviewId = default,
-                bool? withoutUserIdentifierKey = default,
-                string? userIdentityId = default
+                string? userIdentifierKey = default,
+                string? userIdentityId = default,
+                bool? withoutUserIdentifierKey = default
             )
             {
                 ClientSessionId = clientSessionId;
-                UserIdentifierKey = userIdentifierKey;
                 ConnectWebviewId = connectWebviewId;
-                WithoutUserIdentifierKey = withoutUserIdentifierKey;
+                UserIdentifierKey = userIdentifierKey;
                 UserIdentityId = userIdentityId;
+                WithoutUserIdentifierKey = withoutUserIdentifierKey;
             }
 
             [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ClientSessionId { get; set; }
 
+            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ConnectWebviewId { get; set; }
+
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
-            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ConnectWebviewId { get; set; }
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             [DataMember(
                 Name = "without_user_identifier_key",
@@ -544,9 +547,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? WithoutUserIdentifierKey { get; set; }
-
-            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -613,19 +613,19 @@ namespace Seam.Api
 
         public List<ClientSession> List(
             string? clientSessionId = default,
-            string? userIdentifierKey = default,
             string? connectWebviewId = default,
-            bool? withoutUserIdentifierKey = default,
-            string? userIdentityId = default
+            string? userIdentifierKey = default,
+            string? userIdentityId = default,
+            bool? withoutUserIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
                     clientSessionId: clientSessionId,
-                    userIdentifierKey: userIdentifierKey,
                     connectWebviewId: connectWebviewId,
-                    withoutUserIdentifierKey: withoutUserIdentifierKey,
-                    userIdentityId: userIdentityId
+                    userIdentifierKey: userIdentifierKey,
+                    userIdentityId: userIdentityId,
+                    withoutUserIdentifierKey: withoutUserIdentifierKey
                 )
             );
         }
@@ -641,20 +641,20 @@ namespace Seam.Api
 
         public async Task<List<ClientSession>> ListAsync(
             string? clientSessionId = default,
-            string? userIdentifierKey = default,
             string? connectWebviewId = default,
-            bool? withoutUserIdentifierKey = default,
-            string? userIdentityId = default
+            string? userIdentifierKey = default,
+            string? userIdentityId = default,
+            bool? withoutUserIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
                         clientSessionId: clientSessionId,
-                        userIdentifierKey: userIdentifierKey,
                         connectWebviewId: connectWebviewId,
-                        withoutUserIdentifierKey: withoutUserIdentifierKey,
-                        userIdentityId: userIdentityId
+                        userIdentifierKey: userIdentifierKey,
+                        userIdentityId: userIdentityId,
+                        withoutUserIdentifierKey: withoutUserIdentifierKey
                     )
                 )
             );

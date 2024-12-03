@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -24,17 +24,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected CreateRequest() { }
 
-            public CreateRequest(string url = default, List<string>? eventTypes = default)
+            public CreateRequest(List<string>? eventTypes = default, string url = default)
             {
-                Url = url;
                 EventTypes = eventTypes;
+                Url = url;
             }
-
-            [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
-            public string Url { get; set; }
 
             [DataMember(Name = "event_types", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? EventTypes { get; set; }
+
+            [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
+            public string Url { get; set; }
 
             public override string ToString()
             {
@@ -97,9 +97,9 @@ namespace Seam.Api
             return _seam.Post<CreateResponse>("/webhooks/create", requestOptions).Data.Webhook;
         }
 
-        public Webhook Create(string url = default, List<string>? eventTypes = default)
+        public Webhook Create(List<string>? eventTypes = default, string url = default)
         {
-            return Create(new CreateRequest(url: url, eventTypes: eventTypes));
+            return Create(new CreateRequest(eventTypes: eventTypes, url: url));
         }
 
         public async Task<Webhook> CreateAsync(CreateRequest request)
@@ -112,11 +112,11 @@ namespace Seam.Api
         }
 
         public async Task<Webhook> CreateAsync(
-            string url = default,
-            List<string>? eventTypes = default
+            List<string>? eventTypes = default,
+            string url = default
         )
         {
-            return (await CreateAsync(new CreateRequest(url: url, eventTypes: eventTypes)));
+            return (await CreateAsync(new CreateRequest(eventTypes: eventTypes, url: url)));
         }
 
         [DataContract(Name = "deleteRequest_request")]
@@ -363,17 +363,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected UpdateRequest() { }
 
-            public UpdateRequest(string webhookId = default, List<string> eventTypes = default)
+            public UpdateRequest(List<string> eventTypes = default, string webhookId = default)
             {
-                WebhookId = webhookId;
                 EventTypes = eventTypes;
+                WebhookId = webhookId;
             }
-
-            [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
-            public string WebhookId { get; set; }
 
             [DataMember(Name = "event_types", IsRequired = true, EmitDefaultValue = false)]
             public List<string> EventTypes { get; set; }
+
+            [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+            public string WebhookId { get; set; }
 
             public override string ToString()
             {
@@ -402,9 +402,9 @@ namespace Seam.Api
             _seam.Post<object>("/webhooks/update", requestOptions);
         }
 
-        public void Update(string webhookId = default, List<string> eventTypes = default)
+        public void Update(List<string> eventTypes = default, string webhookId = default)
         {
-            Update(new UpdateRequest(webhookId: webhookId, eventTypes: eventTypes));
+            Update(new UpdateRequest(eventTypes: eventTypes, webhookId: webhookId));
         }
 
         public async Task UpdateAsync(UpdateRequest request)
@@ -414,9 +414,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/webhooks/update", requestOptions);
         }
 
-        public async Task UpdateAsync(string webhookId = default, List<string> eventTypes = default)
+        public async Task UpdateAsync(List<string> eventTypes = default, string webhookId = default)
         {
-            await UpdateAsync(new UpdateRequest(webhookId: webhookId, eventTypes: eventTypes));
+            await UpdateAsync(new UpdateRequest(eventTypes: eventTypes, webhookId: webhookId));
         }
     }
 }

@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -14,36 +14,27 @@ namespace Seam.Model
         protected ConnectedAccount() { }
 
         public ConnectedAccount(
-            string? connectedAccountId = default,
-            string? createdAt = default,
-            ConnectedAccountUserIdentifier? userIdentifier = default,
             string? accountType = default,
             string accountTypeDisplayName = default,
-            Object errors = default,
-            Object warnings = default,
+            bool automaticallyManageNewDevices = default,
+            string? connectedAccountId = default,
+            string? createdAt = default,
             object? customMetadata = default,
-            bool automaticallyManageNewDevices = default
+            List<ConnectedAccountErrors> errors = default,
+            ConnectedAccountUserIdentifier? userIdentifier = default,
+            List<ConnectedAccountWarnings> warnings = default
         )
         {
-            ConnectedAccountId = connectedAccountId;
-            CreatedAt = createdAt;
-            UserIdentifier = userIdentifier;
             AccountType = accountType;
             AccountTypeDisplayName = accountTypeDisplayName;
-            Errors = errors;
-            Warnings = warnings;
-            CustomMetadata = customMetadata;
             AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            CustomMetadata = customMetadata;
+            Errors = errors;
+            UserIdentifier = userIdentifier;
+            Warnings = warnings;
         }
-
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
-
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
-
-        [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
-        public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }
 
         [DataMember(Name = "account_type", IsRequired = false, EmitDefaultValue = false)]
         public string? AccountType { get; set; }
@@ -55,21 +46,80 @@ namespace Seam.Model
         )]
         public string AccountTypeDisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public Object Errors { get; set; }
-
-        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public Object Warnings { get; set; }
-
-        [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public object? CustomMetadata { get; set; }
-
         [DataMember(
             Name = "automatically_manage_new_devices",
             IsRequired = true,
             EmitDefaultValue = false
         )]
         public bool AutomaticallyManageNewDevices { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? CreatedAt { get; set; }
+
+        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        public object? CustomMetadata { get; set; }
+
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<ConnectedAccountErrors> Errors { get; set; }
+
+        [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
+        public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }
+
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<ConnectedAccountWarnings> Warnings { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_connectedAccountErrors_model")]
+    public class ConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected ConnectedAccountErrors() { }
+
+        public ConnectedAccountErrors(
+            string errorCode = default,
+            bool isConnectedAccountError = default,
+            string message = default
+        )
+        {
+            ErrorCode = errorCode;
+            IsConnectedAccountError = isConnectedAccountError;
+            Message = message;
+        }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(
+            Name = "is_connected_account_error",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public bool IsConnectedAccountError { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {
@@ -98,22 +148,19 @@ namespace Seam.Model
         protected ConnectedAccountUserIdentifier() { }
 
         public ConnectedAccountUserIdentifier(
-            string? username = default,
             string? apiUrl = default,
             string? email = default,
+            bool? exclusive = default,
             string? phone = default,
-            bool? exclusive = default
+            string? username = default
         )
         {
-            Username = username;
             ApiUrl = apiUrl;
             Email = email;
-            Phone = phone;
             Exclusive = exclusive;
+            Phone = phone;
+            Username = username;
         }
-
-        [DataMember(Name = "username", IsRequired = false, EmitDefaultValue = false)]
-        public string? Username { get; set; }
 
         [DataMember(Name = "api_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ApiUrl { get; set; }
@@ -121,11 +168,52 @@ namespace Seam.Model
         [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
         public string? Email { get; set; }
 
+        [DataMember(Name = "exclusive", IsRequired = false, EmitDefaultValue = false)]
+        public bool? Exclusive { get; set; }
+
         [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
         public string? Phone { get; set; }
 
-        [DataMember(Name = "exclusive", IsRequired = false, EmitDefaultValue = false)]
-        public bool? Exclusive { get; set; }
+        [DataMember(Name = "username", IsRequired = false, EmitDefaultValue = false)]
+        public string? Username { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_connectedAccountWarnings_model")]
+    public class ConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected ConnectedAccountWarnings() { }
+
+        public ConnectedAccountWarnings(string message = default, string warningCode = default)
+        {
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
