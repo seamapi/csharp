@@ -156,7 +156,10 @@ namespace Seam.Model
             AssaAbloyVostio = 41,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 42
+            AssaAbloyVostioCredentialService = 42,
+
+            [EnumMember(Value = "tado")]
+            Tado = 42
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
