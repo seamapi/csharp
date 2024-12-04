@@ -138,7 +138,25 @@ namespace Seam.Model
             HoneywellResideo = 35,
 
             [EnumMember(Value = "latch")]
-            Latch = 36
+            Latch = 36,
+
+            [EnumMember(Value = "dormakaba_community")]
+            DormakabaCommunity = 37,
+
+            [EnumMember(Value = "legic_connect")]
+            LegicConnect = 38,
+
+            [EnumMember(Value = "salto_ks")]
+            SaltoKs = 39,
+
+            [EnumMember(Value = "akiles")]
+            Akiles = 40,
+
+            [EnumMember(Value = "assa_abloy_vostio")]
+            AssaAbloyVostio = 41,
+
+            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
+            AssaAbloyVostioCredentialService = 42
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
