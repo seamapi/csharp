@@ -152,7 +152,10 @@ namespace Seam.Model
             IosPhone = 31,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 32
+            AndroidPhone = 32,
+
+            [EnumMember(Value = "akiles_lock")]
+            AkilesLock = 33,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]

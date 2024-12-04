@@ -179,7 +179,25 @@ namespace Seam.Api
                 HidCm = 38,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 39
+                GoogleNest = 39,
+
+                [EnumMember(Value = "dormakaba_community")]
+                DormakabaCommunity = 40,
+
+                [EnumMember(Value = "legic_connect")]
+                LegicConnect = 41,
+
+                [EnumMember(Value = "salto_ks")]
+                SaltoKs = 42,
+
+                [EnumMember(Value = "akiles")]
+                Akiles = 43,
+
+                [EnumMember(Value = "assa_abloy_vostio")]
+                AssaAbloyVostio = 44,
+
+                [EnumMember(Value = "assa_abloy_vostio_credential_service")]
+                AssaAbloyVostioCredentialService = 45
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
