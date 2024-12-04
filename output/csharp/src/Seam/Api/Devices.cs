@@ -305,7 +305,10 @@ namespace Seam.Api
                 IosPhone = 31,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32
+                AndroidPhone = 32,
+
+                [EnumMember(Value = "akiles_lock")]
+                AkilesLock = 33,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -408,7 +411,10 @@ namespace Seam.Api
                 IosPhone = 31,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32
+                AndroidPhone = 32,
+    
+                [EnumMember(Value = "akiles_lock")]
+                AkilesLock = 33
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -514,7 +520,10 @@ namespace Seam.Api
                 Tedee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33
+                HoneywellResideo = 33,
+    
+                [EnumMember(Value = "akiles")]
+                Akiles = 34
             }
 
             [DataMember(
