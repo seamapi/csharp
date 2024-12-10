@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -25,40 +25,42 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
-                string deviceId = default,
-                string? name = default,
-                string? startsAt = default,
-                string? endsAt = default,
-                string? code = default,
-                bool? sync = default,
-                bool? attemptForOfflineDevice = default,
-                string? commonCodeKey = default,
-                bool? preferNativeScheduling = default,
-                bool? useBackupAccessCodePool = default,
                 bool? allowExternalModification = default,
+                bool? attemptForOfflineDevice = default,
+                string? code = default,
+                string? commonCodeKey = default,
+                string deviceId = default,
+                string? endsAt = default,
                 bool? isExternalModificationAllowed = default,
-                bool? useOfflineAccessCode = default,
                 bool? isOfflineAccessCode = default,
                 bool? isOneTimeUse = default,
-                CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+                CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+                string? name = default,
+                bool? preferNativeScheduling = default,
+                float? preferredCodeLength = default,
+                string? startsAt = default,
+                bool? sync = default,
+                bool? useBackupAccessCodePool = default,
+                bool? useOfflineAccessCode = default
             )
             {
-                DeviceId = deviceId;
-                Name = name;
-                StartsAt = startsAt;
-                EndsAt = endsAt;
-                Code = code;
-                Sync = sync;
-                AttemptForOfflineDevice = attemptForOfflineDevice;
-                CommonCodeKey = commonCodeKey;
-                PreferNativeScheduling = preferNativeScheduling;
-                UseBackupAccessCodePool = useBackupAccessCodePool;
                 AllowExternalModification = allowExternalModification;
+                AttemptForOfflineDevice = attemptForOfflineDevice;
+                Code = code;
+                CommonCodeKey = commonCodeKey;
+                DeviceId = deviceId;
+                EndsAt = endsAt;
                 IsExternalModificationAllowed = isExternalModificationAllowed;
-                UseOfflineAccessCode = useOfflineAccessCode;
                 IsOfflineAccessCode = isOfflineAccessCode;
                 IsOneTimeUse = isOneTimeUse;
                 MaxTimeRounding = maxTimeRounding;
+                Name = name;
+                PreferNativeScheduling = preferNativeScheduling;
+                PreferredCodeLength = preferredCodeLength;
+                StartsAt = startsAt;
+                Sync = sync;
+                UseBackupAccessCodePool = useBackupAccessCodePool;
+                UseOfflineAccessCode = useOfflineAccessCode;
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -74,50 +76,8 @@ namespace Seam.Api
                 _1h = 2,
 
                 [EnumMember(Value = "1d")]
-                _1d = 3
+                _1d = 3,
             }
-
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
-
-            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? StartsAt { get; set; }
-
-            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? EndsAt { get; set; }
-
-            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
-            public string? Code { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
-            [DataMember(
-                Name = "attempt_for_offline_device",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AttemptForOfflineDevice { get; set; }
-
-            [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? CommonCodeKey { get; set; }
-
-            [DataMember(
-                Name = "prefer_native_scheduling",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? PreferNativeScheduling { get; set; }
-
-            [DataMember(
-                Name = "use_backup_access_code_pool",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseBackupAccessCodePool { get; set; }
 
             [DataMember(
                 Name = "allow_external_modification",
@@ -127,18 +87,30 @@ namespace Seam.Api
             public bool? AllowExternalModification { get; set; }
 
             [DataMember(
+                Name = "attempt_for_offline_device",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AttemptForOfflineDevice { get; set; }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
+
+            [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonCodeKey { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(
                 Name = "is_external_modification_allowed",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool? IsExternalModificationAllowed { get; set; }
-
-            [DataMember(
-                Name = "use_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseOfflineAccessCode { get; set; }
 
             [DataMember(
                 Name = "is_offline_access_code",
@@ -152,6 +124,43 @@ namespace Seam.Api
 
             [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(
+                Name = "prefer_native_scheduling",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? PreferNativeScheduling { get; set; }
+
+            [DataMember(
+                Name = "preferred_code_length",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? PreferredCodeLength { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            [DataMember(
+                Name = "use_backup_access_code_pool",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseBackupAccessCodePool { get; set; }
+
+            [DataMember(
+                Name = "use_offline_access_code",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseOfflineAccessCode { get; set; }
 
             public override string ToString()
             {
@@ -217,42 +226,44 @@ namespace Seam.Api
         }
 
         public AccessCode Create(
-            string deviceId = default,
-            string? name = default,
-            string? startsAt = default,
-            string? endsAt = default,
-            string? code = default,
-            bool? sync = default,
-            bool? attemptForOfflineDevice = default,
-            string? commonCodeKey = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
             bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
+            string? code = default,
+            string? commonCodeKey = default,
+            string deviceId = default,
+            string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
             bool? isOfflineAccessCode = default,
             bool? isOneTimeUse = default,
-            CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+            CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? sync = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
         )
         {
             return Create(
                 new CreateRequest(
-                    deviceId: deviceId,
-                    name: name,
-                    startsAt: startsAt,
-                    endsAt: endsAt,
-                    code: code,
-                    sync: sync,
-                    attemptForOfflineDevice: attemptForOfflineDevice,
-                    commonCodeKey: commonCodeKey,
-                    preferNativeScheduling: preferNativeScheduling,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
                     allowExternalModification: allowExternalModification,
+                    attemptForOfflineDevice: attemptForOfflineDevice,
+                    code: code,
+                    commonCodeKey: commonCodeKey,
+                    deviceId: deviceId,
+                    endsAt: endsAt,
                     isExternalModificationAllowed: isExternalModificationAllowed,
-                    useOfflineAccessCode: useOfflineAccessCode,
                     isOfflineAccessCode: isOfflineAccessCode,
                     isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding
+                    maxTimeRounding: maxTimeRounding,
+                    name: name,
+                    preferNativeScheduling: preferNativeScheduling,
+                    preferredCodeLength: preferredCodeLength,
+                    startsAt: startsAt,
+                    sync: sync,
+                    useBackupAccessCodePool: useBackupAccessCodePool,
+                    useOfflineAccessCode: useOfflineAccessCode
                 )
             );
         }
@@ -267,43 +278,45 @@ namespace Seam.Api
         }
 
         public async Task<AccessCode> CreateAsync(
-            string deviceId = default,
-            string? name = default,
-            string? startsAt = default,
-            string? endsAt = default,
-            string? code = default,
-            bool? sync = default,
-            bool? attemptForOfflineDevice = default,
-            string? commonCodeKey = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
             bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
+            string? code = default,
+            string? commonCodeKey = default,
+            string deviceId = default,
+            string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
             bool? isOfflineAccessCode = default,
             bool? isOneTimeUse = default,
-            CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+            CreateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? sync = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
         )
         {
             return (
                 await CreateAsync(
                     new CreateRequest(
-                        deviceId: deviceId,
-                        name: name,
-                        startsAt: startsAt,
-                        endsAt: endsAt,
-                        code: code,
-                        sync: sync,
-                        attemptForOfflineDevice: attemptForOfflineDevice,
-                        commonCodeKey: commonCodeKey,
-                        preferNativeScheduling: preferNativeScheduling,
-                        useBackupAccessCodePool: useBackupAccessCodePool,
                         allowExternalModification: allowExternalModification,
+                        attemptForOfflineDevice: attemptForOfflineDevice,
+                        code: code,
+                        commonCodeKey: commonCodeKey,
+                        deviceId: deviceId,
+                        endsAt: endsAt,
                         isExternalModificationAllowed: isExternalModificationAllowed,
-                        useOfflineAccessCode: useOfflineAccessCode,
                         isOfflineAccessCode: isOfflineAccessCode,
                         isOneTimeUse: isOneTimeUse,
-                        maxTimeRounding: maxTimeRounding
+                        maxTimeRounding: maxTimeRounding,
+                        name: name,
+                        preferNativeScheduling: preferNativeScheduling,
+                        preferredCodeLength: preferredCodeLength,
+                        startsAt: startsAt,
+                        sync: sync,
+                        useBackupAccessCodePool: useBackupAccessCodePool,
+                        useOfflineAccessCode: useOfflineAccessCode
                     )
                 )
             );
@@ -316,41 +329,41 @@ namespace Seam.Api
             protected CreateMultipleRequest() { }
 
             public CreateMultipleRequest(
-                List<string> deviceIds = default,
+                bool? allowExternalModification = default,
+                bool? attemptForOfflineDevice = default,
                 CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                     default,
-                float? preferredCodeLength = default,
-                string? name = default,
-                string? startsAt = default,
-                string? endsAt = default,
                 string? code = default,
-                bool? attemptForOfflineDevice = default,
-                bool? preferNativeScheduling = default,
-                bool? useBackupAccessCodePool = default,
-                bool? allowExternalModification = default,
+                List<string> deviceIds = default,
+                string? endsAt = default,
                 bool? isExternalModificationAllowed = default,
-                bool? useOfflineAccessCode = default,
                 bool? isOfflineAccessCode = default,
                 bool? isOneTimeUse = default,
-                CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+                CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+                string? name = default,
+                bool? preferNativeScheduling = default,
+                float? preferredCodeLength = default,
+                string? startsAt = default,
+                bool? useBackupAccessCodePool = default,
+                bool? useOfflineAccessCode = default
             )
             {
-                DeviceIds = deviceIds;
-                BehaviorWhenCodeCannotBeShared = behaviorWhenCodeCannotBeShared;
-                PreferredCodeLength = preferredCodeLength;
-                Name = name;
-                StartsAt = startsAt;
-                EndsAt = endsAt;
-                Code = code;
-                AttemptForOfflineDevice = attemptForOfflineDevice;
-                PreferNativeScheduling = preferNativeScheduling;
-                UseBackupAccessCodePool = useBackupAccessCodePool;
                 AllowExternalModification = allowExternalModification;
+                AttemptForOfflineDevice = attemptForOfflineDevice;
+                BehaviorWhenCodeCannotBeShared = behaviorWhenCodeCannotBeShared;
+                Code = code;
+                DeviceIds = deviceIds;
+                EndsAt = endsAt;
                 IsExternalModificationAllowed = isExternalModificationAllowed;
-                UseOfflineAccessCode = useOfflineAccessCode;
                 IsOfflineAccessCode = isOfflineAccessCode;
                 IsOneTimeUse = isOneTimeUse;
                 MaxTimeRounding = maxTimeRounding;
+                Name = name;
+                PreferNativeScheduling = preferNativeScheduling;
+                PreferredCodeLength = preferredCodeLength;
+                StartsAt = startsAt;
+                UseBackupAccessCodePool = useBackupAccessCodePool;
+                UseOfflineAccessCode = useOfflineAccessCode;
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -360,7 +373,7 @@ namespace Seam.Api
                 Throw = 0,
 
                 [EnumMember(Value = "create_random_code")]
-                CreateRandomCode = 1
+                CreateRandomCode = 1,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -376,58 +389,8 @@ namespace Seam.Api
                 _1h = 2,
 
                 [EnumMember(Value = "1d")]
-                _1d = 3
+                _1d = 3,
             }
-
-            [DataMember(Name = "device_ids", IsRequired = true, EmitDefaultValue = false)]
-            public List<string> DeviceIds { get; set; }
-
-            [DataMember(
-                Name = "behavior_when_code_cannot_be_shared",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? BehaviorWhenCodeCannotBeShared { get; set; }
-
-            [DataMember(
-                Name = "preferred_code_length",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? PreferredCodeLength { get; set; }
-
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
-
-            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? StartsAt { get; set; }
-
-            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? EndsAt { get; set; }
-
-            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
-            public string? Code { get; set; }
-
-            [DataMember(
-                Name = "attempt_for_offline_device",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AttemptForOfflineDevice { get; set; }
-
-            [DataMember(
-                Name = "prefer_native_scheduling",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? PreferNativeScheduling { get; set; }
-
-            [DataMember(
-                Name = "use_backup_access_code_pool",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseBackupAccessCodePool { get; set; }
 
             [DataMember(
                 Name = "allow_external_modification",
@@ -437,18 +400,34 @@ namespace Seam.Api
             public bool? AllowExternalModification { get; set; }
 
             [DataMember(
+                Name = "attempt_for_offline_device",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AttemptForOfflineDevice { get; set; }
+
+            [DataMember(
+                Name = "behavior_when_code_cannot_be_shared",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? BehaviorWhenCodeCannotBeShared { get; set; }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
+
+            [DataMember(Name = "device_ids", IsRequired = true, EmitDefaultValue = false)]
+            public List<string> DeviceIds { get; set; }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(
                 Name = "is_external_modification_allowed",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool? IsExternalModificationAllowed { get; set; }
-
-            [DataMember(
-                Name = "use_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseOfflineAccessCode { get; set; }
 
             [DataMember(
                 Name = "is_offline_access_code",
@@ -462,6 +441,40 @@ namespace Seam.Api
 
             [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
             public CreateMultipleRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(
+                Name = "prefer_native_scheduling",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? PreferNativeScheduling { get; set; }
+
+            [DataMember(
+                Name = "preferred_code_length",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? PreferredCodeLength { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            [DataMember(
+                Name = "use_backup_access_code_pool",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseBackupAccessCodePool { get; set; }
+
+            [DataMember(
+                Name = "use_offline_access_code",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseOfflineAccessCode { get; set; }
 
             public override string ToString()
             {
@@ -527,43 +540,43 @@ namespace Seam.Api
         }
 
         public List<AccessCode> CreateMultiple(
-            List<string> deviceIds = default,
+            bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
             CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                 default,
-            float? preferredCodeLength = default,
-            string? name = default,
-            string? startsAt = default,
-            string? endsAt = default,
             string? code = default,
-            bool? attemptForOfflineDevice = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default,
+            List<string> deviceIds = default,
+            string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
             bool? isOfflineAccessCode = default,
             bool? isOneTimeUse = default,
-            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
         )
         {
             return CreateMultiple(
                 new CreateMultipleRequest(
-                    deviceIds: deviceIds,
-                    behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
-                    preferredCodeLength: preferredCodeLength,
-                    name: name,
-                    startsAt: startsAt,
-                    endsAt: endsAt,
-                    code: code,
-                    attemptForOfflineDevice: attemptForOfflineDevice,
-                    preferNativeScheduling: preferNativeScheduling,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
                     allowExternalModification: allowExternalModification,
+                    attemptForOfflineDevice: attemptForOfflineDevice,
+                    behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
+                    code: code,
+                    deviceIds: deviceIds,
+                    endsAt: endsAt,
                     isExternalModificationAllowed: isExternalModificationAllowed,
-                    useOfflineAccessCode: useOfflineAccessCode,
                     isOfflineAccessCode: isOfflineAccessCode,
                     isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding
+                    maxTimeRounding: maxTimeRounding,
+                    name: name,
+                    preferNativeScheduling: preferNativeScheduling,
+                    preferredCodeLength: preferredCodeLength,
+                    startsAt: startsAt,
+                    useBackupAccessCodePool: useBackupAccessCodePool,
+                    useOfflineAccessCode: useOfflineAccessCode
                 )
             );
         }
@@ -583,167 +596,45 @@ namespace Seam.Api
         }
 
         public async Task<List<AccessCode>> CreateMultipleAsync(
-            List<string> deviceIds = default,
+            bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
             CreateMultipleRequest.BehaviorWhenCodeCannotBeSharedEnum? behaviorWhenCodeCannotBeShared =
                 default,
-            float? preferredCodeLength = default,
-            string? name = default,
-            string? startsAt = default,
-            string? endsAt = default,
             string? code = default,
-            bool? attemptForOfflineDevice = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default,
+            List<string> deviceIds = default,
+            string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
             bool? isOfflineAccessCode = default,
             bool? isOneTimeUse = default,
-            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default
+            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
         )
         {
             return (
                 await CreateMultipleAsync(
                     new CreateMultipleRequest(
-                        deviceIds: deviceIds,
-                        behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
-                        preferredCodeLength: preferredCodeLength,
-                        name: name,
-                        startsAt: startsAt,
-                        endsAt: endsAt,
-                        code: code,
-                        attemptForOfflineDevice: attemptForOfflineDevice,
-                        preferNativeScheduling: preferNativeScheduling,
-                        useBackupAccessCodePool: useBackupAccessCodePool,
                         allowExternalModification: allowExternalModification,
+                        attemptForOfflineDevice: attemptForOfflineDevice,
+                        behaviorWhenCodeCannotBeShared: behaviorWhenCodeCannotBeShared,
+                        code: code,
+                        deviceIds: deviceIds,
+                        endsAt: endsAt,
                         isExternalModificationAllowed: isExternalModificationAllowed,
-                        useOfflineAccessCode: useOfflineAccessCode,
                         isOfflineAccessCode: isOfflineAccessCode,
                         isOneTimeUse: isOneTimeUse,
-                        maxTimeRounding: maxTimeRounding
+                        maxTimeRounding: maxTimeRounding,
+                        name: name,
+                        preferNativeScheduling: preferNativeScheduling,
+                        preferredCodeLength: preferredCodeLength,
+                        startsAt: startsAt,
+                        useBackupAccessCodePool: useBackupAccessCodePool,
+                        useOfflineAccessCode: useOfflineAccessCode
                     )
-                )
-            );
-        }
-
-        [DataContract(Name = "deleteRequest_request")]
-        public class DeleteRequest
-        {
-            [JsonConstructorAttribute]
-            protected DeleteRequest() { }
-
-            public DeleteRequest(
-                string? deviceId = default,
-                string accessCodeId = default,
-                bool? sync = default
-            )
-            {
-                DeviceId = deviceId;
-                AccessCodeId = accessCodeId;
-                Sync = sync;
-            }
-
-            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceId { get; set; }
-
-            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessCodeId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "deleteResponse_response")]
-        public class DeleteResponse
-        {
-            [JsonConstructorAttribute]
-            protected DeleteResponse() { }
-
-            public DeleteResponse(ActionAttempt actionAttempt = default)
-            {
-                ActionAttempt = actionAttempt;
-            }
-
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public ActionAttempt Delete(DeleteRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return _seam
-                .Post<DeleteResponse>("/access_codes/delete", requestOptions)
-                .Data.ActionAttempt;
-        }
-
-        public ActionAttempt Delete(
-            string? deviceId = default,
-            string accessCodeId = default,
-            bool? sync = default
-        )
-        {
-            return Delete(
-                new DeleteRequest(deviceId: deviceId, accessCodeId: accessCodeId, sync: sync)
-            );
-        }
-
-        public async Task<ActionAttempt> DeleteAsync(DeleteRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            return (await _seam.PostAsync<DeleteResponse>("/access_codes/delete", requestOptions))
-                .Data
-                .ActionAttempt;
-        }
-
-        public async Task<ActionAttempt> DeleteAsync(
-            string? deviceId = default,
-            string accessCodeId = default,
-            bool? sync = default
-        )
-        {
-            return (
-                await DeleteAsync(
-                    new DeleteRequest(deviceId: deviceId, accessCodeId: accessCodeId, sync: sync)
                 )
             );
         }
@@ -856,24 +747,24 @@ namespace Seam.Api
             protected GetRequest() { }
 
             public GetRequest(
-                string? deviceId = default,
                 string? accessCodeId = default,
-                string? code = default
+                string? code = default,
+                string? deviceId = default
             )
             {
-                DeviceId = deviceId;
                 AccessCodeId = accessCodeId;
                 Code = code;
+                DeviceId = deviceId;
             }
-
-            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceId { get; set; }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessCodeId { get; set; }
 
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
 
             public override string ToString()
             {
@@ -937,12 +828,12 @@ namespace Seam.Api
         }
 
         public AccessCode Get(
-            string? deviceId = default,
             string? accessCodeId = default,
-            string? code = default
+            string? code = default,
+            string? deviceId = default
         )
         {
-            return Get(new GetRequest(deviceId: deviceId, accessCodeId: accessCodeId, code: code));
+            return Get(new GetRequest(accessCodeId: accessCodeId, code: code, deviceId: deviceId));
         }
 
         public async Task<AccessCode> GetAsync(GetRequest request)
@@ -955,14 +846,14 @@ namespace Seam.Api
         }
 
         public async Task<AccessCode> GetAsync(
-            string? deviceId = default,
             string? accessCodeId = default,
-            string? code = default
+            string? code = default,
+            string? deviceId = default
         )
         {
             return (
                 await GetAsync(
-                    new GetRequest(deviceId: deviceId, accessCodeId: accessCodeId, code: code)
+                    new GetRequest(accessCodeId: accessCodeId, code: code, deviceId: deviceId)
                 )
             );
         }
@@ -974,21 +865,21 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? deviceId = default,
                 List<string>? accessCodeIds = default,
+                string? deviceId = default,
                 string? userIdentifierKey = default
             )
             {
-                DeviceId = deviceId;
                 AccessCodeIds = accessCodeIds;
+                DeviceId = deviceId;
                 UserIdentifierKey = userIdentifierKey;
             }
 
-            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceId { get; set; }
-
             [DataMember(Name = "access_code_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessCodeIds { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -1055,15 +946,15 @@ namespace Seam.Api
         }
 
         public List<AccessCode> List(
-            string? deviceId = default,
             List<string>? accessCodeIds = default,
+            string? deviceId = default,
             string? userIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
-                    deviceId: deviceId,
                     accessCodeIds: accessCodeIds,
+                    deviceId: deviceId,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -1079,16 +970,16 @@ namespace Seam.Api
         }
 
         public async Task<List<AccessCode>> ListAsync(
-            string? deviceId = default,
             List<string>? accessCodeIds = default,
+            string? deviceId = default,
             string? userIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
-                        deviceId: deviceId,
                         accessCodeIds: accessCodeIds,
+                        deviceId: deviceId,
                         userIdentifierKey: userIdentifierKey
                     )
                 )
@@ -1135,13 +1026,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PullBackupAccessCodeResponse() { }
 
-            public PullBackupAccessCodeResponse(AccessCode backupAccessCode = default)
+            public PullBackupAccessCodeResponse(AccessCode accessCode = default)
             {
-                BackupAccessCode = backupAccessCode;
+                AccessCode = accessCode;
             }
 
-            [DataMember(Name = "backup_access_code", IsRequired = false, EmitDefaultValue = false)]
-            public AccessCode BackupAccessCode { get; set; }
+            [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
+            public AccessCode AccessCode { get; set; }
 
             public override string ToString()
             {
@@ -1172,7 +1063,7 @@ namespace Seam.Api
                     "/access_codes/pull_backup_access_code",
                     requestOptions
                 )
-                .Data.BackupAccessCode;
+                .Data.AccessCode;
         }
 
         public AccessCode PullBackupAccessCode(string accessCodeId = default)
@@ -1193,7 +1084,7 @@ namespace Seam.Api
                 )
             )
                 .Data
-                .BackupAccessCode;
+                .AccessCode;
         }
 
         public async Task<AccessCode> PullBackupAccessCodeAsync(string accessCodeId = default)
@@ -1205,78 +1096,30 @@ namespace Seam.Api
             );
         }
 
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
+        [DataContract(Name = "updateMultipleRequest_request")]
+        public class UpdateMultipleRequest
         {
             [JsonConstructorAttribute]
-            protected UpdateRequest() { }
+            protected UpdateMultipleRequest() { }
 
-            public UpdateRequest(
-                string? name = default,
-                string? startsAt = default,
+            public UpdateMultipleRequest(
+                string commonCodeKey = default,
                 string? endsAt = default,
-                string? code = default,
-                bool? sync = default,
-                bool? attemptForOfflineDevice = default,
-                bool? preferNativeScheduling = default,
-                bool? useBackupAccessCodePool = default,
-                bool? allowExternalModification = default,
-                bool? isExternalModificationAllowed = default,
-                bool? useOfflineAccessCode = default,
-                bool? isOfflineAccessCode = default,
-                bool? isOneTimeUse = default,
-                UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
-                string accessCodeId = default,
-                string? deviceId = default,
-                UpdateRequest.TypeEnum? type = default,
-                bool? isManaged = default
+                string? name = default,
+                string? startsAt = default
             )
             {
+                CommonCodeKey = commonCodeKey;
+                EndsAt = endsAt;
                 Name = name;
                 StartsAt = startsAt;
-                EndsAt = endsAt;
-                Code = code;
-                Sync = sync;
-                AttemptForOfflineDevice = attemptForOfflineDevice;
-                PreferNativeScheduling = preferNativeScheduling;
-                UseBackupAccessCodePool = useBackupAccessCodePool;
-                AllowExternalModification = allowExternalModification;
-                IsExternalModificationAllowed = isExternalModificationAllowed;
-                UseOfflineAccessCode = useOfflineAccessCode;
-                IsOfflineAccessCode = isOfflineAccessCode;
-                IsOneTimeUse = isOneTimeUse;
-                MaxTimeRounding = maxTimeRounding;
-                AccessCodeId = accessCodeId;
-                DeviceId = deviceId;
-                Type = type;
-                IsManaged = isManaged;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum MaxTimeRoundingEnum
-            {
-                [EnumMember(Value = "1hour")]
-                _1hour = 0,
+            [DataMember(Name = "common_code_key", IsRequired = true, EmitDefaultValue = false)]
+            public string CommonCodeKey { get; set; }
 
-                [EnumMember(Value = "1day")]
-                _1day = 1,
-
-                [EnumMember(Value = "1h")]
-                _1h = 2,
-
-                [EnumMember(Value = "1d")]
-                _1d = 3
-            }
-
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum TypeEnum
-            {
-                [EnumMember(Value = "ongoing")]
-                Ongoing = 0,
-
-                [EnumMember(Value = "time_bound")]
-                TimeBound = 1
-            }
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
@@ -1284,82 +1127,6 @@ namespace Seam.Api
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
-            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? EndsAt { get; set; }
-
-            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
-            public string? Code { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
-            [DataMember(
-                Name = "attempt_for_offline_device",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AttemptForOfflineDevice { get; set; }
-
-            [DataMember(
-                Name = "prefer_native_scheduling",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? PreferNativeScheduling { get; set; }
-
-            [DataMember(
-                Name = "use_backup_access_code_pool",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseBackupAccessCodePool { get; set; }
-
-            [DataMember(
-                Name = "allow_external_modification",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AllowExternalModification { get; set; }
-
-            [DataMember(
-                Name = "is_external_modification_allowed",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsExternalModificationAllowed { get; set; }
-
-            [DataMember(
-                Name = "use_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseOfflineAccessCode { get; set; }
-
-            [DataMember(
-                Name = "is_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsOfflineAccessCode { get; set; }
-
-            [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsOneTimeUse { get; set; }
-
-            [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
-            public UpdateRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
-
-            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessCodeId { get; set; }
-
-            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceId { get; set; }
-
-            [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
-            public UpdateRequest.TypeEnum? Type { get; set; }
-
-            [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsManaged { get; set; }
-
             public override string ToString()
             {
                 JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
@@ -1380,146 +1147,50 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "updateResponse_response")]
-        public class UpdateResponse
-        {
-            [JsonConstructorAttribute]
-            protected UpdateResponse() { }
-
-            public UpdateResponse(ActionAttempt actionAttempt = default)
-            {
-                ActionAttempt = actionAttempt;
-            }
-
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        public ActionAttempt Update(UpdateRequest request)
+        public void UpdateMultiple(UpdateMultipleRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam
-                .Post<UpdateResponse>("/access_codes/update", requestOptions)
-                .Data.ActionAttempt;
+            _seam.Post<object>("/access_codes/update_multiple", requestOptions);
         }
 
-        public ActionAttempt Update(
-            string? name = default,
-            string? startsAt = default,
+        public void UpdateMultiple(
+            string commonCodeKey = default,
             string? endsAt = default,
-            string? code = default,
-            bool? sync = default,
-            bool? attemptForOfflineDevice = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default,
-            bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
-            string accessCodeId = default,
-            string? deviceId = default,
-            UpdateRequest.TypeEnum? type = default,
-            bool? isManaged = default
+            string? name = default,
+            string? startsAt = default
         )
         {
-            return Update(
-                new UpdateRequest(
-                    name: name,
-                    startsAt: startsAt,
+            UpdateMultiple(
+                new UpdateMultipleRequest(
+                    commonCodeKey: commonCodeKey,
                     endsAt: endsAt,
-                    code: code,
-                    sync: sync,
-                    attemptForOfflineDevice: attemptForOfflineDevice,
-                    preferNativeScheduling: preferNativeScheduling,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
-                    allowExternalModification: allowExternalModification,
-                    isExternalModificationAllowed: isExternalModificationAllowed,
-                    useOfflineAccessCode: useOfflineAccessCode,
-                    isOfflineAccessCode: isOfflineAccessCode,
-                    isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding,
-                    accessCodeId: accessCodeId,
-                    deviceId: deviceId,
-                    type: type,
-                    isManaged: isManaged
+                    name: name,
+                    startsAt: startsAt
                 )
             );
         }
 
-        public async Task<ActionAttempt> UpdateAsync(UpdateRequest request)
+        public async Task UpdateMultipleAsync(UpdateMultipleRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<UpdateResponse>("/access_codes/update", requestOptions))
-                .Data
-                .ActionAttempt;
+            await _seam.PostAsync<object>("/access_codes/update_multiple", requestOptions);
         }
 
-        public async Task<ActionAttempt> UpdateAsync(
-            string? name = default,
-            string? startsAt = default,
+        public async Task UpdateMultipleAsync(
+            string commonCodeKey = default,
             string? endsAt = default,
-            string? code = default,
-            bool? sync = default,
-            bool? attemptForOfflineDevice = default,
-            bool? preferNativeScheduling = default,
-            bool? useBackupAccessCodePool = default,
-            bool? allowExternalModification = default,
-            bool? isExternalModificationAllowed = default,
-            bool? useOfflineAccessCode = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
-            string accessCodeId = default,
-            string? deviceId = default,
-            UpdateRequest.TypeEnum? type = default,
-            bool? isManaged = default
+            string? name = default,
+            string? startsAt = default
         )
         {
-            return (
-                await UpdateAsync(
-                    new UpdateRequest(
-                        name: name,
-                        startsAt: startsAt,
-                        endsAt: endsAt,
-                        code: code,
-                        sync: sync,
-                        attemptForOfflineDevice: attemptForOfflineDevice,
-                        preferNativeScheduling: preferNativeScheduling,
-                        useBackupAccessCodePool: useBackupAccessCodePool,
-                        allowExternalModification: allowExternalModification,
-                        isExternalModificationAllowed: isExternalModificationAllowed,
-                        useOfflineAccessCode: useOfflineAccessCode,
-                        isOfflineAccessCode: isOfflineAccessCode,
-                        isOneTimeUse: isOneTimeUse,
-                        maxTimeRounding: maxTimeRounding,
-                        accessCodeId: accessCodeId,
-                        deviceId: deviceId,
-                        type: type,
-                        isManaged: isManaged
-                    )
+            await UpdateMultipleAsync(
+                new UpdateMultipleRequest(
+                    commonCodeKey: commonCodeKey,
+                    endsAt: endsAt,
+                    name: name,
+                    startsAt: startsAt
                 )
             );
         }

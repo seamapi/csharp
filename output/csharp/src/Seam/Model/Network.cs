@@ -7,38 +7,33 @@ using Newtonsoft.Json.Linq;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_workspace_model")]
-    public class Workspace
+    [DataContract(Name = "seamModel_network_model")]
+    public class Network
     {
         [JsonConstructorAttribute]
-        protected Workspace() { }
+        protected Network() { }
 
-        public Workspace(
-            string companyName = default,
-            string? connectPartnerName = default,
-            bool isSandbox = default,
-            string name = default,
+        public Network(
+            string createdAt = default,
+            string displayName = default,
+            string networkId = default,
             string workspaceId = default
         )
         {
-            CompanyName = companyName;
-            ConnectPartnerName = connectPartnerName;
-            IsSandbox = isSandbox;
-            Name = name;
+            CreatedAt = createdAt;
+            DisplayName = displayName;
+            NetworkId = networkId;
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "company_name", IsRequired = true, EmitDefaultValue = false)]
-        public string CompanyName { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "connect_partner_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectPartnerName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "is_sandbox", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsSandbox { get; set; }
-
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-        public string Name { get; set; }
+        [DataMember(Name = "network_id", IsRequired = true, EmitDefaultValue = false)]
+        public string NetworkId { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

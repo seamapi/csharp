@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -25,17 +25,20 @@ namespace Seam.Api
             protected CreateSandboxPhoneRequest() { }
 
             public CreateSandboxPhoneRequest(
+                CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default,
                 string? customSdkInstallationId = default,
-                string userIdentityId = default,
                 CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
-                CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default
+                string userIdentityId = default
             )
             {
-                CustomSdkInstallationId = customSdkInstallationId;
-                UserIdentityId = userIdentityId;
-                PhoneMetadata = phoneMetadata;
                 AssaAbloyMetadata = assaAbloyMetadata;
+                CustomSdkInstallationId = customSdkInstallationId;
+                PhoneMetadata = phoneMetadata;
+                UserIdentityId = userIdentityId;
             }
+
+            [DataMember(Name = "assa_abloy_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public CreateSandboxPhoneRequestAssaAbloyMetadata? AssaAbloyMetadata { get; set; }
 
             [DataMember(
                 Name = "custom_sdk_installation_id",
@@ -44,76 +47,11 @@ namespace Seam.Api
             )]
             public string? CustomSdkInstallationId { get; set; }
 
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
-
             [DataMember(Name = "phone_metadata", IsRequired = false, EmitDefaultValue = false)]
             public CreateSandboxPhoneRequestPhoneMetadata? PhoneMetadata { get; set; }
 
-            [DataMember(Name = "assa_abloy_metadata", IsRequired = false, EmitDefaultValue = false)]
-            public CreateSandboxPhoneRequestAssaAbloyMetadata? AssaAbloyMetadata { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createSandboxPhoneRequestPhoneMetadata_model")]
-        public class CreateSandboxPhoneRequestPhoneMetadata
-        {
-            [JsonConstructorAttribute]
-            protected CreateSandboxPhoneRequestPhoneMetadata() { }
-
-            public CreateSandboxPhoneRequestPhoneMetadata(
-                CreateSandboxPhoneRequestPhoneMetadata.OperatingSystemEnum? operatingSystem =
-                    default,
-                string? osVersion = default,
-                string? deviceManufacturer = default,
-                string? deviceModel = default
-            )
-            {
-                OperatingSystem = operatingSystem;
-                OsVersion = osVersion;
-                DeviceManufacturer = deviceManufacturer;
-                DeviceModel = deviceModel;
-            }
-
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum OperatingSystemEnum
-            {
-                [EnumMember(Value = "android")]
-                Android = 0,
-
-                [EnumMember(Value = "ios")]
-                Ios = 1
-            }
-
-            [DataMember(Name = "operating_system", IsRequired = false, EmitDefaultValue = false)]
-            public CreateSandboxPhoneRequestPhoneMetadata.OperatingSystemEnum? OperatingSystem { get; set; }
-
-            [DataMember(Name = "os_version", IsRequired = false, EmitDefaultValue = false)]
-            public string? OsVersion { get; set; }
-
-            [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceManufacturer { get; set; }
-
-            [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceModel { get; set; }
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -142,21 +80,24 @@ namespace Seam.Api
             protected CreateSandboxPhoneRequestAssaAbloyMetadata() { }
 
             public CreateSandboxPhoneRequestAssaAbloyMetadata(
+                string? applicationVersion = default,
                 bool? bleCapability = default,
                 bool? hceCapability = default,
                 bool? nfcCapability = default,
-                string? applicationVersion = default,
                 string? seosAppletVersion = default,
                 float? seosTsmEndpointId = default
             )
             {
+                ApplicationVersion = applicationVersion;
                 BleCapability = bleCapability;
                 HceCapability = hceCapability;
                 NfcCapability = nfcCapability;
-                ApplicationVersion = applicationVersion;
                 SeosAppletVersion = seosAppletVersion;
                 SeosTsmEndpointId = seosTsmEndpointId;
             }
+
+            [DataMember(Name = "application_version", IsRequired = false, EmitDefaultValue = false)]
+            public string? ApplicationVersion { get; set; }
 
             [DataMember(Name = "ble_capability", IsRequired = false, EmitDefaultValue = false)]
             public bool? BleCapability { get; set; }
@@ -167,9 +108,6 @@ namespace Seam.Api
             [DataMember(Name = "nfc_capability", IsRequired = false, EmitDefaultValue = false)]
             public bool? NfcCapability { get; set; }
 
-            [DataMember(Name = "application_version", IsRequired = false, EmitDefaultValue = false)]
-            public string? ApplicationVersion { get; set; }
-
             [DataMember(Name = "seos_applet_version", IsRequired = false, EmitDefaultValue = false)]
             public string? SeosAppletVersion { get; set; }
 
@@ -179,6 +117,68 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? SeosTsmEndpointId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createSandboxPhoneRequestPhoneMetadata_model")]
+        public class CreateSandboxPhoneRequestPhoneMetadata
+        {
+            [JsonConstructorAttribute]
+            protected CreateSandboxPhoneRequestPhoneMetadata() { }
+
+            public CreateSandboxPhoneRequestPhoneMetadata(
+                string? deviceManufacturer = default,
+                string? deviceModel = default,
+                CreateSandboxPhoneRequestPhoneMetadata.OperatingSystemEnum? operatingSystem =
+                    default,
+                string? osVersion = default
+            )
+            {
+                DeviceManufacturer = deviceManufacturer;
+                DeviceModel = deviceModel;
+                OperatingSystem = operatingSystem;
+                OsVersion = osVersion;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum OperatingSystemEnum
+            {
+                [EnumMember(Value = "android")]
+                Android = 0,
+
+                [EnumMember(Value = "ios")]
+                Ios = 1,
+            }
+
+            [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceManufacturer { get; set; }
+
+            [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceModel { get; set; }
+
+            [DataMember(Name = "operating_system", IsRequired = false, EmitDefaultValue = false)]
+            public CreateSandboxPhoneRequestPhoneMetadata.OperatingSystemEnum? OperatingSystem { get; set; }
+
+            [DataMember(Name = "os_version", IsRequired = false, EmitDefaultValue = false)]
+            public string? OsVersion { get; set; }
 
             public override string ToString()
             {
@@ -247,18 +247,18 @@ namespace Seam.Api
         }
 
         public Phone CreateSandboxPhone(
+            CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default,
             string? customSdkInstallationId = default,
-            string userIdentityId = default,
             CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
-            CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default
+            string userIdentityId = default
         )
         {
             return CreateSandboxPhone(
                 new CreateSandboxPhoneRequest(
+                    assaAbloyMetadata: assaAbloyMetadata,
                     customSdkInstallationId: customSdkInstallationId,
-                    userIdentityId: userIdentityId,
                     phoneMetadata: phoneMetadata,
-                    assaAbloyMetadata: assaAbloyMetadata
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -278,19 +278,19 @@ namespace Seam.Api
         }
 
         public async Task<Phone> CreateSandboxPhoneAsync(
+            CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default,
             string? customSdkInstallationId = default,
-            string userIdentityId = default,
             CreateSandboxPhoneRequestPhoneMetadata? phoneMetadata = default,
-            CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default
+            string userIdentityId = default
         )
         {
             return (
                 await CreateSandboxPhoneAsync(
                     new CreateSandboxPhoneRequest(
+                        assaAbloyMetadata: assaAbloyMetadata,
                         customSdkInstallationId: customSdkInstallationId,
-                        userIdentityId: userIdentityId,
                         phoneMetadata: phoneMetadata,
-                        assaAbloyMetadata: assaAbloyMetadata
+                        userIdentityId: userIdentityId
                     )
                 )
             );

@@ -7,83 +7,40 @@ using Newtonsoft.Json.Linq;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_acsAccessGroup_model")]
-    public class AcsAccessGroup
+    [DataContract(Name = "seamModel_acsCredentialPool_model")]
+    public class AcsCredentialPool
     {
         [JsonConstructorAttribute]
-        protected AcsAccessGroup() { }
+        protected AcsCredentialPool() { }
 
-        public AcsAccessGroup(
-            AcsAccessGroup.AccessGroupTypeEnum accessGroupType = default,
-            string accessGroupTypeDisplayName = default,
-            string acsAccessGroupId = default,
+        public AcsCredentialPool(
+            string acsCredentialPoolId = default,
             string acsSystemId = default,
             string createdAt = default,
             string displayName = default,
-            AcsAccessGroup.ExternalTypeEnum externalType = default,
+            AcsCredentialPool.ExternalTypeEnum externalType = default,
             string externalTypeDisplayName = default,
-            bool isManaged = default,
-            string name = default,
             string workspaceId = default
         )
         {
-            AccessGroupType = accessGroupType;
-            AccessGroupTypeDisplayName = accessGroupTypeDisplayName;
-            AcsAccessGroupId = acsAccessGroupId;
+            AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             ExternalType = externalType;
             ExternalTypeDisplayName = externalTypeDisplayName;
-            IsManaged = isManaged;
-            Name = name;
             WorkspaceId = workspaceId;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum AccessGroupTypeEnum
-        {
-            [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0,
-
-            [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 1,
-
-            [EnumMember(Value = "salto_access_group")]
-            SaltoAccessGroup = 2,
-
-            [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 3,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ExternalTypeEnum
         {
-            [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0,
-
-            [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 1,
-
-            [EnumMember(Value = "salto_access_group")]
-            SaltoAccessGroup = 2,
-
-            [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 3,
+            [EnumMember(Value = "hid_part_number")]
+            HidPartNumber = 0,
         }
 
-        [DataMember(Name = "access_group_type", IsRequired = true, EmitDefaultValue = false)]
-        public AcsAccessGroup.AccessGroupTypeEnum AccessGroupType { get; set; }
-
-        [DataMember(
-            Name = "access_group_type_display_name",
-            IsRequired = true,
-            EmitDefaultValue = false
-        )]
-        public string AccessGroupTypeDisplayName { get; set; }
-
-        [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
-        public string AcsAccessGroupId { get; set; }
+        [DataMember(Name = "acs_credential_pool_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsCredentialPoolId { get; set; }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
@@ -95,7 +52,7 @@ namespace Seam.Model
         public string DisplayName { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = true, EmitDefaultValue = false)]
-        public AcsAccessGroup.ExternalTypeEnum ExternalType { get; set; }
+        public AcsCredentialPool.ExternalTypeEnum ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
@@ -103,12 +60,6 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string ExternalTypeDisplayName { get; set; }
-
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsManaged { get; set; }
-
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-        public string Name { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

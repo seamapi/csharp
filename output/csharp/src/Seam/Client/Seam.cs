@@ -19,17 +19,17 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
-using System.Threading;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Polly;
 using RestSharp;
 using RestSharp.Serializers;
-using RestSharpMethod = RestSharp.Method;
-using Polly;
 using Seam.Model;
+using RestSharpMethod = RestSharp.Method;
 
 namespace Seam.Client
 {
@@ -45,8 +45,8 @@ namespace Seam.Client
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             ContractResolver = new DefaultContractResolver
             {
-                NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
-            }
+                NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false },
+            },
         };
 
         public CustomJsonCodec(IReadableSeamRequestConfiguration configuration)
@@ -190,8 +190,8 @@ namespace Seam.Client
                 ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                 ContractResolver = new DefaultContractResolver
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
-                }
+                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false },
+                },
             };
 
         /// <summary>
@@ -438,7 +438,7 @@ namespace Seam.Client
             )
             {
                 ErrorText = response.ErrorMessage,
-                Cookies = new List<Cookie>()
+                Cookies = new List<Cookie>(),
             };
 
             if (response.Headers != null)
@@ -509,7 +509,7 @@ namespace Seam.Client
                 // UseDefaultCredentials = configuration.UseDefaultCredentials,
                 RemoteCertificateValidationCallback =
                     configuration.RemoteCertificateValidationCallback,
-                ThrowOnAnyError = false
+                ThrowOnAnyError = false,
             };
 
             using (
@@ -534,7 +534,7 @@ namespace Seam.Client
                             ? client.Deserialize<T>(policyResult.Result)
                             : new RestResponse<T>(request)
                             {
-                                ErrorException = policyResult.FinalException
+                                ErrorException = policyResult.FinalException,
                             };
                 }
                 else
@@ -599,7 +599,7 @@ namespace Seam.Client
                             HttpOnly = restResponseCookie.HttpOnly,
                             Port = restResponseCookie.Port,
                             Secure = restResponseCookie.Secure,
-                            Version = restResponseCookie.Version
+                            Version = restResponseCookie.Version,
                         };
 
                         result.Cookies.Add(cookie);
@@ -636,7 +636,7 @@ namespace Seam.Client
                 MaxTimeout = configuration.Timeout,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
-                ThrowOnAnyError = false
+                ThrowOnAnyError = false,
             };
 
             using (
@@ -666,7 +666,7 @@ namespace Seam.Client
                             ? client.Deserialize<T>(policyResult.Result)
                             : new RestResponse<T>(request)
                             {
-                                ErrorException = policyResult.FinalException
+                                ErrorException = policyResult.FinalException,
                             };
                 }
                 else
@@ -722,7 +722,7 @@ namespace Seam.Client
                             HttpOnly = restResponseCookie.HttpOnly,
                             Port = restResponseCookie.Port,
                             Secure = restResponseCookie.Secure,
-                            Version = restResponseCookie.Version
+                            Version = restResponseCookie.Version,
                         };
 
                         result.Cookies.Add(cookie);

@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -25,24 +25,166 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
-                CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
-                string? customRedirectUrl = default,
-                string? customRedirectFailureUrl = default,
                 List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
-                CreateRequest.ProviderCategoryEnum? providerCategory = default,
-                object? customMetadata = default,
                 bool? automaticallyManageNewDevices = default,
+                object? customMetadata = default,
+                string? customRedirectFailureUrl = default,
+                string? customRedirectUrl = default,
+                CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+                CreateRequest.ProviderCategoryEnum? providerCategory = default,
                 bool? waitForDeviceCreation = default
             )
             {
-                DeviceSelectionMode = deviceSelectionMode;
-                CustomRedirectUrl = customRedirectUrl;
-                CustomRedirectFailureUrl = customRedirectFailureUrl;
                 AcceptedProviders = acceptedProviders;
-                ProviderCategory = providerCategory;
-                CustomMetadata = customMetadata;
                 AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+                CustomMetadata = customMetadata;
+                CustomRedirectFailureUrl = customRedirectFailureUrl;
+                CustomRedirectUrl = customRedirectUrl;
+                DeviceSelectionMode = deviceSelectionMode;
+                ProviderCategory = providerCategory;
                 WaitForDeviceCreation = waitForDeviceCreation;
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum AcceptedProvidersEnum
+            {
+                [EnumMember(Value = "dormakaba_community")]
+                DormakabaCommunity = 0,
+
+                [EnumMember(Value = "legic_connect")]
+                LegicConnect = 1,
+
+                [EnumMember(Value = "akuvox")]
+                Akuvox = 2,
+
+                [EnumMember(Value = "august")]
+                August = 3,
+
+                [EnumMember(Value = "avigilon_alta")]
+                AvigilonAlta = 4,
+
+                [EnumMember(Value = "brivo")]
+                Brivo = 5,
+
+                [EnumMember(Value = "butterflymx")]
+                Butterflymx = 6,
+
+                [EnumMember(Value = "schlage")]
+                Schlage = 7,
+
+                [EnumMember(Value = "smartthings")]
+                Smartthings = 8,
+
+                [EnumMember(Value = "yale")]
+                Yale = 9,
+
+                [EnumMember(Value = "genie")]
+                Genie = 10,
+
+                [EnumMember(Value = "doorking")]
+                Doorking = 11,
+
+                [EnumMember(Value = "salto")]
+                Salto = 12,
+
+                [EnumMember(Value = "salto_ks")]
+                SaltoKs = 13,
+
+                [EnumMember(Value = "lockly")]
+                Lockly = 14,
+
+                [EnumMember(Value = "ttlock")]
+                Ttlock = 15,
+
+                [EnumMember(Value = "linear")]
+                Linear = 16,
+
+                [EnumMember(Value = "noiseaware")]
+                Noiseaware = 17,
+
+                [EnumMember(Value = "nuki")]
+                Nuki = 18,
+
+                [EnumMember(Value = "seam_relay_admin")]
+                SeamRelayAdmin = 19,
+
+                [EnumMember(Value = "igloo")]
+                Igloo = 20,
+
+                [EnumMember(Value = "kwikset")]
+                Kwikset = 21,
+
+                [EnumMember(Value = "minut")]
+                Minut = 22,
+
+                [EnumMember(Value = "my_2n")]
+                My_2n = 23,
+
+                [EnumMember(Value = "controlbyweb")]
+                Controlbyweb = 24,
+
+                [EnumMember(Value = "nest")]
+                Nest = 25,
+
+                [EnumMember(Value = "igloohome")]
+                Igloohome = 26,
+
+                [EnumMember(Value = "ecobee")]
+                Ecobee = 27,
+
+                [EnumMember(Value = "hubitat")]
+                Hubitat = 28,
+
+                [EnumMember(Value = "four_suites")]
+                FourSuites = 29,
+
+                [EnumMember(Value = "dormakaba_oracode")]
+                DormakabaOracode = 30,
+
+                [EnumMember(Value = "pti")]
+                Pti = 31,
+
+                [EnumMember(Value = "wyze")]
+                Wyze = 32,
+
+                [EnumMember(Value = "seam_passport")]
+                SeamPassport = 33,
+
+                [EnumMember(Value = "visionline")]
+                Visionline = 34,
+
+                [EnumMember(Value = "assa_abloy_credential_service")]
+                AssaAbloyCredentialService = 35,
+
+                [EnumMember(Value = "seam_bridge")]
+                SeamBridge = 36,
+
+                [EnumMember(Value = "tedee")]
+                Tedee = 37,
+
+                [EnumMember(Value = "honeywell_resideo")]
+                HoneywellResideo = 38,
+
+                [EnumMember(Value = "latch")]
+                Latch = 39,
+
+                [EnumMember(Value = "akiles")]
+                Akiles = 40,
+
+                [EnumMember(Value = "assa_abloy_vostio")]
+                AssaAbloyVostio = 41,
+
+                [EnumMember(Value = "assa_abloy_vostio_credential_service")]
+                AssaAbloyVostioCredentialService = 42,
+
+                [EnumMember(Value = "yale_access")]
+                YaleAccess = 43,
+
+                [EnumMember(Value = "hid_cm")]
+                HidCm = 44,
+
+                [EnumMember(Value = "google_nest")]
+                GoogleNest = 45,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -55,149 +197,7 @@ namespace Seam.Api
                 Single = 1,
 
                 [EnumMember(Value = "multiple")]
-                Multiple = 2
-            }
-
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum AcceptedProvidersEnum
-            {
-                [EnumMember(Value = "akuvox")]
-                Akuvox = 0,
-
-                [EnumMember(Value = "august")]
-                August = 1,
-
-                [EnumMember(Value = "avigilon_alta")]
-                AvigilonAlta = 2,
-
-                [EnumMember(Value = "brivo")]
-                Brivo = 3,
-
-                [EnumMember(Value = "butterflymx")]
-                Butterflymx = 4,
-
-                [EnumMember(Value = "schlage")]
-                Schlage = 5,
-
-                [EnumMember(Value = "smartthings")]
-                Smartthings = 6,
-
-                [EnumMember(Value = "yale")]
-                Yale = 7,
-
-                [EnumMember(Value = "genie")]
-                Genie = 8,
-
-                [EnumMember(Value = "doorking")]
-                Doorking = 9,
-
-                [EnumMember(Value = "salto")]
-                Salto = 10,
-
-                [EnumMember(Value = "lockly")]
-                Lockly = 11,
-
-                [EnumMember(Value = "ttlock")]
-                Ttlock = 12,
-
-                [EnumMember(Value = "linear")]
-                Linear = 13,
-
-                [EnumMember(Value = "noiseaware")]
-                Noiseaware = 14,
-
-                [EnumMember(Value = "nuki")]
-                Nuki = 15,
-
-                [EnumMember(Value = "seam_relay_admin")]
-                SeamRelayAdmin = 16,
-
-                [EnumMember(Value = "igloo")]
-                Igloo = 17,
-
-                [EnumMember(Value = "kwikset")]
-                Kwikset = 18,
-
-                [EnumMember(Value = "minut")]
-                Minut = 19,
-
-                [EnumMember(Value = "my_2n")]
-                My_2n = 20,
-
-                [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 21,
-
-                [EnumMember(Value = "nest")]
-                Nest = 22,
-
-                [EnumMember(Value = "igloohome")]
-                Igloohome = 23,
-
-                [EnumMember(Value = "ecobee")]
-                Ecobee = 24,
-
-                [EnumMember(Value = "hubitat")]
-                Hubitat = 25,
-
-                [EnumMember(Value = "four_suites")]
-                FourSuites = 26,
-
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 27,
-
-                [EnumMember(Value = "pti")]
-                Pti = 28,
-
-                [EnumMember(Value = "wyze")]
-                Wyze = 29,
-
-                [EnumMember(Value = "seam_passport")]
-                SeamPassport = 30,
-
-                [EnumMember(Value = "visionline")]
-                Visionline = 31,
-
-                [EnumMember(Value = "assa_abloy_credential_service")]
-                AssaAbloyCredentialService = 32,
-
-                [EnumMember(Value = "seam_bridge")]
-                SeamBridge = 33,
-
-                [EnumMember(Value = "tedee")]
-                Tedee = 34,
-
-                [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 35,
-
-                [EnumMember(Value = "latch")]
-                Latch = 36,
-
-                [EnumMember(Value = "yale_access")]
-                YaleAccess = 37,
-
-                [EnumMember(Value = "hid_cm")]
-                HidCm = 38,
-
-                [EnumMember(Value = "google_nest")]
-                GoogleNest = 39,
-
-                [EnumMember(Value = "dormakaba_community")]
-                DormakabaCommunity = 40,
-
-                [EnumMember(Value = "legic_connect")]
-                LegicConnect = 41,
-
-                [EnumMember(Value = "salto_ks")]
-                SaltoKs = 42,
-
-                [EnumMember(Value = "akiles")]
-                Akiles = 43,
-
-                [EnumMember(Value = "assa_abloy_vostio")]
-                AssaAbloyVostio = 44,
-
-                [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-                AssaAbloyVostioCredentialService = 45
+                Multiple = 2,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -219,18 +219,21 @@ namespace Seam.Api
                 AccessControlSystems = 4,
 
                 [EnumMember(Value = "internal_beta")]
-                InternalBeta = 5
+                InternalBeta = 5,
             }
 
+            [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<CreateRequest.AcceptedProvidersEnum>? AcceptedProviders { get; set; }
+
             [DataMember(
-                Name = "device_selection_mode",
+                Name = "automatically_manage_new_devices",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public CreateRequest.DeviceSelectionModeEnum? DeviceSelectionMode { get; set; }
+            public bool? AutomaticallyManageNewDevices { get; set; }
 
-            [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
-            public string? CustomRedirectUrl { get; set; }
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
 
             [DataMember(
                 Name = "custom_redirect_failure_url",
@@ -239,21 +242,18 @@ namespace Seam.Api
             )]
             public string? CustomRedirectFailureUrl { get; set; }
 
-            [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
-            public List<CreateRequest.AcceptedProvidersEnum>? AcceptedProviders { get; set; }
-
-            [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
-            public CreateRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
-
-            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
-            public object? CustomMetadata { get; set; }
+            [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomRedirectUrl { get; set; }
 
             [DataMember(
-                Name = "automatically_manage_new_devices",
+                Name = "device_selection_mode",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public bool? AutomaticallyManageNewDevices { get; set; }
+            public CreateRequest.DeviceSelectionModeEnum? DeviceSelectionMode { get; set; }
+
+            [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
 
             [DataMember(
                 Name = "wait_for_device_creation",
@@ -326,25 +326,25 @@ namespace Seam.Api
         }
 
         public ConnectWebview Create(
-            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
-            string? customRedirectUrl = default,
-            string? customRedirectFailureUrl = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
-            CreateRequest.ProviderCategoryEnum? providerCategory = default,
-            object? customMetadata = default,
             bool? automaticallyManageNewDevices = default,
+            object? customMetadata = default,
+            string? customRedirectFailureUrl = default,
+            string? customRedirectUrl = default,
+            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+            CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
         )
         {
             return Create(
                 new CreateRequest(
-                    deviceSelectionMode: deviceSelectionMode,
-                    customRedirectUrl: customRedirectUrl,
-                    customRedirectFailureUrl: customRedirectFailureUrl,
                     acceptedProviders: acceptedProviders,
-                    providerCategory: providerCategory,
-                    customMetadata: customMetadata,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
+                    customMetadata: customMetadata,
+                    customRedirectFailureUrl: customRedirectFailureUrl,
+                    customRedirectUrl: customRedirectUrl,
+                    deviceSelectionMode: deviceSelectionMode,
+                    providerCategory: providerCategory,
                     waitForDeviceCreation: waitForDeviceCreation
                 )
             );
@@ -362,26 +362,26 @@ namespace Seam.Api
         }
 
         public async Task<ConnectWebview> CreateAsync(
-            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
-            string? customRedirectUrl = default,
-            string? customRedirectFailureUrl = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
-            CreateRequest.ProviderCategoryEnum? providerCategory = default,
-            object? customMetadata = default,
             bool? automaticallyManageNewDevices = default,
+            object? customMetadata = default,
+            string? customRedirectFailureUrl = default,
+            string? customRedirectUrl = default,
+            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+            CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
         )
         {
             return (
                 await CreateAsync(
                     new CreateRequest(
-                        deviceSelectionMode: deviceSelectionMode,
-                        customRedirectUrl: customRedirectUrl,
-                        customRedirectFailureUrl: customRedirectFailureUrl,
                         acceptedProviders: acceptedProviders,
-                        providerCategory: providerCategory,
-                        customMetadata: customMetadata,
                         automaticallyManageNewDevices: automaticallyManageNewDevices,
+                        customMetadata: customMetadata,
+                        customRedirectFailureUrl: customRedirectFailureUrl,
+                        customRedirectUrl: customRedirectUrl,
+                        deviceSelectionMode: deviceSelectionMode,
+                        providerCategory: providerCategory,
                         waitForDeviceCreation: waitForDeviceCreation
                     )
                 )
@@ -549,19 +549,24 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? userIdentifierKey = default,
-                object? customMetadataHas = default
+                object? customMetadataHas = default,
+                float? limit = default,
+                string? userIdentifierKey = default
             )
             {
-                UserIdentifierKey = userIdentifierKey;
                 CustomMetadataHas = customMetadataHas;
+                Limit = limit;
+                UserIdentifierKey = userIdentifierKey;
             }
-
-            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentifierKey { get; set; }
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
 
             public override string ToString()
             {
@@ -627,14 +632,16 @@ namespace Seam.Api
         }
 
         public List<ConnectWebview> List(
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            float? limit = default,
+            string? userIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
-                    userIdentifierKey: userIdentifierKey,
-                    customMetadataHas: customMetadataHas
+                    customMetadataHas: customMetadataHas,
+                    limit: limit,
+                    userIdentifierKey: userIdentifierKey
                 )
             );
         }
@@ -649,15 +656,17 @@ namespace Seam.Api
         }
 
         public async Task<List<ConnectWebview>> ListAsync(
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            float? limit = default,
+            string? userIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
-                        userIdentifierKey: userIdentifierKey,
-                        customMetadataHas: customMetadataHas
+                        customMetadataHas: customMetadataHas,
+                        limit: limit,
+                        userIdentifierKey: userIdentifierKey
                     )
                 )
             );

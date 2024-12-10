@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -24,17 +24,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected AddAcsUserRequest() { }
 
-            public AddAcsUserRequest(string userIdentityId = default, string acsUserId = default)
+            public AddAcsUserRequest(string acsUserId = default, string userIdentityId = default)
             {
-                UserIdentityId = userIdentityId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
-
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
 
             [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -63,9 +63,9 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/add_acs_user", requestOptions);
         }
 
-        public void AddAcsUser(string userIdentityId = default, string acsUserId = default)
+        public void AddAcsUser(string acsUserId = default, string userIdentityId = default)
         {
-            AddAcsUser(new AddAcsUserRequest(userIdentityId: userIdentityId, acsUserId: acsUserId));
+            AddAcsUser(new AddAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId));
         }
 
         public async Task AddAcsUserAsync(AddAcsUserRequest request)
@@ -76,12 +76,153 @@ namespace Seam.Api
         }
 
         public async Task AddAcsUserAsync(
-            string userIdentityId = default,
-            string acsUserId = default
+            string acsUserId = default,
+            string userIdentityId = default
         )
         {
             await AddAcsUserAsync(
-                new AddAcsUserRequest(userIdentityId: userIdentityId, acsUserId: acsUserId)
+                new AddAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId)
+            );
+        }
+
+        [DataContract(Name = "createRequest_request")]
+        public class CreateRequest
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequest() { }
+
+            public CreateRequest(
+                string? emailAddress = default,
+                string? fullName = default,
+                string? phoneNumber = default,
+                string? userIdentityKey = default
+            )
+            {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
+                UserIdentityKey = userIdentityKey;
+            }
+
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
+
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createResponse_response")]
+        public class CreateResponse
+        {
+            [JsonConstructorAttribute]
+            protected CreateResponse() { }
+
+            public CreateResponse(UserIdentity userIdentity = default)
+            {
+                UserIdentity = userIdentity;
+            }
+
+            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
+            public UserIdentity UserIdentity { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public UserIdentity Create(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<CreateResponse>("/user_identities/create", requestOptions)
+                .Data.UserIdentity;
+        }
+
+        public UserIdentity Create(
+            string? emailAddress = default,
+            string? fullName = default,
+            string? phoneNumber = default,
+            string? userIdentityKey = default
+        )
+        {
+            return Create(
+                new CreateRequest(
+                    emailAddress: emailAddress,
+                    fullName: fullName,
+                    phoneNumber: phoneNumber,
+                    userIdentityKey: userIdentityKey
+                )
+            );
+        }
+
+        public async Task<UserIdentity> CreateAsync(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<CreateResponse>("/user_identities/create", requestOptions)
+            )
+                .Data
+                .UserIdentity;
+        }
+
+        public async Task<UserIdentity> CreateAsync(
+            string? emailAddress = default,
+            string? fullName = default,
+            string? phoneNumber = default,
+            string? userIdentityKey = default
+        )
+        {
+            return (
+                await CreateAsync(
+                    new CreateRequest(
+                        emailAddress: emailAddress,
+                        fullName: fullName,
+                        phoneNumber: phoneNumber,
+                        userIdentityKey: userIdentityKey
+                    )
+                )
             );
         }
 
@@ -143,6 +284,115 @@ namespace Seam.Api
             await DeleteAsync(new DeleteRequest(userIdentityId: userIdentityId));
         }
 
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string? userIdentityId = default, string? userIdentityKey = default)
+            {
+                UserIdentityId = userIdentityId;
+                UserIdentityKey = userIdentityKey;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(UserIdentity userIdentity = default)
+            {
+                UserIdentity = userIdentity;
+            }
+
+            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
+            public UserIdentity UserIdentity { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public UserIdentity Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetResponse>("/user_identities/get", requestOptions)
+                .Data.UserIdentity;
+        }
+
+        public UserIdentity Get(string? userIdentityId = default, string? userIdentityKey = default)
+        {
+            return Get(
+                new GetRequest(userIdentityId: userIdentityId, userIdentityKey: userIdentityKey)
+            );
+        }
+
+        public async Task<UserIdentity> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<GetResponse>("/user_identities/get", requestOptions))
+                .Data
+                .UserIdentity;
+        }
+
+        public async Task<UserIdentity> GetAsync(
+            string? userIdentityId = default,
+            string? userIdentityKey = default
+        )
+        {
+            return (
+                await GetAsync(
+                    new GetRequest(userIdentityId: userIdentityId, userIdentityKey: userIdentityKey)
+                )
+            );
+        }
+
         [DataContract(Name = "grantAccessToDeviceRequest_request")]
         public class GrantAccessToDeviceRequest
         {
@@ -150,19 +400,19 @@ namespace Seam.Api
             protected GrantAccessToDeviceRequest() { }
 
             public GrantAccessToDeviceRequest(
-                string userIdentityId = default,
-                string deviceId = default
+                string deviceId = default,
+                string userIdentityId = default
             )
             {
-                UserIdentityId = userIdentityId;
                 DeviceId = deviceId;
+                UserIdentityId = userIdentityId;
             }
-
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -191,10 +441,10 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/grant_access_to_device", requestOptions);
         }
 
-        public void GrantAccessToDevice(string userIdentityId = default, string deviceId = default)
+        public void GrantAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
             GrantAccessToDevice(
-                new GrantAccessToDeviceRequest(userIdentityId: userIdentityId, deviceId: deviceId)
+                new GrantAccessToDeviceRequest(deviceId: deviceId, userIdentityId: userIdentityId)
             );
         }
 
@@ -209,12 +459,438 @@ namespace Seam.Api
         }
 
         public async Task GrantAccessToDeviceAsync(
-            string userIdentityId = default,
-            string deviceId = default
+            string deviceId = default,
+            string userIdentityId = default
         )
         {
             await GrantAccessToDeviceAsync(
-                new GrantAccessToDeviceRequest(userIdentityId: userIdentityId, deviceId: deviceId)
+                new GrantAccessToDeviceRequest(deviceId: deviceId, userIdentityId: userIdentityId)
+            );
+        }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListRequest() { }
+
+            public ListRequest(string? credentialManagerAcsSystemId = default)
+            {
+                CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
+            }
+
+            [DataMember(
+                Name = "credential_manager_acs_system_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? CredentialManagerAcsSystemId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<UserIdentity> userIdentities = default)
+            {
+                UserIdentities = userIdentities;
+            }
+
+            [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
+            public List<UserIdentity> UserIdentities { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<UserIdentity> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListResponse>("/user_identities/list", requestOptions)
+                .Data.UserIdentities;
+        }
+
+        public List<UserIdentity> List(string? credentialManagerAcsSystemId = default)
+        {
+            return List(
+                new ListRequest(credentialManagerAcsSystemId: credentialManagerAcsSystemId)
+            );
+        }
+
+        public async Task<List<UserIdentity>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<ListResponse>("/user_identities/list", requestOptions))
+                .Data
+                .UserIdentities;
+        }
+
+        public async Task<List<UserIdentity>> ListAsync(
+            string? credentialManagerAcsSystemId = default
+        )
+        {
+            return (
+                await ListAsync(
+                    new ListRequest(credentialManagerAcsSystemId: credentialManagerAcsSystemId)
+                )
+            );
+        }
+
+        [DataContract(Name = "listAccessibleDevicesRequest_request")]
+        public class ListAccessibleDevicesRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListAccessibleDevicesRequest() { }
+
+            public ListAccessibleDevicesRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listAccessibleDevicesResponse_response")]
+        public class ListAccessibleDevicesResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListAccessibleDevicesResponse() { }
+
+            public ListAccessibleDevicesResponse(List<Device> devices = default)
+            {
+                Devices = devices;
+            }
+
+            [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
+            public List<Device> Devices { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<Device> ListAccessibleDevices(ListAccessibleDevicesRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListAccessibleDevicesResponse>(
+                    "/user_identities/list_accessible_devices",
+                    requestOptions
+                )
+                .Data.Devices;
+        }
+
+        public List<Device> ListAccessibleDevices(string userIdentityId = default)
+        {
+            return ListAccessibleDevices(
+                new ListAccessibleDevicesRequest(userIdentityId: userIdentityId)
+            );
+        }
+
+        public async Task<List<Device>> ListAccessibleDevicesAsync(
+            ListAccessibleDevicesRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListAccessibleDevicesResponse>(
+                    "/user_identities/list_accessible_devices",
+                    requestOptions
+                )
+            )
+                .Data
+                .Devices;
+        }
+
+        public async Task<List<Device>> ListAccessibleDevicesAsync(string userIdentityId = default)
+        {
+            return (
+                await ListAccessibleDevicesAsync(
+                    new ListAccessibleDevicesRequest(userIdentityId: userIdentityId)
+                )
+            );
+        }
+
+        [DataContract(Name = "listAcsSystemsRequest_request")]
+        public class ListAcsSystemsRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListAcsSystemsRequest() { }
+
+            public ListAcsSystemsRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listAcsSystemsResponse_response")]
+        public class ListAcsSystemsResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListAcsSystemsResponse() { }
+
+            public ListAcsSystemsResponse(List<AcsSystem> acsSystems = default)
+            {
+                AcsSystems = acsSystems;
+            }
+
+            [DataMember(Name = "acs_systems", IsRequired = false, EmitDefaultValue = false)]
+            public List<AcsSystem> AcsSystems { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<AcsSystem> ListAcsSystems(ListAcsSystemsRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListAcsSystemsResponse>("/user_identities/list_acs_systems", requestOptions)
+                .Data.AcsSystems;
+        }
+
+        public List<AcsSystem> ListAcsSystems(string userIdentityId = default)
+        {
+            return ListAcsSystems(new ListAcsSystemsRequest(userIdentityId: userIdentityId));
+        }
+
+        public async Task<List<AcsSystem>> ListAcsSystemsAsync(ListAcsSystemsRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListAcsSystemsResponse>(
+                    "/user_identities/list_acs_systems",
+                    requestOptions
+                )
+            )
+                .Data
+                .AcsSystems;
+        }
+
+        public async Task<List<AcsSystem>> ListAcsSystemsAsync(string userIdentityId = default)
+        {
+            return (
+                await ListAcsSystemsAsync(new ListAcsSystemsRequest(userIdentityId: userIdentityId))
+            );
+        }
+
+        [DataContract(Name = "listAcsUsersRequest_request")]
+        public class ListAcsUsersRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListAcsUsersRequest() { }
+
+            public ListAcsUsersRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listAcsUsersResponse_response")]
+        public class ListAcsUsersResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListAcsUsersResponse() { }
+
+            public ListAcsUsersResponse(List<AcsUser> acsUsers = default)
+            {
+                AcsUsers = acsUsers;
+            }
+
+            [DataMember(Name = "acs_users", IsRequired = false, EmitDefaultValue = false)]
+            public List<AcsUser> AcsUsers { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<AcsUser> ListAcsUsers(ListAcsUsersRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListAcsUsersResponse>("/user_identities/list_acs_users", requestOptions)
+                .Data.AcsUsers;
+        }
+
+        public List<AcsUser> ListAcsUsers(string userIdentityId = default)
+        {
+            return ListAcsUsers(new ListAcsUsersRequest(userIdentityId: userIdentityId));
+        }
+
+        public async Task<List<AcsUser>> ListAcsUsersAsync(ListAcsUsersRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListAcsUsersResponse>(
+                    "/user_identities/list_acs_users",
+                    requestOptions
+                )
+            )
+                .Data
+                .AcsUsers;
+        }
+
+        public async Task<List<AcsUser>> ListAcsUsersAsync(string userIdentityId = default)
+        {
+            return (
+                await ListAcsUsersAsync(new ListAcsUsersRequest(userIdentityId: userIdentityId))
             );
         }
 
@@ -224,17 +900,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected RemoveAcsUserRequest() { }
 
-            public RemoveAcsUserRequest(string userIdentityId = default, string acsUserId = default)
+            public RemoveAcsUserRequest(string acsUserId = default, string userIdentityId = default)
             {
-                UserIdentityId = userIdentityId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
-
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
 
             [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -263,10 +939,10 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/remove_acs_user", requestOptions);
         }
 
-        public void RemoveAcsUser(string userIdentityId = default, string acsUserId = default)
+        public void RemoveAcsUser(string acsUserId = default, string userIdentityId = default)
         {
             RemoveAcsUser(
-                new RemoveAcsUserRequest(userIdentityId: userIdentityId, acsUserId: acsUserId)
+                new RemoveAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId)
             );
         }
 
@@ -278,12 +954,12 @@ namespace Seam.Api
         }
 
         public async Task RemoveAcsUserAsync(
-            string userIdentityId = default,
-            string acsUserId = default
+            string acsUserId = default,
+            string userIdentityId = default
         )
         {
             await RemoveAcsUserAsync(
-                new RemoveAcsUserRequest(userIdentityId: userIdentityId, acsUserId: acsUserId)
+                new RemoveAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId)
             );
         }
 
@@ -294,19 +970,19 @@ namespace Seam.Api
             protected RevokeAccessToDeviceRequest() { }
 
             public RevokeAccessToDeviceRequest(
-                string userIdentityId = default,
-                string deviceId = default
+                string deviceId = default,
+                string userIdentityId = default
             )
             {
-                UserIdentityId = userIdentityId;
                 DeviceId = deviceId;
+                UserIdentityId = userIdentityId;
             }
-
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -335,10 +1011,10 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/revoke_access_to_device", requestOptions);
         }
 
-        public void RevokeAccessToDevice(string userIdentityId = default, string deviceId = default)
+        public void RevokeAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
             RevokeAccessToDevice(
-                new RevokeAccessToDeviceRequest(userIdentityId: userIdentityId, deviceId: deviceId)
+                new RevokeAccessToDeviceRequest(deviceId: deviceId, userIdentityId: userIdentityId)
             );
         }
 
@@ -353,12 +1029,12 @@ namespace Seam.Api
         }
 
         public async Task RevokeAccessToDeviceAsync(
-            string userIdentityId = default,
-            string deviceId = default
+            string deviceId = default,
+            string userIdentityId = default
         )
         {
             await RevokeAccessToDeviceAsync(
-                new RevokeAccessToDeviceRequest(userIdentityId: userIdentityId, deviceId: deviceId)
+                new RevokeAccessToDeviceRequest(deviceId: deviceId, userIdentityId: userIdentityId)
             );
         }
 
@@ -369,34 +1045,34 @@ namespace Seam.Api
             protected UpdateRequest() { }
 
             public UpdateRequest(
-                string userIdentityId = default,
-                string? userIdentityKey = default,
                 string? emailAddress = default,
+                string? fullName = default,
                 string? phoneNumber = default,
-                string? fullName = default
+                string userIdentityId = default,
+                string? userIdentityKey = default
             )
             {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
                 UserIdentityId = userIdentityId;
                 UserIdentityKey = userIdentityKey;
-                EmailAddress = emailAddress;
-                PhoneNumber = phoneNumber;
-                FullName = fullName;
             }
+
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
 
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
-
-            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
-            public string? EmailAddress { get; set; }
-
-            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
-            public string? PhoneNumber { get; set; }
-
-            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
-            public string? FullName { get; set; }
 
             public override string ToString()
             {
@@ -426,20 +1102,20 @@ namespace Seam.Api
         }
 
         public void Update(
-            string userIdentityId = default,
-            string? userIdentityKey = default,
             string? emailAddress = default,
+            string? fullName = default,
             string? phoneNumber = default,
-            string? fullName = default
+            string userIdentityId = default,
+            string? userIdentityKey = default
         )
         {
             Update(
                 new UpdateRequest(
-                    userIdentityId: userIdentityId,
-                    userIdentityKey: userIdentityKey,
                     emailAddress: emailAddress,
+                    fullName: fullName,
                     phoneNumber: phoneNumber,
-                    fullName: fullName
+                    userIdentityId: userIdentityId,
+                    userIdentityKey: userIdentityKey
                 )
             );
         }
@@ -452,20 +1128,20 @@ namespace Seam.Api
         }
 
         public async Task UpdateAsync(
-            string userIdentityId = default,
-            string? userIdentityKey = default,
             string? emailAddress = default,
+            string? fullName = default,
             string? phoneNumber = default,
-            string? fullName = default
+            string userIdentityId = default,
+            string? userIdentityKey = default
         )
         {
             await UpdateAsync(
                 new UpdateRequest(
-                    userIdentityId: userIdentityId,
-                    userIdentityKey: userIdentityKey,
                     emailAddress: emailAddress,
+                    fullName: fullName,
                     phoneNumber: phoneNumber,
-                    fullName: fullName
+                    userIdentityId: userIdentityId,
+                    userIdentityKey: userIdentityKey
                 )
             );
         }

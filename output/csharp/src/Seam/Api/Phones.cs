@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -82,10 +82,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? ownerUserIdentityId = default)
+            public ListRequest(
+                string? acsCredentialId = default,
+                string? ownerUserIdentityId = default
+            )
             {
+                AcsCredentialId = acsCredentialId;
                 OwnerUserIdentityId = ownerUserIdentityId;
             }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
 
             [DataMember(
                 Name = "owner_user_identity_id",
@@ -155,9 +162,17 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/phones/list", requestOptions).Data.Phones;
         }
 
-        public List<Phone> List(string? ownerUserIdentityId = default)
+        public List<Phone> List(
+            string? acsCredentialId = default,
+            string? ownerUserIdentityId = default
+        )
         {
-            return List(new ListRequest(ownerUserIdentityId: ownerUserIdentityId));
+            return List(
+                new ListRequest(
+                    acsCredentialId: acsCredentialId,
+                    ownerUserIdentityId: ownerUserIdentityId
+                )
+            );
         }
 
         public async Task<List<Phone>> ListAsync(ListRequest request)
@@ -169,9 +184,19 @@ namespace Seam.Api
                 .Phones;
         }
 
-        public async Task<List<Phone>> ListAsync(string? ownerUserIdentityId = default)
+        public async Task<List<Phone>> ListAsync(
+            string? acsCredentialId = default,
+            string? ownerUserIdentityId = default
+        )
         {
-            return (await ListAsync(new ListRequest(ownerUserIdentityId: ownerUserIdentityId)));
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        acsCredentialId: acsCredentialId,
+                        ownerUserIdentityId: ownerUserIdentityId
+                    )
+                )
+            );
         }
     }
 }

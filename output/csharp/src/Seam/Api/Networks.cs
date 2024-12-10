@@ -9,11 +9,11 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-    public class ActionAttempts
+    public class Networks
     {
         private ISeamClient _seam;
 
-        public ActionAttempts(ISeamClient seam)
+        public Networks(ISeamClient seam)
         {
             _seam = seam;
         }
@@ -24,13 +24,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetRequest() { }
 
-            public GetRequest(string actionAttemptId = default)
+            public GetRequest(string networkId = default)
             {
-                ActionAttemptId = actionAttemptId;
+                NetworkId = networkId;
             }
 
-            [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-            public string ActionAttemptId { get; set; }
+            [DataMember(Name = "network_id", IsRequired = true, EmitDefaultValue = false)]
+            public string NetworkId { get; set; }
 
             public override string ToString()
             {
@@ -58,13 +58,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(ActionAttempt actionAttempt = default)
+            public GetResponse(Network network = default)
             {
-                ActionAttempt = actionAttempt;
+                Network = network;
             }
 
-            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-            public ActionAttempt ActionAttempt { get; set; }
+            [DataMember(Name = "network", IsRequired = false, EmitDefaultValue = false)]
+            public Network Network { get; set; }
 
             public override string ToString()
             {
@@ -86,47 +86,37 @@ namespace Seam.Api
             }
         }
 
-        public ActionAttempt Get(GetRequest request)
+        public Network Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam
-                .Post<GetResponse>("/action_attempts/get", requestOptions)
-                .Data.ActionAttempt;
+            return _seam.Post<GetResponse>("/networks/get", requestOptions).Data.Network;
         }
 
-        public ActionAttempt Get(string actionAttemptId = default)
+        public Network Get(string networkId = default)
         {
-            return Get(new GetRequest(actionAttemptId: actionAttemptId));
+            return Get(new GetRequest(networkId: networkId));
         }
 
-        public async Task<ActionAttempt> GetAsync(GetRequest request)
+        public async Task<Network> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/action_attempts/get", requestOptions))
+            return (await _seam.PostAsync<GetResponse>("/networks/get", requestOptions))
                 .Data
-                .ActionAttempt;
+                .Network;
         }
 
-        public async Task<ActionAttempt> GetAsync(string actionAttemptId = default)
+        public async Task<Network> GetAsync(string networkId = default)
         {
-            return (await GetAsync(new GetRequest(actionAttemptId: actionAttemptId)));
+            return (await GetAsync(new GetRequest(networkId: networkId)));
         }
 
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
             [JsonConstructorAttribute]
-            protected ListRequest() { }
-
-            public ListRequest(List<string> actionAttemptIds = default)
-            {
-                ActionAttemptIds = actionAttemptIds;
-            }
-
-            [DataMember(Name = "action_attempt_ids", IsRequired = true, EmitDefaultValue = false)]
-            public List<string> ActionAttemptIds { get; set; }
+            public ListRequest() { }
 
             public override string ToString()
             {
@@ -154,13 +144,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<ActionAttempt> actionAttempts = default)
+            public ListResponse(List<Network> networks = default)
             {
-                ActionAttempts = actionAttempts;
+                Networks = networks;
             }
 
-            [DataMember(Name = "action_attempts", IsRequired = false, EmitDefaultValue = false)]
-            public List<ActionAttempt> ActionAttempts { get; set; }
+            [DataMember(Name = "networks", IsRequired = false, EmitDefaultValue = false)]
+            public List<Network> Networks { get; set; }
 
             public override string ToString()
             {
@@ -182,32 +172,30 @@ namespace Seam.Api
             }
         }
 
-        public List<ActionAttempt> List(ListRequest request)
+        public List<Network> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam
-                .Post<ListResponse>("/action_attempts/list", requestOptions)
-                .Data.ActionAttempts;
+            return _seam.Post<ListResponse>("/networks/list", requestOptions).Data.Networks;
         }
 
-        public List<ActionAttempt> List(List<string> actionAttemptIds = default)
+        public List<Network> List()
         {
-            return List(new ListRequest(actionAttemptIds: actionAttemptIds));
+            return List(new ListRequest());
         }
 
-        public async Task<List<ActionAttempt>> ListAsync(ListRequest request)
+        public async Task<List<Network>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/action_attempts/list", requestOptions))
+            return (await _seam.PostAsync<ListResponse>("/networks/list", requestOptions))
                 .Data
-                .ActionAttempts;
+                .Networks;
         }
 
-        public async Task<List<ActionAttempt>> ListAsync(List<string> actionAttemptIds = default)
+        public async Task<List<Network>> ListAsync()
         {
-            return (await ListAsync(new ListRequest(actionAttemptIds: actionAttemptIds)));
+            return (await ListAsync(new ListRequest()));
         }
     }
 }
@@ -216,11 +204,11 @@ namespace Seam.Client
 {
     public partial class SeamClient
     {
-        public Api.ActionAttempts ActionAttempts => new(this);
+        public Api.Networks Networks => new(this);
     }
 
     public partial interface ISeamClient
     {
-        public Api.ActionAttempts ActionAttempts { get; }
+        public Api.Networks Networks { get; }
     }
 }

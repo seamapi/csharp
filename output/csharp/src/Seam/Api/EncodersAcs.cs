@@ -9,28 +9,35 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-    public class ActionAttempts
+    public class EncodersAcs
     {
         private ISeamClient _seam;
 
-        public ActionAttempts(ISeamClient seam)
+        public EncodersAcs(ISeamClient seam)
         {
             _seam = seam;
         }
 
-        [DataContract(Name = "getRequest_request")]
-        public class GetRequest
+        [DataContract(Name = "encodeCredentialRequest_request")]
+        public class EncodeCredentialRequest
         {
             [JsonConstructorAttribute]
-            protected GetRequest() { }
+            protected EncodeCredentialRequest() { }
 
-            public GetRequest(string actionAttemptId = default)
+            public EncodeCredentialRequest(
+                string acsCredentialId = default,
+                string acsEncoderId = default
+            )
             {
-                ActionAttemptId = actionAttemptId;
+                AcsCredentialId = acsCredentialId;
+                AcsEncoderId = acsEncoderId;
             }
 
-            [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-            public string ActionAttemptId { get; set; }
+            [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
 
             public override string ToString()
             {
@@ -52,13 +59,13 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "getResponse_response")]
-        public class GetResponse
+        [DataContract(Name = "encodeCredentialResponse_response")]
+        public class EncodeCredentialResponse
         {
             [JsonConstructorAttribute]
-            protected GetResponse() { }
+            protected EncodeCredentialResponse() { }
 
-            public GetResponse(ActionAttempt actionAttempt = default)
+            public EncodeCredentialResponse(ActionAttempt actionAttempt = default)
             {
                 ActionAttempt = actionAttempt;
             }
@@ -86,47 +93,77 @@ namespace Seam.Api
             }
         }
 
-        public ActionAttempt Get(GetRequest request)
+        public ActionAttempt EncodeCredential(EncodeCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/action_attempts/get", requestOptions)
+                .Post<EncodeCredentialResponse>("/acs/encoders/encode_credential", requestOptions)
                 .Data.ActionAttempt;
         }
 
-        public ActionAttempt Get(string actionAttemptId = default)
+        public ActionAttempt EncodeCredential(
+            string acsCredentialId = default,
+            string acsEncoderId = default
+        )
         {
-            return Get(new GetRequest(actionAttemptId: actionAttemptId));
+            return EncodeCredential(
+                new EncodeCredentialRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsEncoderId: acsEncoderId
+                )
+            );
         }
 
-        public async Task<ActionAttempt> GetAsync(GetRequest request)
+        public async Task<ActionAttempt> EncodeCredentialAsync(EncodeCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/action_attempts/get", requestOptions))
+            return (
+                await _seam.PostAsync<EncodeCredentialResponse>(
+                    "/acs/encoders/encode_credential",
+                    requestOptions
+                )
+            )
                 .Data
                 .ActionAttempt;
         }
 
-        public async Task<ActionAttempt> GetAsync(string actionAttemptId = default)
+        public async Task<ActionAttempt> EncodeCredentialAsync(
+            string acsCredentialId = default,
+            string acsEncoderId = default
+        )
         {
-            return (await GetAsync(new GetRequest(actionAttemptId: actionAttemptId)));
+            return (
+                await EncodeCredentialAsync(
+                    new EncodeCredentialRequest(
+                        acsCredentialId: acsCredentialId,
+                        acsEncoderId: acsEncoderId
+                    )
+                )
+            );
         }
 
-        [DataContract(Name = "listRequest_request")]
-        public class ListRequest
+        [DataContract(Name = "scanCredentialRequest_request")]
+        public class ScanCredentialRequest
         {
             [JsonConstructorAttribute]
-            protected ListRequest() { }
+            protected ScanCredentialRequest() { }
 
-            public ListRequest(List<string> actionAttemptIds = default)
+            public ScanCredentialRequest(
+                string acsEncoderId = default,
+                string acsSystemId = default
+            )
             {
-                ActionAttemptIds = actionAttemptIds;
+                AcsEncoderId = acsEncoderId;
+                AcsSystemId = acsSystemId;
             }
 
-            [DataMember(Name = "action_attempt_ids", IsRequired = true, EmitDefaultValue = false)]
-            public List<string> ActionAttemptIds { get; set; }
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsSystemId { get; set; }
 
             public override string ToString()
             {
@@ -148,19 +185,19 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "listResponse_response")]
-        public class ListResponse
+        [DataContract(Name = "scanCredentialResponse_response")]
+        public class ScanCredentialResponse
         {
             [JsonConstructorAttribute]
-            protected ListResponse() { }
+            protected ScanCredentialResponse() { }
 
-            public ListResponse(List<ActionAttempt> actionAttempts = default)
+            public ScanCredentialResponse(ActionAttempt actionAttempt = default)
             {
-                ActionAttempts = actionAttempts;
+                ActionAttempt = actionAttempt;
             }
 
-            [DataMember(Name = "action_attempts", IsRequired = false, EmitDefaultValue = false)]
-            public List<ActionAttempt> ActionAttempts { get; set; }
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
 
             public override string ToString()
             {
@@ -182,32 +219,49 @@ namespace Seam.Api
             }
         }
 
-        public List<ActionAttempt> List(ListRequest request)
+        public ActionAttempt ScanCredential(ScanCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/action_attempts/list", requestOptions)
-                .Data.ActionAttempts;
+                .Post<ScanCredentialResponse>("/acs/encoders/scan_credential", requestOptions)
+                .Data.ActionAttempt;
         }
 
-        public List<ActionAttempt> List(List<string> actionAttemptIds = default)
+        public ActionAttempt ScanCredential(
+            string acsEncoderId = default,
+            string acsSystemId = default
+        )
         {
-            return List(new ListRequest(actionAttemptIds: actionAttemptIds));
+            return ScanCredential(
+                new ScanCredentialRequest(acsEncoderId: acsEncoderId, acsSystemId: acsSystemId)
+            );
         }
 
-        public async Task<List<ActionAttempt>> ListAsync(ListRequest request)
+        public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/action_attempts/list", requestOptions))
+            return (
+                await _seam.PostAsync<ScanCredentialResponse>(
+                    "/acs/encoders/scan_credential",
+                    requestOptions
+                )
+            )
                 .Data
-                .ActionAttempts;
+                .ActionAttempt;
         }
 
-        public async Task<List<ActionAttempt>> ListAsync(List<string> actionAttemptIds = default)
+        public async Task<ActionAttempt> ScanCredentialAsync(
+            string acsEncoderId = default,
+            string acsSystemId = default
+        )
         {
-            return (await ListAsync(new ListRequest(actionAttemptIds: actionAttemptIds)));
+            return (
+                await ScanCredentialAsync(
+                    new ScanCredentialRequest(acsEncoderId: acsEncoderId, acsSystemId: acsSystemId)
+                )
+            );
         }
     }
 }
@@ -216,11 +270,11 @@ namespace Seam.Client
 {
     public partial class SeamClient
     {
-        public Api.ActionAttempts ActionAttempts => new(this);
+        public Api.EncodersAcs EncodersAcs => new(this);
     }
 
     public partial interface ISeamClient
     {
-        public Api.ActionAttempts ActionAttempts { get; }
+        public Api.EncodersAcs EncodersAcs { get; }
     }
 }

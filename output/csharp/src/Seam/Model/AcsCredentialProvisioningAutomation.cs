@@ -7,26 +7,33 @@ using Newtonsoft.Json.Linq;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_enrollmentAutomation_model")]
-    public class EnrollmentAutomation
+    [DataContract(Name = "seamModel_acsCredentialProvisioningAutomation_model")]
+    public class AcsCredentialProvisioningAutomation
     {
         [JsonConstructorAttribute]
-        protected EnrollmentAutomation() { }
+        protected AcsCredentialProvisioningAutomation() { }
 
-        public EnrollmentAutomation(
+        public AcsCredentialProvisioningAutomation(
+            string acsCredentialProvisioningAutomationId = default,
             string createdAt = default,
             string credentialManagerAcsSystemId = default,
-            string enrollmentAutomationId = default,
             string userIdentityId = default,
             string workspaceId = default
         )
         {
+            AcsCredentialProvisioningAutomationId = acsCredentialProvisioningAutomationId;
             CreatedAt = createdAt;
             CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
-            EnrollmentAutomationId = enrollmentAutomationId;
             UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "acs_credential_provisioning_automation_id",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public string AcsCredentialProvisioningAutomationId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -37,9 +44,6 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string CredentialManagerAcsSystemId { get; set; }
-
-        [DataMember(Name = "enrollment_automation_id", IsRequired = true, EmitDefaultValue = false)]
-        public string EnrollmentAutomationId { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }

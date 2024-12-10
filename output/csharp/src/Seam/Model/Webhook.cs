@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -14,29 +14,29 @@ namespace Seam.Model
         protected Webhook() { }
 
         public Webhook(
-            string webhookId = default,
-            string url = default,
             List<string>? eventTypes = default,
-            string? secret = default
+            string? secret = default,
+            string url = default,
+            string webhookId = default
         )
         {
-            WebhookId = webhookId;
-            Url = url;
             EventTypes = eventTypes;
             Secret = secret;
+            Url = url;
+            WebhookId = webhookId;
         }
-
-        [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
-        public string WebhookId { get; set; }
-
-        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
-        public string Url { get; set; }
 
         [DataMember(Name = "event_types", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? EventTypes { get; set; }
 
         [DataMember(Name = "secret", IsRequired = false, EmitDefaultValue = false)]
         public string? Secret { get; set; }
+
+        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
+        public string Url { get; set; }
+
+        [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WebhookId { get; set; }
 
         public override string ToString()
         {

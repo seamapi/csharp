@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 
 namespace Seam.Model
 {
@@ -14,14 +14,14 @@ namespace Seam.Model
         protected ServiceHealth() { }
 
         public ServiceHealth(
+            string description = default,
             string service = default,
-            ServiceHealth.StatusEnum status = default,
-            string description = default
+            ServiceHealth.StatusEnum status = default
         )
         {
+            Description = description;
             Service = service;
             Status = status;
-            Description = description;
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -34,17 +34,17 @@ namespace Seam.Model
             Degraded = 1,
 
             [EnumMember(Value = "down")]
-            Down = 2
+            Down = 2,
         }
+
+        [DataMember(Name = "description", IsRequired = true, EmitDefaultValue = false)]
+        public string Description { get; set; }
 
         [DataMember(Name = "service", IsRequired = true, EmitDefaultValue = false)]
         public string Service { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ServiceHealth.StatusEnum Status { get; set; }
-
-        [DataMember(Name = "description", IsRequired = true, EmitDefaultValue = false)]
-        public string Description { get; set; }
 
         public override string ToString()
         {

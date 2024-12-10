@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Security;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Net.Http;
-using System.Net.Security;
 
 namespace Seam.Client
 {
@@ -132,11 +132,10 @@ namespace Seam.Client
                         { "url", "https://connect.getseam.com" },
                         { "description", "No description provided" },
                     }
-                }
+                },
             };
             OperationServers = new Dictionary<string, List<IReadOnlyDictionary<string, object>>>()
-            {
-                };
+            { };
 
             // Setting Timeout has side effects (forces ApiClient creation).
             Timeout = 100000;

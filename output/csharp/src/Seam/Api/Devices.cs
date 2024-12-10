@@ -1,9 +1,9 @@
 using System.Runtime.Serialization;
 using System.Text;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using JsonSubTypes;
 using Seam.Client;
 using Seam.Model;
 
@@ -179,136 +179,34 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 List<string>? connectedAccountIds = default,
-                string? connectWebviewId = default,
-                ListRequest.DeviceTypeEnum? deviceType = default,
-                List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-                ListRequest.ManufacturerEnum? manufacturer = default,
-                List<string>? deviceIds = default,
-                float? limit = default,
                 string? createdBefore = default,
-                string? userIdentifierKey = default,
-                object? customMetadataHas = default
+                object? customMetadataHas = default,
+                List<string>? deviceIds = default,
+                string? deviceType = default,
+                List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+                List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+                List<ListRequest.IncludeIfEnum>? includeIf = default,
+                float? limit = default,
+                ListRequest.ManufacturerEnum? manufacturer = default,
+                string? userIdentifierKey = default
             )
             {
+                ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
                 ConnectedAccountIds = connectedAccountIds;
-                ConnectWebviewId = connectWebviewId;
+                CreatedBefore = createdBefore;
+                CustomMetadataHas = customMetadataHas;
+                DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
-                Manufacturer = manufacturer;
-                DeviceIds = deviceIds;
+                ExcludeIf = excludeIf;
+                IncludeIf = includeIf;
                 Limit = limit;
-                CreatedBefore = createdBefore;
+                Manufacturer = manufacturer;
                 UserIdentifierKey = userIdentifierKey;
-                CustomMetadataHas = customMetadataHas;
-            }
-
-            [JsonConverter(typeof(StringEnumConverter))]
-            public enum DeviceTypeEnum
-            {
-                [EnumMember(Value = "akuvox_lock")]
-                AkuvoxLock = 0,
-
-                [EnumMember(Value = "august_lock")]
-                AugustLock = 1,
-
-                [EnumMember(Value = "brivo_access_point")]
-                BrivoAccessPoint = 2,
-
-                [EnumMember(Value = "butterflymx_panel")]
-                ButterflymxPanel = 3,
-
-                [EnumMember(Value = "avigilon_alta_entry")]
-                AvigilonAltaEntry = 4,
-
-                [EnumMember(Value = "doorking_lock")]
-                DoorkingLock = 5,
-
-                [EnumMember(Value = "genie_door")]
-                GenieDoor = 6,
-
-                [EnumMember(Value = "igloo_lock")]
-                IglooLock = 7,
-
-                [EnumMember(Value = "linear_lock")]
-                LinearLock = 8,
-
-                [EnumMember(Value = "lockly_lock")]
-                LocklyLock = 9,
-
-                [EnumMember(Value = "kwikset_lock")]
-                KwiksetLock = 10,
-
-                [EnumMember(Value = "nuki_lock")]
-                NukiLock = 11,
-
-                [EnumMember(Value = "salto_lock")]
-                SaltoLock = 12,
-
-                [EnumMember(Value = "schlage_lock")]
-                SchlageLock = 13,
-
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 14,
-
-                [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 15,
-
-                [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 16,
-
-                [EnumMember(Value = "yale_lock")]
-                YaleLock = 17,
-
-                [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 18,
-
-                [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 19,
-
-                [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 20,
-
-                [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 21,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 22,
-
-                [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 23,
-
-                [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 24,
-
-                [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 25,
-
-                [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 26,
-
-                [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 27,
-
-                [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 28,
-
-                [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 29,
-
-                [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 30,
-
-                [EnumMember(Value = "ios_phone")]
-                IosPhone = 31,
-
-                [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32,
-
-                [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 33,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -392,29 +290,103 @@ namespace Seam.Api
                 [EnumMember(Value = "tedee_lock")]
                 TedeeLock = 25,
 
+                [EnumMember(Value = "akiles_lock")]
+                AkilesLock = 26,
+
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 26,
+                NoiseawareActivityZone = 27,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 27,
+                MinutSensor = 28,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 28,
+                EcobeeThermostat = 29,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 29,
+                NestThermostat = 30,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 30,
+                HoneywellResideoThermostat = 31,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 31,
+                IosPhone = 32,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 32,
-    
-                [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 33
+                AndroidPhone = 33,
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum ExcludeIfEnum
+            {
+                [EnumMember(Value = "can_remotely_unlock")]
+                CanRemotelyUnlock = 0,
+
+                [EnumMember(Value = "can_remotely_lock")]
+                CanRemotelyLock = 1,
+
+                [EnumMember(Value = "can_program_offline_access_codes")]
+                CanProgramOfflineAccessCodes = 2,
+
+                [EnumMember(Value = "can_program_online_access_codes")]
+                CanProgramOnlineAccessCodes = 3,
+
+                [EnumMember(Value = "can_hvac_heat")]
+                CanHvacHeat = 4,
+
+                [EnumMember(Value = "can_hvac_cool")]
+                CanHvacCool = 5,
+
+                [EnumMember(Value = "can_hvac_heat_cool")]
+                CanHvacHeatCool = 6,
+
+                [EnumMember(Value = "can_turn_off_hvac")]
+                CanTurnOffHvac = 7,
+
+                [EnumMember(Value = "can_simulate_removal")]
+                CanSimulateRemoval = 8,
+
+                [EnumMember(Value = "can_simulate_connection")]
+                CanSimulateConnection = 9,
+
+                [EnumMember(Value = "can_simulate_disconnection")]
+                CanSimulateDisconnection = 10,
+            }
+
+            [JsonConverter(typeof(StringEnumConverter))]
+            public enum IncludeIfEnum
+            {
+                [EnumMember(Value = "can_remotely_unlock")]
+                CanRemotelyUnlock = 0,
+
+                [EnumMember(Value = "can_remotely_lock")]
+                CanRemotelyLock = 1,
+
+                [EnumMember(Value = "can_program_offline_access_codes")]
+                CanProgramOfflineAccessCodes = 2,
+
+                [EnumMember(Value = "can_program_online_access_codes")]
+                CanProgramOnlineAccessCodes = 3,
+
+                [EnumMember(Value = "can_hvac_heat")]
+                CanHvacHeat = 4,
+
+                [EnumMember(Value = "can_hvac_cool")]
+                CanHvacCool = 5,
+
+                [EnumMember(Value = "can_hvac_heat_cool")]
+                CanHvacHeatCool = 6,
+
+                [EnumMember(Value = "can_turn_off_hvac")]
+                CanTurnOffHvac = 7,
+
+                [EnumMember(Value = "can_simulate_removal")]
+                CanSimulateRemoval = 8,
+
+                [EnumMember(Value = "can_simulate_connection")]
+                CanSimulateConnection = 9,
+
+                [EnumMember(Value = "can_simulate_disconnection")]
+                CanSimulateDisconnection = 10,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]
@@ -521,10 +493,13 @@ namespace Seam.Api
 
                 [EnumMember(Value = "honeywell_resideo")]
                 HoneywellResideo = 33,
-    
+
                 [EnumMember(Value = "akiles")]
-                Akiles = 34
+                Akiles = 34,
             }
+
+            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ConnectWebviewId { get; set; }
 
             [DataMember(
                 Name = "connected_account_id",
@@ -540,32 +515,35 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
-            [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ConnectWebviewId { get; set; }
+            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedBefore { get; set; }
 
-            [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-            public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
-
-            [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
-
-            [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
-            public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
+            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadataHas { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceType { get; set; }
+
+            [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
+
+            [DataMember(Name = "exclude_if", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.ExcludeIfEnum>? ExcludeIf { get; set; }
+
+            [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
+            public List<ListRequest.IncludeIfEnum>? IncludeIf { get; set; }
+
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
-            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
-            public string? CreatedBefore { get; set; }
+            [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
+            public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
-
-            [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
-            public object? CustomMetadataHas { get; set; }
 
             public override string ToString()
             {
@@ -629,32 +607,36 @@ namespace Seam.Api
         }
 
         public List<Device> List(
+            string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
-            string? connectWebviewId = default,
-            ListRequest.DeviceTypeEnum? deviceType = default,
-            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            ListRequest.ManufacturerEnum? manufacturer = default,
-            List<string>? deviceIds = default,
-            float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            List<string>? deviceIds = default,
+            string? deviceType = default,
+            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+            List<ListRequest.IncludeIfEnum>? includeIf = default,
+            float? limit = default,
+            ListRequest.ManufacturerEnum? manufacturer = default,
+            string? userIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
+                    connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
                     connectedAccountIds: connectedAccountIds,
-                    connectWebviewId: connectWebviewId,
+                    createdBefore: createdBefore,
+                    customMetadataHas: customMetadataHas,
+                    deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
-                    manufacturer: manufacturer,
-                    deviceIds: deviceIds,
+                    excludeIf: excludeIf,
+                    includeIf: includeIf,
                     limit: limit,
-                    createdBefore: createdBefore,
-                    userIdentifierKey: userIdentifierKey,
-                    customMetadataHas: customMetadataHas
+                    manufacturer: manufacturer,
+                    userIdentifierKey: userIdentifierKey
                 )
             );
         }
@@ -669,33 +651,37 @@ namespace Seam.Api
         }
 
         public async Task<List<Device>> ListAsync(
+            string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
-            string? connectWebviewId = default,
-            ListRequest.DeviceTypeEnum? deviceType = default,
-            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            ListRequest.ManufacturerEnum? manufacturer = default,
-            List<string>? deviceIds = default,
-            float? limit = default,
             string? createdBefore = default,
-            string? userIdentifierKey = default,
-            object? customMetadataHas = default
+            object? customMetadataHas = default,
+            List<string>? deviceIds = default,
+            string? deviceType = default,
+            List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
+            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
+            List<ListRequest.IncludeIfEnum>? includeIf = default,
+            float? limit = default,
+            ListRequest.ManufacturerEnum? manufacturer = default,
+            string? userIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
+                        connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
                         connectedAccountIds: connectedAccountIds,
-                        connectWebviewId: connectWebviewId,
+                        createdBefore: createdBefore,
+                        customMetadataHas: customMetadataHas,
+                        deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,
-                        manufacturer: manufacturer,
-                        deviceIds: deviceIds,
+                        excludeIf: excludeIf,
+                        includeIf: includeIf,
                         limit: limit,
-                        createdBefore: createdBefore,
-                        userIdentifierKey: userIdentifierKey,
-                        customMetadataHas: customMetadataHas
+                        manufacturer: manufacturer,
+                        userIdentifierKey: userIdentifierKey
                     )
                 )
             );
@@ -730,7 +716,7 @@ namespace Seam.Api
                 NoiseSensors = 3,
 
                 [EnumMember(Value = "access_control_systems")]
-                AccessControlSystems = 4
+                AccessControlSystems = 4,
             }
 
             [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
@@ -842,34 +828,34 @@ namespace Seam.Api
             protected UpdateRequest() { }
 
             public UpdateRequest(
+                object? customMetadata = default,
                 string deviceId = default,
-                UpdateRequestProperties? properties = default,
-                string? name = default,
                 bool? isManaged = default,
-                object? customMetadata = default
+                string? name = default,
+                UpdateRequestProperties? properties = default
             )
             {
-                DeviceId = deviceId;
-                Properties = properties;
-                Name = name;
-                IsManaged = isManaged;
                 CustomMetadata = customMetadata;
+                DeviceId = deviceId;
+                IsManaged = isManaged;
+                Name = name;
+                Properties = properties;
             }
+
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
-            [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-            public UpdateRequestProperties? Properties { get; set; }
+            [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsManaged { get; set; }
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
-            [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsManaged { get; set; }
-
-            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
-            public object? CustomMetadata { get; set; }
+            [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequestProperties? Properties { get; set; }
 
             public override string ToString()
             {
@@ -933,20 +919,20 @@ namespace Seam.Api
         }
 
         public void Update(
+            object? customMetadata = default,
             string deviceId = default,
-            UpdateRequestProperties? properties = default,
-            string? name = default,
             bool? isManaged = default,
-            object? customMetadata = default
+            string? name = default,
+            UpdateRequestProperties? properties = default
         )
         {
             Update(
                 new UpdateRequest(
+                    customMetadata: customMetadata,
                     deviceId: deviceId,
-                    properties: properties,
-                    name: name,
                     isManaged: isManaged,
-                    customMetadata: customMetadata
+                    name: name,
+                    properties: properties
                 )
             );
         }
@@ -959,20 +945,20 @@ namespace Seam.Api
         }
 
         public async Task UpdateAsync(
+            object? customMetadata = default,
             string deviceId = default,
-            UpdateRequestProperties? properties = default,
-            string? name = default,
             bool? isManaged = default,
-            object? customMetadata = default
+            string? name = default,
+            UpdateRequestProperties? properties = default
         )
         {
             await UpdateAsync(
                 new UpdateRequest(
+                    customMetadata: customMetadata,
                     deviceId: deviceId,
-                    properties: properties,
-                    name: name,
                     isManaged: isManaged,
-                    customMetadata: customMetadata
+                    name: name,
+                    properties: properties
                 )
             );
         }
