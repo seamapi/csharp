@@ -7,31 +7,31 @@ using Newtonsoft.Json.Linq;
 
 namespace Seam.Model
 {
-    [JsonConverter(typeof(JsonSubtypes), "ActionType")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateNoiseThreshold), "update_noise_threshold")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteNoiseThreshold), "delete_noise_threshold")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateNoiseThreshold), "create_noise_threshold")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateAccessCode), "update_access_code")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteAccessCode), "delete_access_code")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateAccessCode), "create_access_code")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSyncAccessCodes), "sync_access_codes")]
+    [JsonConverter(typeof(JsonSubtypes), "action_type")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateNoiseThreshold), "UPDATE_NOISE_THRESHOLD")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteNoiseThreshold), "DELETE_NOISE_THRESHOLD")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateNoiseThreshold), "CREATE_NOISE_THRESHOLD")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateAccessCode), "UPDATE_ACCESS_CODE")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteAccessCode), "DELETE_ACCESS_CODE")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateAccessCode), "CREATE_ACCESS_CODE")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSyncAccessCodes), "SYNC_ACCESS_CODES")]
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptActivateClimatePreset),
-        "activate_climate_preset"
+        "ACTIVATE_CLIMATE_PRESET"
     )]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetThermostatOff), "set_thermostat_off")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetFanMode), "set_fan_mode")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeatCool), "set_heat_cool")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeat), "set_heat")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetCool), "set_cool")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetThermostatOff), "SET_THERMOSTAT_OFF")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetFanMode), "SET_FAN_MODE")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeatCool), "SET_HEAT_COOL")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeat), "SET_HEAT")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetCool), "SET_COOL")]
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptResetSandboxWorkspace),
-        "reset_sandbox_workspace"
+        "RESET_SANDBOX_WORKSPACE"
     )]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptEncodeCredential), "encode_credential")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptScanCredential), "scan_credential")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUnlockDoor), "unlock_door")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptLockDoor), "lock_door")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptEncodeCredential), "ENCODE_CREDENTIAL")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptScanCredential), "SCAN_CREDENTIAL")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptUnlockDoor), "UNLOCK_DOOR")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptLockDoor), "LOCK_DOOR")]
     public abstract class ActionAttempt
     {
         public abstract string ActionType { get; }
