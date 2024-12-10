@@ -65,6 +65,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -128,6 +134,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -191,6 +203,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -254,6 +272,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -317,6 +341,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -380,6 +410,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -443,6 +479,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -506,6 +548,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -569,6 +617,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -632,6 +686,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -695,6 +755,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -758,6 +824,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -821,6 +893,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -884,6 +962,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -947,6 +1031,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1010,6 +1100,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1073,6 +1169,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1136,6 +1238,12 @@ namespace Seam.Model
         {
             [EnumMember(Value = "pending")]
             Pending = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "error")]
+            Error = 2,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
