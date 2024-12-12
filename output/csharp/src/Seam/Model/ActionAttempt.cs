@@ -19,11 +19,8 @@ namespace Seam.Model
         typeof(ActionAttemptActivateClimatePreset),
         "ACTIVATE_CLIMATE_PRESET"
     )]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetThermostatOff), "SET_THERMOSTAT_OFF")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHvacMode), "SET_HVAC_MODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetFanMode), "SET_FAN_MODE")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeatCool), "SET_HEAT_COOL")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetHeat), "SET_HEAT")]
-    [JsonSubtypes.KnownSubType(typeof(ActionAttemptSetCool), "SET_COOL")]
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptResetSandboxWorkspace),
         "RESET_SANDBOX_WORKSPACE"
@@ -384,213 +381,6 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_actionAttemptSetCool_model")]
-    public class ActionAttemptSetCool : ActionAttempt
-    {
-        [JsonConstructorAttribute]
-        protected ActionAttemptSetCool() { }
-
-        public ActionAttemptSetCool(
-            string actionAttemptId = default,
-            string actionType = default,
-            Object error = default,
-            Object result = default,
-            ActionAttemptSetCool.StatusEnum status = default
-        )
-        {
-            ActionAttemptId = actionAttemptId;
-            ActionType = actionType;
-            Error = error;
-            Result = result;
-            Status = status;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum StatusEnum
-        {
-            [EnumMember(Value = "pending")]
-            Pending = 0,
-
-            [EnumMember(Value = "success")]
-            Success = 1,
-
-            [EnumMember(Value = "error")]
-            Error = 2,
-        }
-
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public override string ActionType { get; } = "SET_COOL";
-
-        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
-
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetCool.StatusEnum Status { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_actionAttemptSetHeat_model")]
-    public class ActionAttemptSetHeat : ActionAttempt
-    {
-        [JsonConstructorAttribute]
-        protected ActionAttemptSetHeat() { }
-
-        public ActionAttemptSetHeat(
-            string actionAttemptId = default,
-            string actionType = default,
-            Object error = default,
-            Object result = default,
-            ActionAttemptSetHeat.StatusEnum status = default
-        )
-        {
-            ActionAttemptId = actionAttemptId;
-            ActionType = actionType;
-            Error = error;
-            Result = result;
-            Status = status;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum StatusEnum
-        {
-            [EnumMember(Value = "pending")]
-            Pending = 0,
-
-            [EnumMember(Value = "success")]
-            Success = 1,
-
-            [EnumMember(Value = "error")]
-            Error = 2,
-        }
-
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public override string ActionType { get; } = "SET_HEAT";
-
-        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
-
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetHeat.StatusEnum Status { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_actionAttemptSetHeatCool_model")]
-    public class ActionAttemptSetHeatCool : ActionAttempt
-    {
-        [JsonConstructorAttribute]
-        protected ActionAttemptSetHeatCool() { }
-
-        public ActionAttemptSetHeatCool(
-            string actionAttemptId = default,
-            string actionType = default,
-            Object error = default,
-            Object result = default,
-            ActionAttemptSetHeatCool.StatusEnum status = default
-        )
-        {
-            ActionAttemptId = actionAttemptId;
-            ActionType = actionType;
-            Error = error;
-            Result = result;
-            Status = status;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum StatusEnum
-        {
-            [EnumMember(Value = "pending")]
-            Pending = 0,
-
-            [EnumMember(Value = "success")]
-            Success = 1,
-
-            [EnumMember(Value = "error")]
-            Error = 2,
-        }
-
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
-
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public override string ActionType { get; } = "SET_HEAT_COOL";
-
-        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
-
-        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
-
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetHeatCool.StatusEnum Status { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
     [DataContract(Name = "seamModel_actionAttemptSetFanMode_model")]
     public class ActionAttemptSetFanMode : ActionAttempt
     {
@@ -660,18 +450,18 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_actionAttemptSetThermostatOff_model")]
-    public class ActionAttemptSetThermostatOff : ActionAttempt
+    [DataContract(Name = "seamModel_actionAttemptSetHvacMode_model")]
+    public class ActionAttemptSetHvacMode : ActionAttempt
     {
         [JsonConstructorAttribute]
-        protected ActionAttemptSetThermostatOff() { }
+        protected ActionAttemptSetHvacMode() { }
 
-        public ActionAttemptSetThermostatOff(
+        public ActionAttemptSetHvacMode(
             string actionAttemptId = default,
             string actionType = default,
             Object error = default,
             Object result = default,
-            ActionAttemptSetThermostatOff.StatusEnum status = default
+            ActionAttemptSetHvacMode.StatusEnum status = default
         )
         {
             ActionAttemptId = actionAttemptId;
@@ -698,7 +488,7 @@ namespace Seam.Model
         public string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public override string ActionType { get; } = "SET_THERMOSTAT_OFF";
+        public override string ActionType { get; } = "SET_HVAC_MODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public Object Error { get; set; }
@@ -707,7 +497,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetThermostatOff.StatusEnum Status { get; set; }
+        public ActionAttemptSetHvacMode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {

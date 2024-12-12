@@ -19,6 +19,7 @@ namespace Seam.Model
             List<string> connectedAccountIds = default,
             string createdAt = default,
             float deviceCount = default,
+            string expiresAt = default,
             string token = default,
             string? userIdentifierKey = default,
             List<string> userIdentityIds = default,
@@ -30,6 +31,7 @@ namespace Seam.Model
             ConnectedAccountIds = connectedAccountIds;
             CreatedAt = createdAt;
             DeviceCount = deviceCount;
+            ExpiresAt = expiresAt;
             Token = token;
             UserIdentifierKey = userIdentifierKey;
             UserIdentityIds = userIdentityIds;
@@ -50,6 +52,9 @@ namespace Seam.Model
 
         [DataMember(Name = "device_count", IsRequired = true, EmitDefaultValue = false)]
         public float DeviceCount { get; set; }
+
+        [DataMember(Name = "expires_at", IsRequired = true, EmitDefaultValue = false)]
+        public string ExpiresAt { get; set; }
 
         [DataMember(Name = "token", IsRequired = true, EmitDefaultValue = false)]
         public string Token { get; set; }

@@ -31,6 +31,7 @@ namespace Seam.Model
             bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
             bool? isMultiPhoneSyncCredential = default,
+            bool? isOneTimeUse = default,
             string? issuedAt = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
             string? parentAcsCredentialId = default,
@@ -57,6 +58,7 @@ namespace Seam.Model
             IsLatestDesiredStateSyncedWithProvider = isLatestDesiredStateSyncedWithProvider;
             IsManaged = isManaged;
             IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
+            IsOneTimeUse = isOneTimeUse;
             IssuedAt = issuedAt;
             LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
             ParentAcsCredentialId = parentAcsCredentialId;
@@ -160,6 +162,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? IsMultiPhoneSyncCredential { get; set; }
+
+        [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOneTimeUse { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }

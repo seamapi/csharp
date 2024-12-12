@@ -33,7 +33,7 @@ namespace Seam.Model
             AcsSystem.SystemTypeEnum? systemType = default,
             string? systemTypeDisplayName = default,
             AcsSystemVisionlineMetadata? visionlineMetadata = default,
-            List<AcsSystemWarnings> warnings = default,
+            List<JObject> warnings = default,
             string workspaceId = default
         )
         {
@@ -72,32 +72,35 @@ namespace Seam.Model
             [EnumMember(Value = "salto_ks_site")]
             SaltoKsSite = 2,
 
+            [EnumMember(Value = "salto_space_system")]
+            SaltoSpaceSystem = 3,
+
             [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 3,
+            BrivoAccount = 4,
 
             [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 4,
+            HidCredentialManagerOrganization = 5,
 
             [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 5,
+            VisionlineSystem = 6,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 6,
+            AssaAbloyCredentialService = 7,
 
             [EnumMember(Value = "latch_building")]
-            LatchBuilding = 7,
+            LatchBuilding = 8,
 
             [EnumMember(Value = "dormakaba_community")]
-            DormakabaCommunity = 8,
+            DormakabaCommunity = 9,
 
             [EnumMember(Value = "legic_connect")]
-            LegicConnect = 9,
+            LegicConnect = 10,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 10,
+            AssaAbloyVostio = 11,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 11,
+            AssaAbloyVostioCredentialService = 12,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -112,32 +115,35 @@ namespace Seam.Model
             [EnumMember(Value = "salto_ks_site")]
             SaltoKsSite = 2,
 
+            [EnumMember(Value = "salto_space_system")]
+            SaltoSpaceSystem = 3,
+
             [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 3,
+            BrivoAccount = 4,
 
             [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 4,
+            HidCredentialManagerOrganization = 5,
 
             [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 5,
+            VisionlineSystem = 6,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 6,
+            AssaAbloyCredentialService = 7,
 
             [EnumMember(Value = "latch_building")]
-            LatchBuilding = 7,
+            LatchBuilding = 8,
 
             [EnumMember(Value = "dormakaba_community")]
-            DormakabaCommunity = 8,
+            DormakabaCommunity = 9,
 
             [EnumMember(Value = "legic_connect")]
-            LegicConnect = 9,
+            LegicConnect = 10,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 10,
+            AssaAbloyVostio = 11,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 11,
+            AssaAbloyVostioCredentialService = 12,
         }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
@@ -222,7 +228,7 @@ namespace Seam.Model
         public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsSystemWarnings> Warnings { get; set; }
+        public List<JObject> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -306,59 +312,6 @@ namespace Seam.Model
 
         [DataMember(Name = "system_id", IsRequired = true, EmitDefaultValue = false)]
         public string SystemId { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_acsSystemWarnings_model")]
-    public class AcsSystemWarnings
-    {
-        [JsonConstructorAttribute]
-        protected AcsSystemWarnings() { }
-
-        public AcsSystemWarnings(
-            string createdAt = default,
-            string message = default,
-            AcsSystemWarnings.WarningCodeEnum warningCode = default
-        )
-        {
-            CreatedAt = createdAt;
-            Message = message;
-            WarningCode = warningCode;
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum WarningCodeEnum
-        {
-            [EnumMember(Value = "salto_ks_subscription_limit_almost_reached")]
-            SaltoKsSubscriptionLimitAlmostReached = 0,
-        }
-
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
-
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-        public AcsSystemWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
         {

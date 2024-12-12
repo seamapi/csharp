@@ -23,6 +23,7 @@ namespace Seam.Model
             List<AcsEntranceErrors> errors = default,
             AcsEntranceLatchMetadata? latchMetadata = default,
             AcsEntranceSaltoKsMetadata? saltoKsMetadata = default,
+            AcsEntranceSaltoSpaceMetadata? saltoSpaceMetadata = default,
             AcsEntranceVisionlineMetadata? visionlineMetadata = default
         )
         {
@@ -35,6 +36,7 @@ namespace Seam.Model
             Errors = errors;
             LatchMetadata = latchMetadata;
             SaltoKsMetadata = saltoKsMetadata;
+            SaltoSpaceMetadata = saltoSpaceMetadata;
             VisionlineMetadata = visionlineMetadata;
         }
 
@@ -72,6 +74,9 @@ namespace Seam.Model
 
         [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceSaltoKsMetadata? SaltoKsMetadata { get; set; }
+
+        [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsEntranceSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceVisionlineMetadata? VisionlineMetadata { get; set; }
@@ -174,13 +179,29 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected AcsEntranceDormakabaCommunityMetadata() { }
 
-        public AcsEntranceDormakabaCommunityMetadata(string accessPointName = default)
+        public AcsEntranceDormakabaCommunityMetadata(
+            string accessPointName = default,
+            float? commonAreaNumber = default,
+            List<string>? innerAccessPointsNames = default
+        )
         {
             AccessPointName = accessPointName;
+            CommonAreaNumber = commonAreaNumber;
+            InnerAccessPointsNames = innerAccessPointsNames;
         }
 
         [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
         public string AccessPointName { get; set; }
+
+        [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
+        public float? CommonAreaNumber { get; set; }
+
+        [DataMember(
+            Name = "inner_access_points_names",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<string>? InnerAccessPointsNames { get; set; }
 
         public override string ToString()
         {
@@ -341,6 +362,52 @@ namespace Seam.Model
 
         [DataMember(Name = "privacy_mode", IsRequired = false, EmitDefaultValue = false)]
         public bool? PrivacyMode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceSaltoSpaceMetadata_model")]
+    public class AcsEntranceSaltoSpaceMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceSaltoSpaceMetadata() { }
+
+        public AcsEntranceSaltoSpaceMetadata(
+            string? doorDescription = default,
+            string doorName = default,
+            string extDoorId = default
+        )
+        {
+            DoorDescription = doorDescription;
+            DoorName = doorName;
+            ExtDoorId = extDoorId;
+        }
+
+        [DataMember(Name = "door_description", IsRequired = false, EmitDefaultValue = false)]
+        public string? DoorDescription { get; set; }
+
+        [DataMember(Name = "door_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DoorName { get; set; }
+
+        [DataMember(Name = "ext_door_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ExtDoorId { get; set; }
 
         public override string ToString()
         {
