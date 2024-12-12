@@ -49,8 +49,8 @@ namespace Seam.Model
             [EnumMember(Value = "pti_access_level")]
             PtiAccessLevel = 1,
 
-            [EnumMember(Value = "salto_access_group")]
-            SaltoAccessGroup = 2,
+            [EnumMember(Value = "salto_ks_access_group")]
+            SaltoKsAccessGroup = 2,
 
             [EnumMember(Value = "brivo_group")]
             BrivoGroup = 3,
@@ -65,8 +65,8 @@ namespace Seam.Model
             [EnumMember(Value = "pti_access_level")]
             PtiAccessLevel = 1,
 
-            [EnumMember(Value = "salto_access_group")]
-            SaltoAccessGroup = 2,
+            [EnumMember(Value = "salto_ks_access_group")]
+            SaltoKsAccessGroup = 2,
 
             [EnumMember(Value = "brivo_group")]
             BrivoGroup = 3,

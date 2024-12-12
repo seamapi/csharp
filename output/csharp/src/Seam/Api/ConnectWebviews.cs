@@ -177,14 +177,20 @@ namespace Seam.Api
                 [EnumMember(Value = "assa_abloy_vostio_credential_service")]
                 AssaAbloyVostioCredentialService = 42,
 
+                [EnumMember(Value = "tado")]
+                Tado = 43,
+
+                [EnumMember(Value = "salto_space")]
+                SaltoSpace = 44,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 43,
+                YaleAccess = 45,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 44,
+                HidCm = 46,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 45,
+                GoogleNest = 47,
             }
 
             [JsonConverter(typeof(StringEnumConverter))]

@@ -183,11 +183,14 @@ namespace Seam.Model
             [EnumMember(Value = "honeywell_resideo_thermostat")]
             HoneywellResideoThermostat = 31,
 
+            [EnumMember(Value = "tado_thermostat")]
+            TadoThermostat = 32,
+
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 32,
+            IosPhone = 33,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 33,
+            AndroidPhone = 34,
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]

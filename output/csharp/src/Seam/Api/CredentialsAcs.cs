@@ -403,7 +403,7 @@ namespace Seam.Api
 
             public CreateOfflineCodeRequest(
                 string acsUserId = default,
-                string? allowedAcsEntranceId = default,
+                string allowedAcsEntranceId = default,
                 string? endsAt = default,
                 bool? isOneTimeUse = default,
                 string? startsAt = default
@@ -421,10 +421,10 @@ namespace Seam.Api
 
             [DataMember(
                 Name = "allowed_acs_entrance_id",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
-            public string? AllowedAcsEntranceId { get; set; }
+            public string AllowedAcsEntranceId { get; set; }
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
@@ -503,7 +503,7 @@ namespace Seam.Api
 
         public AcsCredential CreateOfflineCode(
             string acsUserId = default,
-            string? allowedAcsEntranceId = default,
+            string allowedAcsEntranceId = default,
             string? endsAt = default,
             bool? isOneTimeUse = default,
             string? startsAt = default
@@ -536,7 +536,7 @@ namespace Seam.Api
 
         public async Task<AcsCredential> CreateOfflineCodeAsync(
             string acsUserId = default,
-            string? allowedAcsEntranceId = default,
+            string allowedAcsEntranceId = default,
             string? endsAt = default,
             bool? isOneTimeUse = default,
             string? startsAt = default

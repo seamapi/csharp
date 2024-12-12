@@ -189,11 +189,14 @@ namespace Seam.Model
             [EnumMember(Value = "honeywell_resideo_thermostat")]
             HoneywellResideoThermostat = 31,
 
+            [EnumMember(Value = "tado_thermostat")]
+            TadoThermostat = 32,
+
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 32,
+            IosPhone = 33,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 33,
+            AndroidPhone = 34,
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
@@ -393,6 +396,7 @@ namespace Seam.Model
             DevicePropertiesSchlageMetadata? schlageMetadata = default,
             DevicePropertiesSeamBridgeMetadata? seamBridgeMetadata = default,
             DevicePropertiesSmartthingsMetadata? smartthingsMetadata = default,
+            DevicePropertiesTadoMetadata? tadoMetadata = default,
             DevicePropertiesTedeeMetadata? tedeeMetadata = default,
             DevicePropertiesTtlockMetadata? ttlockMetadata = default,
             DevicePropertiesTwoNMetadata? twoNMetadata = default,
@@ -480,6 +484,7 @@ namespace Seam.Model
             SchlageMetadata = schlageMetadata;
             SeamBridgeMetadata = seamBridgeMetadata;
             SmartthingsMetadata = smartthingsMetadata;
+            TadoMetadata = tadoMetadata;
             TedeeMetadata = tedeeMetadata;
             TtlockMetadata = ttlockMetadata;
             TwoNMetadata = twoNMetadata;
@@ -732,6 +737,9 @@ namespace Seam.Model
 
         [DataMember(Name = "smartthings_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesSmartthingsMetadata? SmartthingsMetadata { get; set; }
+
+        [DataMember(Name = "tado_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesTadoMetadata? TadoMetadata { get; set; }
 
         [DataMember(Name = "tedee_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTedeeMetadata? TedeeMetadata { get; set; }
@@ -2909,6 +2917,47 @@ namespace Seam.Model
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public string? Model { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesTadoMetadata_model")]
+    public class DevicePropertiesTadoMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesTadoMetadata() { }
+
+        public DevicePropertiesTadoMetadata(
+            string? deviceType = default,
+            string? serialNo = default
+        )
+        {
+            DeviceType = deviceType;
+            SerialNo = serialNo;
+        }
+
+        [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceType { get; set; }
+
+        [DataMember(Name = "serial_no", IsRequired = false, EmitDefaultValue = false)]
+        public string? SerialNo { get; set; }
 
         public override string ToString()
         {
