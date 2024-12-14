@@ -108,7 +108,7 @@ namespace Seam.Api
                 string acsSystemId = default,
                 string? email = default,
                 string? emailAddress = default,
-                string? fullName = default,
+                string fullName = default,
                 string? phoneNumber = default,
                 string? userIdentityId = default
             )
@@ -142,8 +142,8 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
-            public string? FullName { get; set; }
+            [DataMember(Name = "full_name", IsRequired = true, EmitDefaultValue = false)]
+            public string FullName { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -256,7 +256,7 @@ namespace Seam.Api
             string acsSystemId = default,
             string? email = default,
             string? emailAddress = default,
-            string? fullName = default,
+            string fullName = default,
             string? phoneNumber = default,
             string? userIdentityId = default
         )
@@ -290,7 +290,7 @@ namespace Seam.Api
             string acsSystemId = default,
             string? email = default,
             string? emailAddress = default,
-            string? fullName = default,
+            string fullName = default,
             string? phoneNumber = default,
             string? userIdentityId = default
         )

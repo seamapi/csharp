@@ -150,20 +150,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ScanCredentialRequest() { }
 
-            public ScanCredentialRequest(
-                string acsEncoderId = default,
-                string acsSystemId = default
-            )
+            public ScanCredentialRequest(string acsEncoderId = default)
             {
                 AcsEncoderId = acsEncoderId;
-                AcsSystemId = acsSystemId;
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEncoderId { get; set; }
-
-            [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsSystemId { get; set; }
 
             public override string ToString()
             {
@@ -228,14 +221,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
-        public ActionAttempt ScanCredential(
-            string acsEncoderId = default,
-            string acsSystemId = default
-        )
+        public ActionAttempt ScanCredential(string acsEncoderId = default)
         {
-            return ScanCredential(
-                new ScanCredentialRequest(acsEncoderId: acsEncoderId, acsSystemId: acsSystemId)
-            );
+            return ScanCredential(new ScanCredentialRequest(acsEncoderId: acsEncoderId));
         }
 
         public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
@@ -252,15 +240,10 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
-        public async Task<ActionAttempt> ScanCredentialAsync(
-            string acsEncoderId = default,
-            string acsSystemId = default
-        )
+        public async Task<ActionAttempt> ScanCredentialAsync(string acsEncoderId = default)
         {
             return (
-                await ScanCredentialAsync(
-                    new ScanCredentialRequest(acsEncoderId: acsEncoderId, acsSystemId: acsSystemId)
-                )
+                await ScanCredentialAsync(new ScanCredentialRequest(acsEncoderId: acsEncoderId))
             );
         }
     }
