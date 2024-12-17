@@ -54,6 +54,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "brivo_group")]
             BrivoGroup = 3,
+
+            [EnumMember(Value = "salto_space_group")]
+            SaltoSpaceGroup = 4,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -70,6 +73,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "brivo_group")]
             BrivoGroup = 3,
+
+            [EnumMember(Value = "salto_space_group")]
+            SaltoSpaceGroup = 4,
         }
 
         [DataMember(Name = "access_group_type", IsRequired = true, EmitDefaultValue = false)]
