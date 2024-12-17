@@ -19,6 +19,7 @@ namespace Seam.Model
             bool? canAutomateEnrollment = default,
             bool? canCreateAcsAccessGroups = default,
             bool? canRemoveAcsUsersFromAcsAccessGroups = default,
+            string connectedAccountId = default,
             List<string> connectedAccountIds = default,
             string createdAt = default,
             string? defaultCredentialManagerAcsSystemId = default,
@@ -42,6 +43,7 @@ namespace Seam.Model
             CanAutomateEnrollment = canAutomateEnrollment;
             CanCreateAcsAccessGroups = canCreateAcsAccessGroups;
             CanRemoveAcsUsersFromAcsAccessGroups = canRemoveAcsUsersFromAcsAccessGroups;
+            ConnectedAccountId = connectedAccountId;
             ConnectedAccountIds = connectedAccountIds;
             CreatedAt = createdAt;
             DefaultCredentialManagerAcsSystemId = defaultCredentialManagerAcsSystemId;
@@ -90,11 +92,11 @@ namespace Seam.Model
             [EnumMember(Value = "latch_building")]
             LatchBuilding = 8,
 
-            [EnumMember(Value = "dormakaba_community")]
-            DormakabaCommunity = 9,
+            [EnumMember(Value = "dormakaba_community_site")]
+            DormakabaCommunitySite = 9,
 
-            [EnumMember(Value = "legic_connect")]
-            LegicConnect = 10,
+            [EnumMember(Value = "legic_connect_credential_service")]
+            LegicConnectCredentialService = 10,
 
             [EnumMember(Value = "assa_abloy_vostio")]
             AssaAbloyVostio = 11,
@@ -133,11 +135,11 @@ namespace Seam.Model
             [EnumMember(Value = "latch_building")]
             LatchBuilding = 8,
 
-            [EnumMember(Value = "dormakaba_community")]
-            DormakabaCommunity = 9,
+            [EnumMember(Value = "dormakaba_community_site")]
+            DormakabaCommunitySite = 9,
 
-            [EnumMember(Value = "legic_connect")]
-            LegicConnect = 10,
+            [EnumMember(Value = "legic_connect_credential_service")]
+            LegicConnectCredentialService = 10,
 
             [EnumMember(Value = "assa_abloy_vostio")]
             AssaAbloyVostio = 11,
@@ -172,6 +174,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanRemoveAcsUsersFromAcsAccessGroups { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
