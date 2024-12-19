@@ -28,7 +28,7 @@ namespace Seam.Model
             string? hidAcsSystemId = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
-            bool isSuspended = default,
+            bool? isSuspended = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
             string? phoneNumber = default,
             string? userIdentityEmailAddress = default,
@@ -136,8 +136,8 @@ namespace Seam.Model
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
-        [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsSuspended { get; set; }
+        [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsSuspended { get; set; }
 
         [DataMember(
             Name = "latest_desired_state_synced_with_provider_at",

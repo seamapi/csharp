@@ -182,12 +182,14 @@ namespace Seam.Model
         public AcsEntranceDormakabaCommunityMetadata(
             string accessPointName = default,
             float? commonAreaNumber = default,
-            List<string>? innerAccessPointsNames = default
+            List<string>? innerAccessPointsNames = default,
+            List<string>? leaseIds = default
         )
         {
             AccessPointName = accessPointName;
             CommonAreaNumber = commonAreaNumber;
             InnerAccessPointsNames = innerAccessPointsNames;
+            LeaseIds = leaseIds;
         }
 
         [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
@@ -202,6 +204,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public List<string>? InnerAccessPointsNames { get; set; }
+
+        [DataMember(Name = "lease_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? LeaseIds { get; set; }
 
         public override string ToString()
         {
