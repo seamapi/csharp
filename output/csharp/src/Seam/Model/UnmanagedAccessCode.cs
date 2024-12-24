@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -42,21 +43,27 @@ namespace Seam.Model
             Warnings = warnings;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "set")]
-            Set = 0,
+            Set = 1,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum TypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "time_bound")]
-            TimeBound = 0,
+            TimeBound = 1,
 
             [EnumMember(Value = "ongoing")]
-            Ongoing = 1,
+            Ongoing = 2,
         }
 
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]

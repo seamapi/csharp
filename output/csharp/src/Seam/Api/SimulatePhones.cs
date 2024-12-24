@@ -158,14 +158,17 @@ namespace Seam.Api
                 OsVersion = osVersion;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum OperatingSystemEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "android")]
-                Android = 0,
+                Android = 1,
 
                 [EnumMember(Value = "ios")]
-                Ios = 1,
+                Ios = 2,
             }
 
             [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]

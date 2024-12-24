@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -62,90 +63,96 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_site")]
-            PtiSite = 0,
+            PtiSite = 1,
 
             [EnumMember(Value = "alta_org")]
-            AltaOrg = 1,
+            AltaOrg = 2,
 
             [EnumMember(Value = "salto_ks_site")]
-            SaltoKsSite = 2,
+            SaltoKsSite = 3,
 
             [EnumMember(Value = "salto_space_system")]
-            SaltoSpaceSystem = 3,
+            SaltoSpaceSystem = 4,
 
             [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 4,
+            BrivoAccount = 5,
 
             [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 5,
+            HidCredentialManagerOrganization = 6,
 
             [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 6,
+            VisionlineSystem = 7,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 7,
+            AssaAbloyCredentialService = 8,
 
             [EnumMember(Value = "latch_building")]
-            LatchBuilding = 8,
+            LatchBuilding = 9,
 
             [EnumMember(Value = "dormakaba_community_site")]
-            DormakabaCommunitySite = 9,
+            DormakabaCommunitySite = 10,
 
             [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 10,
+            LegicConnectCredentialService = 11,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 11,
+            AssaAbloyVostio = 12,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 12,
+            AssaAbloyVostioCredentialService = 13,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum SystemTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_site")]
-            PtiSite = 0,
+            PtiSite = 1,
 
             [EnumMember(Value = "alta_org")]
-            AltaOrg = 1,
+            AltaOrg = 2,
 
             [EnumMember(Value = "salto_ks_site")]
-            SaltoKsSite = 2,
+            SaltoKsSite = 3,
 
             [EnumMember(Value = "salto_space_system")]
-            SaltoSpaceSystem = 3,
+            SaltoSpaceSystem = 4,
 
             [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 4,
+            BrivoAccount = 5,
 
             [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 5,
+            HidCredentialManagerOrganization = 6,
 
             [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 6,
+            VisionlineSystem = 7,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 7,
+            AssaAbloyCredentialService = 8,
 
             [EnumMember(Value = "latch_building")]
-            LatchBuilding = 8,
+            LatchBuilding = 9,
 
             [EnumMember(Value = "dormakaba_community_site")]
-            DormakabaCommunitySite = 9,
+            DormakabaCommunitySite = 10,
 
             [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 10,
+            LegicConnectCredentialService = 11,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 11,
+            AssaAbloyVostio = 12,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 12,
+            AssaAbloyVostioCredentialService = 13,
         }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]

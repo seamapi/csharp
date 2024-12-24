@@ -35,14 +35,17 @@ namespace Seam.Api
                 AcsCredentialId = acsCredentialId;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ErrorCodeEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 0,
+                UncategorizedError = 1,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 1,
+                ActionAttemptExpired = 2,
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -141,11 +144,14 @@ namespace Seam.Api
                 Scenario = scenario;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ScenarioEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "credential_is_issued")]
-                CredentialIsIssued = 0,
+                CredentialIsIssued = 1,
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -239,14 +245,17 @@ namespace Seam.Api
                 AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ErrorCodeEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 0,
+                UncategorizedError = 1,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 1,
+                ActionAttemptExpired = 2,
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -349,11 +358,14 @@ namespace Seam.Api
                 Scenario = scenario;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ScenarioEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "credential_on_encoder_is_empty")]
-                CredentialOnEncoderIsEmpty = 0,
+                CredentialOnEncoderIsEmpty = 1,
             }
 
             [DataMember(

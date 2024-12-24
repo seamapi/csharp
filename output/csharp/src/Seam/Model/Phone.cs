@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -66,36 +67,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CapabilitiesSupportedEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "access_code")]
-            AccessCode = 0,
+            AccessCode = 1,
 
             [EnumMember(Value = "lock")]
-            Lock = 1,
+            Lock = 2,
 
             [EnumMember(Value = "noise_detection")]
-            NoiseDetection = 2,
+            NoiseDetection = 3,
 
             [EnumMember(Value = "thermostat")]
-            Thermostat = 3,
+            Thermostat = 4,
 
             [EnumMember(Value = "battery")]
-            Battery = 4,
+            Battery = 5,
 
             [EnumMember(Value = "phone")]
-            Phone = 5,
+            Phone = 6,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 0,
+            AndroidPhone = 1,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 1,
+            IosPhone = 2,
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]

@@ -63,20 +63,23 @@ namespace Seam.Api
                 UseOfflineAccessCode = useOfflineAccessCode;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum MaxTimeRoundingEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "1hour")]
-                _1hour = 0,
+                _1hour = 1,
 
                 [EnumMember(Value = "1day")]
-                _1day = 1,
+                _1day = 2,
 
                 [EnumMember(Value = "1h")]
-                _1h = 2,
+                _1h = 3,
 
                 [EnumMember(Value = "1d")]
-                _1d = 3,
+                _1d = 4,
             }
 
             [DataMember(
@@ -366,30 +369,36 @@ namespace Seam.Api
                 UseOfflineAccessCode = useOfflineAccessCode;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum BehaviorWhenCodeCannotBeSharedEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "throw")]
-                Throw = 0,
+                Throw = 1,
 
                 [EnumMember(Value = "create_random_code")]
-                CreateRandomCode = 1,
+                CreateRandomCode = 2,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum MaxTimeRoundingEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "1hour")]
-                _1hour = 0,
+                _1hour = 1,
 
                 [EnumMember(Value = "1day")]
-                _1day = 1,
+                _1day = 2,
 
                 [EnumMember(Value = "1h")]
-                _1h = 2,
+                _1h = 3,
 
                 [EnumMember(Value = "1d")]
-                _1d = 3,
+                _1d = 4,
             }
 
             [DataMember(
