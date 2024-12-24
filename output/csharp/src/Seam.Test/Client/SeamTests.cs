@@ -1,5 +1,6 @@
 namespace Seam.Test;
 
+using Newtonsoft.Json;
 using Seam.Client;
 using Seam.Model;
 
@@ -122,5 +123,56 @@ public class UnitTest1 : SeamConnectTest
         );
 
         Assert.NotEqual(device.DeviceId, device2.DeviceId);
+    }
+
+    [Fact]
+    public void TestUnknownEnumValue()
+    {
+        var json =
+            @"{
+            ""device_type"": ""unknown_device_type"",
+            ""device_id"": ""test"",
+            ""capabilities_supported"": [""unknown_capability"", ""access_code""],
+            ""properties"": {
+                ""available_fan_mode_settings"": [""unknown_mode"", ""auto""]
+            },
+            connected_account_id: ""test"",
+            created_at: ""test"",
+            device_id: ""test"",
+            device_type: ""unknown_device_type"",
+            display_name: ""test"",
+            errors: [],
+            is_managed: false,
+            warnings: [],
+            workspace_id: ""test"",
+            properties: {
+                ""available_fan_mode_settings"": [""unknown_mode"", ""auto""]
+            },
+            custom_metadata: {}
+        }";
+
+        var settings = new JsonSerializerSettings
+        {
+            Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
+        };
+        var device = JsonConvert.DeserializeObject<Device>(json, settings);
+
+        // Unknown values should be mapped to first enum value (Unrecognized = 0)
+        Assert.Equal(Device.DeviceTypeEnum.Unrecognized, device.DeviceType);
+        Assert.Equal(
+            Device.CapabilitiesSupportedEnum.Unrecognized,
+            device.CapabilitiesSupported[0]
+        );
+        Assert.Equal(
+            DeviceProperties.AvailableFanModeSettingsEnum.Unrecognized,
+            device.Properties.AvailableFanModeSettings[0]
+        );
+
+        // Known values should still work
+        Assert.Equal(Device.CapabilitiesSupportedEnum.AccessCode, device.CapabilitiesSupported[1]);
+        Assert.Equal(
+            DeviceProperties.AvailableFanModeSettingsEnum.Auto,
+            device.Properties.AvailableFanModeSettings[1]
+        );
     }
 }
