@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -122,20 +123,23 @@ namespace Seam.Model
             StandOpen = standOpen;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DoorTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "CommonDoor")]
-            CommonDoor = 0,
+            CommonDoor = 1,
 
             [EnumMember(Value = "EntranceDoor")]
-            EntranceDoor = 1,
+            EntranceDoor = 2,
 
             [EnumMember(Value = "GuestDoor")]
-            GuestDoor = 2,
+            GuestDoor = 3,
 
             [EnumMember(Value = "Elevator")]
-            Elevator = 3,
+            Elevator = 4,
         }
 
         [DataMember(Name = "door_name", IsRequired = true, EmitDefaultValue = false)]
@@ -437,23 +441,26 @@ namespace Seam.Model
             Profiles = profiles;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DoorCategoryEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "entrance")]
-            Entrance = 0,
+            Entrance = 1,
 
             [EnumMember(Value = "guest")]
-            Guest = 1,
+            Guest = 2,
 
             [EnumMember(Value = "elevator reader")]
-            ElevatorReader = 2,
+            ElevatorReader = 3,
 
             [EnumMember(Value = "common")]
-            Common = 3,
+            Common = 4,
 
             [EnumMember(Value = "common (PMS)")]
-            CommonPms = 4,
+            CommonPms = 5,
         }
 
         [DataMember(Name = "door_category", IsRequired = true, EmitDefaultValue = false)]
@@ -501,17 +508,20 @@ namespace Seam.Model
             VisionlineDoorProfileType = visionlineDoorProfileType;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum VisionlineDoorProfileTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "BLE")]
-            Ble = 0,
+            Ble = 1,
 
             [EnumMember(Value = "commonDoor")]
-            CommonDoor = 1,
+            CommonDoor = 2,
 
             [EnumMember(Value = "touch")]
-            Touch = 2,
+            Touch = 3,
         }
 
         [DataMember(

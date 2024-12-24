@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {

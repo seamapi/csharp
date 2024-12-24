@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -68,36 +69,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum AccessMethodEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "code")]
-            Code = 0,
+            Code = 1,
 
             [EnumMember(Value = "card")]
-            Card = 1,
+            Card = 2,
 
             [EnumMember(Value = "mobile_key")]
-            MobileKey = 2,
+            MobileKey = 3,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_card")]
-            PtiCard = 0,
+            PtiCard = 1,
 
             [EnumMember(Value = "brivo_credential")]
-            BrivoCredential = 1,
+            BrivoCredential = 2,
 
             [EnumMember(Value = "hid_credential")]
-            HidCredential = 2,
+            HidCredential = 3,
 
             [EnumMember(Value = "visionline_card")]
-            VisionlineCard = 3,
+            VisionlineCard = 4,
 
             [EnumMember(Value = "salto_ks_credential")]
-            SaltoKsCredential = 4,
+            SaltoKsCredential = 5,
         }
 
         [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
@@ -280,14 +287,17 @@ namespace Seam.Model
             JoinerAcsCredentialIds = joinerAcsCredentialIds;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CardFunctionTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "guest")]
-            Guest = 0,
+            Guest = 1,
 
             [EnumMember(Value = "staff")]
-            Staff = 1,
+            Staff = 2,
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]

@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -57,17 +58,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -126,17 +130,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -195,17 +202,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -264,17 +274,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -333,17 +346,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -402,17 +418,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -471,17 +490,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -540,17 +562,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -609,17 +634,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -678,17 +706,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -747,17 +778,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -816,17 +850,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -885,17 +922,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -954,17 +994,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1023,17 +1066,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "success")]
-            Success = 1,
+            Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 2,
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]

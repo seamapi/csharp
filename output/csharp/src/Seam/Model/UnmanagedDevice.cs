@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -62,135 +63,141 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CapabilitiesSupportedEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "access_code")]
-            AccessCode = 0,
+            AccessCode = 1,
 
             [EnumMember(Value = "lock")]
-            Lock = 1,
+            Lock = 2,
 
             [EnumMember(Value = "noise_detection")]
-            NoiseDetection = 2,
+            NoiseDetection = 3,
 
             [EnumMember(Value = "thermostat")]
-            Thermostat = 3,
+            Thermostat = 4,
 
             [EnumMember(Value = "battery")]
-            Battery = 4,
+            Battery = 5,
 
             [EnumMember(Value = "phone")]
-            Phone = 5,
+            Phone = 6,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "akuvox_lock")]
-            AkuvoxLock = 0,
+            AkuvoxLock = 1,
 
             [EnumMember(Value = "august_lock")]
-            AugustLock = 1,
+            AugustLock = 2,
 
             [EnumMember(Value = "brivo_access_point")]
-            BrivoAccessPoint = 2,
+            BrivoAccessPoint = 3,
 
             [EnumMember(Value = "butterflymx_panel")]
-            ButterflymxPanel = 3,
+            ButterflymxPanel = 4,
 
             [EnumMember(Value = "avigilon_alta_entry")]
-            AvigilonAltaEntry = 4,
+            AvigilonAltaEntry = 5,
 
             [EnumMember(Value = "doorking_lock")]
-            DoorkingLock = 5,
+            DoorkingLock = 6,
 
             [EnumMember(Value = "genie_door")]
-            GenieDoor = 6,
+            GenieDoor = 7,
 
             [EnumMember(Value = "igloo_lock")]
-            IglooLock = 7,
+            IglooLock = 8,
 
             [EnumMember(Value = "linear_lock")]
-            LinearLock = 8,
+            LinearLock = 9,
 
             [EnumMember(Value = "lockly_lock")]
-            LocklyLock = 9,
+            LocklyLock = 10,
 
             [EnumMember(Value = "kwikset_lock")]
-            KwiksetLock = 10,
+            KwiksetLock = 11,
 
             [EnumMember(Value = "nuki_lock")]
-            NukiLock = 11,
+            NukiLock = 12,
 
             [EnumMember(Value = "salto_lock")]
-            SaltoLock = 12,
+            SaltoLock = 13,
 
             [EnumMember(Value = "schlage_lock")]
-            SchlageLock = 13,
+            SchlageLock = 14,
 
             [EnumMember(Value = "seam_relay")]
-            SeamRelay = 14,
+            SeamRelay = 15,
 
             [EnumMember(Value = "smartthings_lock")]
-            SmartthingsLock = 15,
+            SmartthingsLock = 16,
 
             [EnumMember(Value = "wyze_lock")]
-            WyzeLock = 16,
+            WyzeLock = 17,
 
             [EnumMember(Value = "yale_lock")]
-            YaleLock = 17,
+            YaleLock = 18,
 
             [EnumMember(Value = "two_n_intercom")]
-            TwoNIntercom = 18,
+            TwoNIntercom = 19,
 
             [EnumMember(Value = "controlbyweb_device")]
-            ControlbywebDevice = 19,
+            ControlbywebDevice = 20,
 
             [EnumMember(Value = "ttlock_lock")]
-            TtlockLock = 20,
+            TtlockLock = 21,
 
             [EnumMember(Value = "igloohome_lock")]
-            IgloohomeLock = 21,
+            IgloohomeLock = 22,
 
             [EnumMember(Value = "hubitat_lock")]
-            HubitatLock = 22,
+            HubitatLock = 23,
 
             [EnumMember(Value = "four_suites_door")]
-            FourSuitesDoor = 23,
+            FourSuitesDoor = 24,
 
             [EnumMember(Value = "dormakaba_oracode_door")]
-            DormakabaOracodeDoor = 24,
+            DormakabaOracodeDoor = 25,
 
             [EnumMember(Value = "tedee_lock")]
-            TedeeLock = 25,
+            TedeeLock = 26,
 
             [EnumMember(Value = "akiles_lock")]
-            AkilesLock = 26,
+            AkilesLock = 27,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 27,
+            NoiseawareActivityZone = 28,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 28,
+            MinutSensor = 29,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 29,
+            EcobeeThermostat = 30,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 30,
+            NestThermostat = 31,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 31,
+            HoneywellResideoThermostat = 32,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 32,
+            TadoThermostat = 33,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 33,
+            IosPhone = 34,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 34,
+            AndroidPhone = 35,
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
@@ -513,20 +520,23 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "critical")]
-            Critical = 0,
+            Critical = 1,
 
             [EnumMember(Value = "low")]
-            Low = 1,
+            Low = 2,
 
             [EnumMember(Value = "good")]
-            Good = 2,
+            Good = 3,
 
             [EnumMember(Value = "full")]
-            Full = 3,
+            Full = 4,
         }
 
         [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]

@@ -45,187 +45,196 @@ namespace Seam.Api
                 WaitForDeviceCreation = waitForDeviceCreation;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum AcceptedProvidersEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "dormakaba_community")]
-                DormakabaCommunity = 0,
+                DormakabaCommunity = 1,
 
                 [EnumMember(Value = "legic_connect")]
-                LegicConnect = 1,
+                LegicConnect = 2,
 
                 [EnumMember(Value = "akuvox")]
-                Akuvox = 2,
+                Akuvox = 3,
 
                 [EnumMember(Value = "august")]
-                August = 3,
+                August = 4,
 
                 [EnumMember(Value = "avigilon_alta")]
-                AvigilonAlta = 4,
+                AvigilonAlta = 5,
 
                 [EnumMember(Value = "brivo")]
-                Brivo = 5,
+                Brivo = 6,
 
                 [EnumMember(Value = "butterflymx")]
-                Butterflymx = 6,
+                Butterflymx = 7,
 
                 [EnumMember(Value = "schlage")]
-                Schlage = 7,
+                Schlage = 8,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 8,
+                Smartthings = 9,
 
                 [EnumMember(Value = "yale")]
-                Yale = 9,
+                Yale = 10,
 
                 [EnumMember(Value = "genie")]
-                Genie = 10,
+                Genie = 11,
 
                 [EnumMember(Value = "doorking")]
-                Doorking = 11,
+                Doorking = 12,
 
                 [EnumMember(Value = "salto")]
-                Salto = 12,
+                Salto = 13,
 
                 [EnumMember(Value = "salto_ks")]
-                SaltoKs = 13,
+                SaltoKs = 14,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 14,
+                Lockly = 15,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 15,
+                Ttlock = 16,
 
                 [EnumMember(Value = "linear")]
-                Linear = 16,
+                Linear = 17,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 17,
+                Noiseaware = 18,
 
                 [EnumMember(Value = "nuki")]
-                Nuki = 18,
+                Nuki = 19,
 
                 [EnumMember(Value = "seam_relay_admin")]
-                SeamRelayAdmin = 19,
+                SeamRelayAdmin = 20,
 
                 [EnumMember(Value = "igloo")]
-                Igloo = 20,
+                Igloo = 21,
 
                 [EnumMember(Value = "kwikset")]
-                Kwikset = 21,
+                Kwikset = 22,
 
                 [EnumMember(Value = "minut")]
-                Minut = 22,
+                Minut = 23,
 
                 [EnumMember(Value = "my_2n")]
-                My_2n = 23,
+                My_2n = 24,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 24,
+                Controlbyweb = 25,
 
                 [EnumMember(Value = "nest")]
-                Nest = 25,
+                Nest = 26,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 26,
+                Igloohome = 27,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 27,
+                Ecobee = 28,
 
                 [EnumMember(Value = "hubitat")]
-                Hubitat = 28,
+                Hubitat = 29,
 
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 29,
+                FourSuites = 30,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 30,
+                DormakabaOracode = 31,
 
                 [EnumMember(Value = "pti")]
-                Pti = 31,
+                Pti = 32,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 32,
+                Wyze = 33,
 
                 [EnumMember(Value = "seam_passport")]
-                SeamPassport = 33,
+                SeamPassport = 34,
 
                 [EnumMember(Value = "visionline")]
-                Visionline = 34,
+                Visionline = 35,
 
                 [EnumMember(Value = "assa_abloy_credential_service")]
-                AssaAbloyCredentialService = 35,
+                AssaAbloyCredentialService = 36,
 
                 [EnumMember(Value = "seam_bridge")]
-                SeamBridge = 36,
+                SeamBridge = 37,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 37,
+                Tedee = 38,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 38,
+                HoneywellResideo = 39,
 
                 [EnumMember(Value = "latch")]
-                Latch = 39,
+                Latch = 40,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 40,
+                Akiles = 41,
 
                 [EnumMember(Value = "assa_abloy_vostio")]
-                AssaAbloyVostio = 41,
+                AssaAbloyVostio = 42,
 
                 [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-                AssaAbloyVostioCredentialService = 42,
+                AssaAbloyVostioCredentialService = 43,
 
                 [EnumMember(Value = "tado")]
-                Tado = 43,
+                Tado = 44,
 
                 [EnumMember(Value = "salto_space")]
-                SaltoSpace = 44,
+                SaltoSpace = 45,
 
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 45,
+                YaleAccess = 46,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 46,
+                HidCm = 47,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 47,
+                GoogleNest = 48,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceSelectionModeEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "none")]
-                None = 0,
+                None = 1,
 
                 [EnumMember(Value = "single")]
-                Single = 1,
+                Single = 2,
 
                 [EnumMember(Value = "multiple")]
-                Multiple = 2,
+                Multiple = 3,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ProviderCategoryEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "stable")]
-                Stable = 0,
+                Stable = 1,
 
                 [EnumMember(Value = "consumer_smartlocks")]
-                ConsumerSmartlocks = 1,
+                ConsumerSmartlocks = 2,
 
                 [EnumMember(Value = "thermostats")]
-                Thermostats = 2,
+                Thermostats = 3,
 
                 [EnumMember(Value = "noise_sensors")]
-                NoiseSensors = 3,
+                NoiseSensors = 4,
 
                 [EnumMember(Value = "access_control_systems")]
-                AccessControlSystems = 4,
+                AccessControlSystems = 5,
 
                 [EnumMember(Value = "internal_beta")]
-                InternalBeta = 5,
+                InternalBeta = 6,
             }
 
             [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]

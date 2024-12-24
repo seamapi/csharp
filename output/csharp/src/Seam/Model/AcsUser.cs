@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -64,26 +65,29 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_user")]
-            PtiUser = 0,
+            PtiUser = 1,
 
             [EnumMember(Value = "brivo_user")]
-            BrivoUser = 1,
+            BrivoUser = 2,
 
             [EnumMember(Value = "hid_credential_manager_user")]
-            HidCredentialManagerUser = 2,
+            HidCredentialManagerUser = 3,
 
             [EnumMember(Value = "salto_site_user")]
-            SaltoSiteUser = 3,
+            SaltoSiteUser = 4,
 
             [EnumMember(Value = "latch_user")]
-            LatchUser = 4,
+            LatchUser = 5,
 
             [EnumMember(Value = "dormakaba_community_user")]
-            DormakabaCommunityUser = 5,
+            DormakabaCommunityUser = 6,
         }
 
         [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
