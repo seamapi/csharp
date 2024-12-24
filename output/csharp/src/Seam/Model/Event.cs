@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -3273,17 +3274,20 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ErrorCodeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "account_disconnected")]
-            AccountDisconnected = 0,
+            AccountDisconnected = 1,
 
             [EnumMember(Value = "hub_disconnected")]
-            HubDisconnected = 1,
+            HubDisconnected = 2,
 
             [EnumMember(Value = "device_disconnected")]
-            DeviceDisconnected = 2,
+            DeviceDisconnected = 3,
         }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
@@ -3357,17 +3361,20 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ErrorCodeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "account_disconnected")]
-            AccountDisconnected = 0,
+            AccountDisconnected = 1,
 
             [EnumMember(Value = "hub_disconnected")]
-            HubDisconnected = 1,
+            HubDisconnected = 2,
 
             [EnumMember(Value = "device_disconnected")]
-            DeviceDisconnected = 2,
+            DeviceDisconnected = 3,
         }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
@@ -3580,20 +3587,23 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum BatteryStatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "critical")]
-            Critical = 0,
+            Critical = 1,
 
             [EnumMember(Value = "low")]
-            Low = 1,
+            Low = 2,
 
             [EnumMember(Value = "good")]
-            Good = 2,
+            Good = 3,
 
             [EnumMember(Value = "full")]
-            Full = 3,
+            Full = 4,
         }
 
         [DataMember(Name = "battery_level", IsRequired = true, EmitDefaultValue = false)]
@@ -4563,23 +4573,26 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "keycode")]
-            Keycode = 0,
+            Keycode = 1,
 
             [EnumMember(Value = "manual")]
-            Manual = 1,
+            Manual = 2,
 
             [EnumMember(Value = "automatic")]
-            Automatic = 2,
+            Automatic = 3,
 
             [EnumMember(Value = "unknown")]
-            Unknown = 3,
+            Unknown = 4,
 
             [EnumMember(Value = "seamapi")]
-            Seamapi = 4,
+            Seamapi = 5,
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -4663,23 +4676,26 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "keycode")]
-            Keycode = 0,
+            Keycode = 1,
 
             [EnumMember(Value = "manual")]
-            Manual = 1,
+            Manual = 2,
 
             [EnumMember(Value = "automatic")]
-            Automatic = 2,
+            Automatic = 3,
 
             [EnumMember(Value = "unknown")]
-            Unknown = 3,
+            Unknown = 4,
 
             [EnumMember(Value = "seamapi")]
-            Seamapi = 4,
+            Seamapi = 5,
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -4927,43 +4943,52 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "auto")]
-            Auto = 0,
+            Auto = 1,
 
             [EnumMember(Value = "on")]
-            On = 1,
+            On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 2,
+            Circulate = 3,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "off")]
-            Off = 0,
+            Off = 1,
 
             [EnumMember(Value = "heat")]
-            Heat = 1,
+            Heat = 2,
 
             [EnumMember(Value = "cool")]
-            Cool = 2,
+            Cool = 3,
 
             [EnumMember(Value = "heat_cool")]
-            HeatCool = 3,
+            HeatCool = 4,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "seam")]
-            Seam = 0,
+            Seam = 1,
 
             [EnumMember(Value = "external")]
-            External = 1,
+            External = 2,
         }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]

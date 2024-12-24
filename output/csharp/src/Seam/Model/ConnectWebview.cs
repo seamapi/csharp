@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -56,30 +57,36 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceSelectionModeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "none")]
-            None = 0,
+            None = 1,
 
             [EnumMember(Value = "single")]
-            Single = 1,
+            Single = 2,
 
             [EnumMember(Value = "multiple")]
-            Multiple = 2,
+            Multiple = 3,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pending")]
-            Pending = 0,
+            Pending = 1,
 
             [EnumMember(Value = "failed")]
-            Failed = 1,
+            Failed = 2,
 
             [EnumMember(Value = "authorized")]
-            Authorized = 2,
+            Authorized = 3,
         }
 
         [DataMember(Name = "accepted_devices", IsRequired = true, EmitDefaultValue = false)]

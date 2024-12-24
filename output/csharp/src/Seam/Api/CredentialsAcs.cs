@@ -49,17 +49,20 @@ namespace Seam.Api
                 VisionlineMetadata = visionlineMetadata;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum AccessMethodEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "code")]
-                Code = 0,
+                Code = 1,
 
                 [EnumMember(Value = "card")]
-                Card = 1,
+                Card = 2,
 
                 [EnumMember(Value = "mobile_key")]
-                MobileKey = 2,
+                MobileKey = 3,
             }
 
             [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
@@ -212,24 +215,30 @@ namespace Seam.Api
                 Override = mustOverride;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum CardFormatEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "TLCode")]
-                TlCode = 0,
+                TlCode = 1,
 
                 [EnumMember(Value = "rfid48")]
-                Rfid48 = 1,
+                Rfid48 = 2,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum CardFunctionTypeEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "guest")]
-                Guest = 0,
+                Guest = 1,
 
                 [EnumMember(Value = "staff")]
-                Staff = 1,
+                Staff = 2,
             }
 
             [DataMember(

@@ -156,299 +156,311 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypesEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "akuvox_lock")]
-                AkuvoxLock = 0,
+                AkuvoxLock = 1,
 
                 [EnumMember(Value = "august_lock")]
-                AugustLock = 1,
+                AugustLock = 2,
 
                 [EnumMember(Value = "brivo_access_point")]
-                BrivoAccessPoint = 2,
+                BrivoAccessPoint = 3,
 
                 [EnumMember(Value = "butterflymx_panel")]
-                ButterflymxPanel = 3,
+                ButterflymxPanel = 4,
 
                 [EnumMember(Value = "avigilon_alta_entry")]
-                AvigilonAltaEntry = 4,
+                AvigilonAltaEntry = 5,
 
                 [EnumMember(Value = "doorking_lock")]
-                DoorkingLock = 5,
+                DoorkingLock = 6,
 
                 [EnumMember(Value = "genie_door")]
-                GenieDoor = 6,
+                GenieDoor = 7,
 
                 [EnumMember(Value = "igloo_lock")]
-                IglooLock = 7,
+                IglooLock = 8,
 
                 [EnumMember(Value = "linear_lock")]
-                LinearLock = 8,
+                LinearLock = 9,
 
                 [EnumMember(Value = "lockly_lock")]
-                LocklyLock = 9,
+                LocklyLock = 10,
 
                 [EnumMember(Value = "kwikset_lock")]
-                KwiksetLock = 10,
+                KwiksetLock = 11,
 
                 [EnumMember(Value = "nuki_lock")]
-                NukiLock = 11,
+                NukiLock = 12,
 
                 [EnumMember(Value = "salto_lock")]
-                SaltoLock = 12,
+                SaltoLock = 13,
 
                 [EnumMember(Value = "schlage_lock")]
-                SchlageLock = 13,
+                SchlageLock = 14,
 
                 [EnumMember(Value = "seam_relay")]
-                SeamRelay = 14,
+                SeamRelay = 15,
 
                 [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 15,
+                SmartthingsLock = 16,
 
                 [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 16,
+                WyzeLock = 17,
 
                 [EnumMember(Value = "yale_lock")]
-                YaleLock = 17,
+                YaleLock = 18,
 
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 18,
+                TwoNIntercom = 19,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 19,
+                ControlbywebDevice = 20,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 20,
+                TtlockLock = 21,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 21,
+                IgloohomeLock = 22,
 
                 [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 22,
+                HubitatLock = 23,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 23,
+                FourSuitesDoor = 24,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 24,
+                DormakabaOracodeDoor = 25,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 25,
+                TedeeLock = 26,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 26,
+                AkilesLock = 27,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 27,
+                NoiseawareActivityZone = 28,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 28,
+                MinutSensor = 29,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 29,
+                EcobeeThermostat = 30,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 30,
+                NestThermostat = 31,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 31,
+                HoneywellResideoThermostat = 32,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 32,
+                TadoThermostat = 33,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 33,
+                IosPhone = 34,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 34,
+                AndroidPhone = 35,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ExcludeIfEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 0,
+                CanRemotelyUnlock = 1,
 
                 [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 1,
+                CanRemotelyLock = 2,
 
                 [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 2,
+                CanProgramOfflineAccessCodes = 3,
 
                 [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 3,
+                CanProgramOnlineAccessCodes = 4,
 
                 [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 4,
+                CanHvacHeat = 5,
 
                 [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 5,
+                CanHvacCool = 6,
 
                 [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 6,
+                CanHvacHeatCool = 7,
 
                 [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 7,
+                CanTurnOffHvac = 8,
 
                 [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 8,
+                CanSimulateRemoval = 9,
 
                 [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 9,
+                CanSimulateConnection = 10,
 
                 [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 10,
+                CanSimulateDisconnection = 11,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum IncludeIfEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 0,
+                CanRemotelyUnlock = 1,
 
                 [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 1,
+                CanRemotelyLock = 2,
 
                 [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 2,
+                CanProgramOfflineAccessCodes = 3,
 
                 [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 3,
+                CanProgramOnlineAccessCodes = 4,
 
                 [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 4,
+                CanHvacHeat = 5,
 
                 [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 5,
+                CanHvacCool = 6,
 
                 [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 6,
+                CanHvacHeatCool = 7,
 
                 [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 7,
+                CanTurnOffHvac = 8,
 
                 [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 8,
+                CanSimulateRemoval = 9,
 
                 [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 9,
+                CanSimulateConnection = 10,
 
                 [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 10,
+                CanSimulateDisconnection = 11,
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ManufacturerEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "akuvox")]
-                Akuvox = 0,
+                Akuvox = 1,
 
                 [EnumMember(Value = "august")]
-                August = 1,
+                August = 2,
 
                 [EnumMember(Value = "avigilon_alta")]
-                AvigilonAlta = 2,
+                AvigilonAlta = 3,
 
                 [EnumMember(Value = "brivo")]
-                Brivo = 3,
+                Brivo = 4,
 
                 [EnumMember(Value = "butterflymx")]
-                Butterflymx = 4,
+                Butterflymx = 5,
 
                 [EnumMember(Value = "doorking")]
-                Doorking = 5,
+                Doorking = 6,
 
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 6,
+                FourSuites = 7,
 
                 [EnumMember(Value = "genie")]
-                Genie = 7,
+                Genie = 8,
 
                 [EnumMember(Value = "igloo")]
-                Igloo = 8,
+                Igloo = 9,
 
                 [EnumMember(Value = "keywe")]
-                Keywe = 9,
+                Keywe = 10,
 
                 [EnumMember(Value = "kwikset")]
-                Kwikset = 10,
+                Kwikset = 11,
 
                 [EnumMember(Value = "linear")]
-                Linear = 11,
+                Linear = 12,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 12,
+                Lockly = 13,
 
                 [EnumMember(Value = "nuki")]
-                Nuki = 13,
+                Nuki = 14,
 
                 [EnumMember(Value = "philia")]
-                Philia = 14,
+                Philia = 15,
 
                 [EnumMember(Value = "salto")]
-                Salto = 15,
+                Salto = 16,
 
                 [EnumMember(Value = "samsung")]
-                Samsung = 16,
+                Samsung = 17,
 
                 [EnumMember(Value = "schlage")]
-                Schlage = 17,
+                Schlage = 18,
 
                 [EnumMember(Value = "seam")]
-                Seam = 18,
+                Seam = 19,
 
                 [EnumMember(Value = "unknown")]
-                Unknown = 19,
+                Unknown = 20,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 20,
+                Wyze = 21,
 
                 [EnumMember(Value = "yale")]
-                Yale = 21,
+                Yale = 22,
 
                 [EnumMember(Value = "minut")]
-                Minut = 22,
+                Minut = 23,
 
                 [EnumMember(Value = "two_n")]
-                TwoN = 23,
+                TwoN = 24,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 24,
+                Ttlock = 25,
 
                 [EnumMember(Value = "nest")]
-                Nest = 25,
+                Nest = 26,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 26,
+                Igloohome = 27,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 27,
+                Ecobee = 28,
 
                 [EnumMember(Value = "hubitat")]
-                Hubitat = 28,
+                Hubitat = 29,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 29,
+                Controlbyweb = 30,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 30,
+                Smartthings = 31,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 31,
+                DormakabaOracode = 32,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 32,
+                Tedee = 33,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33,
+                HoneywellResideo = 34,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 34,
+                Akiles = 35,
 
                 [EnumMember(Value = "tado")]
-                Tado = 35,
+                Tado = 36,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

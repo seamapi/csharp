@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -24,17 +25,20 @@ namespace Seam.Model
             Status = status;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "healthy")]
-            Healthy = 0,
+            Healthy = 1,
 
             [EnumMember(Value = "degraded")]
-            Degraded = 1,
+            Degraded = 2,
 
             [EnumMember(Value = "down")]
-            Down = 2,
+            Down = 3,
         }
 
         [DataMember(Name = "description", IsRequired = true, EmitDefaultValue = false)]

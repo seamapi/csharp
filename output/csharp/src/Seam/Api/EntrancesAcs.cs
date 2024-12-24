@@ -306,11 +306,14 @@ namespace Seam.Api
                 IncludeIf = includeIf;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum IncludeIfEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "visionline_metadata.is_valid")]
-                VisionlineMetadataIsValid = 0,
+                VisionlineMetadataIsValid = 1,
             }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]

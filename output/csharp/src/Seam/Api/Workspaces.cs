@@ -43,14 +43,17 @@ namespace Seam.Api
                 WebviewPrimaryButtonTextColor = webviewPrimaryButtonTextColor;
             }
 
-            [JsonConverter(typeof(StringEnumConverter))]
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum WebviewLogoShapeEnum
             {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
                 [EnumMember(Value = "circle")]
-                Circle = 0,
+                Circle = 1,
 
                 [EnumMember(Value = "square")]
-                Square = 1,
+                Square = 2,
             }
 
             [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]

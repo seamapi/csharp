@@ -4,6 +4,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Seam.Model;
 
 namespace Seam.Model
 {
@@ -42,48 +43,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum AccessGroupTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0,
+            PtiUnit = 1,
 
             [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 1,
+            PtiAccessLevel = 2,
 
             [EnumMember(Value = "salto_ks_access_group")]
-            SaltoKsAccessGroup = 2,
+            SaltoKsAccessGroup = 3,
 
             [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 3,
+            BrivoGroup = 4,
 
             [EnumMember(Value = "salto_space_group")]
-            SaltoSpaceGroup = 4,
+            SaltoSpaceGroup = 5,
 
             [EnumMember(Value = "dormakaba_community_access_group")]
-            DormakabaCommunityAccessGroup = 5,
+            DormakabaCommunityAccessGroup = 6,
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "pti_unit")]
-            PtiUnit = 0,
+            PtiUnit = 1,
 
             [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 1,
+            PtiAccessLevel = 2,
 
             [EnumMember(Value = "salto_ks_access_group")]
-            SaltoKsAccessGroup = 2,
+            SaltoKsAccessGroup = 3,
 
             [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 3,
+            BrivoGroup = 4,
 
             [EnumMember(Value = "salto_space_group")]
-            SaltoSpaceGroup = 4,
+            SaltoSpaceGroup = 5,
 
             [EnumMember(Value = "dormakaba_community_access_group")]
-            DormakabaCommunityAccessGroup = 5,
+            DormakabaCommunityAccessGroup = 6,
         }
 
         [DataMember(Name = "access_group_type", IsRequired = true, EmitDefaultValue = false)]
@@ -167,11 +174,14 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum WarningCodeEnum
         {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
             [EnumMember(Value = "unknown_issue_with_acs_access_group")]
-            UnknownIssueWithAcsAccessGroup = 0,
+            UnknownIssueWithAcsAccessGroup = 1,
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
