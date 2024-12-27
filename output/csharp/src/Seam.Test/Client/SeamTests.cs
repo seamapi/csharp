@@ -158,11 +158,13 @@ public class UnitTest1 : SeamConnectTest
         var device = JsonConvert.DeserializeObject<Device>(json, settings);
 
         // Unknown values should be mapped to first enum value (Unrecognized = 0)
+        Assert.NotNull(device);
         Assert.Equal(Device.DeviceTypeEnum.Unrecognized, device.DeviceType);
         Assert.Equal(
             Device.CapabilitiesSupportedEnum.Unrecognized,
             device.CapabilitiesSupported[0]
         );
+        Assert.NotNull(device.Properties.AvailableFanModeSettings);
         Assert.Equal(
             DeviceProperties.AvailableFanModeSettingsEnum.Unrecognized,
             device.Properties.AvailableFanModeSettings[0]
