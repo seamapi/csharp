@@ -33,6 +33,7 @@ namespace Seam.Api
                 string? credentialManagerAcsSystemId = default,
                 string? endsAt = default,
                 bool? isMultiPhoneSyncCredential = default,
+                CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
                 string? startsAt = default,
                 CreateRequestVisionlineMetadata? visionlineMetadata = default
             )
@@ -45,6 +46,7 @@ namespace Seam.Api
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
                 EndsAt = endsAt;
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
+                SaltoSpaceMetadata = saltoSpaceMetadata;
                 StartsAt = startsAt;
                 VisionlineMetadata = visionlineMetadata;
             }
@@ -104,6 +106,13 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? IsMultiPhoneSyncCredential { get; set; }
+
+            [DataMember(
+                Name = "salto_space_metadata",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public CreateRequestSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
@@ -168,6 +177,47 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? OverrideGuestAcsEntranceIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestSaltoSpaceMetadata_model")]
+        public class CreateRequestSaltoSpaceMetadata
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestSaltoSpaceMetadata() { }
+
+            public CreateRequestSaltoSpaceMetadata(
+                bool? assignNewKey = default,
+                bool? updateCurrentKey = default
+            )
+            {
+                AssignNewKey = assignNewKey;
+                UpdateCurrentKey = updateCurrentKey;
+            }
+
+            [DataMember(Name = "assign_new_key", IsRequired = false, EmitDefaultValue = false)]
+            public bool? AssignNewKey { get; set; }
+
+            [DataMember(Name = "update_current_key", IsRequired = false, EmitDefaultValue = false)]
+            public bool? UpdateCurrentKey { get; set; }
 
             public override string ToString()
             {
@@ -342,6 +392,7 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
             bool? isMultiPhoneSyncCredential = default,
+            CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
             CreateRequestVisionlineMetadata? visionlineMetadata = default
         )
@@ -356,6 +407,7 @@ namespace Seam.Api
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                     endsAt: endsAt,
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
+                    saltoSpaceMetadata: saltoSpaceMetadata,
                     startsAt: startsAt,
                     visionlineMetadata: visionlineMetadata
                 )
@@ -382,6 +434,7 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
             bool? isMultiPhoneSyncCredential = default,
+            CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
             CreateRequestVisionlineMetadata? visionlineMetadata = default
         )
@@ -397,6 +450,7 @@ namespace Seam.Api
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                         endsAt: endsAt,
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
+                        saltoSpaceMetadata: saltoSpaceMetadata,
                         startsAt: startsAt,
                         visionlineMetadata: visionlineMetadata
                     )
