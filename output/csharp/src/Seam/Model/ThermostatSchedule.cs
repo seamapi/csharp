@@ -19,7 +19,7 @@ namespace Seam.Model
             string createdAt = default,
             string deviceId = default,
             string endsAt = default,
-            Object errors = default,
+            List<ThermostatScheduleErrors> errors = default,
             int maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
@@ -51,8 +51,8 @@ namespace Seam.Model
         [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
         public string EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public Object Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<ThermostatScheduleErrors> Errors { get; set; }
 
         [DataMember(
             Name = "max_override_period_minutes",
@@ -76,6 +76,44 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? UnstableIsOverrideAllowed { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_thermostatScheduleErrors_model")]
+    public class ThermostatScheduleErrors
+    {
+        [JsonConstructorAttribute]
+        protected ThermostatScheduleErrors() { }
+
+        public ThermostatScheduleErrors(string errorCode = default, string message = default)
+        {
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {
