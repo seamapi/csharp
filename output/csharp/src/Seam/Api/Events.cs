@@ -347,50 +347,56 @@ namespace Seam.Api
                 [EnumMember(Value = "acs_system.disconnected")]
                 AcsSystemDisconnected = 56,
 
+                [EnumMember(Value = "acs_access_group.deleted")]
+                AcsAccessGroupDeleted = 57,
+
                 [EnumMember(Value = "acs_user.deleted")]
-                AcsUserDeleted = 57,
+                AcsUserDeleted = 58,
 
                 [EnumMember(Value = "acs_credential.deleted")]
-                AcsCredentialDeleted = 58,
+                AcsCredentialDeleted = 59,
 
                 [EnumMember(Value = "acs_credential.issued")]
-                AcsCredentialIssued = 59,
+                AcsCredentialIssued = 60,
 
                 [EnumMember(Value = "acs_encoder.added")]
-                AcsEncoderAdded = 60,
+                AcsEncoderAdded = 61,
 
                 [EnumMember(Value = "acs_encoder.removed")]
-                AcsEncoderRemoved = 61,
+                AcsEncoderRemoved = 62,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 62,
+                EnrollmentAutomationDeleted = 63,
 
                 [EnumMember(Value = "client_session.deleted")]
-                ClientSessionDeleted = 63,
+                ClientSessionDeleted = 64,
 
                 [EnumMember(Value = "action_attempt.lock_door.succeeded")]
-                ActionAttemptLockDoorSucceeded = 64,
+                ActionAttemptLockDoorSucceeded = 65,
 
                 [EnumMember(Value = "action_attempt.lock_door.failed")]
-                ActionAttemptLockDoorFailed = 65,
+                ActionAttemptLockDoorFailed = 66,
 
                 [EnumMember(Value = "action_attempt.unlock_door.succeeded")]
-                ActionAttemptUnlockDoorSucceeded = 66,
+                ActionAttemptUnlockDoorSucceeded = 67,
 
                 [EnumMember(Value = "action_attempt.unlock_door.failed")]
-                ActionAttemptUnlockDoorFailed = 67,
+                ActionAttemptUnlockDoorFailed = 68,
 
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 68,
+                ThermostatClimatePresetActivated = 69,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 69,
+                ThermostatManuallyAdjusted = 70,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 70,
+                ThermostatTemperatureThresholdExceeded = 71,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 71,
+                ThermostatTemperatureThresholdNoLongerExceeded = 72,
+
+                [EnumMember(Value = "thermostat.temperature_reached_set_point")]
+                ThermostatTemperatureReachedSetPoint = 73,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -567,50 +573,56 @@ namespace Seam.Api
                 [EnumMember(Value = "acs_system.disconnected")]
                 AcsSystemDisconnected = 56,
 
+                [EnumMember(Value = "acs_access_group.deleted")]
+                AcsAccessGroupDeleted = 57,
+
                 [EnumMember(Value = "acs_user.deleted")]
-                AcsUserDeleted = 57,
+                AcsUserDeleted = 58,
 
                 [EnumMember(Value = "acs_credential.deleted")]
-                AcsCredentialDeleted = 58,
+                AcsCredentialDeleted = 59,
 
                 [EnumMember(Value = "acs_credential.issued")]
-                AcsCredentialIssued = 59,
+                AcsCredentialIssued = 60,
 
                 [EnumMember(Value = "acs_encoder.added")]
-                AcsEncoderAdded = 60,
+                AcsEncoderAdded = 61,
 
                 [EnumMember(Value = "acs_encoder.removed")]
-                AcsEncoderRemoved = 61,
+                AcsEncoderRemoved = 62,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 62,
+                EnrollmentAutomationDeleted = 63,
 
                 [EnumMember(Value = "client_session.deleted")]
-                ClientSessionDeleted = 63,
+                ClientSessionDeleted = 64,
 
                 [EnumMember(Value = "action_attempt.lock_door.succeeded")]
-                ActionAttemptLockDoorSucceeded = 64,
+                ActionAttemptLockDoorSucceeded = 65,
 
                 [EnumMember(Value = "action_attempt.lock_door.failed")]
-                ActionAttemptLockDoorFailed = 65,
+                ActionAttemptLockDoorFailed = 66,
 
                 [EnumMember(Value = "action_attempt.unlock_door.succeeded")]
-                ActionAttemptUnlockDoorSucceeded = 66,
+                ActionAttemptUnlockDoorSucceeded = 67,
 
                 [EnumMember(Value = "action_attempt.unlock_door.failed")]
-                ActionAttemptUnlockDoorFailed = 67,
+                ActionAttemptUnlockDoorFailed = 68,
 
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 68,
+                ThermostatClimatePresetActivated = 69,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 69,
+                ThermostatManuallyAdjusted = 70,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 70,
+                ThermostatTemperatureThresholdExceeded = 71,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 71,
+                ThermostatTemperatureThresholdNoLongerExceeded = 72,
+
+                [EnumMember(Value = "thermostat.temperature_reached_set_point")]
+                ThermostatTemperatureReachedSetPoint = 73,
             }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
