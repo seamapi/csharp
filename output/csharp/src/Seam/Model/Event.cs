@@ -15,6 +15,10 @@ namespace Seam.Model
         "enrollment_automation.deleted"
     )]
     [JsonSubtypes.KnownSubType(
+        typeof(EventThermostatTemperatureReachedSetPoint),
+        "thermostat.temperature_reached_set_point"
+    )]
+    [JsonSubtypes.KnownSubType(
         typeof(EventThermostatTemperatureThresholdNoLongerExceeded),
         "thermostat.temperature_threshold_no_longer_exceeded"
     )]
@@ -148,6 +152,7 @@ namespace Seam.Model
         "connected_account.connected"
     )]
     [JsonSubtypes.KnownSubType(typeof(EventClientSessionDeleted), "client_session.deleted")]
+    [JsonSubtypes.KnownSubType(typeof(EventAcsAccessGroupDeleted), "acs_access_group.deleted")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderRemoved), "acs_encoder.removed")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderAdded), "acs_encoder.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsUserDeleted), "acs_user.deleted")]
@@ -1973,6 +1978,77 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_encoder.removed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsAccessGroupDeleted_model")]
+    public class EventAcsAccessGroupDeleted : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsAccessGroupDeleted() { }
+
+        public EventAcsAccessGroupDeleted(
+            string acsAccessGroupId = default,
+            string acsSystemId = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AcsAccessGroupId = acsAccessGroupId;
+            AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsAccessGroupId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "acs_access_group.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
@@ -5238,6 +5314,100 @@ namespace Seam.Model
 
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventThermostatTemperatureReachedSetPoint_model")]
+    public class EventThermostatTemperatureReachedSetPoint : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventThermostatTemperatureReachedSetPoint() { }
+
+        public EventThermostatTemperatureReachedSetPoint(
+            string connectedAccountId = default,
+            string createdAt = default,
+            float? desiredTemperatureCelsius = default,
+            float? desiredTemperatureFahrenheit = default,
+            string deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            float temperatureCelsius = default,
+            float temperatureFahrenheit = default,
+            string workspaceId = default
+        )
+        {
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DesiredTemperatureCelsius = desiredTemperatureCelsius;
+            DesiredTemperatureFahrenheit = desiredTemperatureFahrenheit;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            TemperatureCelsius = temperatureCelsius;
+            TemperatureFahrenheit = temperatureFahrenheit;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(
+            Name = "desired_temperature_celsius",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? DesiredTemperatureCelsius { get; set; }
+
+        [DataMember(
+            Name = "desired_temperature_fahrenheit",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? DesiredTemperatureFahrenheit { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "thermostat.temperature_reached_set_point";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
+        public float TemperatureCelsius { get; set; }
+
+        [DataMember(Name = "temperature_fahrenheit", IsRequired = true, EmitDefaultValue = false)]
+        public float TemperatureFahrenheit { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
