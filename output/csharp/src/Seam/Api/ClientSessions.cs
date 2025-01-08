@@ -508,6 +508,118 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "grantAccessRequest_request")]
+        public class GrantAccessRequest
+        {
+            [JsonConstructorAttribute]
+            protected GrantAccessRequest() { }
+
+            public GrantAccessRequest(
+                string? clientSessionId = default,
+                List<string>? connectWebviewIds = default,
+                List<string>? connectedAccountIds = default,
+                string? userIdentifierKey = default,
+                List<string>? userIdentityIds = default
+            )
+            {
+                ClientSessionId = clientSessionId;
+                ConnectWebviewIds = connectWebviewIds;
+                ConnectedAccountIds = connectedAccountIds;
+                UserIdentifierKey = userIdentifierKey;
+                UserIdentityIds = userIdentityIds;
+            }
+
+            [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ClientSessionId { get; set; }
+
+            [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ConnectWebviewIds { get; set; }
+
+            [DataMember(
+                Name = "connected_account_ids",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? ConnectedAccountIds { get; set; }
+
+            [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void GrantAccess(GrantAccessRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/client_sessions/grant_access", requestOptions);
+        }
+
+        public void GrantAccess(
+            string? clientSessionId = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
+        )
+        {
+            GrantAccess(
+                new GrantAccessRequest(
+                    clientSessionId: clientSessionId,
+                    connectWebviewIds: connectWebviewIds,
+                    connectedAccountIds: connectedAccountIds,
+                    userIdentifierKey: userIdentifierKey,
+                    userIdentityIds: userIdentityIds
+                )
+            );
+        }
+
+        public async Task GrantAccessAsync(GrantAccessRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/client_sessions/grant_access", requestOptions);
+        }
+
+        public async Task GrantAccessAsync(
+            string? clientSessionId = default,
+            List<string>? connectWebviewIds = default,
+            List<string>? connectedAccountIds = default,
+            string? userIdentifierKey = default,
+            List<string>? userIdentityIds = default
+        )
+        {
+            await GrantAccessAsync(
+                new GrantAccessRequest(
+                    clientSessionId: clientSessionId,
+                    connectWebviewIds: connectWebviewIds,
+                    connectedAccountIds: connectedAccountIds,
+                    userIdentifierKey: userIdentifierKey,
+                    userIdentityIds: userIdentityIds
+                )
+            );
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
