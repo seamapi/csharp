@@ -18,6 +18,70 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "assignRequest_request")]
+        public class AssignRequest
+        {
+            [JsonConstructorAttribute]
+            protected AssignRequest() { }
+
+            public AssignRequest(string acsCredentialId = default, string acsUserId = default)
+            {
+                AcsCredentialId = acsCredentialId;
+                AcsUserId = acsUserId;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsUserId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Assign(AssignRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/acs/credentials/assign", requestOptions);
+        }
+
+        public void Assign(string acsCredentialId = default, string acsUserId = default)
+        {
+            Assign(new AssignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId));
+        }
+
+        public async Task AssignAsync(AssignRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/acs/credentials/assign", requestOptions);
+        }
+
+        public async Task AssignAsync(string acsCredentialId = default, string acsUserId = default)
+        {
+            await AssignAsync(
+                new AssignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId)
+            );
+        }
+
         [DataContract(Name = "createRequest_request")]
         public class CreateRequest
         {
@@ -1044,6 +1108,153 @@ namespace Seam.Api
                 await ListAccessibleEntrancesAsync(
                     new ListAccessibleEntrancesRequest(acsCredentialId: acsCredentialId)
                 )
+            );
+        }
+
+        [DataContract(Name = "unassignRequest_request")]
+        public class UnassignRequest
+        {
+            [JsonConstructorAttribute]
+            protected UnassignRequest() { }
+
+            public UnassignRequest(string acsCredentialId = default, string acsUserId = default)
+            {
+                AcsCredentialId = acsCredentialId;
+                AcsUserId = acsUserId;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsUserId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Unassign(UnassignRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/acs/credentials/unassign", requestOptions);
+        }
+
+        public void Unassign(string acsCredentialId = default, string acsUserId = default)
+        {
+            Unassign(new UnassignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId));
+        }
+
+        public async Task UnassignAsync(UnassignRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/acs/credentials/unassign", requestOptions);
+        }
+
+        public async Task UnassignAsync(
+            string acsCredentialId = default,
+            string acsUserId = default
+        )
+        {
+            await UnassignAsync(
+                new UnassignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId)
+            );
+        }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string acsCredentialId = default,
+                string? code = default,
+                string? endsAt = default
+            )
+            {
+                AcsCredentialId = acsCredentialId;
+                Code = code;
+                EndsAt = endsAt;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsCredentialId { get; set; }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/acs/credentials/update", requestOptions);
+        }
+
+        public void Update(
+            string acsCredentialId = default,
+            string? code = default,
+            string? endsAt = default
+        )
+        {
+            Update(new UpdateRequest(acsCredentialId: acsCredentialId, code: code, endsAt: endsAt));
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/acs/credentials/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            string acsCredentialId = default,
+            string? code = default,
+            string? endsAt = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(acsCredentialId: acsCredentialId, code: code, endsAt: endsAt)
             );
         }
     }

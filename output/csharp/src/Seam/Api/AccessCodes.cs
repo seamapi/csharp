@@ -648,6 +648,86 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(
+                string accessCodeId = default,
+                string? deviceId = default,
+                bool? sync = default
+            )
+            {
+                AccessCodeId = accessCodeId;
+                DeviceId = deviceId;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/delete", requestOptions);
+        }
+
+        public void Delete(
+            string accessCodeId = default,
+            string? deviceId = default,
+            bool? sync = default
+        )
+        {
+            Delete(new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId, sync: sync));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/access_codes/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(
+            string accessCodeId = default,
+            string? deviceId = default,
+            bool? sync = default
+        )
+        {
+            await DeleteAsync(
+                new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId, sync: sync)
+            );
+        }
+
         [DataContract(Name = "generateCodeRequest_request")]
         public class GenerateCodeRequest
         {
@@ -1101,6 +1181,304 @@ namespace Seam.Api
             return (
                 await PullBackupAccessCodeAsync(
                     new PullBackupAccessCodeRequest(accessCodeId: accessCodeId)
+                )
+            );
+        }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string accessCodeId = default,
+                bool? allowExternalModification = default,
+                bool? attemptForOfflineDevice = default,
+                string? code = default,
+                string? deviceId = default,
+                string? endsAt = default,
+                bool? isExternalModificationAllowed = default,
+                bool? isManaged = default,
+                bool? isOfflineAccessCode = default,
+                bool? isOneTimeUse = default,
+                UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+                string? name = default,
+                bool? preferNativeScheduling = default,
+                float? preferredCodeLength = default,
+                string? startsAt = default,
+                bool? sync = default,
+                UpdateRequest.TypeEnum? type = default,
+                bool? useBackupAccessCodePool = default,
+                bool? useOfflineAccessCode = default
+            )
+            {
+                AccessCodeId = accessCodeId;
+                AllowExternalModification = allowExternalModification;
+                AttemptForOfflineDevice = attemptForOfflineDevice;
+                Code = code;
+                DeviceId = deviceId;
+                EndsAt = endsAt;
+                IsExternalModificationAllowed = isExternalModificationAllowed;
+                IsManaged = isManaged;
+                IsOfflineAccessCode = isOfflineAccessCode;
+                IsOneTimeUse = isOneTimeUse;
+                MaxTimeRounding = maxTimeRounding;
+                Name = name;
+                PreferNativeScheduling = preferNativeScheduling;
+                PreferredCodeLength = preferredCodeLength;
+                StartsAt = startsAt;
+                Sync = sync;
+                Type = type;
+                UseBackupAccessCodePool = useBackupAccessCodePool;
+                UseOfflineAccessCode = useOfflineAccessCode;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum MaxTimeRoundingEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "1hour")]
+                _1hour = 1,
+
+                [EnumMember(Value = "1day")]
+                _1day = 2,
+
+                [EnumMember(Value = "1h")]
+                _1h = 3,
+
+                [EnumMember(Value = "1d")]
+                _1d = 4,
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum TypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "ongoing")]
+                Ongoing = 1,
+
+                [EnumMember(Value = "time_bound")]
+                TimeBound = 2,
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(
+                Name = "allow_external_modification",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowExternalModification { get; set; }
+
+            [DataMember(
+                Name = "attempt_for_offline_device",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AttemptForOfflineDevice { get; set; }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(
+                Name = "is_external_modification_allowed",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsExternalModificationAllowed { get; set; }
+
+            [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsManaged { get; set; }
+
+            [DataMember(
+                Name = "is_offline_access_code",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsOfflineAccessCode { get; set; }
+
+            [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsOneTimeUse { get; set; }
+
+            [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(
+                Name = "prefer_native_scheduling",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? PreferNativeScheduling { get; set; }
+
+            [DataMember(
+                Name = "preferred_code_length",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? PreferredCodeLength { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequest.TypeEnum? Type { get; set; }
+
+            [DataMember(
+                Name = "use_backup_access_code_pool",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseBackupAccessCodePool { get; set; }
+
+            [DataMember(
+                Name = "use_offline_access_code",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? UseOfflineAccessCode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/update", requestOptions);
+        }
+
+        public void Update(
+            string accessCodeId = default,
+            bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
+            string? code = default,
+            string? deviceId = default,
+            string? endsAt = default,
+            bool? isExternalModificationAllowed = default,
+            bool? isManaged = default,
+            bool? isOfflineAccessCode = default,
+            bool? isOneTimeUse = default,
+            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? sync = default,
+            UpdateRequest.TypeEnum? type = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
+        )
+        {
+            Update(
+                new UpdateRequest(
+                    accessCodeId: accessCodeId,
+                    allowExternalModification: allowExternalModification,
+                    attemptForOfflineDevice: attemptForOfflineDevice,
+                    code: code,
+                    deviceId: deviceId,
+                    endsAt: endsAt,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    isManaged: isManaged,
+                    isOfflineAccessCode: isOfflineAccessCode,
+                    isOneTimeUse: isOneTimeUse,
+                    maxTimeRounding: maxTimeRounding,
+                    name: name,
+                    preferNativeScheduling: preferNativeScheduling,
+                    preferredCodeLength: preferredCodeLength,
+                    startsAt: startsAt,
+                    sync: sync,
+                    type: type,
+                    useBackupAccessCodePool: useBackupAccessCodePool,
+                    useOfflineAccessCode: useOfflineAccessCode
+                )
+            );
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/access_codes/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            string accessCodeId = default,
+            bool? allowExternalModification = default,
+            bool? attemptForOfflineDevice = default,
+            string? code = default,
+            string? deviceId = default,
+            string? endsAt = default,
+            bool? isExternalModificationAllowed = default,
+            bool? isManaged = default,
+            bool? isOfflineAccessCode = default,
+            bool? isOneTimeUse = default,
+            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
+            string? name = default,
+            bool? preferNativeScheduling = default,
+            float? preferredCodeLength = default,
+            string? startsAt = default,
+            bool? sync = default,
+            UpdateRequest.TypeEnum? type = default,
+            bool? useBackupAccessCodePool = default,
+            bool? useOfflineAccessCode = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(
+                    accessCodeId: accessCodeId,
+                    allowExternalModification: allowExternalModification,
+                    attemptForOfflineDevice: attemptForOfflineDevice,
+                    code: code,
+                    deviceId: deviceId,
+                    endsAt: endsAt,
+                    isExternalModificationAllowed: isExternalModificationAllowed,
+                    isManaged: isManaged,
+                    isOfflineAccessCode: isOfflineAccessCode,
+                    isOneTimeUse: isOneTimeUse,
+                    maxTimeRounding: maxTimeRounding,
+                    name: name,
+                    preferNativeScheduling: preferNativeScheduling,
+                    preferredCodeLength: preferredCodeLength,
+                    startsAt: startsAt,
+                    sync: sync,
+                    type: type,
+                    useBackupAccessCodePool: useBackupAccessCodePool,
+                    useOfflineAccessCode: useOfflineAccessCode
                 )
             );
         }

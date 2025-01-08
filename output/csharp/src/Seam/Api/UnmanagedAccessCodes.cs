@@ -137,6 +137,68 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string accessCodeId = default, bool? sync = default)
+            {
+                AccessCodeId = accessCodeId;
+                Sync = sync;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Sync { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/unmanaged/delete", requestOptions);
+        }
+
+        public void Delete(string accessCodeId = default, bool? sync = default)
+        {
+            Delete(new DeleteRequest(accessCodeId: accessCodeId, sync: sync));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/access_codes/unmanaged/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string accessCodeId = default, bool? sync = default)
+        {
+            await DeleteAsync(new DeleteRequest(accessCodeId: accessCodeId, sync: sync));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
