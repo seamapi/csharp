@@ -311,6 +311,100 @@ namespace Seam.Api
                 )
             );
         }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                bool? automaticallyManageNewDevices = default,
+                string connectedAccountId = default,
+                object? customMetadata = default
+            )
+            {
+                AutomaticallyManageNewDevices = automaticallyManageNewDevices;
+                ConnectedAccountId = connectedAccountId;
+                CustomMetadata = customMetadata;
+            }
+
+            [DataMember(
+                Name = "automatically_manage_new_devices",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AutomaticallyManageNewDevices { get; set; }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/connected_accounts/update", requestOptions);
+        }
+
+        public void Update(
+            bool? automaticallyManageNewDevices = default,
+            string connectedAccountId = default,
+            object? customMetadata = default
+        )
+        {
+            Update(
+                new UpdateRequest(
+                    automaticallyManageNewDevices: automaticallyManageNewDevices,
+                    connectedAccountId: connectedAccountId,
+                    customMetadata: customMetadata
+                )
+            );
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/connected_accounts/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            bool? automaticallyManageNewDevices = default,
+            string connectedAccountId = default,
+            object? customMetadata = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(
+                    automaticallyManageNewDevices: automaticallyManageNewDevices,
+                    connectedAccountId: connectedAccountId,
+                    customMetadata: customMetadata
+                )
+            );
+        }
     }
 }
 
