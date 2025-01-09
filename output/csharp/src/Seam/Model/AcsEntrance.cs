@@ -183,20 +183,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected AcsEntranceDormakabaCommunityMetadata() { }
 
-        public AcsEntranceDormakabaCommunityMetadata(
-            string accessPointName = default,
-            float? commonAreaNumber = default
-        )
+        public AcsEntranceDormakabaCommunityMetadata(string accessPointName = default)
         {
             AccessPointName = accessPointName;
-            CommonAreaNumber = commonAreaNumber;
         }
 
         [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
         public string AccessPointName { get; set; }
-
-        [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
-        public float? CommonAreaNumber { get; set; }
 
         public override string ToString()
         {
