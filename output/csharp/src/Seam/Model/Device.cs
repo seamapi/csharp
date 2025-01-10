@@ -38,7 +38,7 @@ namespace Seam.Model
             DeviceLocation? location = default,
             string? nickname = default,
             DeviceProperties properties = default,
-            List<DeviceWarnings> warnings = default,
+            List<JObject> warnings = default,
             string workspaceId = default
         )
         {
@@ -288,7 +288,7 @@ namespace Seam.Model
         public DeviceProperties Properties { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<DeviceWarnings> Warnings { get; set; }
+        public List<JObject> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -3995,44 +3995,6 @@ namespace Seam.Model
 
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_deviceWarnings_model")]
-    public class DeviceWarnings
-    {
-        [JsonConstructorAttribute]
-        protected DeviceWarnings() { }
-
-        public DeviceWarnings(string message = default, string warningCode = default)
-        {
-            Message = message;
-            WarningCode = warningCode;
-        }
-
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-        public string WarningCode { get; set; }
 
         public override string ToString()
         {

@@ -105,6 +105,12 @@ namespace Seam.Model
 
             [EnumMember(Value = "salto_ks_credential")]
             SaltoKsCredential = 5,
+
+            [EnumMember(Value = "assa_abloy_vostio_card")]
+            AssaAbloyVostioCard = 6,
+
+            [EnumMember(Value = "assa_abloy_vostio_mobile_key")]
+            AssaAbloyVostioMobileKey = 7,
         }
 
         [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
