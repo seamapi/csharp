@@ -1789,6 +1789,7 @@ namespace Seam.Model
             typeof(AccessCodeWarningsCodeModifiedExternalToSeam),
             "code_modified_external_to_seam"
         )]
+        [JsonSubtypes.KnownSubType(typeof(AccessCodeWarningsSaltoOfficeMode), "salto_office_mode")]
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeWarningsSchlageCreationOutage),
             "schlage_creation_outage"
@@ -1910,6 +1911,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "schlage_creation_outage";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeWarningsSaltoOfficeMode_model")]
+        public class AccessCodeWarningsSaltoOfficeMode : AccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeWarningsSaltoOfficeMode() { }
+
+            public AccessCodeWarningsSaltoOfficeMode(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "salto_office_mode";
 
             public override string ToString()
             {
