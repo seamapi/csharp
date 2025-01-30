@@ -22,7 +22,7 @@ namespace Seam.Model
             string displayName = default,
             string? email = default,
             string? emailAddress = default,
-            List<JObject> errors = default,
+            List<Errors> errors = default,
             AcsUser.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
             string? fullName = default,
@@ -36,7 +36,7 @@ namespace Seam.Model
             string? userIdentityFullName = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default,
-            List<JObject> warnings = default,
+            List<Warnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -65,6 +65,261 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(ErrorsFailedToDeleteOnAcsSystem),
+            "failed_to_delete_on_acs_system"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(ErrorsFailedToUpdateOnAcsSystem),
+            "failed_to_update_on_acs_system"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(ErrorsFailedToCreateOnAcsSystem),
+            "failed_to_create_on_acs_system"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(ErrorsSaltoKsSubscriptionLimitExceeded),
+            "salto_ks_subscription_limit_exceeded"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(ErrorsDeletedExternally), "deleted_externally")]
+        public abstract class Errors
+        {
+            public abstract string ErrorCode { get; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_errorsDeletedExternally_model")]
+        public class ErrorsDeletedExternally : Errors
+        {
+            [JsonConstructorAttribute]
+            protected ErrorsDeletedExternally() { }
+
+            public ErrorsDeletedExternally(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "deleted_externally";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_errorsSaltoKsSubscriptionLimitExceeded_model")]
+        public class ErrorsSaltoKsSubscriptionLimitExceeded : Errors
+        {
+            [JsonConstructorAttribute]
+            protected ErrorsSaltoKsSubscriptionLimitExceeded() { }
+
+            public ErrorsSaltoKsSubscriptionLimitExceeded(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_errorsFailedToCreateOnAcsSystem_model")]
+        public class ErrorsFailedToCreateOnAcsSystem : Errors
+        {
+            [JsonConstructorAttribute]
+            protected ErrorsFailedToCreateOnAcsSystem() { }
+
+            public ErrorsFailedToCreateOnAcsSystem(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "failed_to_create_on_acs_system";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_errorsFailedToUpdateOnAcsSystem_model")]
+        public class ErrorsFailedToUpdateOnAcsSystem : Errors
+        {
+            [JsonConstructorAttribute]
+            protected ErrorsFailedToUpdateOnAcsSystem() { }
+
+            public ErrorsFailedToUpdateOnAcsSystem(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "failed_to_update_on_acs_system";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_errorsFailedToDeleteOnAcsSystem_model")]
+        public class ErrorsFailedToDeleteOnAcsSystem : Errors
+        {
+            [JsonConstructorAttribute]
+            protected ErrorsFailedToDeleteOnAcsSystem() { }
+
+            public ErrorsFailedToDeleteOnAcsSystem(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "failed_to_delete_on_acs_system";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -88,6 +343,164 @@ namespace Seam.Model
 
             [EnumMember(Value = "dormakaba_community_user")]
             DormakabaCommunityUser = 6,
+
+            [EnumMember(Value = "salto_space_user")]
+            SaltoSpaceUser = 7,
+        }
+
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(WarningsUnknownIssueWithAcsUser),
+            "unknown_issue_with_acs_user"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(WarningsSaltoKsUserNotSubscribed),
+            "salto_ks_user_not_subscribed"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(WarningsBeingDeleted), "being_deleted")]
+        public abstract class Warnings
+        {
+            public abstract string WarningCode { get; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_warningsBeingDeleted_model")]
+        public class WarningsBeingDeleted : Warnings
+        {
+            [JsonConstructorAttribute]
+            protected WarningsBeingDeleted() { }
+
+            public WarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_warningsSaltoKsUserNotSubscribed_model")]
+        public class WarningsSaltoKsUserNotSubscribed : Warnings
+        {
+            [JsonConstructorAttribute]
+            protected WarningsSaltoKsUserNotSubscribed() { }
+
+            public WarningsSaltoKsUserNotSubscribed(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "salto_ks_user_not_subscribed";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_warningsUnknownIssueWithAcsUser_model")]
+        public class WarningsUnknownIssueWithAcsUser : Warnings
+        {
+            [JsonConstructorAttribute]
+            protected WarningsUnknownIssueWithAcsUser() { }
+
+            public WarningsUnknownIssueWithAcsUser(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown_issue_with_acs_user";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
@@ -112,7 +525,7 @@ namespace Seam.Model
         public string? EmailAddress { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<JObject> Errors { get; set; }
+        public List<Errors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsUser.ExternalTypeEnum? ExternalType { get; set; }
@@ -174,7 +587,7 @@ namespace Seam.Model
         public string? UserIdentityPhoneNumber { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<JObject> Warnings { get; set; }
+        public List<Warnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

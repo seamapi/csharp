@@ -15,6 +15,10 @@ namespace Seam.Model
         "enrollment_automation.deleted"
     )]
     [JsonSubtypes.KnownSubType(
+        typeof(EventThermostatTemperatureChanged),
+        "thermostat.temperature_changed"
+    )]
+    [JsonSubtypes.KnownSubType(
         typeof(EventThermostatTemperatureReachedSetPoint),
         "thermostat.temperature_reached_set_point"
     )]
@@ -5471,6 +5475,82 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_reached_set_point";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
+        public float TemperatureCelsius { get; set; }
+
+        [DataMember(Name = "temperature_fahrenheit", IsRequired = true, EmitDefaultValue = false)]
+        public float TemperatureFahrenheit { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventThermostatTemperatureChanged_model")]
+    public class EventThermostatTemperatureChanged : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventThermostatTemperatureChanged() { }
+
+        public EventThermostatTemperatureChanged(
+            string connectedAccountId = default,
+            string createdAt = default,
+            string deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            float temperatureCelsius = default,
+            float temperatureFahrenheit = default,
+            string workspaceId = default
+        )
+        {
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            TemperatureCelsius = temperatureCelsius;
+            TemperatureFahrenheit = temperatureFahrenheit;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "thermostat.temperature_changed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }

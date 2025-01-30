@@ -395,11 +395,14 @@ namespace Seam.Api
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
                 ThermostatTemperatureReachedSetPoint = 72,
 
+                [EnumMember(Value = "thermostat.temperature_changed")]
+                ThermostatTemperatureChanged = 73,
+
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 73,
+                EnrollmentAutomationDeleted = 74,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 74,
+                PhoneDeactivated = 75,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -624,11 +627,14 @@ namespace Seam.Api
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
                 ThermostatTemperatureReachedSetPoint = 72,
 
+                [EnumMember(Value = "thermostat.temperature_changed")]
+                ThermostatTemperatureChanged = 73,
+
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 73,
+                EnrollmentAutomationDeleted = 74,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 74,
+                PhoneDeactivated = 75,
             }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
