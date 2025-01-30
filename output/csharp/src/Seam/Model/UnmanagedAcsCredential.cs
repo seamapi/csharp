@@ -8,26 +8,26 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_acsCredential_model")]
-    public class AcsCredential
+    [DataContract(Name = "seamModel_unmanagedAcsCredential_model")]
+    public class UnmanagedAcsCredential
     {
         [JsonConstructorAttribute]
-        protected AcsCredential() { }
+        protected UnmanagedAcsCredential() { }
 
-        public AcsCredential(
-            AcsCredential.AccessMethodEnum accessMethod = default,
+        public UnmanagedAcsCredential(
+            UnmanagedAcsCredential.AccessMethodEnum accessMethod = default,
             string acsCredentialId = default,
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
-            AcsCredentialAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
+            UnmanagedAcsCredentialAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? cardNumber = default,
             string? code = default,
             string createdAt = default,
             string displayName = default,
             string? endsAt = default,
-            List<AcsCredentialErrors> errors = default,
-            AcsCredential.ExternalTypeEnum? externalType = default,
+            List<UnmanagedAcsCredentialErrors> errors = default,
+            UnmanagedAcsCredential.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
             bool? isIssued = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
@@ -38,8 +38,8 @@ namespace Seam.Model
             string? latestDesiredStateSyncedWithProviderAt = default,
             string? parentAcsCredentialId = default,
             string? startsAt = default,
-            AcsCredentialVisionlineMetadata? visionlineMetadata = default,
-            List<AcsCredentialWarnings> warnings = default,
+            UnmanagedAcsCredentialVisionlineMetadata? visionlineMetadata = default,
+            List<UnmanagedAcsCredentialWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -117,40 +117,44 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsCredentialWarningsNeedsToBeReissued),
+            typeof(UnmanagedAcsCredentialWarningsNeedsToBeReissued),
             "needs_to_be_reissued"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsCredentialWarningsUnknownIssueWithAcsCredential),
+            typeof(UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential),
             "unknown_issue_with_acs_credential"
         )]
-        [JsonSubtypes.KnownSubType(typeof(AcsCredentialWarningsBeingDeleted), "being_deleted")]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsCredentialWarningsScheduleModified),
+            typeof(UnmanagedAcsCredentialWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsCredentialWarningsScheduleModified),
             "schedule_modified"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsCredentialWarningsScheduleExternallyModified),
+            typeof(UnmanagedAcsCredentialWarningsScheduleExternallyModified),
             "schedule_externally_modified"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsCredentialWarningsWaitingToBeIssued),
+            typeof(UnmanagedAcsCredentialWarningsWaitingToBeIssued),
             "waiting_to_be_issued"
         )]
-        public abstract class AcsCredentialWarnings
+        public abstract class UnmanagedAcsCredentialWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsWaitingToBeIssued_model")]
-        public class AcsCredentialWarningsWaitingToBeIssued : AcsCredentialWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsWaitingToBeIssued_model")]
+        public class UnmanagedAcsCredentialWarningsWaitingToBeIssued
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsWaitingToBeIssued() { }
+            protected UnmanagedAcsCredentialWarningsWaitingToBeIssued() { }
 
-            public AcsCredentialWarningsWaitingToBeIssued(
+            public UnmanagedAcsCredentialWarningsWaitingToBeIssued(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -190,13 +194,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsScheduleExternallyModified_model")]
-        public class AcsCredentialWarningsScheduleExternallyModified : AcsCredentialWarnings
+        [DataContract(
+            Name = "seamModel_unmanagedAcsCredentialWarningsScheduleExternallyModified_model"
+        )]
+        public class UnmanagedAcsCredentialWarningsScheduleExternallyModified
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsScheduleExternallyModified() { }
+            protected UnmanagedAcsCredentialWarningsScheduleExternallyModified() { }
 
-            public AcsCredentialWarningsScheduleExternallyModified(
+            public UnmanagedAcsCredentialWarningsScheduleExternallyModified(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -236,13 +243,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsScheduleModified_model")]
-        public class AcsCredentialWarningsScheduleModified : AcsCredentialWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsScheduleModified_model")]
+        public class UnmanagedAcsCredentialWarningsScheduleModified : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsScheduleModified() { }
+            protected UnmanagedAcsCredentialWarningsScheduleModified() { }
 
-            public AcsCredentialWarningsScheduleModified(
+            public UnmanagedAcsCredentialWarningsScheduleModified(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -282,13 +289,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsBeingDeleted_model")]
-        public class AcsCredentialWarningsBeingDeleted : AcsCredentialWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsBeingDeleted_model")]
+        public class UnmanagedAcsCredentialWarningsBeingDeleted : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsBeingDeleted() { }
+            protected UnmanagedAcsCredentialWarningsBeingDeleted() { }
 
-            public AcsCredentialWarningsBeingDeleted(
+            public UnmanagedAcsCredentialWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -328,13 +335,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsUnknownIssueWithAcsCredential_model")]
-        public class AcsCredentialWarningsUnknownIssueWithAcsCredential : AcsCredentialWarnings
+        [DataContract(
+            Name = "seamModel_unmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential_model"
+        )]
+        public class UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsUnknownIssueWithAcsCredential() { }
+            protected UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential() { }
 
-            public AcsCredentialWarningsUnknownIssueWithAcsCredential(
+            public UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -374,13 +384,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsCredentialWarningsNeedsToBeReissued_model")]
-        public class AcsCredentialWarningsNeedsToBeReissued : AcsCredentialWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsNeedsToBeReissued_model")]
+        public class UnmanagedAcsCredentialWarningsNeedsToBeReissued
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsCredentialWarningsNeedsToBeReissued() { }
+            protected UnmanagedAcsCredentialWarningsNeedsToBeReissued() { }
 
-            public AcsCredentialWarningsNeedsToBeReissued(
+            public UnmanagedAcsCredentialWarningsNeedsToBeReissued(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -421,7 +432,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
-        public AcsCredential.AccessMethodEnum AccessMethod { get; set; }
+        public UnmanagedAcsCredential.AccessMethodEnum AccessMethod { get; set; }
 
         [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
@@ -440,7 +451,7 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public AcsCredentialAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+        public UnmanagedAcsCredentialAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
@@ -458,10 +469,10 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsCredentialErrors> Errors { get; set; }
+        public List<UnmanagedAcsCredentialErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsCredential.ExternalTypeEnum? ExternalType { get; set; }
+        public UnmanagedAcsCredential.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
@@ -514,10 +525,10 @@ namespace Seam.Model
         public string? StartsAt { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public AcsCredentialVisionlineMetadata? VisionlineMetadata { get; set; }
+        public UnmanagedAcsCredentialVisionlineMetadata? VisionlineMetadata { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsCredentialWarnings> Warnings { get; set; }
+        public List<UnmanagedAcsCredentialWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -542,13 +553,13 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsCredentialAssaAbloyVostioMetadata_model")]
-    public class AcsCredentialAssaAbloyVostioMetadata
+    [DataContract(Name = "seamModel_unmanagedAcsCredentialAssaAbloyVostioMetadata_model")]
+    public class UnmanagedAcsCredentialAssaAbloyVostioMetadata
     {
         [JsonConstructorAttribute]
-        protected AcsCredentialAssaAbloyVostioMetadata() { }
+        protected UnmanagedAcsCredentialAssaAbloyVostioMetadata() { }
 
-        public AcsCredentialAssaAbloyVostioMetadata(
+        public UnmanagedAcsCredentialAssaAbloyVostioMetadata(
             List<string>? doorNames = default,
             string? endpointId = default,
             string? keyId = default,
@@ -602,13 +613,13 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsCredentialErrors_model")]
-    public class AcsCredentialErrors
+    [DataContract(Name = "seamModel_unmanagedAcsCredentialErrors_model")]
+    public class UnmanagedAcsCredentialErrors
     {
         [JsonConstructorAttribute]
-        protected AcsCredentialErrors() { }
+        protected UnmanagedAcsCredentialErrors() { }
 
-        public AcsCredentialErrors(string errorCode = default, string message = default)
+        public UnmanagedAcsCredentialErrors(string errorCode = default, string message = default)
         {
             ErrorCode = errorCode;
             Message = message;
@@ -640,15 +651,16 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsCredentialVisionlineMetadata_model")]
-    public class AcsCredentialVisionlineMetadata
+    [DataContract(Name = "seamModel_unmanagedAcsCredentialVisionlineMetadata_model")]
+    public class UnmanagedAcsCredentialVisionlineMetadata
     {
         [JsonConstructorAttribute]
-        protected AcsCredentialVisionlineMetadata() { }
+        protected UnmanagedAcsCredentialVisionlineMetadata() { }
 
-        public AcsCredentialVisionlineMetadata(
+        public UnmanagedAcsCredentialVisionlineMetadata(
             bool? autoJoin = default,
-            AcsCredentialVisionlineMetadata.CardFunctionTypeEnum cardFunctionType = default,
+            UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
+                default,
             string? cardId = default,
             List<string>? commonAcsEntranceIds = default,
             string? credentialId = default,
@@ -684,7 +696,7 @@ namespace Seam.Model
         public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "card_function_type", IsRequired = true, EmitDefaultValue = false)]
-        public AcsCredentialVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
+        public UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
         public string? CardId { get; set; }

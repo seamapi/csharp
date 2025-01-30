@@ -43,7 +43,7 @@ runs:
           6.0.x
     - name: Setup CSharpier
       shell: bash
-      run: dotnet tool install csharpier -g
+      run: dotnet tool install csharpier -g --version 0.29.2
     - name: Install dependencies
       if: inputs.install_dependencies == 'true'
       shell: bash

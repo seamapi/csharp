@@ -8,100 +8,98 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_acsSystem_model")]
-    public class AcsSystem
+    [DataContract(Name = "seamModel_unmanagedAcsUser_model")]
+    public class UnmanagedAcsUser
     {
         [JsonConstructorAttribute]
-        protected AcsSystem() { }
+        protected UnmanagedAcsUser() { }
 
-        public AcsSystem(
+        public UnmanagedAcsUser(
+            UnmanagedAcsUserAccessSchedule? accessSchedule = default,
             string acsSystemId = default,
-            bool? canAddAcsUsersToAcsAccessGroups = default,
-            bool? canAutomateEnrollment = default,
-            bool? canCreateAcsAccessGroups = default,
-            bool? canRemoveAcsUsersFromAcsAccessGroups = default,
-            string connectedAccountId = default,
-            List<string> connectedAccountIds = default,
+            string acsUserId = default,
             string createdAt = default,
-            string? defaultCredentialManagerAcsSystemId = default,
-            List<AcsSystemErrors> errors = default,
-            AcsSystem.ExternalTypeEnum? externalType = default,
+            string displayName = default,
+            string? email = default,
+            string? emailAddress = default,
+            List<UnmanagedAcsUserErrors> errors = default,
+            UnmanagedAcsUser.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
-            string imageAltText = default,
-            string imageUrl = default,
-            bool isCredentialManager = default,
-            AcsSystemLocation location = default,
-            string name = default,
-            AcsSystem.SystemTypeEnum? systemType = default,
-            string? systemTypeDisplayName = default,
-            AcsSystemVisionlineMetadata? visionlineMetadata = default,
-            List<AcsSystemWarnings> warnings = default,
+            string? fullName = default,
+            string? hidAcsSystemId = default,
+            bool? isLatestDesiredStateSyncedWithProvider = default,
+            bool isManaged = default,
+            bool? isSuspended = default,
+            string? latestDesiredStateSyncedWithProviderAt = default,
+            string? phoneNumber = default,
+            string? userIdentityEmailAddress = default,
+            string? userIdentityFullName = default,
+            string? userIdentityId = default,
+            string? userIdentityPhoneNumber = default,
+            List<UnmanagedAcsUserWarnings> warnings = default,
             string workspaceId = default
         )
         {
+            AccessSchedule = accessSchedule;
             AcsSystemId = acsSystemId;
-            CanAddAcsUsersToAcsAccessGroups = canAddAcsUsersToAcsAccessGroups;
-            CanAutomateEnrollment = canAutomateEnrollment;
-            CanCreateAcsAccessGroups = canCreateAcsAccessGroups;
-            CanRemoveAcsUsersFromAcsAccessGroups = canRemoveAcsUsersFromAcsAccessGroups;
-            ConnectedAccountId = connectedAccountId;
-            ConnectedAccountIds = connectedAccountIds;
+            AcsUserId = acsUserId;
             CreatedAt = createdAt;
-            DefaultCredentialManagerAcsSystemId = defaultCredentialManagerAcsSystemId;
+            DisplayName = displayName;
+            Email = email;
+            EmailAddress = emailAddress;
             Errors = errors;
             ExternalType = externalType;
             ExternalTypeDisplayName = externalTypeDisplayName;
-            ImageAltText = imageAltText;
-            ImageUrl = imageUrl;
-            IsCredentialManager = isCredentialManager;
-            Location = location;
-            Name = name;
-            SystemType = systemType;
-            SystemTypeDisplayName = systemTypeDisplayName;
-            VisionlineMetadata = visionlineMetadata;
+            FullName = fullName;
+            HidAcsSystemId = hidAcsSystemId;
+            IsLatestDesiredStateSyncedWithProvider = isLatestDesiredStateSyncedWithProvider;
+            IsManaged = isManaged;
+            IsSuspended = isSuspended;
+            LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
+            PhoneNumber = phoneNumber;
+            UserIdentityEmailAddress = userIdentityEmailAddress;
+            UserIdentityFullName = userIdentityFullName;
+            UserIdentityId = userIdentityId;
+            UserIdentityPhoneNumber = userIdentityPhoneNumber;
             Warnings = warnings;
             WorkspaceId = workspaceId;
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsSaltoKsCertificationExpired),
-            "salto_ks_certification_expired"
+            typeof(UnmanagedAcsUserErrorsFailedToDeleteOnAcsSystem),
+            "failed_to_delete_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsAccountDisconnected),
-            "account_disconnected"
+            typeof(UnmanagedAcsUserErrorsFailedToUpdateOnAcsSystem),
+            "failed_to_update_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsAcsSystemDisconnected),
-            "acs_system_disconnected"
+            typeof(UnmanagedAcsUserErrorsFailedToCreateOnAcsSystem),
+            "failed_to_create_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsSaltoKsSubscriptionLimitExceeded),
+            typeof(UnmanagedAcsUserErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsVisionlineInstanceUnreachable),
-            "visionline_instance_unreachable"
+            typeof(UnmanagedAcsUserErrorsDeletedExternally),
+            "deleted_externally"
         )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemErrorsSeamBridgeDisconnected),
-            "seam_bridge_disconnected"
-        )]
-        public abstract class AcsSystemErrors
+        public abstract class UnmanagedAcsUserErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_acsSystemErrorsSeamBridgeDisconnected_model")]
-        public class AcsSystemErrorsSeamBridgeDisconnected : AcsSystemErrors
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsDeletedExternally_model")]
+        public class UnmanagedAcsUserErrorsDeletedExternally : UnmanagedAcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected AcsSystemErrorsSeamBridgeDisconnected() { }
+            protected UnmanagedAcsUserErrorsDeletedExternally() { }
 
-            public AcsSystemErrorsSeamBridgeDisconnected(
+            public UnmanagedAcsUserErrorsDeletedExternally(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -116,7 +114,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "seam_bridge_disconnected";
+            public override string ErrorCode { get; } = "deleted_externally";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public string Message { get; set; }
@@ -141,59 +139,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsSystemErrorsVisionlineInstanceUnreachable_model")]
-        public class AcsSystemErrorsVisionlineInstanceUnreachable : AcsSystemErrors
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserErrorsSaltoKsSubscriptionLimitExceeded_model"
+        )]
+        public class UnmanagedAcsUserErrorsSaltoKsSubscriptionLimitExceeded : UnmanagedAcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected AcsSystemErrorsVisionlineInstanceUnreachable() { }
+            protected UnmanagedAcsUserErrorsSaltoKsSubscriptionLimitExceeded() { }
 
-            public AcsSystemErrorsVisionlineInstanceUnreachable(
-                string createdAt = default,
-                string errorCode = default,
-                string message = default
-            )
-            {
-                CreatedAt = createdAt;
-                ErrorCode = errorCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "visionline_instance_unreachable";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_acsSystemErrorsSaltoKsSubscriptionLimitExceeded_model")]
-        public class AcsSystemErrorsSaltoKsSubscriptionLimitExceeded : AcsSystemErrors
-        {
-            [JsonConstructorAttribute]
-            protected AcsSystemErrorsSaltoKsSubscriptionLimitExceeded() { }
-
-            public AcsSystemErrorsSaltoKsSubscriptionLimitExceeded(
+            public UnmanagedAcsUserErrorsSaltoKsSubscriptionLimitExceeded(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -233,13 +187,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsSystemErrorsAcsSystemDisconnected_model")]
-        public class AcsSystemErrorsAcsSystemDisconnected : AcsSystemErrors
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsFailedToCreateOnAcsSystem_model")]
+        public class UnmanagedAcsUserErrorsFailedToCreateOnAcsSystem : UnmanagedAcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected AcsSystemErrorsAcsSystemDisconnected() { }
+            protected UnmanagedAcsUserErrorsFailedToCreateOnAcsSystem() { }
 
-            public AcsSystemErrorsAcsSystemDisconnected(
+            public UnmanagedAcsUserErrorsFailedToCreateOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -254,7 +208,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "acs_system_disconnected";
+            public override string ErrorCode { get; } = "failed_to_create_on_acs_system";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public string Message { get; set; }
@@ -279,13 +233,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsSystemErrorsAccountDisconnected_model")]
-        public class AcsSystemErrorsAccountDisconnected : AcsSystemErrors
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsFailedToUpdateOnAcsSystem_model")]
+        public class UnmanagedAcsUserErrorsFailedToUpdateOnAcsSystem : UnmanagedAcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected AcsSystemErrorsAccountDisconnected() { }
+            protected UnmanagedAcsUserErrorsFailedToUpdateOnAcsSystem() { }
 
-            public AcsSystemErrorsAccountDisconnected(
+            public UnmanagedAcsUserErrorsFailedToUpdateOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -300,7 +254,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "account_disconnected";
+            public override string ErrorCode { get; } = "failed_to_update_on_acs_system";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public string Message { get; set; }
@@ -325,13 +279,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsSystemErrorsSaltoKsCertificationExpired_model")]
-        public class AcsSystemErrorsSaltoKsCertificationExpired : AcsSystemErrors
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsFailedToDeleteOnAcsSystem_model")]
+        public class UnmanagedAcsUserErrorsFailedToDeleteOnAcsSystem : UnmanagedAcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected AcsSystemErrorsSaltoKsCertificationExpired() { }
+            protected UnmanagedAcsUserErrorsFailedToDeleteOnAcsSystem() { }
 
-            public AcsSystemErrorsSaltoKsCertificationExpired(
+            public UnmanagedAcsUserErrorsFailedToDeleteOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -346,7 +300,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "salto_ks_certification_expired";
+            public override string ErrorCode { get; } = "failed_to_delete_on_acs_system";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public string Message { get; set; }
@@ -377,117 +331,52 @@ namespace Seam.Model
             [EnumMember(Value = "unrecognized")]
             Unrecognized = 0,
 
-            [EnumMember(Value = "pti_site")]
-            PtiSite = 1,
+            [EnumMember(Value = "pti_user")]
+            PtiUser = 1,
 
-            [EnumMember(Value = "alta_org")]
-            AltaOrg = 2,
+            [EnumMember(Value = "brivo_user")]
+            BrivoUser = 2,
 
-            [EnumMember(Value = "salto_ks_site")]
-            SaltoKsSite = 3,
+            [EnumMember(Value = "hid_credential_manager_user")]
+            HidCredentialManagerUser = 3,
 
-            [EnumMember(Value = "salto_space_system")]
-            SaltoSpaceSystem = 4,
+            [EnumMember(Value = "salto_site_user")]
+            SaltoSiteUser = 4,
 
-            [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 5,
+            [EnumMember(Value = "latch_user")]
+            LatchUser = 5,
 
-            [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 6,
+            [EnumMember(Value = "dormakaba_community_user")]
+            DormakabaCommunityUser = 6,
 
-            [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 7,
-
-            [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 8,
-
-            [EnumMember(Value = "latch_building")]
-            LatchBuilding = 9,
-
-            [EnumMember(Value = "dormakaba_community_site")]
-            DormakabaCommunitySite = 10,
-
-            [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 11,
-
-            [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 12,
-
-            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 13,
-        }
-
-        [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum SystemTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "pti_site")]
-            PtiSite = 1,
-
-            [EnumMember(Value = "alta_org")]
-            AltaOrg = 2,
-
-            [EnumMember(Value = "salto_ks_site")]
-            SaltoKsSite = 3,
-
-            [EnumMember(Value = "salto_space_system")]
-            SaltoSpaceSystem = 4,
-
-            [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 5,
-
-            [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 6,
-
-            [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 7,
-
-            [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 8,
-
-            [EnumMember(Value = "latch_building")]
-            LatchBuilding = 9,
-
-            [EnumMember(Value = "dormakaba_community_site")]
-            DormakabaCommunitySite = 10,
-
-            [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 11,
-
-            [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 12,
-
-            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 13,
+            [EnumMember(Value = "salto_space_user")]
+            SaltoSpaceUser = 7,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemWarningsTimeZoneDoesNotMatchLocation),
-            "time_zone_does_not_match_location"
+            typeof(UnmanagedAcsUserWarningsUnknownIssueWithAcsUser),
+            "unknown_issue_with_acs_user"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached),
-            "salto_ks_subscription_limit_almost_reached"
+            typeof(UnmanagedAcsUserWarningsSaltoKsUserNotSubscribed),
+            "salto_ks_user_not_subscribed"
         )]
-        public abstract class AcsSystemWarnings
+        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserWarningsBeingDeleted), "being_deleted")]
+        public abstract class UnmanagedAcsUserWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(
-            Name = "seamModel_acsSystemWarningsSaltoKsSubscriptionLimitAlmostReached_model"
-        )]
-        public class AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached : AcsSystemWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsUserWarningsBeingDeleted_model")]
+        public class UnmanagedAcsUserWarningsBeingDeleted : UnmanagedAcsUserWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached() { }
+            protected UnmanagedAcsUserWarningsBeingDeleted() { }
 
-            public AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached(
+            public UnmanagedAcsUserWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -505,8 +394,7 @@ namespace Seam.Model
             public string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } =
-                "salto_ks_subscription_limit_almost_reached";
+            public override string WarningCode { get; } = "being_deleted";
 
             public override string ToString()
             {
@@ -528,22 +416,20 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsSystemWarningsTimeZoneDoesNotMatchLocation_model")]
-        public class AcsSystemWarningsTimeZoneDoesNotMatchLocation : AcsSystemWarnings
+        [DataContract(Name = "seamModel_unmanagedAcsUserWarningsSaltoKsUserNotSubscribed_model")]
+        public class UnmanagedAcsUserWarningsSaltoKsUserNotSubscribed : UnmanagedAcsUserWarnings
         {
             [JsonConstructorAttribute]
-            protected AcsSystemWarningsTimeZoneDoesNotMatchLocation() { }
+            protected UnmanagedAcsUserWarningsSaltoKsUserNotSubscribed() { }
 
-            public AcsSystemWarningsTimeZoneDoesNotMatchLocation(
+            public UnmanagedAcsUserWarningsSaltoKsUserNotSubscribed(
                 string createdAt = default,
                 string message = default,
-                List<string>? misconfiguredAcsEntranceIds = default,
                 string warningCode = default
             )
             {
                 CreatedAt = createdAt;
                 Message = message;
-                MisconfiguredAcsEntranceIds = misconfiguredAcsEntranceIds;
                 WarningCode = warningCode;
             }
 
@@ -553,15 +439,8 @@ namespace Seam.Model
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public string Message { get; set; }
 
-            [DataMember(
-                Name = "misconfigured_acs_entrance_ids",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public List<string>? MisconfiguredAcsEntranceIds { get; set; }
-
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "time_zone_does_not_match_location";
+            public override string WarningCode { get; } = "salto_ks_user_not_subscribed";
 
             public override string ToString()
             {
@@ -582,55 +461,79 @@ namespace Seam.Model
                 return stringWriter.ToString();
             }
         }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserWarningsUnknownIssueWithAcsUser_model")]
+        public class UnmanagedAcsUserWarningsUnknownIssueWithAcsUser : UnmanagedAcsUserWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserWarningsUnknownIssueWithAcsUser() { }
+
+            public UnmanagedAcsUserWarningsUnknownIssueWithAcsUser(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown_issue_with_acs_user";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
+        public UnmanagedAcsUserAccessSchedule? AccessSchedule { get; set; }
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
-        [DataMember(
-            Name = "can_add_acs_users_to_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanAddAcsUsersToAcsAccessGroups { get; set; }
-
-        [DataMember(Name = "can_automate_enrollment", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanAutomateEnrollment { get; set; }
-
-        [DataMember(
-            Name = "can_create_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanCreateAcsAccessGroups { get; set; }
-
-        [DataMember(
-            Name = "can_remove_acs_users_from_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanRemoveAcsUsersFromAcsAccessGroups { get; set; }
-
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ConnectedAccountId { get; set; }
-
-        [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
-        public List<string> ConnectedAccountIds { get; set; }
+        [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsUserId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(
-            Name = "default_credential_manager_acs_system_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? DefaultCredentialManagerAcsSystemId { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
+        public string? Email { get; set; }
+
+        [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+        public string? EmailAddress { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsSystemErrors> Errors { get; set; }
+        public List<UnmanagedAcsUserErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystem.ExternalTypeEnum? ExternalType { get; set; }
+        public UnmanagedAcsUser.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
@@ -639,36 +542,57 @@ namespace Seam.Model
         )]
         public string? ExternalTypeDisplayName { get; set; }
 
-        [DataMember(Name = "image_alt_text", IsRequired = true, EmitDefaultValue = false)]
-        public string ImageAltText { get; set; }
+        [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? FullName { get; set; }
 
-        [DataMember(Name = "image_url", IsRequired = true, EmitDefaultValue = false)]
-        public string ImageUrl { get; set; }
-
-        [DataMember(Name = "is_credential_manager", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsCredentialManager { get; set; }
-
-        [DataMember(Name = "location", IsRequired = true, EmitDefaultValue = false)]
-        public AcsSystemLocation Location { get; set; }
-
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-        public string Name { get; set; }
-
-        [DataMember(Name = "system_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystem.SystemTypeEnum? SystemType { get; set; }
+        [DataMember(Name = "hid_acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? HidAcsSystemId { get; set; }
 
         [DataMember(
-            Name = "system_type_display_name",
+            Name = "is_latest_desired_state_synced_with_provider",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? SystemTypeDisplayName { get; set; }
+        public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
 
-        [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
+        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsManaged { get; set; }
+
+        [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsSuspended { get; set; }
+
+        [DataMember(
+            Name = "latest_desired_state_synced_with_provider_at",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? LatestDesiredStateSyncedWithProviderAt { get; set; }
+
+        [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+        public string? PhoneNumber { get; set; }
+
+        [DataMember(
+            Name = "user_identity_email_address",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserIdentityEmailAddress { get; set; }
+
+        [DataMember(Name = "user_identity_full_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityFullName { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
+
+        [DataMember(
+            Name = "user_identity_phone_number",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserIdentityPhoneNumber { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsSystemWarnings> Warnings { get; set; }
+        public List<UnmanagedAcsUserWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -693,65 +617,23 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsSystemLocation_model")]
-    public class AcsSystemLocation
+    [DataContract(Name = "seamModel_unmanagedAcsUserAccessSchedule_model")]
+    public class UnmanagedAcsUserAccessSchedule
     {
         [JsonConstructorAttribute]
-        protected AcsSystemLocation() { }
+        protected UnmanagedAcsUserAccessSchedule() { }
 
-        public AcsSystemLocation(string? timeZone = default)
+        public UnmanagedAcsUserAccessSchedule(string? endsAt = default, string startsAt = default)
         {
-            TimeZone = timeZone;
+            EndsAt = endsAt;
+            StartsAt = startsAt;
         }
 
-        [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string? TimeZone { get; set; }
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndsAt { get; set; }
 
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_acsSystemVisionlineMetadata_model")]
-    public class AcsSystemVisionlineMetadata
-    {
-        [JsonConstructorAttribute]
-        protected AcsSystemVisionlineMetadata() { }
-
-        public AcsSystemVisionlineMetadata(
-            string lanAddress = default,
-            string mobileAccessUuid = default,
-            string systemId = default
-        )
-        {
-            LanAddress = lanAddress;
-            MobileAccessUuid = mobileAccessUuid;
-            SystemId = systemId;
-        }
-
-        [DataMember(Name = "lan_address", IsRequired = true, EmitDefaultValue = false)]
-        public string LanAddress { get; set; }
-
-        [DataMember(Name = "mobile_access_uuid", IsRequired = true, EmitDefaultValue = false)]
-        public string MobileAccessUuid { get; set; }
-
-        [DataMember(Name = "system_id", IsRequired = true, EmitDefaultValue = false)]
-        public string SystemId { get; set; }
+        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        public string StartsAt { get; set; }
 
         public override string ToString()
         {

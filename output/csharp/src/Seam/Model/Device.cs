@@ -33,12 +33,12 @@ namespace Seam.Model
             string deviceId = default,
             Device.DeviceTypeEnum deviceType = default,
             string displayName = default,
-            List<JObject> errors = default,
+            List<DeviceErrors> errors = default,
             bool isManaged = default,
             DeviceLocation? location = default,
             string? nickname = default,
             DeviceProperties properties = default,
-            List<JObject> warnings = default,
+            List<DeviceWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -206,6 +206,1427 @@ namespace Seam.Model
             AndroidPhone = 35,
         }
 
+        [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsInvalidCredentials), "invalid_credentials")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsAccountDisconnected), "account_disconnected")]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsSubscriptionRequired),
+            "subscription_required"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsAuxiliaryHeatRunning),
+            "auxiliary_heat_running"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsMissingDeviceCredentials),
+            "missing_device_credentials"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsTtlockLockNotPairedToGateway),
+            "ttlock_lock_not_paired_to_gateway"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsSaltoSiteUserLimitReached),
+            "salto_site_user_limit_reached"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsAugustLockMissingBridge),
+            "august_lock_missing_bridge"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsAugustLockNotAuthorized),
+            "august_lock_not_authorized"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsEmptyBackupAccessCodePool),
+            "empty_backup_access_code_pool"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsDeviceDisconnected), "device_disconnected")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsHubDisconnected), "hub_disconnected")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsDeviceRemoved), "device_removed")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceErrorsDeviceOffline), "device_offline")]
+        public abstract class DeviceErrors
+        {
+            public abstract string ErrorCode { get; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsDeviceOffline_model")]
+        public class DeviceErrorsDeviceOffline : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsDeviceOffline() { }
+
+            public DeviceErrorsDeviceOffline(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "device_offline";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsDeviceRemoved_model")]
+        public class DeviceErrorsDeviceRemoved : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsDeviceRemoved() { }
+
+            public DeviceErrorsDeviceRemoved(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "device_removed";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsHubDisconnected_model")]
+        public class DeviceErrorsHubDisconnected : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsHubDisconnected() { }
+
+            public DeviceErrorsHubDisconnected(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "hub_disconnected";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsDeviceDisconnected_model")]
+        public class DeviceErrorsDeviceDisconnected : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsDeviceDisconnected() { }
+
+            public DeviceErrorsDeviceDisconnected(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "device_disconnected";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsEmptyBackupAccessCodePool_model")]
+        public class DeviceErrorsEmptyBackupAccessCodePool : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsEmptyBackupAccessCodePool() { }
+
+            public DeviceErrorsEmptyBackupAccessCodePool(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "empty_backup_access_code_pool";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsAugustLockNotAuthorized_model")]
+        public class DeviceErrorsAugustLockNotAuthorized : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsAugustLockNotAuthorized() { }
+
+            public DeviceErrorsAugustLockNotAuthorized(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "august_lock_not_authorized";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsAugustLockMissingBridge_model")]
+        public class DeviceErrorsAugustLockMissingBridge : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsAugustLockMissingBridge() { }
+
+            public DeviceErrorsAugustLockMissingBridge(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "august_lock_missing_bridge";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsSaltoSiteUserLimitReached_model")]
+        public class DeviceErrorsSaltoSiteUserLimitReached : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsSaltoSiteUserLimitReached() { }
+
+            public DeviceErrorsSaltoSiteUserLimitReached(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "salto_site_user_limit_reached";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsTtlockLockNotPairedToGateway_model")]
+        public class DeviceErrorsTtlockLockNotPairedToGateway : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsTtlockLockNotPairedToGateway() { }
+
+            public DeviceErrorsTtlockLockNotPairedToGateway(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "ttlock_lock_not_paired_to_gateway";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsMissingDeviceCredentials_model")]
+        public class DeviceErrorsMissingDeviceCredentials : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsMissingDeviceCredentials() { }
+
+            public DeviceErrorsMissingDeviceCredentials(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "missing_device_credentials";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsAuxiliaryHeatRunning_model")]
+        public class DeviceErrorsAuxiliaryHeatRunning : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsAuxiliaryHeatRunning() { }
+
+            public DeviceErrorsAuxiliaryHeatRunning(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "auxiliary_heat_running";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsSubscriptionRequired_model")]
+        public class DeviceErrorsSubscriptionRequired : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsSubscriptionRequired() { }
+
+            public DeviceErrorsSubscriptionRequired(
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "subscription_required";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsAccountDisconnected_model")]
+        public class DeviceErrorsAccountDisconnected : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsAccountDisconnected() { }
+
+            public DeviceErrorsAccountDisconnected(
+                string errorCode = default,
+                bool isConnectedAccountError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsConnectedAccountError = isConnectedAccountError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "account_disconnected";
+
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public bool IsConnectedAccountError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsInvalidCredentials_model")]
+        public class DeviceErrorsInvalidCredentials : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsInvalidCredentials() { }
+
+            public DeviceErrorsInvalidCredentials(
+                string errorCode = default,
+                bool isConnectedAccountError = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                IsConnectedAccountError = isConnectedAccountError;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "invalid_credentials";
+
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public bool IsConnectedAccountError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsUnknownIssueWithPhone),
+            "unknown_issue_with_phone"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(DeviceWarningsSaltoPrivacyMode), "salto_privacy_mode")]
+        [JsonSubtypes.KnownSubType(typeof(DeviceWarningsSaltoOfficeMode), "salto_office_mode")]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsDeviceHasFlakyConnection),
+            "device_has_flaky_connection"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsScheduledMaintenanceWindow),
+            "scheduled_maintenance_window"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsDeviceCommunicationDegraded),
+            "device_communication_degraded"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsTemperatureThresholdExceeded),
+            "temperature_threshold_exceeded"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsTtlockWeakGatewaySignal),
+            "ttlock_weak_gateway_signal"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsTtlockLockGatewayUnlockingNotEnabled),
+            "ttlock_lock_gateway_unlocking_not_enabled"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsNestThermostatInManualEcoMode),
+            "nest_thermostat_in_manual_eco_mode"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsThirdPartyIntegrationDetected),
+            "third_party_integration_detected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsFunctionalOfflineDevice),
+            "functional_offline_device"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsWyzeDeviceMissingGateway),
+            "wyze_device_missing_gateway"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsSaltoUnknownDeviceType),
+            "salto_unknown_device_type"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsManyActiveBackupCodes),
+            "many_active_backup_codes"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsPartialBackupAccessCodePool),
+            "partial_backup_access_code_pool"
+        )]
+        public abstract class DeviceWarnings
+        {
+            public abstract string WarningCode { get; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsPartialBackupAccessCodePool_model")]
+        public class DeviceWarningsPartialBackupAccessCodePool : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsPartialBackupAccessCodePool() { }
+
+            public DeviceWarningsPartialBackupAccessCodePool(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "partial_backup_access_code_pool";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsManyActiveBackupCodes_model")]
+        public class DeviceWarningsManyActiveBackupCodes : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsManyActiveBackupCodes() { }
+
+            public DeviceWarningsManyActiveBackupCodes(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "many_active_backup_codes";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsSaltoUnknownDeviceType_model")]
+        public class DeviceWarningsSaltoUnknownDeviceType : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsSaltoUnknownDeviceType() { }
+
+            public DeviceWarningsSaltoUnknownDeviceType(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "salto_unknown_device_type";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsWyzeDeviceMissingGateway_model")]
+        public class DeviceWarningsWyzeDeviceMissingGateway : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsWyzeDeviceMissingGateway() { }
+
+            public DeviceWarningsWyzeDeviceMissingGateway(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "wyze_device_missing_gateway";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsFunctionalOfflineDevice_model")]
+        public class DeviceWarningsFunctionalOfflineDevice : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsFunctionalOfflineDevice() { }
+
+            public DeviceWarningsFunctionalOfflineDevice(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "functional_offline_device";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsThirdPartyIntegrationDetected_model")]
+        public class DeviceWarningsThirdPartyIntegrationDetected : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsThirdPartyIntegrationDetected() { }
+
+            public DeviceWarningsThirdPartyIntegrationDetected(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "third_party_integration_detected";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsNestThermostatInManualEcoMode_model")]
+        public class DeviceWarningsNestThermostatInManualEcoMode : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsNestThermostatInManualEcoMode() { }
+
+            public DeviceWarningsNestThermostatInManualEcoMode(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "nest_thermostat_in_manual_eco_mode";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsTtlockLockGatewayUnlockingNotEnabled_model")]
+        public class DeviceWarningsTtlockLockGatewayUnlockingNotEnabled : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsTtlockLockGatewayUnlockingNotEnabled() { }
+
+            public DeviceWarningsTtlockLockGatewayUnlockingNotEnabled(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } =
+                "ttlock_lock_gateway_unlocking_not_enabled";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsTtlockWeakGatewaySignal_model")]
+        public class DeviceWarningsTtlockWeakGatewaySignal : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsTtlockWeakGatewaySignal() { }
+
+            public DeviceWarningsTtlockWeakGatewaySignal(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "ttlock_weak_gateway_signal";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsTemperatureThresholdExceeded_model")]
+        public class DeviceWarningsTemperatureThresholdExceeded : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsTemperatureThresholdExceeded() { }
+
+            public DeviceWarningsTemperatureThresholdExceeded(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "temperature_threshold_exceeded";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsDeviceCommunicationDegraded_model")]
+        public class DeviceWarningsDeviceCommunicationDegraded : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsDeviceCommunicationDegraded() { }
+
+            public DeviceWarningsDeviceCommunicationDegraded(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "device_communication_degraded";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsScheduledMaintenanceWindow_model")]
+        public class DeviceWarningsScheduledMaintenanceWindow : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsScheduledMaintenanceWindow() { }
+
+            public DeviceWarningsScheduledMaintenanceWindow(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "scheduled_maintenance_window";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsDeviceHasFlakyConnection_model")]
+        public class DeviceWarningsDeviceHasFlakyConnection : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsDeviceHasFlakyConnection() { }
+
+            public DeviceWarningsDeviceHasFlakyConnection(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "device_has_flaky_connection";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsSaltoOfficeMode_model")]
+        public class DeviceWarningsSaltoOfficeMode : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsSaltoOfficeMode() { }
+
+            public DeviceWarningsSaltoOfficeMode(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "salto_office_mode";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsSaltoPrivacyMode_model")]
+        public class DeviceWarningsSaltoPrivacyMode : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsSaltoPrivacyMode() { }
+
+            public DeviceWarningsSaltoPrivacyMode(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "salto_privacy_mode";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsUnknownIssueWithPhone_model")]
+        public class DeviceWarningsUnknownIssueWithPhone : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsUnknownIssueWithPhone() { }
+
+            public DeviceWarningsUnknownIssueWithPhone(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown_issue_with_phone";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
@@ -273,7 +1694,7 @@ namespace Seam.Model
         public string DisplayName { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<JObject> Errors { get; set; }
+        public List<DeviceErrors> Errors { get; set; }
 
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
@@ -288,7 +1709,7 @@ namespace Seam.Model
         public DeviceProperties Properties { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<JObject> Warnings { get; set; }
+        public List<DeviceWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -378,6 +1799,8 @@ namespace Seam.Model
             bool? supportsOfflineAccessCodes = default,
             DevicePropertiesAssaAbloyCredentialServiceMetadata? assaAbloyCredentialServiceMetadata =
                 default,
+            DevicePropertiesSaltoSpaceCredentialServiceMetadata? saltoSpaceCredentialServiceMetadata =
+                default,
             DevicePropertiesAkilesMetadata? akilesMetadata = default,
             DevicePropertiesAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             DevicePropertiesAugustMetadata? augustMetadata = default,
@@ -466,6 +1889,7 @@ namespace Seam.Model
             SupportsAccessoryKeypad = supportsAccessoryKeypad;
             SupportsOfflineAccessCodes = supportsOfflineAccessCodes;
             AssaAbloyCredentialServiceMetadata = assaAbloyCredentialServiceMetadata;
+            SaltoSpaceCredentialServiceMetadata = saltoSpaceCredentialServiceMetadata;
             AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             AugustMetadata = augustMetadata;
@@ -666,6 +2090,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public DevicePropertiesAssaAbloyCredentialServiceMetadata? AssaAbloyCredentialServiceMetadata { get; set; }
+
+        [DataMember(
+            Name = "salto_space_credential_service_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public DevicePropertiesSaltoSpaceCredentialServiceMetadata? SaltoSpaceCredentialServiceMetadata { get; set; }
 
         [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAkilesMetadata? AkilesMetadata { get; set; }
@@ -1291,6 +2722,40 @@ namespace Seam.Model
 
         [DataMember(Name = "is_active", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsActive { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesSaltoSpaceCredentialServiceMetadata_model")]
+    public class DevicePropertiesSaltoSpaceCredentialServiceMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesSaltoSpaceCredentialServiceMetadata() { }
+
+        public DevicePropertiesSaltoSpaceCredentialServiceMetadata(bool? hasActivePhone = default)
+        {
+            HasActivePhone = hasActivePhone;
+        }
+
+        [DataMember(Name = "has_active_phone", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasActivePhone { get; set; }
 
         public override string ToString()
         {

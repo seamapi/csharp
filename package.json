@@ -58,8 +58,8 @@
     "npm": ">= 8.1.0"
   },
   "devDependencies": {
-    "@seamapi/nextlove-sdk-generator": "^1.15.3",
-    "@seamapi/types": "^1.332.1",
+    "@seamapi/nextlove-sdk-generator": "^1.15.7",
+    "@seamapi/types": "^1.344.3",
     "@types/node": "^18.19.11",
     "ava": "^5.0.1",
     "axios": "^1.5.0",
