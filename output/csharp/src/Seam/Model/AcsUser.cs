@@ -22,7 +22,7 @@ namespace Seam.Model
             string displayName = default,
             string? email = default,
             string? emailAddress = default,
-            List<Errors> errors = default,
+            List<AcsUserErrors> errors = default,
             AcsUser.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
             string? fullName = default,
@@ -36,7 +36,7 @@ namespace Seam.Model
             string? userIdentityFullName = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default,
-            List<Warnings> warnings = default,
+            List<AcsUserWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -67,36 +67,36 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsFailedToDeleteOnAcsSystem),
+            typeof(AcsUserErrorsFailedToDeleteOnAcsSystem),
             "failed_to_delete_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsFailedToUpdateOnAcsSystem),
+            typeof(AcsUserErrorsFailedToUpdateOnAcsSystem),
             "failed_to_update_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsFailedToCreateOnAcsSystem),
+            typeof(AcsUserErrorsFailedToCreateOnAcsSystem),
             "failed_to_create_on_acs_system"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoKsSubscriptionLimitExceeded),
+            typeof(AcsUserErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeletedExternally), "deleted_externally")]
-        public abstract class Errors
+        [JsonSubtypes.KnownSubType(typeof(AcsUserErrorsDeletedExternally), "deleted_externally")]
+        public abstract class AcsUserErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_errorsDeletedExternally_model")]
-        public class ErrorsDeletedExternally : Errors
+        [DataContract(Name = "seamModel_acsUserErrorsDeletedExternally_model")]
+        public class AcsUserErrorsDeletedExternally : AcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeletedExternally() { }
+            protected AcsUserErrorsDeletedExternally() { }
 
-            public ErrorsDeletedExternally(
+            public AcsUserErrorsDeletedExternally(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -136,13 +136,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoKsSubscriptionLimitExceeded_model")]
-        public class ErrorsSaltoKsSubscriptionLimitExceeded : Errors
+        [DataContract(Name = "seamModel_acsUserErrorsSaltoKsSubscriptionLimitExceeded_model")]
+        public class AcsUserErrorsSaltoKsSubscriptionLimitExceeded : AcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoKsSubscriptionLimitExceeded() { }
+            protected AcsUserErrorsSaltoKsSubscriptionLimitExceeded() { }
 
-            public ErrorsSaltoKsSubscriptionLimitExceeded(
+            public AcsUserErrorsSaltoKsSubscriptionLimitExceeded(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -182,13 +182,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsFailedToCreateOnAcsSystem_model")]
-        public class ErrorsFailedToCreateOnAcsSystem : Errors
+        [DataContract(Name = "seamModel_acsUserErrorsFailedToCreateOnAcsSystem_model")]
+        public class AcsUserErrorsFailedToCreateOnAcsSystem : AcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsFailedToCreateOnAcsSystem() { }
+            protected AcsUserErrorsFailedToCreateOnAcsSystem() { }
 
-            public ErrorsFailedToCreateOnAcsSystem(
+            public AcsUserErrorsFailedToCreateOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -228,13 +228,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsFailedToUpdateOnAcsSystem_model")]
-        public class ErrorsFailedToUpdateOnAcsSystem : Errors
+        [DataContract(Name = "seamModel_acsUserErrorsFailedToUpdateOnAcsSystem_model")]
+        public class AcsUserErrorsFailedToUpdateOnAcsSystem : AcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsFailedToUpdateOnAcsSystem() { }
+            protected AcsUserErrorsFailedToUpdateOnAcsSystem() { }
 
-            public ErrorsFailedToUpdateOnAcsSystem(
+            public AcsUserErrorsFailedToUpdateOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -274,13 +274,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsFailedToDeleteOnAcsSystem_model")]
-        public class ErrorsFailedToDeleteOnAcsSystem : Errors
+        [DataContract(Name = "seamModel_acsUserErrorsFailedToDeleteOnAcsSystem_model")]
+        public class AcsUserErrorsFailedToDeleteOnAcsSystem : AcsUserErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsFailedToDeleteOnAcsSystem() { }
+            protected AcsUserErrorsFailedToDeleteOnAcsSystem() { }
 
-            public ErrorsFailedToDeleteOnAcsSystem(
+            public AcsUserErrorsFailedToDeleteOnAcsSystem(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -350,28 +350,28 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsUnknownIssueWithAcsUser),
+            typeof(AcsUserWarningsUnknownIssueWithAcsUser),
             "unknown_issue_with_acs_user"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSaltoKsUserNotSubscribed),
+            typeof(AcsUserWarningsSaltoKsUserNotSubscribed),
             "salto_ks_user_not_subscribed"
         )]
-        [JsonSubtypes.KnownSubType(typeof(WarningsBeingDeleted), "being_deleted")]
-        public abstract class Warnings
+        [JsonSubtypes.KnownSubType(typeof(AcsUserWarningsBeingDeleted), "being_deleted")]
+        public abstract class AcsUserWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsBeingDeleted_model")]
-        public class WarningsBeingDeleted : Warnings
+        [DataContract(Name = "seamModel_acsUserWarningsBeingDeleted_model")]
+        public class AcsUserWarningsBeingDeleted : AcsUserWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsBeingDeleted() { }
+            protected AcsUserWarningsBeingDeleted() { }
 
-            public WarningsBeingDeleted(
+            public AcsUserWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -411,13 +411,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSaltoKsUserNotSubscribed_model")]
-        public class WarningsSaltoKsUserNotSubscribed : Warnings
+        [DataContract(Name = "seamModel_acsUserWarningsSaltoKsUserNotSubscribed_model")]
+        public class AcsUserWarningsSaltoKsUserNotSubscribed : AcsUserWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSaltoKsUserNotSubscribed() { }
+            protected AcsUserWarningsSaltoKsUserNotSubscribed() { }
 
-            public WarningsSaltoKsUserNotSubscribed(
+            public AcsUserWarningsSaltoKsUserNotSubscribed(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -457,13 +457,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsUnknownIssueWithAcsUser_model")]
-        public class WarningsUnknownIssueWithAcsUser : Warnings
+        [DataContract(Name = "seamModel_acsUserWarningsUnknownIssueWithAcsUser_model")]
+        public class AcsUserWarningsUnknownIssueWithAcsUser : AcsUserWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsUnknownIssueWithAcsUser() { }
+            protected AcsUserWarningsUnknownIssueWithAcsUser() { }
 
-            public WarningsUnknownIssueWithAcsUser(
+            public AcsUserWarningsUnknownIssueWithAcsUser(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -525,7 +525,7 @@ namespace Seam.Model
         public string? EmailAddress { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<Errors> Errors { get; set; }
+        public List<AcsUserErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsUser.ExternalTypeEnum? ExternalType { get; set; }
@@ -587,7 +587,7 @@ namespace Seam.Model
         public string? UserIdentityPhoneNumber { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<AcsUserWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

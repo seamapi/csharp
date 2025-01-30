@@ -32,12 +32,12 @@ namespace Seam.Model
             string deviceId = default,
             Phone.DeviceTypeEnum deviceType = default,
             string displayName = default,
-            List<Errors> errors = default,
+            List<PhoneErrors> errors = default,
             bool isManaged = default,
             PhoneLocation? location = default,
             string? nickname = default,
             PhoneProperties properties = default,
-            List<Warnings> warnings = default,
+            List<PhoneWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -106,52 +106,58 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsInvalidCredentials), "invalid_credentials")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAccountDisconnected), "account_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsSubscriptionRequired), "subscription_required")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAuxiliaryHeatRunning), "auxiliary_heat_running")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsInvalidCredentials), "invalid_credentials")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsAccountDisconnected), "account_disconnected")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsMissingDeviceCredentials),
+            typeof(PhoneErrorsSubscriptionRequired),
+            "subscription_required"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(PhoneErrorsAuxiliaryHeatRunning),
+            "auxiliary_heat_running"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(PhoneErrorsMissingDeviceCredentials),
             "missing_device_credentials"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsTtlockLockNotPairedToGateway),
+            typeof(PhoneErrorsTtlockLockNotPairedToGateway),
             "ttlock_lock_not_paired_to_gateway"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoSiteUserLimitReached),
+            typeof(PhoneErrorsSaltoSiteUserLimitReached),
             "salto_site_user_limit_reached"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockMissingBridge),
+            typeof(PhoneErrorsAugustLockMissingBridge),
             "august_lock_missing_bridge"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockNotAuthorized),
+            typeof(PhoneErrorsAugustLockNotAuthorized),
             "august_lock_not_authorized"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsEmptyBackupAccessCodePool),
+            typeof(PhoneErrorsEmptyBackupAccessCodePool),
             "empty_backup_access_code_pool"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceDisconnected), "device_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsHubDisconnected), "hub_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceRemoved), "device_removed")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceOffline), "device_offline")]
-        public abstract class Errors
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsDeviceDisconnected), "device_disconnected")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsHubDisconnected), "hub_disconnected")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsDeviceRemoved), "device_removed")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneErrorsDeviceOffline), "device_offline")]
+        public abstract class PhoneErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceOffline_model")]
-        public class ErrorsDeviceOffline : Errors
+        [DataContract(Name = "seamModel_phoneErrorsDeviceOffline_model")]
+        public class PhoneErrorsDeviceOffline : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceOffline() { }
+            protected PhoneErrorsDeviceOffline() { }
 
-            public ErrorsDeviceOffline(
+            public PhoneErrorsDeviceOffline(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -191,13 +197,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceRemoved_model")]
-        public class ErrorsDeviceRemoved : Errors
+        [DataContract(Name = "seamModel_phoneErrorsDeviceRemoved_model")]
+        public class PhoneErrorsDeviceRemoved : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceRemoved() { }
+            protected PhoneErrorsDeviceRemoved() { }
 
-            public ErrorsDeviceRemoved(
+            public PhoneErrorsDeviceRemoved(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -237,13 +243,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsHubDisconnected_model")]
-        public class ErrorsHubDisconnected : Errors
+        [DataContract(Name = "seamModel_phoneErrorsHubDisconnected_model")]
+        public class PhoneErrorsHubDisconnected : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsHubDisconnected() { }
+            protected PhoneErrorsHubDisconnected() { }
 
-            public ErrorsHubDisconnected(
+            public PhoneErrorsHubDisconnected(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -283,13 +289,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceDisconnected_model")]
-        public class ErrorsDeviceDisconnected : Errors
+        [DataContract(Name = "seamModel_phoneErrorsDeviceDisconnected_model")]
+        public class PhoneErrorsDeviceDisconnected : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceDisconnected() { }
+            protected PhoneErrorsDeviceDisconnected() { }
 
-            public ErrorsDeviceDisconnected(
+            public PhoneErrorsDeviceDisconnected(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -329,13 +335,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsEmptyBackupAccessCodePool_model")]
-        public class ErrorsEmptyBackupAccessCodePool : Errors
+        [DataContract(Name = "seamModel_phoneErrorsEmptyBackupAccessCodePool_model")]
+        public class PhoneErrorsEmptyBackupAccessCodePool : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsEmptyBackupAccessCodePool() { }
+            protected PhoneErrorsEmptyBackupAccessCodePool() { }
 
-            public ErrorsEmptyBackupAccessCodePool(
+            public PhoneErrorsEmptyBackupAccessCodePool(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -375,13 +381,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockNotAuthorized_model")]
-        public class ErrorsAugustLockNotAuthorized : Errors
+        [DataContract(Name = "seamModel_phoneErrorsAugustLockNotAuthorized_model")]
+        public class PhoneErrorsAugustLockNotAuthorized : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockNotAuthorized() { }
+            protected PhoneErrorsAugustLockNotAuthorized() { }
 
-            public ErrorsAugustLockNotAuthorized(
+            public PhoneErrorsAugustLockNotAuthorized(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -421,13 +427,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockMissingBridge_model")]
-        public class ErrorsAugustLockMissingBridge : Errors
+        [DataContract(Name = "seamModel_phoneErrorsAugustLockMissingBridge_model")]
+        public class PhoneErrorsAugustLockMissingBridge : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockMissingBridge() { }
+            protected PhoneErrorsAugustLockMissingBridge() { }
 
-            public ErrorsAugustLockMissingBridge(
+            public PhoneErrorsAugustLockMissingBridge(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -467,13 +473,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoSiteUserLimitReached_model")]
-        public class ErrorsSaltoSiteUserLimitReached : Errors
+        [DataContract(Name = "seamModel_phoneErrorsSaltoSiteUserLimitReached_model")]
+        public class PhoneErrorsSaltoSiteUserLimitReached : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoSiteUserLimitReached() { }
+            protected PhoneErrorsSaltoSiteUserLimitReached() { }
 
-            public ErrorsSaltoSiteUserLimitReached(
+            public PhoneErrorsSaltoSiteUserLimitReached(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -513,13 +519,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsTtlockLockNotPairedToGateway_model")]
-        public class ErrorsTtlockLockNotPairedToGateway : Errors
+        [DataContract(Name = "seamModel_phoneErrorsTtlockLockNotPairedToGateway_model")]
+        public class PhoneErrorsTtlockLockNotPairedToGateway : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsTtlockLockNotPairedToGateway() { }
+            protected PhoneErrorsTtlockLockNotPairedToGateway() { }
 
-            public ErrorsTtlockLockNotPairedToGateway(
+            public PhoneErrorsTtlockLockNotPairedToGateway(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -559,13 +565,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsMissingDeviceCredentials_model")]
-        public class ErrorsMissingDeviceCredentials : Errors
+        [DataContract(Name = "seamModel_phoneErrorsMissingDeviceCredentials_model")]
+        public class PhoneErrorsMissingDeviceCredentials : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsMissingDeviceCredentials() { }
+            protected PhoneErrorsMissingDeviceCredentials() { }
 
-            public ErrorsMissingDeviceCredentials(
+            public PhoneErrorsMissingDeviceCredentials(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -605,13 +611,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAuxiliaryHeatRunning_model")]
-        public class ErrorsAuxiliaryHeatRunning : Errors
+        [DataContract(Name = "seamModel_phoneErrorsAuxiliaryHeatRunning_model")]
+        public class PhoneErrorsAuxiliaryHeatRunning : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAuxiliaryHeatRunning() { }
+            protected PhoneErrorsAuxiliaryHeatRunning() { }
 
-            public ErrorsAuxiliaryHeatRunning(
+            public PhoneErrorsAuxiliaryHeatRunning(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -651,13 +657,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSubscriptionRequired_model")]
-        public class ErrorsSubscriptionRequired : Errors
+        [DataContract(Name = "seamModel_phoneErrorsSubscriptionRequired_model")]
+        public class PhoneErrorsSubscriptionRequired : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSubscriptionRequired() { }
+            protected PhoneErrorsSubscriptionRequired() { }
 
-            public ErrorsSubscriptionRequired(
+            public PhoneErrorsSubscriptionRequired(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -697,13 +703,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAccountDisconnected_model")]
-        public class ErrorsAccountDisconnected : Errors
+        [DataContract(Name = "seamModel_phoneErrorsAccountDisconnected_model")]
+        public class PhoneErrorsAccountDisconnected : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAccountDisconnected() { }
+            protected PhoneErrorsAccountDisconnected() { }
 
-            public ErrorsAccountDisconnected(
+            public PhoneErrorsAccountDisconnected(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -747,13 +753,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsInvalidCredentials_model")]
-        public class ErrorsInvalidCredentials : Errors
+        [DataContract(Name = "seamModel_phoneErrorsInvalidCredentials_model")]
+        public class PhoneErrorsInvalidCredentials : PhoneErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsInvalidCredentials() { }
+            protected PhoneErrorsInvalidCredentials() { }
 
-            public ErrorsInvalidCredentials(
+            public PhoneErrorsInvalidCredentials(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -799,77 +805,77 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsUnknownIssueWithPhone),
+            typeof(PhoneWarningsUnknownIssueWithPhone),
             "unknown_issue_with_phone"
         )]
-        [JsonSubtypes.KnownSubType(typeof(WarningsSaltoPrivacyMode), "salto_privacy_mode")]
-        [JsonSubtypes.KnownSubType(typeof(WarningsSaltoOfficeMode), "salto_office_mode")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneWarningsSaltoPrivacyMode), "salto_privacy_mode")]
+        [JsonSubtypes.KnownSubType(typeof(PhoneWarningsSaltoOfficeMode), "salto_office_mode")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsDeviceHasFlakyConnection),
+            typeof(PhoneWarningsDeviceHasFlakyConnection),
             "device_has_flaky_connection"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsScheduledMaintenanceWindow),
+            typeof(PhoneWarningsScheduledMaintenanceWindow),
             "scheduled_maintenance_window"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsDeviceCommunicationDegraded),
+            typeof(PhoneWarningsDeviceCommunicationDegraded),
             "device_communication_degraded"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsTemperatureThresholdExceeded),
+            typeof(PhoneWarningsTemperatureThresholdExceeded),
             "temperature_threshold_exceeded"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsTtlockWeakGatewaySignal),
+            typeof(PhoneWarningsTtlockWeakGatewaySignal),
             "ttlock_weak_gateway_signal"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsTtlockLockGatewayUnlockingNotEnabled),
+            typeof(PhoneWarningsTtlockLockGatewayUnlockingNotEnabled),
             "ttlock_lock_gateway_unlocking_not_enabled"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsNestThermostatInManualEcoMode),
+            typeof(PhoneWarningsNestThermostatInManualEcoMode),
             "nest_thermostat_in_manual_eco_mode"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsThirdPartyIntegrationDetected),
+            typeof(PhoneWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsFunctionalOfflineDevice),
+            typeof(PhoneWarningsFunctionalOfflineDevice),
             "functional_offline_device"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsWyzeDeviceMissingGateway),
+            typeof(PhoneWarningsWyzeDeviceMissingGateway),
             "wyze_device_missing_gateway"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSaltoUnknownDeviceType),
+            typeof(PhoneWarningsSaltoUnknownDeviceType),
             "salto_unknown_device_type"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsManyActiveBackupCodes),
+            typeof(PhoneWarningsManyActiveBackupCodes),
             "many_active_backup_codes"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsPartialBackupAccessCodePool),
+            typeof(PhoneWarningsPartialBackupAccessCodePool),
             "partial_backup_access_code_pool"
         )]
-        public abstract class Warnings
+        public abstract class PhoneWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsPartialBackupAccessCodePool_model")]
-        public class WarningsPartialBackupAccessCodePool : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsPartialBackupAccessCodePool_model")]
+        public class PhoneWarningsPartialBackupAccessCodePool : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsPartialBackupAccessCodePool() { }
+            protected PhoneWarningsPartialBackupAccessCodePool() { }
 
-            public WarningsPartialBackupAccessCodePool(
+            public PhoneWarningsPartialBackupAccessCodePool(
                 string message = default,
                 string warningCode = default
             )
@@ -904,13 +910,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsManyActiveBackupCodes_model")]
-        public class WarningsManyActiveBackupCodes : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsManyActiveBackupCodes_model")]
+        public class PhoneWarningsManyActiveBackupCodes : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsManyActiveBackupCodes() { }
+            protected PhoneWarningsManyActiveBackupCodes() { }
 
-            public WarningsManyActiveBackupCodes(
+            public PhoneWarningsManyActiveBackupCodes(
                 string message = default,
                 string warningCode = default
             )
@@ -945,13 +951,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSaltoUnknownDeviceType_model")]
-        public class WarningsSaltoUnknownDeviceType : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsSaltoUnknownDeviceType_model")]
+        public class PhoneWarningsSaltoUnknownDeviceType : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSaltoUnknownDeviceType() { }
+            protected PhoneWarningsSaltoUnknownDeviceType() { }
 
-            public WarningsSaltoUnknownDeviceType(
+            public PhoneWarningsSaltoUnknownDeviceType(
                 string message = default,
                 string warningCode = default
             )
@@ -986,13 +992,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsWyzeDeviceMissingGateway_model")]
-        public class WarningsWyzeDeviceMissingGateway : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsWyzeDeviceMissingGateway_model")]
+        public class PhoneWarningsWyzeDeviceMissingGateway : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsWyzeDeviceMissingGateway() { }
+            protected PhoneWarningsWyzeDeviceMissingGateway() { }
 
-            public WarningsWyzeDeviceMissingGateway(
+            public PhoneWarningsWyzeDeviceMissingGateway(
                 string message = default,
                 string warningCode = default
             )
@@ -1027,13 +1033,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsFunctionalOfflineDevice_model")]
-        public class WarningsFunctionalOfflineDevice : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsFunctionalOfflineDevice_model")]
+        public class PhoneWarningsFunctionalOfflineDevice : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsFunctionalOfflineDevice() { }
+            protected PhoneWarningsFunctionalOfflineDevice() { }
 
-            public WarningsFunctionalOfflineDevice(
+            public PhoneWarningsFunctionalOfflineDevice(
                 string message = default,
                 string warningCode = default
             )
@@ -1068,13 +1074,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsThirdPartyIntegrationDetected_model")]
-        public class WarningsThirdPartyIntegrationDetected : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsThirdPartyIntegrationDetected_model")]
+        public class PhoneWarningsThirdPartyIntegrationDetected : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsThirdPartyIntegrationDetected() { }
+            protected PhoneWarningsThirdPartyIntegrationDetected() { }
 
-            public WarningsThirdPartyIntegrationDetected(
+            public PhoneWarningsThirdPartyIntegrationDetected(
                 string message = default,
                 string warningCode = default
             )
@@ -1109,13 +1115,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsNestThermostatInManualEcoMode_model")]
-        public class WarningsNestThermostatInManualEcoMode : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsNestThermostatInManualEcoMode_model")]
+        public class PhoneWarningsNestThermostatInManualEcoMode : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsNestThermostatInManualEcoMode() { }
+            protected PhoneWarningsNestThermostatInManualEcoMode() { }
 
-            public WarningsNestThermostatInManualEcoMode(
+            public PhoneWarningsNestThermostatInManualEcoMode(
                 string message = default,
                 string warningCode = default
             )
@@ -1150,13 +1156,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsTtlockLockGatewayUnlockingNotEnabled_model")]
-        public class WarningsTtlockLockGatewayUnlockingNotEnabled : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsTtlockLockGatewayUnlockingNotEnabled_model")]
+        public class PhoneWarningsTtlockLockGatewayUnlockingNotEnabled : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsTtlockLockGatewayUnlockingNotEnabled() { }
+            protected PhoneWarningsTtlockLockGatewayUnlockingNotEnabled() { }
 
-            public WarningsTtlockLockGatewayUnlockingNotEnabled(
+            public PhoneWarningsTtlockLockGatewayUnlockingNotEnabled(
                 string message = default,
                 string warningCode = default
             )
@@ -1192,13 +1198,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsTtlockWeakGatewaySignal_model")]
-        public class WarningsTtlockWeakGatewaySignal : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsTtlockWeakGatewaySignal_model")]
+        public class PhoneWarningsTtlockWeakGatewaySignal : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsTtlockWeakGatewaySignal() { }
+            protected PhoneWarningsTtlockWeakGatewaySignal() { }
 
-            public WarningsTtlockWeakGatewaySignal(
+            public PhoneWarningsTtlockWeakGatewaySignal(
                 string message = default,
                 string warningCode = default
             )
@@ -1233,13 +1239,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsTemperatureThresholdExceeded_model")]
-        public class WarningsTemperatureThresholdExceeded : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsTemperatureThresholdExceeded_model")]
+        public class PhoneWarningsTemperatureThresholdExceeded : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsTemperatureThresholdExceeded() { }
+            protected PhoneWarningsTemperatureThresholdExceeded() { }
 
-            public WarningsTemperatureThresholdExceeded(
+            public PhoneWarningsTemperatureThresholdExceeded(
                 string message = default,
                 string warningCode = default
             )
@@ -1274,13 +1280,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsDeviceCommunicationDegraded_model")]
-        public class WarningsDeviceCommunicationDegraded : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsDeviceCommunicationDegraded_model")]
+        public class PhoneWarningsDeviceCommunicationDegraded : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsDeviceCommunicationDegraded() { }
+            protected PhoneWarningsDeviceCommunicationDegraded() { }
 
-            public WarningsDeviceCommunicationDegraded(
+            public PhoneWarningsDeviceCommunicationDegraded(
                 string message = default,
                 string warningCode = default
             )
@@ -1315,13 +1321,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsScheduledMaintenanceWindow_model")]
-        public class WarningsScheduledMaintenanceWindow : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsScheduledMaintenanceWindow_model")]
+        public class PhoneWarningsScheduledMaintenanceWindow : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsScheduledMaintenanceWindow() { }
+            protected PhoneWarningsScheduledMaintenanceWindow() { }
 
-            public WarningsScheduledMaintenanceWindow(
+            public PhoneWarningsScheduledMaintenanceWindow(
                 string message = default,
                 string warningCode = default
             )
@@ -1356,13 +1362,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsDeviceHasFlakyConnection_model")]
-        public class WarningsDeviceHasFlakyConnection : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsDeviceHasFlakyConnection_model")]
+        public class PhoneWarningsDeviceHasFlakyConnection : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsDeviceHasFlakyConnection() { }
+            protected PhoneWarningsDeviceHasFlakyConnection() { }
 
-            public WarningsDeviceHasFlakyConnection(
+            public PhoneWarningsDeviceHasFlakyConnection(
                 string message = default,
                 string warningCode = default
             )
@@ -1397,13 +1403,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSaltoOfficeMode_model")]
-        public class WarningsSaltoOfficeMode : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsSaltoOfficeMode_model")]
+        public class PhoneWarningsSaltoOfficeMode : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSaltoOfficeMode() { }
+            protected PhoneWarningsSaltoOfficeMode() { }
 
-            public WarningsSaltoOfficeMode(string message = default, string warningCode = default)
+            public PhoneWarningsSaltoOfficeMode(
+                string message = default,
+                string warningCode = default
+            )
             {
                 Message = message;
                 WarningCode = warningCode;
@@ -1435,13 +1444,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSaltoPrivacyMode_model")]
-        public class WarningsSaltoPrivacyMode : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsSaltoPrivacyMode_model")]
+        public class PhoneWarningsSaltoPrivacyMode : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSaltoPrivacyMode() { }
+            protected PhoneWarningsSaltoPrivacyMode() { }
 
-            public WarningsSaltoPrivacyMode(string message = default, string warningCode = default)
+            public PhoneWarningsSaltoPrivacyMode(
+                string message = default,
+                string warningCode = default
+            )
             {
                 Message = message;
                 WarningCode = warningCode;
@@ -1473,13 +1485,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsUnknownIssueWithPhone_model")]
-        public class WarningsUnknownIssueWithPhone : Warnings
+        [DataContract(Name = "seamModel_phoneWarningsUnknownIssueWithPhone_model")]
+        public class PhoneWarningsUnknownIssueWithPhone : PhoneWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsUnknownIssueWithPhone() { }
+            protected PhoneWarningsUnknownIssueWithPhone() { }
 
-            public WarningsUnknownIssueWithPhone(
+            public PhoneWarningsUnknownIssueWithPhone(
                 string message = default,
                 string warningCode = default
             )
@@ -1578,7 +1590,7 @@ namespace Seam.Model
         public string DisplayName { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<Errors> Errors { get; set; }
+        public List<PhoneErrors> Errors { get; set; }
 
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
@@ -1593,7 +1605,7 @@ namespace Seam.Model
         public PhoneProperties Properties { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<PhoneWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

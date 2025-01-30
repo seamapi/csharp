@@ -24,7 +24,7 @@ namespace Seam.Model
             List<string> connectedAccountIds = default,
             string createdAt = default,
             string? defaultCredentialManagerAcsSystemId = default,
-            List<Errors> errors = default,
+            List<AcsSystemErrors> errors = default,
             AcsSystem.ExternalTypeEnum? externalType = default,
             string? externalTypeDisplayName = default,
             string imageAltText = default,
@@ -35,7 +35,7 @@ namespace Seam.Model
             AcsSystem.SystemTypeEnum? systemType = default,
             string? systemTypeDisplayName = default,
             AcsSystemVisionlineMetadata? visionlineMetadata = default,
-            List<Warnings> warnings = default,
+            List<AcsSystemWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -65,37 +65,43 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoKsCertificationExpired),
+            typeof(AcsSystemErrorsSaltoKsCertificationExpired),
             "salto_ks_certification_expired"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAccountDisconnected), "account_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAcsSystemDisconnected), "acs_system_disconnected")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoKsSubscriptionLimitExceeded),
+            typeof(AcsSystemErrorsAccountDisconnected),
+            "account_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsSystemErrorsAcsSystemDisconnected),
+            "acs_system_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsSystemErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsVisionlineInstanceUnreachable),
+            typeof(AcsSystemErrorsVisionlineInstanceUnreachable),
             "visionline_instance_unreachable"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSeamBridgeDisconnected),
+            typeof(AcsSystemErrorsSeamBridgeDisconnected),
             "seam_bridge_disconnected"
         )]
-        public abstract class Errors
+        public abstract class AcsSystemErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_errorsSeamBridgeDisconnected_model")]
-        public class ErrorsSeamBridgeDisconnected : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsSeamBridgeDisconnected_model")]
+        public class AcsSystemErrorsSeamBridgeDisconnected : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSeamBridgeDisconnected() { }
+            protected AcsSystemErrorsSeamBridgeDisconnected() { }
 
-            public ErrorsSeamBridgeDisconnected(
+            public AcsSystemErrorsSeamBridgeDisconnected(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -135,13 +141,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsVisionlineInstanceUnreachable_model")]
-        public class ErrorsVisionlineInstanceUnreachable : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsVisionlineInstanceUnreachable_model")]
+        public class AcsSystemErrorsVisionlineInstanceUnreachable : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsVisionlineInstanceUnreachable() { }
+            protected AcsSystemErrorsVisionlineInstanceUnreachable() { }
 
-            public ErrorsVisionlineInstanceUnreachable(
+            public AcsSystemErrorsVisionlineInstanceUnreachable(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -181,13 +187,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoKsSubscriptionLimitExceeded_model")]
-        public class ErrorsSaltoKsSubscriptionLimitExceeded : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsSaltoKsSubscriptionLimitExceeded_model")]
+        public class AcsSystemErrorsSaltoKsSubscriptionLimitExceeded : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoKsSubscriptionLimitExceeded() { }
+            protected AcsSystemErrorsSaltoKsSubscriptionLimitExceeded() { }
 
-            public ErrorsSaltoKsSubscriptionLimitExceeded(
+            public AcsSystemErrorsSaltoKsSubscriptionLimitExceeded(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -227,13 +233,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAcsSystemDisconnected_model")]
-        public class ErrorsAcsSystemDisconnected : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsAcsSystemDisconnected_model")]
+        public class AcsSystemErrorsAcsSystemDisconnected : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAcsSystemDisconnected() { }
+            protected AcsSystemErrorsAcsSystemDisconnected() { }
 
-            public ErrorsAcsSystemDisconnected(
+            public AcsSystemErrorsAcsSystemDisconnected(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -273,13 +279,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAccountDisconnected_model")]
-        public class ErrorsAccountDisconnected : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsAccountDisconnected_model")]
+        public class AcsSystemErrorsAccountDisconnected : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAccountDisconnected() { }
+            protected AcsSystemErrorsAccountDisconnected() { }
 
-            public ErrorsAccountDisconnected(
+            public AcsSystemErrorsAccountDisconnected(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -319,13 +325,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoKsCertificationExpired_model")]
-        public class ErrorsSaltoKsCertificationExpired : Errors
+        [DataContract(Name = "seamModel_acsSystemErrorsSaltoKsCertificationExpired_model")]
+        public class AcsSystemErrorsSaltoKsCertificationExpired : AcsSystemErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoKsCertificationExpired() { }
+            protected AcsSystemErrorsSaltoKsCertificationExpired() { }
 
-            public ErrorsSaltoKsCertificationExpired(
+            public AcsSystemErrorsSaltoKsCertificationExpired(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -459,27 +465,29 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsTimeZoneDoesNotMatchLocation),
+            typeof(AcsSystemWarningsTimeZoneDoesNotMatchLocation),
             "time_zone_does_not_match_location"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSaltoKsSubscriptionLimitAlmostReached),
+            typeof(AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached),
             "salto_ks_subscription_limit_almost_reached"
         )]
-        public abstract class Warnings
+        public abstract class AcsSystemWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsSaltoKsSubscriptionLimitAlmostReached_model")]
-        public class WarningsSaltoKsSubscriptionLimitAlmostReached : Warnings
+        [DataContract(
+            Name = "seamModel_acsSystemWarningsSaltoKsSubscriptionLimitAlmostReached_model"
+        )]
+        public class AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached : AcsSystemWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSaltoKsSubscriptionLimitAlmostReached() { }
+            protected AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached() { }
 
-            public WarningsSaltoKsSubscriptionLimitAlmostReached(
+            public AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -520,13 +528,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsTimeZoneDoesNotMatchLocation_model")]
-        public class WarningsTimeZoneDoesNotMatchLocation : Warnings
+        [DataContract(Name = "seamModel_acsSystemWarningsTimeZoneDoesNotMatchLocation_model")]
+        public class AcsSystemWarningsTimeZoneDoesNotMatchLocation : AcsSystemWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsTimeZoneDoesNotMatchLocation() { }
+            protected AcsSystemWarningsTimeZoneDoesNotMatchLocation() { }
 
-            public WarningsTimeZoneDoesNotMatchLocation(
+            public AcsSystemWarningsTimeZoneDoesNotMatchLocation(
                 string createdAt = default,
                 string message = default,
                 List<string>? misconfiguredAcsEntranceIds = default,
@@ -619,7 +627,7 @@ namespace Seam.Model
         public string? DefaultCredentialManagerAcsSystemId { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<Errors> Errors { get; set; }
+        public List<AcsSystemErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystem.ExternalTypeEnum? ExternalType { get; set; }
@@ -660,7 +668,7 @@ namespace Seam.Model
         public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<AcsSystemWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

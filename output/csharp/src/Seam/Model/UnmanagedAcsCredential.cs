@@ -39,7 +39,7 @@ namespace Seam.Model
             string? parentAcsCredentialId = default,
             string? startsAt = default,
             UnmanagedAcsCredentialVisionlineMetadata? visionlineMetadata = default,
-            List<Warnings> warnings = default,
+            List<UnmanagedAcsCredentialWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -116,32 +116,45 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.KnownSubType(typeof(WarningsNeedsToBeReissued), "needs_to_be_reissued")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsUnknownIssueWithAcsCredential),
+            typeof(UnmanagedAcsCredentialWarningsNeedsToBeReissued),
+            "needs_to_be_reissued"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential),
             "unknown_issue_with_acs_credential"
         )]
-        [JsonSubtypes.KnownSubType(typeof(WarningsBeingDeleted), "being_deleted")]
-        [JsonSubtypes.KnownSubType(typeof(WarningsScheduleModified), "schedule_modified")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsScheduleExternallyModified),
+            typeof(UnmanagedAcsCredentialWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsCredentialWarningsScheduleModified),
+            "schedule_modified"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsCredentialWarningsScheduleExternallyModified),
             "schedule_externally_modified"
         )]
-        [JsonSubtypes.KnownSubType(typeof(WarningsWaitingToBeIssued), "waiting_to_be_issued")]
-        public abstract class Warnings
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsCredentialWarningsWaitingToBeIssued),
+            "waiting_to_be_issued"
+        )]
+        public abstract class UnmanagedAcsCredentialWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsWaitingToBeIssued_model")]
-        public class WarningsWaitingToBeIssued : Warnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsWaitingToBeIssued_model")]
+        public class UnmanagedAcsCredentialWarningsWaitingToBeIssued
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsWaitingToBeIssued() { }
+            protected UnmanagedAcsCredentialWarningsWaitingToBeIssued() { }
 
-            public WarningsWaitingToBeIssued(
+            public UnmanagedAcsCredentialWarningsWaitingToBeIssued(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -181,13 +194,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsScheduleExternallyModified_model")]
-        public class WarningsScheduleExternallyModified : Warnings
+        [DataContract(
+            Name = "seamModel_unmanagedAcsCredentialWarningsScheduleExternallyModified_model"
+        )]
+        public class UnmanagedAcsCredentialWarningsScheduleExternallyModified
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsScheduleExternallyModified() { }
+            protected UnmanagedAcsCredentialWarningsScheduleExternallyModified() { }
 
-            public WarningsScheduleExternallyModified(
+            public UnmanagedAcsCredentialWarningsScheduleExternallyModified(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -227,13 +243,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsScheduleModified_model")]
-        public class WarningsScheduleModified : Warnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsScheduleModified_model")]
+        public class UnmanagedAcsCredentialWarningsScheduleModified : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsScheduleModified() { }
+            protected UnmanagedAcsCredentialWarningsScheduleModified() { }
 
-            public WarningsScheduleModified(
+            public UnmanagedAcsCredentialWarningsScheduleModified(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -273,13 +289,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsBeingDeleted_model")]
-        public class WarningsBeingDeleted : Warnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsBeingDeleted_model")]
+        public class UnmanagedAcsCredentialWarningsBeingDeleted : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsBeingDeleted() { }
+            protected UnmanagedAcsCredentialWarningsBeingDeleted() { }
 
-            public WarningsBeingDeleted(
+            public UnmanagedAcsCredentialWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -319,13 +335,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsUnknownIssueWithAcsCredential_model")]
-        public class WarningsUnknownIssueWithAcsCredential : Warnings
+        [DataContract(
+            Name = "seamModel_unmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential_model"
+        )]
+        public class UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsUnknownIssueWithAcsCredential() { }
+            protected UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential() { }
 
-            public WarningsUnknownIssueWithAcsCredential(
+            public UnmanagedAcsCredentialWarningsUnknownIssueWithAcsCredential(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -365,13 +384,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsNeedsToBeReissued_model")]
-        public class WarningsNeedsToBeReissued : Warnings
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsNeedsToBeReissued_model")]
+        public class UnmanagedAcsCredentialWarningsNeedsToBeReissued
+            : UnmanagedAcsCredentialWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsNeedsToBeReissued() { }
+            protected UnmanagedAcsCredentialWarningsNeedsToBeReissued() { }
 
-            public WarningsNeedsToBeReissued(
+            public UnmanagedAcsCredentialWarningsNeedsToBeReissued(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -508,7 +528,7 @@ namespace Seam.Model
         public UnmanagedAcsCredentialVisionlineMetadata? VisionlineMetadata { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<UnmanagedAcsCredentialWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

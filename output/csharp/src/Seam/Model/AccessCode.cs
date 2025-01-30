@@ -21,7 +21,7 @@ namespace Seam.Model
             string createdAt = default,
             string deviceId = default,
             string? endsAt = default,
-            List<Errors> errors = default,
+            List<AccessCodeErrors> errors = default,
             bool? isBackup = default,
             bool isBackupAccessCodeAvailable = default,
             bool isExternalModificationAllowed = default,
@@ -35,7 +35,7 @@ namespace Seam.Model
             string? startsAt = default,
             AccessCode.StatusEnum status = default,
             AccessCode.TypeEnum type = default,
-            List<Warnings> warnings = default
+            List<AccessCodeWarnings> warnings = default
         )
         {
             AccessCodeId = accessCodeId;
@@ -62,119 +62,143 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsInvalidCredentials), "invalid_credentials")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAccountDisconnected), "account_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsSubscriptionRequired), "subscription_required")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAuxiliaryHeatRunning), "auxiliary_heat_running")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsMissingDeviceCredentials),
+            typeof(AccessCodeErrorsInvalidCredentials),
+            "invalid_credentials"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsAccountDisconnected),
+            "account_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsSubscriptionRequired),
+            "subscription_required"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsAuxiliaryHeatRunning),
+            "auxiliary_heat_running"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsMissingDeviceCredentials),
             "missing_device_credentials"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsTtlockLockNotPairedToGateway),
+            typeof(AccessCodeErrorsTtlockLockNotPairedToGateway),
             "ttlock_lock_not_paired_to_gateway"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoSiteUserLimitReached),
+            typeof(AccessCodeErrorsSaltoSiteUserLimitReached),
             "salto_site_user_limit_reached"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockMissingBridge),
+            typeof(AccessCodeErrorsAugustLockMissingBridge),
             "august_lock_missing_bridge"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockNotAuthorized),
+            typeof(AccessCodeErrorsAugustLockNotAuthorized),
             "august_lock_not_authorized"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsEmptyBackupAccessCodePool),
+            typeof(AccessCodeErrorsEmptyBackupAccessCodePool),
             "empty_backup_access_code_pool"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceDisconnected), "device_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsHubDisconnected), "hub_disconnected")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceRemoved), "device_removed")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDeviceOffline), "device_offline")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsHubitatNoFreePositionsAvailable),
+            typeof(AccessCodeErrorsDeviceDisconnected),
+            "device_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsHubDisconnected), "hub_disconnected")]
+        [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsDeviceRemoved), "device_removed")]
+        [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsDeviceOffline), "device_offline")]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsHubitatNoFreePositionsAvailable),
             "hubitat_no_free_positions_available"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsHubitatDeviceProgrammingDelay),
+            typeof(AccessCodeErrorsHubitatDeviceProgrammingDelay),
             "hubitat_device_programming_delay"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSaltoSiteUserNotSubscribed),
+            typeof(AccessCodeErrorsSaltoSiteUserNotSubscribed),
             "salto_site_user_not_subscribed"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockMissingKeypad),
+            typeof(AccessCodeErrorsAugustLockMissingKeypad),
             "august_lock_missing_keypad"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAugustDeviceSlotsFull), "august_device_slots_full")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustDeviceProgrammingDelay),
+            typeof(AccessCodeErrorsAugustDeviceSlotsFull),
+            "august_device_slots_full"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsAugustDeviceProgrammingDelay),
             "august_device_programming_delay"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsAugustLockInvalidCodeLength),
+            typeof(AccessCodeErrorsAugustLockInvalidCodeLength),
             "august_lock_invalid_code_length"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsCodeModifiedExternalToSeam),
+            typeof(AccessCodeErrorsCodeModifiedExternalToSeam),
             "code_modified_external_to_seam"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsKwiksetUnableToConfirmDeletion),
+            typeof(AccessCodeErrorsKwiksetUnableToConfirmDeletion),
             "kwikset_unable_to_confirm_deletion"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsKwiksetUnableToConfirmCode),
+            typeof(AccessCodeErrorsKwiksetUnableToConfirmCode),
             "kwikset_unable_to_confirm_code"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable),
+            typeof(AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable),
             "igloohome_offline_access_code_no_variance_available"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsIgloohomeBridgeOffline),
+            typeof(AccessCodeErrorsIgloohomeBridgeOffline),
             "igloohome_bridge_offline"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsIgloohomeBridgeTooManyPendingJobs),
+            typeof(AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs),
             "igloohome_bridge_too_many_pending_jobs"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsDuplicateCodeAttemptPrevented),
+            typeof(AccessCodeErrorsDuplicateCodeAttemptPrevented),
             "duplicate_code_attempt_prevented"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsDuplicateCodeOnDevice), "duplicate_code_on_device")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsFailedToRemoveFromDevice),
+            typeof(AccessCodeErrorsDuplicateCodeOnDevice),
+            "duplicate_code_on_device"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsFailedToRemoveFromDevice),
             "failed_to_remove_from_device"
         )]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsFailedToSetOnDevice), "failed_to_set_on_device")]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSmartthingsFailedToSetAfterMultipleRetries),
+            typeof(AccessCodeErrorsFailedToSetOnDevice),
+            "failed_to_set_on_device"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries),
             "smartthings_failed_to_set_after_multiple_retries"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(ErrorsSmartthingsFailedToSetAccessCode),
+            typeof(AccessCodeErrorsSmartthingsFailedToSetAccessCode),
             "smartthings_failed_to_set_access_code"
         )]
-        public abstract class Errors
+        public abstract class AccessCodeErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_errorsSmartthingsFailedToSetAccessCode_model")]
-        public class ErrorsSmartthingsFailedToSetAccessCode : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsSmartthingsFailedToSetAccessCode_model")]
+        public class AccessCodeErrorsSmartthingsFailedToSetAccessCode : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSmartthingsFailedToSetAccessCode() { }
+            protected AccessCodeErrorsSmartthingsFailedToSetAccessCode() { }
 
-            public ErrorsSmartthingsFailedToSetAccessCode(
+            public AccessCodeErrorsSmartthingsFailedToSetAccessCode(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -214,13 +238,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSmartthingsFailedToSetAfterMultipleRetries_model")]
-        public class ErrorsSmartthingsFailedToSetAfterMultipleRetries : Errors
+        [DataContract(
+            Name = "seamModel_accessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries_model"
+        )]
+        public class AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSmartthingsFailedToSetAfterMultipleRetries() { }
+            protected AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries() { }
 
-            public ErrorsSmartthingsFailedToSetAfterMultipleRetries(
+            public AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -261,13 +287,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsFailedToSetOnDevice_model")]
-        public class ErrorsFailedToSetOnDevice : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsFailedToSetOnDevice_model")]
+        public class AccessCodeErrorsFailedToSetOnDevice : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsFailedToSetOnDevice() { }
+            protected AccessCodeErrorsFailedToSetOnDevice() { }
 
-            public ErrorsFailedToSetOnDevice(
+            public AccessCodeErrorsFailedToSetOnDevice(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -307,13 +333,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsFailedToRemoveFromDevice_model")]
-        public class ErrorsFailedToRemoveFromDevice : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsFailedToRemoveFromDevice_model")]
+        public class AccessCodeErrorsFailedToRemoveFromDevice : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsFailedToRemoveFromDevice() { }
+            protected AccessCodeErrorsFailedToRemoveFromDevice() { }
 
-            public ErrorsFailedToRemoveFromDevice(
+            public AccessCodeErrorsFailedToRemoveFromDevice(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -353,13 +379,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDuplicateCodeOnDevice_model")]
-        public class ErrorsDuplicateCodeOnDevice : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsDuplicateCodeOnDevice_model")]
+        public class AccessCodeErrorsDuplicateCodeOnDevice : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDuplicateCodeOnDevice() { }
+            protected AccessCodeErrorsDuplicateCodeOnDevice() { }
 
-            public ErrorsDuplicateCodeOnDevice(
+            public AccessCodeErrorsDuplicateCodeOnDevice(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -399,13 +425,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDuplicateCodeAttemptPrevented_model")]
-        public class ErrorsDuplicateCodeAttemptPrevented : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsDuplicateCodeAttemptPrevented_model")]
+        public class AccessCodeErrorsDuplicateCodeAttemptPrevented : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDuplicateCodeAttemptPrevented() { }
+            protected AccessCodeErrorsDuplicateCodeAttemptPrevented() { }
 
-            public ErrorsDuplicateCodeAttemptPrevented(
+            public AccessCodeErrorsDuplicateCodeAttemptPrevented(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -445,13 +471,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsIgloohomeBridgeTooManyPendingJobs_model")]
-        public class ErrorsIgloohomeBridgeTooManyPendingJobs : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsIgloohomeBridgeTooManyPendingJobs_model")]
+        public class AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsIgloohomeBridgeTooManyPendingJobs() { }
+            protected AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs() { }
 
-            public ErrorsIgloohomeBridgeTooManyPendingJobs(
+            public AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -491,13 +517,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsIgloohomeBridgeOffline_model")]
-        public class ErrorsIgloohomeBridgeOffline : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsIgloohomeBridgeOffline_model")]
+        public class AccessCodeErrorsIgloohomeBridgeOffline : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsIgloohomeBridgeOffline() { }
+            protected AccessCodeErrorsIgloohomeBridgeOffline() { }
 
-            public ErrorsIgloohomeBridgeOffline(
+            public AccessCodeErrorsIgloohomeBridgeOffline(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -537,13 +563,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsIgloohomeOfflineAccessCodeNoVarianceAvailable_model")]
-        public class ErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable : Errors
+        [DataContract(
+            Name = "seamModel_accessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable_model"
+        )]
+        public class AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable
+            : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable() { }
+            protected AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable() { }
 
-            public ErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable(
+            public AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -584,13 +613,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsKwiksetUnableToConfirmCode_model")]
-        public class ErrorsKwiksetUnableToConfirmCode : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsKwiksetUnableToConfirmCode_model")]
+        public class AccessCodeErrorsKwiksetUnableToConfirmCode : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsKwiksetUnableToConfirmCode() { }
+            protected AccessCodeErrorsKwiksetUnableToConfirmCode() { }
 
-            public ErrorsKwiksetUnableToConfirmCode(
+            public AccessCodeErrorsKwiksetUnableToConfirmCode(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -630,13 +659,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsKwiksetUnableToConfirmDeletion_model")]
-        public class ErrorsKwiksetUnableToConfirmDeletion : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsKwiksetUnableToConfirmDeletion_model")]
+        public class AccessCodeErrorsKwiksetUnableToConfirmDeletion : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsKwiksetUnableToConfirmDeletion() { }
+            protected AccessCodeErrorsKwiksetUnableToConfirmDeletion() { }
 
-            public ErrorsKwiksetUnableToConfirmDeletion(
+            public AccessCodeErrorsKwiksetUnableToConfirmDeletion(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -676,13 +705,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsCodeModifiedExternalToSeam_model")]
-        public class ErrorsCodeModifiedExternalToSeam : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsCodeModifiedExternalToSeam_model")]
+        public class AccessCodeErrorsCodeModifiedExternalToSeam : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsCodeModifiedExternalToSeam() { }
+            protected AccessCodeErrorsCodeModifiedExternalToSeam() { }
 
-            public ErrorsCodeModifiedExternalToSeam(
+            public AccessCodeErrorsCodeModifiedExternalToSeam(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -722,13 +751,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockInvalidCodeLength_model")]
-        public class ErrorsAugustLockInvalidCodeLength : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustLockInvalidCodeLength_model")]
+        public class AccessCodeErrorsAugustLockInvalidCodeLength : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockInvalidCodeLength() { }
+            protected AccessCodeErrorsAugustLockInvalidCodeLength() { }
 
-            public ErrorsAugustLockInvalidCodeLength(
+            public AccessCodeErrorsAugustLockInvalidCodeLength(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -768,13 +797,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustDeviceProgrammingDelay_model")]
-        public class ErrorsAugustDeviceProgrammingDelay : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustDeviceProgrammingDelay_model")]
+        public class AccessCodeErrorsAugustDeviceProgrammingDelay : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustDeviceProgrammingDelay() { }
+            protected AccessCodeErrorsAugustDeviceProgrammingDelay() { }
 
-            public ErrorsAugustDeviceProgrammingDelay(
+            public AccessCodeErrorsAugustDeviceProgrammingDelay(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -814,13 +843,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustDeviceSlotsFull_model")]
-        public class ErrorsAugustDeviceSlotsFull : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustDeviceSlotsFull_model")]
+        public class AccessCodeErrorsAugustDeviceSlotsFull : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustDeviceSlotsFull() { }
+            protected AccessCodeErrorsAugustDeviceSlotsFull() { }
 
-            public ErrorsAugustDeviceSlotsFull(
+            public AccessCodeErrorsAugustDeviceSlotsFull(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -860,13 +889,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockMissingKeypad_model")]
-        public class ErrorsAugustLockMissingKeypad : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustLockMissingKeypad_model")]
+        public class AccessCodeErrorsAugustLockMissingKeypad : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockMissingKeypad() { }
+            protected AccessCodeErrorsAugustLockMissingKeypad() { }
 
-            public ErrorsAugustLockMissingKeypad(
+            public AccessCodeErrorsAugustLockMissingKeypad(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -906,13 +935,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoSiteUserNotSubscribed_model")]
-        public class ErrorsSaltoSiteUserNotSubscribed : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsSaltoSiteUserNotSubscribed_model")]
+        public class AccessCodeErrorsSaltoSiteUserNotSubscribed : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoSiteUserNotSubscribed() { }
+            protected AccessCodeErrorsSaltoSiteUserNotSubscribed() { }
 
-            public ErrorsSaltoSiteUserNotSubscribed(
+            public AccessCodeErrorsSaltoSiteUserNotSubscribed(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -952,13 +981,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsHubitatDeviceProgrammingDelay_model")]
-        public class ErrorsHubitatDeviceProgrammingDelay : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsHubitatDeviceProgrammingDelay_model")]
+        public class AccessCodeErrorsHubitatDeviceProgrammingDelay : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsHubitatDeviceProgrammingDelay() { }
+            protected AccessCodeErrorsHubitatDeviceProgrammingDelay() { }
 
-            public ErrorsHubitatDeviceProgrammingDelay(
+            public AccessCodeErrorsHubitatDeviceProgrammingDelay(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -998,13 +1027,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsHubitatNoFreePositionsAvailable_model")]
-        public class ErrorsHubitatNoFreePositionsAvailable : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsHubitatNoFreePositionsAvailable_model")]
+        public class AccessCodeErrorsHubitatNoFreePositionsAvailable : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsHubitatNoFreePositionsAvailable() { }
+            protected AccessCodeErrorsHubitatNoFreePositionsAvailable() { }
 
-            public ErrorsHubitatNoFreePositionsAvailable(
+            public AccessCodeErrorsHubitatNoFreePositionsAvailable(
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
@@ -1044,13 +1073,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceOffline_model")]
-        public class ErrorsDeviceOffline : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsDeviceOffline_model")]
+        public class AccessCodeErrorsDeviceOffline : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceOffline() { }
+            protected AccessCodeErrorsDeviceOffline() { }
 
-            public ErrorsDeviceOffline(
+            public AccessCodeErrorsDeviceOffline(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1090,13 +1119,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceRemoved_model")]
-        public class ErrorsDeviceRemoved : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsDeviceRemoved_model")]
+        public class AccessCodeErrorsDeviceRemoved : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceRemoved() { }
+            protected AccessCodeErrorsDeviceRemoved() { }
 
-            public ErrorsDeviceRemoved(
+            public AccessCodeErrorsDeviceRemoved(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1136,13 +1165,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsHubDisconnected_model")]
-        public class ErrorsHubDisconnected : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsHubDisconnected_model")]
+        public class AccessCodeErrorsHubDisconnected : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsHubDisconnected() { }
+            protected AccessCodeErrorsHubDisconnected() { }
 
-            public ErrorsHubDisconnected(
+            public AccessCodeErrorsHubDisconnected(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1182,13 +1211,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsDeviceDisconnected_model")]
-        public class ErrorsDeviceDisconnected : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsDeviceDisconnected_model")]
+        public class AccessCodeErrorsDeviceDisconnected : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsDeviceDisconnected() { }
+            protected AccessCodeErrorsDeviceDisconnected() { }
 
-            public ErrorsDeviceDisconnected(
+            public AccessCodeErrorsDeviceDisconnected(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1228,13 +1257,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsEmptyBackupAccessCodePool_model")]
-        public class ErrorsEmptyBackupAccessCodePool : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsEmptyBackupAccessCodePool_model")]
+        public class AccessCodeErrorsEmptyBackupAccessCodePool : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsEmptyBackupAccessCodePool() { }
+            protected AccessCodeErrorsEmptyBackupAccessCodePool() { }
 
-            public ErrorsEmptyBackupAccessCodePool(
+            public AccessCodeErrorsEmptyBackupAccessCodePool(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1274,13 +1303,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockNotAuthorized_model")]
-        public class ErrorsAugustLockNotAuthorized : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustLockNotAuthorized_model")]
+        public class AccessCodeErrorsAugustLockNotAuthorized : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockNotAuthorized() { }
+            protected AccessCodeErrorsAugustLockNotAuthorized() { }
 
-            public ErrorsAugustLockNotAuthorized(
+            public AccessCodeErrorsAugustLockNotAuthorized(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1320,13 +1349,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAugustLockMissingBridge_model")]
-        public class ErrorsAugustLockMissingBridge : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAugustLockMissingBridge_model")]
+        public class AccessCodeErrorsAugustLockMissingBridge : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAugustLockMissingBridge() { }
+            protected AccessCodeErrorsAugustLockMissingBridge() { }
 
-            public ErrorsAugustLockMissingBridge(
+            public AccessCodeErrorsAugustLockMissingBridge(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1366,13 +1395,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSaltoSiteUserLimitReached_model")]
-        public class ErrorsSaltoSiteUserLimitReached : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsSaltoSiteUserLimitReached_model")]
+        public class AccessCodeErrorsSaltoSiteUserLimitReached : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSaltoSiteUserLimitReached() { }
+            protected AccessCodeErrorsSaltoSiteUserLimitReached() { }
 
-            public ErrorsSaltoSiteUserLimitReached(
+            public AccessCodeErrorsSaltoSiteUserLimitReached(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1412,13 +1441,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsTtlockLockNotPairedToGateway_model")]
-        public class ErrorsTtlockLockNotPairedToGateway : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsTtlockLockNotPairedToGateway_model")]
+        public class AccessCodeErrorsTtlockLockNotPairedToGateway : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsTtlockLockNotPairedToGateway() { }
+            protected AccessCodeErrorsTtlockLockNotPairedToGateway() { }
 
-            public ErrorsTtlockLockNotPairedToGateway(
+            public AccessCodeErrorsTtlockLockNotPairedToGateway(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1458,13 +1487,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsMissingDeviceCredentials_model")]
-        public class ErrorsMissingDeviceCredentials : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsMissingDeviceCredentials_model")]
+        public class AccessCodeErrorsMissingDeviceCredentials : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsMissingDeviceCredentials() { }
+            protected AccessCodeErrorsMissingDeviceCredentials() { }
 
-            public ErrorsMissingDeviceCredentials(
+            public AccessCodeErrorsMissingDeviceCredentials(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1504,13 +1533,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAuxiliaryHeatRunning_model")]
-        public class ErrorsAuxiliaryHeatRunning : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAuxiliaryHeatRunning_model")]
+        public class AccessCodeErrorsAuxiliaryHeatRunning : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAuxiliaryHeatRunning() { }
+            protected AccessCodeErrorsAuxiliaryHeatRunning() { }
 
-            public ErrorsAuxiliaryHeatRunning(
+            public AccessCodeErrorsAuxiliaryHeatRunning(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1550,13 +1579,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsSubscriptionRequired_model")]
-        public class ErrorsSubscriptionRequired : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsSubscriptionRequired_model")]
+        public class AccessCodeErrorsSubscriptionRequired : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsSubscriptionRequired() { }
+            protected AccessCodeErrorsSubscriptionRequired() { }
 
-            public ErrorsSubscriptionRequired(
+            public AccessCodeErrorsSubscriptionRequired(
                 string errorCode = default,
                 bool isDeviceError = default,
                 string message = default
@@ -1596,13 +1625,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsAccountDisconnected_model")]
-        public class ErrorsAccountDisconnected : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsAccountDisconnected_model")]
+        public class AccessCodeErrorsAccountDisconnected : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAccountDisconnected() { }
+            protected AccessCodeErrorsAccountDisconnected() { }
 
-            public ErrorsAccountDisconnected(
+            public AccessCodeErrorsAccountDisconnected(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -1646,13 +1675,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsInvalidCredentials_model")]
-        public class ErrorsInvalidCredentials : Errors
+        [DataContract(Name = "seamModel_accessCodeErrorsInvalidCredentials_model")]
+        public class AccessCodeErrorsInvalidCredentials : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsInvalidCredentials() { }
+            protected AccessCodeErrorsInvalidCredentials() { }
 
-            public ErrorsInvalidCredentials(
+            public AccessCodeErrorsInvalidCredentials(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -1732,57 +1761,60 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.KnownSubType(typeof(WarningsManagementTransferred), "management_transferred")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsIglooAlgopinMustBeUsedWithin_24Hours),
+            typeof(AccessCodeWarningsManagementTransferred),
+            "management_transferred"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours),
             "igloo_algopin_must_be_used_within_24_hours"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsAugustDeviceProgrammingDelay),
+            typeof(AccessCodeWarningsAugustDeviceProgrammingDelay),
             "august_device_programming_delay"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsThirdPartyIntegrationDetected),
+            typeof(AccessCodeWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsDelayInRemovingFromDevice),
+            typeof(AccessCodeWarningsDelayInRemovingFromDevice),
             "delay_in_removing_from_device"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsDelayInSettingOnDevice),
+            typeof(AccessCodeWarningsDelayInSettingOnDevice),
             "delay_in_setting_on_device"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsCodeModifiedExternalToSeam),
+            typeof(AccessCodeWarningsCodeModifiedExternalToSeam),
             "code_modified_external_to_seam"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSchlageCreationOutage),
+            typeof(AccessCodeWarningsSchlageCreationOutage),
             "schlage_creation_outage"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSchlageDetectedDuplicate),
+            typeof(AccessCodeWarningsSchlageDetectedDuplicate),
             "schlage_detected_duplicate"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsSmartthingsFailedToSetAccessCode),
+            typeof(AccessCodeWarningsSmartthingsFailedToSetAccessCode),
             "smartthings_failed_to_set_access_code"
         )]
-        public abstract class Warnings
+        public abstract class AccessCodeWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsSmartthingsFailedToSetAccessCode_model")]
-        public class WarningsSmartthingsFailedToSetAccessCode : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsSmartthingsFailedToSetAccessCode_model")]
+        public class AccessCodeWarningsSmartthingsFailedToSetAccessCode : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSmartthingsFailedToSetAccessCode() { }
+            protected AccessCodeWarningsSmartthingsFailedToSetAccessCode() { }
 
-            public WarningsSmartthingsFailedToSetAccessCode(
+            public AccessCodeWarningsSmartthingsFailedToSetAccessCode(
                 string message = default,
                 string warningCode = default
             )
@@ -1817,13 +1849,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSchlageDetectedDuplicate_model")]
-        public class WarningsSchlageDetectedDuplicate : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsSchlageDetectedDuplicate_model")]
+        public class AccessCodeWarningsSchlageDetectedDuplicate : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSchlageDetectedDuplicate() { }
+            protected AccessCodeWarningsSchlageDetectedDuplicate() { }
 
-            public WarningsSchlageDetectedDuplicate(
+            public AccessCodeWarningsSchlageDetectedDuplicate(
                 string message = default,
                 string warningCode = default
             )
@@ -1858,13 +1890,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsSchlageCreationOutage_model")]
-        public class WarningsSchlageCreationOutage : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsSchlageCreationOutage_model")]
+        public class AccessCodeWarningsSchlageCreationOutage : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsSchlageCreationOutage() { }
+            protected AccessCodeWarningsSchlageCreationOutage() { }
 
-            public WarningsSchlageCreationOutage(
+            public AccessCodeWarningsSchlageCreationOutage(
                 string message = default,
                 string warningCode = default
             )
@@ -1899,13 +1931,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsCodeModifiedExternalToSeam_model")]
-        public class WarningsCodeModifiedExternalToSeam : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsCodeModifiedExternalToSeam_model")]
+        public class AccessCodeWarningsCodeModifiedExternalToSeam : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsCodeModifiedExternalToSeam() { }
+            protected AccessCodeWarningsCodeModifiedExternalToSeam() { }
 
-            public WarningsCodeModifiedExternalToSeam(
+            public AccessCodeWarningsCodeModifiedExternalToSeam(
                 string message = default,
                 string warningCode = default
             )
@@ -1940,13 +1972,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsDelayInSettingOnDevice_model")]
-        public class WarningsDelayInSettingOnDevice : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsDelayInSettingOnDevice_model")]
+        public class AccessCodeWarningsDelayInSettingOnDevice : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsDelayInSettingOnDevice() { }
+            protected AccessCodeWarningsDelayInSettingOnDevice() { }
 
-            public WarningsDelayInSettingOnDevice(
+            public AccessCodeWarningsDelayInSettingOnDevice(
                 string message = default,
                 string warningCode = default
             )
@@ -1981,13 +2013,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsDelayInRemovingFromDevice_model")]
-        public class WarningsDelayInRemovingFromDevice : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsDelayInRemovingFromDevice_model")]
+        public class AccessCodeWarningsDelayInRemovingFromDevice : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsDelayInRemovingFromDevice() { }
+            protected AccessCodeWarningsDelayInRemovingFromDevice() { }
 
-            public WarningsDelayInRemovingFromDevice(
+            public AccessCodeWarningsDelayInRemovingFromDevice(
                 string message = default,
                 string warningCode = default
             )
@@ -2022,13 +2054,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsThirdPartyIntegrationDetected_model")]
-        public class WarningsThirdPartyIntegrationDetected : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsThirdPartyIntegrationDetected_model")]
+        public class AccessCodeWarningsThirdPartyIntegrationDetected : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsThirdPartyIntegrationDetected() { }
+            protected AccessCodeWarningsThirdPartyIntegrationDetected() { }
 
-            public WarningsThirdPartyIntegrationDetected(
+            public AccessCodeWarningsThirdPartyIntegrationDetected(
                 string message = default,
                 string warningCode = default
             )
@@ -2063,13 +2095,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsAugustDeviceProgrammingDelay_model")]
-        public class WarningsAugustDeviceProgrammingDelay : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsAugustDeviceProgrammingDelay_model")]
+        public class AccessCodeWarningsAugustDeviceProgrammingDelay : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsAugustDeviceProgrammingDelay() { }
+            protected AccessCodeWarningsAugustDeviceProgrammingDelay() { }
 
-            public WarningsAugustDeviceProgrammingDelay(
+            public AccessCodeWarningsAugustDeviceProgrammingDelay(
                 string message = default,
                 string warningCode = default
             )
@@ -2104,13 +2136,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsIglooAlgopinMustBeUsedWithin_24Hours_model")]
-        public class WarningsIglooAlgopinMustBeUsedWithin_24Hours : Warnings
+        [DataContract(
+            Name = "seamModel_accessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours_model"
+        )]
+        public class AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsIglooAlgopinMustBeUsedWithin_24Hours() { }
+            protected AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours() { }
 
-            public WarningsIglooAlgopinMustBeUsedWithin_24Hours(
+            public AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours(
                 string message = default,
                 string warningCode = default
             )
@@ -2146,13 +2180,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsManagementTransferred_model")]
-        public class WarningsManagementTransferred : Warnings
+        [DataContract(Name = "seamModel_accessCodeWarningsManagementTransferred_model")]
+        public class AccessCodeWarningsManagementTransferred : AccessCodeWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsManagementTransferred() { }
+            protected AccessCodeWarningsManagementTransferred() { }
 
-            public WarningsManagementTransferred(
+            public AccessCodeWarningsManagementTransferred(
                 string message = default,
                 string warningCode = default
             )
@@ -2206,7 +2240,7 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<Errors> Errors { get; set; }
+        public List<AccessCodeErrors> Errors { get; set; }
 
         [DataMember(Name = "is_backup", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsBackup { get; set; }
@@ -2264,7 +2298,7 @@ namespace Seam.Model
         public AccessCode.TypeEnum Type { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<AccessCodeWarnings> Warnings { get; set; }
 
         public override string ToString()
         {

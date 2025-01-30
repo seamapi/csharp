@@ -21,9 +21,9 @@ namespace Seam.Model
             string? connectedAccountId = default,
             string? createdAt = default,
             object? customMetadata = default,
-            List<Errors> errors = default,
+            List<ConnectedAccountErrors> errors = default,
             ConnectedAccountUserIdentifier? userIdentifier = default,
-            List<Warnings> warnings = default
+            List<ConnectedAccountWarnings> warnings = default
         )
         {
             AccountType = accountType;
@@ -38,22 +38,28 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsInvalidCredentials), "invalid_credentials")]
-        [JsonSubtypes.KnownSubType(typeof(ErrorsAccountDisconnected), "account_disconnected")]
-        public abstract class Errors
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountErrorsInvalidCredentials),
+            "invalid_credentials"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountErrorsAccountDisconnected),
+            "account_disconnected"
+        )]
+        public abstract class ConnectedAccountErrors
         {
             public abstract string ErrorCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_errorsAccountDisconnected_model")]
-        public class ErrorsAccountDisconnected : Errors
+        [DataContract(Name = "seamModel_connectedAccountErrorsAccountDisconnected_model")]
+        public class ConnectedAccountErrorsAccountDisconnected : ConnectedAccountErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsAccountDisconnected() { }
+            protected ConnectedAccountErrorsAccountDisconnected() { }
 
-            public ErrorsAccountDisconnected(
+            public ConnectedAccountErrorsAccountDisconnected(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -97,13 +103,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_errorsInvalidCredentials_model")]
-        public class ErrorsInvalidCredentials : Errors
+        [DataContract(Name = "seamModel_connectedAccountErrorsInvalidCredentials_model")]
+        public class ConnectedAccountErrorsInvalidCredentials : ConnectedAccountErrors
         {
             [JsonConstructorAttribute]
-            protected ErrorsInvalidCredentials() { }
+            protected ConnectedAccountErrorsInvalidCredentials() { }
 
-            public ErrorsInvalidCredentials(
+            public ConnectedAccountErrorsInvalidCredentials(
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
@@ -149,27 +155,27 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsUnknownIssueWithConnectedAccount),
+            typeof(ConnectedAccountWarningsUnknownIssueWithConnectedAccount),
             "unknown_issue_with_connected_account"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(WarningsScheduledMaintenanceWindow),
+            typeof(ConnectedAccountWarningsScheduledMaintenanceWindow),
             "scheduled_maintenance_window"
         )]
-        public abstract class Warnings
+        public abstract class ConnectedAccountWarnings
         {
             public abstract string WarningCode { get; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_warningsScheduledMaintenanceWindow_model")]
-        public class WarningsScheduledMaintenanceWindow : Warnings
+        [DataContract(Name = "seamModel_connectedAccountWarningsScheduledMaintenanceWindow_model")]
+        public class ConnectedAccountWarningsScheduledMaintenanceWindow : ConnectedAccountWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsScheduledMaintenanceWindow() { }
+            protected ConnectedAccountWarningsScheduledMaintenanceWindow() { }
 
-            public WarningsScheduledMaintenanceWindow(
+            public ConnectedAccountWarningsScheduledMaintenanceWindow(
                 string message = default,
                 string warningCode = default
             )
@@ -204,13 +210,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_warningsUnknownIssueWithConnectedAccount_model")]
-        public class WarningsUnknownIssueWithConnectedAccount : Warnings
+        [DataContract(
+            Name = "seamModel_connectedAccountWarningsUnknownIssueWithConnectedAccount_model"
+        )]
+        public class ConnectedAccountWarningsUnknownIssueWithConnectedAccount
+            : ConnectedAccountWarnings
         {
             [JsonConstructorAttribute]
-            protected WarningsUnknownIssueWithConnectedAccount() { }
+            protected ConnectedAccountWarningsUnknownIssueWithConnectedAccount() { }
 
-            public WarningsUnknownIssueWithConnectedAccount(
+            public ConnectedAccountWarningsUnknownIssueWithConnectedAccount(
                 string message = default,
                 string warningCode = default
             )
@@ -272,13 +281,13 @@ namespace Seam.Model
         public object? CustomMetadata { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<Errors> Errors { get; set; }
+        public List<ConnectedAccountErrors> Errors { get; set; }
 
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
         public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<Warnings> Warnings { get; set; }
+        public List<ConnectedAccountWarnings> Warnings { get; set; }
 
         public override string ToString()
         {
