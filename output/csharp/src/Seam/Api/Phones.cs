@@ -76,6 +76,98 @@ namespace Seam.Api
             await DeactivateAsync(new DeactivateRequest(deviceId: deviceId));
         }
 
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string deviceId = default)
+            {
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(Phone phone = default)
+            {
+                Phone = phone;
+            }
+
+            [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
+            public Phone Phone { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public Phone Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<GetResponse>("/phones/get", requestOptions).Data.Phone;
+        }
+
+        public Phone Get(string deviceId = default)
+        {
+            return Get(new GetRequest(deviceId: deviceId));
+        }
+
+        public async Task<Phone> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<GetResponse>("/phones/get", requestOptions)).Data.Phone;
+        }
+
+        public async Task<Phone> GetAsync(string deviceId = default)
+        {
+            return (await GetAsync(new GetRequest(deviceId: deviceId)));
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
