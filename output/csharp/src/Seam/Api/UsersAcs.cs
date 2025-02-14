@@ -473,6 +473,7 @@ namespace Seam.Api
                 string? acsSystemId = default,
                 string? createdBefore = default,
                 float? limit = default,
+                string? pageCursor = default,
                 string? userIdentityEmailAddress = default,
                 string? userIdentityId = default,
                 string? userIdentityPhoneNumber = default
@@ -481,6 +482,7 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
                 CreatedBefore = createdBefore;
                 Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentityEmailAddress = userIdentityEmailAddress;
                 UserIdentityId = userIdentityId;
                 UserIdentityPhoneNumber = userIdentityPhoneNumber;
@@ -494,6 +496,9 @@ namespace Seam.Api
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(
                 Name = "user_identity_email_address",
@@ -577,6 +582,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? createdBefore = default,
             float? limit = default,
+            string? pageCursor = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default
@@ -587,6 +593,7 @@ namespace Seam.Api
                     acsSystemId: acsSystemId,
                     createdBefore: createdBefore,
                     limit: limit,
+                    pageCursor: pageCursor,
                     userIdentityEmailAddress: userIdentityEmailAddress,
                     userIdentityId: userIdentityId,
                     userIdentityPhoneNumber: userIdentityPhoneNumber
@@ -607,6 +614,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? createdBefore = default,
             float? limit = default,
+            string? pageCursor = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default
@@ -618,6 +626,7 @@ namespace Seam.Api
                         acsSystemId: acsSystemId,
                         createdBefore: createdBefore,
                         limit: limit,
+                        pageCursor: pageCursor,
                         userIdentityEmailAddress: userIdentityEmailAddress,
                         userIdentityId: userIdentityId,
                         userIdentityPhoneNumber: userIdentityPhoneNumber
