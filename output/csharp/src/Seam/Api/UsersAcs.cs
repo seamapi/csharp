@@ -472,7 +472,7 @@ namespace Seam.Api
             public ListRequest(
                 string? acsSystemId = default,
                 string? createdBefore = default,
-                float? limit = default,
+                int? limit = default,
                 string? pageCursor = default,
                 string? userIdentityEmailAddress = default,
                 string? userIdentityId = default,
@@ -495,7 +495,7 @@ namespace Seam.Api
             public string? CreatedBefore { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-            public float? Limit { get; set; }
+            public int? Limit { get; set; }
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
@@ -581,7 +581,7 @@ namespace Seam.Api
         public List<AcsUser> List(
             string? acsSystemId = default,
             string? createdBefore = default,
-            float? limit = default,
+            int? limit = default,
             string? pageCursor = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
@@ -613,7 +613,7 @@ namespace Seam.Api
         public async Task<List<AcsUser>> ListAsync(
             string? acsSystemId = default,
             string? createdBefore = default,
-            float? limit = default,
+            int? limit = default,
             string? pageCursor = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
