@@ -4986,7 +4986,7 @@ namespace Seam.Model
         public string? ErrorCode { get; set; }
 
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public override string? Message { get; set; }
+        public string? Message { get; set; }
 
         public override string ToString()
         {
