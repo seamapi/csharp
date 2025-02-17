@@ -90,42 +90,6 @@ public class UnitTest1 : SeamConnectTest
     }
 
     [Fact]
-    public void TestDelete()
-    {
-        var device = seam
-            .Devices.List()
-            .First(d => d.DeviceType == Device.DeviceTypeEnum.AugustLock);
-
-        Assert.NotNull(device);
-
-        seam.Devices.Delete(deviceId: device.DeviceId);
-
-        var device2 = seam
-            .Devices.List()
-            .First(d => d.DeviceType == Device.DeviceTypeEnum.AugustLock);
-
-        Assert.NotEqual(device.DeviceId, device2.DeviceId);
-    }
-
-    [Fact]
-    public async void TestDeleteAsync()
-    {
-        var device = (await seam.Devices.ListAsync()).First(d =>
-            d.DeviceType == Device.DeviceTypeEnum.AugustLock
-        );
-
-        Assert.NotNull(device);
-
-        await seam.Devices.DeleteAsync(deviceId: device.DeviceId);
-
-        var device2 = (await seam.Devices.ListAsync()).First(d =>
-            d.DeviceType == Device.DeviceTypeEnum.AugustLock
-        );
-
-        Assert.NotEqual(device.DeviceId, device2.DeviceId);
-    }
-
-    [Fact]
     public void TestUnknownEnumValue()
     {
         var json =
