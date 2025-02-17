@@ -92,7 +92,7 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
-            public abstract string Message { get; }
+            public abstract string Message { get; set; }
 
             public abstract override string ToString();
         }
@@ -478,7 +478,7 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
-            public abstract string Message { get; }
+            public abstract string Message { get; set; }
 
             public abstract override string ToString();
         }
