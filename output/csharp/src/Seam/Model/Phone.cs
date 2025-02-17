@@ -118,7 +118,7 @@ namespace Seam.Model
         public string ErrorCode { get; set; }
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public override string Message { get; set; }
 
         public override string ToString()
         {
@@ -322,7 +322,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public override string Message { get; set; }
 
         [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
         public string WarningCode { get; set; }

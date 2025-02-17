@@ -188,7 +188,7 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public override string Message { get; set; }
 
         [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
         public AcsAccessGroupWarnings.WarningCodeEnum WarningCode { get; set; }

@@ -50,6 +50,8 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string Message { get; }
+
             public abstract override string ToString();
         }
 
@@ -81,7 +83,7 @@ namespace Seam.Model
             public bool IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -131,7 +133,7 @@ namespace Seam.Model
             public bool IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -166,6 +168,8 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string Message { get; }
+
             public abstract override string ToString();
         }
 
@@ -185,7 +189,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "scheduled_maintenance_window";
@@ -229,7 +233,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unknown_issue_with_connected_account";

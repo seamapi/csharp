@@ -92,6 +92,8 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string Message { get; }
+
             public abstract override string ToString();
         }
 
@@ -119,7 +121,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "seam_bridge_disconnected";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -165,7 +167,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "visionline_instance_unreachable";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -211,7 +213,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -257,7 +259,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "acs_system_disconnected";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -303,7 +305,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -349,7 +351,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_certification_expired";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -476,6 +478,8 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string Message { get; }
+
             public abstract override string ToString();
         }
 
@@ -502,7 +506,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } =
@@ -551,7 +555,7 @@ namespace Seam.Model
             public string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(
                 Name = "misconfigured_acs_entrance_ids",
