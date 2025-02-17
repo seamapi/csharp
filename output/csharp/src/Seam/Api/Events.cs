@@ -150,6 +150,7 @@ namespace Seam.Api
                 string? connectedAccountId = default,
                 string? deviceId = default,
                 List<string>? deviceIds = default,
+                List<string>? eventIds = default,
                 ListRequest.EventTypeEnum? eventType = default,
                 List<ListRequest.EventTypesEnum>? eventTypes = default,
                 float? limit = default,
@@ -166,6 +167,7 @@ namespace Seam.Api
                 ConnectedAccountId = connectedAccountId;
                 DeviceId = deviceId;
                 DeviceIds = deviceIds;
+                EventIds = eventIds;
                 EventType = eventType;
                 EventTypes = eventTypes;
                 Limit = limit;
@@ -668,6 +670,9 @@ namespace Seam.Api
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            [DataMember(Name = "event_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? EventIds { get; set; }
+
             [DataMember(Name = "event_type", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.EventTypeEnum? EventType { get; set; }
 
@@ -754,6 +759,7 @@ namespace Seam.Api
             string? connectedAccountId = default,
             string? deviceId = default,
             List<string>? deviceIds = default,
+            List<string>? eventIds = default,
             ListRequest.EventTypeEnum? eventType = default,
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
@@ -772,6 +778,7 @@ namespace Seam.Api
                     connectedAccountId: connectedAccountId,
                     deviceId: deviceId,
                     deviceIds: deviceIds,
+                    eventIds: eventIds,
                     eventType: eventType,
                     eventTypes: eventTypes,
                     limit: limit,
@@ -800,6 +807,7 @@ namespace Seam.Api
             string? connectedAccountId = default,
             string? deviceId = default,
             List<string>? deviceIds = default,
+            List<string>? eventIds = default,
             ListRequest.EventTypeEnum? eventType = default,
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
@@ -819,6 +827,7 @@ namespace Seam.Api
                         connectedAccountId: connectedAccountId,
                         deviceId: deviceId,
                         deviceIds: deviceIds,
+                        eventIds: eventIds,
                         eventType: eventType,
                         eventTypes: eventTypes,
                         limit: limit,
