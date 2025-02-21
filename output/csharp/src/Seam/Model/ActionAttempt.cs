@@ -34,6 +34,10 @@ namespace Seam.Model
     {
         public abstract string ActionType { get; }
 
+        public abstract string ActionAttemptId { get; set; }
+
+        public abstract string Status { get; set; }
+
         public abstract override string ToString();
     }
 
@@ -75,7 +79,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "LOCK_DOOR";
@@ -87,7 +91,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptLockDoor.StatusEnum Status { get; set; }
+        public override ActionAttemptLockDoor.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -147,7 +151,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UNLOCK_DOOR";
@@ -159,7 +163,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptUnlockDoor.StatusEnum Status { get; set; }
+        public override ActionAttemptUnlockDoor.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -219,7 +223,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SCAN_CREDENTIAL";
@@ -231,7 +235,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptScanCredential.StatusEnum Status { get; set; }
+        public override ActionAttemptScanCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -291,7 +295,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ENCODE_CREDENTIAL";
@@ -303,7 +307,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptEncodeCredential.StatusEnum Status { get; set; }
+        public override ActionAttemptEncodeCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -363,7 +367,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "RESET_SANDBOX_WORKSPACE";
@@ -375,7 +379,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptResetSandboxWorkspace.StatusEnum Status { get; set; }
+        public override ActionAttemptResetSandboxWorkspace.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -435,7 +439,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_FAN_MODE";
@@ -447,7 +451,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetFanMode.StatusEnum Status { get; set; }
+        public override ActionAttemptSetFanMode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -507,7 +511,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_HVAC_MODE";
@@ -519,7 +523,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSetHvacMode.StatusEnum Status { get; set; }
+        public override ActionAttemptSetHvacMode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -579,7 +583,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ACTIVATE_CLIMATE_PRESET";
@@ -591,7 +595,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptActivateClimatePreset.StatusEnum Status { get; set; }
+        public override ActionAttemptActivateClimatePreset.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -651,7 +655,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SYNC_ACCESS_CODES";
@@ -663,7 +667,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptSyncAccessCodes.StatusEnum Status { get; set; }
+        public override ActionAttemptSyncAccessCodes.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -723,7 +727,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_ACCESS_CODE";
@@ -735,7 +739,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptCreateAccessCode.StatusEnum Status { get; set; }
+        public override ActionAttemptCreateAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -795,7 +799,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_ACCESS_CODE";
@@ -807,7 +811,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptDeleteAccessCode.StatusEnum Status { get; set; }
+        public override ActionAttemptDeleteAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -867,7 +871,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_ACCESS_CODE";
@@ -879,7 +883,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptUpdateAccessCode.StatusEnum Status { get; set; }
+        public override ActionAttemptUpdateAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -939,7 +943,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_NOISE_THRESHOLD";
@@ -951,7 +955,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptCreateNoiseThreshold.StatusEnum Status { get; set; }
+        public override ActionAttemptCreateNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -1011,7 +1015,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_NOISE_THRESHOLD";
@@ -1023,7 +1027,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptDeleteNoiseThreshold.StatusEnum Status { get; set; }
+        public override ActionAttemptDeleteNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -1083,7 +1087,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_NOISE_THRESHOLD";
@@ -1095,7 +1099,7 @@ namespace Seam.Model
         public Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
+        public override ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
