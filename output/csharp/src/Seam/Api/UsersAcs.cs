@@ -474,6 +474,7 @@ namespace Seam.Api
                 string? createdBefore = default,
                 int? limit = default,
                 string? pageCursor = default,
+                string? search = default,
                 string? userIdentityEmailAddress = default,
                 string? userIdentityId = default,
                 string? userIdentityPhoneNumber = default
@@ -483,6 +484,7 @@ namespace Seam.Api
                 CreatedBefore = createdBefore;
                 Limit = limit;
                 PageCursor = pageCursor;
+                Search = search;
                 UserIdentityEmailAddress = userIdentityEmailAddress;
                 UserIdentityId = userIdentityId;
                 UserIdentityPhoneNumber = userIdentityPhoneNumber;
@@ -499,6 +501,9 @@ namespace Seam.Api
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(
                 Name = "user_identity_email_address",
@@ -583,6 +588,7 @@ namespace Seam.Api
             string? createdBefore = default,
             int? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default
@@ -594,6 +600,7 @@ namespace Seam.Api
                     createdBefore: createdBefore,
                     limit: limit,
                     pageCursor: pageCursor,
+                    search: search,
                     userIdentityEmailAddress: userIdentityEmailAddress,
                     userIdentityId: userIdentityId,
                     userIdentityPhoneNumber: userIdentityPhoneNumber
@@ -615,6 +622,7 @@ namespace Seam.Api
             string? createdBefore = default,
             int? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityId = default,
             string? userIdentityPhoneNumber = default
@@ -627,6 +635,7 @@ namespace Seam.Api
                         createdBefore: createdBefore,
                         limit: limit,
                         pageCursor: pageCursor,
+                        search: search,
                         userIdentityEmailAddress: userIdentityEmailAddress,
                         userIdentityId: userIdentityId,
                         userIdentityPhoneNumber: userIdentityPhoneNumber
