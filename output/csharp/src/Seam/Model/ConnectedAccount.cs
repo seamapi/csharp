@@ -50,6 +50,8 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract bool IsConnectedAccountError { get; set; }
+
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -80,7 +82,7 @@ namespace Seam.Model
                 IsRequired = true,
                 EmitDefaultValue = false
             )]
-            public bool IsConnectedAccountError { get; set; }
+            public override bool IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -130,7 +132,7 @@ namespace Seam.Model
                 IsRequired = true,
                 EmitDefaultValue = false
             )]
-            public bool IsConnectedAccountError { get; set; }
+            public override bool IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
