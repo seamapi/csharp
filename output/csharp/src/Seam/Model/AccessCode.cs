@@ -1764,6 +1764,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeWarningsKwiksetUnableToConfirmCode),
+            "kwikset_unable_to_confirm_code"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AccessCodeWarningsManagementTransferred),
             "management_transferred"
         )]
@@ -2246,6 +2250,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "management_transferred";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeWarningsKwiksetUnableToConfirmCode_model")]
+        public class AccessCodeWarningsKwiksetUnableToConfirmCode : AccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeWarningsKwiksetUnableToConfirmCode() { }
+
+            public AccessCodeWarningsKwiksetUnableToConfirmCode(
+                string message = default,
+                string warningCode = default
+            )
+            {
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "kwikset_unable_to_confirm_code";
 
             public override string ToString()
             {

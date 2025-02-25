@@ -18,6 +18,7 @@ namespace Seam.Model
             string companyName = default,
             string? connectPartnerName = default,
             bool isSandbox = default,
+            bool isSuspended = default,
             string name = default,
             string workspaceId = default
         )
@@ -25,6 +26,7 @@ namespace Seam.Model
             CompanyName = companyName;
             ConnectPartnerName = connectPartnerName;
             IsSandbox = isSandbox;
+            IsSuspended = isSuspended;
             Name = name;
             WorkspaceId = workspaceId;
         }
@@ -37,6 +39,9 @@ namespace Seam.Model
 
         [DataMember(Name = "is_sandbox", IsRequired = true, EmitDefaultValue = false)]
         public bool IsSandbox { get; set; }
+
+        [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsSuspended { get; set; }
 
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
