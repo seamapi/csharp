@@ -207,6 +207,10 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceErrorsSaltoKsSubscriptionLimitExceeded),
+            "salto_ks_subscription_limit_exceeded"
+        )]
         [JsonSubtypes.KnownSubType(typeof(DeviceErrorsInvalidCredentials), "invalid_credentials")]
         [JsonSubtypes.KnownSubType(typeof(DeviceErrorsAccountDisconnected), "account_disconnected")]
         [JsonSubtypes.KnownSubType(
@@ -813,15 +817,20 @@ namespace Seam.Model
             protected DeviceErrorsAccountDisconnected() { }
 
             public DeviceErrorsAccountDisconnected(
+                string createdAt = default,
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsConnectedAccountError = isConnectedAccountError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
@@ -863,15 +872,20 @@ namespace Seam.Model
             protected DeviceErrorsInvalidCredentials() { }
 
             public DeviceErrorsInvalidCredentials(
+                string createdAt = default,
                 string errorCode = default,
                 bool isConnectedAccountError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsConnectedAccountError = isConnectedAccountError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "invalid_credentials";
@@ -885,6 +899,167 @@ namespace Seam.Model
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceErrorsSaltoKsSubscriptionLimitExceeded_model")]
+        public class DeviceErrorsSaltoKsSubscriptionLimitExceeded : DeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsSaltoKsSubscriptionLimitExceeded() { }
+
+            public DeviceErrorsSaltoKsSubscriptionLimitExceeded(
+                string createdAt = default,
+                string errorCode = default,
+                bool isConnectedAccountError = default,
+                string message = default,
+                DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata saltoKsMetadata =
+                    default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsConnectedAccountError = isConnectedAccountError;
+                Message = message;
+                SaltoKsMetadata = saltoKsMetadata;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public bool IsConnectedAccountError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "salto_ks_metadata", IsRequired = true, EmitDefaultValue = false)]
+            public DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata SaltoKsMetadata { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_deviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata_model"
+        )]
+        public class DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata() { }
+
+            public DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata(
+                List<DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> sites =
+                    default
+            )
+            {
+                Sites = sites;
+            }
+
+            [DataMember(Name = "sites", IsRequired = true, EmitDefaultValue = false)]
+            public List<DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> Sites { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_deviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites_model"
+        )]
+        public class DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites
+        {
+            [JsonConstructorAttribute]
+            protected DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites() { }
+
+            public DeviceErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites(
+                string siteId = default,
+                string siteName = default,
+                int siteUserSubscriptionLimit = default,
+                int subscribedSiteUserCount = default
+            )
+            {
+                SiteId = siteId;
+                SiteName = siteName;
+                SiteUserSubscriptionLimit = siteUserSubscriptionLimit;
+                SubscribedSiteUserCount = subscribedSiteUserCount;
+            }
+
+            [DataMember(Name = "site_id", IsRequired = true, EmitDefaultValue = false)]
+            public string SiteId { get; set; }
+
+            [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
+            public string SiteName { get; set; }
+
+            [DataMember(
+                Name = "site_user_subscription_limit",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public int SiteUserSubscriptionLimit { get; set; }
+
+            [DataMember(
+                Name = "subscribed_site_user_count",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public int SubscribedSiteUserCount { get; set; }
 
             public override string ToString()
             {
