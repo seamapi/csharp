@@ -14,6 +14,7 @@ namespace Seam.Model
         typeof(EventEnrollmentAutomationDeleted),
         "enrollment_automation.deleted"
     )]
+    [JsonSubtypes.KnownSubType(typeof(EventDeviceNameChanged), "device.name_changed")]
     [JsonSubtypes.KnownSubType(
         typeof(EventThermostatTemperatureChanged),
         "thermostat.temperature_changed"
@@ -5568,6 +5569,77 @@ namespace Seam.Model
 
         [DataMember(Name = "temperature_fahrenheit", IsRequired = true, EmitDefaultValue = false)]
         public float TemperatureFahrenheit { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceNameChanged_model")]
+    public class EventDeviceNameChanged : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceNameChanged() { }
+
+        public EventDeviceNameChanged(
+            string connectedAccountId = default,
+            string createdAt = default,
+            string deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string newName = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            NewName = newName;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "device.name_changed";
+
+        [DataMember(Name = "new_name", IsRequired = true, EmitDefaultValue = false)]
+        public string NewName { get; set; }
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
