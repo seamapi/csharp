@@ -5603,9 +5603,9 @@ namespace Seam.Model
             string connectedAccountId = default,
             string createdAt = default,
             string deviceId = default,
+            string deviceName = default,
             string eventId = default,
             string eventType = default,
-            string newName = default,
             string occurredAt = default,
             string workspaceId = default
         )
@@ -5613,9 +5613,9 @@ namespace Seam.Model
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DeviceId = deviceId;
+            DeviceName = deviceName;
             EventId = eventId;
             EventType = eventType;
-            NewName = newName;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
@@ -5629,14 +5629,14 @@ namespace Seam.Model
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        [DataMember(Name = "device_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceName { get; set; }
+
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.name_changed";
-
-        [DataMember(Name = "new_name", IsRequired = true, EmitDefaultValue = false)]
-        public string NewName { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
