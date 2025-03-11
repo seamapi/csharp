@@ -157,6 +157,8 @@ namespace Seam.Model
         "connected_account.connected"
     )]
     [JsonSubtypes.KnownSubType(typeof(EventClientSessionDeleted), "client_session.deleted")]
+    [JsonSubtypes.KnownSubType(typeof(EventAcsEntranceRemoved), "acs_entrance.removed")]
+    [JsonSubtypes.KnownSubType(typeof(EventAcsEntranceAdded), "acs_entrance.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsAccessGroupDeleted), "acs_access_group.deleted")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderRemoved), "acs_encoder.removed")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderAdded), "acs_encoder.added")]
@@ -2134,6 +2136,148 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_access_group.deleted";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsEntranceAdded_model")]
+    public class EventAcsEntranceAdded : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsEntranceAdded() { }
+
+        public EventAcsEntranceAdded(
+            string acsEntranceId = default,
+            string acsSystemId = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AcsEntranceId = acsEntranceId;
+            AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEntranceId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "acs_entrance.added";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsEntranceRemoved_model")]
+    public class EventAcsEntranceRemoved : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsEntranceRemoved() { }
+
+        public EventAcsEntranceRemoved(
+            string acsEntranceId = default,
+            string acsSystemId = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AcsEntranceId = acsEntranceId;
+            AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEntranceId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "acs_entrance.removed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
