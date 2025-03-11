@@ -1006,12 +1006,16 @@ namespace Seam.Model
             "unknown_issue_with_phone"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsSaltoPrivacyMode),
-            "salto_privacy_mode"
+            typeof(UnmanagedDeviceWarningsSaltoKsSubscriptionLimitAlmostReached),
+            "salto_ks_subscription_limit_almost_reached"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsSaltoOfficeMode),
-            "salto_office_mode"
+            typeof(UnmanagedDeviceWarningsSaltoKsPrivacyMode),
+            "salto_ks_privacy_mode"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceWarningsSaltoKsOfficeMode),
+            "salto_ks_office_mode"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsDeviceHasFlakyConnection),
@@ -1052,10 +1056,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsWyzeDeviceMissingGateway),
             "wyze_device_missing_gateway"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsSaltoUnknownDeviceType),
-            "salto_unknown_device_type"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsManyActiveBackupCodes),
@@ -1147,52 +1147,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "many_active_backup_codes";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_unmanagedDeviceWarningsSaltoUnknownDeviceType_model")]
-        public class UnmanagedDeviceWarningsSaltoUnknownDeviceType : UnmanagedDeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsSaltoUnknownDeviceType() { }
-
-            public UnmanagedDeviceWarningsSaltoUnknownDeviceType(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "salto_unknown_device_type";
 
             public override string ToString()
             {
@@ -1682,13 +1636,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedDeviceWarningsSaltoOfficeMode_model")]
-        public class UnmanagedDeviceWarningsSaltoOfficeMode : UnmanagedDeviceWarnings
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsSaltoKsOfficeMode_model")]
+        public class UnmanagedDeviceWarningsSaltoKsOfficeMode : UnmanagedDeviceWarnings
         {
             [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsSaltoOfficeMode() { }
+            protected UnmanagedDeviceWarningsSaltoKsOfficeMode() { }
 
-            public UnmanagedDeviceWarningsSaltoOfficeMode(
+            public UnmanagedDeviceWarningsSaltoKsOfficeMode(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -1706,7 +1660,7 @@ namespace Seam.Model
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "salto_office_mode";
+            public override string WarningCode { get; } = "salto_ks_office_mode";
 
             public override string ToString()
             {
@@ -1728,13 +1682,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedDeviceWarningsSaltoPrivacyMode_model")]
-        public class UnmanagedDeviceWarningsSaltoPrivacyMode : UnmanagedDeviceWarnings
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsSaltoKsPrivacyMode_model")]
+        public class UnmanagedDeviceWarningsSaltoKsPrivacyMode : UnmanagedDeviceWarnings
         {
             [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsSaltoPrivacyMode() { }
+            protected UnmanagedDeviceWarningsSaltoKsPrivacyMode() { }
 
-            public UnmanagedDeviceWarningsSaltoPrivacyMode(
+            public UnmanagedDeviceWarningsSaltoKsPrivacyMode(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -1752,7 +1706,57 @@ namespace Seam.Model
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "salto_privacy_mode";
+            public override string WarningCode { get; } = "salto_ks_privacy_mode";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedDeviceWarningsSaltoKsSubscriptionLimitAlmostReached_model"
+        )]
+        public class UnmanagedDeviceWarningsSaltoKsSubscriptionLimitAlmostReached
+            : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsSaltoKsSubscriptionLimitAlmostReached() { }
+
+            public UnmanagedDeviceWarningsSaltoKsSubscriptionLimitAlmostReached(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } =
+                "salto_ks_subscription_limit_almost_reached";
 
             public override string ToString()
             {
