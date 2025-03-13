@@ -189,6 +189,8 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -201,15 +203,20 @@ namespace Seam.Model
             protected AccessCodeErrorsSmartthingsFailedToSetAccessCode() { }
 
             public AccessCodeErrorsSmartthingsFailedToSetAccessCode(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "smartthings_failed_to_set_access_code";
@@ -249,15 +256,20 @@ namespace Seam.Model
             protected AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries() { }
 
             public AccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } =
@@ -296,15 +308,20 @@ namespace Seam.Model
             protected AccessCodeErrorsFailedToSetOnDevice() { }
 
             public AccessCodeErrorsFailedToSetOnDevice(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_set_on_device";
@@ -342,15 +359,20 @@ namespace Seam.Model
             protected AccessCodeErrorsFailedToRemoveFromDevice() { }
 
             public AccessCodeErrorsFailedToRemoveFromDevice(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_remove_from_device";
@@ -388,15 +410,20 @@ namespace Seam.Model
             protected AccessCodeErrorsDuplicateCodeOnDevice() { }
 
             public AccessCodeErrorsDuplicateCodeOnDevice(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "duplicate_code_on_device";
@@ -434,15 +461,20 @@ namespace Seam.Model
             protected AccessCodeErrorsDuplicateCodeAttemptPrevented() { }
 
             public AccessCodeErrorsDuplicateCodeAttemptPrevented(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "duplicate_code_attempt_prevented";
@@ -480,15 +512,20 @@ namespace Seam.Model
             protected AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs() { }
 
             public AccessCodeErrorsIgloohomeBridgeTooManyPendingJobs(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "igloohome_bridge_too_many_pending_jobs";
@@ -526,15 +563,20 @@ namespace Seam.Model
             protected AccessCodeErrorsIgloohomeBridgeOffline() { }
 
             public AccessCodeErrorsIgloohomeBridgeOffline(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "igloohome_bridge_offline";
@@ -575,15 +617,20 @@ namespace Seam.Model
             protected AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable() { }
 
             public AccessCodeErrorsIgloohomeOfflineAccessCodeNoVarianceAvailable(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } =
@@ -622,15 +669,20 @@ namespace Seam.Model
             protected AccessCodeErrorsKwiksetUnableToConfirmCode() { }
 
             public AccessCodeErrorsKwiksetUnableToConfirmCode(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "kwikset_unable_to_confirm_code";
@@ -668,15 +720,20 @@ namespace Seam.Model
             protected AccessCodeErrorsKwiksetUnableToConfirmDeletion() { }
 
             public AccessCodeErrorsKwiksetUnableToConfirmDeletion(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "kwikset_unable_to_confirm_deletion";
@@ -714,15 +771,20 @@ namespace Seam.Model
             protected AccessCodeErrorsCodeModifiedExternalToSeam() { }
 
             public AccessCodeErrorsCodeModifiedExternalToSeam(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "code_modified_external_to_seam";
@@ -760,15 +822,20 @@ namespace Seam.Model
             protected AccessCodeErrorsAugustLockInvalidCodeLength() { }
 
             public AccessCodeErrorsAugustLockInvalidCodeLength(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_invalid_code_length";
@@ -806,15 +873,20 @@ namespace Seam.Model
             protected AccessCodeErrorsAugustDeviceProgrammingDelay() { }
 
             public AccessCodeErrorsAugustDeviceProgrammingDelay(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_device_programming_delay";
@@ -852,15 +924,20 @@ namespace Seam.Model
             protected AccessCodeErrorsAugustDeviceSlotsFull() { }
 
             public AccessCodeErrorsAugustDeviceSlotsFull(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_device_slots_full";
@@ -898,15 +975,20 @@ namespace Seam.Model
             protected AccessCodeErrorsAugustLockMissingKeypad() { }
 
             public AccessCodeErrorsAugustLockMissingKeypad(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_missing_keypad";
@@ -944,15 +1026,20 @@ namespace Seam.Model
             protected AccessCodeErrorsSaltoSiteUserNotSubscribed() { }
 
             public AccessCodeErrorsSaltoSiteUserNotSubscribed(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_site_user_not_subscribed";
@@ -990,15 +1077,20 @@ namespace Seam.Model
             protected AccessCodeErrorsHubitatDeviceProgrammingDelay() { }
 
             public AccessCodeErrorsHubitatDeviceProgrammingDelay(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hubitat_device_programming_delay";
@@ -1036,15 +1128,20 @@ namespace Seam.Model
             protected AccessCodeErrorsHubitatNoFreePositionsAvailable() { }
 
             public AccessCodeErrorsHubitatNoFreePositionsAvailable(
+                string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
                 string message = default
             )
             {
+                CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 IsAccessCodeError = isAccessCodeError;
                 Message = message;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hubitat_no_free_positions_available";
@@ -1097,7 +1194,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
@@ -1157,7 +1254,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
@@ -1215,7 +1312,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_offline";
@@ -1266,7 +1363,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_removed";
@@ -1317,7 +1414,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hub_disconnected";
@@ -1368,7 +1465,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_disconnected";
@@ -1419,7 +1516,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "empty_backup_access_code_pool";
@@ -1470,7 +1567,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_not_authorized";
@@ -1521,7 +1618,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_missing_bridge";
@@ -1572,7 +1669,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "ttlock_lock_not_paired_to_gateway";
@@ -1623,7 +1720,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "missing_device_credentials";
@@ -1674,7 +1771,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "auxiliary_heat_running";
@@ -1725,7 +1822,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "subscription_required";
@@ -1776,7 +1873,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "invalid_credentials";
@@ -1896,6 +1993,8 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -1908,13 +2007,18 @@ namespace Seam.Model
             protected AccessCodeWarningsSmartthingsFailedToSetAccessCode() { }
 
             public AccessCodeWarningsSmartthingsFailedToSetAccessCode(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -1949,13 +2053,18 @@ namespace Seam.Model
             protected AccessCodeWarningsSchlageDetectedDuplicate() { }
 
             public AccessCodeWarningsSchlageDetectedDuplicate(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -1990,13 +2099,18 @@ namespace Seam.Model
             protected AccessCodeWarningsSchlageCreationOutage() { }
 
             public AccessCodeWarningsSchlageCreationOutage(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2031,13 +2145,18 @@ namespace Seam.Model
             protected AccessCodeWarningsSaltoOfficeMode() { }
 
             public AccessCodeWarningsSaltoOfficeMode(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2072,13 +2191,18 @@ namespace Seam.Model
             protected AccessCodeWarningsCodeModifiedExternalToSeam() { }
 
             public AccessCodeWarningsCodeModifiedExternalToSeam(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2113,13 +2237,18 @@ namespace Seam.Model
             protected AccessCodeWarningsDelayInSettingOnDevice() { }
 
             public AccessCodeWarningsDelayInSettingOnDevice(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2154,13 +2283,18 @@ namespace Seam.Model
             protected AccessCodeWarningsDelayInRemovingFromDevice() { }
 
             public AccessCodeWarningsDelayInRemovingFromDevice(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2195,13 +2329,18 @@ namespace Seam.Model
             protected AccessCodeWarningsThirdPartyIntegrationDetected() { }
 
             public AccessCodeWarningsThirdPartyIntegrationDetected(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2236,13 +2375,18 @@ namespace Seam.Model
             protected AccessCodeWarningsAugustDeviceProgrammingDelay() { }
 
             public AccessCodeWarningsAugustDeviceProgrammingDelay(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2279,13 +2423,18 @@ namespace Seam.Model
             protected AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours() { }
 
             public AccessCodeWarningsIglooAlgopinMustBeUsedWithin_24Hours(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2321,13 +2470,18 @@ namespace Seam.Model
             protected AccessCodeWarningsManagementTransferred() { }
 
             public AccessCodeWarningsManagementTransferred(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -2362,13 +2516,18 @@ namespace Seam.Model
             protected AccessCodeWarningsKwiksetUnableToConfirmCode() { }
 
             public AccessCodeWarningsKwiksetUnableToConfirmCode(
+                string? createdAt = default,
                 string message = default,
                 string warningCode = default
             )
             {
+                CreatedAt = createdAt;
                 Message = message;
                 WarningCode = warningCode;
             }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
