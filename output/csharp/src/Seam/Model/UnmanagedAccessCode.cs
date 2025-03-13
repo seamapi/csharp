@@ -101,6 +101,18 @@ namespace Seam.Model
             "account_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel),
+            "dormakaba_oracode_no_valid_user_level"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsWyzePotentialDuplicateCode),
+            "wyze_potential_duplicate_code"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsWyzeDuplicateCodeName),
+            "wyze_duplicate_code_name"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsHubitatNoFreePositionsAvailable),
             "hubitat_no_free_positions_available"
         )]
@@ -109,8 +121,12 @@ namespace Seam.Model
             "hubitat_device_programming_delay"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeErrorsSaltoSiteUserNotSubscribed),
-            "salto_site_user_not_subscribed"
+            typeof(UnmanagedAccessCodeErrorsSaltoKsUserNotSubscribed),
+            "salto_ks_user_not_subscribed"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsAugustLockTemporarilyOffline),
+            "august_lock_temporarily_offline"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsAugustLockMissingKeypad),
@@ -167,6 +183,10 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsFailedToSetOnDevice),
             "failed_to_set_on_device"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsSmartthingsNoFreeSlotsAvailable),
+            "smartthings_no_free_slots_available"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsSmartthingsFailedToSetAfterMultipleRetries),
@@ -269,6 +289,60 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } =
                 "smartthings_failed_to_set_after_multiple_retries";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeErrorsSmartthingsNoFreeSlotsAvailable_model"
+        )]
+        public class UnmanagedAccessCodeErrorsSmartthingsNoFreeSlotsAvailable
+            : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsSmartthingsNoFreeSlotsAvailable() { }
+
+            public UnmanagedAccessCodeErrorsSmartthingsNoFreeSlotsAvailable(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "smartthings_no_free_slots_available";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
@@ -1029,13 +1103,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsSaltoSiteUserNotSubscribed_model")]
-        public class UnmanagedAccessCodeErrorsSaltoSiteUserNotSubscribed : UnmanagedAccessCodeErrors
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeErrorsAugustLockTemporarilyOffline_model"
+        )]
+        public class UnmanagedAccessCodeErrorsAugustLockTemporarilyOffline
+            : UnmanagedAccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeErrorsSaltoSiteUserNotSubscribed() { }
+            protected UnmanagedAccessCodeErrorsAugustLockTemporarilyOffline() { }
 
-            public UnmanagedAccessCodeErrorsSaltoSiteUserNotSubscribed(
+            public UnmanagedAccessCodeErrorsAugustLockTemporarilyOffline(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -1052,7 +1129,58 @@ namespace Seam.Model
             public override string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "salto_site_user_not_subscribed";
+            public override string ErrorCode { get; } = "august_lock_temporarily_offline";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsSaltoKsUserNotSubscribed_model")]
+        public class UnmanagedAccessCodeErrorsSaltoKsUserNotSubscribed : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsSaltoKsUserNotSubscribed() { }
+
+            public UnmanagedAccessCodeErrorsSaltoKsUserNotSubscribed(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "salto_ks_user_not_subscribed";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
@@ -1161,6 +1289,162 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hubitat_no_free_positions_available";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsWyzeDuplicateCodeName_model")]
+        public class UnmanagedAccessCodeErrorsWyzeDuplicateCodeName : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsWyzeDuplicateCodeName() { }
+
+            public UnmanagedAccessCodeErrorsWyzeDuplicateCodeName(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "wyze_duplicate_code_name";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsWyzePotentialDuplicateCode_model")]
+        public class UnmanagedAccessCodeErrorsWyzePotentialDuplicateCode : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsWyzePotentialDuplicateCode() { }
+
+            public UnmanagedAccessCodeErrorsWyzePotentialDuplicateCode(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "wyze_potential_duplicate_code";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel_model"
+        )]
+        public class UnmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel
+            : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel() { }
+
+            public UnmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "dormakaba_oracode_no_valid_user_level";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
@@ -1967,6 +2251,10 @@ namespace Seam.Model
             "igloo_algopin_must_be_used_within_24_hours"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeWarningsAugustLockTemporarilyOffline),
+            "august_lock_temporarily_offline"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsAugustDeviceProgrammingDelay),
             "august_device_programming_delay"
         )]
@@ -1985,10 +2273,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsCodeModifiedExternalToSeam),
             "code_modified_external_to_seam"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeWarningsSaltoOfficeMode),
-            "salto_office_mode"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsSchlageCreationOutage),
@@ -2134,52 +2418,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "schlage_creation_outage";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_unmanagedAccessCodeWarningsSaltoOfficeMode_model")]
-        public class UnmanagedAccessCodeWarningsSaltoOfficeMode : UnmanagedAccessCodeWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeWarningsSaltoOfficeMode() { }
-
-            public UnmanagedAccessCodeWarningsSaltoOfficeMode(
-                string? createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string? CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "salto_office_mode";
 
             public override string ToString()
             {
@@ -2422,6 +2660,55 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "august_device_programming_delay";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeWarningsAugustLockTemporarilyOffline_model"
+        )]
+        public class UnmanagedAccessCodeWarningsAugustLockTemporarilyOffline
+            : UnmanagedAccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeWarningsAugustLockTemporarilyOffline() { }
+
+            public UnmanagedAccessCodeWarningsAugustLockTemporarilyOffline(
+                string? createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "august_lock_temporarily_offline";
 
             public override string ToString()
             {
