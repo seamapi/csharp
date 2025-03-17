@@ -31,6 +31,7 @@ namespace Seam.Model
             bool isManaged = default,
             bool? isSuspended = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
+            List<UnmanagedAcsUserPendingModifications>? pendingModifications = default,
             string? phoneNumber = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityFullName = default,
@@ -56,6 +57,7 @@ namespace Seam.Model
             IsManaged = isManaged;
             IsSuspended = isSuspended;
             LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
+            PendingModifications = pendingModifications;
             PhoneNumber = phoneNumber;
             UserIdentityEmailAddress = userIdentityEmailAddress;
             UserIdentityFullName = userIdentityFullName;
@@ -357,6 +359,581 @@ namespace Seam.Model
             SaltoSpaceUser = 7,
         }
 
+        [JsonConverter(typeof(JsonSubtypes), "modification_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership),
+            "acs_access_group_membership"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserPendingModificationsSuspensionState),
+            "suspension_state"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserPendingModificationsAccessSchedule),
+            "access_schedule"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingModificationsProfile), "profile")]
+        public abstract class UnmanagedAcsUserPendingModifications
+        {
+            public abstract string ModificationCode { get; }
+
+            public abstract string CreatedAt { get; set; }
+
+            public abstract object ModifiedFrom { get; set; }
+
+            public abstract object ModifiedTo { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsProfile_model")]
+        public class UnmanagedAcsUserPendingModificationsProfile
+            : UnmanagedAcsUserPendingModifications
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsProfile() { }
+
+            public UnmanagedAcsUserPendingModificationsProfile(
+                string createdAt = default,
+                string modificationCode = default,
+                UnmanagedAcsUserPendingModificationsProfileModifiedFrom modifiedFrom = default,
+                UnmanagedAcsUserPendingModificationsProfileModifiedTo modifiedTo = default
+            )
+            {
+                CreatedAt = createdAt;
+                ModificationCode = modificationCode;
+                ModifiedFrom = modifiedFrom;
+                ModifiedTo = modifiedTo;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ModificationCode { get; } = "profile";
+
+            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsProfileModifiedFrom ModifiedFrom { get; set; }
+
+            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsProfileModifiedTo ModifiedTo { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsProfileModifiedFrom_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsProfileModifiedFrom
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsProfileModifiedFrom() { }
+
+            public UnmanagedAcsUserPendingModificationsProfileModifiedFrom(
+                string? emailAddress = default,
+                string? fullName = default,
+                string? phoneNumber = default
+            )
+            {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
+            }
+
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsProfileModifiedTo_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsProfileModifiedTo
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsProfileModifiedTo() { }
+
+            public UnmanagedAcsUserPendingModificationsProfileModifiedTo(
+                string? emailAddress = default,
+                string? fullName = default,
+                string? phoneNumber = default
+            )
+            {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
+            }
+
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsAccessSchedule_model")]
+        public class UnmanagedAcsUserPendingModificationsAccessSchedule
+            : UnmanagedAcsUserPendingModifications
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAccessSchedule() { }
+
+            public UnmanagedAcsUserPendingModificationsAccessSchedule(
+                string createdAt = default,
+                string modificationCode = default,
+                UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom modifiedFrom =
+                    default,
+                UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo modifiedTo = default
+            )
+            {
+                CreatedAt = createdAt;
+                ModificationCode = modificationCode;
+                ModifiedFrom = modifiedFrom;
+                ModifiedTo = modifiedTo;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ModificationCode { get; } = "access_schedule";
+
+            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom ModifiedFrom { get; set; }
+
+            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo ModifiedTo { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom() { }
+
+            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom(
+                string? endsAt = default,
+                string startsAt = default
+            )
+            {
+                EndsAt = endsAt;
+                StartsAt = startsAt;
+            }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+            public string StartsAt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsAccessScheduleModifiedTo_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo() { }
+
+            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo(
+                string? endsAt = default,
+                string startsAt = default
+            )
+            {
+                EndsAt = endsAt;
+                StartsAt = startsAt;
+            }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+            public string StartsAt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionState_model")]
+        public class UnmanagedAcsUserPendingModificationsSuspensionState
+            : UnmanagedAcsUserPendingModifications
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsSuspensionState() { }
+
+            public UnmanagedAcsUserPendingModificationsSuspensionState(
+                string createdAt = default,
+                string modificationCode = default,
+                UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom modifiedFrom =
+                    default,
+                UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo modifiedTo = default
+            )
+            {
+                CreatedAt = createdAt;
+                ModificationCode = modificationCode;
+                ModifiedFrom = modifiedFrom;
+                ModifiedTo = modifiedTo;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ModificationCode { get; } = "suspension_state";
+
+            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom ModifiedFrom { get; set; }
+
+            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo ModifiedTo { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom() { }
+
+            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom(
+                bool isSuspended = default
+            )
+            {
+                IsSuspended = isSuspended;
+            }
+
+            [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsSuspended { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionStateModifiedTo_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo() { }
+
+            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo(
+                bool isSuspended = default
+            )
+            {
+                IsSuspended = isSuspended;
+            }
+
+            [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsSuspended { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembership_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership
+            : UnmanagedAcsUserPendingModifications
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership() { }
+
+            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership(
+                string createdAt = default,
+                string modificationCode = default,
+                UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom modifiedFrom =
+                    default,
+                UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo modifiedTo =
+                    default
+            )
+            {
+                CreatedAt = createdAt;
+                ModificationCode = modificationCode;
+                ModifiedFrom = modifiedFrom;
+                ModifiedTo = modifiedTo;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ModificationCode { get; } = "acs_access_group_membership";
+
+            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom ModifiedFrom { get; set; }
+
+            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
+            public override UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo ModifiedTo { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom() { }
+
+            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom(
+                string? acsAccessGroupId = default
+            )
+            {
+                AcsAccessGroupId = acsAccessGroupId;
+            }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsAccessGroupId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo_model"
+        )]
+        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo() { }
+
+            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo(
+                string? acsAccessGroupId = default
+            )
+            {
+                AcsAccessGroupId = acsAccessGroupId;
+            }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsAccessGroupId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsUserWarningsUnknownIssueWithAcsUser),
@@ -575,6 +1152,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string? LatestDesiredStateSyncedWithProviderAt { get; set; }
+
+        [DataMember(Name = "pending_modifications", IsRequired = false, EmitDefaultValue = false)]
+        public List<UnmanagedAcsUserPendingModifications>? PendingModifications { get; set; }
 
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
