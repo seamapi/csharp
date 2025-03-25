@@ -18,6 +18,144 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "accessCodeLockRequest_request")]
+        public class AccessCodeLockRequest
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeLockRequest() { }
+
+            public AccessCodeLockRequest(string accessCodeId = default, string deviceId = default)
+            {
+                AccessCodeId = accessCodeId;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void AccessCodeLock(AccessCodeLockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/simulate/access_code_lock", requestOptions);
+        }
+
+        public void AccessCodeLock(string accessCodeId = default, string deviceId = default)
+        {
+            AccessCodeLock(
+                new AccessCodeLockRequest(accessCodeId: accessCodeId, deviceId: deviceId)
+            );
+        }
+
+        public async Task AccessCodeLockAsync(AccessCodeLockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/simulate/access_code_lock", requestOptions);
+        }
+
+        public async Task AccessCodeLockAsync(
+            string accessCodeId = default,
+            string deviceId = default
+        )
+        {
+            await AccessCodeLockAsync(
+                new AccessCodeLockRequest(accessCodeId: accessCodeId, deviceId: deviceId)
+            );
+        }
+
+        [DataContract(Name = "accessCodeUnlockRequest_request")]
+        public class AccessCodeUnlockRequest
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeUnlockRequest() { }
+
+            public AccessCodeUnlockRequest(string accessCodeId = default, string deviceId = default)
+            {
+                AccessCodeId = accessCodeId;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessCodeId { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void AccessCodeUnlock(AccessCodeUnlockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/simulate/access_code_unlock", requestOptions);
+        }
+
+        public void AccessCodeUnlock(string accessCodeId = default, string deviceId = default)
+        {
+            AccessCodeUnlock(
+                new AccessCodeUnlockRequest(accessCodeId: accessCodeId, deviceId: deviceId)
+            );
+        }
+
+        public async Task AccessCodeUnlockAsync(AccessCodeUnlockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/simulate/access_code_unlock", requestOptions);
+        }
+
+        public async Task AccessCodeUnlockAsync(
+            string accessCodeId = default,
+            string deviceId = default
+        )
+        {
+            await AccessCodeUnlockAsync(
+                new AccessCodeUnlockRequest(accessCodeId: accessCodeId, deviceId: deviceId)
+            );
+        }
+
         [DataContract(Name = "connectRequest_request")]
         public class ConnectRequest
         {
