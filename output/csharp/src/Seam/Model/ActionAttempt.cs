@@ -85,10 +85,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "LOCK_DOOR";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptLockDoor.StatusEnum Status { get; set; }
@@ -157,10 +157,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "UNLOCK_DOOR";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptUnlockDoor.StatusEnum Status { get; set; }
@@ -229,10 +229,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "SCAN_CREDENTIAL";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptScanCredential.StatusEnum Status { get; set; }
@@ -301,10 +301,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "ENCODE_CREDENTIAL";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptEncodeCredential.StatusEnum Status { get; set; }
@@ -373,10 +373,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "RESET_SANDBOX_WORKSPACE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptResetSandboxWorkspace.StatusEnum Status { get; set; }
@@ -445,10 +445,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "SET_FAN_MODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptSetFanMode.StatusEnum Status { get; set; }
@@ -517,10 +517,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "SET_HVAC_MODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptSetHvacMode.StatusEnum Status { get; set; }
@@ -589,10 +589,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "ACTIVATE_CLIMATE_PRESET";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptActivateClimatePreset.StatusEnum Status { get; set; }
@@ -661,10 +661,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "SYNC_ACCESS_CODES";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptSyncAccessCodes.StatusEnum Status { get; set; }
@@ -733,10 +733,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "CREATE_ACCESS_CODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptCreateAccessCode.StatusEnum Status { get; set; }
@@ -805,10 +805,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "DELETE_ACCESS_CODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptDeleteAccessCode.StatusEnum Status { get; set; }
@@ -877,10 +877,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "UPDATE_ACCESS_CODE";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptUpdateAccessCode.StatusEnum Status { get; set; }
@@ -949,10 +949,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "CREATE_NOISE_THRESHOLD";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptCreateNoiseThreshold.StatusEnum Status { get; set; }
@@ -1021,10 +1021,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "DELETE_NOISE_THRESHOLD";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptDeleteNoiseThreshold.StatusEnum Status { get; set; }
@@ -1093,10 +1093,10 @@ namespace Seam.Model
         public override string ActionType { get; } = "UPDATE_NOISE_THRESHOLD";
 
         [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
-        public Object Error { get; set; }
+        public override Object Error { get; set; }
 
         [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
-        public Object Result { get; set; }
+        public override Object Result { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
