@@ -31,7 +31,8 @@ namespace Seam.Api
                 string name = default,
                 CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
                 string? webviewPrimaryButtonColor = default,
-                string? webviewPrimaryButtonTextColor = default
+                string? webviewPrimaryButtonTextColor = default,
+                string? webviewSuccessMessage = default
             )
             {
                 CompanyName = companyName;
@@ -41,6 +42,7 @@ namespace Seam.Api
                 WebviewLogoShape = webviewLogoShape;
                 WebviewPrimaryButtonColor = webviewPrimaryButtonColor;
                 WebviewPrimaryButtonTextColor = webviewPrimaryButtonTextColor;
+                WebviewSuccessMessage = webviewSuccessMessage;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -88,6 +90,13 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? WebviewPrimaryButtonTextColor { get; set; }
+
+            [DataMember(
+                Name = "webview_success_message",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? WebviewSuccessMessage { get; set; }
 
             public override string ToString()
             {
@@ -157,7 +166,8 @@ namespace Seam.Api
             string name = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
             string? webviewPrimaryButtonColor = default,
-            string? webviewPrimaryButtonTextColor = default
+            string? webviewPrimaryButtonTextColor = default,
+            string? webviewSuccessMessage = default
         )
         {
             return Create(
@@ -168,7 +178,8 @@ namespace Seam.Api
                     name: name,
                     webviewLogoShape: webviewLogoShape,
                     webviewPrimaryButtonColor: webviewPrimaryButtonColor,
-                    webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor
+                    webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor,
+                    webviewSuccessMessage: webviewSuccessMessage
                 )
             );
         }
@@ -189,7 +200,8 @@ namespace Seam.Api
             string name = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
             string? webviewPrimaryButtonColor = default,
-            string? webviewPrimaryButtonTextColor = default
+            string? webviewPrimaryButtonTextColor = default,
+            string? webviewSuccessMessage = default
         )
         {
             return (
@@ -201,7 +213,8 @@ namespace Seam.Api
                         name: name,
                         webviewLogoShape: webviewLogoShape,
                         webviewPrimaryButtonColor: webviewPrimaryButtonColor,
-                        webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor
+                        webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor,
+                        webviewSuccessMessage: webviewSuccessMessage
                     )
                 )
             );

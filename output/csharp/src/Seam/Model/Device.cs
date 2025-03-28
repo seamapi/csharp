@@ -4783,7 +4783,8 @@ namespace Seam.Model
             bool? lockCommand = default,
             bool? passcode = default,
             bool? passcodeManagement = default,
-            bool? unlockViaGateway = default
+            bool? unlockViaGateway = default,
+            bool? wifi = default
         )
         {
             IncompleteKeyboardPasscode = incompleteKeyboardPasscode;
@@ -4791,6 +4792,7 @@ namespace Seam.Model
             Passcode = passcode;
             PasscodeManagement = passcodeManagement;
             UnlockViaGateway = unlockViaGateway;
+            Wifi = wifi;
         }
 
         [DataMember(
@@ -4811,6 +4813,9 @@ namespace Seam.Model
 
         [DataMember(Name = "unlock_via_gateway", IsRequired = false, EmitDefaultValue = false)]
         public bool? UnlockViaGateway { get; set; }
+
+        [DataMember(Name = "wifi", IsRequired = false, EmitDefaultValue = false)]
+        public bool? Wifi { get; set; }
 
         public override string ToString()
         {
