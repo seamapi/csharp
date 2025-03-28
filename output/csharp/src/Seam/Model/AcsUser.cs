@@ -368,17 +368,55 @@ namespace Seam.Model
             "access_schedule"
         )]
         [JsonSubtypes.KnownSubType(typeof(AcsUserPendingModificationsProfile), "profile")]
+        [JsonSubtypes.KnownSubType(typeof(AcsUserPendingModificationsCreate), "create")]
         public abstract class AcsUserPendingModifications
         {
             public abstract string ModificationCode { get; }
 
             public abstract string CreatedAt { get; set; }
 
-            public abstract object ModifiedFrom { get; set; }
-
-            public abstract object ModifiedTo { get; set; }
-
             public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_acsUserPendingModificationsCreate_model")]
+        public class AcsUserPendingModificationsCreate : AcsUserPendingModifications
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingModificationsCreate() { }
+
+            public AcsUserPendingModificationsCreate(
+                string createdAt = default,
+                string modificationCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                ModificationCode = modificationCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ModificationCode { get; } = "create";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataContract(Name = "seamModel_acsUserPendingModificationsProfile_model")]
@@ -407,10 +445,10 @@ namespace Seam.Model
             public override string ModificationCode { get; } = "profile";
 
             [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsProfileModifiedFrom ModifiedFrom { get; set; }
+            public AcsUserPendingModificationsProfileModifiedFrom ModifiedFrom { get; set; }
 
             [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsProfileModifiedTo ModifiedTo { get; set; }
+            public AcsUserPendingModificationsProfileModifiedTo ModifiedTo { get; set; }
 
             public override string ToString()
             {
@@ -550,10 +588,10 @@ namespace Seam.Model
             public override string ModificationCode { get; } = "access_schedule";
 
             [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsAccessScheduleModifiedFrom ModifiedFrom { get; set; }
+            public AcsUserPendingModificationsAccessScheduleModifiedFrom ModifiedFrom { get; set; }
 
             [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsAccessScheduleModifiedTo ModifiedTo { get; set; }
+            public AcsUserPendingModificationsAccessScheduleModifiedTo ModifiedTo { get; set; }
 
             public override string ToString()
             {
@@ -685,10 +723,10 @@ namespace Seam.Model
             public override string ModificationCode { get; } = "suspension_state";
 
             [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsSuspensionStateModifiedFrom ModifiedFrom { get; set; }
+            public AcsUserPendingModificationsSuspensionStateModifiedFrom ModifiedFrom { get; set; }
 
             [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsSuspensionStateModifiedTo ModifiedTo { get; set; }
+            public AcsUserPendingModificationsSuspensionStateModifiedTo ModifiedTo { get; set; }
 
             public override string ToString()
             {
@@ -812,10 +850,10 @@ namespace Seam.Model
             public override string ModificationCode { get; } = "acs_access_group_membership";
 
             [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom ModifiedFrom { get; set; }
+            public AcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom ModifiedFrom { get; set; }
 
             [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public override AcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo ModifiedTo { get; set; }
+            public AcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo ModifiedTo { get; set; }
 
             public override string ToString()
             {
