@@ -199,15 +199,25 @@ namespace Seam.Api
 
             public ListRequest(
                 object? customMetadataHas = default,
+                int? limit = default,
+                string? pageCursor = default,
                 string? userIdentifierKey = default
             )
             {
                 CustomMetadataHas = customMetadataHas;
+                Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
             }
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -277,12 +287,16 @@ namespace Seam.Api
 
         public List<ConnectedAccount> List(
             object? customMetadataHas = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
             return List(
                 new ListRequest(
                     customMetadataHas: customMetadataHas,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -299,6 +313,8 @@ namespace Seam.Api
 
         public async Task<List<ConnectedAccount>> ListAsync(
             object? customMetadataHas = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
@@ -306,6 +322,8 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         customMetadataHas: customMetadataHas,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         userIdentifierKey: userIdentifierKey
                     )
                 )
