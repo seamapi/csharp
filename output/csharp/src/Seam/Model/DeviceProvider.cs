@@ -189,6 +189,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "salto_space")]
             SaltoSpace = 45,
+
+            [EnumMember(Value = "sensi")]
+            Sensi = 46,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]

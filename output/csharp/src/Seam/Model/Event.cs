@@ -163,6 +163,7 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderRemoved), "acs_encoder.removed")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsEncoderAdded), "acs_encoder.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsUserDeleted), "acs_user.deleted")]
+    [JsonSubtypes.KnownSubType(typeof(EventAcsCredentialInvalidated), "acs_credential.invalidated")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsCredentialReissued), "acs_credential.reissued")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsCredentialIssued), "acs_credential.issued")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsCredentialDeleted), "acs_credential.deleted")]
@@ -1852,6 +1853,77 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.reissued";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsCredentialInvalidated_model")]
+    public class EventAcsCredentialInvalidated : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsCredentialInvalidated() { }
+
+        public EventAcsCredentialInvalidated(
+            string acsCredentialId = default,
+            string acsSystemId = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AcsCredentialId = acsCredentialId;
+            AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsCredentialId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "acs_credential.invalidated";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
