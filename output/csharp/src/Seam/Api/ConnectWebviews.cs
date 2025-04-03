@@ -186,14 +186,17 @@ namespace Seam.Api
                 [EnumMember(Value = "salto_space")]
                 SaltoSpace = 45,
 
+                [EnumMember(Value = "sensi")]
+                Sensi = 46,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 46,
+                YaleAccess = 47,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 47,
+                HidCm = 48,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 48,
+                GoogleNest = 49,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]

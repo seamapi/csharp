@@ -258,11 +258,14 @@ namespace Seam.Api
                 [EnumMember(Value = "tado_thermostat")]
                 TadoThermostat = 33,
 
+                [EnumMember(Value = "sensi_thermostat")]
+                SensiThermostat = 34,
+
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 34,
+                IosPhone = 35,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 35,
+                AndroidPhone = 36,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -458,6 +461,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "tado")]
                 Tado = 36,
+
+                [EnumMember(Value = "sensi")]
+                Sensi = 37,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

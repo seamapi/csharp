@@ -193,11 +193,14 @@ namespace Seam.Model
             [EnumMember(Value = "tado_thermostat")]
             TadoThermostat = 33,
 
+            [EnumMember(Value = "sensi_thermostat")]
+            SensiThermostat = 34,
+
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 34,
+            IosPhone = 35,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 35,
+            AndroidPhone = 36,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]

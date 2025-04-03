@@ -199,11 +199,14 @@ namespace Seam.Model
             [EnumMember(Value = "tado_thermostat")]
             TadoThermostat = 33,
 
+            [EnumMember(Value = "sensi_thermostat")]
+            SensiThermostat = 34,
+
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 34,
+            IosPhone = 35,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 35,
+            AndroidPhone = 36,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -2001,6 +2004,7 @@ namespace Seam.Model
             DevicePropertiesSaltoMetadata? saltoMetadata = default,
             DevicePropertiesSchlageMetadata? schlageMetadata = default,
             DevicePropertiesSeamBridgeMetadata? seamBridgeMetadata = default,
+            DevicePropertiesSensiMetadata? sensiMetadata = default,
             DevicePropertiesSmartthingsMetadata? smartthingsMetadata = default,
             DevicePropertiesTadoMetadata? tadoMetadata = default,
             DevicePropertiesTedeeMetadata? tedeeMetadata = default,
@@ -2090,6 +2094,7 @@ namespace Seam.Model
             SaltoMetadata = saltoMetadata;
             SchlageMetadata = schlageMetadata;
             SeamBridgeMetadata = seamBridgeMetadata;
+            SensiMetadata = sensiMetadata;
             SmartthingsMetadata = smartthingsMetadata;
             TadoMetadata = tadoMetadata;
             TedeeMetadata = tedeeMetadata;
@@ -2357,6 +2362,9 @@ namespace Seam.Model
 
         [DataMember(Name = "seam_bridge_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesSeamBridgeMetadata? SeamBridgeMetadata { get; set; }
+
+        [DataMember(Name = "sensi_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesSensiMetadata? SensiMetadata { get; set; }
 
         [DataMember(Name = "smartthings_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesSmartthingsMetadata? SmartthingsMetadata { get; set; }
@@ -4532,6 +4540,52 @@ namespace Seam.Model
 
         [DataMember(Name = "unlock_method", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesSeamBridgeMetadata.UnlockMethodEnum? UnlockMethod { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesSensiMetadata_model")]
+    public class DevicePropertiesSensiMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesSensiMetadata() { }
+
+        public DevicePropertiesSensiMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? productType = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            ProductType = productType;
+        }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "product_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? ProductType { get; set; }
 
         public override string ToString()
         {
