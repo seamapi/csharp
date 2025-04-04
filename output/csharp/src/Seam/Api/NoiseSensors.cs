@@ -31,7 +31,7 @@ namespace Seam.Api
                 string? createdBefore = default,
                 object? customMetadataHas = default,
                 List<string>? deviceIds = default,
-                string? deviceType = default,
+                ListRequest.DeviceTypeEnum? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
                 List<ListRequest.ExcludeIfEnum>? excludeIf = default,
                 List<ListRequest.IncludeIfEnum>? includeIf = default,
@@ -58,118 +58,29 @@ namespace Seam.Api
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum DeviceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "noiseaware_activity_zone")]
+                NoiseawareActivityZone = 1,
+
+                [EnumMember(Value = "minut_sensor")]
+                MinutSensor = 2,
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypesEnum
             {
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
-                [EnumMember(Value = "akuvox_lock")]
-                AkuvoxLock = 1,
-
-                [EnumMember(Value = "august_lock")]
-                AugustLock = 2,
-
-                [EnumMember(Value = "brivo_access_point")]
-                BrivoAccessPoint = 3,
-
-                [EnumMember(Value = "butterflymx_panel")]
-                ButterflymxPanel = 4,
-
-                [EnumMember(Value = "avigilon_alta_entry")]
-                AvigilonAltaEntry = 5,
-
-                [EnumMember(Value = "doorking_lock")]
-                DoorkingLock = 6,
-
-                [EnumMember(Value = "genie_door")]
-                GenieDoor = 7,
-
-                [EnumMember(Value = "igloo_lock")]
-                IglooLock = 8,
-
-                [EnumMember(Value = "linear_lock")]
-                LinearLock = 9,
-
-                [EnumMember(Value = "lockly_lock")]
-                LocklyLock = 10,
-
-                [EnumMember(Value = "kwikset_lock")]
-                KwiksetLock = 11,
-
-                [EnumMember(Value = "nuki_lock")]
-                NukiLock = 12,
-
-                [EnumMember(Value = "salto_lock")]
-                SaltoLock = 13,
-
-                [EnumMember(Value = "schlage_lock")]
-                SchlageLock = 14,
-
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 15,
-
-                [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 16,
-
-                [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 17,
-
-                [EnumMember(Value = "yale_lock")]
-                YaleLock = 18,
-
-                [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 19,
-
-                [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 20,
-
-                [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 21,
-
-                [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 22,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 23,
-
-                [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 24,
-
-                [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 25,
-
-                [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 26,
-
-                [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27,
-
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 28,
+                NoiseawareActivityZone = 1,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 29,
-
-                [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 30,
-
-                [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 31,
-
-                [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 32,
-
-                [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 33,
-
-                [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 34,
-
-                [EnumMember(Value = "ios_phone")]
-                IosPhone = 35,
-
-                [EnumMember(Value = "android_phone")]
-                AndroidPhone = 36,
+                MinutSensor = 2,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -258,116 +169,11 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
-                [EnumMember(Value = "akuvox")]
-                Akuvox = 1,
-
-                [EnumMember(Value = "august")]
-                August = 2,
-
-                [EnumMember(Value = "avigilon_alta")]
-                AvigilonAlta = 3,
-
-                [EnumMember(Value = "brivo")]
-                Brivo = 4,
-
-                [EnumMember(Value = "butterflymx")]
-                Butterflymx = 5,
-
-                [EnumMember(Value = "doorking")]
-                Doorking = 6,
-
-                [EnumMember(Value = "four_suites")]
-                FourSuites = 7,
-
-                [EnumMember(Value = "genie")]
-                Genie = 8,
-
-                [EnumMember(Value = "igloo")]
-                Igloo = 9,
-
-                [EnumMember(Value = "keywe")]
-                Keywe = 10,
-
-                [EnumMember(Value = "kwikset")]
-                Kwikset = 11,
-
-                [EnumMember(Value = "linear")]
-                Linear = 12,
-
-                [EnumMember(Value = "lockly")]
-                Lockly = 13,
-
-                [EnumMember(Value = "nuki")]
-                Nuki = 14,
-
-                [EnumMember(Value = "philia")]
-                Philia = 15,
-
-                [EnumMember(Value = "salto")]
-                Salto = 16,
-
-                [EnumMember(Value = "samsung")]
-                Samsung = 17,
-
-                [EnumMember(Value = "schlage")]
-                Schlage = 18,
-
-                [EnumMember(Value = "seam")]
-                Seam = 19,
-
-                [EnumMember(Value = "unknown")]
-                Unknown = 20,
-
-                [EnumMember(Value = "wyze")]
-                Wyze = 21,
-
-                [EnumMember(Value = "yale")]
-                Yale = 22,
+                [EnumMember(Value = "noiseaware")]
+                Noiseaware = 1,
 
                 [EnumMember(Value = "minut")]
-                Minut = 23,
-
-                [EnumMember(Value = "two_n")]
-                TwoN = 24,
-
-                [EnumMember(Value = "ttlock")]
-                Ttlock = 25,
-
-                [EnumMember(Value = "nest")]
-                Nest = 26,
-
-                [EnumMember(Value = "igloohome")]
-                Igloohome = 27,
-
-                [EnumMember(Value = "ecobee")]
-                Ecobee = 28,
-
-                [EnumMember(Value = "hubitat")]
-                Hubitat = 29,
-
-                [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 30,
-
-                [EnumMember(Value = "smartthings")]
-                Smartthings = 31,
-
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 32,
-
-                [EnumMember(Value = "tedee")]
-                Tedee = 33,
-
-                [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 34,
-
-                [EnumMember(Value = "akiles")]
-                Akiles = 35,
-
-                [EnumMember(Value = "tado")]
-                Tado = 36,
-
-                [EnumMember(Value = "sensi")]
-                Sensi = 37,
+                Minut = 2,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
@@ -397,7 +203,7 @@ namespace Seam.Api
             public List<string>? DeviceIds { get; set; }
 
             [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceType { get; set; }
+            public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
 
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
@@ -492,7 +298,7 @@ namespace Seam.Api
             string? createdBefore = default,
             object? customMetadataHas = default,
             List<string>? deviceIds = default,
-            string? deviceType = default,
+            ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             List<ListRequest.ExcludeIfEnum>? excludeIf = default,
             List<ListRequest.IncludeIfEnum>? includeIf = default,
@@ -538,7 +344,7 @@ namespace Seam.Api
             string? createdBefore = default,
             object? customMetadataHas = default,
             List<string>? deviceIds = default,
-            string? deviceType = default,
+            ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
             List<ListRequest.ExcludeIfEnum>? excludeIf = default,
             List<ListRequest.IncludeIfEnum>? includeIf = default,
