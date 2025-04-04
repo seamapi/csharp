@@ -63,6 +63,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsBridgeDisconnected),
+            "bridge_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsInvalidCredentials),
             "invalid_credentials"
         )]
@@ -2137,12 +2141,14 @@ namespace Seam.Model
             public AccessCodeErrorsInvalidCredentials(
                 string createdAt = default,
                 string errorCode = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
                 CreatedAt = createdAt;
                 ErrorCode = errorCode;
+                IsBridgeError = isBridgeError;
                 IsConnectedAccountError = isConnectedAccountError;
                 Message = message;
             }
@@ -2153,12 +2159,75 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "invalid_credentials";
 
+            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsBridgeError { get; set; }
+
             [DataMember(
                 Name = "is_connected_account_error",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public bool IsConnectedAccountError { get; set; }
+            public bool? IsConnectedAccountError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeErrorsBridgeDisconnected_model")]
+        public class AccessCodeErrorsBridgeDisconnected : AccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeErrorsBridgeDisconnected() { }
+
+            public AccessCodeErrorsBridgeDisconnected(
+                string createdAt = default,
+                string errorCode = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsBridgeError = isBridgeError;
+                IsConnectedAccountError = isConnectedAccountError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "bridge_disconnected";
+
+            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsBridgeError { get; set; }
+
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
