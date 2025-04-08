@@ -31,7 +31,7 @@ namespace Seam.Model
             bool isManaged = default,
             bool? isSuspended = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
-            List<UnmanagedAcsUserPendingModifications>? pendingModifications = default,
+            List<UnmanagedAcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityFullName = default,
@@ -57,7 +57,7 @@ namespace Seam.Model
             IsManaged = isManaged;
             IsSuspended = isSuspended;
             LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
-            PendingModifications = pendingModifications;
+            PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
             UserIdentityEmailAddress = userIdentityEmailAddress;
             UserIdentityFullName = userIdentityFullName;
@@ -359,51 +359,54 @@ namespace Seam.Model
             SaltoSpaceUser = 7,
         }
 
-        [JsonConverter(typeof(JsonSubtypes), "modification_code")]
+        [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership),
-            "acs_access_group_membership"
+            typeof(UnmanagedAcsUserPendingMutationsUpdatingGroupMembership),
+            "updating_group_membership"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAcsUserPendingModificationsSuspensionState),
-            "suspension_state"
+            typeof(UnmanagedAcsUserPendingMutationsUpdatingSuspensionState),
+            "updating_suspension_state"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAcsUserPendingModificationsAccessSchedule),
-            "access_schedule"
+            typeof(UnmanagedAcsUserPendingMutationsUpdatingAccessSchedule),
+            "updating_access_schedule"
         )]
-        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingModificationsProfile), "profile")]
-        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingModificationsCreate), "create")]
-        public abstract class UnmanagedAcsUserPendingModifications
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserPendingMutationsUpdatingUserInformation),
+            "updating_user_information"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingMutationsDeleting), "deleting")]
+        [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingMutationsCreating), "creating")]
+        public abstract class UnmanagedAcsUserPendingMutations
         {
-            public abstract string ModificationCode { get; }
+            public abstract string MutationCode { get; }
 
             public abstract string CreatedAt { get; set; }
 
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsCreate_model")]
-        public class UnmanagedAcsUserPendingModificationsCreate
-            : UnmanagedAcsUserPendingModifications
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingMutationsCreating_model")]
+        public class UnmanagedAcsUserPendingMutationsCreating : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsCreate() { }
+            protected UnmanagedAcsUserPendingMutationsCreating() { }
 
-            public UnmanagedAcsUserPendingModificationsCreate(
+            public UnmanagedAcsUserPendingMutationsCreating(
                 string createdAt = default,
-                string modificationCode = default
+                string mutationCode = default
             )
             {
                 CreatedAt = createdAt;
-                ModificationCode = modificationCode;
+                MutationCode = mutationCode;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ModificationCode { get; } = "create";
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "creating";
 
             public override string ToString()
             {
@@ -425,37 +428,26 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsProfile_model")]
-        public class UnmanagedAcsUserPendingModificationsProfile
-            : UnmanagedAcsUserPendingModifications
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingMutationsDeleting_model")]
+        public class UnmanagedAcsUserPendingMutationsDeleting : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsProfile() { }
+            protected UnmanagedAcsUserPendingMutationsDeleting() { }
 
-            public UnmanagedAcsUserPendingModificationsProfile(
+            public UnmanagedAcsUserPendingMutationsDeleting(
                 string createdAt = default,
-                string modificationCode = default,
-                UnmanagedAcsUserPendingModificationsProfileModifiedFrom modifiedFrom = default,
-                UnmanagedAcsUserPendingModificationsProfileModifiedTo modifiedTo = default
+                string mutationCode = default
             )
             {
                 CreatedAt = createdAt;
-                ModificationCode = modificationCode;
-                ModifiedFrom = modifiedFrom;
-                ModifiedTo = modifiedTo;
+                MutationCode = mutationCode;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ModificationCode { get; } = "profile";
-
-            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsProfileModifiedFrom ModifiedFrom { get; set; }
-
-            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsProfileModifiedTo ModifiedTo { get; set; }
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "deleting";
 
             public override string ToString()
             {
@@ -478,14 +470,68 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsProfileModifiedFrom_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingUserInformation_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsProfileModifiedFrom
+        public class UnmanagedAcsUserPendingMutationsUpdatingUserInformation
+            : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsProfileModifiedFrom() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingUserInformation() { }
 
-            public UnmanagedAcsUserPendingModificationsProfileModifiedFrom(
+            public UnmanagedAcsUserPendingMutationsUpdatingUserInformation(
+                string createdAt = default,
+                UnmanagedAcsUserPendingMutationsUpdatingUserInformationFrom from = default,
+                string mutationCode = default,
+                UnmanagedAcsUserPendingMutationsUpdatingUserInformationTo to = default
+            )
+            {
+                CreatedAt = createdAt;
+                From = from;
+                MutationCode = mutationCode;
+                To = to;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingUserInformationFrom From { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "updating_user_information";
+
+            [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingUserInformationTo To { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingUserInformationFrom_model"
+        )]
+        public class UnmanagedAcsUserPendingMutationsUpdatingUserInformationFrom
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingMutationsUpdatingUserInformationFrom() { }
+
+            public UnmanagedAcsUserPendingMutationsUpdatingUserInformationFrom(
                 string? emailAddress = default,
                 string? fullName = default,
                 string? phoneNumber = default
@@ -526,14 +572,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsProfileModifiedTo_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingUserInformationTo_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsProfileModifiedTo
+        public class UnmanagedAcsUserPendingMutationsUpdatingUserInformationTo
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsProfileModifiedTo() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingUserInformationTo() { }
 
-            public UnmanagedAcsUserPendingModificationsProfileModifiedTo(
+            public UnmanagedAcsUserPendingMutationsUpdatingUserInformationTo(
                 string? emailAddress = default,
                 string? fullName = default,
                 string? phoneNumber = default
@@ -573,38 +619,39 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsAccessSchedule_model")]
-        public class UnmanagedAcsUserPendingModificationsAccessSchedule
-            : UnmanagedAcsUserPendingModifications
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingAccessSchedule_model"
+        )]
+        public class UnmanagedAcsUserPendingMutationsUpdatingAccessSchedule
+            : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAccessSchedule() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingAccessSchedule() { }
 
-            public UnmanagedAcsUserPendingModificationsAccessSchedule(
+            public UnmanagedAcsUserPendingMutationsUpdatingAccessSchedule(
                 string createdAt = default,
-                string modificationCode = default,
-                UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom modifiedFrom =
-                    default,
-                UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo modifiedTo = default
+                UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom from = default,
+                string mutationCode = default,
+                UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo to = default
             )
             {
                 CreatedAt = createdAt;
-                ModificationCode = modificationCode;
-                ModifiedFrom = modifiedFrom;
-                ModifiedTo = modifiedTo;
+                From = from;
+                MutationCode = mutationCode;
+                To = to;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ModificationCode { get; } = "access_schedule";
+            [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom From { get; set; }
 
-            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom ModifiedFrom { get; set; }
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "updating_access_schedule";
 
-            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo ModifiedTo { get; set; }
+            [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo To { get; set; }
 
             public override string ToString()
             {
@@ -627,14 +674,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom
+        public class UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom() { }
 
-            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedFrom(
+            public UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleFrom(
                 string? endsAt = default,
                 string startsAt = default
             )
@@ -670,14 +717,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsAccessScheduleModifiedTo_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo
+        public class UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo() { }
 
-            public UnmanagedAcsUserPendingModificationsAccessScheduleModifiedTo(
+            public UnmanagedAcsUserPendingMutationsUpdatingAccessScheduleTo(
                 string? endsAt = default,
                 string startsAt = default
             )
@@ -712,38 +759,39 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionState_model")]
-        public class UnmanagedAcsUserPendingModificationsSuspensionState
-            : UnmanagedAcsUserPendingModifications
+        [DataContract(
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingSuspensionState_model"
+        )]
+        public class UnmanagedAcsUserPendingMutationsUpdatingSuspensionState
+            : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsSuspensionState() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingSuspensionState() { }
 
-            public UnmanagedAcsUserPendingModificationsSuspensionState(
+            public UnmanagedAcsUserPendingMutationsUpdatingSuspensionState(
                 string createdAt = default,
-                string modificationCode = default,
-                UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom modifiedFrom =
-                    default,
-                UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo modifiedTo = default
+                UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom from = default,
+                string mutationCode = default,
+                UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo to = default
             )
             {
                 CreatedAt = createdAt;
-                ModificationCode = modificationCode;
-                ModifiedFrom = modifiedFrom;
-                ModifiedTo = modifiedTo;
+                From = from;
+                MutationCode = mutationCode;
+                To = to;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ModificationCode { get; } = "suspension_state";
+            [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom From { get; set; }
 
-            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom ModifiedFrom { get; set; }
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "updating_suspension_state";
 
-            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo ModifiedTo { get; set; }
+            [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo To { get; set; }
 
             public override string ToString()
             {
@@ -766,14 +814,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom
+        public class UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom() { }
 
-            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedFrom(
+            public UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateFrom(
                 bool isSuspended = default
             )
             {
@@ -804,14 +852,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsSuspensionStateModifiedTo_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo
+        public class UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo() { }
 
-            public UnmanagedAcsUserPendingModificationsSuspensionStateModifiedTo(
+            public UnmanagedAcsUserPendingMutationsUpdatingSuspensionStateTo(
                 bool isSuspended = default
             )
             {
@@ -842,40 +890,38 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembership_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingGroupMembership_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership
-            : UnmanagedAcsUserPendingModifications
+        public class UnmanagedAcsUserPendingMutationsUpdatingGroupMembership
+            : UnmanagedAcsUserPendingMutations
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingGroupMembership() { }
 
-            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembership(
+            public UnmanagedAcsUserPendingMutationsUpdatingGroupMembership(
                 string createdAt = default,
-                string modificationCode = default,
-                UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom modifiedFrom =
-                    default,
-                UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo modifiedTo =
-                    default
+                UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom from = default,
+                string mutationCode = default,
+                UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo to = default
             )
             {
                 CreatedAt = createdAt;
-                ModificationCode = modificationCode;
-                ModifiedFrom = modifiedFrom;
-                ModifiedTo = modifiedTo;
+                From = from;
+                MutationCode = mutationCode;
+                To = to;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "modification_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ModificationCode { get; } = "acs_access_group_membership";
+            [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom From { get; set; }
 
-            [DataMember(Name = "modified_from", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom ModifiedFrom { get; set; }
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "updating_group_membership";
 
-            [DataMember(Name = "modified_to", IsRequired = true, EmitDefaultValue = false)]
-            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo ModifiedTo { get; set; }
+            [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+            public UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo To { get; set; }
 
             public override string ToString()
             {
@@ -898,14 +944,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom
+        public class UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom() { }
 
-            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedFrom(
+            public UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipFrom(
                 string? acsAccessGroupId = default
             )
             {
@@ -936,14 +982,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo_model"
+            Name = "seamModel_unmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo_model"
         )]
-        public class UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo
+        public class UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo() { }
+            protected UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo() { }
 
-            public UnmanagedAcsUserPendingModificationsAcsAccessGroupMembershipModifiedTo(
+            public UnmanagedAcsUserPendingMutationsUpdatingGroupMembershipTo(
                 string? acsAccessGroupId = default
             )
             {
@@ -1192,8 +1238,8 @@ namespace Seam.Model
         )]
         public string? LatestDesiredStateSyncedWithProviderAt { get; set; }
 
-        [DataMember(Name = "pending_modifications", IsRequired = false, EmitDefaultValue = false)]
-        public List<UnmanagedAcsUserPendingModifications>? PendingModifications { get; set; }
+        [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
+        public List<UnmanagedAcsUserPendingMutations>? PendingMutations { get; set; }
 
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
