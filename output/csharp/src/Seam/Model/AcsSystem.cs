@@ -17,7 +17,7 @@ namespace Seam.Model
         public AcsSystem(
             float? acsAccessGroupCount = default,
             string acsSystemId = default,
-            float? acsUsersCount = default,
+            float? acsUserCount = default,
             bool? canAddAcsUsersToAcsAccessGroups = default,
             bool? canAutomateEnrollment = default,
             bool? canCreateAcsAccessGroups = default,
@@ -43,7 +43,7 @@ namespace Seam.Model
         {
             AcsAccessGroupCount = acsAccessGroupCount;
             AcsSystemId = acsSystemId;
-            AcsUsersCount = acsUsersCount;
+            AcsUserCount = acsUserCount;
             CanAddAcsUsersToAcsAccessGroups = canAddAcsUsersToAcsAccessGroups;
             CanAutomateEnrollment = canAutomateEnrollment;
             CanCreateAcsAccessGroups = canCreateAcsAccessGroups;
@@ -656,8 +656,8 @@ namespace Seam.Model
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
-        [DataMember(Name = "acs_users_count", IsRequired = false, EmitDefaultValue = false)]
-        public float? AcsUsersCount { get; set; }
+        [DataMember(Name = "acs_user_count", IsRequired = false, EmitDefaultValue = false)]
+        public float? AcsUserCount { get; set; }
 
         [DataMember(
             Name = "can_add_acs_users_to_acs_access_groups",
