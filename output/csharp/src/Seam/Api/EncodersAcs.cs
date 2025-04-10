@@ -144,6 +144,100 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string acsEncoderId = default)
+            {
+                AcsEncoderId = acsEncoderId;
+            }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(AcsEncoder acsEncoder = default)
+            {
+                AcsEncoder = acsEncoder;
+            }
+
+            [DataMember(Name = "acs_encoder", IsRequired = false, EmitDefaultValue = false)]
+            public AcsEncoder AcsEncoder { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public AcsEncoder Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<GetResponse>("/acs/encoders/get", requestOptions).Data.AcsEncoder;
+        }
+
+        public AcsEncoder Get(string acsEncoderId = default)
+        {
+            return Get(new GetRequest(acsEncoderId: acsEncoderId));
+        }
+
+        public async Task<AcsEncoder> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<GetResponse>("/acs/encoders/get", requestOptions))
+                .Data
+                .AcsEncoder;
+        }
+
+        public async Task<AcsEncoder> GetAsync(string acsEncoderId = default)
+        {
+            return (await GetAsync(new GetRequest(acsEncoderId: acsEncoderId)));
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
