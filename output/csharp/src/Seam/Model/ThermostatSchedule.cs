@@ -20,7 +20,7 @@ namespace Seam.Model
             string deviceId = default,
             string endsAt = default,
             List<ThermostatScheduleErrors> errors = default,
-            int maxOverridePeriodMinutes = default,
+            int? maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
             string thermostatScheduleId = default,
@@ -56,10 +56,10 @@ namespace Seam.Model
 
         [DataMember(
             Name = "max_override_period_minutes",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
-        public int MaxOverridePeriodMinutes { get; set; }
+        public int? MaxOverridePeriodMinutes { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }

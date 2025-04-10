@@ -4524,20 +4524,15 @@ namespace Seam.Model
         protected DevicePropertiesSchlageMetadata() { }
 
         public DevicePropertiesSchlageMetadata(
-            float? accessCodeLength = default,
             string? deviceId = default,
             string? deviceName = default,
             string? model = default
         )
         {
-            AccessCodeLength = accessCodeLength;
             DeviceId = deviceId;
             DeviceName = deviceName;
             Model = model;
         }
-
-        [DataMember(Name = "access_code_length", IsRequired = false, EmitDefaultValue = false)]
-        public float? AccessCodeLength { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }

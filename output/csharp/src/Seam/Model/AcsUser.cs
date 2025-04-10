@@ -379,6 +379,8 @@ namespace Seam.Model
 
             public abstract string CreatedAt { get; set; }
 
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -390,15 +392,20 @@ namespace Seam.Model
 
             public AcsUserPendingMutationsCreating(
                 string createdAt = default,
+                string message = default,
                 string mutationCode = default
             )
             {
                 CreatedAt = createdAt;
+                Message = message;
                 MutationCode = mutationCode;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "creating";
@@ -431,15 +438,20 @@ namespace Seam.Model
 
             public AcsUserPendingMutationsDeleting(
                 string createdAt = default,
+                string message = default,
                 string mutationCode = default
             )
             {
                 CreatedAt = createdAt;
+                Message = message;
                 MutationCode = mutationCode;
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deleting";
@@ -473,12 +485,14 @@ namespace Seam.Model
             public AcsUserPendingMutationsUpdatingUserInformation(
                 string createdAt = default,
                 AcsUserPendingMutationsUpdatingUserInformationFrom from = default,
+                string message = default,
                 string mutationCode = default,
                 AcsUserPendingMutationsUpdatingUserInformationTo to = default
             )
             {
                 CreatedAt = createdAt;
                 From = from;
+                Message = message;
                 MutationCode = mutationCode;
                 To = to;
             }
@@ -488,6 +502,9 @@ namespace Seam.Model
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsUserPendingMutationsUpdatingUserInformationFrom From { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_user_information";
@@ -616,12 +633,14 @@ namespace Seam.Model
             public AcsUserPendingMutationsUpdatingAccessSchedule(
                 string createdAt = default,
                 AcsUserPendingMutationsUpdatingAccessScheduleFrom from = default,
+                string message = default,
                 string mutationCode = default,
                 AcsUserPendingMutationsUpdatingAccessScheduleTo to = default
             )
             {
                 CreatedAt = createdAt;
                 From = from;
+                Message = message;
                 MutationCode = mutationCode;
                 To = to;
             }
@@ -631,6 +650,9 @@ namespace Seam.Model
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsUserPendingMutationsUpdatingAccessScheduleFrom From { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_schedule";
@@ -666,7 +688,7 @@ namespace Seam.Model
 
             public AcsUserPendingMutationsUpdatingAccessScheduleFrom(
                 string? endsAt = default,
-                string startsAt = default
+                string? startsAt = default
             )
             {
                 EndsAt = endsAt;
@@ -676,8 +698,8 @@ namespace Seam.Model
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
-            [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsAt { get; set; }
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
 
             public override string ToString()
             {
@@ -707,7 +729,7 @@ namespace Seam.Model
 
             public AcsUserPendingMutationsUpdatingAccessScheduleTo(
                 string? endsAt = default,
-                string startsAt = default
+                string? startsAt = default
             )
             {
                 EndsAt = endsAt;
@@ -717,8 +739,8 @@ namespace Seam.Model
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
-            [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsAt { get; set; }
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
 
             public override string ToString()
             {
@@ -749,12 +771,14 @@ namespace Seam.Model
             public AcsUserPendingMutationsUpdatingSuspensionState(
                 string createdAt = default,
                 AcsUserPendingMutationsUpdatingSuspensionStateFrom from = default,
+                string message = default,
                 string mutationCode = default,
                 AcsUserPendingMutationsUpdatingSuspensionStateTo to = default
             )
             {
                 CreatedAt = createdAt;
                 From = from;
+                Message = message;
                 MutationCode = mutationCode;
                 To = to;
             }
@@ -764,6 +788,9 @@ namespace Seam.Model
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsUserPendingMutationsUpdatingSuspensionStateFrom From { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_suspension_state";
@@ -868,12 +895,14 @@ namespace Seam.Model
             public AcsUserPendingMutationsUpdatingGroupMembership(
                 string createdAt = default,
                 AcsUserPendingMutationsUpdatingGroupMembershipFrom from = default,
+                string message = default,
                 string mutationCode = default,
                 AcsUserPendingMutationsUpdatingGroupMembershipTo to = default
             )
             {
                 CreatedAt = createdAt;
                 From = from;
+                Message = message;
                 MutationCode = mutationCode;
                 To = to;
             }
@@ -883,6 +912,9 @@ namespace Seam.Model
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsUserPendingMutationsUpdatingGroupMembershipFrom From { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_group_membership";
