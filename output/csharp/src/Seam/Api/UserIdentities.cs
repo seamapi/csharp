@@ -284,6 +284,116 @@ namespace Seam.Api
             await DeleteAsync(new DeleteRequest(userIdentityId: userIdentityId));
         }
 
+        [DataContract(Name = "generateInstantKeyRequest_request")]
+        public class GenerateInstantKeyRequest
+        {
+            [JsonConstructorAttribute]
+            protected GenerateInstantKeyRequest() { }
+
+            public GenerateInstantKeyRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "generateInstantKeyResponse_response")]
+        public class GenerateInstantKeyResponse
+        {
+            [JsonConstructorAttribute]
+            protected GenerateInstantKeyResponse() { }
+
+            public GenerateInstantKeyResponse(InstantKey instantKey = default)
+            {
+                InstantKey = instantKey;
+            }
+
+            [DataMember(Name = "instant_key", IsRequired = false, EmitDefaultValue = false)]
+            public InstantKey InstantKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public InstantKey GenerateInstantKey(GenerateInstantKeyRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GenerateInstantKeyResponse>(
+                    "/user_identities/generate_instant_key",
+                    requestOptions
+                )
+                .Data.InstantKey;
+        }
+
+        public InstantKey GenerateInstantKey(string userIdentityId = default)
+        {
+            return GenerateInstantKey(
+                new GenerateInstantKeyRequest(userIdentityId: userIdentityId)
+            );
+        }
+
+        public async Task<InstantKey> GenerateInstantKeyAsync(GenerateInstantKeyRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GenerateInstantKeyResponse>(
+                    "/user_identities/generate_instant_key",
+                    requestOptions
+                )
+            )
+                .Data
+                .InstantKey;
+        }
+
+        public async Task<InstantKey> GenerateInstantKeyAsync(string userIdentityId = default)
+        {
+            return (
+                await GenerateInstantKeyAsync(
+                    new GenerateInstantKeyRequest(userIdentityId: userIdentityId)
+                )
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
