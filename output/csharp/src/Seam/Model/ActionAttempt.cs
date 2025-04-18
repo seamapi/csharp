@@ -17,6 +17,14 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateAccessCode), "CREATE_ACCESS_CODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptSyncAccessCodes), "SYNC_ACCESS_CODES")]
     [JsonSubtypes.KnownSubType(
+        typeof(ActionAttemptSimulateManualLockViaKeypad),
+        "SIMULATE_MANUAL_LOCK_VIA_KEYPAD"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(ActionAttemptSimulateKeypadCodeEntry),
+        "SIMULATE_KEYPAD_CODE_ENTRY"
+    )]
+    [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptActivateClimatePreset),
         "ACTIVATE_CLIMATE_PRESET"
     )]
@@ -596,6 +604,150 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptActivateClimatePreset.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptSimulateKeypadCodeEntry_model")]
+    public class ActionAttemptSimulateKeypadCodeEntry : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptSimulateKeypadCodeEntry() { }
+
+        public ActionAttemptSimulateKeypadCodeEntry(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptSimulateKeypadCodeEntry.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "SIMULATE_KEYPAD_CODE_ENTRY";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public override ActionAttemptSimulateKeypadCodeEntry.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptSimulateManualLockViaKeypad_model")]
+    public class ActionAttemptSimulateManualLockViaKeypad : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptSimulateManualLockViaKeypad() { }
+
+        public ActionAttemptSimulateManualLockViaKeypad(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptSimulateManualLockViaKeypad.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "SIMULATE_MANUAL_LOCK_VIA_KEYPAD";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public override ActionAttemptSimulateManualLockViaKeypad.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
