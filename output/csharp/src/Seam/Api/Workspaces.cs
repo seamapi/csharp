@@ -27,6 +27,7 @@ namespace Seam.Api
             public CreateRequest(
                 string? companyName = default,
                 string? connectPartnerName = default,
+                CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
                 bool? isSandbox = default,
                 string name = default,
                 CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
@@ -37,6 +38,7 @@ namespace Seam.Api
             {
                 CompanyName = companyName;
                 ConnectPartnerName = connectPartnerName;
+                ConnectWebviewCustomization = connectWebviewCustomization;
                 IsSandbox = isSandbox;
                 Name = name;
                 WebviewLogoShape = webviewLogoShape;
@@ -68,6 +70,13 @@ namespace Seam.Api
             )]
             public string? ConnectPartnerName { get; set; }
 
+            [DataMember(
+                Name = "connect_webview_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public CreateRequestConnectWebviewCustomization? ConnectWebviewCustomization { get; set; }
+
             [DataMember(Name = "is_sandbox", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsSandbox { get; set; }
 
@@ -97,6 +106,78 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? WebviewSuccessMessage { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestConnectWebviewCustomization_model")]
+        public class CreateRequestConnectWebviewCustomization
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestConnectWebviewCustomization() { }
+
+            public CreateRequestConnectWebviewCustomization(
+                CreateRequestConnectWebviewCustomization.LogoShapeEnum? logoShape = default,
+                string? primaryButtonColor = default,
+                string? primaryButtonTextColor = default,
+                string? successMessage = default
+            )
+            {
+                LogoShape = logoShape;
+                PrimaryButtonColor = primaryButtonColor;
+                PrimaryButtonTextColor = primaryButtonTextColor;
+                SuccessMessage = successMessage;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum LogoShapeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "circle")]
+                Circle = 1,
+
+                [EnumMember(Value = "square")]
+                Square = 2,
+            }
+
+            [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; set; }
+
+            [DataMember(
+                Name = "primary_button_color",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PrimaryButtonColor { get; set; }
+
+            [DataMember(
+                Name = "primary_button_text_color",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PrimaryButtonTextColor { get; set; }
+
+            [DataMember(Name = "success_message", IsRequired = false, EmitDefaultValue = false)]
+            public string? SuccessMessage { get; set; }
 
             public override string ToString()
             {
@@ -162,6 +243,7 @@ namespace Seam.Api
         public Workspace Create(
             string? companyName = default,
             string? connectPartnerName = default,
+            CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
             bool? isSandbox = default,
             string name = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
@@ -174,6 +256,7 @@ namespace Seam.Api
                 new CreateRequest(
                     companyName: companyName,
                     connectPartnerName: connectPartnerName,
+                    connectWebviewCustomization: connectWebviewCustomization,
                     isSandbox: isSandbox,
                     name: name,
                     webviewLogoShape: webviewLogoShape,
@@ -196,6 +279,7 @@ namespace Seam.Api
         public async Task<Workspace> CreateAsync(
             string? companyName = default,
             string? connectPartnerName = default,
+            CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
             bool? isSandbox = default,
             string name = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
@@ -209,6 +293,7 @@ namespace Seam.Api
                     new CreateRequest(
                         companyName: companyName,
                         connectPartnerName: connectPartnerName,
+                        connectWebviewCustomization: connectWebviewCustomization,
                         isSandbox: isSandbox,
                         name: name,
                         webviewLogoShape: webviewLogoShape,

@@ -290,10 +290,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GenerateInstantKeyRequest() { }
 
-            public GenerateInstantKeyRequest(string userIdentityId = default)
+            public GenerateInstantKeyRequest(
+                float? maxUseCount = default,
+                string userIdentityId = default
+            )
             {
+                MaxUseCount = maxUseCount;
                 UserIdentityId = userIdentityId;
             }
+
+            [DataMember(Name = "max_use_count", IsRequired = false, EmitDefaultValue = false)]
+            public float? MaxUseCount { get; set; }
 
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
@@ -364,10 +371,16 @@ namespace Seam.Api
                 .Data.InstantKey;
         }
 
-        public InstantKey GenerateInstantKey(string userIdentityId = default)
+        public InstantKey GenerateInstantKey(
+            float? maxUseCount = default,
+            string userIdentityId = default
+        )
         {
             return GenerateInstantKey(
-                new GenerateInstantKeyRequest(userIdentityId: userIdentityId)
+                new GenerateInstantKeyRequest(
+                    maxUseCount: maxUseCount,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -385,11 +398,17 @@ namespace Seam.Api
                 .InstantKey;
         }
 
-        public async Task<InstantKey> GenerateInstantKeyAsync(string userIdentityId = default)
+        public async Task<InstantKey> GenerateInstantKeyAsync(
+            float? maxUseCount = default,
+            string userIdentityId = default
+        )
         {
             return (
                 await GenerateInstantKeyAsync(
-                    new GenerateInstantKeyRequest(userIdentityId: userIdentityId)
+                    new GenerateInstantKeyRequest(
+                        maxUseCount: maxUseCount,
+                        userIdentityId: userIdentityId
+                    )
                 )
             );
         }
