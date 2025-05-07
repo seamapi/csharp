@@ -18,6 +18,135 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "encodeAccessMethodRequest_request")]
+        public class EncodeAccessMethodRequest
+        {
+            [JsonConstructorAttribute]
+            protected EncodeAccessMethodRequest() { }
+
+            public EncodeAccessMethodRequest(
+                string accessMethodId = default,
+                string acsEncoderId = default
+            )
+            {
+                AccessMethodId = accessMethodId;
+                AcsEncoderId = acsEncoderId;
+            }
+
+            [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessMethodId { get; set; }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "encodeAccessMethodResponse_response")]
+        public class EncodeAccessMethodResponse
+        {
+            [JsonConstructorAttribute]
+            protected EncodeAccessMethodResponse() { }
+
+            public EncodeAccessMethodResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt EncodeAccessMethod(EncodeAccessMethodRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<EncodeAccessMethodResponse>(
+                    "/acs/encoders/encode_access_method",
+                    requestOptions
+                )
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt EncodeAccessMethod(
+            string accessMethodId = default,
+            string acsEncoderId = default
+        )
+        {
+            return EncodeAccessMethod(
+                new EncodeAccessMethodRequest(
+                    accessMethodId: accessMethodId,
+                    acsEncoderId: acsEncoderId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> EncodeAccessMethodAsync(EncodeAccessMethodRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<EncodeAccessMethodResponse>(
+                    "/acs/encoders/encode_access_method",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> EncodeAccessMethodAsync(
+            string accessMethodId = default,
+            string acsEncoderId = default
+        )
+        {
+            return (
+                await EncodeAccessMethodAsync(
+                    new EncodeAccessMethodRequest(
+                        accessMethodId: accessMethodId,
+                        acsEncoderId: acsEncoderId
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "encodeCredentialRequest_request")]
         public class EncodeCredentialRequest
         {

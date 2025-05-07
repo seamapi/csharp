@@ -956,11 +956,15 @@ namespace Seam.Api
             public ListRequest(
                 List<string>? accessCodeIds = default,
                 string? deviceId = default,
+                float? limit = default,
+                string? pageCursor = default,
                 string? userIdentifierKey = default
             )
             {
                 AccessCodeIds = accessCodeIds;
                 DeviceId = deviceId;
+                Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
             }
 
@@ -969,6 +973,12 @@ namespace Seam.Api
 
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -1037,6 +1047,8 @@ namespace Seam.Api
         public List<AccessCode> List(
             List<string>? accessCodeIds = default,
             string? deviceId = default,
+            float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
@@ -1044,6 +1056,8 @@ namespace Seam.Api
                 new ListRequest(
                     accessCodeIds: accessCodeIds,
                     deviceId: deviceId,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -1061,6 +1075,8 @@ namespace Seam.Api
         public async Task<List<AccessCode>> ListAsync(
             List<string>? accessCodeIds = default,
             string? deviceId = default,
+            float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
@@ -1069,6 +1085,8 @@ namespace Seam.Api
                     new ListRequest(
                         accessCodeIds: accessCodeIds,
                         deviceId: deviceId,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         userIdentifierKey: userIdentifierKey
                     )
                 )
@@ -1181,6 +1199,112 @@ namespace Seam.Api
             return (
                 await PullBackupAccessCodeAsync(
                     new PullBackupAccessCodeRequest(accessCodeId: accessCodeId)
+                )
+            );
+        }
+
+        [DataContract(Name = "reportDeviceConstraintsRequest_request")]
+        public class ReportDeviceConstraintsRequest
+        {
+            [JsonConstructorAttribute]
+            protected ReportDeviceConstraintsRequest() { }
+
+            public ReportDeviceConstraintsRequest(
+                string deviceId = default,
+                int? maxCodeLength = default,
+                int? minCodeLength = default,
+                List<int>? supportedCodeLengths = default
+            )
+            {
+                DeviceId = deviceId;
+                MaxCodeLength = maxCodeLength;
+                MinCodeLength = minCodeLength;
+                SupportedCodeLengths = supportedCodeLengths;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "max_code_length", IsRequired = false, EmitDefaultValue = false)]
+            public int? MaxCodeLength { get; set; }
+
+            [DataMember(Name = "min_code_length", IsRequired = false, EmitDefaultValue = false)]
+            public int? MinCodeLength { get; set; }
+
+            [DataMember(
+                Name = "supported_code_lengths",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<int>? SupportedCodeLengths { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void ReportDeviceConstraints(ReportDeviceConstraintsRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/access_codes/report_device_constraints", requestOptions);
+        }
+
+        public void ReportDeviceConstraints(
+            string deviceId = default,
+            int? maxCodeLength = default,
+            int? minCodeLength = default,
+            List<int>? supportedCodeLengths = default
+        )
+        {
+            ReportDeviceConstraints(
+                new ReportDeviceConstraintsRequest(
+                    deviceId: deviceId,
+                    maxCodeLength: maxCodeLength,
+                    minCodeLength: minCodeLength,
+                    supportedCodeLengths: supportedCodeLengths
+                )
+            );
+        }
+
+        public async Task ReportDeviceConstraintsAsync(ReportDeviceConstraintsRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>(
+                "/access_codes/report_device_constraints",
+                requestOptions
+            );
+        }
+
+        public async Task ReportDeviceConstraintsAsync(
+            string deviceId = default,
+            int? maxCodeLength = default,
+            int? minCodeLength = default,
+            List<int>? supportedCodeLengths = default
+        )
+        {
+            await ReportDeviceConstraintsAsync(
+                new ReportDeviceConstraintsRequest(
+                    deviceId: deviceId,
+                    maxCodeLength: maxCodeLength,
+                    minCodeLength: minCodeLength,
+                    supportedCodeLengths: supportedCodeLengths
                 )
             );
         }

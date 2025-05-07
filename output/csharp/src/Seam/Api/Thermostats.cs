@@ -922,6 +922,7 @@ namespace Seam.Api
                 List<ListRequest.IncludeIfEnum>? includeIf = default,
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
+                string? pageCursor = default,
                 string? unstableLocationId = default,
                 string? userIdentifierKey = default
             )
@@ -938,6 +939,7 @@ namespace Seam.Api
                 IncludeIf = includeIf;
                 Limit = limit;
                 Manufacturer = manufacturer;
+                PageCursor = pageCursor;
                 UnstableLocationId = unstableLocationId;
                 UserIdentifierKey = userIdentifierKey;
             }
@@ -1129,6 +1131,9 @@ namespace Seam.Api
             [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
             [DataMember(
                 Name = "unstable_location_id",
                 IsRequired = false,
@@ -1213,6 +1218,7 @@ namespace Seam.Api
             List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
+            string? pageCursor = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
         )
@@ -1231,6 +1237,7 @@ namespace Seam.Api
                     includeIf: includeIf,
                     limit: limit,
                     manufacturer: manufacturer,
+                    pageCursor: pageCursor,
                     unstableLocationId: unstableLocationId,
                     userIdentifierKey: userIdentifierKey
                 )
@@ -1259,6 +1266,7 @@ namespace Seam.Api
             List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
+            string? pageCursor = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
         )
@@ -1278,6 +1286,7 @@ namespace Seam.Api
                         includeIf: includeIf,
                         limit: limit,
                         manufacturer: manufacturer,
+                        pageCursor: pageCursor,
                         unstableLocationId: unstableLocationId,
                         userIdentifierKey: userIdentifierKey
                     )

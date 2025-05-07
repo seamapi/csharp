@@ -35,6 +35,7 @@ namespace Seam.Model
         "RESET_SANDBOX_WORKSPACE"
     )]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptEncodeCredential), "ENCODE_CREDENTIAL")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptEncodeAccessMethod), "ENCODE_ACCESS_METHOD")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptScanCredential), "SCAN_CREDENTIAL")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptUnlockDoor), "UNLOCK_DOOR")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptLockDoor), "LOCK_DOOR")]
@@ -244,6 +245,78 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public override ActionAttemptScanCredential.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptEncodeAccessMethod_model")]
+    public class ActionAttemptEncodeAccessMethod : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptEncodeAccessMethod() { }
+
+        public ActionAttemptEncodeAccessMethod(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptEncodeAccessMethod.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "ENCODE_ACCESS_METHOD";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public override Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public override ActionAttemptEncodeAccessMethod.StatusEnum Status { get; set; }
 
         public override string ToString()
         {

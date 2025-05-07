@@ -113,6 +113,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "salto_space_key")]
             SaltoSpaceKey = 7,
+
+            [EnumMember(Value = "latch_access")]
+            LatchAccess = 8,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]

@@ -20,11 +20,11 @@ namespace Seam.Model
             string deviceId = default,
             string endsAt = default,
             List<ThermostatScheduleErrors> errors = default,
+            bool? isOverrideAllowed = default,
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
-            string thermostatScheduleId = default,
-            bool? unstableIsOverrideAllowed = default
+            string thermostatScheduleId = default
         )
         {
             ClimatePresetKey = climatePresetKey;
@@ -32,11 +32,11 @@ namespace Seam.Model
             DeviceId = deviceId;
             EndsAt = endsAt;
             Errors = errors;
+            IsOverrideAllowed = isOverrideAllowed;
             MaxOverridePeriodMinutes = maxOverridePeriodMinutes;
             Name = name;
             StartsAt = startsAt;
             ThermostatScheduleId = thermostatScheduleId;
-            UnstableIsOverrideAllowed = unstableIsOverrideAllowed;
         }
 
         [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
@@ -54,6 +54,9 @@ namespace Seam.Model
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<ThermostatScheduleErrors> Errors { get; set; }
 
+        [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOverrideAllowed { get; set; }
+
         [DataMember(
             Name = "max_override_period_minutes",
             IsRequired = false,
@@ -69,13 +72,6 @@ namespace Seam.Model
 
         [DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
         public string ThermostatScheduleId { get; set; }
-
-        [DataMember(
-            Name = "unstable_is_override_allowed",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? UnstableIsOverrideAllowed { get; set; }
 
         public override string ToString()
         {

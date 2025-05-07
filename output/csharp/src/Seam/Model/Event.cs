@@ -172,6 +172,26 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemAdded), "acs_system.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemConnected), "acs_system.connected")]
     [JsonSubtypes.KnownSubType(
+        typeof(EventAccessMethodCardEncodingRequired),
+        "access_method.card_encoding_required"
+    )]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessMethodRevoked), "access_method.revoked")]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessMethodIssued), "access_method.issued")]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventAccessGrantAccessToDoorLost),
+        "access_grant.access_to_door_lost"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventAccessGrantAccessGrantedToDoor),
+        "access_grant.access_granted_to_door"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventAccessGrantAccessGrantedToAllDoors),
+        "access_grant.access_granted_to_all_doors"
+    )]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessGrantDeleted), "access_grant.deleted")]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessGrantCreated), "access_grant.created")]
+    [JsonSubtypes.KnownSubType(
         typeof(EventAccessCodeUnmanagedRemoved),
         "access_code.unmanaged.removed"
     )]
@@ -1443,6 +1463,504 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.removed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessGrantCreated_model")]
+    public class EventAccessGrantCreated : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantCreated() { }
+
+        public EventAccessGrantCreated(
+            string accessGrantId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.created";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessGrantDeleted_model")]
+    public class EventAccessGrantDeleted : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantDeleted() { }
+
+        public EventAccessGrantDeleted(
+            string accessGrantId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.deleted";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessGrantAccessGrantedToAllDoors_model")]
+    public class EventAccessGrantAccessGrantedToAllDoors : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantAccessGrantedToAllDoors() { }
+
+        public EventAccessGrantAccessGrantedToAllDoors(
+            string accessGrantId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.access_granted_to_all_doors";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessGrantAccessGrantedToDoor_model")]
+    public class EventAccessGrantAccessGrantedToDoor : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantAccessGrantedToDoor() { }
+
+        public EventAccessGrantAccessGrantedToDoor(
+            string accessGrantId = default,
+            string acsEntranceId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            AcsEntranceId = acsEntranceId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEntranceId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.access_granted_to_door";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessGrantAccessToDoorLost_model")]
+    public class EventAccessGrantAccessToDoorLost : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantAccessToDoorLost() { }
+
+        public EventAccessGrantAccessToDoorLost(
+            string accessGrantId = default,
+            string acsEntranceId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            AcsEntranceId = acsEntranceId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEntranceId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.access_to_door_lost";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessMethodIssued_model")]
+    public class EventAccessMethodIssued : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessMethodIssued() { }
+
+        public EventAccessMethodIssued(
+            string accessMethodId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessMethodId = accessMethodId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_method.issued";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessMethodRevoked_model")]
+    public class EventAccessMethodRevoked : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessMethodRevoked() { }
+
+        public EventAccessMethodRevoked(
+            string accessMethodId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessMethodId = accessMethodId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_method.revoked";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessMethodCardEncodingRequired_model")]
+    public class EventAccessMethodCardEncodingRequired : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessMethodCardEncodingRequired() { }
+
+        public EventAccessMethodCardEncodingRequired(
+            string accessMethodId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessMethodId = accessMethodId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_method.card_encoding_required";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
