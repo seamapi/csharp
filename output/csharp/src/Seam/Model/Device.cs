@@ -1063,6 +1063,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsLocklyTimeZoneNotConfigured),
+            "lockly_time_zone_not_configured"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsUnknownIssueWithPhone),
             "unknown_issue_with_phone"
         )]
@@ -1872,6 +1876,52 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_deviceWarningsLocklyTimeZoneNotConfigured_model")]
+        public class DeviceWarningsLocklyTimeZoneNotConfigured : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsLocklyTimeZoneNotConfigured() { }
+
+            public DeviceWarningsLocklyTimeZoneNotConfigured(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "lockly_time_zone_not_configured";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
@@ -2113,7 +2163,9 @@ namespace Seam.Model
             float? relativeHumidity = default,
             float? temperatureCelsius = default,
             float? temperatureFahrenheit = default,
-            DevicePropertiesTemperatureThreshold? temperatureThreshold = default
+            DevicePropertiesTemperatureThreshold? temperatureThreshold = default,
+            List<DevicePropertiesThermostatDailyPrograms>? thermostatDailyPrograms = default,
+            DevicePropertiesThermostatWeeklyProgram? thermostatWeeklyProgram = default
         )
         {
             AccessoryKeypad = accessoryKeypad;
@@ -2204,6 +2256,8 @@ namespace Seam.Model
             TemperatureCelsius = temperatureCelsius;
             TemperatureFahrenheit = temperatureFahrenheit;
             TemperatureThreshold = temperatureThreshold;
+            ThermostatDailyPrograms = thermostatDailyPrograms;
+            ThermostatWeeklyProgram = thermostatWeeklyProgram;
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2633,6 +2687,20 @@ namespace Seam.Model
 
         [DataMember(Name = "temperature_threshold", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTemperatureThreshold? TemperatureThreshold { get; set; }
+
+        [DataMember(
+            Name = "thermostat_daily_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<DevicePropertiesThermostatDailyPrograms>? ThermostatDailyPrograms { get; set; }
+
+        [DataMember(
+            Name = "thermostat_weekly_program",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public DevicePropertiesThermostatWeeklyProgram? ThermostatWeeklyProgram { get; set; }
 
         public override string ToString()
         {
@@ -5182,11 +5250,11 @@ namespace Seam.Model
             string? deviceId = default,
             string? endsAt = default,
             List<DevicePropertiesActiveThermostatScheduleErrors>? errors = default,
+            bool? isOverrideAllowed = default,
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string? startsAt = default,
-            string? thermostatScheduleId = default,
-            bool? unstableIsOverrideAllowed = default
+            string? thermostatScheduleId = default
         )
         {
             ClimatePresetKey = climatePresetKey;
@@ -5194,11 +5262,11 @@ namespace Seam.Model
             DeviceId = deviceId;
             EndsAt = endsAt;
             Errors = errors;
+            IsOverrideAllowed = isOverrideAllowed;
             MaxOverridePeriodMinutes = maxOverridePeriodMinutes;
             Name = name;
             StartsAt = startsAt;
             ThermostatScheduleId = thermostatScheduleId;
-            UnstableIsOverrideAllowed = unstableIsOverrideAllowed;
         }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
@@ -5216,6 +5284,9 @@ namespace Seam.Model
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<DevicePropertiesActiveThermostatScheduleErrors>? Errors { get; set; }
 
+        [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOverrideAllowed { get; set; }
+
         [DataMember(
             Name = "max_override_period_minutes",
             IsRequired = false,
@@ -5231,13 +5302,6 @@ namespace Seam.Model
 
         [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ThermostatScheduleId { get; set; }
-
-        [DataMember(
-            Name = "unstable_is_override_allowed",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? UnstableIsOverrideAllowed { get; set; }
 
         public override string ToString()
         {
@@ -5309,6 +5373,7 @@ namespace Seam.Model
         public DevicePropertiesAvailableClimatePresets(
             bool? canDelete = default,
             bool? canEdit = default,
+            bool? canProgram = default,
             string? climatePresetKey = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
@@ -5323,6 +5388,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
+            CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
@@ -5375,6 +5441,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
+
+        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanProgram { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -5451,6 +5520,7 @@ namespace Seam.Model
         public DevicePropertiesCurrentClimateSetting(
             bool? canDelete = default,
             bool? canEdit = default,
+            bool? canProgram = default,
             string? climatePresetKey = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
@@ -5465,6 +5535,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
+            CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
@@ -5517,6 +5588,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
+
+        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanProgram { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -5593,6 +5667,7 @@ namespace Seam.Model
         public DevicePropertiesDefaultClimateSetting(
             bool? canDelete = default,
             bool? canEdit = default,
+            bool? canProgram = default,
             string? climatePresetKey = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
@@ -5607,6 +5682,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
+            CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
@@ -5659,6 +5735,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
+
+        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanProgram { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -5756,6 +5835,183 @@ namespace Seam.Model
 
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesThermostatDailyPrograms_model")]
+    public class DevicePropertiesThermostatDailyPrograms
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesThermostatDailyPrograms() { }
+
+        public DevicePropertiesThermostatDailyPrograms(
+            string? createdAt = default,
+            string? deviceId = default,
+            string? name = default,
+            List<DevicePropertiesThermostatDailyProgramsPeriods>? periods = default,
+            string? thermostatDailyProgramId = default
+        )
+        {
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            Name = name;
+            Periods = periods;
+            ThermostatDailyProgramId = thermostatDailyProgramId;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
+
+        [DataMember(Name = "periods", IsRequired = false, EmitDefaultValue = false)]
+        public List<DevicePropertiesThermostatDailyProgramsPeriods>? Periods { get; set; }
+
+        [DataMember(
+            Name = "thermostat_daily_program_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? ThermostatDailyProgramId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesThermostatDailyProgramsPeriods_model")]
+    public class DevicePropertiesThermostatDailyProgramsPeriods
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesThermostatDailyProgramsPeriods() { }
+
+        public DevicePropertiesThermostatDailyProgramsPeriods(
+            string? climatePresetKey = default,
+            string? startsAtTime = default
+        )
+        {
+            ClimatePresetKey = climatePresetKey;
+            StartsAtTime = startsAtTime;
+        }
+
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? ClimatePresetKey { get; set; }
+
+        [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
+        public string? StartsAtTime { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesThermostatWeeklyProgram_model")]
+    public class DevicePropertiesThermostatWeeklyProgram
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesThermostatWeeklyProgram() { }
+
+        public DevicePropertiesThermostatWeeklyProgram(
+            string? createdAt = default,
+            string? deviceId = default,
+            string? fridayProgramId = default,
+            string? mondayProgramId = default,
+            string? saturdayProgramId = default,
+            string? sundayProgramId = default,
+            string? thursdayProgramId = default,
+            string? tuesdayProgramId = default,
+            string? wednesdayProgramId = default
+        )
+        {
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            FridayProgramId = fridayProgramId;
+            MondayProgramId = mondayProgramId;
+            SaturdayProgramId = saturdayProgramId;
+            SundayProgramId = sundayProgramId;
+            ThursdayProgramId = thursdayProgramId;
+            TuesdayProgramId = tuesdayProgramId;
+            WednesdayProgramId = wednesdayProgramId;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "friday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? FridayProgramId { get; set; }
+
+        [DataMember(Name = "monday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MondayProgramId { get; set; }
+
+        [DataMember(Name = "saturday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? SaturdayProgramId { get; set; }
+
+        [DataMember(Name = "sunday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? SundayProgramId { get; set; }
+
+        [DataMember(Name = "thursday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ThursdayProgramId { get; set; }
+
+        [DataMember(Name = "tuesday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? TuesdayProgramId { get; set; }
+
+        [DataMember(Name = "wednesday_program_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? WednesdayProgramId { get; set; }
 
         public override string ToString()
         {

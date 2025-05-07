@@ -185,10 +185,15 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? acsCredentialId = default, string? acsSystemId = default)
+            public ListRequest(
+                string? acsCredentialId = default,
+                string? acsSystemId = default,
+                string? locationId = default
+            )
             {
                 AcsCredentialId = acsCredentialId;
                 AcsSystemId = acsSystemId;
+                LocationId = locationId;
             }
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
@@ -196,6 +201,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? LocationId { get; set; }
 
             public override string ToString()
             {
@@ -262,11 +270,16 @@ namespace Seam.Api
 
         public List<AcsEntrance> List(
             string? acsCredentialId = default,
-            string? acsSystemId = default
+            string? acsSystemId = default,
+            string? locationId = default
         )
         {
             return List(
-                new ListRequest(acsCredentialId: acsCredentialId, acsSystemId: acsSystemId)
+                new ListRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsSystemId: acsSystemId,
+                    locationId: locationId
+                )
             );
         }
 
@@ -281,12 +294,17 @@ namespace Seam.Api
 
         public async Task<List<AcsEntrance>> ListAsync(
             string? acsCredentialId = default,
-            string? acsSystemId = default
+            string? acsSystemId = default,
+            string? locationId = default
         )
         {
             return (
                 await ListAsync(
-                    new ListRequest(acsCredentialId: acsCredentialId, acsSystemId: acsSystemId)
+                    new ListRequest(
+                        acsCredentialId: acsCredentialId,
+                        acsSystemId: acsSystemId,
+                        locationId: locationId
+                    )
                 )
             );
         }

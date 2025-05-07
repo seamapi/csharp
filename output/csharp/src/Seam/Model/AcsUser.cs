@@ -27,10 +27,8 @@ namespace Seam.Model
             string? externalTypeDisplayName = default,
             string? fullName = default,
             string? hidAcsSystemId = default,
-            bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
             bool? isSuspended = default,
-            string? latestDesiredStateSyncedWithProviderAt = default,
             List<AcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
             string? userIdentityEmailAddress = default,
@@ -53,10 +51,8 @@ namespace Seam.Model
             ExternalTypeDisplayName = externalTypeDisplayName;
             FullName = fullName;
             HidAcsSystemId = hidAcsSystemId;
-            IsLatestDesiredStateSyncedWithProvider = isLatestDesiredStateSyncedWithProvider;
             IsManaged = isManaged;
             IsSuspended = isSuspended;
-            LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
             PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
             UserIdentityEmailAddress = userIdentityEmailAddress;
@@ -1015,6 +1011,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(typeof(AcsUserWarningsLatchResidentUser), "latch_resident_user")]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserWarningsUnknownIssueWithAcsUser),
             "unknown_issue_with_acs_user"
@@ -1173,6 +1170,52 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_acsUserWarningsLatchResidentUser_model")]
+        public class AcsUserWarningsLatchResidentUser : AcsUserWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserWarningsLatchResidentUser() { }
+
+            public AcsUserWarningsLatchResidentUser(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "latch_resident_user";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
         public AcsUserAccessSchedule? AccessSchedule { get; set; }
 
@@ -1213,25 +1256,11 @@ namespace Seam.Model
         [DataMember(Name = "hid_acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string? HidAcsSystemId { get; set; }
 
-        [DataMember(
-            Name = "is_latest_desired_state_synced_with_provider",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
-
         [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
         [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsSuspended { get; set; }
-
-        [DataMember(
-            Name = "latest_desired_state_synced_with_provider_at",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? LatestDesiredStateSyncedWithProviderAt { get; set; }
 
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsUserPendingMutations>? PendingMutations { get; set; }
