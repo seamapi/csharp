@@ -211,15 +211,20 @@ namespace Seam.Api
             protected CreateRequestAssaAbloyVostioMetadata() { }
 
             public CreateRequestAssaAbloyVostioMetadata(
+                bool? autoJoin = default,
                 bool? joinAllGuestAcsEntrances = default,
                 bool? overrideAllGuestAcsEntrances = default,
                 List<string>? overrideGuestAcsEntranceIds = default
             )
             {
+                AutoJoin = autoJoin;
                 JoinAllGuestAcsEntrances = joinAllGuestAcsEntrances;
                 OverrideAllGuestAcsEntrances = overrideAllGuestAcsEntrances;
                 OverrideGuestAcsEntranceIds = overrideGuestAcsEntranceIds;
             }
+
+            [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
+            public bool? AutoJoin { get; set; }
 
             [DataMember(
                 Name = "join_all_guest_acs_entrances",
