@@ -567,6 +567,7 @@ namespace Seam.Model
         protected UnmanagedAcsCredentialAssaAbloyVostioMetadata() { }
 
         public UnmanagedAcsCredentialAssaAbloyVostioMetadata(
+            bool? autoJoin = default,
             List<string>? doorNames = default,
             string? endpointId = default,
             string? keyId = default,
@@ -574,12 +575,16 @@ namespace Seam.Model
             List<string>? overrideGuestAcsEntranceIds = default
         )
         {
+            AutoJoin = autoJoin;
             DoorNames = doorNames;
             EndpointId = endpointId;
             KeyId = keyId;
             KeyIssuingRequestId = keyIssuingRequestId;
             OverrideGuestAcsEntranceIds = overrideGuestAcsEntranceIds;
         }
+
+        [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "door_names", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? DoorNames { get; set; }
