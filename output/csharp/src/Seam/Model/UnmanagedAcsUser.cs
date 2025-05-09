@@ -65,6 +65,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserErrorsLatchConflictWithResidentUser),
+            "latch_conflict_with_resident_user"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsUserErrorsFailedToDeleteOnAcsSystem),
             "failed_to_delete_on_acs_system"
         )]
@@ -303,6 +307,52 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_delete_on_acs_system";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsLatchConflictWithResidentUser_model")]
+        public class UnmanagedAcsUserErrorsLatchConflictWithResidentUser : UnmanagedAcsUserErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserErrorsLatchConflictWithResidentUser() { }
+
+            public UnmanagedAcsUserErrorsLatchConflictWithResidentUser(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "latch_conflict_with_resident_user";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
