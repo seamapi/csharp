@@ -29,6 +29,7 @@ namespace Seam.Model
             string? hidAcsSystemId = default,
             bool isManaged = default,
             bool? isSuspended = default,
+            string? lastSuccessfulSyncAt = default,
             List<AcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
             string? userIdentityEmailAddress = default,
@@ -53,6 +54,7 @@ namespace Seam.Model
             HidAcsSystemId = hidAcsSystemId;
             IsManaged = isManaged;
             IsSuspended = isSuspended;
+            LastSuccessfulSyncAt = lastSuccessfulSyncAt;
             PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
             UserIdentityEmailAddress = userIdentityEmailAddress;
@@ -1311,6 +1313,9 @@ namespace Seam.Model
 
         [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsSuspended { get; set; }
+
+        [DataMember(Name = "last_successful_sync_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? LastSuccessfulSyncAt { get; set; }
 
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsUserPendingMutations>? PendingMutations { get; set; }
