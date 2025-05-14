@@ -182,6 +182,10 @@ namespace Seam.Model
             "igloohome_bridge_too_many_pending_jobs"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsNoSpaceForAccessCodeOnDevice),
+            "no_space_for_access_code_on_device"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsDuplicateCodeAttemptPrevented),
             "duplicate_code_attempt_prevented"
         )]
@@ -553,6 +557,57 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "duplicate_code_attempt_prevented";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeErrorsNoSpaceForAccessCodeOnDevice_model")]
+        public class AccessCodeErrorsNoSpaceForAccessCodeOnDevice : AccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeErrorsNoSpaceForAccessCodeOnDevice() { }
+
+            public AccessCodeErrorsNoSpaceForAccessCodeOnDevice(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "no_space_for_access_code_on_device";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
