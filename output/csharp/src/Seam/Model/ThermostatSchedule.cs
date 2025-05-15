@@ -24,7 +24,8 @@ namespace Seam.Model
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
-            string thermostatScheduleId = default
+            string thermostatScheduleId = default,
+            string workspaceId = default
         )
         {
             ClimatePresetKey = climatePresetKey;
@@ -37,6 +38,7 @@ namespace Seam.Model
             Name = name;
             StartsAt = startsAt;
             ThermostatScheduleId = thermostatScheduleId;
+            WorkspaceId = workspaceId;
         }
 
         [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
@@ -72,6 +74,9 @@ namespace Seam.Model
 
         [DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
         public string ThermostatScheduleId { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

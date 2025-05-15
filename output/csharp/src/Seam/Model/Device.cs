@@ -5254,7 +5254,8 @@ namespace Seam.Model
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string? startsAt = default,
-            string? thermostatScheduleId = default
+            string? thermostatScheduleId = default,
+            string? workspaceId = default
         )
         {
             ClimatePresetKey = climatePresetKey;
@@ -5267,6 +5268,7 @@ namespace Seam.Model
             Name = name;
             StartsAt = startsAt;
             ThermostatScheduleId = thermostatScheduleId;
+            WorkspaceId = workspaceId;
         }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
@@ -5302,6 +5304,9 @@ namespace Seam.Model
 
         [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ThermostatScheduleId { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5867,7 +5872,8 @@ namespace Seam.Model
             string? deviceId = default,
             string? name = default,
             List<DevicePropertiesThermostatDailyProgramsPeriods>? periods = default,
-            string? thermostatDailyProgramId = default
+            string? thermostatDailyProgramId = default,
+            string? workspaceId = default
         )
         {
             CreatedAt = createdAt;
@@ -5875,6 +5881,7 @@ namespace Seam.Model
             Name = name;
             Periods = periods;
             ThermostatDailyProgramId = thermostatDailyProgramId;
+            WorkspaceId = workspaceId;
         }
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
@@ -5895,6 +5902,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string? ThermostatDailyProgramId { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5965,7 +5975,6 @@ namespace Seam.Model
 
         public DevicePropertiesThermostatWeeklyProgram(
             string? createdAt = default,
-            string? deviceId = default,
             string? fridayProgramId = default,
             string? mondayProgramId = default,
             string? saturdayProgramId = default,
@@ -5976,7 +5985,6 @@ namespace Seam.Model
         )
         {
             CreatedAt = createdAt;
-            DeviceId = deviceId;
             FridayProgramId = fridayProgramId;
             MondayProgramId = mondayProgramId;
             SaturdayProgramId = saturdayProgramId;
@@ -5988,9 +5996,6 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string? CreatedAt { get; set; }
-
-        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? DeviceId { get; set; }
 
         [DataMember(Name = "friday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? FridayProgramId { get; set; }
