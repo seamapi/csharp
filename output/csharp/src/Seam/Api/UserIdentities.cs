@@ -92,17 +92,22 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
+                List<string>? acsSystemIds = default,
                 string? emailAddress = default,
                 string? fullName = default,
                 string? phoneNumber = default,
                 string? userIdentityKey = default
             )
             {
+                AcsSystemIds = acsSystemIds;
                 EmailAddress = emailAddress;
                 FullName = fullName;
                 PhoneNumber = phoneNumber;
                 UserIdentityKey = userIdentityKey;
             }
+
+            [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsSystemIds { get; set; }
 
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
@@ -180,6 +185,7 @@ namespace Seam.Api
         }
 
         public UserIdentity Create(
+            List<string>? acsSystemIds = default,
             string? emailAddress = default,
             string? fullName = default,
             string? phoneNumber = default,
@@ -188,6 +194,7 @@ namespace Seam.Api
         {
             return Create(
                 new CreateRequest(
+                    acsSystemIds: acsSystemIds,
                     emailAddress: emailAddress,
                     fullName: fullName,
                     phoneNumber: phoneNumber,
@@ -208,6 +215,7 @@ namespace Seam.Api
         }
 
         public async Task<UserIdentity> CreateAsync(
+            List<string>? acsSystemIds = default,
             string? emailAddress = default,
             string? fullName = default,
             string? phoneNumber = default,
@@ -217,6 +225,7 @@ namespace Seam.Api
             return (
                 await CreateAsync(
                     new CreateRequest(
+                        acsSystemIds: acsSystemIds,
                         emailAddress: emailAddress,
                         fullName: fullName,
                         phoneNumber: phoneNumber,

@@ -148,6 +148,7 @@ namespace Seam.Api
                 List<string>? between = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
+                List<string>? customerIds = default,
                 string? deviceId = default,
                 List<string>? deviceIds = default,
                 List<string>? eventIds = default,
@@ -165,6 +166,7 @@ namespace Seam.Api
                 Between = between;
                 ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
+                CustomerIds = customerIds;
                 DeviceId = deviceId;
                 DeviceIds = deviceIds;
                 EventIds = eventIds;
@@ -742,6 +744,9 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CustomerIds { get; set; }
+
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
@@ -835,6 +840,7 @@ namespace Seam.Api
             List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
+            List<string>? customerIds = default,
             string? deviceId = default,
             List<string>? deviceIds = default,
             List<string>? eventIds = default,
@@ -854,6 +860,7 @@ namespace Seam.Api
                     between: between,
                     connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
+                    customerIds: customerIds,
                     deviceId: deviceId,
                     deviceIds: deviceIds,
                     eventIds: eventIds,
@@ -883,6 +890,7 @@ namespace Seam.Api
             List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
+            List<string>? customerIds = default,
             string? deviceId = default,
             List<string>? deviceIds = default,
             List<string>? eventIds = default,
@@ -903,6 +911,7 @@ namespace Seam.Api
                         between: between,
                         connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
+                        customerIds: customerIds,
                         deviceId: deviceId,
                         deviceIds: deviceIds,
                         eventIds: eventIds,
