@@ -187,10 +187,15 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? acsSystemId = default, string? acsUserId = default)
+            public ListRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
@@ -198,6 +203,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -262,9 +270,19 @@ namespace Seam.Api
                 .Data.AcsAccessGroups;
         }
 
-        public List<AcsAccessGroup> List(string? acsSystemId = default, string? acsUserId = default)
+        public List<AcsAccessGroup> List(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            return List(new ListRequest(acsSystemId: acsSystemId, acsUserId: acsUserId));
+            return List(
+                new ListRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task<List<AcsAccessGroup>> ListAsync(ListRequest request)
@@ -278,11 +296,18 @@ namespace Seam.Api
 
         public async Task<List<AcsAccessGroup>> ListAsync(
             string? acsSystemId = default,
-            string? acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             return (
-                await ListAsync(new ListRequest(acsSystemId: acsSystemId, acsUserId: acsUserId))
+                await ListAsync(
+                    new ListRequest(
+                        acsSystemId: acsSystemId,
+                        acsUserId: acsUserId,
+                        userIdentityId: userIdentityId
+                    )
+                )
             );
         }
 

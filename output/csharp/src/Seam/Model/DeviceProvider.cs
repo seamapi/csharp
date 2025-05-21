@@ -192,6 +192,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "sensi")]
             Sensi = 46,
+
+            [EnumMember(Value = "kwikset2")]
+            Kwikset2 = 47,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]

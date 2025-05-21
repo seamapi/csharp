@@ -30,6 +30,7 @@ namespace Seam.Api
                 List<string>? connectedAccountIds = default,
                 string? createdBefore = default,
                 object? customMetadataHas = default,
+                List<string>? customerIds = default,
                 List<string>? deviceIds = default,
                 ListRequest.DeviceTypeEnum? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -47,6 +48,7 @@ namespace Seam.Api
                 ConnectedAccountIds = connectedAccountIds;
                 CreatedBefore = createdBefore;
                 CustomMetadataHas = customMetadataHas;
+                CustomerIds = customerIds;
                 DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
@@ -171,11 +173,11 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
-                [EnumMember(Value = "noiseaware")]
-                Noiseaware = 1,
-
                 [EnumMember(Value = "minut")]
-                Minut = 2,
+                Minut = 1,
+
+                [EnumMember(Value = "noiseaware")]
+                Noiseaware = 2,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
@@ -200,6 +202,9 @@ namespace Seam.Api
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CustomerIds { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -302,6 +307,7 @@ namespace Seam.Api
             List<string>? connectedAccountIds = default,
             string? createdBefore = default,
             object? customMetadataHas = default,
+            List<string>? customerIds = default,
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -321,6 +327,7 @@ namespace Seam.Api
                     connectedAccountIds: connectedAccountIds,
                     createdBefore: createdBefore,
                     customMetadataHas: customMetadataHas,
+                    customerIds: customerIds,
                     deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
@@ -350,6 +357,7 @@ namespace Seam.Api
             List<string>? connectedAccountIds = default,
             string? createdBefore = default,
             object? customMetadataHas = default,
+            List<string>? customerIds = default,
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -370,6 +378,7 @@ namespace Seam.Api
                         connectedAccountIds: connectedAccountIds,
                         createdBefore: createdBefore,
                         customMetadataHas: customMetadataHas,
+                        customerIds: customerIds,
                         deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,

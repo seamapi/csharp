@@ -189,14 +189,17 @@ namespace Seam.Api
                 [EnumMember(Value = "sensi")]
                 Sensi = 46,
 
+                [EnumMember(Value = "kwikset2")]
+                Kwikset2 = 47,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 47,
+                YaleAccess = 48,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 48,
+                HidCm = 49,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 49,
+                GoogleNest = 50,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
