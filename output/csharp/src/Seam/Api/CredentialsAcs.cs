@@ -24,17 +24,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected AssignRequest() { }
 
-            public AssignRequest(string acsCredentialId = default, string acsUserId = default)
+            public AssignRequest(
+                string acsCredentialId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsCredentialId = acsCredentialId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsCredentialId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -63,9 +71,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/credentials/assign", requestOptions);
         }
 
-        public void Assign(string acsCredentialId = default, string acsUserId = default)
+        public void Assign(
+            string acsCredentialId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            Assign(new AssignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId));
+            Assign(
+                new AssignRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task AssignAsync(AssignRequest request)
@@ -75,10 +93,18 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/credentials/assign", requestOptions);
         }
 
-        public async Task AssignAsync(string acsCredentialId = default, string acsUserId = default)
+        public async Task AssignAsync(
+            string acsCredentialId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
             await AssignAsync(
-                new AssignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId)
+                new AssignRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -90,7 +116,8 @@ namespace Seam.Api
 
             public CreateRequest(
                 CreateRequest.AccessMethodEnum accessMethod = default,
-                string acsUserId = default,
+                string? acsSystemId = default,
+                string? acsUserId = default,
                 List<string>? allowedAcsEntranceIds = default,
                 CreateRequestAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
                 string? code = default,
@@ -99,10 +126,12 @@ namespace Seam.Api
                 bool? isMultiPhoneSyncCredential = default,
                 CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
                 string? startsAt = default,
+                string? userIdentityId = default,
                 CreateRequestVisionlineMetadata? visionlineMetadata = default
             )
             {
                 AccessMethod = accessMethod;
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
                 AllowedAcsEntranceIds = allowedAcsEntranceIds;
                 AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
@@ -112,6 +141,7 @@ namespace Seam.Api
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
                 SaltoSpaceMetadata = saltoSpaceMetadata;
                 StartsAt = startsAt;
+                UserIdentityId = userIdentityId;
                 VisionlineMetadata = visionlineMetadata;
             }
 
@@ -134,8 +164,11 @@ namespace Seam.Api
             [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
             public CreateRequest.AccessMethodEnum AccessMethod { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
 
             [DataMember(
                 Name = "allowed_acs_entrance_ids",
@@ -180,6 +213,9 @@ namespace Seam.Api
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequestVisionlineMetadata? VisionlineMetadata { get; set; }
@@ -454,7 +490,8 @@ namespace Seam.Api
 
         public AcsCredential Create(
             CreateRequest.AccessMethodEnum accessMethod = default,
-            string acsUserId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             List<string>? allowedAcsEntranceIds = default,
             CreateRequestAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? code = default,
@@ -463,12 +500,14 @@ namespace Seam.Api
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
+            string? userIdentityId = default,
             CreateRequestVisionlineMetadata? visionlineMetadata = default
         )
         {
             return Create(
                 new CreateRequest(
                     accessMethod: accessMethod,
+                    acsSystemId: acsSystemId,
                     acsUserId: acsUserId,
                     allowedAcsEntranceIds: allowedAcsEntranceIds,
                     assaAbloyVostioMetadata: assaAbloyVostioMetadata,
@@ -478,6 +517,7 @@ namespace Seam.Api
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                     saltoSpaceMetadata: saltoSpaceMetadata,
                     startsAt: startsAt,
+                    userIdentityId: userIdentityId,
                     visionlineMetadata: visionlineMetadata
                 )
             );
@@ -496,7 +536,8 @@ namespace Seam.Api
 
         public async Task<AcsCredential> CreateAsync(
             CreateRequest.AccessMethodEnum accessMethod = default,
-            string acsUserId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             List<string>? allowedAcsEntranceIds = default,
             CreateRequestAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? code = default,
@@ -505,6 +546,7 @@ namespace Seam.Api
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
+            string? userIdentityId = default,
             CreateRequestVisionlineMetadata? visionlineMetadata = default
         )
         {
@@ -512,6 +554,7 @@ namespace Seam.Api
                 await CreateAsync(
                     new CreateRequest(
                         accessMethod: accessMethod,
+                        acsSystemId: acsSystemId,
                         acsUserId: acsUserId,
                         allowedAcsEntranceIds: allowedAcsEntranceIds,
                         assaAbloyVostioMetadata: assaAbloyVostioMetadata,
@@ -521,6 +564,7 @@ namespace Seam.Api
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                         saltoSpaceMetadata: saltoSpaceMetadata,
                         startsAt: startsAt,
+                        userIdentityId: userIdentityId,
                         visionlineMetadata: visionlineMetadata
                     )
                 )
@@ -962,17 +1006,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected UnassignRequest() { }
 
-            public UnassignRequest(string acsCredentialId = default, string acsUserId = default)
+            public UnassignRequest(
+                string acsCredentialId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsCredentialId = acsCredentialId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsCredentialId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -1001,9 +1053,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/credentials/unassign", requestOptions);
         }
 
-        public void Unassign(string acsCredentialId = default, string acsUserId = default)
+        public void Unassign(
+            string acsCredentialId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            Unassign(new UnassignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId));
+            Unassign(
+                new UnassignRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task UnassignAsync(UnassignRequest request)
@@ -1015,11 +1077,16 @@ namespace Seam.Api
 
         public async Task UnassignAsync(
             string acsCredentialId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             await UnassignAsync(
-                new UnassignRequest(acsCredentialId: acsCredentialId, acsUserId: acsUserId)
+                new UnassignRequest(
+                    acsCredentialId: acsCredentialId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
