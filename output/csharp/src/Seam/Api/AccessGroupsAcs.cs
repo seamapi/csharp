@@ -24,17 +24,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected AddUserRequest() { }
 
-            public AddUserRequest(string acsAccessGroupId = default, string acsUserId = default)
+            public AddUserRequest(
+                string acsAccessGroupId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsAccessGroupId = acsAccessGroupId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsAccessGroupId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -63,9 +71,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/access_groups/add_user", requestOptions);
         }
 
-        public void AddUser(string acsAccessGroupId = default, string acsUserId = default)
+        public void AddUser(
+            string acsAccessGroupId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            AddUser(new AddUserRequest(acsAccessGroupId: acsAccessGroupId, acsUserId: acsUserId));
+            AddUser(
+                new AddUserRequest(
+                    acsAccessGroupId: acsAccessGroupId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task AddUserAsync(AddUserRequest request)
@@ -77,11 +95,16 @@ namespace Seam.Api
 
         public async Task AddUserAsync(
             string acsAccessGroupId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             await AddUserAsync(
-                new AddUserRequest(acsAccessGroupId: acsAccessGroupId, acsUserId: acsUserId)
+                new AddUserRequest(
+                    acsAccessGroupId: acsAccessGroupId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -532,17 +555,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected RemoveUserRequest() { }
 
-            public RemoveUserRequest(string acsAccessGroupId = default, string acsUserId = default)
+            public RemoveUserRequest(
+                string acsAccessGroupId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsAccessGroupId = acsAccessGroupId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsAccessGroupId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -571,10 +602,18 @@ namespace Seam.Api
             _seam.Post<object>("/acs/access_groups/remove_user", requestOptions);
         }
 
-        public void RemoveUser(string acsAccessGroupId = default, string acsUserId = default)
+        public void RemoveUser(
+            string acsAccessGroupId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
             RemoveUser(
-                new RemoveUserRequest(acsAccessGroupId: acsAccessGroupId, acsUserId: acsUserId)
+                new RemoveUserRequest(
+                    acsAccessGroupId: acsAccessGroupId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -587,11 +626,16 @@ namespace Seam.Api
 
         public async Task RemoveUserAsync(
             string acsAccessGroupId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             await RemoveUserAsync(
-                new RemoveUserRequest(acsAccessGroupId: acsAccessGroupId, acsUserId: acsUserId)
+                new RemoveUserRequest(
+                    acsAccessGroupId: acsAccessGroupId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
     }

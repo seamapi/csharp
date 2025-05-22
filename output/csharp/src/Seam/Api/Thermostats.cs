@@ -966,6 +966,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "sensi_thermostat")]
                 SensiThermostat = 5,
+
+                [EnumMember(Value = "smartthings_thermostat")]
+                SmartthingsThermostat = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -988,6 +991,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "sensi_thermostat")]
                 SensiThermostat = 5,
+
+                [EnumMember(Value = "smartthings_thermostat")]
+                SmartthingsThermostat = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2172,6 +2178,195 @@ namespace Seam.Api
                     hvacModeSetting: hvacModeSetting,
                     manualOverrideAllowed: manualOverrideAllowed,
                     name: name
+                )
+            );
+        }
+
+        [DataContract(Name = "updateWeeklyProgramRequest_request")]
+        public class UpdateWeeklyProgramRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateWeeklyProgramRequest() { }
+
+            public UpdateWeeklyProgramRequest(
+                string deviceId = default,
+                string? fridayProgramId = default,
+                string? mondayProgramId = default,
+                string? saturdayProgramId = default,
+                string? sundayProgramId = default,
+                string? thursdayProgramId = default,
+                string? tuesdayProgramId = default,
+                string? wednesdayProgramId = default
+            )
+            {
+                DeviceId = deviceId;
+                FridayProgramId = fridayProgramId;
+                MondayProgramId = mondayProgramId;
+                SaturdayProgramId = saturdayProgramId;
+                SundayProgramId = sundayProgramId;
+                ThursdayProgramId = thursdayProgramId;
+                TuesdayProgramId = tuesdayProgramId;
+                WednesdayProgramId = wednesdayProgramId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "friday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? FridayProgramId { get; set; }
+
+            [DataMember(Name = "monday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? MondayProgramId { get; set; }
+
+            [DataMember(Name = "saturday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SaturdayProgramId { get; set; }
+
+            [DataMember(Name = "sunday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SundayProgramId { get; set; }
+
+            [DataMember(Name = "thursday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ThursdayProgramId { get; set; }
+
+            [DataMember(Name = "tuesday_program_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? TuesdayProgramId { get; set; }
+
+            [DataMember(
+                Name = "wednesday_program_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? WednesdayProgramId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "updateWeeklyProgramResponse_response")]
+        public class UpdateWeeklyProgramResponse
+        {
+            [JsonConstructorAttribute]
+            protected UpdateWeeklyProgramResponse() { }
+
+            public UpdateWeeklyProgramResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt UpdateWeeklyProgram(UpdateWeeklyProgramRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<UpdateWeeklyProgramResponse>(
+                    "/thermostats/update_weekly_program",
+                    requestOptions
+                )
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt UpdateWeeklyProgram(
+            string deviceId = default,
+            string? fridayProgramId = default,
+            string? mondayProgramId = default,
+            string? saturdayProgramId = default,
+            string? sundayProgramId = default,
+            string? thursdayProgramId = default,
+            string? tuesdayProgramId = default,
+            string? wednesdayProgramId = default
+        )
+        {
+            return UpdateWeeklyProgram(
+                new UpdateWeeklyProgramRequest(
+                    deviceId: deviceId,
+                    fridayProgramId: fridayProgramId,
+                    mondayProgramId: mondayProgramId,
+                    saturdayProgramId: saturdayProgramId,
+                    sundayProgramId: sundayProgramId,
+                    thursdayProgramId: thursdayProgramId,
+                    tuesdayProgramId: tuesdayProgramId,
+                    wednesdayProgramId: wednesdayProgramId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> UpdateWeeklyProgramAsync(
+            UpdateWeeklyProgramRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<UpdateWeeklyProgramResponse>(
+                    "/thermostats/update_weekly_program",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> UpdateWeeklyProgramAsync(
+            string deviceId = default,
+            string? fridayProgramId = default,
+            string? mondayProgramId = default,
+            string? saturdayProgramId = default,
+            string? sundayProgramId = default,
+            string? thursdayProgramId = default,
+            string? tuesdayProgramId = default,
+            string? wednesdayProgramId = default
+        )
+        {
+            return (
+                await UpdateWeeklyProgramAsync(
+                    new UpdateWeeklyProgramRequest(
+                        deviceId: deviceId,
+                        fridayProgramId: fridayProgramId,
+                        mondayProgramId: mondayProgramId,
+                        saturdayProgramId: saturdayProgramId,
+                        sundayProgramId: sundayProgramId,
+                        thursdayProgramId: thursdayProgramId,
+                        tuesdayProgramId: tuesdayProgramId,
+                        wednesdayProgramId: wednesdayProgramId
+                    )
                 )
             );
         }

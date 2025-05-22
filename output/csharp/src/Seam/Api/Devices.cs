@@ -265,11 +265,14 @@ namespace Seam.Api
                 [EnumMember(Value = "sensi_thermostat")]
                 SensiThermostat = 34,
 
+                [EnumMember(Value = "smartthings_thermostat")]
+                SmartthingsThermostat = 35,
+
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 35,
+                IosPhone = 36,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 36,
+                AndroidPhone = 37,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
