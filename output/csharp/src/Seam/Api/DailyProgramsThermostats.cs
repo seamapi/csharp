@@ -89,7 +89,7 @@ namespace Seam.Api
             protected UpdateRequest() { }
 
             public UpdateRequest(
-                string? name = default,
+                string name = default,
                 List<UpdateRequestPeriods> periods = default,
                 string thermostatDailyProgramId = default
             )
@@ -99,8 +99,8 @@ namespace Seam.Api
                 ThermostatDailyProgramId = thermostatDailyProgramId;
             }
 
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
+            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+            public string Name { get; set; }
 
             [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
             public List<UpdateRequestPeriods> Periods { get; set; }
@@ -217,7 +217,7 @@ namespace Seam.Api
         }
 
         public ActionAttempt Update(
-            string? name = default,
+            string name = default,
             List<UpdateRequestPeriods> periods = default,
             string thermostatDailyProgramId = default
         )
@@ -246,7 +246,7 @@ namespace Seam.Api
         }
 
         public async Task<ActionAttempt> UpdateAsync(
-            string? name = default,
+            string name = default,
             List<UpdateRequestPeriods> periods = default,
             string thermostatDailyProgramId = default
         )
