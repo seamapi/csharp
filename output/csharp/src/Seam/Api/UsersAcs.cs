@@ -650,13 +650,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListAccessibleEntrancesRequest() { }
 
-            public ListAccessibleEntrancesRequest(string acsUserId = default)
+            public ListAccessibleEntrancesRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -724,10 +736,18 @@ namespace Seam.Api
                 .Data.AcsEntrances;
         }
 
-        public List<AcsEntrance> ListAccessibleEntrances(string acsUserId = default)
+        public List<AcsEntrance> ListAccessibleEntrances(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
             return ListAccessibleEntrances(
-                new ListAccessibleEntrancesRequest(acsUserId: acsUserId)
+                new ListAccessibleEntrancesRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -748,12 +768,18 @@ namespace Seam.Api
         }
 
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
-            string acsUserId = default
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             return (
                 await ListAccessibleEntrancesAsync(
-                    new ListAccessibleEntrancesRequest(acsUserId: acsUserId)
+                    new ListAccessibleEntrancesRequest(
+                        acsSystemId: acsSystemId,
+                        acsUserId: acsUserId,
+                        userIdentityId: userIdentityId
+                    )
                 )
             );
         }

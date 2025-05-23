@@ -118,17 +118,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GrantAccessRequest() { }
 
-            public GrantAccessRequest(string acsEntranceId = default, string acsUserId = default)
+            public GrantAccessRequest(
+                string acsEntranceId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
                 AcsEntranceId = acsEntranceId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEntranceId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -157,9 +165,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/entrances/grant_access", requestOptions);
         }
 
-        public void GrantAccess(string acsEntranceId = default, string acsUserId = default)
+        public void GrantAccess(
+            string acsEntranceId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            GrantAccess(new GrantAccessRequest(acsEntranceId: acsEntranceId, acsUserId: acsUserId));
+            GrantAccess(
+                new GrantAccessRequest(
+                    acsEntranceId: acsEntranceId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task GrantAccessAsync(GrantAccessRequest request)
@@ -171,11 +189,16 @@ namespace Seam.Api
 
         public async Task GrantAccessAsync(
             string acsEntranceId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             await GrantAccessAsync(
-                new GrantAccessRequest(acsEntranceId: acsEntranceId, acsUserId: acsUserId)
+                new GrantAccessRequest(
+                    acsEntranceId: acsEntranceId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
