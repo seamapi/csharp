@@ -317,13 +317,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(string acsUserId = default)
+            public DeleteRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -352,9 +364,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/users/delete", requestOptions);
         }
 
-        public void Delete(string acsUserId = default)
+        public void Delete(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            Delete(new DeleteRequest(acsUserId: acsUserId));
+            Delete(
+                new DeleteRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -364,9 +386,19 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/users/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(string acsUserId = default)
+        public async Task DeleteAsync(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            await DeleteAsync(new DeleteRequest(acsUserId: acsUserId));
+            await DeleteAsync(
+                new DeleteRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         [DataContract(Name = "getRequest_request")]
@@ -375,13 +407,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetRequest() { }
 
-            public GetRequest(string acsUserId = default)
+            public GetRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -444,9 +488,19 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/acs/users/get", requestOptions).Data.AcsUser;
         }
 
-        public AcsUser Get(string acsUserId = default)
+        public AcsUser Get(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            return Get(new GetRequest(acsUserId: acsUserId));
+            return Get(
+                new GetRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task<AcsUser> GetAsync(GetRequest request)
@@ -458,9 +512,21 @@ namespace Seam.Api
                 .AcsUser;
         }
 
-        public async Task<AcsUser> GetAsync(string acsUserId = default)
+        public async Task<AcsUser> GetAsync(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            return (await GetAsync(new GetRequest(acsUserId: acsUserId)));
+            return (
+                await GetAsync(
+                    new GetRequest(
+                        acsSystemId: acsSystemId,
+                        acsUserId: acsUserId,
+                        userIdentityId: userIdentityId
+                    )
+                )
+            );
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -792,18 +858,23 @@ namespace Seam.Api
 
             public RemoveFromAccessGroupRequest(
                 string acsAccessGroupId = default,
-                string acsUserId = default
+                string? acsUserId = default,
+                string? userIdentityId = default
             )
             {
                 AcsAccessGroupId = acsAccessGroupId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsAccessGroupId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -834,13 +905,15 @@ namespace Seam.Api
 
         public void RemoveFromAccessGroup(
             string acsAccessGroupId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             RemoveFromAccessGroup(
                 new RemoveFromAccessGroupRequest(
                     acsAccessGroupId: acsAccessGroupId,
-                    acsUserId: acsUserId
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -854,13 +927,15 @@ namespace Seam.Api
 
         public async Task RemoveFromAccessGroupAsync(
             string acsAccessGroupId = default,
-            string acsUserId = default
+            string? acsUserId = default,
+            string? userIdentityId = default
         )
         {
             await RemoveFromAccessGroupAsync(
                 new RemoveFromAccessGroupRequest(
                     acsAccessGroupId: acsAccessGroupId,
-                    acsUserId: acsUserId
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -871,13 +946,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected RevokeAccessToAllEntrancesRequest() { }
 
-            public RevokeAccessToAllEntrancesRequest(string acsUserId = default)
+            public RevokeAccessToAllEntrancesRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -906,9 +993,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/users/revoke_access_to_all_entrances", requestOptions);
         }
 
-        public void RevokeAccessToAllEntrances(string acsUserId = default)
+        public void RevokeAccessToAllEntrances(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            RevokeAccessToAllEntrances(new RevokeAccessToAllEntrancesRequest(acsUserId: acsUserId));
+            RevokeAccessToAllEntrances(
+                new RevokeAccessToAllEntrancesRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task RevokeAccessToAllEntrancesAsync(RevokeAccessToAllEntrancesRequest request)
@@ -921,10 +1018,18 @@ namespace Seam.Api
             );
         }
 
-        public async Task RevokeAccessToAllEntrancesAsync(string acsUserId = default)
+        public async Task RevokeAccessToAllEntrancesAsync(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
             await RevokeAccessToAllEntrancesAsync(
-                new RevokeAccessToAllEntrancesRequest(acsUserId: acsUserId)
+                new RevokeAccessToAllEntrancesRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
             );
         }
 
@@ -934,13 +1039,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected SuspendRequest() { }
 
-            public SuspendRequest(string acsUserId = default)
+            public SuspendRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -969,9 +1086,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/users/suspend", requestOptions);
         }
 
-        public void Suspend(string acsUserId = default)
+        public void Suspend(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            Suspend(new SuspendRequest(acsUserId: acsUserId));
+            Suspend(
+                new SuspendRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task SuspendAsync(SuspendRequest request)
@@ -981,9 +1108,19 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/users/suspend", requestOptions);
         }
 
-        public async Task SuspendAsync(string acsUserId = default)
+        public async Task SuspendAsync(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            await SuspendAsync(new SuspendRequest(acsUserId: acsUserId));
+            await SuspendAsync(
+                new SuspendRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         [DataContract(Name = "unsuspendRequest_request")]
@@ -992,13 +1129,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected UnsuspendRequest() { }
 
-            public UnsuspendRequest(string acsUserId = default)
+            public UnsuspendRequest(
+                string? acsSystemId = default,
+                string? acsUserId = default,
+                string? userIdentityId = default
+            )
             {
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                UserIdentityId = userIdentityId;
             }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -1027,9 +1176,19 @@ namespace Seam.Api
             _seam.Post<object>("/acs/users/unsuspend", requestOptions);
         }
 
-        public void Unsuspend(string acsUserId = default)
+        public void Unsuspend(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            Unsuspend(new UnsuspendRequest(acsUserId: acsUserId));
+            Unsuspend(
+                new UnsuspendRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         public async Task UnsuspendAsync(UnsuspendRequest request)
@@ -1039,9 +1198,19 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/users/unsuspend", requestOptions);
         }
 
-        public async Task UnsuspendAsync(string acsUserId = default)
+        public async Task UnsuspendAsync(
+            string? acsSystemId = default,
+            string? acsUserId = default,
+            string? userIdentityId = default
+        )
         {
-            await UnsuspendAsync(new UnsuspendRequest(acsUserId: acsUserId));
+            await UnsuspendAsync(
+                new UnsuspendRequest(
+                    acsSystemId: acsSystemId,
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId
+                )
+            );
         }
 
         [DataContract(Name = "updateRequest_request")]
@@ -1052,28 +1221,35 @@ namespace Seam.Api
 
             public UpdateRequest(
                 UpdateRequestAccessSchedule? accessSchedule = default,
-                string acsUserId = default,
+                string? acsSystemId = default,
+                string? acsUserId = default,
                 string? email = default,
                 string? emailAddress = default,
                 string? fullName = default,
                 string? hidAcsSystemId = default,
-                string? phoneNumber = default
+                string? phoneNumber = default,
+                string? userIdentityId = default
             )
             {
                 AccessSchedule = accessSchedule;
+                AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
                 Email = email;
                 EmailAddress = emailAddress;
                 FullName = fullName;
                 HidAcsSystemId = hidAcsSystemId;
                 PhoneNumber = phoneNumber;
+                UserIdentityId = userIdentityId;
             }
 
             [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
             public UpdateRequestAccessSchedule? AccessSchedule { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
 
             [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
             public string? Email { get; set; }
@@ -1089,6 +1265,9 @@ namespace Seam.Api
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -1157,23 +1336,27 @@ namespace Seam.Api
 
         public void Update(
             UpdateRequestAccessSchedule? accessSchedule = default,
-            string acsUserId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             string? email = default,
             string? emailAddress = default,
             string? fullName = default,
             string? hidAcsSystemId = default,
-            string? phoneNumber = default
+            string? phoneNumber = default,
+            string? userIdentityId = default
         )
         {
             Update(
                 new UpdateRequest(
                     accessSchedule: accessSchedule,
+                    acsSystemId: acsSystemId,
                     acsUserId: acsUserId,
                     email: email,
                     emailAddress: emailAddress,
                     fullName: fullName,
                     hidAcsSystemId: hidAcsSystemId,
-                    phoneNumber: phoneNumber
+                    phoneNumber: phoneNumber,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -1187,23 +1370,27 @@ namespace Seam.Api
 
         public async Task UpdateAsync(
             UpdateRequestAccessSchedule? accessSchedule = default,
-            string acsUserId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             string? email = default,
             string? emailAddress = default,
             string? fullName = default,
             string? hidAcsSystemId = default,
-            string? phoneNumber = default
+            string? phoneNumber = default,
+            string? userIdentityId = default
         )
         {
             await UpdateAsync(
                 new UpdateRequest(
                     accessSchedule: accessSchedule,
+                    acsSystemId: acsSystemId,
                     acsUserId: acsUserId,
                     email: email,
                     emailAddress: emailAddress,
                     fullName: fullName,
                     hidAcsSystemId: hidAcsSystemId,
-                    phoneNumber: phoneNumber
+                    phoneNumber: phoneNumber,
+                    userIdentityId: userIdentityId
                 )
             );
         }
