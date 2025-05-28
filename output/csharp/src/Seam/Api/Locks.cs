@@ -464,41 +464,41 @@ namespace Seam.Api
                 [EnumMember(Value = "seam")]
                 Seam = 15,
 
-                [EnumMember(Value = "smartthings")]
-                Smartthings = 16,
-
                 [EnumMember(Value = "wyze")]
-                Wyze = 17,
+                Wyze = 16,
 
                 [EnumMember(Value = "yale")]
-                Yale = 18,
+                Yale = 17,
 
                 [EnumMember(Value = "two_n")]
-                TwoN = 19,
+                TwoN = 18,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 20,
+                Controlbyweb = 19,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 21,
+                Ttlock = 20,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 22,
+                Igloohome = 21,
 
                 [EnumMember(Value = "hubitat")]
-                Hubitat = 23,
+                Hubitat = 22,
 
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 24,
+                FourSuites = 23,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 25,
+                DormakabaOracode = 24,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 26,
+                Tedee = 25,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 27,
+                Akiles = 26,
+
+                [EnumMember(Value = "smartthings")]
+                Smartthings = 27,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
