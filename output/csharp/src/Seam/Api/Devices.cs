@@ -442,38 +442,38 @@ namespace Seam.Api
                 [EnumMember(Value = "controlbyweb")]
                 Controlbyweb = 27,
 
-                [EnumMember(Value = "smartthings")]
-                Smartthings = 28,
-
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 29,
+                DormakabaOracode = 28,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 30,
+                Tedee = 29,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 31,
+                Akiles = 30,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 32,
+                Ecobee = 31,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33,
+                HoneywellResideo = 32,
 
                 [EnumMember(Value = "minut")]
-                Minut = 34,
+                Minut = 33,
 
                 [EnumMember(Value = "nest")]
-                Nest = 35,
+                Nest = 34,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 36,
+                Noiseaware = 35,
 
                 [EnumMember(Value = "tado")]
-                Tado = 37,
+                Tado = 36,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 38,
+                Sensi = 37,
+
+                [EnumMember(Value = "smartthings")]
+                Smartthings = 38,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

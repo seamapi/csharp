@@ -1096,6 +1096,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "sensi")]
                 Sensi = 5,
+
+                [EnumMember(Value = "smartthings")]
+                Smartthings = 6,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
