@@ -339,6 +339,64 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "syncRequest_request")]
+        public class SyncRequest
+        {
+            [JsonConstructorAttribute]
+            protected SyncRequest() { }
+
+            public SyncRequest(string connectedAccountId = default)
+            {
+                ConnectedAccountId = connectedAccountId;
+            }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Sync(SyncRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/connected_accounts/sync", requestOptions);
+        }
+
+        public void Sync(string connectedAccountId = default)
+        {
+            Sync(new SyncRequest(connectedAccountId: connectedAccountId));
+        }
+
+        public async Task SyncAsync(SyncRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/connected_accounts/sync", requestOptions);
+        }
+
+        public async Task SyncAsync(string connectedAccountId = default)
+        {
+            await SyncAsync(new SyncRequest(connectedAccountId: connectedAccountId));
+        }
+
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
