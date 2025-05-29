@@ -18,6 +18,7 @@ namespace Seam.Model
             AcsUserAccessSchedule? accessSchedule = default,
             string acsSystemId = default,
             string acsUserId = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             string? email = default,
@@ -43,6 +44,7 @@ namespace Seam.Model
             AccessSchedule = accessSchedule;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             Email = email;
@@ -1276,6 +1278,9 @@ namespace Seam.Model
 
         [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsUserId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }

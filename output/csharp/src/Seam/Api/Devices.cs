@@ -457,23 +457,26 @@ namespace Seam.Api
                 [EnumMember(Value = "honeywell_resideo")]
                 HoneywellResideo = 32,
 
+                [EnumMember(Value = "kwikset2")]
+                Kwikset2 = 33,
+
                 [EnumMember(Value = "minut")]
-                Minut = 33,
+                Minut = 34,
 
                 [EnumMember(Value = "nest")]
-                Nest = 34,
+                Nest = 35,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 35,
+                Noiseaware = 36,
 
                 [EnumMember(Value = "tado")]
-                Tado = 36,
+                Tado = 37,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 37,
+                Sensi = 38,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 38,
+                Smartthings = 39,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

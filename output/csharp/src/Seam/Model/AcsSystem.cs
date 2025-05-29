@@ -18,16 +18,6 @@ namespace Seam.Model
             float? acsAccessGroupCount = default,
             string acsSystemId = default,
             float? acsUserCount = default,
-            bool? canAddAcsUsersToAcsAccessGroups = default,
-            bool? canAutomateEnrollment = default,
-            bool? canCreateAcsAccessGroups = default,
-            bool? canCreateUser = default,
-            bool? canDeleteUser = default,
-            bool? canRemoveAcsUsersFromAcsAccessGroups = default,
-            bool? canUpdateUserGroupMembership = default,
-            bool? canUpdateUserInformation = default,
-            bool? canUpdateUserSchedule = default,
-            bool? canUpdateUserSupensionState = default,
             string connectedAccountId = default,
             List<string> connectedAccountIds = default,
             string createdAt = default,
@@ -50,16 +40,6 @@ namespace Seam.Model
             AcsAccessGroupCount = acsAccessGroupCount;
             AcsSystemId = acsSystemId;
             AcsUserCount = acsUserCount;
-            CanAddAcsUsersToAcsAccessGroups = canAddAcsUsersToAcsAccessGroups;
-            CanAutomateEnrollment = canAutomateEnrollment;
-            CanCreateAcsAccessGroups = canCreateAcsAccessGroups;
-            CanCreateUser = canCreateUser;
-            CanDeleteUser = canDeleteUser;
-            CanRemoveAcsUsersFromAcsAccessGroups = canRemoveAcsUsersFromAcsAccessGroups;
-            CanUpdateUserGroupMembership = canUpdateUserGroupMembership;
-            CanUpdateUserInformation = canUpdateUserInformation;
-            CanUpdateUserSchedule = canUpdateUserSchedule;
-            CanUpdateUserSupensionState = canUpdateUserSupensionState;
             ConnectedAccountId = connectedAccountId;
             ConnectedAccountIds = connectedAccountIds;
             CreatedAt = createdAt;
@@ -670,64 +650,6 @@ namespace Seam.Model
 
         [DataMember(Name = "acs_user_count", IsRequired = false, EmitDefaultValue = false)]
         public float? AcsUserCount { get; set; }
-
-        [DataMember(
-            Name = "can_add_acs_users_to_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanAddAcsUsersToAcsAccessGroups { get; set; }
-
-        [DataMember(Name = "can_automate_enrollment", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanAutomateEnrollment { get; set; }
-
-        [DataMember(
-            Name = "can_create_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanCreateAcsAccessGroups { get; set; }
-
-        [DataMember(Name = "can_create_user", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanCreateUser { get; set; }
-
-        [DataMember(Name = "can_delete_user", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanDeleteUser { get; set; }
-
-        [DataMember(
-            Name = "can_remove_acs_users_from_acs_access_groups",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanRemoveAcsUsersFromAcsAccessGroups { get; set; }
-
-        [DataMember(
-            Name = "can_update_user_group_membership",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanUpdateUserGroupMembership { get; set; }
-
-        [DataMember(
-            Name = "can_update_user_information",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanUpdateUserInformation { get; set; }
-
-        [DataMember(
-            Name = "can_update_user_schedule",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanUpdateUserSchedule { get; set; }
-
-        [DataMember(
-            Name = "can_update_user_supension_state",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? CanUpdateUserSupensionState { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }

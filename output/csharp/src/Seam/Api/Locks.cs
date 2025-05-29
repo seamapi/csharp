@@ -497,8 +497,11 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles")]
                 Akiles = 26,
 
+                [EnumMember(Value = "kwikset2")]
+                Kwikset2 = 27,
+
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 27,
+                Smartthings = 28,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
