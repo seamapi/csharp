@@ -30,6 +30,7 @@ namespace Seam.Api
                 object? customMetadata = default,
                 string? customRedirectFailureUrl = default,
                 string? customRedirectUrl = default,
+                string? customerId = default,
                 CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
                 CreateRequest.ProviderCategoryEnum? providerCategory = default,
                 bool? waitForDeviceCreation = default
@@ -40,6 +41,7 @@ namespace Seam.Api
                 CustomMetadata = customMetadata;
                 CustomRedirectFailureUrl = customRedirectFailureUrl;
                 CustomRedirectUrl = customRedirectUrl;
+                CustomerId = customerId;
                 DeviceSelectionMode = deviceSelectionMode;
                 ProviderCategory = providerCategory;
                 WaitForDeviceCreation = waitForDeviceCreation;
@@ -266,6 +268,9 @@ namespace Seam.Api
             [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomRedirectUrl { get; set; }
 
+            [DataMember(Name = "customer_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerId { get; set; }
+
             [DataMember(
                 Name = "device_selection_mode",
                 IsRequired = false,
@@ -352,6 +357,7 @@ namespace Seam.Api
             object? customMetadata = default,
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
+            string? customerId = default,
             CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
@@ -364,6 +370,7 @@ namespace Seam.Api
                     customMetadata: customMetadata,
                     customRedirectFailureUrl: customRedirectFailureUrl,
                     customRedirectUrl: customRedirectUrl,
+                    customerId: customerId,
                     deviceSelectionMode: deviceSelectionMode,
                     providerCategory: providerCategory,
                     waitForDeviceCreation: waitForDeviceCreation
@@ -388,6 +395,7 @@ namespace Seam.Api
             object? customMetadata = default,
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
+            string? customerId = default,
             CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
@@ -401,6 +409,7 @@ namespace Seam.Api
                         customMetadata: customMetadata,
                         customRedirectFailureUrl: customRedirectFailureUrl,
                         customRedirectUrl: customRedirectUrl,
+                        customerId: customerId,
                         deviceSelectionMode: deviceSelectionMode,
                         providerCategory: providerCategory,
                         waitForDeviceCreation: waitForDeviceCreation
@@ -571,17 +580,22 @@ namespace Seam.Api
 
             public ListRequest(
                 object? customMetadataHas = default,
+                string? customerId = default,
                 float? limit = default,
                 string? userIdentifierKey = default
             )
             {
                 CustomMetadataHas = customMetadataHas;
+                CustomerId = customerId;
                 Limit = limit;
                 UserIdentifierKey = userIdentifierKey;
             }
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "customer_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerId { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -654,6 +668,7 @@ namespace Seam.Api
 
         public List<ConnectWebview> List(
             object? customMetadataHas = default,
+            string? customerId = default,
             float? limit = default,
             string? userIdentifierKey = default
         )
@@ -661,6 +676,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     customMetadataHas: customMetadataHas,
+                    customerId: customerId,
                     limit: limit,
                     userIdentifierKey: userIdentifierKey
                 )
@@ -678,6 +694,7 @@ namespace Seam.Api
 
         public async Task<List<ConnectWebview>> ListAsync(
             object? customMetadataHas = default,
+            string? customerId = default,
             float? limit = default,
             string? userIdentifierKey = default
         )
@@ -686,6 +703,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         customMetadataHas: customMetadataHas,
+                        customerId: customerId,
                         limit: limit,
                         userIdentifierKey: userIdentifierKey
                     )

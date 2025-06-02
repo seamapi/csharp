@@ -27,6 +27,8 @@ namespace Seam.Api
             public CreateRequest(
                 List<string>? connectWebviewIds = default,
                 List<string>? connectedAccountIds = default,
+                string? customerId = default,
+                string? customerKey = default,
                 string? expiresAt = default,
                 string? userIdentifierKey = default,
                 List<string>? userIdentityIds = default
@@ -34,6 +36,8 @@ namespace Seam.Api
             {
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
+                CustomerId = customerId;
+                CustomerKey = customerKey;
                 ExpiresAt = expiresAt;
                 UserIdentifierKey = userIdentifierKey;
                 UserIdentityIds = userIdentityIds;
@@ -48,6 +52,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? ConnectedAccountIds { get; set; }
+
+            [DataMember(Name = "customer_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerId { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
             public string? ExpiresAt { get; set; }
@@ -124,6 +134,8 @@ namespace Seam.Api
         public ClientSession Create(
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
+            string? customerId = default,
+            string? customerKey = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
             List<string>? userIdentityIds = default
@@ -133,6 +145,8 @@ namespace Seam.Api
                 new CreateRequest(
                     connectWebviewIds: connectWebviewIds,
                     connectedAccountIds: connectedAccountIds,
+                    customerId: customerId,
+                    customerKey: customerKey,
                     expiresAt: expiresAt,
                     userIdentifierKey: userIdentifierKey,
                     userIdentityIds: userIdentityIds
@@ -154,6 +168,8 @@ namespace Seam.Api
         public async Task<ClientSession> CreateAsync(
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
+            string? customerId = default,
+            string? customerKey = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
             List<string>? userIdentityIds = default
@@ -164,6 +180,8 @@ namespace Seam.Api
                     new CreateRequest(
                         connectWebviewIds: connectWebviewIds,
                         connectedAccountIds: connectedAccountIds,
+                        customerId: customerId,
+                        customerKey: customerKey,
                         expiresAt: expiresAt,
                         userIdentifierKey: userIdentifierKey,
                         userIdentityIds: userIdentityIds
