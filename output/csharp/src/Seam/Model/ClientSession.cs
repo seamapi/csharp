@@ -19,6 +19,7 @@ namespace Seam.Model
             List<string> connectWebviewIds = default,
             List<string> connectedAccountIds = default,
             string createdAt = default,
+            string? customerId = default,
             float deviceCount = default,
             string expiresAt = default,
             string token = default,
@@ -31,6 +32,7 @@ namespace Seam.Model
             ConnectWebviewIds = connectWebviewIds;
             ConnectedAccountIds = connectedAccountIds;
             CreatedAt = createdAt;
+            CustomerId = customerId;
             DeviceCount = deviceCount;
             ExpiresAt = expiresAt;
             Token = token;
@@ -50,6 +52,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerId { get; set; }
 
         [DataMember(Name = "device_count", IsRequired = true, EmitDefaultValue = false)]
         public float DeviceCount { get; set; }

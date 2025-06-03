@@ -580,13 +580,13 @@ namespace Seam.Api
 
             public ListRequest(
                 object? customMetadataHas = default,
-                string? customerId = default,
+                List<string>? customerIds = default,
                 float? limit = default,
                 string? userIdentifierKey = default
             )
             {
                 CustomMetadataHas = customMetadataHas;
-                CustomerId = customerId;
+                CustomerIds = customerIds;
                 Limit = limit;
                 UserIdentifierKey = userIdentifierKey;
             }
@@ -594,8 +594,8 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
-            [DataMember(Name = "customer_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? CustomerId { get; set; }
+            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CustomerIds { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -668,7 +668,7 @@ namespace Seam.Api
 
         public List<ConnectWebview> List(
             object? customMetadataHas = default,
-            string? customerId = default,
+            List<string>? customerIds = default,
             float? limit = default,
             string? userIdentifierKey = default
         )
@@ -676,7 +676,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     customMetadataHas: customMetadataHas,
-                    customerId: customerId,
+                    customerIds: customerIds,
                     limit: limit,
                     userIdentifierKey: userIdentifierKey
                 )
@@ -694,7 +694,7 @@ namespace Seam.Api
 
         public async Task<List<ConnectWebview>> ListAsync(
             object? customMetadataHas = default,
-            string? customerId = default,
+            List<string>? customerIds = default,
             float? limit = default,
             string? userIdentifierKey = default
         )
@@ -703,7 +703,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         customMetadataHas: customMetadataHas,
-                        customerId: customerId,
+                        customerIds: customerIds,
                         limit: limit,
                         userIdentifierKey: userIdentifierKey
                     )
