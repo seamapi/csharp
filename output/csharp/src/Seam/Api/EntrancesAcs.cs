@@ -211,12 +211,14 @@ namespace Seam.Api
             public ListRequest(
                 string? acsCredentialId = default,
                 string? acsSystemId = default,
-                string? locationId = default
+                string? locationId = default,
+                string? spaceId = default
             )
             {
                 AcsCredentialId = acsCredentialId;
                 AcsSystemId = acsSystemId;
                 LocationId = locationId;
+                SpaceId = spaceId;
             }
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
@@ -227,6 +229,9 @@ namespace Seam.Api
 
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
 
             public override string ToString()
             {
@@ -294,14 +299,16 @@ namespace Seam.Api
         public List<AcsEntrance> List(
             string? acsCredentialId = default,
             string? acsSystemId = default,
-            string? locationId = default
+            string? locationId = default,
+            string? spaceId = default
         )
         {
             return List(
                 new ListRequest(
                     acsCredentialId: acsCredentialId,
                     acsSystemId: acsSystemId,
-                    locationId: locationId
+                    locationId: locationId,
+                    spaceId: spaceId
                 )
             );
         }
@@ -318,7 +325,8 @@ namespace Seam.Api
         public async Task<List<AcsEntrance>> ListAsync(
             string? acsCredentialId = default,
             string? acsSystemId = default,
-            string? locationId = default
+            string? locationId = default,
+            string? spaceId = default
         )
         {
             return (
@@ -326,7 +334,8 @@ namespace Seam.Api
                     new ListRequest(
                         acsCredentialId: acsCredentialId,
                         acsSystemId: acsSystemId,
-                        locationId: locationId
+                        locationId: locationId,
+                        spaceId: spaceId
                     )
                 )
             );
