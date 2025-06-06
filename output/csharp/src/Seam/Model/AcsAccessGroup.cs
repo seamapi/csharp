@@ -19,6 +19,7 @@ namespace Seam.Model
             string accessGroupTypeDisplayName = default,
             string acsAccessGroupId = default,
             string acsSystemId = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             AcsAccessGroup.ExternalTypeEnum externalType = default,
@@ -33,6 +34,7 @@ namespace Seam.Model
             AccessGroupTypeDisplayName = accessGroupTypeDisplayName;
             AcsAccessGroupId = acsAccessGroupId;
             AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             ExternalType = externalType;
@@ -108,6 +110,9 @@ namespace Seam.Model
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
