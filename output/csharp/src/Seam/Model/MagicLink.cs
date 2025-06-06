@@ -17,7 +17,6 @@ namespace Seam.Model
         public MagicLink(
             MagicLink.BuildingBlockTypeEnum buildingBlockType = default,
             string createdAt = default,
-            string customerId = default,
             string customerKey = default,
             string expiresAt = default,
             string url = default,
@@ -26,7 +25,6 @@ namespace Seam.Model
         {
             BuildingBlockType = buildingBlockType;
             CreatedAt = createdAt;
-            CustomerId = customerId;
             CustomerKey = customerKey;
             ExpiresAt = expiresAt;
             Url = url;
@@ -39,11 +37,14 @@ namespace Seam.Model
             [EnumMember(Value = "unrecognized")]
             Unrecognized = 0,
 
-            [EnumMember(Value = "connect_account")]
-            ConnectAccount = 1,
+            [EnumMember(Value = "connect_accounts")]
+            ConnectAccounts = 1,
 
             [EnumMember(Value = "manage_devices")]
             ManageDevices = 2,
+
+            [EnumMember(Value = "organize_spaces")]
+            OrganizeSpaces = 3,
         }
 
         [DataMember(Name = "building_block_type", IsRequired = true, EmitDefaultValue = false)]
@@ -51,9 +52,6 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
-
-        [DataMember(Name = "customer_id", IsRequired = true, EmitDefaultValue = false)]
-        public string CustomerId { get; set; }
 
         [DataMember(Name = "customer_key", IsRequired = true, EmitDefaultValue = false)]
         public string CustomerKey { get; set; }

@@ -17,6 +17,7 @@ namespace Seam.Model
         public AcsEncoder(
             string acsEncoderId = default,
             string acsSystemId = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             List<AcsEncoderErrors> errors = default,
@@ -25,6 +26,7 @@ namespace Seam.Model
         {
             AcsEncoderId = acsEncoderId;
             AcsSystemId = acsSystemId;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             Errors = errors;
@@ -36,6 +38,9 @@ namespace Seam.Model
 
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
