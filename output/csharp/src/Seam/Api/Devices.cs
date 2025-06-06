@@ -135,6 +135,7 @@ namespace Seam.Api
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 string? pageCursor = default,
+                string? spaceId = default,
                 string? unstableLocationId = default,
                 string? userIdentifierKey = default
             )
@@ -153,6 +154,7 @@ namespace Seam.Api
                 Limit = limit;
                 Manufacturer = manufacturer;
                 PageCursor = pageCursor;
+                SpaceId = spaceId;
                 UnstableLocationId = unstableLocationId;
                 UserIdentifierKey = userIdentifierKey;
             }
@@ -529,6 +531,9 @@ namespace Seam.Api
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
+
             [DataMember(
                 Name = "unstable_location_id",
                 IsRequired = false,
@@ -615,6 +620,7 @@ namespace Seam.Api
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
+            string? spaceId = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
         )
@@ -635,6 +641,7 @@ namespace Seam.Api
                     limit: limit,
                     manufacturer: manufacturer,
                     pageCursor: pageCursor,
+                    spaceId: spaceId,
                     unstableLocationId: unstableLocationId,
                     userIdentifierKey: userIdentifierKey
                 )
@@ -665,6 +672,7 @@ namespace Seam.Api
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
+            string? spaceId = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
         )
@@ -686,6 +694,7 @@ namespace Seam.Api
                         limit: limit,
                         manufacturer: manufacturer,
                         pageCursor: pageCursor,
+                        spaceId: spaceId,
                         unstableLocationId: unstableLocationId,
                         userIdentifierKey: userIdentifierKey
                     )
