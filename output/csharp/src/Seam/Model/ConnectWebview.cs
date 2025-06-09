@@ -15,6 +15,7 @@ namespace Seam.Model
         protected ConnectWebview() { }
 
         public ConnectWebview(
+            List<ConnectWebview.AcceptedCapabilitiesEnum> acceptedCapabilities = default,
             List<string> acceptedDevices = default,
             List<string> acceptedProviders = default,
             bool anyDeviceAllowed = default,
@@ -36,6 +37,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AcceptedCapabilities = acceptedCapabilities;
             AcceptedDevices = acceptedDevices;
             AcceptedProviders = acceptedProviders;
             AnyDeviceAllowed = anyDeviceAllowed;
@@ -55,6 +57,25 @@ namespace Seam.Model
             Url = url;
             WaitForDeviceCreation = waitForDeviceCreation;
             WorkspaceId = workspaceId;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum AcceptedCapabilitiesEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "lock")]
+            Lock = 1,
+
+            [EnumMember(Value = "thermostat")]
+            Thermostat = 2,
+
+            [EnumMember(Value = "noise_sensor")]
+            NoiseSensor = 3,
+
+            [EnumMember(Value = "access_control")]
+            AccessControl = 4,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -88,6 +109,9 @@ namespace Seam.Model
             [EnumMember(Value = "authorized")]
             Authorized = 3,
         }
+
+        [DataMember(Name = "accepted_capabilities", IsRequired = true, EmitDefaultValue = false)]
+        public List<ConnectWebview.AcceptedCapabilitiesEnum> AcceptedCapabilities { get; set; }
 
         [DataMember(Name = "accepted_devices", IsRequired = true, EmitDefaultValue = false)]
         public List<string> AcceptedDevices { get; set; }

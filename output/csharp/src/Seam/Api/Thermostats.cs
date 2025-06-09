@@ -2001,7 +2001,7 @@ namespace Seam.Api
                 float? heatingSetPointCelsius = default,
                 float? heatingSetPointFahrenheit = default,
                 UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
-                bool manualOverrideAllowed = default,
+                bool? manualOverrideAllowed = default,
                 string? name = default
             )
             {
@@ -2094,10 +2094,10 @@ namespace Seam.Api
 
             [DataMember(
                 Name = "manual_override_allowed",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public bool ManualOverrideAllowed { get; set; }
+            public bool? ManualOverrideAllowed { get; set; }
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
@@ -2138,7 +2138,7 @@ namespace Seam.Api
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
             UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            bool manualOverrideAllowed = default,
+            bool? manualOverrideAllowed = default,
             string? name = default
         )
         {
@@ -2174,7 +2174,7 @@ namespace Seam.Api
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
             UpdateClimatePresetRequest.HvacModeSettingEnum? hvacModeSetting = default,
-            bool manualOverrideAllowed = default,
+            bool? manualOverrideAllowed = default,
             string? name = default
         )
         {
