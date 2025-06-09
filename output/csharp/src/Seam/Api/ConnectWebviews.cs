@@ -25,6 +25,7 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
+                List<CreateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
                 List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
                 bool? automaticallyManageNewDevices = default,
                 object? customMetadata = default,
@@ -36,6 +37,7 @@ namespace Seam.Api
                 bool? waitForDeviceCreation = default
             )
             {
+                AcceptedCapabilities = acceptedCapabilities;
                 AcceptedProviders = acceptedProviders;
                 AutomaticallyManageNewDevices = automaticallyManageNewDevices;
                 CustomMetadata = customMetadata;
@@ -45,6 +47,25 @@ namespace Seam.Api
                 DeviceSelectionMode = deviceSelectionMode;
                 ProviderCategory = providerCategory;
                 WaitForDeviceCreation = waitForDeviceCreation;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum AcceptedCapabilitiesEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "lock")]
+                Lock = 1,
+
+                [EnumMember(Value = "thermostat")]
+                Thermostat = 2,
+
+                [EnumMember(Value = "noise_sensor")]
+                NoiseSensor = 3,
+
+                [EnumMember(Value = "access_control")]
+                AccessControl = 4,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -245,6 +266,13 @@ namespace Seam.Api
                 InternalBeta = 6,
             }
 
+            [DataMember(
+                Name = "accepted_capabilities",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<CreateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; set; }
+
             [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<CreateRequest.AcceptedProvidersEnum>? AcceptedProviders { get; set; }
 
@@ -352,6 +380,7 @@ namespace Seam.Api
         }
 
         public ConnectWebview Create(
+            List<CreateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
             bool? automaticallyManageNewDevices = default,
             object? customMetadata = default,
@@ -365,6 +394,7 @@ namespace Seam.Api
         {
             return Create(
                 new CreateRequest(
+                    acceptedCapabilities: acceptedCapabilities,
                     acceptedProviders: acceptedProviders,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     customMetadata: customMetadata,
@@ -390,6 +420,7 @@ namespace Seam.Api
         }
 
         public async Task<ConnectWebview> CreateAsync(
+            List<CreateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
             bool? automaticallyManageNewDevices = default,
             object? customMetadata = default,
@@ -404,6 +435,7 @@ namespace Seam.Api
             return (
                 await CreateAsync(
                     new CreateRequest(
+                        acceptedCapabilities: acceptedCapabilities,
                         acceptedProviders: acceptedProviders,
                         automaticallyManageNewDevices: automaticallyManageNewDevices,
                         customMetadata: customMetadata,
