@@ -24,6 +24,7 @@ namespace Seam.Model
             string expiresAt = default,
             string token = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string> userIdentityIds = default,
             string workspaceId = default
         )
@@ -37,6 +38,7 @@ namespace Seam.Model
             ExpiresAt = expiresAt;
             Token = token;
             UserIdentifierKey = userIdentifierKey;
+            UserIdentityId = userIdentityId;
             UserIdentityIds = userIdentityIds;
             WorkspaceId = workspaceId;
         }
@@ -67,6 +69,9 @@ namespace Seam.Model
 
         [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentifierKey { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "user_identity_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> UserIdentityIds { get; set; }

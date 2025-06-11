@@ -18,6 +18,347 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "createRequest_request")]
+        public class CreateRequest
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequest() { }
+
+            public CreateRequest(
+                string? userIdentityId = default,
+                CreateRequestUserIdentity? userIdentity = default,
+                List<string>? acsEntranceIds = default,
+                List<string>? deviceIds = default,
+                string? endsAt = default,
+                CreateRequestLocation? location = default,
+                List<string>? locationIds = default,
+                List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+                List<string>? spaceIds = default,
+                string? startsAt = default
+            )
+            {
+                UserIdentityId = userIdentityId;
+                UserIdentity = userIdentity;
+                AcsEntranceIds = acsEntranceIds;
+                DeviceIds = deviceIds;
+                EndsAt = endsAt;
+                Location = location;
+                LocationIds = locationIds;
+                RequestedAccessMethods = requestedAccessMethods;
+                SpaceIds = spaceIds;
+                StartsAt = startsAt;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestUserIdentity? UserIdentity { get; set; }
+
+            [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? DeviceIds { get; set; }
+
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestLocation? Location { get; set; }
+
+            [DataMember(Name = "location_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? LocationIds { get; set; }
+
+            [DataMember(
+                Name = "requested_access_methods",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public List<CreateRequestRequestedAccessMethods> RequestedAccessMethods { get; set; }
+
+            [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceIds { get; set; }
+
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestUserIdentity_model")]
+        public class CreateRequestUserIdentity
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestUserIdentity() { }
+
+            public CreateRequestUserIdentity(
+                string? emailAddress = default,
+                string? fullName = default,
+                string? phoneNumber = default
+            )
+            {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
+            }
+
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestLocation_model")]
+        public class CreateRequestLocation
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestLocation() { }
+
+            public CreateRequestLocation(
+                List<string>? acsEntranceIds = default,
+                List<string>? deviceIds = default,
+                string? name = default
+            )
+            {
+                AcsEntranceIds = acsEntranceIds;
+                DeviceIds = deviceIds;
+                Name = name;
+            }
+
+            [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? DeviceIds { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestRequestedAccessMethods_model")]
+        public class CreateRequestRequestedAccessMethods
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestRequestedAccessMethods() { }
+
+            public CreateRequestRequestedAccessMethods(
+                CreateRequestRequestedAccessMethods.ModeEnum mode = default
+            )
+            {
+                Mode = mode;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ModeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "code")]
+                Code = 1,
+
+                [EnumMember(Value = "card")]
+                Card = 2,
+
+                [EnumMember(Value = "mobile_key")]
+                MobileKey = 3,
+            }
+
+            [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
+            public CreateRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createResponse_response")]
+        public class CreateResponse
+        {
+            [JsonConstructorAttribute]
+            protected CreateResponse() { }
+
+            public CreateResponse(AccessGrant accessGrant = default)
+            {
+                AccessGrant = accessGrant;
+            }
+
+            [DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
+            public AccessGrant AccessGrant { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public AccessGrant Create(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<CreateResponse>("/access_grants/create", requestOptions)
+                .Data.AccessGrant;
+        }
+
+        public AccessGrant Create(
+            string? userIdentityId = default,
+            CreateRequestUserIdentity? userIdentity = default,
+            List<string>? acsEntranceIds = default,
+            List<string>? deviceIds = default,
+            string? endsAt = default,
+            CreateRequestLocation? location = default,
+            List<string>? locationIds = default,
+            List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+            List<string>? spaceIds = default,
+            string? startsAt = default
+        )
+        {
+            return Create(
+                new CreateRequest(
+                    userIdentityId: userIdentityId,
+                    userIdentity: userIdentity,
+                    acsEntranceIds: acsEntranceIds,
+                    deviceIds: deviceIds,
+                    endsAt: endsAt,
+                    location: location,
+                    locationIds: locationIds,
+                    requestedAccessMethods: requestedAccessMethods,
+                    spaceIds: spaceIds,
+                    startsAt: startsAt
+                )
+            );
+        }
+
+        public async Task<AccessGrant> CreateAsync(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<CreateResponse>("/access_grants/create", requestOptions))
+                .Data
+                .AccessGrant;
+        }
+
+        public async Task<AccessGrant> CreateAsync(
+            string? userIdentityId = default,
+            CreateRequestUserIdentity? userIdentity = default,
+            List<string>? acsEntranceIds = default,
+            List<string>? deviceIds = default,
+            string? endsAt = default,
+            CreateRequestLocation? location = default,
+            List<string>? locationIds = default,
+            List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+            List<string>? spaceIds = default,
+            string? startsAt = default
+        )
+        {
+            return (
+                await CreateAsync(
+                    new CreateRequest(
+                        userIdentityId: userIdentityId,
+                        userIdentity: userIdentity,
+                        acsEntranceIds: acsEntranceIds,
+                        deviceIds: deviceIds,
+                        endsAt: endsAt,
+                        location: location,
+                        locationIds: locationIds,
+                        requestedAccessMethods: requestedAccessMethods,
+                        spaceIds: spaceIds,
+                        startsAt: startsAt
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -74,6 +415,248 @@ namespace Seam.Api
         public async Task DeleteAsync(string accessGrantId = default)
         {
             await DeleteAsync(new DeleteRequest(accessGrantId: accessGrantId));
+        }
+
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string accessGrantId = default)
+            {
+                AccessGrantId = accessGrantId;
+            }
+
+            [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessGrantId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(AccessGrant accessGrant = default)
+            {
+                AccessGrant = accessGrant;
+            }
+
+            [DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
+            public AccessGrant AccessGrant { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public AccessGrant Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<GetResponse>("/access_grants/get", requestOptions).Data.AccessGrant;
+        }
+
+        public AccessGrant Get(string accessGrantId = default)
+        {
+            return Get(new GetRequest(accessGrantId: accessGrantId));
+        }
+
+        public async Task<AccessGrant> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<GetResponse>("/access_grants/get", requestOptions))
+                .Data
+                .AccessGrant;
+        }
+
+        public async Task<AccessGrant> GetAsync(string accessGrantId = default)
+        {
+            return (await GetAsync(new GetRequest(accessGrantId: accessGrantId)));
+        }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListRequest() { }
+
+            public ListRequest(
+                string? acsEntranceId = default,
+                string? acsSystemId = default,
+                string? locationId = default,
+                string? spaceId = default,
+                string? userIdentityId = default
+            )
+            {
+                AcsEntranceId = acsEntranceId;
+                AcsSystemId = acsSystemId;
+                LocationId = locationId;
+                SpaceId = spaceId;
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsEntranceId { get; set; }
+
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? LocationId { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<AccessGrant> accessGrants = default)
+            {
+                AccessGrants = accessGrants;
+            }
+
+            [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
+            public List<AccessGrant> AccessGrants { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<AccessGrant> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListResponse>("/access_grants/list", requestOptions)
+                .Data.AccessGrants;
+        }
+
+        public List<AccessGrant> List(
+            string? acsEntranceId = default,
+            string? acsSystemId = default,
+            string? locationId = default,
+            string? spaceId = default,
+            string? userIdentityId = default
+        )
+        {
+            return List(
+                new ListRequest(
+                    acsEntranceId: acsEntranceId,
+                    acsSystemId: acsSystemId,
+                    locationId: locationId,
+                    spaceId: spaceId,
+                    userIdentityId: userIdentityId
+                )
+            );
+        }
+
+        public async Task<List<AccessGrant>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<ListResponse>("/access_grants/list", requestOptions))
+                .Data
+                .AccessGrants;
+        }
+
+        public async Task<List<AccessGrant>> ListAsync(
+            string? acsEntranceId = default,
+            string? acsSystemId = default,
+            string? locationId = default,
+            string? spaceId = default,
+            string? userIdentityId = default
+        )
+        {
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        acsEntranceId: acsEntranceId,
+                        acsSystemId: acsSystemId,
+                        locationId: locationId,
+                        spaceId: spaceId,
+                        userIdentityId: userIdentityId
+                    )
+                )
+            );
         }
     }
 }

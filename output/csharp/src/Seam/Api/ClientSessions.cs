@@ -31,6 +31,7 @@ namespace Seam.Api
                 string? customerKey = default,
                 string? expiresAt = default,
                 string? userIdentifierKey = default,
+                string? userIdentityId = default,
                 List<string>? userIdentityIds = default
             )
             {
@@ -40,6 +41,7 @@ namespace Seam.Api
                 CustomerKey = customerKey;
                 ExpiresAt = expiresAt;
                 UserIdentifierKey = userIdentifierKey;
+                UserIdentityId = userIdentityId;
                 UserIdentityIds = userIdentityIds;
             }
 
@@ -64,6 +66,9 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserIdentityIds { get; set; }
@@ -138,6 +143,7 @@ namespace Seam.Api
             string? customerKey = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -149,6 +155,7 @@ namespace Seam.Api
                     customerKey: customerKey,
                     expiresAt: expiresAt,
                     userIdentifierKey: userIdentifierKey,
+                    userIdentityId: userIdentityId,
                     userIdentityIds: userIdentityIds
                 )
             );
@@ -172,6 +179,7 @@ namespace Seam.Api
             string? customerKey = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -184,6 +192,7 @@ namespace Seam.Api
                         customerKey: customerKey,
                         expiresAt: expiresAt,
                         userIdentifierKey: userIdentifierKey,
+                        userIdentityId: userIdentityId,
                         userIdentityIds: userIdentityIds
                     )
                 )
@@ -380,6 +389,7 @@ namespace Seam.Api
                 List<string>? connectedAccountIds = default,
                 string? expiresAt = default,
                 string? userIdentifierKey = default,
+                string? userIdentityId = default,
                 List<string>? userIdentityIds = default
             )
             {
@@ -387,6 +397,7 @@ namespace Seam.Api
                 ConnectedAccountIds = connectedAccountIds;
                 ExpiresAt = expiresAt;
                 UserIdentifierKey = userIdentifierKey;
+                UserIdentityId = userIdentityId;
                 UserIdentityIds = userIdentityIds;
             }
 
@@ -405,6 +416,9 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserIdentityIds { get; set; }
@@ -477,6 +491,7 @@ namespace Seam.Api
             List<string>? connectedAccountIds = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -486,6 +501,7 @@ namespace Seam.Api
                     connectedAccountIds: connectedAccountIds,
                     expiresAt: expiresAt,
                     userIdentifierKey: userIdentifierKey,
+                    userIdentityId: userIdentityId,
                     userIdentityIds: userIdentityIds
                 )
             );
@@ -510,6 +526,7 @@ namespace Seam.Api
             List<string>? connectedAccountIds = default,
             string? expiresAt = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -520,6 +537,7 @@ namespace Seam.Api
                         connectedAccountIds: connectedAccountIds,
                         expiresAt: expiresAt,
                         userIdentifierKey: userIdentifierKey,
+                        userIdentityId: userIdentityId,
                         userIdentityIds: userIdentityIds
                     )
                 )
@@ -537,6 +555,7 @@ namespace Seam.Api
                 List<string>? connectWebviewIds = default,
                 List<string>? connectedAccountIds = default,
                 string? userIdentifierKey = default,
+                string? userIdentityId = default,
                 List<string>? userIdentityIds = default
             )
             {
@@ -544,6 +563,7 @@ namespace Seam.Api
                 ConnectWebviewIds = connectWebviewIds;
                 ConnectedAccountIds = connectedAccountIds;
                 UserIdentifierKey = userIdentifierKey;
+                UserIdentityId = userIdentityId;
                 UserIdentityIds = userIdentityIds;
             }
 
@@ -562,6 +582,9 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserIdentityIds { get; set; }
@@ -598,6 +621,7 @@ namespace Seam.Api
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -607,6 +631,7 @@ namespace Seam.Api
                     connectWebviewIds: connectWebviewIds,
                     connectedAccountIds: connectedAccountIds,
                     userIdentifierKey: userIdentifierKey,
+                    userIdentityId: userIdentityId,
                     userIdentityIds: userIdentityIds
                 )
             );
@@ -624,6 +649,7 @@ namespace Seam.Api
             List<string>? connectWebviewIds = default,
             List<string>? connectedAccountIds = default,
             string? userIdentifierKey = default,
+            string? userIdentityId = default,
             List<string>? userIdentityIds = default
         )
         {
@@ -633,6 +659,7 @@ namespace Seam.Api
                     connectWebviewIds: connectWebviewIds,
                     connectedAccountIds: connectedAccountIds,
                     userIdentifierKey: userIdentifierKey,
+                    userIdentityId: userIdentityId,
                     userIdentityIds: userIdentityIds
                 )
             );
