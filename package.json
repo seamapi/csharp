@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@seamapi/nextlove-sdk-generator": "^1.17.4",
-    "@seamapi/types": "^1.410.1",
+    "@seamapi/types": "^1.410.2",
     "@types/node": "^18.19.11",
     "ava": "^5.0.1",
     "axios": "^1.5.0",
