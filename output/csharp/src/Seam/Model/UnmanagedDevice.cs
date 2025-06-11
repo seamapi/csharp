@@ -216,6 +216,10 @@ namespace Seam.Model
             "invalid_credentials"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceErrorsLocklyMissingWifiBridge),
+            "lockly_missing_wifi_bridge"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsSubscriptionRequired),
             "subscription_required"
         )]
@@ -928,6 +932,57 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "subscription_required";
+
+            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedDeviceErrorsLocklyMissingWifiBridge_model")]
+        public class UnmanagedDeviceErrorsLocklyMissingWifiBridge : UnmanagedDeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceErrorsLocklyMissingWifiBridge() { }
+
+            public UnmanagedDeviceErrorsLocklyMissingWifiBridge(
+                string createdAt = default,
+                string errorCode = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "lockly_missing_wifi_bridge";
 
             [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
