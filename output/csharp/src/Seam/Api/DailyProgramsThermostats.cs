@@ -18,6 +18,176 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "createRequest_request")]
+        public class CreateRequest
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequest() { }
+
+            public CreateRequest(
+                string deviceId = default,
+                string name = default,
+                List<CreateRequestPeriods> periods = default
+            )
+            {
+                DeviceId = deviceId;
+                Name = name;
+                Periods = periods;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+            public string Name { get; set; }
+
+            [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
+            public List<CreateRequestPeriods> Periods { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestPeriods_model")]
+        public class CreateRequestPeriods
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestPeriods() { }
+
+            public CreateRequestPeriods(
+                string climatePresetKey = default,
+                string startsAtTime = default
+            )
+            {
+                ClimatePresetKey = climatePresetKey;
+                StartsAtTime = startsAtTime;
+            }
+
+            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "starts_at_time", IsRequired = true, EmitDefaultValue = false)]
+            public string StartsAtTime { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createResponse_response")]
+        public class CreateResponse
+        {
+            [JsonConstructorAttribute]
+            protected CreateResponse() { }
+
+            public CreateResponse(ThermostatDailyProgram thermostatDailyProgram = default)
+            {
+                ThermostatDailyProgram = thermostatDailyProgram;
+            }
+
+            [DataMember(
+                Name = "thermostat_daily_program",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public ThermostatDailyProgram ThermostatDailyProgram { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ThermostatDailyProgram Create(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<CreateResponse>("/thermostats/daily_programs/create", requestOptions)
+                .Data.ThermostatDailyProgram;
+        }
+
+        public ThermostatDailyProgram Create(
+            string deviceId = default,
+            string name = default,
+            List<CreateRequestPeriods> periods = default
+        )
+        {
+            return Create(new CreateRequest(deviceId: deviceId, name: name, periods: periods));
+        }
+
+        public async Task<ThermostatDailyProgram> CreateAsync(CreateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<CreateResponse>(
+                    "/thermostats/daily_programs/create",
+                    requestOptions
+                )
+            )
+                .Data
+                .ThermostatDailyProgram;
+        }
+
+        public async Task<ThermostatDailyProgram> CreateAsync(
+            string deviceId = default,
+            string name = default,
+            List<CreateRequestPeriods> periods = default
+        )
+        {
+            return (
+                await CreateAsync(
+                    new CreateRequest(deviceId: deviceId, name: name, periods: periods)
+                )
+            );
+        }
+
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
