@@ -209,17 +209,27 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? accessGrantId = default,
+                string? accessMethodId = default,
                 string? acsCredentialId = default,
                 string? acsSystemId = default,
                 string? locationId = default,
                 string? spaceId = default
             )
             {
+                AccessGrantId = accessGrantId;
+                AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
                 AcsSystemId = acsSystemId;
                 LocationId = locationId;
                 SpaceId = spaceId;
             }
+
+            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantId { get; set; }
+
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
@@ -297,6 +307,8 @@ namespace Seam.Api
         }
 
         public List<AcsEntrance> List(
+            string? accessGrantId = default,
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             string? acsSystemId = default,
             string? locationId = default,
@@ -305,6 +317,8 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessGrantId: accessGrantId,
+                    accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
                     acsSystemId: acsSystemId,
                     locationId: locationId,
@@ -323,6 +337,8 @@ namespace Seam.Api
         }
 
         public async Task<List<AcsEntrance>> ListAsync(
+            string? accessGrantId = default,
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             string? acsSystemId = default,
             string? locationId = default,
@@ -332,6 +348,8 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessGrantId: accessGrantId,
+                        accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
                         acsSystemId: acsSystemId,
                         locationId: locationId,

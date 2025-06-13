@@ -91,7 +91,7 @@ namespace Seam.Model
 
         public PhoneSessionProviderSessionsAcsCredentials(
             PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum accessMethod = default,
-            string acsCredentialId = default,
+            string? acsCredentialId = default,
             string? acsCredentialPoolId = default,
             List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrances> acsEntrances = default,
             string acsSystemId = default,
@@ -532,8 +532,8 @@ namespace Seam.Model
         [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
         public PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum AccessMethod { get; set; }
 
-        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
-        public string AcsCredentialId { get; set; }
+        [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsCredentialId { get; set; }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsCredentialPoolId { get; set; }
