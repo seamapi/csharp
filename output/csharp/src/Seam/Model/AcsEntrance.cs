@@ -18,6 +18,7 @@ namespace Seam.Model
             string acsEntranceId = default,
             string acsSystemId = default,
             AcsEntranceAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             AcsEntranceDormakabaCommunityMetadata? dormakabaCommunityMetadata = default,
@@ -31,6 +32,7 @@ namespace Seam.Model
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             DormakabaCommunityMetadata = dormakabaCommunityMetadata;
@@ -53,6 +55,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public AcsEntranceAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
