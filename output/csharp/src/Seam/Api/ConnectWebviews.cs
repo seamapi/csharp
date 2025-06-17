@@ -614,12 +614,14 @@ namespace Seam.Api
                 object? customMetadataHas = default,
                 List<string>? customerIds = default,
                 float? limit = default,
+                string? pageCursor = default,
                 string? userIdentifierKey = default
             )
             {
                 CustomMetadataHas = customMetadataHas;
                 CustomerIds = customerIds;
                 Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
             }
 
@@ -631,6 +633,9 @@ namespace Seam.Api
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -702,6 +707,7 @@ namespace Seam.Api
             object? customMetadataHas = default,
             List<string>? customerIds = default,
             float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
@@ -710,6 +716,7 @@ namespace Seam.Api
                     customMetadataHas: customMetadataHas,
                     customerIds: customerIds,
                     limit: limit,
+                    pageCursor: pageCursor,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -728,6 +735,7 @@ namespace Seam.Api
             object? customMetadataHas = default,
             List<string>? customerIds = default,
             float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
@@ -737,6 +745,7 @@ namespace Seam.Api
                         customMetadataHas: customMetadataHas,
                         customerIds: customerIds,
                         limit: limit,
+                        pageCursor: pageCursor,
                         userIdentifierKey: userIdentifierKey
                     )
                 )
