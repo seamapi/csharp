@@ -1153,6 +1153,7 @@ namespace Seam.Model
             typeof(DeviceWarningsTemperatureThresholdExceeded),
             "temperature_threshold_exceeded"
         )]
+        [JsonSubtypes.KnownSubType(typeof(DeviceWarningsPowerSavingMode), "power_saving_mode")]
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsTtlockWeakGatewaySignal),
             "ttlock_weak_gateway_signal"
@@ -1544,6 +1545,52 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "ttlock_weak_gateway_signal";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsPowerSavingMode_model")]
+        public class DeviceWarningsPowerSavingMode : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsPowerSavingMode() { }
+
+            public DeviceWarningsPowerSavingMode(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "power_saving_mode";
 
             public override string ToString()
             {

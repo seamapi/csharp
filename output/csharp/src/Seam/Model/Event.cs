@@ -171,6 +171,7 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemDisconnected), "acs_system.disconnected")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemAdded), "acs_system.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemConnected), "acs_system.connected")]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessMethodReissued), "access_method.reissued")]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodDeleted), "access_method.deleted")]
     [JsonSubtypes.KnownSubType(
         typeof(EventAccessMethodCardEncodingRequired),
@@ -2023,6 +2024,67 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.deleted";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessMethodReissued_model")]
+    public class EventAccessMethodReissued : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessMethodReissued() { }
+
+        public EventAccessMethodReissued(
+            string accessMethodId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessMethodId = accessMethodId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_method.reissued";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }

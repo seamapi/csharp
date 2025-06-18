@@ -19,9 +19,11 @@ namespace Seam.Model
             List<string> accessMethodIds = default,
             string createdAt = default,
             string displayName = default,
+            string? endsAt = default,
             List<string> locationIds = default,
             List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
             List<string> spaceIds = default,
+            string? startsAt = default,
             string userIdentityId = default,
             string workspaceId = default
         )
@@ -30,9 +32,11 @@ namespace Seam.Model
             AccessMethodIds = accessMethodIds;
             CreatedAt = createdAt;
             DisplayName = displayName;
+            EndsAt = endsAt;
             LocationIds = locationIds;
             RequestedAccessMethods = requestedAccessMethods;
             SpaceIds = spaceIds;
+            StartsAt = startsAt;
             UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
@@ -49,6 +53,9 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndsAt { get; set; }
+
         [DataMember(Name = "location_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> LocationIds { get; set; }
 
@@ -57,6 +64,9 @@ namespace Seam.Model
 
         [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> SpaceIds { get; set; }
+
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
