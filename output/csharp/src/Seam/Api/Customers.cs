@@ -26,15 +26,20 @@ namespace Seam.Api
 
             public CreatePortalRequest(
                 CreatePortalRequestFeatures? features = default,
+                bool? isEmbedded = default,
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
                 Features = features;
+                IsEmbedded = isEmbedded;
                 CustomerData = customerData;
             }
 
             [DataMember(Name = "features", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeatures? Features { get; set; }
+
+            [DataMember(Name = "is_embedded", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsEmbedded { get; set; }
 
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerData? CustomerData { get; set; }
@@ -223,6 +228,7 @@ namespace Seam.Api
                 List<CreatePortalRequestCustomerDataGuests>? guests = default,
                 List<CreatePortalRequestCustomerDataListings>? listings = default,
                 List<CreatePortalRequestCustomerDataProperties>? properties = default,
+                List<CreatePortalRequestCustomerDataPropertyListings>? propertyListings = default,
                 List<CreatePortalRequestCustomerDataReservations>? reservations = default,
                 List<CreatePortalRequestCustomerDataResidents>? residents = default,
                 List<CreatePortalRequestCustomerDataRooms>? rooms = default,
@@ -242,6 +248,7 @@ namespace Seam.Api
                 Guests = guests;
                 Listings = listings;
                 Properties = properties;
+                PropertyListings = propertyListings;
                 Reservations = reservations;
                 Residents = residents;
                 Rooms = rooms;
@@ -278,6 +285,9 @@ namespace Seam.Api
 
             [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataProperties>? Properties { get; set; }
+
+            [DataMember(Name = "property_listings", IsRequired = false, EmitDefaultValue = false)]
+            public List<CreatePortalRequestCustomerDataPropertyListings>? PropertyListings { get; set; }
 
             [DataMember(Name = "reservations", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataReservations>? Reservations { get; set; }
@@ -811,6 +821,47 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "createPortalRequestCustomerDataPropertyListings_model")]
+        public class CreatePortalRequestCustomerDataPropertyListings
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerDataPropertyListings() { }
+
+            public CreatePortalRequestCustomerDataPropertyListings(
+                string name = default,
+                string propertyListingKey = default
+            )
+            {
+                Name = name;
+                PropertyListingKey = propertyListingKey;
+            }
+
+            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+            public string Name { get; set; }
+
+            [DataMember(Name = "property_listing_key", IsRequired = true, EmitDefaultValue = false)]
+            public string PropertyListingKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "createPortalRequestCustomerDataReservations_model")]
         public class CreatePortalRequestCustomerDataReservations
         {
@@ -1299,11 +1350,16 @@ namespace Seam.Api
 
         public MagicLink CreatePortal(
             CreatePortalRequestFeatures? features = default,
+            bool? isEmbedded = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
             return CreatePortal(
-                new CreatePortalRequest(features: features, customerData: customerData)
+                new CreatePortalRequest(
+                    features: features,
+                    isEmbedded: isEmbedded,
+                    customerData: customerData
+                )
             );
         }
 
@@ -1323,12 +1379,17 @@ namespace Seam.Api
 
         public async Task<MagicLink> CreatePortalAsync(
             CreatePortalRequestFeatures? features = default,
+            bool? isEmbedded = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
             return (
                 await CreatePortalAsync(
-                    new CreatePortalRequest(features: features, customerData: customerData)
+                    new CreatePortalRequest(
+                        features: features,
+                        isEmbedded: isEmbedded,
+                        customerData: customerData
+                    )
                 )
             );
         }
@@ -1349,6 +1410,7 @@ namespace Seam.Api
                 List<PushDataRequestGuests>? guests = default,
                 List<PushDataRequestListings>? listings = default,
                 List<PushDataRequestProperties>? properties = default,
+                List<PushDataRequestPropertyListings>? propertyListings = default,
                 List<PushDataRequestReservations>? reservations = default,
                 List<PushDataRequestResidents>? residents = default,
                 List<PushDataRequestRooms>? rooms = default,
@@ -1368,6 +1430,7 @@ namespace Seam.Api
                 Guests = guests;
                 Listings = listings;
                 Properties = properties;
+                PropertyListings = propertyListings;
                 Reservations = reservations;
                 Residents = residents;
                 Rooms = rooms;
@@ -1404,6 +1467,9 @@ namespace Seam.Api
 
             [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestProperties>? Properties { get; set; }
+
+            [DataMember(Name = "property_listings", IsRequired = false, EmitDefaultValue = false)]
+            public List<PushDataRequestPropertyListings>? PropertyListings { get; set; }
 
             [DataMember(Name = "reservations", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestReservations>? Reservations { get; set; }
@@ -1922,6 +1988,47 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "pushDataRequestPropertyListings_model")]
+        public class PushDataRequestPropertyListings
+        {
+            [JsonConstructorAttribute]
+            protected PushDataRequestPropertyListings() { }
+
+            public PushDataRequestPropertyListings(
+                string name = default,
+                string propertyListingKey = default
+            )
+            {
+                Name = name;
+                PropertyListingKey = propertyListingKey;
+            }
+
+            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+            public string Name { get; set; }
+
+            [DataMember(Name = "property_listing_key", IsRequired = true, EmitDefaultValue = false)]
+            public string PropertyListingKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "pushDataRequestReservations_model")]
         public class PushDataRequestReservations
         {
@@ -2373,6 +2480,7 @@ namespace Seam.Api
             List<PushDataRequestGuests>? guests = default,
             List<PushDataRequestListings>? listings = default,
             List<PushDataRequestProperties>? properties = default,
+            List<PushDataRequestPropertyListings>? propertyListings = default,
             List<PushDataRequestReservations>? reservations = default,
             List<PushDataRequestResidents>? residents = default,
             List<PushDataRequestRooms>? rooms = default,
@@ -2394,6 +2502,7 @@ namespace Seam.Api
                     guests: guests,
                     listings: listings,
                     properties: properties,
+                    propertyListings: propertyListings,
                     reservations: reservations,
                     residents: residents,
                     rooms: rooms,
@@ -2423,6 +2532,7 @@ namespace Seam.Api
             List<PushDataRequestGuests>? guests = default,
             List<PushDataRequestListings>? listings = default,
             List<PushDataRequestProperties>? properties = default,
+            List<PushDataRequestPropertyListings>? propertyListings = default,
             List<PushDataRequestReservations>? reservations = default,
             List<PushDataRequestResidents>? residents = default,
             List<PushDataRequestRooms>? rooms = default,
@@ -2444,6 +2554,7 @@ namespace Seam.Api
                     guests: guests,
                     listings: listings,
                     properties: properties,
+                    propertyListings: propertyListings,
                     reservations: reservations,
                     residents: residents,
                     rooms: rooms,
