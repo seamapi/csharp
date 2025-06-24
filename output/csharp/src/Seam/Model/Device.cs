@@ -2243,6 +2243,7 @@ namespace Seam.Model
             List<float>? supportedCodeLengths = default,
             bool? supportsBackupAccessCodePool = default,
             DevicePropertiesActiveThermostatSchedule? activeThermostatSchedule = default,
+            string? activeThermostatScheduleId = default,
             List<DevicePropertiesAvailableClimatePresets>? availableClimatePresets = default,
             List<DeviceProperties.AvailableFanModeSettingsEnum>? availableFanModeSettings = default,
             List<DeviceProperties.AvailableHvacModeSettingsEnum>? availableHvacModeSettings =
@@ -2336,6 +2337,7 @@ namespace Seam.Model
             SupportedCodeLengths = supportedCodeLengths;
             SupportsBackupAccessCodePool = supportsBackupAccessCodePool;
             ActiveThermostatSchedule = activeThermostatSchedule;
+            ActiveThermostatScheduleId = activeThermostatScheduleId;
             AvailableClimatePresets = availableClimatePresets;
             AvailableFanModeSettings = availableFanModeSettings;
             AvailableHvacModeSettings = availableHvacModeSettings;
@@ -2657,6 +2659,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public DevicePropertiesActiveThermostatSchedule? ActiveThermostatSchedule { get; set; }
+
+        [DataMember(
+            Name = "active_thermostat_schedule_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? ActiveThermostatScheduleId { get; set; }
 
         [DataMember(
             Name = "available_climate_presets",
