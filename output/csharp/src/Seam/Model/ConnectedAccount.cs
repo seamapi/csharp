@@ -15,6 +15,7 @@ namespace Seam.Model
         protected ConnectedAccount() { }
 
         public ConnectedAccount(
+            List<ConnectedAccount.AcceptedCapabilitiesEnum> acceptedCapabilities = default,
             string? accountType = default,
             string accountTypeDisplayName = default,
             bool automaticallyManageNewDevices = default,
@@ -27,6 +28,7 @@ namespace Seam.Model
             List<ConnectedAccountWarnings> warnings = default
         )
         {
+            AcceptedCapabilities = acceptedCapabilities;
             AccountType = accountType;
             AccountTypeDisplayName = accountTypeDisplayName;
             AutomaticallyManageNewDevices = automaticallyManageNewDevices;
@@ -37,6 +39,25 @@ namespace Seam.Model
             Errors = errors;
             UserIdentifier = userIdentifier;
             Warnings = warnings;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum AcceptedCapabilitiesEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "lock")]
+            Lock = 1,
+
+            [EnumMember(Value = "thermostat")]
+            Thermostat = 2,
+
+            [EnumMember(Value = "noise_sensor")]
+            NoiseSensor = 3,
+
+            [EnumMember(Value = "access_control")]
+            AccessControl = 4,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -696,6 +717,9 @@ namespace Seam.Model
                 return stringWriter.ToString();
             }
         }
+
+        [DataMember(Name = "accepted_capabilities", IsRequired = true, EmitDefaultValue = false)]
+        public List<ConnectedAccount.AcceptedCapabilitiesEnum> AcceptedCapabilities { get; set; }
 
         [DataMember(Name = "account_type", IsRequired = false, EmitDefaultValue = false)]
         public string? AccountType { get; set; }
