@@ -26,6 +26,7 @@ namespace Seam.Model
             bool? canSimulateDisconnection = default,
             bool? canSimulateRemoval = default,
             bool? canTurnOffHvac = default,
+            bool? canUnlockWithCode = default,
             List<Device.CapabilitiesSupportedEnum> capabilitiesSupported = default,
             string connectedAccountId = default,
             string createdAt = default,
@@ -53,6 +54,7 @@ namespace Seam.Model
             CanSimulateDisconnection = canSimulateDisconnection;
             CanSimulateRemoval = canSimulateRemoval;
             CanTurnOffHvac = canTurnOffHvac;
+            CanUnlockWithCode = canUnlockWithCode;
             CapabilitiesSupported = capabilitiesSupported;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
@@ -2071,6 +2073,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanTurnOffHvac { get; set; }
+
+        [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanUnlockWithCode { get; set; }
 
         [DataMember(Name = "capabilities_supported", IsRequired = true, EmitDefaultValue = false)]
         public List<Device.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }

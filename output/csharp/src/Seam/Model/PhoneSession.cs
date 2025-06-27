@@ -100,6 +100,7 @@ namespace Seam.Model
                 default,
             string? cardNumber = default,
             string? code = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             string? endsAt = default,
@@ -130,6 +131,7 @@ namespace Seam.Model
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             EndsAt = endsAt;
@@ -560,6 +562,9 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
@@ -665,6 +670,9 @@ namespace Seam.Model
             string acsSystemId = default,
             PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
+            bool? canUnlockWithCard = default,
+            bool? canUnlockWithCode = default,
+            bool? canUnlockWithMobileKey = default,
             string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
@@ -684,6 +692,9 @@ namespace Seam.Model
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
+            CanUnlockWithCard = canUnlockWithCard;
+            CanUnlockWithCode = canUnlockWithCode;
+            CanUnlockWithMobileKey = canUnlockWithMobileKey;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
@@ -707,6 +718,19 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+
+        [DataMember(Name = "can_unlock_with_card", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanUnlockWithCard { get; set; }
+
+        [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanUnlockWithCode { get; set; }
+
+        [DataMember(
+            Name = "can_unlock_with_mobile_key",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanUnlockWithMobileKey { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }

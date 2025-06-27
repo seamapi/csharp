@@ -202,6 +202,7 @@ namespace Seam.Api
                 List<string>? customerIds = default,
                 int? limit = default,
                 string? pageCursor = default,
+                string? search = default,
                 string? userIdentifierKey = default
             )
             {
@@ -209,6 +210,7 @@ namespace Seam.Api
                 CustomerIds = customerIds;
                 Limit = limit;
                 PageCursor = pageCursor;
+                Search = search;
                 UserIdentifierKey = userIdentifierKey;
             }
 
@@ -223,6 +225,9 @@ namespace Seam.Api
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -295,6 +300,7 @@ namespace Seam.Api
             List<string>? customerIds = default,
             int? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentifierKey = default
         )
         {
@@ -304,6 +310,7 @@ namespace Seam.Api
                     customerIds: customerIds,
                     limit: limit,
                     pageCursor: pageCursor,
+                    search: search,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -323,6 +330,7 @@ namespace Seam.Api
             List<string>? customerIds = default,
             int? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentifierKey = default
         )
         {
@@ -333,6 +341,7 @@ namespace Seam.Api
                         customerIds: customerIds,
                         limit: limit,
                         pageCursor: pageCursor,
+                        search: search,
                         userIdentifierKey: userIdentifierKey
                     )
                 )

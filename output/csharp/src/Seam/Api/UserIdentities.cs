@@ -612,9 +612,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? credentialManagerAcsSystemId = default)
+            public ListRequest(
+                string? credentialManagerAcsSystemId = default,
+                string? search = default
+            )
             {
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
+                Search = search;
             }
 
             [DataMember(
@@ -623,6 +627,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? CredentialManagerAcsSystemId { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             public override string ToString()
             {
@@ -687,10 +694,16 @@ namespace Seam.Api
                 .Data.UserIdentities;
         }
 
-        public List<UserIdentity> List(string? credentialManagerAcsSystemId = default)
+        public List<UserIdentity> List(
+            string? credentialManagerAcsSystemId = default,
+            string? search = default
+        )
         {
             return List(
-                new ListRequest(credentialManagerAcsSystemId: credentialManagerAcsSystemId)
+                new ListRequest(
+                    credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                    search: search
+                )
             );
         }
 
@@ -704,12 +717,16 @@ namespace Seam.Api
         }
 
         public async Task<List<UserIdentity>> ListAsync(
-            string? credentialManagerAcsSystemId = default
+            string? credentialManagerAcsSystemId = default,
+            string? search = default
         )
         {
             return (
                 await ListAsync(
-                    new ListRequest(credentialManagerAcsSystemId: credentialManagerAcsSystemId)
+                    new ListRequest(
+                        credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                        search: search
+                    )
                 )
             );
         }
