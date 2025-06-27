@@ -23,6 +23,7 @@ namespace Seam.Model
             UnmanagedAcsCredentialAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? cardNumber = default,
             string? code = default,
+            string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
             string? endsAt = default,
@@ -51,6 +52,7 @@ namespace Seam.Model
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
             EndsAt = endsAt;
@@ -465,6 +467,9 @@ namespace Seam.Model
 
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }

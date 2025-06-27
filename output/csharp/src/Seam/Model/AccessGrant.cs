@@ -20,6 +20,7 @@ namespace Seam.Model
             string createdAt = default,
             string displayName = default,
             string? endsAt = default,
+            string? instantKeyUrl = default,
             List<string> locationIds = default,
             List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
             List<string> spaceIds = default,
@@ -33,6 +34,7 @@ namespace Seam.Model
             CreatedAt = createdAt;
             DisplayName = displayName;
             EndsAt = endsAt;
+            InstantKeyUrl = instantKeyUrl;
             LocationIds = locationIds;
             RequestedAccessMethods = requestedAccessMethods;
             SpaceIds = spaceIds;
@@ -55,6 +57,9 @@ namespace Seam.Model
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
+
+        [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? InstantKeyUrl { get; set; }
 
         [DataMember(Name = "location_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> LocationIds { get; set; }

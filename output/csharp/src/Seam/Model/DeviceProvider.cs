@@ -26,6 +26,7 @@ namespace Seam.Model
             bool? canSimulateDisconnection = default,
             bool? canSimulateRemoval = default,
             bool? canTurnOffHvac = default,
+            bool? canUnlockWithCode = default,
             DeviceProvider.DeviceProviderNameEnum deviceProviderName = default,
             string displayName = default,
             string imageUrl = default,
@@ -43,6 +44,7 @@ namespace Seam.Model
             CanSimulateDisconnection = canSimulateDisconnection;
             CanSimulateRemoval = canSimulateRemoval;
             CanTurnOffHvac = canTurnOffHvac;
+            CanUnlockWithCode = canUnlockWithCode;
             DeviceProviderName = deviceProviderName;
             DisplayName = displayName;
             ImageUrl = imageUrl;
@@ -263,6 +265,9 @@ namespace Seam.Model
 
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanTurnOffHvac { get; set; }
+
+        [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanUnlockWithCode { get; set; }
 
         [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
         public DeviceProvider.DeviceProviderNameEnum DeviceProviderName { get; set; }

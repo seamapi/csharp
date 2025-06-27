@@ -76,6 +76,115 @@ namespace Seam.Api
             await DeleteAsync(new DeleteRequest(accessMethodId: accessMethodId));
         }
 
+        [DataContract(Name = "encodeRequest_request")]
+        public class EncodeRequest
+        {
+            [JsonConstructorAttribute]
+            protected EncodeRequest() { }
+
+            public EncodeRequest(string accessMethodId = default, string acsEncoderId = default)
+            {
+                AccessMethodId = accessMethodId;
+                AcsEncoderId = acsEncoderId;
+            }
+
+            [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessMethodId { get; set; }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "encodeResponse_response")]
+        public class EncodeResponse
+        {
+            [JsonConstructorAttribute]
+            protected EncodeResponse() { }
+
+            public EncodeResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt Encode(EncodeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<EncodeResponse>("/access_methods/encode", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt Encode(string accessMethodId = default, string acsEncoderId = default)
+        {
+            return Encode(
+                new EncodeRequest(accessMethodId: accessMethodId, acsEncoderId: acsEncoderId)
+            );
+        }
+
+        public async Task<ActionAttempt> EncodeAsync(EncodeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<EncodeResponse>("/access_methods/encode", requestOptions))
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> EncodeAsync(
+            string accessMethodId = default,
+            string acsEncoderId = default
+        )
+        {
+            return (
+                await EncodeAsync(
+                    new EncodeRequest(accessMethodId: accessMethodId, acsEncoderId: acsEncoderId)
+                )
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

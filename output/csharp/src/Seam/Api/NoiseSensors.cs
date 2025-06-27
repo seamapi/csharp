@@ -39,6 +39,7 @@ namespace Seam.Api
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 string? pageCursor = default,
+                string? search = default,
                 string? spaceId = default,
                 string? unstableLocationId = default,
                 string? userIdentifierKey = default
@@ -58,6 +59,7 @@ namespace Seam.Api
                 Limit = limit;
                 Manufacturer = manufacturer;
                 PageCursor = pageCursor;
+                Search = search;
                 SpaceId = spaceId;
                 UnstableLocationId = unstableLocationId;
                 UserIdentifierKey = userIdentifierKey;
@@ -127,6 +129,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_disconnection")]
                 CanSimulateDisconnection = 11,
+
+                [EnumMember(Value = "can_unlock_with_code")]
+                CanUnlockWithCode = 12,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -167,6 +172,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_disconnection")]
                 CanSimulateDisconnection = 11,
+
+                [EnumMember(Value = "can_unlock_with_code")]
+                CanUnlockWithCode = 12,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -231,6 +239,9 @@ namespace Seam.Api
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -321,6 +332,7 @@ namespace Seam.Api
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
+            string? search = default,
             string? spaceId = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
@@ -342,6 +354,7 @@ namespace Seam.Api
                     limit: limit,
                     manufacturer: manufacturer,
                     pageCursor: pageCursor,
+                    search: search,
                     spaceId: spaceId,
                     unstableLocationId: unstableLocationId,
                     userIdentifierKey: userIdentifierKey
@@ -373,6 +386,7 @@ namespace Seam.Api
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
+            string? search = default,
             string? spaceId = default,
             string? unstableLocationId = default,
             string? userIdentifierKey = default
@@ -395,6 +409,7 @@ namespace Seam.Api
                         limit: limit,
                         manufacturer: manufacturer,
                         pageCursor: pageCursor,
+                        search: search,
                         spaceId: spaceId,
                         unstableLocationId: unstableLocationId,
                         userIdentifierKey: userIdentifierKey

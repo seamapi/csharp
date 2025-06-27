@@ -19,7 +19,7 @@ namespace Seam.Model
             string createdAt = default,
             string displayName = default,
             string? instantKeyUrl = default,
-            bool? isCardEncodingRequired = default,
+            bool? isEncodingRequired = default,
             string? issuedAt = default,
             AccessMethod.ModeEnum mode = default,
             string workspaceId = default
@@ -29,7 +29,7 @@ namespace Seam.Model
             CreatedAt = createdAt;
             DisplayName = displayName;
             InstantKeyUrl = instantKeyUrl;
-            IsCardEncodingRequired = isCardEncodingRequired;
+            IsEncodingRequired = isEncodingRequired;
             IssuedAt = issuedAt;
             Mode = mode;
             WorkspaceId = workspaceId;
@@ -63,12 +63,8 @@ namespace Seam.Model
         [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string? InstantKeyUrl { get; set; }
 
-        [DataMember(
-            Name = "is_card_encoding_required",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public bool? IsCardEncodingRequired { get; set; }
+        [DataMember(Name = "is_encoding_required", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsEncodingRequired { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
