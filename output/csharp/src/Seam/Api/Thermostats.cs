@@ -302,6 +302,7 @@ namespace Seam.Api
 
             public CreateClimatePresetRequest(
                 string climatePresetKey = default,
+                CreateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
@@ -314,6 +315,7 @@ namespace Seam.Api
             )
             {
                 ClimatePresetKey = climatePresetKey;
+                ClimatePresetMode = climatePresetMode;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
@@ -323,6 +325,31 @@ namespace Seam.Api
                 HvacModeSetting = hvacModeSetting;
                 ManualOverrideAllowed = manualOverrideAllowed;
                 Name = name;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ClimatePresetModeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "home")]
+                Home = 1,
+
+                [EnumMember(Value = "away")]
+                Away = 2,
+
+                [EnumMember(Value = "wake")]
+                Wake = 3,
+
+                [EnumMember(Value = "sleep")]
+                Sleep = 4,
+
+                [EnumMember(Value = "occupied")]
+                Occupied = 5,
+
+                [EnumMember(Value = "unoccupied")]
+                Unoccupied = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -362,6 +389,9 @@ namespace Seam.Api
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
             public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
+            public CreateClimatePresetRequest.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_celsius",
@@ -439,6 +469,7 @@ namespace Seam.Api
 
         public void CreateClimatePreset(
             string climatePresetKey = default,
+            CreateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
@@ -453,6 +484,7 @@ namespace Seam.Api
             CreateClimatePreset(
                 new CreateClimatePresetRequest(
                     climatePresetKey: climatePresetKey,
+                    climatePresetMode: climatePresetMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
@@ -475,6 +507,7 @@ namespace Seam.Api
 
         public async Task CreateClimatePresetAsync(
             string climatePresetKey = default,
+            CreateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
@@ -489,6 +522,7 @@ namespace Seam.Api
             await CreateClimatePresetAsync(
                 new CreateClimatePresetRequest(
                     climatePresetKey: climatePresetKey,
+                    climatePresetMode: climatePresetMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
@@ -2009,6 +2043,7 @@ namespace Seam.Api
 
             public UpdateClimatePresetRequest(
                 string climatePresetKey = default,
+                UpdateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
@@ -2021,6 +2056,7 @@ namespace Seam.Api
             )
             {
                 ClimatePresetKey = climatePresetKey;
+                ClimatePresetMode = climatePresetMode;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
@@ -2030,6 +2066,31 @@ namespace Seam.Api
                 HvacModeSetting = hvacModeSetting;
                 ManualOverrideAllowed = manualOverrideAllowed;
                 Name = name;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ClimatePresetModeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "home")]
+                Home = 1,
+
+                [EnumMember(Value = "away")]
+                Away = 2,
+
+                [EnumMember(Value = "wake")]
+                Wake = 3,
+
+                [EnumMember(Value = "sleep")]
+                Sleep = 4,
+
+                [EnumMember(Value = "occupied")]
+                Occupied = 5,
+
+                [EnumMember(Value = "unoccupied")]
+                Unoccupied = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2069,6 +2130,9 @@ namespace Seam.Api
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
             public string ClimatePresetKey { get; set; }
+
+            [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequest.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
             [DataMember(
                 Name = "cooling_set_point_celsius",
@@ -2146,6 +2210,7 @@ namespace Seam.Api
 
         public void UpdateClimatePreset(
             string climatePresetKey = default,
+            UpdateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
@@ -2160,6 +2225,7 @@ namespace Seam.Api
             UpdateClimatePreset(
                 new UpdateClimatePresetRequest(
                     climatePresetKey: climatePresetKey,
+                    climatePresetMode: climatePresetMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
@@ -2182,6 +2248,7 @@ namespace Seam.Api
 
         public async Task UpdateClimatePresetAsync(
             string climatePresetKey = default,
+            UpdateClimatePresetRequest.ClimatePresetModeEnum? climatePresetMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
@@ -2196,6 +2263,7 @@ namespace Seam.Api
             await UpdateClimatePresetAsync(
                 new UpdateClimatePresetRequest(
                     climatePresetKey: climatePresetKey,
+                    climatePresetMode: climatePresetMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,

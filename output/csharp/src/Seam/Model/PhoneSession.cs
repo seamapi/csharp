@@ -116,6 +116,7 @@ namespace Seam.Model
             string? latestDesiredStateSyncedWithProviderAt = default,
             string? parentAcsCredentialId = default,
             string? startsAt = default,
+            string? userIdentityId = default,
             PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata? visionlineMetadata =
                 default,
             List<PhoneSessionProviderSessionsAcsCredentialsWarnings> warnings = default,
@@ -147,6 +148,7 @@ namespace Seam.Model
             LatestDesiredStateSyncedWithProviderAt = latestDesiredStateSyncedWithProviderAt;
             ParentAcsCredentialId = parentAcsCredentialId;
             StartsAt = startsAt;
+            UserIdentityId = userIdentityId;
             VisionlineMetadata = visionlineMetadata;
             Warnings = warnings;
             WorkspaceId = workspaceId;
@@ -629,6 +631,9 @@ namespace Seam.Model
 
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata? VisionlineMetadata { get; set; }
