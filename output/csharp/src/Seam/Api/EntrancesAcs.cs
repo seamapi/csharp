@@ -213,6 +213,7 @@ namespace Seam.Api
                 string? accessMethodId = default,
                 string? acsCredentialId = default,
                 string? acsSystemId = default,
+                string? connectedAccountId = default,
                 string? locationId = default,
                 string? spaceId = default
             )
@@ -221,6 +222,7 @@ namespace Seam.Api
                 AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
                 AcsSystemId = acsSystemId;
+                ConnectedAccountId = connectedAccountId;
                 LocationId = locationId;
                 SpaceId = spaceId;
             }
@@ -236,6 +238,13 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
+
+            [DataMember(
+                Name = "connected_account_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? ConnectedAccountId { get; set; }
 
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
@@ -311,6 +320,7 @@ namespace Seam.Api
             string? accessMethodId = default,
             string? acsCredentialId = default,
             string? acsSystemId = default,
+            string? connectedAccountId = default,
             string? locationId = default,
             string? spaceId = default
         )
@@ -321,6 +331,7 @@ namespace Seam.Api
                     accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
                     acsSystemId: acsSystemId,
+                    connectedAccountId: connectedAccountId,
                     locationId: locationId,
                     spaceId: spaceId
                 )
@@ -341,6 +352,7 @@ namespace Seam.Api
             string? accessMethodId = default,
             string? acsCredentialId = default,
             string? acsSystemId = default,
+            string? connectedAccountId = default,
             string? locationId = default,
             string? spaceId = default
         )
@@ -352,6 +364,7 @@ namespace Seam.Api
                         accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
                         acsSystemId: acsSystemId,
+                        connectedAccountId: connectedAccountId,
                         locationId: locationId,
                         spaceId: spaceId
                     )
