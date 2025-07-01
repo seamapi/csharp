@@ -2249,6 +2249,8 @@ namespace Seam.Model
             bool? supportsBackupAccessCodePool = default,
             DevicePropertiesActiveThermostatSchedule? activeThermostatSchedule = default,
             string? activeThermostatScheduleId = default,
+            List<DeviceProperties.AvailableClimatePresetModesEnum>? availableClimatePresetModes =
+                default,
             List<DevicePropertiesAvailableClimatePresets>? availableClimatePresets = default,
             List<DeviceProperties.AvailableFanModeSettingsEnum>? availableFanModeSettings = default,
             List<DeviceProperties.AvailableHvacModeSettingsEnum>? availableHvacModeSettings =
@@ -2343,6 +2345,7 @@ namespace Seam.Model
             SupportsBackupAccessCodePool = supportsBackupAccessCodePool;
             ActiveThermostatSchedule = activeThermostatSchedule;
             ActiveThermostatScheduleId = activeThermostatScheduleId;
+            AvailableClimatePresetModes = availableClimatePresetModes;
             AvailableClimatePresets = availableClimatePresets;
             AvailableFanModeSettings = availableFanModeSettings;
             AvailableHvacModeSettings = availableHvacModeSettings;
@@ -2370,6 +2373,31 @@ namespace Seam.Model
             TemperatureThreshold = temperatureThreshold;
             ThermostatDailyPrograms = thermostatDailyPrograms;
             ThermostatWeeklyProgram = thermostatWeeklyProgram;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum AvailableClimatePresetModesEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "home")]
+            Home = 1,
+
+            [EnumMember(Value = "away")]
+            Away = 2,
+
+            [EnumMember(Value = "wake")]
+            Wake = 3,
+
+            [EnumMember(Value = "sleep")]
+            Sleep = 4,
+
+            [EnumMember(Value = "occupied")]
+            Occupied = 5,
+
+            [EnumMember(Value = "unoccupied")]
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2671,6 +2699,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string? ActiveThermostatScheduleId { get; set; }
+
+        [DataMember(
+            Name = "available_climate_preset_modes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<DeviceProperties.AvailableClimatePresetModesEnum>? AvailableClimatePresetModes { get; set; }
 
         [DataMember(
             Name = "available_climate_presets",
@@ -5499,6 +5534,8 @@ namespace Seam.Model
             bool? canEdit = default,
             bool? canProgram = default,
             string? climatePresetKey = default,
+            DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? climatePresetMode =
+                default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
@@ -5514,6 +5551,7 @@ namespace Seam.Model
             CanEdit = canEdit;
             CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
+            ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
@@ -5523,6 +5561,31 @@ namespace Seam.Model
             HvacModeSetting = hvacModeSetting;
             ManualOverrideAllowed = manualOverrideAllowed;
             Name = name;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum ClimatePresetModeEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "home")]
+            Home = 1,
+
+            [EnumMember(Value = "away")]
+            Away = 2,
+
+            [EnumMember(Value = "wake")]
+            Wake = 3,
+
+            [EnumMember(Value = "sleep")]
+            Sleep = 4,
+
+            [EnumMember(Value = "occupied")]
+            Occupied = 5,
+
+            [EnumMember(Value = "unoccupied")]
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5571,6 +5634,9 @@ namespace Seam.Model
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
+
+        [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -5646,6 +5712,8 @@ namespace Seam.Model
             bool? canEdit = default,
             bool? canProgram = default,
             string? climatePresetKey = default,
+            DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? climatePresetMode =
+                default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
@@ -5661,6 +5729,7 @@ namespace Seam.Model
             CanEdit = canEdit;
             CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
+            ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
@@ -5670,6 +5739,31 @@ namespace Seam.Model
             HvacModeSetting = hvacModeSetting;
             ManualOverrideAllowed = manualOverrideAllowed;
             Name = name;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum ClimatePresetModeEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "home")]
+            Home = 1,
+
+            [EnumMember(Value = "away")]
+            Away = 2,
+
+            [EnumMember(Value = "wake")]
+            Wake = 3,
+
+            [EnumMember(Value = "sleep")]
+            Sleep = 4,
+
+            [EnumMember(Value = "occupied")]
+            Occupied = 5,
+
+            [EnumMember(Value = "unoccupied")]
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5718,6 +5812,9 @@ namespace Seam.Model
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
+
+        [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -5793,6 +5890,8 @@ namespace Seam.Model
             bool? canEdit = default,
             bool? canProgram = default,
             string? climatePresetKey = default,
+            DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? climatePresetMode =
+                default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
@@ -5808,6 +5907,7 @@ namespace Seam.Model
             CanEdit = canEdit;
             CanProgram = canProgram;
             ClimatePresetKey = climatePresetKey;
+            ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
@@ -5817,6 +5917,31 @@ namespace Seam.Model
             HvacModeSetting = hvacModeSetting;
             ManualOverrideAllowed = manualOverrideAllowed;
             Name = name;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum ClimatePresetModeEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "home")]
+            Home = 1,
+
+            [EnumMember(Value = "away")]
+            Away = 2,
+
+            [EnumMember(Value = "wake")]
+            Wake = 3,
+
+            [EnumMember(Value = "sleep")]
+            Sleep = 4,
+
+            [EnumMember(Value = "occupied")]
+            Occupied = 5,
+
+            [EnumMember(Value = "unoccupied")]
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5865,6 +5990,9 @@ namespace Seam.Model
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
+
+        [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
