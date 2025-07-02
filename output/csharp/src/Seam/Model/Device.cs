@@ -3993,6 +3993,7 @@ namespace Seam.Model
             string? bridgeName = default,
             string? deviceId = default,
             string? deviceName = default,
+            bool? isKeypadLinkedToBridge = default,
             string? keypadId = default
         )
         {
@@ -4000,6 +4001,7 @@ namespace Seam.Model
             BridgeName = bridgeName;
             DeviceId = deviceId;
             DeviceName = deviceName;
+            IsKeypadLinkedToBridge = isKeypadLinkedToBridge;
             KeypadId = keypadId;
         }
 
@@ -4014,6 +4016,13 @@ namespace Seam.Model
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceName { get; set; }
+
+        [DataMember(
+            Name = "is_keypad_linked_to_bridge",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? IsKeypadLinkedToBridge { get; set; }
 
         [DataMember(Name = "keypad_id", IsRequired = false, EmitDefaultValue = false)]
         public string? KeypadId { get; set; }
@@ -5539,6 +5548,7 @@ namespace Seam.Model
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
+            DevicePropertiesAvailableClimatePresetsEcobeeMetadata? ecobeeMetadata = default,
             DevicePropertiesAvailableClimatePresets.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -5555,6 +5565,7 @@ namespace Seam.Model
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
+            EcobeeMetadata = ecobeeMetadata;
             FanModeSetting = fanModeSetting;
             HeatingSetPointCelsius = heatingSetPointCelsius;
             HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
@@ -5655,6 +5666,9 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
 
+        [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata? EcobeeMetadata { get; set; }
+
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAvailableClimatePresets.FanModeSettingEnum? FanModeSetting { get; set; }
 
@@ -5701,6 +5715,65 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesAvailableClimatePresetsEcobeeMetadata_model")]
+    public class DevicePropertiesAvailableClimatePresetsEcobeeMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAvailableClimatePresetsEcobeeMetadata() { }
+
+        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata(
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum? owner = default
+        )
+        {
+            ClimateRef = climateRef;
+            IsOptimized = isOptimized;
+            Owner = owner;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum OwnerEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "user")]
+            User = 1,
+
+            [EnumMember(Value = "system")]
+            System = 2,
+        }
+
+        [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
+        public string? ClimateRef { get; set; }
+
+        [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOptimized { get; set; }
+
+        [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum? Owner { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesCurrentClimateSetting_model")]
     public class DevicePropertiesCurrentClimateSetting
     {
@@ -5717,6 +5790,7 @@ namespace Seam.Model
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
+            DevicePropertiesCurrentClimateSettingEcobeeMetadata? ecobeeMetadata = default,
             DevicePropertiesCurrentClimateSetting.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -5733,6 +5807,7 @@ namespace Seam.Model
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
+            EcobeeMetadata = ecobeeMetadata;
             FanModeSetting = fanModeSetting;
             HeatingSetPointCelsius = heatingSetPointCelsius;
             HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
@@ -5833,6 +5908,9 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
 
+        [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesCurrentClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
+
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesCurrentClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
@@ -5879,6 +5957,65 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesCurrentClimateSettingEcobeeMetadata_model")]
+    public class DevicePropertiesCurrentClimateSettingEcobeeMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesCurrentClimateSettingEcobeeMetadata() { }
+
+        public DevicePropertiesCurrentClimateSettingEcobeeMetadata(
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum? owner = default
+        )
+        {
+            ClimateRef = climateRef;
+            IsOptimized = isOptimized;
+            Owner = owner;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum OwnerEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "user")]
+            User = 1,
+
+            [EnumMember(Value = "system")]
+            System = 2,
+        }
+
+        [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
+        public string? ClimateRef { get; set; }
+
+        [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOptimized { get; set; }
+
+        [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesDefaultClimateSetting_model")]
     public class DevicePropertiesDefaultClimateSetting
     {
@@ -5895,6 +6032,7 @@ namespace Seam.Model
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string? displayName = default,
+            DevicePropertiesDefaultClimateSettingEcobeeMetadata? ecobeeMetadata = default,
             DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -5911,6 +6049,7 @@ namespace Seam.Model
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             DisplayName = displayName;
+            EcobeeMetadata = ecobeeMetadata;
             FanModeSetting = fanModeSetting;
             HeatingSetPointCelsius = heatingSetPointCelsius;
             HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
@@ -6011,6 +6150,9 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
 
+        [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesDefaultClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
+
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
@@ -6036,6 +6178,65 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesDefaultClimateSettingEcobeeMetadata_model")]
+    public class DevicePropertiesDefaultClimateSettingEcobeeMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesDefaultClimateSettingEcobeeMetadata() { }
+
+        public DevicePropertiesDefaultClimateSettingEcobeeMetadata(
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum? owner = default
+        )
+        {
+            ClimateRef = climateRef;
+            IsOptimized = isOptimized;
+            Owner = owner;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum OwnerEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "user")]
+            User = 1,
+
+            [EnumMember(Value = "system")]
+            System = 2,
+        }
+
+        [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
+        public string? ClimateRef { get; set; }
+
+        [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsOptimized { get; set; }
+
+        [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
         public override string ToString()
         {
