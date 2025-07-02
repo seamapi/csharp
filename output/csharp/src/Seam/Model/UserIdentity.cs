@@ -116,6 +116,10 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(
+            typeof(UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity),
+            "acs_user_profile_does_not_match_user_identity"
+        )]
         [JsonSubtypes.KnownSubType(typeof(UserIdentityWarningsBeingDeleted), "being_deleted")]
         public abstract class UserIdentityWarnings
         {
@@ -153,6 +157,56 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_userIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity_model"
+        )]
+        public class UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity
+            : UserIdentityWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity() { }
+
+            public UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } =
+                "acs_user_profile_does_not_match_user_identity";
 
             public override string ToString()
             {

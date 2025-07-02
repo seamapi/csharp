@@ -306,6 +306,7 @@ namespace Seam.Api
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
+                CreateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
                 CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
                 float? heatingSetPointCelsius = default,
                 float? heatingSetPointFahrenheit = default,
@@ -319,6 +320,7 @@ namespace Seam.Api
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
+                EcobeeMetadata = ecobeeMetadata;
                 FanModeSetting = fanModeSetting;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
@@ -410,6 +412,9 @@ namespace Seam.Api
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public CreateClimatePresetRequestEcobeeMetadata? EcobeeMetadata { get; set; }
+
             [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
             public CreateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; set; }
 
@@ -460,6 +465,65 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "createClimatePresetRequestEcobeeMetadata_model")]
+        public class CreateClimatePresetRequestEcobeeMetadata
+        {
+            [JsonConstructorAttribute]
+            protected CreateClimatePresetRequestEcobeeMetadata() { }
+
+            public CreateClimatePresetRequestEcobeeMetadata(
+                string climateRef = default,
+                bool isOptimized = default,
+                CreateClimatePresetRequestEcobeeMetadata.OwnerEnum owner = default
+            )
+            {
+                ClimateRef = climateRef;
+                IsOptimized = isOptimized;
+                Owner = owner;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum OwnerEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "user")]
+                User = 1,
+
+                [EnumMember(Value = "system")]
+                System = 2,
+            }
+
+            [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimateRef { get; set; }
+
+            [DataMember(Name = "is_optimized", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsOptimized { get; set; }
+
+            [DataMember(Name = "owner", IsRequired = true, EmitDefaultValue = false)]
+            public CreateClimatePresetRequestEcobeeMetadata.OwnerEnum Owner { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         public void CreateClimatePreset(CreateClimatePresetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -473,6 +537,7 @@ namespace Seam.Api
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
+            CreateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
             CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -488,6 +553,7 @@ namespace Seam.Api
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
+                    ecobeeMetadata: ecobeeMetadata,
                     fanModeSetting: fanModeSetting,
                     heatingSetPointCelsius: heatingSetPointCelsius,
                     heatingSetPointFahrenheit: heatingSetPointFahrenheit,
@@ -511,6 +577,7 @@ namespace Seam.Api
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
+            CreateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
             CreateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -526,6 +593,7 @@ namespace Seam.Api
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
+                    ecobeeMetadata: ecobeeMetadata,
                     fanModeSetting: fanModeSetting,
                     heatingSetPointCelsius: heatingSetPointCelsius,
                     heatingSetPointFahrenheit: heatingSetPointFahrenheit,
@@ -2047,6 +2115,7 @@ namespace Seam.Api
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
+                UpdateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
                 UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
                 float? heatingSetPointCelsius = default,
                 float? heatingSetPointFahrenheit = default,
@@ -2060,6 +2129,7 @@ namespace Seam.Api
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
+                EcobeeMetadata = ecobeeMetadata;
                 FanModeSetting = fanModeSetting;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
@@ -2151,6 +2221,9 @@ namespace Seam.Api
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequestEcobeeMetadata? EcobeeMetadata { get; set; }
+
             [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
             public UpdateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; set; }
 
@@ -2201,6 +2274,65 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "updateClimatePresetRequestEcobeeMetadata_model")]
+        public class UpdateClimatePresetRequestEcobeeMetadata
+        {
+            [JsonConstructorAttribute]
+            protected UpdateClimatePresetRequestEcobeeMetadata() { }
+
+            public UpdateClimatePresetRequestEcobeeMetadata(
+                string climateRef = default,
+                bool isOptimized = default,
+                UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum owner = default
+            )
+            {
+                ClimateRef = climateRef;
+                IsOptimized = isOptimized;
+                Owner = owner;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum OwnerEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "user")]
+                User = 1,
+
+                [EnumMember(Value = "system")]
+                System = 2,
+            }
+
+            [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]
+            public string ClimateRef { get; set; }
+
+            [DataMember(Name = "is_optimized", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsOptimized { get; set; }
+
+            [DataMember(Name = "owner", IsRequired = true, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum Owner { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         public void UpdateClimatePreset(UpdateClimatePresetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -2214,6 +2346,7 @@ namespace Seam.Api
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
+            UpdateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
             UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -2229,6 +2362,7 @@ namespace Seam.Api
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
+                    ecobeeMetadata: ecobeeMetadata,
                     fanModeSetting: fanModeSetting,
                     heatingSetPointCelsius: heatingSetPointCelsius,
                     heatingSetPointFahrenheit: heatingSetPointFahrenheit,
@@ -2252,6 +2386,7 @@ namespace Seam.Api
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
+            UpdateClimatePresetRequestEcobeeMetadata? ecobeeMetadata = default,
             UpdateClimatePresetRequest.FanModeSettingEnum? fanModeSetting = default,
             float? heatingSetPointCelsius = default,
             float? heatingSetPointFahrenheit = default,
@@ -2267,6 +2402,7 @@ namespace Seam.Api
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
+                    ecobeeMetadata: ecobeeMetadata,
                     fanModeSetting: fanModeSetting,
                     heatingSetPointCelsius: heatingSetPointCelsius,
                     heatingSetPointFahrenheit: heatingSetPointFahrenheit,
