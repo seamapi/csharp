@@ -272,8 +272,10 @@ namespace Seam.Model
 
         public EventAccessCodeCreated(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -282,8 +284,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -294,11 +298,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -343,8 +357,10 @@ namespace Seam.Model
 
         public EventAccessCodeChanged(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -353,8 +369,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -365,11 +383,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -415,8 +443,10 @@ namespace Seam.Model
         public EventAccessCodeScheduledOnDevice(
             string accessCodeId = default,
             string code = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -426,8 +456,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             Code = code;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -441,11 +473,21 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = true, EmitDefaultValue = false)]
         public string Code { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -491,8 +533,10 @@ namespace Seam.Model
         public EventAccessCodeSetOnDevice(
             string accessCodeId = default,
             string code = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -502,8 +546,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             Code = code;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -517,11 +563,21 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = true, EmitDefaultValue = false)]
         public string Code { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -566,8 +622,10 @@ namespace Seam.Model
 
         public EventAccessCodeRemovedFromDevice(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -576,8 +634,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -588,11 +648,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -637,8 +707,10 @@ namespace Seam.Model
 
         public EventAccessCodeDelayInSettingOnDevice(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -647,8 +719,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -659,11 +733,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -708,8 +792,10 @@ namespace Seam.Model
 
         public EventAccessCodeFailedToSetOnDevice(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -718,8 +804,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -730,11 +818,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -780,8 +878,10 @@ namespace Seam.Model
         public EventAccessCodeDeleted(
             string accessCodeId = default,
             string? code = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -791,8 +891,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             Code = code;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -806,11 +908,21 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -855,8 +967,10 @@ namespace Seam.Model
 
         public EventAccessCodeDelayInRemovingFromDevice(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -865,8 +979,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -877,11 +993,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -926,8 +1052,10 @@ namespace Seam.Model
 
         public EventAccessCodeFailedToRemoveFromDevice(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -936,8 +1064,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -948,11 +1078,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -997,8 +1137,10 @@ namespace Seam.Model
 
         public EventAccessCodeModifiedExternalToSeam(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1007,8 +1149,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1019,11 +1163,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1068,8 +1222,10 @@ namespace Seam.Model
 
         public EventAccessCodeDeletedExternalToSeam(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1078,8 +1234,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1090,11 +1248,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1140,8 +1308,10 @@ namespace Seam.Model
         public EventAccessCodeBackupAccessCodePulled(
             string accessCodeId = default,
             string backupAccessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1151,8 +1321,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             BackupAccessCodeId = backupAccessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1166,11 +1338,21 @@ namespace Seam.Model
         [DataMember(Name = "backup_access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string BackupAccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1215,8 +1397,10 @@ namespace Seam.Model
 
         public EventAccessCodeUnmanagedConvertedToManaged(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1225,8 +1409,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1237,11 +1423,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1286,8 +1482,10 @@ namespace Seam.Model
 
         public EventAccessCodeUnmanagedFailedToConvertToManaged(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1296,8 +1494,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1308,11 +1508,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1358,8 +1568,10 @@ namespace Seam.Model
 
         public EventAccessCodeUnmanagedCreated(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1368,8 +1580,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1380,11 +1594,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -1429,8 +1653,10 @@ namespace Seam.Model
 
         public EventAccessCodeUnmanagedRemoved(
             string accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -1439,8 +1665,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -1451,11 +1679,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -3160,6 +3398,7 @@ namespace Seam.Model
 
         public EventConnectedAccountConnected(
             string connectWebviewId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3169,6 +3408,7 @@ namespace Seam.Model
         )
         {
             ConnectWebviewId = connectWebviewId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3179,6 +3419,13 @@ namespace Seam.Model
 
         [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3226,6 +3473,7 @@ namespace Seam.Model
 
         public EventConnectedAccountCreated(
             string connectWebviewId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3235,6 +3483,7 @@ namespace Seam.Model
         )
         {
             ConnectWebviewId = connectWebviewId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3245,6 +3494,13 @@ namespace Seam.Model
 
         [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3292,6 +3548,7 @@ namespace Seam.Model
 
         public EventConnectedAccountSuccessfulLogin(
             string connectWebviewId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3301,6 +3558,7 @@ namespace Seam.Model
         )
         {
             ConnectWebviewId = connectWebviewId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3311,6 +3569,13 @@ namespace Seam.Model
 
         [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3357,6 +3622,7 @@ namespace Seam.Model
         protected EventConnectedAccountDisconnected() { }
 
         public EventConnectedAccountDisconnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3365,6 +3631,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3372,6 +3639,13 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3418,6 +3692,7 @@ namespace Seam.Model
         protected EventConnectedAccountCompletedFirstSync() { }
 
         public EventConnectedAccountCompletedFirstSync(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3426,6 +3701,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3433,6 +3709,13 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3479,6 +3762,7 @@ namespace Seam.Model
         protected EventConnectedAccountDeleted() { }
 
         public EventConnectedAccountDeleted(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3487,6 +3771,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3494,6 +3779,13 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3542,6 +3834,7 @@ namespace Seam.Model
         protected EventConnectedAccountCompletedFirstSyncAfterReconnection() { }
 
         public EventConnectedAccountCompletedFirstSyncAfterReconnection(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3550,6 +3843,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3557,6 +3851,13 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -3889,6 +4190,7 @@ namespace Seam.Model
 
         public EventConnectWebviewLoginSucceeded(
             string connectWebviewId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string eventId = default,
@@ -3898,6 +4200,7 @@ namespace Seam.Model
         )
         {
             ConnectWebviewId = connectWebviewId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -3908,6 +4211,13 @@ namespace Seam.Model
 
         [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -4015,8 +4325,10 @@ namespace Seam.Model
         protected EventDeviceConnected() { }
 
         public EventDeviceConnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4024,8 +4336,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4033,11 +4347,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4081,8 +4405,10 @@ namespace Seam.Model
         protected EventDeviceAdded() { }
 
         public EventDeviceAdded(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4090,8 +4416,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4099,11 +4427,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4147,8 +4485,10 @@ namespace Seam.Model
         protected EventDeviceConvertedToUnmanaged() { }
 
         public EventDeviceConvertedToUnmanaged(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4156,8 +4496,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4165,11 +4507,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4213,8 +4565,10 @@ namespace Seam.Model
         protected EventDeviceUnmanagedConvertedToManaged() { }
 
         public EventDeviceUnmanagedConvertedToManaged(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4222,8 +4576,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4231,11 +4587,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4279,8 +4645,10 @@ namespace Seam.Model
         protected EventDeviceUnmanagedConnected() { }
 
         public EventDeviceUnmanagedConnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4288,8 +4656,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4297,11 +4667,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4345,8 +4725,10 @@ namespace Seam.Model
         protected EventDeviceDisconnected() { }
 
         public EventDeviceDisconnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             EventDeviceDisconnected.ErrorCodeEnum errorCode = default,
             string eventId = default,
@@ -4355,8 +4737,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             ErrorCode = errorCode;
             EventId = eventId;
@@ -4381,11 +4765,21 @@ namespace Seam.Model
             DeviceDisconnected = 3,
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4432,8 +4826,10 @@ namespace Seam.Model
         protected EventDeviceUnmanagedDisconnected() { }
 
         public EventDeviceUnmanagedDisconnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             EventDeviceUnmanagedDisconnected.ErrorCodeEnum errorCode = default,
             string eventId = default,
@@ -4442,8 +4838,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             ErrorCode = errorCode;
             EventId = eventId;
@@ -4468,11 +4866,21 @@ namespace Seam.Model
             DeviceDisconnected = 3,
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4519,8 +4927,10 @@ namespace Seam.Model
         protected EventDeviceTampered() { }
 
         public EventDeviceTampered(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4528,8 +4938,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4537,11 +4949,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4586,8 +5008,10 @@ namespace Seam.Model
 
         public EventDeviceLowBattery(
             float batteryLevel = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4596,8 +5020,10 @@ namespace Seam.Model
         )
         {
             BatteryLevel = batteryLevel;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4608,11 +5034,21 @@ namespace Seam.Model
         [DataMember(Name = "battery_level", IsRequired = true, EmitDefaultValue = false)]
         public float BatteryLevel { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4658,8 +5094,10 @@ namespace Seam.Model
         public EventDeviceBatteryStatusChanged(
             float batteryLevel = default,
             EventDeviceBatteryStatusChanged.BatteryStatusEnum batteryStatus = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4669,8 +5107,10 @@ namespace Seam.Model
         {
             BatteryLevel = batteryLevel;
             BatteryStatus = batteryStatus;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4703,11 +5143,21 @@ namespace Seam.Model
         [DataMember(Name = "battery_status", IsRequired = true, EmitDefaultValue = false)]
         public EventDeviceBatteryStatusChanged.BatteryStatusEnum BatteryStatus { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4751,8 +5201,10 @@ namespace Seam.Model
         protected EventDeviceRemoved() { }
 
         public EventDeviceRemoved(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4760,8 +5212,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4769,11 +5223,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4817,8 +5281,10 @@ namespace Seam.Model
         protected EventDeviceDeleted() { }
 
         public EventDeviceDeleted(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4826,8 +5292,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4835,11 +5303,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4883,8 +5361,10 @@ namespace Seam.Model
         protected EventDeviceThirdPartyIntegrationDetected() { }
 
         public EventDeviceThirdPartyIntegrationDetected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4892,8 +5372,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4901,11 +5383,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -4949,8 +5441,10 @@ namespace Seam.Model
         protected EventDeviceThirdPartyIntegrationNoLongerDetected() { }
 
         public EventDeviceThirdPartyIntegrationNoLongerDetected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -4958,8 +5452,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -4967,11 +5463,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5016,8 +5522,10 @@ namespace Seam.Model
         protected EventDeviceSaltoPrivacyModeActivated() { }
 
         public EventDeviceSaltoPrivacyModeActivated(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5025,8 +5533,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5034,11 +5544,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5082,8 +5602,10 @@ namespace Seam.Model
         protected EventDeviceSaltoPrivacyModeDeactivated() { }
 
         public EventDeviceSaltoPrivacyModeDeactivated(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5091,8 +5613,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5100,11 +5624,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5148,8 +5682,10 @@ namespace Seam.Model
         protected EventDeviceConnectionBecameFlaky() { }
 
         public EventDeviceConnectionBecameFlaky(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5157,8 +5693,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5166,11 +5704,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5214,8 +5762,10 @@ namespace Seam.Model
         protected EventDeviceConnectionStabilized() { }
 
         public EventDeviceConnectionStabilized(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5223,8 +5773,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5232,11 +5784,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5280,8 +5842,10 @@ namespace Seam.Model
         protected EventDeviceErrorSubscriptionRequired() { }
 
         public EventDeviceErrorSubscriptionRequired(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5289,8 +5853,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5298,11 +5864,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5346,8 +5922,10 @@ namespace Seam.Model
         protected EventDeviceErrorSubscriptionRequiredResolved() { }
 
         public EventDeviceErrorSubscriptionRequiredResolved(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5355,8 +5933,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5364,11 +5944,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5412,8 +6002,10 @@ namespace Seam.Model
         protected EventDeviceAccessoryKeypadConnected() { }
 
         public EventDeviceAccessoryKeypadConnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5421,8 +6013,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5430,11 +6024,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5478,8 +6082,10 @@ namespace Seam.Model
         protected EventDeviceAccessoryKeypadDisconnected() { }
 
         public EventDeviceAccessoryKeypadDisconnected(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5487,8 +6093,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5496,11 +6104,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5544,8 +6162,10 @@ namespace Seam.Model
         protected EventNoiseSensorNoiseThresholdTriggered() { }
 
         public EventNoiseSensorNoiseThresholdTriggered(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5559,8 +6179,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5574,11 +6196,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5642,8 +6274,10 @@ namespace Seam.Model
         public EventLockLocked(
             string? accessCodeId = default,
             string? actionAttemptId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5654,8 +6288,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             ActionAttemptId = actionAttemptId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5692,11 +6328,21 @@ namespace Seam.Model
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5745,8 +6391,10 @@ namespace Seam.Model
         public EventLockUnlocked(
             string? accessCodeId = default,
             string? actionAttemptId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5757,8 +6405,10 @@ namespace Seam.Model
         {
             AccessCodeId = accessCodeId;
             ActionAttemptId = actionAttemptId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5795,11 +6445,21 @@ namespace Seam.Model
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5847,8 +6507,10 @@ namespace Seam.Model
 
         public EventLockAccessDenied(
             string? accessCodeId = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5857,8 +6519,10 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5869,11 +6533,21 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -5918,8 +6592,10 @@ namespace Seam.Model
 
         public EventThermostatClimatePresetActivated(
             string climatePresetKey = default,
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -5930,8 +6606,10 @@ namespace Seam.Model
         )
         {
             ClimatePresetKey = climatePresetKey;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -5944,11 +6622,21 @@ namespace Seam.Model
         [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6002,10 +6690,12 @@ namespace Seam.Model
         protected EventThermostatManuallyAdjusted() { }
 
         public EventThermostatManuallyAdjusted(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6018,10 +6708,12 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6082,6 +6774,13 @@ namespace Seam.Model
             External = 2,
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
@@ -6101,6 +6800,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6167,8 +6869,10 @@ namespace Seam.Model
         protected EventThermostatTemperatureThresholdExceeded() { }
 
         public EventThermostatTemperatureThresholdExceeded(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6182,8 +6886,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6197,11 +6903,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6263,8 +6979,10 @@ namespace Seam.Model
         protected EventThermostatTemperatureThresholdNoLongerExceeded() { }
 
         public EventThermostatTemperatureThresholdNoLongerExceeded(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6278,8 +6996,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6293,11 +7013,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6360,10 +7090,12 @@ namespace Seam.Model
         protected EventThermostatTemperatureReachedSetPoint() { }
 
         public EventThermostatTemperatureReachedSetPoint(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             float? desiredTemperatureCelsius = default,
             float? desiredTemperatureFahrenheit = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6373,10 +7105,12 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DesiredTemperatureCelsius = desiredTemperatureCelsius;
             DesiredTemperatureFahrenheit = desiredTemperatureFahrenheit;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6385,6 +7119,13 @@ namespace Seam.Model
             TemperatureFahrenheit = temperatureFahrenheit;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
 
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
@@ -6405,6 +7146,9 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public float? DesiredTemperatureFahrenheit { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6454,8 +7198,10 @@ namespace Seam.Model
         protected EventThermostatTemperatureChanged() { }
 
         public EventThermostatTemperatureChanged(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6465,8 +7211,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6476,11 +7224,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6530,8 +7288,10 @@ namespace Seam.Model
         protected EventDeviceNameChanged() { }
 
         public EventDeviceNameChanged(
+            object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string deviceName = default,
             string eventId = default,
@@ -6540,8 +7300,10 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             DeviceName = deviceName;
             EventId = eventId;
@@ -6550,11 +7312,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
@@ -6663,6 +7435,7 @@ namespace Seam.Model
 
         public EventPhoneDeactivated(
             string createdAt = default,
+            object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
             string eventType = default,
@@ -6671,6 +7444,7 @@ namespace Seam.Model
         )
         {
             CreatedAt = createdAt;
+            DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
@@ -6680,6 +7454,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
