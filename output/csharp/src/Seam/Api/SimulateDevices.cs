@@ -76,6 +76,64 @@ namespace Seam.Api
             await ConnectAsync(new ConnectRequest(deviceId: deviceId));
         }
 
+        [DataContract(Name = "connectToHubRequest_request")]
+        public class ConnectToHubRequest
+        {
+            [JsonConstructorAttribute]
+            protected ConnectToHubRequest() { }
+
+            public ConnectToHubRequest(string deviceId = default)
+            {
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void ConnectToHub(ConnectToHubRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/simulate/connect_to_hub", requestOptions);
+        }
+
+        public void ConnectToHub(string deviceId = default)
+        {
+            ConnectToHub(new ConnectToHubRequest(deviceId: deviceId));
+        }
+
+        public async Task ConnectToHubAsync(ConnectToHubRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/simulate/connect_to_hub", requestOptions);
+        }
+
+        public async Task ConnectToHubAsync(string deviceId = default)
+        {
+            await ConnectToHubAsync(new ConnectToHubRequest(deviceId: deviceId));
+        }
+
         [DataContract(Name = "disconnectRequest_request")]
         public class DisconnectRequest
         {
@@ -132,6 +190,64 @@ namespace Seam.Api
         public async Task DisconnectAsync(string deviceId = default)
         {
             await DisconnectAsync(new DisconnectRequest(deviceId: deviceId));
+        }
+
+        [DataContract(Name = "disconnectFromHubRequest_request")]
+        public class DisconnectFromHubRequest
+        {
+            [JsonConstructorAttribute]
+            protected DisconnectFromHubRequest() { }
+
+            public DisconnectFromHubRequest(string deviceId = default)
+            {
+                DeviceId = deviceId;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void DisconnectFromHub(DisconnectFromHubRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/simulate/disconnect_from_hub", requestOptions);
+        }
+
+        public void DisconnectFromHub(string deviceId = default)
+        {
+            DisconnectFromHub(new DisconnectFromHubRequest(deviceId: deviceId));
+        }
+
+        public async Task DisconnectFromHubAsync(DisconnectFromHubRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/simulate/disconnect_from_hub", requestOptions);
+        }
+
+        public async Task DisconnectFromHubAsync(string deviceId = default)
+        {
+            await DisconnectFromHubAsync(new DisconnectFromHubRequest(deviceId: deviceId));
         }
 
         [DataContract(Name = "removeRequest_request")]

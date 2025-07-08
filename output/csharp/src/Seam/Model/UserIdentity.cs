@@ -15,6 +15,7 @@ namespace Seam.Model
         protected UserIdentity() { }
 
         public UserIdentity(
+            List<string> acsUserIds = default,
             string createdAt = default,
             string displayName = default,
             string? emailAddress = default,
@@ -27,6 +28,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AcsUserIds = acsUserIds;
             CreatedAt = createdAt;
             DisplayName = displayName;
             EmailAddress = emailAddress;
@@ -227,6 +229,9 @@ namespace Seam.Model
                 return stringWriter.ToString();
             }
         }
+
+        [DataMember(Name = "acs_user_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AcsUserIds { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }

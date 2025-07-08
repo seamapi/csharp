@@ -212,6 +212,7 @@ namespace Seam.Api
                 string? accessGrantId = default,
                 string? accessMethodId = default,
                 string? acsCredentialId = default,
+                List<string>? acsEntranceIds = default,
                 string? acsSystemId = default,
                 string? connectedAccountId = default,
                 string? locationId = default,
@@ -221,6 +222,7 @@ namespace Seam.Api
                 AccessGrantId = accessGrantId;
                 AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
+                AcsEntranceIds = acsEntranceIds;
                 AcsSystemId = acsSystemId;
                 ConnectedAccountId = connectedAccountId;
                 LocationId = locationId;
@@ -235,6 +237,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsEntranceIds { get; set; }
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
@@ -319,6 +324,7 @@ namespace Seam.Api
             string? accessGrantId = default,
             string? accessMethodId = default,
             string? acsCredentialId = default,
+            List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
             string? connectedAccountId = default,
             string? locationId = default,
@@ -330,6 +336,7 @@ namespace Seam.Api
                     accessGrantId: accessGrantId,
                     accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
+                    acsEntranceIds: acsEntranceIds,
                     acsSystemId: acsSystemId,
                     connectedAccountId: connectedAccountId,
                     locationId: locationId,
@@ -351,6 +358,7 @@ namespace Seam.Api
             string? accessGrantId = default,
             string? accessMethodId = default,
             string? acsCredentialId = default,
+            List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
             string? connectedAccountId = default,
             string? locationId = default,
@@ -363,6 +371,7 @@ namespace Seam.Api
                         accessGrantId: accessGrantId,
                         accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
+                        acsEntranceIds: acsEntranceIds,
                         acsSystemId: acsSystemId,
                         connectedAccountId: connectedAccountId,
                         locationId: locationId,
