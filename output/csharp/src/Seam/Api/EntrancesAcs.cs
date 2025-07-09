@@ -216,6 +216,7 @@ namespace Seam.Api
                 string? acsSystemId = default,
                 string? connectedAccountId = default,
                 string? locationId = default,
+                string? search = default,
                 string? spaceId = default
             )
             {
@@ -226,6 +227,7 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
                 ConnectedAccountId = connectedAccountId;
                 LocationId = locationId;
+                Search = search;
                 SpaceId = spaceId;
             }
 
@@ -253,6 +255,9 @@ namespace Seam.Api
 
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -328,6 +333,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? connectedAccountId = default,
             string? locationId = default,
+            string? search = default,
             string? spaceId = default
         )
         {
@@ -340,6 +346,7 @@ namespace Seam.Api
                     acsSystemId: acsSystemId,
                     connectedAccountId: connectedAccountId,
                     locationId: locationId,
+                    search: search,
                     spaceId: spaceId
                 )
             );
@@ -362,6 +369,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? connectedAccountId = default,
             string? locationId = default,
+            string? search = default,
             string? spaceId = default
         )
         {
@@ -375,6 +383,7 @@ namespace Seam.Api
                         acsSystemId: acsSystemId,
                         connectedAccountId: connectedAccountId,
                         locationId: locationId,
+                        search: search,
                         spaceId: spaceId
                     )
                 )

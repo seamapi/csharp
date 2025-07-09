@@ -16,6 +16,7 @@ namespace Seam.Model
 
         public AccessMethod(
             string accessMethodId = default,
+            string? code = default,
             string createdAt = default,
             string displayName = default,
             string? instantKeyUrl = default,
@@ -26,6 +27,7 @@ namespace Seam.Model
         )
         {
             AccessMethodId = accessMethodId;
+            Code = code;
             CreatedAt = createdAt;
             DisplayName = displayName;
             InstantKeyUrl = instantKeyUrl;
@@ -53,6 +55,9 @@ namespace Seam.Model
 
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+        public string? Code { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }

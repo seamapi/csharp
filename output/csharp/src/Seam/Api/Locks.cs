@@ -121,6 +121,7 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? accessMethodId = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 List<string>? connectedAccountIds = default,
@@ -141,6 +142,7 @@ namespace Seam.Api
                 string? userIdentifierKey = default
             )
             {
+                AccessMethodId = accessMethodId;
                 ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
                 ConnectedAccountIds = connectedAccountIds;
@@ -514,6 +516,9 @@ namespace Seam.Api
                 Smartthings = 28,
             }
 
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
+
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
 
@@ -642,6 +647,7 @@ namespace Seam.Api
         }
 
         public List<Device> List(
+            string? accessMethodId = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
@@ -664,6 +670,7 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessMethodId: accessMethodId,
                     connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
                     connectedAccountIds: connectedAccountIds,
@@ -696,6 +703,7 @@ namespace Seam.Api
         }
 
         public async Task<List<Device>> ListAsync(
+            string? accessMethodId = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
@@ -719,6 +727,7 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessMethodId: accessMethodId,
                         connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
                         connectedAccountIds: connectedAccountIds,
