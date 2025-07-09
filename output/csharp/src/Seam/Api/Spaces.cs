@@ -433,7 +433,15 @@ namespace Seam.Api
         public class ListRequest
         {
             [JsonConstructorAttribute]
-            public ListRequest() { }
+            protected ListRequest() { }
+
+            public ListRequest(string? search = default)
+            {
+                Search = search;
+            }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             public override string ToString()
             {
@@ -496,9 +504,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/spaces/list", requestOptions).Data.Spaces;
         }
 
-        public List<Space> List()
+        public List<Space> List(string? search = default)
         {
-            return List(new ListRequest());
+            return List(new ListRequest(search: search));
         }
 
         public async Task<List<Space>> ListAsync(ListRequest request)
@@ -510,9 +518,9 @@ namespace Seam.Api
                 .Spaces;
         }
 
-        public async Task<List<Space>> ListAsync()
+        public async Task<List<Space>> ListAsync(string? search = default)
         {
-            return (await ListAsync(new ListRequest()));
+            return (await ListAsync(new ListRequest(search: search)));
         }
 
         [DataContract(Name = "removeAcsEntrancesRequest_request")]

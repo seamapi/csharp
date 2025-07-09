@@ -15,22 +15,32 @@ namespace Seam.Model
         protected Space() { }
 
         public Space(
+            float acsEntranceCount = default,
             string createdAt = default,
+            float deviceCount = default,
             string displayName = default,
             string name = default,
             string spaceId = default,
             string workspaceId = default
         )
         {
+            AcsEntranceCount = acsEntranceCount;
             CreatedAt = createdAt;
+            DeviceCount = deviceCount;
             DisplayName = displayName;
             Name = name;
             SpaceId = spaceId;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "acs_entrance_count", IsRequired = true, EmitDefaultValue = false)]
+        public float AcsEntranceCount { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_count", IsRequired = true, EmitDefaultValue = false)]
+        public float DeviceCount { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
