@@ -21,6 +21,7 @@ namespace Seam.Model
             string displayName = default,
             string name = default,
             string spaceId = default,
+            string? spaceKey = default,
             string workspaceId = default
         )
         {
@@ -30,6 +31,7 @@ namespace Seam.Model
             DisplayName = displayName;
             Name = name;
             SpaceId = spaceId;
+            SpaceKey = spaceKey;
             WorkspaceId = workspaceId;
         }
 
@@ -50,6 +52,9 @@ namespace Seam.Model
 
         [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
         public string SpaceId { get; set; }
+
+        [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? SpaceKey { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

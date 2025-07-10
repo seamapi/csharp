@@ -27,6 +27,7 @@ namespace Seam.Api
             public CreateRequest(
                 string? userIdentityId = default,
                 CreateRequestUserIdentity? userIdentity = default,
+                string? accessGrantKey = default,
                 List<string>? acsEntranceIds = default,
                 List<string>? deviceIds = default,
                 string? endsAt = default,
@@ -39,6 +40,7 @@ namespace Seam.Api
             {
                 UserIdentityId = userIdentityId;
                 UserIdentity = userIdentity;
+                AccessGrantKey = accessGrantKey;
                 AcsEntranceIds = acsEntranceIds;
                 DeviceIds = deviceIds;
                 EndsAt = endsAt;
@@ -54,6 +56,9 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequestUserIdentity? UserIdentity { get; set; }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
@@ -293,6 +298,7 @@ namespace Seam.Api
         public AccessGrant Create(
             string? userIdentityId = default,
             CreateRequestUserIdentity? userIdentity = default,
+            string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
             List<string>? deviceIds = default,
             string? endsAt = default,
@@ -307,6 +313,7 @@ namespace Seam.Api
                 new CreateRequest(
                     userIdentityId: userIdentityId,
                     userIdentity: userIdentity,
+                    accessGrantKey: accessGrantKey,
                     acsEntranceIds: acsEntranceIds,
                     deviceIds: deviceIds,
                     endsAt: endsAt,
@@ -331,6 +338,7 @@ namespace Seam.Api
         public async Task<AccessGrant> CreateAsync(
             string? userIdentityId = default,
             CreateRequestUserIdentity? userIdentity = default,
+            string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
             List<string>? deviceIds = default,
             string? endsAt = default,
@@ -346,6 +354,7 @@ namespace Seam.Api
                     new CreateRequest(
                         userIdentityId: userIdentityId,
                         userIdentity: userIdentity,
+                        accessGrantKey: accessGrantKey,
                         acsEntranceIds: acsEntranceIds,
                         deviceIds: deviceIds,
                         endsAt: endsAt,
@@ -423,13 +432,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetRequest() { }
 
-            public GetRequest(string accessGrantId = default)
+            public GetRequest(string? accessGrantId = default, string? accessGrantKey = default)
             {
                 AccessGrantId = accessGrantId;
+                AccessGrantKey = accessGrantKey;
             }
 
-            [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessGrantId { get; set; }
+            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantId { get; set; }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             public override string ToString()
             {
@@ -492,9 +505,11 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/access_grants/get", requestOptions).Data.AccessGrant;
         }
 
-        public AccessGrant Get(string accessGrantId = default)
+        public AccessGrant Get(string? accessGrantId = default, string? accessGrantKey = default)
         {
-            return Get(new GetRequest(accessGrantId: accessGrantId));
+            return Get(
+                new GetRequest(accessGrantId: accessGrantId, accessGrantKey: accessGrantKey)
+            );
         }
 
         public async Task<AccessGrant> GetAsync(GetRequest request)
@@ -506,9 +521,16 @@ namespace Seam.Api
                 .AccessGrant;
         }
 
-        public async Task<AccessGrant> GetAsync(string accessGrantId = default)
+        public async Task<AccessGrant> GetAsync(
+            string? accessGrantId = default,
+            string? accessGrantKey = default
+        )
         {
-            return (await GetAsync(new GetRequest(accessGrantId: accessGrantId)));
+            return (
+                await GetAsync(
+                    new GetRequest(accessGrantId: accessGrantId, accessGrantKey: accessGrantKey)
+                )
+            );
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -518,6 +540,7 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? acsSystemId = default,
                 string? locationId = default,
@@ -525,12 +548,16 @@ namespace Seam.Api
                 string? userIdentityId = default
             )
             {
+                AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
                 LocationId = locationId;
                 SpaceId = spaceId;
                 UserIdentityId = userIdentityId;
             }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
@@ -611,6 +638,7 @@ namespace Seam.Api
         }
 
         public List<AccessGrant> List(
+            string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             string? locationId = default,
@@ -620,6 +648,7 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
                     locationId: locationId,
@@ -639,6 +668,7 @@ namespace Seam.Api
         }
 
         public async Task<List<AccessGrant>> ListAsync(
+            string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             string? locationId = default,
@@ -649,6 +679,7 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
                         locationId: locationId,

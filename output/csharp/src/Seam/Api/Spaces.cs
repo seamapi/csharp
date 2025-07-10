@@ -164,12 +164,14 @@ namespace Seam.Api
             public CreateRequest(
                 List<string>? acsEntranceIds = default,
                 List<string>? deviceIds = default,
-                string name = default
+                string name = default,
+                string? spaceKey = default
             )
             {
                 AcsEntranceIds = acsEntranceIds;
                 DeviceIds = deviceIds;
                 Name = name;
+                SpaceKey = spaceKey;
             }
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
@@ -180,6 +182,9 @@ namespace Seam.Api
 
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
+
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
 
             public override string ToString()
             {
@@ -245,11 +250,17 @@ namespace Seam.Api
         public Space Create(
             List<string>? acsEntranceIds = default,
             List<string>? deviceIds = default,
-            string name = default
+            string name = default,
+            string? spaceKey = default
         )
         {
             return Create(
-                new CreateRequest(acsEntranceIds: acsEntranceIds, deviceIds: deviceIds, name: name)
+                new CreateRequest(
+                    acsEntranceIds: acsEntranceIds,
+                    deviceIds: deviceIds,
+                    name: name,
+                    spaceKey: spaceKey
+                )
             );
         }
 
@@ -265,7 +276,8 @@ namespace Seam.Api
         public async Task<Space> CreateAsync(
             List<string>? acsEntranceIds = default,
             List<string>? deviceIds = default,
-            string name = default
+            string name = default,
+            string? spaceKey = default
         )
         {
             return (
@@ -273,7 +285,8 @@ namespace Seam.Api
                     new CreateRequest(
                         acsEntranceIds: acsEntranceIds,
                         deviceIds: deviceIds,
-                        name: name
+                        name: name,
+                        spaceKey: spaceKey
                     )
                 )
             );
@@ -343,13 +356,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetRequest() { }
 
-            public GetRequest(string spaceId = default)
+            public GetRequest(string? spaceId = default, string? spaceKey = default)
             {
                 SpaceId = spaceId;
+                SpaceKey = spaceKey;
             }
 
-            [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
-            public string SpaceId { get; set; }
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
+
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
 
             public override string ToString()
             {
@@ -412,9 +429,9 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/spaces/get", requestOptions).Data.Space;
         }
 
-        public Space Get(string spaceId = default)
+        public Space Get(string? spaceId = default, string? spaceKey = default)
         {
-            return Get(new GetRequest(spaceId: spaceId));
+            return Get(new GetRequest(spaceId: spaceId, spaceKey: spaceKey));
         }
 
         public async Task<Space> GetAsync(GetRequest request)
@@ -424,9 +441,9 @@ namespace Seam.Api
             return (await _seam.PostAsync<GetResponse>("/spaces/get", requestOptions)).Data.Space;
         }
 
-        public async Task<Space> GetAsync(string spaceId = default)
+        public async Task<Space> GetAsync(string? spaceId = default, string? spaceKey = default)
         {
-            return (await GetAsync(new GetRequest(spaceId: spaceId)));
+            return (await GetAsync(new GetRequest(spaceId: spaceId, spaceKey: spaceKey)));
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -435,13 +452,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? search = default)
+            public ListRequest(string? search = default, string? spaceKey = default)
             {
                 Search = search;
+                SpaceKey = spaceKey;
             }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
+
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
 
             public override string ToString()
             {
@@ -504,9 +525,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/spaces/list", requestOptions).Data.Spaces;
         }
 
-        public List<Space> List(string? search = default)
+        public List<Space> List(string? search = default, string? spaceKey = default)
         {
-            return List(new ListRequest(search: search));
+            return List(new ListRequest(search: search, spaceKey: spaceKey));
         }
 
         public async Task<List<Space>> ListAsync(ListRequest request)
@@ -518,9 +539,12 @@ namespace Seam.Api
                 .Spaces;
         }
 
-        public async Task<List<Space>> ListAsync(string? search = default)
+        public async Task<List<Space>> ListAsync(
+            string? search = default,
+            string? spaceKey = default
+        )
         {
-            return (await ListAsync(new ListRequest(search: search)));
+            return (await ListAsync(new ListRequest(search: search, spaceKey: spaceKey)));
         }
 
         [DataContract(Name = "removeAcsEntrancesRequest_request")]

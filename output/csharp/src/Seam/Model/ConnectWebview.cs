@@ -28,6 +28,7 @@ namespace Seam.Model
             object? customMetadata = default,
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
+            string? customerKey = default,
             ConnectWebview.DeviceSelectionModeEnum deviceSelectionMode = default,
             bool loginSuccessful = default,
             string? selectedProvider = default,
@@ -50,6 +51,7 @@ namespace Seam.Model
             CustomMetadata = customMetadata;
             CustomRedirectFailureUrl = customRedirectFailureUrl;
             CustomRedirectUrl = customRedirectUrl;
+            CustomerKey = customerKey;
             DeviceSelectionMode = deviceSelectionMode;
             LoginSuccessful = loginSuccessful;
             SelectedProvider = selectedProvider;
@@ -156,6 +158,9 @@ namespace Seam.Model
 
         [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomRedirectUrl { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_selection_mode", IsRequired = true, EmitDefaultValue = false)]
         public ConnectWebview.DeviceSelectionModeEnum DeviceSelectionMode { get; set; }

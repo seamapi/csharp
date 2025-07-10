@@ -16,6 +16,7 @@ namespace Seam.Model
 
         public AccessGrant(
             string accessGrantId = default,
+            string? accessGrantKey = default,
             List<string> accessMethodIds = default,
             string createdAt = default,
             string displayName = default,
@@ -30,6 +31,7 @@ namespace Seam.Model
         )
         {
             AccessGrantId = accessGrantId;
+            AccessGrantKey = accessGrantKey;
             AccessMethodIds = accessMethodIds;
             CreatedAt = createdAt;
             DisplayName = displayName;
@@ -45,6 +47,9 @@ namespace Seam.Model
 
         [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? AccessGrantKey { get; set; }
 
         [DataMember(Name = "access_method_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> AccessMethodIds { get; set; }

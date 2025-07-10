@@ -285,13 +285,30 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string accessGrantId = default)
+            public ListRequest(
+                string accessGrantId = default,
+                string? acsEntranceId = default,
+                string? deviceId = default,
+                string? spaceId = default
+            )
             {
                 AccessGrantId = accessGrantId;
+                AcsEntranceId = acsEntranceId;
+                DeviceId = deviceId;
+                SpaceId = spaceId;
             }
 
             [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessGrantId { get; set; }
+
+            [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsEntranceId { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
 
             public override string ToString()
             {
@@ -356,9 +373,21 @@ namespace Seam.Api
                 .Data.AccessMethods;
         }
 
-        public List<AccessMethod> List(string accessGrantId = default)
+        public List<AccessMethod> List(
+            string accessGrantId = default,
+            string? acsEntranceId = default,
+            string? deviceId = default,
+            string? spaceId = default
+        )
         {
-            return List(new ListRequest(accessGrantId: accessGrantId));
+            return List(
+                new ListRequest(
+                    accessGrantId: accessGrantId,
+                    acsEntranceId: acsEntranceId,
+                    deviceId: deviceId,
+                    spaceId: spaceId
+                )
+            );
         }
 
         public async Task<List<AccessMethod>> ListAsync(ListRequest request)
@@ -370,9 +399,23 @@ namespace Seam.Api
                 .AccessMethods;
         }
 
-        public async Task<List<AccessMethod>> ListAsync(string accessGrantId = default)
+        public async Task<List<AccessMethod>> ListAsync(
+            string accessGrantId = default,
+            string? acsEntranceId = default,
+            string? deviceId = default,
+            string? spaceId = default
+        )
         {
-            return (await ListAsync(new ListRequest(accessGrantId: accessGrantId)));
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        accessGrantId: accessGrantId,
+                        acsEntranceId: acsEntranceId,
+                        deviceId: deviceId,
+                        spaceId: spaceId
+                    )
+                )
+            );
         }
     }
 }
