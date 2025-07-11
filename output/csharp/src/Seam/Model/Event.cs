@@ -6759,6 +6759,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "heat_cool")]
             HeatCool = 4,
+
+            [EnumMember(Value = "eco")]
+            Eco = 5,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]

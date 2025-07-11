@@ -199,7 +199,7 @@ namespace Seam.Api
 
             public ListRequest(
                 object? customMetadataHas = default,
-                List<string>? customerIds = default,
+                string? customerKey = default,
                 int? limit = default,
                 string? pageCursor = default,
                 string? search = default,
@@ -207,7 +207,7 @@ namespace Seam.Api
             )
             {
                 CustomMetadataHas = customMetadataHas;
-                CustomerIds = customerIds;
+                CustomerKey = customerKey;
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
@@ -217,8 +217,8 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
-            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? CustomerIds { get; set; }
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public int? Limit { get; set; }
@@ -297,7 +297,7 @@ namespace Seam.Api
 
         public List<ConnectedAccount> List(
             object? customMetadataHas = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
@@ -307,7 +307,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     customMetadataHas: customMetadataHas,
-                    customerIds: customerIds,
+                    customerKey: customerKey,
                     limit: limit,
                     pageCursor: pageCursor,
                     search: search,
@@ -327,7 +327,7 @@ namespace Seam.Api
 
         public async Task<List<ConnectedAccount>> ListAsync(
             object? customMetadataHas = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
@@ -338,7 +338,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         customMetadataHas: customMetadataHas,
-                        customerIds: customerIds,
+                        customerKey: customerKey,
                         limit: limit,
                         pageCursor: pageCursor,
                         search: search,
@@ -413,15 +413,43 @@ namespace Seam.Api
             protected UpdateRequest() { }
 
             public UpdateRequest(
+                List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
                 bool? automaticallyManageNewDevices = default,
                 string connectedAccountId = default,
                 object? customMetadata = default
             )
             {
+                AcceptedCapabilities = acceptedCapabilities;
                 AutomaticallyManageNewDevices = automaticallyManageNewDevices;
                 ConnectedAccountId = connectedAccountId;
                 CustomMetadata = customMetadata;
             }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum AcceptedCapabilitiesEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "lock")]
+                Lock = 1,
+
+                [EnumMember(Value = "thermostat")]
+                Thermostat = 2,
+
+                [EnumMember(Value = "noise_sensor")]
+                NoiseSensor = 3,
+
+                [EnumMember(Value = "access_control")]
+                AccessControl = 4,
+            }
+
+            [DataMember(
+                Name = "accepted_capabilities",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<UpdateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; set; }
 
             [DataMember(
                 Name = "automatically_manage_new_devices",
@@ -464,6 +492,7 @@ namespace Seam.Api
         }
 
         public void Update(
+            List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
             object? customMetadata = default
@@ -471,6 +500,7 @@ namespace Seam.Api
         {
             Update(
                 new UpdateRequest(
+                    acceptedCapabilities: acceptedCapabilities,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
                     customMetadata: customMetadata
@@ -486,6 +516,7 @@ namespace Seam.Api
         }
 
         public async Task UpdateAsync(
+            List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
             object? customMetadata = default
@@ -493,6 +524,7 @@ namespace Seam.Api
         {
             await UpdateAsync(
                 new UpdateRequest(
+                    acceptedCapabilities: acceptedCapabilities,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
                     customMetadata: customMetadata
