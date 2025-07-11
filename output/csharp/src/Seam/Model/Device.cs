@@ -2433,6 +2433,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "heat_cool")]
             HeatCool = 4,
+
+            [EnumMember(Value = "eco")]
+            Eco = 5,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5632,6 +5635,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "heat_cool")]
             HeatCool = 4,
+
+            [EnumMember(Value = "eco")]
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
@@ -5874,6 +5880,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "heat_cool")]
             HeatCool = 4,
+
+            [EnumMember(Value = "eco")]
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
@@ -6116,6 +6125,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "heat_cool")]
             HeatCool = 4,
+
+            [EnumMember(Value = "eco")]
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]

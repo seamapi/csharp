@@ -387,6 +387,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "heat_cool")]
                 HeatCool = 4,
+
+                [EnumMember(Value = "eco")]
+                Eco = 5,
             }
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
@@ -2205,6 +2208,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "heat_cool")]
                 HeatCool = 4,
+
+                [EnumMember(Value = "eco")]
+                Eco = 5,
             }
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
