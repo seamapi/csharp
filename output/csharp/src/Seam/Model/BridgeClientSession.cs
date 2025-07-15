@@ -60,8 +60,6 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
-            public abstract string CreatedAt { get; set; }
-
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -109,7 +107,7 @@ namespace Seam.Model
             public bool? CanTailscaleProxyReachTailscaleNetwork { get; set; }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_lan_unreachable";
@@ -176,7 +174,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "no_communication_from_bridge";
