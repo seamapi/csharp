@@ -18,11 +18,13 @@ namespace Seam.Model
             string accessGrantId = default,
             string? accessGrantKey = default,
             List<string> accessMethodIds = default,
+            string? clientSessionToken = default,
             string createdAt = default,
             string displayName = default,
             string? endsAt = default,
             string? instantKeyUrl = default,
             List<string> locationIds = default,
+            string? name = default,
             List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
             List<string> spaceIds = default,
             string? startsAt = default,
@@ -33,11 +35,13 @@ namespace Seam.Model
             AccessGrantId = accessGrantId;
             AccessGrantKey = accessGrantKey;
             AccessMethodIds = accessMethodIds;
+            ClientSessionToken = clientSessionToken;
             CreatedAt = createdAt;
             DisplayName = displayName;
             EndsAt = endsAt;
             InstantKeyUrl = instantKeyUrl;
             LocationIds = locationIds;
+            Name = name;
             RequestedAccessMethods = requestedAccessMethods;
             SpaceIds = spaceIds;
             StartsAt = startsAt;
@@ -54,6 +58,9 @@ namespace Seam.Model
         [DataMember(Name = "access_method_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> AccessMethodIds { get; set; }
 
+        [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
+        public string? ClientSessionToken { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
@@ -68,6 +75,9 @@ namespace Seam.Model
 
         [DataMember(Name = "location_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> LocationIds { get; set; }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
 
         [DataMember(Name = "requested_access_methods", IsRequired = true, EmitDefaultValue = false)]
         public List<AccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
