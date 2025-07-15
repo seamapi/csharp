@@ -327,14 +327,27 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string deviceId = default, string? userIdentifierKey = default)
+            public ListRequest(
+                string deviceId = default,
+                float? limit = default,
+                string? pageCursor = default,
+                string? userIdentifierKey = default
+            )
             {
                 DeviceId = deviceId;
+                Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -404,10 +417,19 @@ namespace Seam.Api
 
         public List<UnmanagedAccessCode> List(
             string deviceId = default,
+            float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
-            return List(new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey));
+            return List(
+                new ListRequest(
+                    deviceId: deviceId,
+                    limit: limit,
+                    pageCursor: pageCursor,
+                    userIdentifierKey: userIdentifierKey
+                )
+            );
         }
 
         public async Task<List<UnmanagedAccessCode>> ListAsync(ListRequest request)
@@ -423,12 +445,19 @@ namespace Seam.Api
 
         public async Task<List<UnmanagedAccessCode>> ListAsync(
             string deviceId = default,
+            float? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default
         )
         {
             return (
                 await ListAsync(
-                    new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey)
+                    new ListRequest(
+                        deviceId: deviceId,
+                        limit: limit,
+                        pageCursor: pageCursor,
+                        userIdentifierKey: userIdentifierKey
+                    )
                 )
             );
         }
