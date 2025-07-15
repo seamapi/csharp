@@ -253,14 +253,6 @@ namespace Seam.Model
     {
         public abstract string EventType { get; }
 
-        public abstract string CreatedAt { get; set; }
-
-        public abstract string EventId { get; set; }
-
-        public abstract string OccurredAt { get; set; }
-
-        public abstract string WorkspaceId { get; set; }
-
         public abstract override string ToString();
     }
 
@@ -309,7 +301,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -318,16 +310,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.created";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -394,7 +386,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -403,16 +395,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.changed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -484,7 +476,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -493,16 +485,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.scheduled_on_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -574,7 +566,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -583,16 +575,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.set_on_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -659,7 +651,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -668,16 +660,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.removed_from_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -744,7 +736,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -753,16 +745,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.delay_in_setting_on_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -829,7 +821,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -838,16 +830,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.failed_to_set_on_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -919,7 +911,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -928,16 +920,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1004,7 +996,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1013,16 +1005,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.delay_in_removing_from_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1089,7 +1081,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1098,16 +1090,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.failed_to_remove_from_device";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1174,7 +1166,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1183,16 +1175,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.modified_external_to_seam";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1259,7 +1251,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1268,16 +1260,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.deleted_external_to_seam";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1349,7 +1341,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1358,16 +1350,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.backup_access_code_pulled";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1434,7 +1426,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1443,16 +1435,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.converted_to_managed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1519,7 +1511,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1528,17 +1520,17 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } =
             "access_code.unmanaged.failed_to_convert_to_managed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1605,7 +1597,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1614,16 +1606,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.created";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1690,7 +1682,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -1699,16 +1691,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.removed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1757,19 +1749,19 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.created";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1818,19 +1810,19 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1879,19 +1871,19 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_granted_to_all_doors";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1945,19 +1937,19 @@ namespace Seam.Model
         public string AcsEntranceId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_granted_to_door";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2011,19 +2003,19 @@ namespace Seam.Model
         public string AcsEntranceId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_to_door_lost";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2072,19 +2064,19 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.issued";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2133,19 +2125,19 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.revoked";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2194,19 +2186,19 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.card_encoding_required";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2255,19 +2247,19 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2316,19 +2308,19 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.reissued";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2382,19 +2374,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.connected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2448,19 +2440,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.added";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2514,19 +2506,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.disconnected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2585,19 +2577,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2656,19 +2648,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.issued";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2727,19 +2719,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.reissued";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2798,19 +2790,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.invalidated";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2869,19 +2861,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_user.created";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -2940,19 +2932,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_user.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3011,19 +3003,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_encoder.added";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3082,19 +3074,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_encoder.removed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3153,19 +3145,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_access_group.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3224,19 +3216,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_entrance.added";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3295,19 +3287,19 @@ namespace Seam.Model
         public string? ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_entrance.removed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3356,19 +3348,19 @@ namespace Seam.Model
         public string ClientSessionId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "client_session.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3431,19 +3423,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.connected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3506,19 +3498,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.created";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3581,19 +3573,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.successful_login";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3651,19 +3643,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.disconnected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3721,19 +3713,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.completed_first_sync";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3791,19 +3783,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3863,20 +3855,20 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } =
             "connected_account.completed_first_sync_after_reconnection";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -3932,22 +3924,22 @@ namespace Seam.Model
         public string ActionType { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.lock_door.succeeded";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public string Status { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4003,22 +3995,22 @@ namespace Seam.Model
         public string ActionType { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.lock_door.failed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public string Status { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4074,22 +4066,22 @@ namespace Seam.Model
         public string ActionType { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.unlock_door.succeeded";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public string Status { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4145,22 +4137,22 @@ namespace Seam.Model
         public string ActionType { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.unlock_door.failed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public string Status { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4223,19 +4215,19 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connect_webview.login_succeeded";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4284,19 +4276,19 @@ namespace Seam.Model
         public string ConnectWebviewId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connect_webview.login_failed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4358,7 +4350,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4367,16 +4359,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4438,7 +4430,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4447,16 +4439,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.added";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4518,7 +4510,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4527,16 +4519,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.converted_to_unmanaged";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4598,7 +4590,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4607,16 +4599,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.converted_to_managed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4678,7 +4670,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4687,16 +4679,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.connected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4776,7 +4768,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4788,16 +4780,16 @@ namespace Seam.Model
         public EventDeviceDisconnected.ErrorCodeEnum ErrorCode { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.disconnected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4877,7 +4869,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4889,16 +4881,16 @@ namespace Seam.Model
         public EventDeviceUnmanagedDisconnected.ErrorCodeEnum ErrorCode { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.disconnected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -4960,7 +4952,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4969,16 +4961,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.tampered";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5045,7 +5037,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5054,16 +5046,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.low_battery";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5154,7 +5146,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5163,16 +5155,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.battery_status_changed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5234,7 +5226,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5243,16 +5235,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.removed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5314,7 +5306,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5323,16 +5315,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5394,7 +5386,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5403,16 +5395,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.third_party_integration_detected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5474,7 +5466,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5483,17 +5475,17 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } =
             "device.third_party_integration_no_longer_detected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5555,7 +5547,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5564,16 +5556,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.salto.privacy_mode_activated";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5635,7 +5627,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5644,16 +5636,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.salto.privacy_mode_deactivated";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5715,7 +5707,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5724,16 +5716,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connection_became_flaky";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5795,7 +5787,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5804,16 +5796,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connection_stabilized";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5875,7 +5867,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5884,16 +5876,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.error.subscription_required";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -5955,7 +5947,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5964,16 +5956,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.error.subscription_required.resolved";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6035,7 +6027,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6044,16 +6036,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.accessory_keypad_connected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6115,7 +6107,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6124,16 +6116,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.accessory_keypad_disconnected";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6207,7 +6199,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6216,7 +6208,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "noise_sensor.noise_threshold_triggered";
@@ -6240,10 +6232,10 @@ namespace Seam.Model
         public object? NoiseawareMetadata { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6339,7 +6331,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6348,7 +6340,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.locked";
@@ -6357,10 +6349,10 @@ namespace Seam.Model
         public EventLockLocked.MethodEnum Method { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6456,7 +6448,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6465,7 +6457,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.unlocked";
@@ -6474,10 +6466,10 @@ namespace Seam.Model
         public EventLockUnlocked.MethodEnum Method { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6544,7 +6536,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6553,16 +6545,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.access_denied";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6633,7 +6625,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6642,7 +6634,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.climate_preset_activated";
@@ -6655,13 +6647,13 @@ namespace Seam.Model
         public bool IsFallbackClimatePreset { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ThermostatScheduleId { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6802,7 +6794,7 @@ namespace Seam.Model
         public float? CoolingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6811,7 +6803,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.manually_adjusted";
@@ -6840,10 +6832,10 @@ namespace Seam.Model
         public EventThermostatManuallyAdjusted.MethodEnum Method { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -6917,7 +6909,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6926,7 +6918,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_threshold_exceeded";
@@ -6938,7 +6930,7 @@ namespace Seam.Model
         public float? LowerLimitFahrenheit { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
@@ -6953,7 +6945,7 @@ namespace Seam.Model
         public float? UpperLimitFahrenheit { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7027,7 +7019,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7036,7 +7028,7 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } =
@@ -7049,7 +7041,7 @@ namespace Seam.Model
         public float? LowerLimitFahrenheit { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
@@ -7064,7 +7056,7 @@ namespace Seam.Model
         public float? UpperLimitFahrenheit { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7134,7 +7126,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(
             Name = "desired_temperature_celsius",
@@ -7157,13 +7149,13 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_reached_set_point";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
@@ -7172,7 +7164,7 @@ namespace Seam.Model
         public float TemperatureFahrenheit { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7238,7 +7230,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7247,13 +7239,13 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_changed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "temperature_celsius", IsRequired = true, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
@@ -7262,7 +7254,7 @@ namespace Seam.Model
         public float TemperatureFahrenheit { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7326,7 +7318,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7338,16 +7330,16 @@ namespace Seam.Model
         public string DeviceName { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.name_changed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7393,22 +7385,22 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "enrollment_automation_id", IsRequired = true, EmitDefaultValue = false)]
         public string EnrollmentAutomationId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "enrollment_automation.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -7456,7 +7448,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string CreatedAt { get; set; }
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7465,16 +7457,16 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string EventId { get; set; }
+        public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "phone.deactivated";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
-        public override string OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public override string WorkspaceId { get; set; }
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
