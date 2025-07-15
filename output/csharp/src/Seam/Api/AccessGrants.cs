@@ -33,6 +33,7 @@ namespace Seam.Api
                 string? endsAt = default,
                 CreateRequestLocation? location = default,
                 List<string>? locationIds = default,
+                string? name = default,
                 List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
                 List<string>? spaceIds = default,
                 string? startsAt = default
@@ -46,6 +47,7 @@ namespace Seam.Api
                 EndsAt = endsAt;
                 Location = location;
                 LocationIds = locationIds;
+                Name = name;
                 RequestedAccessMethods = requestedAccessMethods;
                 SpaceIds = spaceIds;
                 StartsAt = startsAt;
@@ -74,6 +76,9 @@ namespace Seam.Api
 
             [DataMember(Name = "location_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? LocationIds { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(
                 Name = "requested_access_methods",
@@ -304,6 +309,7 @@ namespace Seam.Api
             string? endsAt = default,
             CreateRequestLocation? location = default,
             List<string>? locationIds = default,
+            string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
             List<string>? spaceIds = default,
             string? startsAt = default
@@ -319,6 +325,7 @@ namespace Seam.Api
                     endsAt: endsAt,
                     location: location,
                     locationIds: locationIds,
+                    name: name,
                     requestedAccessMethods: requestedAccessMethods,
                     spaceIds: spaceIds,
                     startsAt: startsAt
@@ -344,6 +351,7 @@ namespace Seam.Api
             string? endsAt = default,
             CreateRequestLocation? location = default,
             List<string>? locationIds = default,
+            string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
             List<string>? spaceIds = default,
             string? startsAt = default
@@ -360,6 +368,7 @@ namespace Seam.Api
                         endsAt: endsAt,
                         location: location,
                         locationIds: locationIds,
+                        name: name,
                         requestedAccessMethods: requestedAccessMethods,
                         spaceIds: spaceIds,
                         startsAt: startsAt
@@ -699,11 +708,13 @@ namespace Seam.Api
             public UpdateRequest(
                 string accessGrantId = default,
                 string? endsAt = default,
+                string? name = default,
                 string? startsAt = default
             )
             {
                 AccessGrantId = accessGrantId;
                 EndsAt = endsAt;
+                Name = name;
                 StartsAt = startsAt;
             }
 
@@ -712,6 +723,9 @@ namespace Seam.Api
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
@@ -746,11 +760,17 @@ namespace Seam.Api
         public void Update(
             string accessGrantId = default,
             string? endsAt = default,
+            string? name = default,
             string? startsAt = default
         )
         {
             Update(
-                new UpdateRequest(accessGrantId: accessGrantId, endsAt: endsAt, startsAt: startsAt)
+                new UpdateRequest(
+                    accessGrantId: accessGrantId,
+                    endsAt: endsAt,
+                    name: name,
+                    startsAt: startsAt
+                )
             );
         }
 
@@ -764,11 +784,17 @@ namespace Seam.Api
         public async Task UpdateAsync(
             string accessGrantId = default,
             string? endsAt = default,
+            string? name = default,
             string? startsAt = default
         )
         {
             await UpdateAsync(
-                new UpdateRequest(accessGrantId: accessGrantId, endsAt: endsAt, startsAt: startsAt)
+                new UpdateRequest(
+                    accessGrantId: accessGrantId,
+                    endsAt: endsAt,
+                    name: name,
+                    startsAt: startsAt
+                )
             );
         }
     }
