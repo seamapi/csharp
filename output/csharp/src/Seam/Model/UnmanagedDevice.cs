@@ -22,14 +22,19 @@ namespace Seam.Model
             bool? canProgramOnlineAccessCodes = default,
             bool? canRemotelyLock = default,
             bool? canRemotelyUnlock = default,
+            bool? canRunThermostatPrograms = default,
             bool? canSimulateConnection = default,
             bool? canSimulateDisconnection = default,
+            bool? canSimulateHubConnection = default,
+            bool? canSimulateHubDisconnection = default,
+            bool? canSimulatePaidSubscription = default,
             bool? canSimulateRemoval = default,
             bool? canTurnOffHvac = default,
             bool? canUnlockWithCode = default,
             List<UnmanagedDevice.CapabilitiesSupportedEnum> capabilitiesSupported = default,
             string connectedAccountId = default,
             string createdAt = default,
+            object? customMetadata = default,
             string deviceId = default,
             UnmanagedDevice.DeviceTypeEnum deviceType = default,
             List<UnmanagedDeviceErrors> errors = default,
@@ -47,14 +52,19 @@ namespace Seam.Model
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
             CanRemotelyLock = canRemotelyLock;
             CanRemotelyUnlock = canRemotelyUnlock;
+            CanRunThermostatPrograms = canRunThermostatPrograms;
             CanSimulateConnection = canSimulateConnection;
             CanSimulateDisconnection = canSimulateDisconnection;
+            CanSimulateHubConnection = canSimulateHubConnection;
+            CanSimulateHubDisconnection = canSimulateHubDisconnection;
+            CanSimulatePaidSubscription = canSimulatePaidSubscription;
             CanSimulateRemoval = canSimulateRemoval;
             CanTurnOffHvac = canTurnOffHvac;
             CanUnlockWithCode = canUnlockWithCode;
             CapabilitiesSupported = capabilitiesSupported;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomMetadata = customMetadata;
             DeviceId = deviceId;
             DeviceType = deviceType;
             Errors = errors;
@@ -177,35 +187,38 @@ namespace Seam.Model
             [EnumMember(Value = "akiles_lock")]
             AkilesLock = 27,
 
+            [EnumMember(Value = "keynest_key")]
+            KeynestKey = 28,
+
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 28,
+            NoiseawareActivityZone = 29,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 29,
+            MinutSensor = 30,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 30,
+            EcobeeThermostat = 31,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 31,
+            NestThermostat = 32,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 32,
+            HoneywellResideoThermostat = 33,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 33,
+            TadoThermostat = 34,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 34,
+            SensiThermostat = 35,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 35,
+            SmartthingsThermostat = 36,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 36,
+            IosPhone = 37,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 37,
+            AndroidPhone = 38,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1180,10 +1193,6 @@ namespace Seam.Model
             "ttlock_lock_gateway_unlocking_not_enabled"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsNestThermostatInManualEcoMode),
-            "nest_thermostat_in_manual_eco_mode"
-        )]
-        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
         )]
@@ -1423,54 +1432,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "third_party_integration_detected";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_unmanagedDeviceWarningsNestThermostatInManualEcoMode_model"
-        )]
-        public class UnmanagedDeviceWarningsNestThermostatInManualEcoMode : UnmanagedDeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsNestThermostatInManualEcoMode() { }
-
-            public UnmanagedDeviceWarningsNestThermostatInManualEcoMode(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "nest_thermostat_in_manual_eco_mode";
 
             public override string ToString()
             {
@@ -2081,6 +2042,13 @@ namespace Seam.Model
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
 
+        [DataMember(
+            Name = "can_run_thermostat_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanRunThermostatPrograms { get; set; }
+
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateConnection { get; set; }
 
@@ -2090,6 +2058,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanSimulateDisconnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_hub_connection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubConnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_hub_disconnection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubDisconnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_paid_subscription",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulatePaidSubscription { get; set; }
 
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateRemoval { get; set; }
@@ -2108,6 +2097,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        public object? CustomMetadata { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }

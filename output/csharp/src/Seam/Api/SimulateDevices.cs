@@ -250,6 +250,70 @@ namespace Seam.Api
             await DisconnectFromHubAsync(new DisconnectFromHubRequest(deviceId: deviceId));
         }
 
+        [DataContract(Name = "paidSubscriptionRequest_request")]
+        public class PaidSubscriptionRequest
+        {
+            [JsonConstructorAttribute]
+            protected PaidSubscriptionRequest() { }
+
+            public PaidSubscriptionRequest(string deviceId = default, bool isExpired = default)
+            {
+                DeviceId = deviceId;
+                IsExpired = isExpired;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "is_expired", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsExpired { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void PaidSubscription(PaidSubscriptionRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/devices/simulate/paid_subscription", requestOptions);
+        }
+
+        public void PaidSubscription(string deviceId = default, bool isExpired = default)
+        {
+            PaidSubscription(new PaidSubscriptionRequest(deviceId: deviceId, isExpired: isExpired));
+        }
+
+        public async Task PaidSubscriptionAsync(PaidSubscriptionRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/devices/simulate/paid_subscription", requestOptions);
+        }
+
+        public async Task PaidSubscriptionAsync(string deviceId = default, bool isExpired = default)
+        {
+            await PaidSubscriptionAsync(
+                new PaidSubscriptionRequest(deviceId: deviceId, isExpired: isExpired)
+            );
+        }
+
         [DataContract(Name = "removeRequest_request")]
         public class RemoveRequest
         {

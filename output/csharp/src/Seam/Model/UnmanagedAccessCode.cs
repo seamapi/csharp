@@ -26,7 +26,8 @@ namespace Seam.Model
             string? startsAt = default,
             UnmanagedAccessCode.StatusEnum status = default,
             UnmanagedAccessCode.TypeEnum type = default,
-            List<UnmanagedAccessCodeWarnings> warnings = default
+            List<UnmanagedAccessCodeWarnings> warnings = default,
+            string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
@@ -41,6 +42,7 @@ namespace Seam.Model
             Status = status;
             Type = type;
             Warnings = warnings;
+            WorkspaceId = workspaceId;
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -3088,6 +3090,9 @@ namespace Seam.Model
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
         public List<UnmanagedAccessCodeWarnings> Warnings { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

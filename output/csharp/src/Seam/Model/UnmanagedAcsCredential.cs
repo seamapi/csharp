@@ -120,6 +120,12 @@ namespace Seam.Model
 
             [EnumMember(Value = "latch_access")]
             LatchAccess = 8,
+
+            [EnumMember(Value = "dormakaba_ambiance_credential")]
+            DormakabaAmbianceCredential = 9,
+
+            [EnumMember(Value = "hotek_card")]
+            HotekCard = 10,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]

@@ -180,6 +180,10 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodRevoked), "access_method.revoked")]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodIssued), "access_method.issued")]
     [JsonSubtypes.KnownSubType(
+        typeof(EventAccessGrantAccessTimesChanged),
+        "access_grant.access_times_changed"
+    )]
+    [JsonSubtypes.KnownSubType(
         typeof(EventAccessGrantAccessToDoorLost),
         "access_grant.access_to_door_lost"
     )]
@@ -2037,6 +2041,82 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventAccessGrantAccessTimesChanged_model")]
+    public class EventAccessGrantAccessTimesChanged : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantAccessTimesChanged() { }
+
+        public EventAccessGrantAccessTimesChanged(
+            string accessGrantId = default,
+            string? accessGrantKey = default,
+            string createdAt = default,
+            string? endsAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string? startsAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            AccessGrantKey = accessGrantKey;
+            CreatedAt = createdAt;
+            EndsAt = endsAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            StartsAt = startsAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? AccessGrantKey { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndsAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_grant.access_times_changed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? StartsAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventAccessMethodIssued_model")]
     public class EventAccessMethodIssued : Event
     {
@@ -2044,24 +2124,41 @@ namespace Seam.Model
         protected EventAccessMethodIssued() { }
 
         public EventAccessMethodIssued(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             string accessMethodId = default,
+            string? code = default,
             string createdAt = default,
             string eventId = default,
             string eventType = default,
+            bool? isBackupCode = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
             AccessMethodId = accessMethodId;
+            Code = code;
             CreatedAt = createdAt;
             EventId = eventId;
             EventType = eventType;
+            IsBackupCode = isBackupCode;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
+
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+        public string? Code { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -2071,6 +2168,9 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.issued";
+
+        [DataMember(Name = "is_backup_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsBackupCode { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
@@ -2105,6 +2205,8 @@ namespace Seam.Model
         protected EventAccessMethodRevoked() { }
 
         public EventAccessMethodRevoked(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             string accessMethodId = default,
             string createdAt = default,
             string eventId = default,
@@ -2113,6 +2215,8 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
             AccessMethodId = accessMethodId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -2120,6 +2224,12 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
 
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
@@ -2166,6 +2276,8 @@ namespace Seam.Model
         protected EventAccessMethodCardEncodingRequired() { }
 
         public EventAccessMethodCardEncodingRequired(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             string accessMethodId = default,
             string createdAt = default,
             string eventId = default,
@@ -2174,6 +2286,8 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
             AccessMethodId = accessMethodId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -2181,6 +2295,12 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
 
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
@@ -2227,6 +2347,8 @@ namespace Seam.Model
         protected EventAccessMethodDeleted() { }
 
         public EventAccessMethodDeleted(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             string accessMethodId = default,
             string createdAt = default,
             string eventId = default,
@@ -2235,6 +2357,8 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
             AccessMethodId = accessMethodId;
             CreatedAt = createdAt;
             EventId = eventId;
@@ -2242,6 +2366,12 @@ namespace Seam.Model
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
 
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
@@ -2288,24 +2418,41 @@ namespace Seam.Model
         protected EventAccessMethodReissued() { }
 
         public EventAccessMethodReissued(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             string accessMethodId = default,
+            string? code = default,
             string createdAt = default,
             string eventId = default,
             string eventType = default,
+            bool? isBackupCode = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
             AccessMethodId = accessMethodId;
+            Code = code;
             CreatedAt = createdAt;
             EventId = eventId;
             EventType = eventType;
+            IsBackupCode = isBackupCode;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
+
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+        public string? Code { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -2315,6 +2462,9 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.reissued";
+
+        [DataMember(Name = "is_backup_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsBackupCode { get; set; }
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
@@ -3393,6 +3543,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -3403,6 +3554,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -3424,6 +3576,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -4185,6 +4340,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -4195,6 +4351,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -4216,6 +4373,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }

@@ -24,8 +24,10 @@ namespace Seam.Model
             string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
+            AcsEntranceDormakabaAmbianceMetadata? dormakabaAmbianceMetadata = default,
             AcsEntranceDormakabaCommunityMetadata? dormakabaCommunityMetadata = default,
             List<AcsEntranceErrors> errors = default,
+            AcsEntranceHotekMetadata? hotekMetadata = default,
             AcsEntranceLatchMetadata? latchMetadata = default,
             AcsEntranceSaltoKsMetadata? saltoKsMetadata = default,
             AcsEntranceSaltoSpaceMetadata? saltoSpaceMetadata = default,
@@ -41,8 +43,10 @@ namespace Seam.Model
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             DisplayName = displayName;
+            DormakabaAmbianceMetadata = dormakabaAmbianceMetadata;
             DormakabaCommunityMetadata = dormakabaCommunityMetadata;
             Errors = errors;
+            HotekMetadata = hotekMetadata;
             LatchMetadata = latchMetadata;
             SaltoKsMetadata = saltoKsMetadata;
             SaltoSpaceMetadata = saltoSpaceMetadata;
@@ -85,6 +89,13 @@ namespace Seam.Model
         public string DisplayName { get; set; }
 
         [DataMember(
+            Name = "dormakaba_ambiance_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public AcsEntranceDormakabaAmbianceMetadata? DormakabaAmbianceMetadata { get; set; }
+
+        [DataMember(
             Name = "dormakaba_community_metadata",
             IsRequired = false,
             EmitDefaultValue = false
@@ -93,6 +104,9 @@ namespace Seam.Model
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<AcsEntranceErrors> Errors { get; set; }
+
+        [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsEntranceHotekMetadata? HotekMetadata { get; set; }
 
         [DataMember(Name = "latch_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceLatchMetadata? LatchMetadata { get; set; }
@@ -201,19 +215,60 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsEntranceDormakabaCommunityMetadata_model")]
-    public class AcsEntranceDormakabaCommunityMetadata
+    [DataContract(Name = "seamModel_acsEntranceDormakabaAmbianceMetadata_model")]
+    public class AcsEntranceDormakabaAmbianceMetadata
     {
         [JsonConstructorAttribute]
-        protected AcsEntranceDormakabaCommunityMetadata() { }
+        protected AcsEntranceDormakabaAmbianceMetadata() { }
 
-        public AcsEntranceDormakabaCommunityMetadata(string accessPointName = default)
+        public AcsEntranceDormakabaAmbianceMetadata(string accessPointName = default)
         {
             AccessPointName = accessPointName;
         }
 
         [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
         public string AccessPointName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceDormakabaCommunityMetadata_model")]
+    public class AcsEntranceDormakabaCommunityMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceDormakabaCommunityMetadata() { }
+
+        public AcsEntranceDormakabaCommunityMetadata(
+            string accessPointName = default,
+            string accessPointProfile = default
+        )
+        {
+            AccessPointName = accessPointName;
+            AccessPointProfile = accessPointProfile;
+        }
+
+        [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessPointName { get; set; }
+
+        [DataMember(Name = "access_point_profile", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessPointProfile { get; set; }
 
         public override string ToString()
         {
@@ -252,6 +307,65 @@ namespace Seam.Model
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
         public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceHotekMetadata_model")]
+    public class AcsEntranceHotekMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceHotekMetadata() { }
+
+        public AcsEntranceHotekMetadata(
+            string displayName = default,
+            AcsEntranceHotekMetadata.DoorTypeEnum doorType = default,
+            string roomNumber = default
+        )
+        {
+            DisplayName = displayName;
+            DoorType = doorType;
+            RoomNumber = roomNumber;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum DoorTypeEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "common_area")]
+            CommonArea = 1,
+
+            [EnumMember(Value = "guest")]
+            Guest = 2,
+        }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "door_type", IsRequired = true, EmitDefaultValue = false)]
+        public AcsEntranceHotekMetadata.DoorTypeEnum DoorType { get; set; }
+
+        [DataMember(Name = "room_number", IsRequired = true, EmitDefaultValue = false)]
+        public string RoomNumber { get; set; }
 
         public override string ToString()
         {
@@ -403,23 +517,38 @@ namespace Seam.Model
 
         public AcsEntranceSaltoSpaceMetadata(
             string? doorDescription = default,
-            string doorName = default,
-            string extDoorId = default
+            string? doorId = default,
+            string? doorName = default,
+            string? extDoorId = default,
+            string? roomDescription = default,
+            string? roomName = default
         )
         {
             DoorDescription = doorDescription;
+            DoorId = doorId;
             DoorName = doorName;
             ExtDoorId = extDoorId;
+            RoomDescription = roomDescription;
+            RoomName = roomName;
         }
 
         [DataMember(Name = "door_description", IsRequired = false, EmitDefaultValue = false)]
         public string? DoorDescription { get; set; }
 
-        [DataMember(Name = "door_name", IsRequired = true, EmitDefaultValue = false)]
-        public string DoorName { get; set; }
+        [DataMember(Name = "door_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DoorId { get; set; }
 
-        [DataMember(Name = "ext_door_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ExtDoorId { get; set; }
+        [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DoorName { get; set; }
+
+        [DataMember(Name = "ext_door_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ExtDoorId { get; set; }
+
+        [DataMember(Name = "room_description", IsRequired = false, EmitDefaultValue = false)]
+        public string? RoomDescription { get; set; }
+
+        [DataMember(Name = "room_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? RoomName { get; set; }
 
         public override string ToString()
         {

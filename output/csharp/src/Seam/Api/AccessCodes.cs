@@ -955,7 +955,7 @@ namespace Seam.Api
 
             public ListRequest(
                 List<string>? accessCodeIds = default,
-                List<string>? customerIds = default,
+                string? customerKey = default,
                 string? deviceId = default,
                 float? limit = default,
                 string? pageCursor = default,
@@ -963,7 +963,7 @@ namespace Seam.Api
             )
             {
                 AccessCodeIds = accessCodeIds;
-                CustomerIds = customerIds;
+                CustomerKey = customerKey;
                 DeviceId = deviceId;
                 Limit = limit;
                 PageCursor = pageCursor;
@@ -973,8 +973,8 @@ namespace Seam.Api
             [DataMember(Name = "access_code_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessCodeIds { get; set; }
 
-            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? CustomerIds { get; set; }
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
@@ -1051,7 +1051,7 @@ namespace Seam.Api
 
         public List<AccessCode> List(
             List<string>? accessCodeIds = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             string? deviceId = default,
             float? limit = default,
             string? pageCursor = default,
@@ -1061,7 +1061,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     accessCodeIds: accessCodeIds,
-                    customerIds: customerIds,
+                    customerKey: customerKey,
                     deviceId: deviceId,
                     limit: limit,
                     pageCursor: pageCursor,
@@ -1081,7 +1081,7 @@ namespace Seam.Api
 
         public async Task<List<AccessCode>> ListAsync(
             List<string>? accessCodeIds = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             string? deviceId = default,
             float? limit = default,
             string? pageCursor = default,
@@ -1092,7 +1092,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         accessCodeIds: accessCodeIds,
-                        customerIds: customerIds,
+                        customerKey: customerKey,
                         deviceId: deviceId,
                         limit: limit,
                         pageCursor: pageCursor,

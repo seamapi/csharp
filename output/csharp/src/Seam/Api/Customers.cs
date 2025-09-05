@@ -27,11 +27,13 @@ namespace Seam.Api
             public CreatePortalRequest(
                 CreatePortalRequestFeatures? features = default,
                 bool? isEmbedded = default,
+                CreatePortalRequestLandingPage? landingPage = default,
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
                 Features = features;
                 IsEmbedded = isEmbedded;
+                LandingPage = landingPage;
                 CustomerData = customerData;
             }
 
@@ -40,6 +42,9 @@ namespace Seam.Api
 
             [DataMember(Name = "is_embedded", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsEmbedded { get; set; }
+
+            [DataMember(Name = "landing_page", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestLandingPage? LandingPage { get; set; }
 
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerData? CustomerData { get; set; }
@@ -71,15 +76,20 @@ namespace Seam.Api
             protected CreatePortalRequestFeatures() { }
 
             public CreatePortalRequestFeatures(
+                CreatePortalRequestFeaturesConfigure? configure = default,
                 CreatePortalRequestFeaturesConnect? connect = default,
                 CreatePortalRequestFeaturesManageDevices? manageDevices = default,
                 CreatePortalRequestFeaturesOrganize? organize = default
             )
             {
+                Configure = configure;
                 Connect = connect;
                 ManageDevices = manageDevices;
                 Organize = organize;
             }
+
+            [DataMember(Name = "configure", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesConfigure? Configure { get; set; }
 
             [DataMember(Name = "connect", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesConnect? Connect { get; set; }
@@ -89,6 +99,60 @@ namespace Seam.Api
 
             [DataMember(Name = "organize", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesOrganize? Organize { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesConfigure_model")]
+        public class CreatePortalRequestFeaturesConfigure
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesConfigure() { }
+
+            public CreatePortalRequestFeaturesConfigure(
+                bool? allowAccessAutomationRuleCustomization = default,
+                bool? allowInstantKeyCustomization = default,
+                bool? exclude = default
+            )
+            {
+                AllowAccessAutomationRuleCustomization = allowAccessAutomationRuleCustomization;
+                AllowInstantKeyCustomization = allowInstantKeyCustomization;
+                Exclude = exclude;
+            }
+
+            [DataMember(
+                Name = "allow_access_automation_rule_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowAccessAutomationRuleCustomization { get; set; }
+
+            [DataMember(
+                Name = "allow_instant_key_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowInstantKeyCustomization { get; set; }
+
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
 
             public override string ToString()
             {
@@ -191,6 +255,40 @@ namespace Seam.Api
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestLandingPage_model")]
+        public class CreatePortalRequestLandingPage
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestLandingPage() { }
+
+            public CreatePortalRequestLandingPage(JObject? manage = default)
+            {
+                Manage = manage;
+            }
+
+            [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
+            public JObject? Manage { get; set; }
 
             public override string ToString()
             {
@@ -347,7 +445,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
@@ -367,6 +466,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ResidentKey = residentKey;
                 RoomKeys = roomKeys;
@@ -399,8 +499,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
@@ -463,7 +566,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
@@ -483,6 +587,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ResidentKey = residentKey;
                 RoomKeys = roomKeys;
@@ -515,8 +620,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
@@ -875,7 +983,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string reservationKey = default,
                 string? residentKey = default,
@@ -895,6 +1004,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ReservationKey = reservationKey;
                 ResidentKey = residentKey;
@@ -925,8 +1035,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
@@ -1351,6 +1464,7 @@ namespace Seam.Api
         public MagicLink CreatePortal(
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
+            CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -1358,6 +1472,7 @@ namespace Seam.Api
                 new CreatePortalRequest(
                     features: features,
                     isEmbedded: isEmbedded,
+                    landingPage: landingPage,
                     customerData: customerData
                 )
             );
@@ -1380,6 +1495,7 @@ namespace Seam.Api
         public async Task<MagicLink> CreatePortalAsync(
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
+            CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -1388,8 +1504,238 @@ namespace Seam.Api
                     new CreatePortalRequest(
                         features: features,
                         isEmbedded: isEmbedded,
+                        landingPage: landingPage,
                         customerData: customerData
                     )
+                )
+            );
+        }
+
+        [DataContract(Name = "deleteDataRequest_request")]
+        public class DeleteDataRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteDataRequest() { }
+
+            public DeleteDataRequest(
+                List<string>? accessGrantKeys = default,
+                List<string>? bookingKeys = default,
+                List<string>? buildingKeys = default,
+                List<string>? commonAreaKeys = default,
+                List<string>? customerKeys = default,
+                List<string>? facilityKeys = default,
+                List<string>? guestKeys = default,
+                List<string>? listingKeys = default,
+                List<string>? propertyKeys = default,
+                List<string>? propertyListingKeys = default,
+                List<string>? reservationKeys = default,
+                List<string>? residentKeys = default,
+                List<string>? roomKeys = default,
+                List<string>? spaceKeys = default,
+                List<string>? tenantKeys = default,
+                List<string>? unitKeys = default,
+                List<string>? userIdentityKeys = default,
+                List<string>? userKeys = default
+            )
+            {
+                AccessGrantKeys = accessGrantKeys;
+                BookingKeys = bookingKeys;
+                BuildingKeys = buildingKeys;
+                CommonAreaKeys = commonAreaKeys;
+                CustomerKeys = customerKeys;
+                FacilityKeys = facilityKeys;
+                GuestKeys = guestKeys;
+                ListingKeys = listingKeys;
+                PropertyKeys = propertyKeys;
+                PropertyListingKeys = propertyListingKeys;
+                ReservationKeys = reservationKeys;
+                ResidentKeys = residentKeys;
+                RoomKeys = roomKeys;
+                SpaceKeys = spaceKeys;
+                TenantKeys = tenantKeys;
+                UnitKeys = unitKeys;
+                UserIdentityKeys = userIdentityKeys;
+                UserKeys = userKeys;
+            }
+
+            [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessGrantKeys { get; set; }
+
+            [DataMember(Name = "booking_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? BookingKeys { get; set; }
+
+            [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? BuildingKeys { get; set; }
+
+            [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CommonAreaKeys { get; set; }
+
+            [DataMember(Name = "customer_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CustomerKeys { get; set; }
+
+            [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? FacilityKeys { get; set; }
+
+            [DataMember(Name = "guest_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? GuestKeys { get; set; }
+
+            [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ListingKeys { get; set; }
+
+            [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? PropertyKeys { get; set; }
+
+            [DataMember(
+                Name = "property_listing_keys",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? PropertyListingKeys { get; set; }
+
+            [DataMember(Name = "reservation_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ReservationKeys { get; set; }
+
+            [DataMember(Name = "resident_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ResidentKeys { get; set; }
+
+            [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? RoomKeys { get; set; }
+
+            [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceKeys { get; set; }
+
+            [DataMember(Name = "tenant_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? TenantKeys { get; set; }
+
+            [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UnitKeys { get; set; }
+
+            [DataMember(Name = "user_identity_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityKeys { get; set; }
+
+            [DataMember(Name = "user_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserKeys { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void DeleteData(DeleteDataRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/customers/delete_data", requestOptions);
+        }
+
+        public void DeleteData(
+            List<string>? accessGrantKeys = default,
+            List<string>? bookingKeys = default,
+            List<string>? buildingKeys = default,
+            List<string>? commonAreaKeys = default,
+            List<string>? customerKeys = default,
+            List<string>? facilityKeys = default,
+            List<string>? guestKeys = default,
+            List<string>? listingKeys = default,
+            List<string>? propertyKeys = default,
+            List<string>? propertyListingKeys = default,
+            List<string>? reservationKeys = default,
+            List<string>? residentKeys = default,
+            List<string>? roomKeys = default,
+            List<string>? spaceKeys = default,
+            List<string>? tenantKeys = default,
+            List<string>? unitKeys = default,
+            List<string>? userIdentityKeys = default,
+            List<string>? userKeys = default
+        )
+        {
+            DeleteData(
+                new DeleteDataRequest(
+                    accessGrantKeys: accessGrantKeys,
+                    bookingKeys: bookingKeys,
+                    buildingKeys: buildingKeys,
+                    commonAreaKeys: commonAreaKeys,
+                    customerKeys: customerKeys,
+                    facilityKeys: facilityKeys,
+                    guestKeys: guestKeys,
+                    listingKeys: listingKeys,
+                    propertyKeys: propertyKeys,
+                    propertyListingKeys: propertyListingKeys,
+                    reservationKeys: reservationKeys,
+                    residentKeys: residentKeys,
+                    roomKeys: roomKeys,
+                    spaceKeys: spaceKeys,
+                    tenantKeys: tenantKeys,
+                    unitKeys: unitKeys,
+                    userIdentityKeys: userIdentityKeys,
+                    userKeys: userKeys
+                )
+            );
+        }
+
+        public async Task DeleteDataAsync(DeleteDataRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/customers/delete_data", requestOptions);
+        }
+
+        public async Task DeleteDataAsync(
+            List<string>? accessGrantKeys = default,
+            List<string>? bookingKeys = default,
+            List<string>? buildingKeys = default,
+            List<string>? commonAreaKeys = default,
+            List<string>? customerKeys = default,
+            List<string>? facilityKeys = default,
+            List<string>? guestKeys = default,
+            List<string>? listingKeys = default,
+            List<string>? propertyKeys = default,
+            List<string>? propertyListingKeys = default,
+            List<string>? reservationKeys = default,
+            List<string>? residentKeys = default,
+            List<string>? roomKeys = default,
+            List<string>? spaceKeys = default,
+            List<string>? tenantKeys = default,
+            List<string>? unitKeys = default,
+            List<string>? userIdentityKeys = default,
+            List<string>? userKeys = default
+        )
+        {
+            await DeleteDataAsync(
+                new DeleteDataRequest(
+                    accessGrantKeys: accessGrantKeys,
+                    bookingKeys: bookingKeys,
+                    buildingKeys: buildingKeys,
+                    commonAreaKeys: commonAreaKeys,
+                    customerKeys: customerKeys,
+                    facilityKeys: facilityKeys,
+                    guestKeys: guestKeys,
+                    listingKeys: listingKeys,
+                    propertyKeys: propertyKeys,
+                    propertyListingKeys: propertyListingKeys,
+                    reservationKeys: reservationKeys,
+                    residentKeys: residentKeys,
+                    roomKeys: roomKeys,
+                    spaceKeys: spaceKeys,
+                    tenantKeys: tenantKeys,
+                    unitKeys: unitKeys,
+                    userIdentityKeys: userIdentityKeys,
+                    userKeys: userKeys
                 )
             );
         }
@@ -1529,7 +1875,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
@@ -1549,6 +1896,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ResidentKey = residentKey;
                 RoomKeys = roomKeys;
@@ -1581,8 +1929,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
@@ -1645,7 +1996,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
@@ -1665,6 +2017,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ResidentKey = residentKey;
                 RoomKeys = roomKeys;
@@ -1697,8 +2050,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
@@ -2042,7 +2398,8 @@ namespace Seam.Api
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
+                string? preferredCode = default,
                 List<string>? propertyKeys = default,
                 string reservationKey = default,
                 string? residentKey = default,
@@ -2062,6 +2419,7 @@ namespace Seam.Api
                 GuestKey = guestKey;
                 ListingKeys = listingKeys;
                 Name = name;
+                PreferredCode = preferredCode;
                 PropertyKeys = propertyKeys;
                 ReservationKey = reservationKey;
                 ResidentKey = residentKey;
@@ -2092,8 +2450,11 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
 
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }

@@ -74,116 +74,116 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "hotek")]
+                Hotek = 1,
+
                 [EnumMember(Value = "dormakaba_community")]
-                DormakabaCommunity = 1,
+                DormakabaCommunity = 2,
 
                 [EnumMember(Value = "legic_connect")]
-                LegicConnect = 2,
+                LegicConnect = 3,
 
                 [EnumMember(Value = "akuvox")]
-                Akuvox = 3,
+                Akuvox = 4,
 
                 [EnumMember(Value = "august")]
-                August = 4,
+                August = 5,
 
                 [EnumMember(Value = "avigilon_alta")]
-                AvigilonAlta = 5,
+                AvigilonAlta = 6,
 
                 [EnumMember(Value = "brivo")]
-                Brivo = 6,
+                Brivo = 7,
 
                 [EnumMember(Value = "butterflymx")]
-                Butterflymx = 7,
+                Butterflymx = 8,
 
                 [EnumMember(Value = "schlage")]
-                Schlage = 8,
+                Schlage = 9,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 9,
+                Smartthings = 10,
 
                 [EnumMember(Value = "yale")]
-                Yale = 10,
+                Yale = 11,
 
                 [EnumMember(Value = "genie")]
-                Genie = 11,
+                Genie = 12,
 
                 [EnumMember(Value = "doorking")]
-                Doorking = 12,
+                Doorking = 13,
 
                 [EnumMember(Value = "salto")]
-                Salto = 13,
+                Salto = 14,
 
                 [EnumMember(Value = "salto_ks")]
-                SaltoKs = 14,
+                SaltoKs = 15,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 15,
+                Lockly = 16,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 16,
+                Ttlock = 17,
 
                 [EnumMember(Value = "linear")]
-                Linear = 17,
+                Linear = 18,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 18,
+                Noiseaware = 19,
 
                 [EnumMember(Value = "nuki")]
-                Nuki = 19,
+                Nuki = 20,
 
                 [EnumMember(Value = "seam_relay_admin")]
-                SeamRelayAdmin = 20,
+                SeamRelayAdmin = 21,
 
                 [EnumMember(Value = "igloo")]
-                Igloo = 21,
+                Igloo = 22,
 
                 [EnumMember(Value = "kwikset")]
-                Kwikset = 22,
+                Kwikset = 23,
 
                 [EnumMember(Value = "minut")]
-                Minut = 23,
+                Minut = 24,
 
                 [EnumMember(Value = "my_2n")]
-                My_2n = 24,
+                My_2n = 25,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 25,
+                Controlbyweb = 26,
 
                 [EnumMember(Value = "nest")]
-                Nest = 26,
+                Nest = 27,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 27,
+                Igloohome = 28,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 28,
+                Ecobee = 29,
 
                 [EnumMember(Value = "hubitat")]
-                Hubitat = 29,
+                Hubitat = 30,
 
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 30,
+                FourSuites = 31,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 31,
+                DormakabaOracode = 32,
 
                 [EnumMember(Value = "pti")]
-                Pti = 32,
+                Pti = 33,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 33,
+                Wyze = 34,
 
                 [EnumMember(Value = "seam_passport")]
-                SeamPassport = 34,
+                SeamPassport = 35,
 
                 [EnumMember(Value = "visionline")]
-                Visionline = 35,
+                Visionline = 36,
 
                 [EnumMember(Value = "assa_abloy_credential_service")]
-                AssaAbloyCredentialService = 36,
-
-                [EnumMember(Value = "seam_bridge")]
-                SeamBridge = 37,
+                AssaAbloyCredentialService = 37,
 
                 [EnumMember(Value = "tedee")]
                 Tedee = 38,
@@ -215,14 +215,20 @@ namespace Seam.Api
                 [EnumMember(Value = "kwikset2")]
                 Kwikset2 = 47,
 
+                [EnumMember(Value = "keynest")]
+                Keynest = 48,
+
+                [EnumMember(Value = "dormakaba_ambiance")]
+                DormakabaAmbiance = 49,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 48,
+                YaleAccess = 50,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 49,
+                HidCm = 51,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 50,
+                GoogleNest = 52,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -612,12 +618,14 @@ namespace Seam.Api
 
             public ListRequest(
                 object? customMetadataHas = default,
+                string? customerKey = default,
                 float? limit = default,
                 string? pageCursor = default,
                 string? userIdentifierKey = default
             )
             {
                 CustomMetadataHas = customMetadataHas;
+                CustomerKey = customerKey;
                 Limit = limit;
                 PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
@@ -625,6 +633,9 @@ namespace Seam.Api
 
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -700,6 +711,7 @@ namespace Seam.Api
 
         public List<ConnectWebview> List(
             object? customMetadataHas = default,
+            string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
             string? userIdentifierKey = default
@@ -708,6 +720,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     customMetadataHas: customMetadataHas,
+                    customerKey: customerKey,
                     limit: limit,
                     pageCursor: pageCursor,
                     userIdentifierKey: userIdentifierKey
@@ -726,6 +739,7 @@ namespace Seam.Api
 
         public async Task<List<ConnectWebview>> ListAsync(
             object? customMetadataHas = default,
+            string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
             string? userIdentifierKey = default
@@ -735,6 +749,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         customMetadataHas: customMetadataHas,
+                        customerKey: customerKey,
                         limit: limit,
                         pageCursor: pageCursor,
                         userIdentifierKey: userIdentifierKey

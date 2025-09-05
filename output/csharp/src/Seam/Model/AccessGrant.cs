@@ -20,6 +20,7 @@ namespace Seam.Model
             List<string> accessMethodIds = default,
             string? clientSessionToken = default,
             string createdAt = default,
+            string? customizationProfileId = default,
             string displayName = default,
             string? endsAt = default,
             string? instantKeyUrl = default,
@@ -27,8 +28,9 @@ namespace Seam.Model
             string? name = default,
             List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
             List<string> spaceIds = default,
-            string? startsAt = default,
+            string startsAt = default,
             string userIdentityId = default,
+            List<AccessGrantWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -37,6 +39,7 @@ namespace Seam.Model
             AccessMethodIds = accessMethodIds;
             ClientSessionToken = clientSessionToken;
             CreatedAt = createdAt;
+            CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
             EndsAt = endsAt;
             InstantKeyUrl = instantKeyUrl;
@@ -46,7 +49,65 @@ namespace Seam.Model
             SpaceIds = spaceIds;
             StartsAt = startsAt;
             UserIdentityId = userIdentityId;
+            Warnings = warnings;
             WorkspaceId = workspaceId;
+        }
+
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(typeof(AccessGrantWarningsBeingDeleted), "being_deleted")]
+        public abstract class AccessGrantWarnings
+        {
+            public abstract string WarningCode { get; }
+
+            public abstract string Message { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_accessGrantWarningsBeingDeleted_model")]
+        public class AccessGrantWarningsBeingDeleted : AccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessGrantWarningsBeingDeleted() { }
+
+            public AccessGrantWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
@@ -63,6 +124,13 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(
+            Name = "customization_profile_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? CustomizationProfileId { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
@@ -85,11 +153,14 @@ namespace Seam.Model
         [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> SpaceIds { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? StartsAt { get; set; }
+        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        public string StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
+
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<AccessGrantWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -121,12 +192,14 @@ namespace Seam.Model
         protected AccessGrantRequestedAccessMethods() { }
 
         public AccessGrantRequestedAccessMethods(
+            string? code = default,
             List<string> createdAccessMethodIds = default,
             string createdAt = default,
             string displayName = default,
             AccessGrantRequestedAccessMethods.ModeEnum mode = default
         )
         {
+            Code = code;
             CreatedAccessMethodIds = createdAccessMethodIds;
             CreatedAt = createdAt;
             DisplayName = displayName;
@@ -148,6 +221,9 @@ namespace Seam.Model
             [EnumMember(Value = "mobile_key")]
             MobileKey = 3,
         }
+
+        [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+        public string? Code { get; set; }
 
         [DataMember(
             Name = "created_access_method_ids",

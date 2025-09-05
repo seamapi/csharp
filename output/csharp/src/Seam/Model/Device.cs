@@ -22,8 +22,12 @@ namespace Seam.Model
             bool? canProgramOnlineAccessCodes = default,
             bool? canRemotelyLock = default,
             bool? canRemotelyUnlock = default,
+            bool? canRunThermostatPrograms = default,
             bool? canSimulateConnection = default,
             bool? canSimulateDisconnection = default,
+            bool? canSimulateHubConnection = default,
+            bool? canSimulateHubDisconnection = default,
+            bool? canSimulatePaidSubscription = default,
             bool? canSimulateRemoval = default,
             bool? canTurnOffHvac = default,
             bool? canUnlockWithCode = default,
@@ -50,8 +54,12 @@ namespace Seam.Model
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
             CanRemotelyLock = canRemotelyLock;
             CanRemotelyUnlock = canRemotelyUnlock;
+            CanRunThermostatPrograms = canRunThermostatPrograms;
             CanSimulateConnection = canSimulateConnection;
             CanSimulateDisconnection = canSimulateDisconnection;
+            CanSimulateHubConnection = canSimulateHubConnection;
+            CanSimulateHubDisconnection = canSimulateHubDisconnection;
+            CanSimulatePaidSubscription = canSimulatePaidSubscription;
             CanSimulateRemoval = canSimulateRemoval;
             CanTurnOffHvac = canTurnOffHvac;
             CanUnlockWithCode = canUnlockWithCode;
@@ -183,35 +191,38 @@ namespace Seam.Model
             [EnumMember(Value = "akiles_lock")]
             AkilesLock = 27,
 
+            [EnumMember(Value = "keynest_key")]
+            KeynestKey = 28,
+
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 28,
+            NoiseawareActivityZone = 29,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 29,
+            MinutSensor = 30,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 30,
+            EcobeeThermostat = 31,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 31,
+            NestThermostat = 32,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 32,
+            HoneywellResideoThermostat = 33,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 33,
+            TadoThermostat = 34,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 34,
+            SensiThermostat = 35,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 35,
+            SmartthingsThermostat = 36,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 36,
+            IosPhone = 37,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 37,
+            AndroidPhone = 38,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1163,10 +1174,6 @@ namespace Seam.Model
             "ttlock_lock_gateway_unlocking_not_enabled"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(DeviceWarningsNestThermostatInManualEcoMode),
-            "nest_thermostat_in_manual_eco_mode"
-        )]
-        [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
         )]
@@ -1404,52 +1411,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "third_party_integration_detected";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_deviceWarningsNestThermostatInManualEcoMode_model")]
-        public class DeviceWarningsNestThermostatInManualEcoMode : DeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected DeviceWarningsNestThermostatInManualEcoMode() { }
-
-            public DeviceWarningsNestThermostatInManualEcoMode(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "nest_thermostat_in_manual_eco_mode";
 
             public override string ToString()
             {
@@ -2054,6 +2015,13 @@ namespace Seam.Model
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
 
+        [DataMember(
+            Name = "can_run_thermostat_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanRunThermostatPrograms { get; set; }
+
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateConnection { get; set; }
 
@@ -2063,6 +2031,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanSimulateDisconnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_hub_connection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubConnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_hub_disconnection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubDisconnection { get; set; }
+
+        [DataMember(
+            Name = "can_simulate_paid_subscription",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulatePaidSubscription { get; set; }
 
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateRemoval { get; set; }
@@ -2216,6 +2205,7 @@ namespace Seam.Model
             DevicePropertiesHubitatMetadata? hubitatMetadata = default,
             DevicePropertiesIglooMetadata? iglooMetadata = default,
             DevicePropertiesIgloohomeMetadata? igloohomeMetadata = default,
+            DevicePropertiesKeynestMetadata? keynestMetadata = default,
             DevicePropertiesKwiksetMetadata? kwiksetMetadata = default,
             DevicePropertiesLocklyMetadata? locklyMetadata = default,
             DevicePropertiesMinutMetadata? minutMetadata = default,
@@ -2263,6 +2253,7 @@ namespace Seam.Model
             float? maxCoolingSetPointFahrenheit = default,
             float? maxHeatingSetPointCelsius = default,
             float? maxHeatingSetPointFahrenheit = default,
+            float? maxThermostatDailyProgramPeriodsPerDay = default,
             float? minCoolingSetPointCelsius = default,
             float? minCoolingSetPointFahrenheit = default,
             float? minHeatingCoolingDeltaCelsius = default,
@@ -2273,6 +2264,7 @@ namespace Seam.Model
             float? temperatureCelsius = default,
             float? temperatureFahrenheit = default,
             DevicePropertiesTemperatureThreshold? temperatureThreshold = default,
+            float? thermostatDailyProgramPeriodPrecisionMinutes = default,
             List<DevicePropertiesThermostatDailyPrograms>? thermostatDailyPrograms = default,
             DevicePropertiesThermostatWeeklyProgram? thermostatWeeklyProgram = default
         )
@@ -2311,6 +2303,7 @@ namespace Seam.Model
             HubitatMetadata = hubitatMetadata;
             IglooMetadata = iglooMetadata;
             IgloohomeMetadata = igloohomeMetadata;
+            KeynestMetadata = keynestMetadata;
             KwiksetMetadata = kwiksetMetadata;
             LocklyMetadata = locklyMetadata;
             MinutMetadata = minutMetadata;
@@ -2357,6 +2350,7 @@ namespace Seam.Model
             MaxCoolingSetPointFahrenheit = maxCoolingSetPointFahrenheit;
             MaxHeatingSetPointCelsius = maxHeatingSetPointCelsius;
             MaxHeatingSetPointFahrenheit = maxHeatingSetPointFahrenheit;
+            MaxThermostatDailyProgramPeriodsPerDay = maxThermostatDailyProgramPeriodsPerDay;
             MinCoolingSetPointCelsius = minCoolingSetPointCelsius;
             MinCoolingSetPointFahrenheit = minCoolingSetPointFahrenheit;
             MinHeatingCoolingDeltaCelsius = minHeatingCoolingDeltaCelsius;
@@ -2367,6 +2361,8 @@ namespace Seam.Model
             TemperatureCelsius = temperatureCelsius;
             TemperatureFahrenheit = temperatureFahrenheit;
             TemperatureThreshold = temperatureThreshold;
+            ThermostatDailyProgramPeriodPrecisionMinutes =
+                thermostatDailyProgramPeriodPrecisionMinutes;
             ThermostatDailyPrograms = thermostatDailyPrograms;
             ThermostatWeeklyProgram = thermostatWeeklyProgram;
         }
@@ -2592,6 +2588,9 @@ namespace Seam.Model
         [DataMember(Name = "igloohome_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesIgloohomeMetadata? IgloohomeMetadata { get; set; }
 
+        [DataMember(Name = "keynest_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesKeynestMetadata? KeynestMetadata { get; set; }
+
         [DataMember(Name = "kwikset_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesKwiksetMetadata? KwiksetMetadata { get; set; }
 
@@ -2788,6 +2787,13 @@ namespace Seam.Model
         public float? MaxHeatingSetPointFahrenheit { get; set; }
 
         [DataMember(
+            Name = "max_thermostat_daily_program_periods_per_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? MaxThermostatDailyProgramPeriodsPerDay { get; set; }
+
+        [DataMember(
             Name = "min_cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
@@ -2840,6 +2846,13 @@ namespace Seam.Model
 
         [DataMember(Name = "temperature_threshold", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTemperatureThreshold? TemperatureThreshold { get; set; }
+
+        [DataMember(
+            Name = "thermostat_daily_program_period_precision_minutes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? ThermostatDailyProgramPeriodPrecisionMinutes { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_programs",
@@ -3475,10 +3488,17 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesBrivoMetadata() { }
 
-        public DevicePropertiesBrivoMetadata(string? deviceName = default)
+        public DevicePropertiesBrivoMetadata(
+            bool? activationEnabled = default,
+            string? deviceName = default
+        )
         {
+            ActivationEnabled = activationEnabled;
             DeviceName = deviceName;
         }
+
+        [DataMember(Name = "activation_enabled", IsRequired = false, EmitDefaultValue = false)]
+        public bool? ActivationEnabled { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceName { get; set; }
@@ -4025,6 +4045,145 @@ namespace Seam.Model
 
         [DataMember(Name = "keypad_id", IsRequired = false, EmitDefaultValue = false)]
         public string? KeypadId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesKeynestMetadata_model")]
+    public class DevicePropertiesKeynestMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesKeynestMetadata() { }
+
+        public DevicePropertiesKeynestMetadata(
+            string? address = default,
+            float? currentOrLastStoreId = default,
+            string? currentStatus = default,
+            string? currentUserCompany = default,
+            string? currentUserEmail = default,
+            string? currentUserName = default,
+            string? currentUserPhoneNumber = default,
+            float? defaultOfficeId = default,
+            string? deviceName = default,
+            float? fobId = default,
+            string? handoverMethod = default,
+            bool? hasPhoto = default,
+            string? keyId = default,
+            string? keyNotes = default,
+            string? keynestAppUser = default,
+            string? lastMovement = default,
+            string? propertyId = default,
+            string? propertyPostcode = default,
+            string? statusType = default,
+            string? subscriptionPlan = default
+        )
+        {
+            Address = address;
+            CurrentOrLastStoreId = currentOrLastStoreId;
+            CurrentStatus = currentStatus;
+            CurrentUserCompany = currentUserCompany;
+            CurrentUserEmail = currentUserEmail;
+            CurrentUserName = currentUserName;
+            CurrentUserPhoneNumber = currentUserPhoneNumber;
+            DefaultOfficeId = defaultOfficeId;
+            DeviceName = deviceName;
+            FobId = fobId;
+            HandoverMethod = handoverMethod;
+            HasPhoto = hasPhoto;
+            KeyId = keyId;
+            KeyNotes = keyNotes;
+            KeynestAppUser = keynestAppUser;
+            LastMovement = lastMovement;
+            PropertyId = propertyId;
+            PropertyPostcode = propertyPostcode;
+            StatusType = statusType;
+            SubscriptionPlan = subscriptionPlan;
+        }
+
+        [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+        public string? Address { get; set; }
+
+        [DataMember(
+            Name = "current_or_last_store_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? CurrentOrLastStoreId { get; set; }
+
+        [DataMember(Name = "current_status", IsRequired = false, EmitDefaultValue = false)]
+        public string? CurrentStatus { get; set; }
+
+        [DataMember(Name = "current_user_company", IsRequired = false, EmitDefaultValue = false)]
+        public string? CurrentUserCompany { get; set; }
+
+        [DataMember(Name = "current_user_email", IsRequired = false, EmitDefaultValue = false)]
+        public string? CurrentUserEmail { get; set; }
+
+        [DataMember(Name = "current_user_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? CurrentUserName { get; set; }
+
+        [DataMember(
+            Name = "current_user_phone_number",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? CurrentUserPhoneNumber { get; set; }
+
+        [DataMember(Name = "default_office_id", IsRequired = false, EmitDefaultValue = false)]
+        public float? DefaultOfficeId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "fob_id", IsRequired = false, EmitDefaultValue = false)]
+        public float? FobId { get; set; }
+
+        [DataMember(Name = "handover_method", IsRequired = false, EmitDefaultValue = false)]
+        public string? HandoverMethod { get; set; }
+
+        [DataMember(Name = "has_photo", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasPhoto { get; set; }
+
+        [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? KeyId { get; set; }
+
+        [DataMember(Name = "key_notes", IsRequired = false, EmitDefaultValue = false)]
+        public string? KeyNotes { get; set; }
+
+        [DataMember(Name = "keynest_app_user", IsRequired = false, EmitDefaultValue = false)]
+        public string? KeynestAppUser { get; set; }
+
+        [DataMember(Name = "last_movement", IsRequired = false, EmitDefaultValue = false)]
+        public string? LastMovement { get; set; }
+
+        [DataMember(Name = "property_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? PropertyId { get; set; }
+
+        [DataMember(Name = "property_postcode", IsRequired = false, EmitDefaultValue = false)]
+        public string? PropertyPostcode { get; set; }
+
+        [DataMember(Name = "status_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? StatusType { get; set; }
+
+        [DataMember(Name = "subscription_plan", IsRequired = false, EmitDefaultValue = false)]
+        public string? SubscriptionPlan { get; set; }
 
         public override string ToString()
         {

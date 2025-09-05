@@ -123,6 +123,7 @@ namespace Seam.Api
                 string? code = default,
                 string? credentialManagerAcsSystemId = default,
                 string? endsAt = default,
+                CreateRequestHotekMetadata? hotekMetadata = default,
                 bool? isMultiPhoneSyncCredential = default,
                 CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
                 string? startsAt = default,
@@ -138,6 +139,7 @@ namespace Seam.Api
                 Code = code;
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
                 EndsAt = endsAt;
+                HotekMetadata = hotekMetadata;
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
                 SaltoSpaceMetadata = saltoSpaceMetadata;
                 StartsAt = startsAt;
@@ -196,6 +198,9 @@ namespace Seam.Api
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
+
+            [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestHotekMetadata? HotekMetadata { get; set; }
 
             [DataMember(
                 Name = "is_multi_phone_sync_credential",
@@ -282,6 +287,47 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? OverrideGuestAcsEntranceIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestHotekMetadata_model")]
+        public class CreateRequestHotekMetadata
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestHotekMetadata() { }
+
+            public CreateRequestHotekMetadata(
+                bool? autoJoin = default,
+                bool? mustOverride = default
+            )
+            {
+                AutoJoin = autoJoin;
+                Override = mustOverride;
+            }
+
+            [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
+            public bool? AutoJoin { get; set; }
+
+            [DataMember(Name = "override", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Override { get; set; }
 
             public override string ToString()
             {
@@ -497,6 +543,7 @@ namespace Seam.Api
             string? code = default,
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
+            CreateRequestHotekMetadata? hotekMetadata = default,
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
@@ -514,6 +561,7 @@ namespace Seam.Api
                     code: code,
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                     endsAt: endsAt,
+                    hotekMetadata: hotekMetadata,
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                     saltoSpaceMetadata: saltoSpaceMetadata,
                     startsAt: startsAt,
@@ -543,6 +591,7 @@ namespace Seam.Api
             string? code = default,
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
+            CreateRequestHotekMetadata? hotekMetadata = default,
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
@@ -561,6 +610,7 @@ namespace Seam.Api
                         code: code,
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                         endsAt: endsAt,
+                        hotekMetadata: hotekMetadata,
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                         saltoSpaceMetadata: saltoSpaceMetadata,
                         startsAt: startsAt,
@@ -737,7 +787,9 @@ namespace Seam.Api
                 string? userIdentityId = default,
                 string? createdBefore = default,
                 bool? isMultiPhoneSyncCredential = default,
-                float? limit = default
+                float? limit = default,
+                string? pageCursor = default,
+                string? search = default
             )
             {
                 AcsUserId = acsUserId;
@@ -746,6 +798,8 @@ namespace Seam.Api
                 CreatedBefore = createdBefore;
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
                 Limit = limit;
+                PageCursor = pageCursor;
+                Search = search;
             }
 
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
@@ -769,6 +823,12 @@ namespace Seam.Api
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             public override string ToString()
             {
@@ -839,7 +899,9 @@ namespace Seam.Api
             string? userIdentityId = default,
             string? createdBefore = default,
             bool? isMultiPhoneSyncCredential = default,
-            float? limit = default
+            float? limit = default,
+            string? pageCursor = default,
+            string? search = default
         )
         {
             return List(
@@ -849,7 +911,9 @@ namespace Seam.Api
                     userIdentityId: userIdentityId,
                     createdBefore: createdBefore,
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
-                    limit: limit
+                    limit: limit,
+                    pageCursor: pageCursor,
+                    search: search
                 )
             );
         }
@@ -869,7 +933,9 @@ namespace Seam.Api
             string? userIdentityId = default,
             string? createdBefore = default,
             bool? isMultiPhoneSyncCredential = default,
-            float? limit = default
+            float? limit = default,
+            string? pageCursor = default,
+            string? search = default
         )
         {
             return (
@@ -880,7 +946,9 @@ namespace Seam.Api
                         userIdentityId: userIdentityId,
                         createdBefore: createdBefore,
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
-                        limit: limit
+                        limit: limit,
+                        pageCursor: pageCursor,
+                        search: search
                     )
                 )
             );

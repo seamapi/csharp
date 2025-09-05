@@ -460,14 +460,20 @@ namespace Seam.Model
             [EnumMember(Value = "dormakaba_community_site")]
             DormakabaCommunitySite = 10,
 
+            [EnumMember(Value = "dormakaba_ambiance_site")]
+            DormakabaAmbianceSite = 11,
+
             [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 11,
+            LegicConnectCredentialService = 12,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 12,
+            AssaAbloyVostio = 13,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 13,
+            AssaAbloyVostioCredentialService = 14,
+
+            [EnumMember(Value = "hotek_site")]
+            HotekSite = 15,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -506,14 +512,20 @@ namespace Seam.Model
             [EnumMember(Value = "dormakaba_community_site")]
             DormakabaCommunitySite = 10,
 
+            [EnumMember(Value = "dormakaba_ambiance_site")]
+            DormakabaAmbianceSite = 11,
+
             [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 11,
+            LegicConnectCredentialService = 12,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 12,
+            AssaAbloyVostio = 13,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 13,
+            AssaAbloyVostioCredentialService = 14,
+
+            [EnumMember(Value = "hotek_site")]
+            HotekSite = 15,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
