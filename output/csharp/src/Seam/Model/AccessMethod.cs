@@ -19,11 +19,14 @@ namespace Seam.Model
             string? clientSessionToken = default,
             string? code = default,
             string createdAt = default,
+            string? customizationProfileId = default,
             string displayName = default,
             string? instantKeyUrl = default,
             bool? isEncodingRequired = default,
+            bool isIssued = default,
             string? issuedAt = default,
             AccessMethod.ModeEnum mode = default,
+            List<AccessMethodWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -31,11 +34,14 @@ namespace Seam.Model
             ClientSessionToken = clientSessionToken;
             Code = code;
             CreatedAt = createdAt;
+            CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
             InstantKeyUrl = instantKeyUrl;
             IsEncodingRequired = isEncodingRequired;
+            IsIssued = isIssued;
             IssuedAt = issuedAt;
             Mode = mode;
+            Warnings = warnings;
             WorkspaceId = workspaceId;
         }
 
@@ -55,6 +61,63 @@ namespace Seam.Model
             MobileKey = 3,
         }
 
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.KnownSubType(typeof(AccessMethodWarningsBeingDeleted), "being_deleted")]
+        public abstract class AccessMethodWarnings
+        {
+            public abstract string WarningCode { get; }
+
+            public abstract string Message { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_accessMethodWarningsBeingDeleted_model")]
+        public class AccessMethodWarningsBeingDeleted : AccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessMethodWarningsBeingDeleted() { }
+
+            public AccessMethodWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
@@ -67,6 +130,13 @@ namespace Seam.Model
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(
+            Name = "customization_profile_id",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? CustomizationProfileId { get; set; }
+
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
@@ -76,11 +146,17 @@ namespace Seam.Model
         [DataMember(Name = "is_encoding_required", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsEncodingRequired { get; set; }
 
+        [DataMember(Name = "is_issued", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsIssued { get; set; }
+
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
 
         [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
         public AccessMethod.ModeEnum Mode { get; set; }
+
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<AccessMethodWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

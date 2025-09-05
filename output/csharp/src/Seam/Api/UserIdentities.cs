@@ -300,13 +300,22 @@ namespace Seam.Api
             protected GenerateInstantKeyRequest() { }
 
             public GenerateInstantKeyRequest(
+                string? customizationProfileId = default,
                 float? maxUseCount = default,
                 string userIdentityId = default
             )
             {
+                CustomizationProfileId = customizationProfileId;
                 MaxUseCount = maxUseCount;
                 UserIdentityId = userIdentityId;
             }
+
+            [DataMember(
+                Name = "customization_profile_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? CustomizationProfileId { get; set; }
 
             [DataMember(Name = "max_use_count", IsRequired = false, EmitDefaultValue = false)]
             public float? MaxUseCount { get; set; }
@@ -381,12 +390,14 @@ namespace Seam.Api
         }
 
         public InstantKey GenerateInstantKey(
+            string? customizationProfileId = default,
             float? maxUseCount = default,
             string userIdentityId = default
         )
         {
             return GenerateInstantKey(
                 new GenerateInstantKeyRequest(
+                    customizationProfileId: customizationProfileId,
                     maxUseCount: maxUseCount,
                     userIdentityId: userIdentityId
                 )
@@ -408,6 +419,7 @@ namespace Seam.Api
         }
 
         public async Task<InstantKey> GenerateInstantKeyAsync(
+            string? customizationProfileId = default,
             float? maxUseCount = default,
             string userIdentityId = default
         )
@@ -415,6 +427,7 @@ namespace Seam.Api
             return (
                 await GenerateInstantKeyAsync(
                     new GenerateInstantKeyRequest(
+                        customizationProfileId: customizationProfileId,
                         maxUseCount: maxUseCount,
                         userIdentityId: userIdentityId
                     )

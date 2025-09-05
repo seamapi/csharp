@@ -121,13 +121,12 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? accessMethodId = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 List<string>? connectedAccountIds = default,
                 string? createdBefore = default,
                 object? customMetadataHas = default,
-                List<string>? customerIds = default,
+                string? customerKey = default,
                 List<string>? deviceIds = default,
                 string? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -142,13 +141,12 @@ namespace Seam.Api
                 string? userIdentifierKey = default
             )
             {
-                AccessMethodId = accessMethodId;
                 ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
                 ConnectedAccountIds = connectedAccountIds;
                 CreatedBefore = createdBefore;
                 CustomMetadataHas = customMetadataHas;
-                CustomerIds = customerIds;
+                CustomerKey = customerKey;
                 DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
@@ -250,35 +248,38 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles_lock")]
                 AkilesLock = 27,
 
+                [EnumMember(Value = "keynest_key")]
+                KeynestKey = 28,
+
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 28,
+                NoiseawareActivityZone = 29,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 29,
+                MinutSensor = 30,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 30,
+                EcobeeThermostat = 31,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 31,
+                NestThermostat = 32,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 32,
+                HoneywellResideoThermostat = 33,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 33,
+                TadoThermostat = 34,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 34,
+                SensiThermostat = 35,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 35,
+                SmartthingsThermostat = 36,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 36,
+                IosPhone = 37,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 37,
+                AndroidPhone = 38,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -322,6 +323,18 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_unlock_with_code")]
                 CanUnlockWithCode = 12,
+
+                [EnumMember(Value = "can_run_thermostat_programs")]
+                CanRunThermostatPrograms = 13,
+
+                [EnumMember(Value = "can_simulate_hub_connection")]
+                CanSimulateHubConnection = 14,
+
+                [EnumMember(Value = "can_simulate_hub_disconnection")]
+                CanSimulateHubDisconnection = 15,
+
+                [EnumMember(Value = "can_simulate_paid_subscription")]
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -365,6 +378,18 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_unlock_with_code")]
                 CanUnlockWithCode = 12,
+
+                [EnumMember(Value = "can_run_thermostat_programs")]
+                CanRunThermostatPrograms = 13,
+
+                [EnumMember(Value = "can_simulate_hub_connection")]
+                CanSimulateHubConnection = 14,
+
+                [EnumMember(Value = "can_simulate_hub_disconnection")]
+                CanSimulateHubDisconnection = 15,
+
+                [EnumMember(Value = "can_simulate_paid_subscription")]
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -489,10 +514,10 @@ namespace Seam.Api
 
                 [EnumMember(Value = "smartthings")]
                 Smartthings = 39,
-            }
 
-            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessMethodId { get; set; }
+                [EnumMember(Value = "keynest")]
+                Keynest = 40,
+            }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
@@ -517,8 +542,8 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
-            [DataMember(Name = "customer_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? CustomerIds { get; set; }
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -622,13 +647,12 @@ namespace Seam.Api
         }
 
         public List<Device> List(
-            string? accessMethodId = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
             string? createdBefore = default,
             object? customMetadataHas = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -645,13 +669,12 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
-                    accessMethodId: accessMethodId,
                     connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
                     connectedAccountIds: connectedAccountIds,
                     createdBefore: createdBefore,
                     customMetadataHas: customMetadataHas,
-                    customerIds: customerIds,
+                    customerKey: customerKey,
                     deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
@@ -678,13 +701,12 @@ namespace Seam.Api
         }
 
         public async Task<List<Device>> ListAsync(
-            string? accessMethodId = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             List<string>? connectedAccountIds = default,
             string? createdBefore = default,
             object? customMetadataHas = default,
-            List<string>? customerIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
@@ -702,13 +724,12 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
-                        accessMethodId: accessMethodId,
                         connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
                         connectedAccountIds: connectedAccountIds,
                         createdBefore: createdBefore,
                         customMetadataHas: customMetadataHas,
-                        customerIds: customerIds,
+                        customerKey: customerKey,
                         deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,

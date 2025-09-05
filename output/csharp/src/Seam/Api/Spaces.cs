@@ -454,11 +454,13 @@ namespace Seam.Api
 
             public ListRequest(
                 string? connectedAccountId = default,
+                string? customerKey = default,
                 string? search = default,
                 string? spaceKey = default
             )
             {
                 ConnectedAccountId = connectedAccountId;
+                CustomerKey = customerKey;
                 Search = search;
                 SpaceKey = spaceKey;
             }
@@ -469,6 +471,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
@@ -539,6 +544,7 @@ namespace Seam.Api
 
         public List<Space> List(
             string? connectedAccountId = default,
+            string? customerKey = default,
             string? search = default,
             string? spaceKey = default
         )
@@ -546,6 +552,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     connectedAccountId: connectedAccountId,
+                    customerKey: customerKey,
                     search: search,
                     spaceKey: spaceKey
                 )
@@ -563,6 +570,7 @@ namespace Seam.Api
 
         public async Task<List<Space>> ListAsync(
             string? connectedAccountId = default,
+            string? customerKey = default,
             string? search = default,
             string? spaceKey = default
         )
@@ -571,6 +579,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         connectedAccountId: connectedAccountId,
+                        customerKey: customerKey,
                         search: search,
                         spaceKey: spaceKey
                     )

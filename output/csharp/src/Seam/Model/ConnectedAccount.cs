@@ -19,7 +19,7 @@ namespace Seam.Model
             string? accountType = default,
             string accountTypeDisplayName = default,
             bool automaticallyManageNewDevices = default,
-            string? connectedAccountId = default,
+            string connectedAccountId = default,
             string? createdAt = default,
             object? customMetadata = default,
             string? customerKey = default,
@@ -730,8 +730,8 @@ namespace Seam.Model
         )]
         public bool AutomaticallyManageNewDevices { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string? CreatedAt { get; set; }

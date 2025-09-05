@@ -255,28 +255,33 @@ namespace Seam.Api
 
             public ListRequest(
                 string? acsSystemId = default,
-                float? limit = default,
                 List<string>? acsSystemIds = default,
-                List<string>? acsEncoderIds = default
+                List<string>? acsEncoderIds = default,
+                float? limit = default,
+                string? pageCursor = default
             )
             {
                 AcsSystemId = acsSystemId;
-                Limit = limit;
                 AcsSystemIds = acsSystemIds;
                 AcsEncoderIds = acsEncoderIds;
+                Limit = limit;
+                PageCursor = pageCursor;
             }
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
-
-            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-            public float? Limit { get; set; }
 
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
 
             [DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEncoderIds { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             public override string ToString()
             {
@@ -341,17 +346,19 @@ namespace Seam.Api
 
         public List<AcsEncoder> List(
             string? acsSystemId = default,
-            float? limit = default,
             List<string>? acsSystemIds = default,
-            List<string>? acsEncoderIds = default
+            List<string>? acsEncoderIds = default,
+            float? limit = default,
+            string? pageCursor = default
         )
         {
             return List(
                 new ListRequest(
                     acsSystemId: acsSystemId,
-                    limit: limit,
                     acsSystemIds: acsSystemIds,
-                    acsEncoderIds: acsEncoderIds
+                    acsEncoderIds: acsEncoderIds,
+                    limit: limit,
+                    pageCursor: pageCursor
                 )
             );
         }
@@ -367,18 +374,20 @@ namespace Seam.Api
 
         public async Task<List<AcsEncoder>> ListAsync(
             string? acsSystemId = default,
-            float? limit = default,
             List<string>? acsSystemIds = default,
-            List<string>? acsEncoderIds = default
+            List<string>? acsEncoderIds = default,
+            float? limit = default,
+            string? pageCursor = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
                         acsSystemId: acsSystemId,
-                        limit: limit,
                         acsSystemIds: acsSystemIds,
-                        acsEncoderIds: acsEncoderIds
+                        acsEncoderIds: acsEncoderIds,
+                        limit: limit,
+                        pageCursor: pageCursor
                     )
                 )
             );

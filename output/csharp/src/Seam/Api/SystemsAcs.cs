@@ -118,9 +118,10 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? connectedAccountId = default)
+            public ListRequest(string? connectedAccountId = default, string? customerKey = default)
             {
                 ConnectedAccountId = connectedAccountId;
+                CustomerKey = customerKey;
             }
 
             [DataMember(
@@ -129,6 +130,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             public override string ToString()
             {
@@ -191,9 +195,14 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/acs/systems/list", requestOptions).Data.AcsSystems;
         }
 
-        public List<AcsSystem> List(string? connectedAccountId = default)
+        public List<AcsSystem> List(
+            string? connectedAccountId = default,
+            string? customerKey = default
+        )
         {
-            return List(new ListRequest(connectedAccountId: connectedAccountId));
+            return List(
+                new ListRequest(connectedAccountId: connectedAccountId, customerKey: customerKey)
+            );
         }
 
         public async Task<List<AcsSystem>> ListAsync(ListRequest request)
@@ -205,9 +214,19 @@ namespace Seam.Api
                 .AcsSystems;
         }
 
-        public async Task<List<AcsSystem>> ListAsync(string? connectedAccountId = default)
+        public async Task<List<AcsSystem>> ListAsync(
+            string? connectedAccountId = default,
+            string? customerKey = default
+        )
         {
-            return (await ListAsync(new ListRequest(connectedAccountId: connectedAccountId)));
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        connectedAccountId: connectedAccountId,
+                        customerKey: customerKey
+                    )
+                )
+            );
         }
 
         [DataContract(Name = "listCompatibleCredentialManagerAcsSystemsRequest_request")]

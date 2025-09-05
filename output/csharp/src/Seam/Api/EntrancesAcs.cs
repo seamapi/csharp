@@ -209,33 +209,29 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? accessGrantId = default,
-                string? accessMethodId = default,
                 string? acsCredentialId = default,
                 List<string>? acsEntranceIds = default,
                 string? acsSystemId = default,
                 string? connectedAccountId = default,
+                string? customerKey = default,
+                int? limit = default,
                 string? locationId = default,
+                string? pageCursor = default,
                 string? search = default,
                 string? spaceId = default
             )
             {
-                AccessGrantId = accessGrantId;
-                AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
                 AcsEntranceIds = acsEntranceIds;
                 AcsSystemId = acsSystemId;
                 ConnectedAccountId = connectedAccountId;
+                CustomerKey = customerKey;
+                Limit = limit;
                 LocationId = locationId;
+                PageCursor = pageCursor;
                 Search = search;
                 SpaceId = spaceId;
             }
-
-            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessGrantId { get; set; }
-
-            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessMethodId { get; set; }
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
@@ -253,8 +249,17 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
@@ -326,26 +331,28 @@ namespace Seam.Api
         }
 
         public List<AcsEntrance> List(
-            string? accessGrantId = default,
-            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
             string? connectedAccountId = default,
+            string? customerKey = default,
+            int? limit = default,
             string? locationId = default,
+            string? pageCursor = default,
             string? search = default,
             string? spaceId = default
         )
         {
             return List(
                 new ListRequest(
-                    accessGrantId: accessGrantId,
-                    accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
                     acsEntranceIds: acsEntranceIds,
                     acsSystemId: acsSystemId,
                     connectedAccountId: connectedAccountId,
+                    customerKey: customerKey,
+                    limit: limit,
                     locationId: locationId,
+                    pageCursor: pageCursor,
                     search: search,
                     spaceId: spaceId
                 )
@@ -362,13 +369,14 @@ namespace Seam.Api
         }
 
         public async Task<List<AcsEntrance>> ListAsync(
-            string? accessGrantId = default,
-            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
             string? connectedAccountId = default,
+            string? customerKey = default,
+            int? limit = default,
             string? locationId = default,
+            string? pageCursor = default,
             string? search = default,
             string? spaceId = default
         )
@@ -376,13 +384,14 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
-                        accessGrantId: accessGrantId,
-                        accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
                         acsEntranceIds: acsEntranceIds,
                         acsSystemId: acsSystemId,
                         connectedAccountId: connectedAccountId,
+                        customerKey: customerKey,
+                        limit: limit,
                         locationId: locationId,
+                        pageCursor: pageCursor,
                         search: search,
                         spaceId: spaceId
                     )

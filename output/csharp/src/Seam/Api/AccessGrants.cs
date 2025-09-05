@@ -29,6 +29,7 @@ namespace Seam.Api
                 CreateRequestUserIdentity? userIdentity = default,
                 string? accessGrantKey = default,
                 List<string>? acsEntranceIds = default,
+                string? customizationProfileId = default,
                 List<string>? deviceIds = default,
                 string? endsAt = default,
                 CreateRequestLocation? location = default,
@@ -36,6 +37,7 @@ namespace Seam.Api
                 string? name = default,
                 List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
                 List<string>? spaceIds = default,
+                List<string>? spaceKeys = default,
                 string? startsAt = default
             )
             {
@@ -43,6 +45,7 @@ namespace Seam.Api
                 UserIdentity = userIdentity;
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceIds = acsEntranceIds;
+                CustomizationProfileId = customizationProfileId;
                 DeviceIds = deviceIds;
                 EndsAt = endsAt;
                 Location = location;
@@ -50,6 +53,7 @@ namespace Seam.Api
                 Name = name;
                 RequestedAccessMethods = requestedAccessMethods;
                 SpaceIds = spaceIds;
+                SpaceKeys = spaceKeys;
                 StartsAt = startsAt;
             }
 
@@ -64,6 +68,13 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(
+                Name = "customization_profile_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? CustomizationProfileId { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -89,6 +100,9 @@ namespace Seam.Api
 
             [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceIds { get; set; }
+
+            [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceKeys { get; set; }
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
@@ -122,12 +136,14 @@ namespace Seam.Api
             public CreateRequestUserIdentity(
                 string? emailAddress = default,
                 string? fullName = default,
-                string? phoneNumber = default
+                string? phoneNumber = default,
+                string? userIdentityKey = default
             )
             {
                 EmailAddress = emailAddress;
                 FullName = fullName;
                 PhoneNumber = phoneNumber;
+                UserIdentityKey = userIdentityKey;
             }
 
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
@@ -138,6 +154,9 @@ namespace Seam.Api
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
+
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
 
             public override string ToString()
             {
@@ -212,9 +231,11 @@ namespace Seam.Api
             protected CreateRequestRequestedAccessMethods() { }
 
             public CreateRequestRequestedAccessMethods(
+                string? code = default,
                 CreateRequestRequestedAccessMethods.ModeEnum mode = default
             )
             {
+                Code = code;
                 Mode = mode;
             }
 
@@ -233,6 +254,9 @@ namespace Seam.Api
                 [EnumMember(Value = "mobile_key")]
                 MobileKey = 3,
             }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
 
             [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
             public CreateRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
@@ -305,6 +329,7 @@ namespace Seam.Api
             CreateRequestUserIdentity? userIdentity = default,
             string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
+            string? customizationProfileId = default,
             List<string>? deviceIds = default,
             string? endsAt = default,
             CreateRequestLocation? location = default,
@@ -312,6 +337,7 @@ namespace Seam.Api
             string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
             List<string>? spaceIds = default,
+            List<string>? spaceKeys = default,
             string? startsAt = default
         )
         {
@@ -321,6 +347,7 @@ namespace Seam.Api
                     userIdentity: userIdentity,
                     accessGrantKey: accessGrantKey,
                     acsEntranceIds: acsEntranceIds,
+                    customizationProfileId: customizationProfileId,
                     deviceIds: deviceIds,
                     endsAt: endsAt,
                     location: location,
@@ -328,6 +355,7 @@ namespace Seam.Api
                     name: name,
                     requestedAccessMethods: requestedAccessMethods,
                     spaceIds: spaceIds,
+                    spaceKeys: spaceKeys,
                     startsAt: startsAt
                 )
             );
@@ -347,6 +375,7 @@ namespace Seam.Api
             CreateRequestUserIdentity? userIdentity = default,
             string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
+            string? customizationProfileId = default,
             List<string>? deviceIds = default,
             string? endsAt = default,
             CreateRequestLocation? location = default,
@@ -354,6 +383,7 @@ namespace Seam.Api
             string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
             List<string>? spaceIds = default,
+            List<string>? spaceKeys = default,
             string? startsAt = default
         )
         {
@@ -364,6 +394,7 @@ namespace Seam.Api
                         userIdentity: userIdentity,
                         accessGrantKey: accessGrantKey,
                         acsEntranceIds: acsEntranceIds,
+                        customizationProfileId: customizationProfileId,
                         deviceIds: deviceIds,
                         endsAt: endsAt,
                         location: location,
@@ -371,6 +402,7 @@ namespace Seam.Api
                         name: name,
                         requestedAccessMethods: requestedAccessMethods,
                         spaceIds: spaceIds,
+                        spaceKeys: spaceKeys,
                         startsAt: startsAt
                     )
                 )
@@ -552,6 +584,7 @@ namespace Seam.Api
                 string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? acsSystemId = default,
+                string? customerKey = default,
                 string? locationId = default,
                 string? spaceId = default,
                 string? userIdentityId = default
@@ -560,6 +593,7 @@ namespace Seam.Api
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
+                CustomerKey = customerKey;
                 LocationId = locationId;
                 SpaceId = spaceId;
                 UserIdentityId = userIdentityId;
@@ -573,6 +607,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
@@ -650,6 +687,7 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
+            string? customerKey = default,
             string? locationId = default,
             string? spaceId = default,
             string? userIdentityId = default
@@ -660,6 +698,7 @@ namespace Seam.Api
                     accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
+                    customerKey: customerKey,
                     locationId: locationId,
                     spaceId: spaceId,
                     userIdentityId: userIdentityId
@@ -680,6 +719,7 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
+            string? customerKey = default,
             string? locationId = default,
             string? spaceId = default,
             string? userIdentityId = default
@@ -691,6 +731,7 @@ namespace Seam.Api
                         accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
+                        customerKey: customerKey,
                         locationId: locationId,
                         spaceId: spaceId,
                         userIdentityId: userIdentityId
