@@ -3539,7 +3539,7 @@ namespace Seam.Model
         protected EventConnectedAccountConnected() { }
 
         public EventConnectedAccountConnected(
-            string connectWebviewId = default,
+            string? connectWebviewId = default,
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
@@ -3561,8 +3561,8 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ConnectWebviewId { get; set; }
+        [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectWebviewId { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
