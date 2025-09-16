@@ -20,8 +20,8 @@ namespace Seam.Model
                 MissingMemberHandling = MissingMemberHandling.Error,
                 ContractResolver = new DefaultContractResolver
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false },
-                },
+                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
+                }
             };
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace Seam.Model
                 MissingMemberHandling = MissingMemberHandling.Ignore,
                 ContractResolver = new DefaultContractResolver
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false },
-                },
+                    NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
+                }
             };
 
         /// <summary>

@@ -58,10 +58,11 @@ namespace Seam.Model
             Card = 2,
 
             [EnumMember(Value = "mobile_key")]
-            MobileKey = 3,
+            MobileKey = 3
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(AccessMethodWarningsUnknown))]
         [JsonSubtypes.KnownSubType(typeof(AccessMethodWarningsBeingDeleted), "being_deleted")]
         public abstract class AccessMethodWarnings
         {
@@ -97,6 +98,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessMethodWarningsUnknown_model")]
+        public class AccessMethodWarningsUnknown : AccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessMethodWarningsUnknown() { }
+
+            public AccessMethodWarningsUnknown(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

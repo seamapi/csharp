@@ -40,7 +40,7 @@ namespace Seam.Model
             Unrecognized = 0,
 
             [EnumMember(Value = "hid_part_number")]
-            HidPartNumber = 1,
+            HidPartNumber = 1
         }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = true, EmitDefaultValue = false)]

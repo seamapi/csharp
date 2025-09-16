@@ -57,7 +57,7 @@ namespace Seam.Api
                 Circle = 1,
 
                 [EnumMember(Value = "square")]
-                Square = 2,
+                Square = 2
             }
 
             [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]
@@ -156,7 +156,7 @@ namespace Seam.Api
                 Circle = 1,
 
                 [EnumMember(Value = "square")]
-                Square = 2,
+                Square = 2
             }
 
             [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]

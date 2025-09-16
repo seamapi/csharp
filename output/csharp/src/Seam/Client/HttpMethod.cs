@@ -24,6 +24,6 @@ namespace Seam.Client
         Options,
 
         /// <summary>HTTP PATCH request.</summary>
-        Patch,
+        Patch
     }
 }

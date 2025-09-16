@@ -60,6 +60,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(AcsSystemErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AcsSystemErrorsSaltoKsCertificationExpired),
             "salto_ks_certification_expired"
@@ -424,6 +425,44 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_acsSystemErrorsUnknown_model")]
+        public class AcsSystemErrorsUnknown : AcsSystemErrors
+        {
+            [JsonConstructorAttribute]
+            protected AcsSystemErrorsUnknown() { }
+
+            public AcsSystemErrorsUnknown(string errorCode = default, string message = default)
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -473,7 +512,7 @@ namespace Seam.Model
             AssaAbloyVostioCredentialService = 14,
 
             [EnumMember(Value = "hotek_site")]
-            HotekSite = 15,
+            HotekSite = 15
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -525,10 +564,11 @@ namespace Seam.Model
             AssaAbloyVostioCredentialService = 14,
 
             [EnumMember(Value = "hotek_site")]
-            HotekSite = 15,
+            HotekSite = 15
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(AcsSystemWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AcsSystemWarningsTimeZoneDoesNotMatchLocation),
             "time_zone_does_not_match_location"
@@ -629,6 +669,44 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "time_zone_does_not_match_location";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsSystemWarningsUnknown_model")]
+        public class AcsSystemWarningsUnknown : AcsSystemWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsSystemWarningsUnknown() { }
+
+            public AcsSystemWarningsUnknown(string warningCode = default, string message = default)
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

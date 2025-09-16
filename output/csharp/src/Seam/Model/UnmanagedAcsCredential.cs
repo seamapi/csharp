@@ -88,7 +88,7 @@ namespace Seam.Model
             Card = 2,
 
             [EnumMember(Value = "mobile_key")]
-            MobileKey = 3,
+            MobileKey = 3
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -125,10 +125,11 @@ namespace Seam.Model
             DormakabaAmbianceCredential = 9,
 
             [EnumMember(Value = "hotek_card")]
-            HotekCard = 10,
+            HotekCard = 10
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAcsCredentialWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsCredentialWarningsNeedsToBeReissued),
             "needs_to_be_reissued"
@@ -446,6 +447,47 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsUnknown_model")]
+        public class UnmanagedAcsCredentialWarningsUnknown : UnmanagedAcsCredentialWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsCredentialWarningsUnknown() { }
+
+            public UnmanagedAcsCredentialWarningsUnknown(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
         public UnmanagedAcsCredential.AccessMethodEnum AccessMethod { get; set; }
 
@@ -715,7 +757,7 @@ namespace Seam.Model
             Guest = 1,
 
             [EnumMember(Value = "staff")]
-            Staff = 2,
+            Staff = 2
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]

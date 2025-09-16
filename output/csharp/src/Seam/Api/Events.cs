@@ -454,7 +454,7 @@ namespace Seam.Api
                 EnrollmentAutomationDeleted = 90,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 91,
+                PhoneDeactivated = 91
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -734,7 +734,7 @@ namespace Seam.Api
                 EnrollmentAutomationDeleted = 90,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 91,
+                PhoneDeactivated = 91
             }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]

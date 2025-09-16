@@ -98,7 +98,7 @@ namespace Seam.Model
             Unrecognized = 0,
 
             [EnumMember(Value = "acs_encoder_removed")]
-            AcsEncoderRemoved = 1,
+            AcsEncoderRemoved = 1
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]

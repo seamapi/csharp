@@ -141,4 +141,123 @@ public class UnitTest1 : SeamConnectTest
             device.Properties.AvailableFanModeSettings[1]
         );
     }
+
+    [Fact]
+    public void TestDiscriminatedUnionArrayWithUnknownTypes()
+    {
+        // Test case for handling unknown discriminated union types in arrays
+        // This simulates the scenario where warnings/errors arrays contain unknown types
+        var json =
+            @"{
+            ""connected_account_id"": ""test-account-id"",
+            ""account_type"": ""august"",
+            ""account_type_display_name"": ""August Lock"",
+            ""automatically_manage_new_devices"": true,
+            ""created_at"": ""2024-01-15T10:00:00Z"",
+            ""accepted_capabilities"": [],
+            ""custom_metadata"": {},
+            ""errors"": [
+                {
+                    ""error_code"": ""unknown_error_type"",
+                    ""message"": ""An unknown error occurred"",
+                    ""created_at"": ""2024-01-15T10:00:00Z""
+                }
+            ],
+            ""warnings"": [
+                {
+                    ""warning_code"": ""unknown_warning_type"",
+                    ""message"": ""An unknown warning occurred"",
+                    ""created_at"": ""2024-01-15T10:00:00Z""
+                }
+            ]
+        }";
+
+        var settings = new JsonSerializerSettings
+        {
+            Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
+        // Unknown discriminated union types should fall back to unrecognized type
+        var account = JsonConvert.DeserializeObject<ConnectedAccount>(json, settings);
+
+        Assert.NotNull(account);
+        Assert.NotNull(account.Errors);
+        Assert.Single(account.Errors);
+
+        // The unknown error type should fall back to an unrecognized error type
+        var error = account.Errors[0];
+        Assert.Equal("unrecognized", error.ErrorCode);
+        Assert.Equal("An unknown error occurred", error.Message);
+    }
+
+    [Fact]
+    public void TestEventArrayWithUnknownTypes()
+    {
+        // Test case for Event arrays with unknown event types
+        var json =
+            @"[
+            {
+                ""event_id"": ""event-1"",
+                ""event_type"": ""device.connected"",
+                ""created_at"": ""2024-01-15T10:00:00Z"",
+                ""occurred_at"": ""2024-01-15T10:00:00Z"",
+                ""device_id"": ""device-123"",
+                ""connected_account_id"": ""account-123"",
+                ""workspace_id"": ""workspace-123""
+            },
+            {
+                ""event_id"": ""event-2"",
+                ""event_type"": ""unknown_event_type"",
+                ""created_at"": ""2024-01-15T10:00:00Z"",
+                ""custom_field"": ""custom_value""
+            }
+        ]";
+
+        var settings = new JsonSerializerSettings
+        {
+            Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
+        // Unknown event types should fall back to unrecognized type
+        var events = JsonConvert.DeserializeObject<List<Event>>(json, settings);
+
+        Assert.NotNull(events);
+        Assert.Equal(2, events.Count);
+
+        // First event should deserialize normally
+        Assert.IsType<EventDeviceConnected>(events[0]);
+
+        // Second event with unknown type should fall back to unrecognized
+        var unknownEvent = events[1];
+        Assert.IsType<EventUnrecognized>(unknownEvent);
+        Assert.Equal("unrecognized", unknownEvent.EventType);
+    }
+
+    [Fact]
+    public void TestActionAttemptWithUnknownType()
+    {
+        // Test case for ActionAttempt with unknown action types
+        var json =
+            @"{
+            ""action_attempt_id"": ""attempt-123"",
+            ""action_type"": ""UNKNOWN_ACTION"",
+            ""status"": ""success"",
+            ""result"": {},
+            ""error"": null
+        }";
+
+        var settings = new JsonSerializerSettings
+        {
+            Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
+        // Unknown action types should fall back to unrecognized type
+        var actionAttempt = JsonConvert.DeserializeObject<ActionAttempt>(json, settings);
+
+        Assert.NotNull(actionAttempt);
+        Assert.Equal("unrecognized", actionAttempt.ActionType);
+    }
 }

@@ -168,7 +168,7 @@ namespace Seam.Api
                 Android = 1,
 
                 [EnumMember(Value = "ios")]
-                Ios = 2,
+                Ios = 2
             }
 
             [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]

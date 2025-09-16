@@ -68,6 +68,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAcsUserErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsUserErrorsLatchConflictWithResidentUser),
             "latch_conflict_with_resident_user"
@@ -379,6 +380,47 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedAcsUserErrorsUnknown_model")]
+        public class UnmanagedAcsUserErrorsUnknown : UnmanagedAcsUserErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserErrorsUnknown() { }
+
+            public UnmanagedAcsUserErrorsUnknown(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -404,10 +446,11 @@ namespace Seam.Model
             DormakabaCommunityUser = 6,
 
             [EnumMember(Value = "salto_space_user")]
-            SaltoSpaceUser = 7,
+            SaltoSpaceUser = 7
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAcsUserPendingMutationsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsUserPendingMutationsUpdatingGroupMembership),
             "updating_group_membership"
@@ -1095,7 +1138,42 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingMutationsUnknown_model")]
+        public class UnmanagedAcsUserPendingMutationsUnknown : UnmanagedAcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingMutationsUnknown() { }
+
+            public UnmanagedAcsUserPendingMutationsUnknown(string mutationCode = default)
+            {
+                MutationCode = mutationCode;
+            }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "unknown";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAcsUserWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsUserWarningsLatchResidentUser),
             "latch_resident_user"
@@ -1281,6 +1359,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "latch_resident_user";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserWarningsUnknown_model")]
+        public class UnmanagedAcsUserWarningsUnknown : UnmanagedAcsUserWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserWarningsUnknown() { }
+
+            public UnmanagedAcsUserWarningsUnknown(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

@@ -210,7 +210,7 @@ namespace Seam.Model
             Keynest = 48,
 
             [EnumMember(Value = "dormakaba_ambiance")]
-            DormakabaAmbiance = 49,
+            DormakabaAmbiance = 49
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -232,7 +232,7 @@ namespace Seam.Model
             NoiseSensors = 4,
 
             [EnumMember(Value = "access_control_systems")]
-            AccessControlSystems = 5,
+            AccessControlSystems = 5
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]

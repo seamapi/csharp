@@ -9,6 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "event_type")]
+    [JsonSubtypes.FallBackSubType(typeof(EventUnknown))]
     [JsonSubtypes.KnownSubType(typeof(EventPhoneDeactivated), "phone.deactivated")]
     [JsonSubtypes.KnownSubType(
         typeof(EventEnrollmentAutomationDeleted),
@@ -4914,7 +4915,7 @@ namespace Seam.Model
             HubDisconnected = 2,
 
             [EnumMember(Value = "device_disconnected")]
-            DeviceDisconnected = 3,
+            DeviceDisconnected = 3
         }
 
         [DataMember(
@@ -5015,7 +5016,7 @@ namespace Seam.Model
             HubDisconnected = 2,
 
             [EnumMember(Value = "device_disconnected")]
-            DeviceDisconnected = 3,
+            DeviceDisconnected = 3
         }
 
         [DataMember(
@@ -5286,7 +5287,7 @@ namespace Seam.Model
             Good = 3,
 
             [EnumMember(Value = "full")]
-            Full = 4,
+            Full = 4
         }
 
         [DataMember(Name = "battery_level", IsRequired = true, EmitDefaultValue = false)]
@@ -6471,7 +6472,7 @@ namespace Seam.Model
             Unknown = 4,
 
             [EnumMember(Value = "seamapi")]
-            Seamapi = 5,
+            Seamapi = 5
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -6588,7 +6589,7 @@ namespace Seam.Model
             Unknown = 4,
 
             [EnumMember(Value = "seamapi")]
-            Seamapi = 5,
+            Seamapi = 5
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -6891,7 +6892,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3,
+            Circulate = 3
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6913,7 +6914,7 @@ namespace Seam.Model
             HeatCool = 4,
 
             [EnumMember(Value = "eco")]
-            Eco = 5,
+            Eco = 5
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6926,7 +6927,7 @@ namespace Seam.Model
             Seam = 1,
 
             [EnumMember(Value = "external")]
-            External = 2,
+            External = 2
         }
 
         [DataMember(
@@ -7627,6 +7628,40 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventUnknown_model")]
+    public class EventUnknown : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventUnknown() { }
+
+        public EventUnknown(string eventType = default)
+        {
+            EventType = eventType;
+        }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "unknown";
 
         public override string ToString()
         {

@@ -70,7 +70,7 @@ namespace Seam.Model
             DormakabaCommunityAccessGroup = 6,
 
             [EnumMember(Value = "dormakaba_ambiance_access_group")]
-            DormakabaAmbianceAccessGroup = 7,
+            DormakabaAmbianceAccessGroup = 7
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -98,7 +98,7 @@ namespace Seam.Model
             DormakabaCommunityAccessGroup = 6,
 
             [EnumMember(Value = "dormakaba_ambiance_access_group")]
-            DormakabaAmbianceAccessGroup = 7,
+            DormakabaAmbianceAccessGroup = 7
         }
 
         [DataMember(Name = "access_group_type", IsRequired = true, EmitDefaultValue = false)]
@@ -192,7 +192,7 @@ namespace Seam.Model
             Unrecognized = 0,
 
             [EnumMember(Value = "unknown_issue_with_acs_access_group")]
-            UnknownIssueWithAcsAccessGroup = 1,
+            UnknownIssueWithAcsAccessGroup = 1
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]

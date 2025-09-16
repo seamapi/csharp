@@ -45,7 +45,7 @@ namespace Seam.Api
                 UncategorizedError = 1,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
+                ActionAttemptExpired = 2
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -151,7 +151,7 @@ namespace Seam.Api
                 Unrecognized = 0,
 
                 [EnumMember(Value = "credential_is_issued")]
-                CredentialIsIssued = 1,
+                CredentialIsIssued = 1
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -255,7 +255,7 @@ namespace Seam.Api
                 UncategorizedError = 1,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
+                ActionAttemptExpired = 2
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -365,7 +365,7 @@ namespace Seam.Api
                 Unrecognized = 0,
 
                 [EnumMember(Value = "credential_on_encoder_is_empty")]
-                CredentialOnEncoderIsEmpty = 1,
+                CredentialOnEncoderIsEmpty = 1
             }
 
             [DataMember(

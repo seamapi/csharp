@@ -252,7 +252,7 @@ namespace Seam.Api
                 Card = 2,
 
                 [EnumMember(Value = "mobile_key")]
-                MobileKey = 3,
+                MobileKey = 3
             }
 
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]

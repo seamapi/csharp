@@ -97,7 +97,7 @@ namespace Seam.Model
             Battery = 5,
 
             [EnumMember(Value = "phone")]
-            Phone = 6,
+            Phone = 6
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -218,10 +218,11 @@ namespace Seam.Model
             IosPhone = 37,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 38,
+            AndroidPhone = 38
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsBridgeDisconnected),
             "bridge_disconnected"
@@ -1143,7 +1144,49 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedDeviceErrorsUnknown_model")]
+        public class UnmanagedDeviceErrorsUnknown : UnmanagedDeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceErrorsUnknown() { }
+
+            public UnmanagedDeviceErrorsUnknown(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsLocklyTimeZoneNotConfigured),
             "lockly_time_zone_not_configured"
@@ -2013,6 +2056,47 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsUnknown_model")]
+        public class UnmanagedDeviceWarningsUnknown : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsUnknown() { }
+
+            public UnmanagedDeviceWarningsUnknown(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
@@ -2383,7 +2467,7 @@ namespace Seam.Model
             Good = 3,
 
             [EnumMember(Value = "full")]
-            Full = 4,
+            Full = 4
         }
 
         [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
