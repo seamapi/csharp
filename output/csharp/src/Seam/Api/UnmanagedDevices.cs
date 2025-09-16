@@ -284,7 +284,7 @@ namespace Seam.Api
                 IosPhone = 37,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 38
+                AndroidPhone = 38,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -339,7 +339,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -394,7 +394,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -521,7 +521,7 @@ namespace Seam.Api
                 Smartthings = 39,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 40
+                Keynest = 40,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

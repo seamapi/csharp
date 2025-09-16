@@ -441,7 +441,7 @@ namespace Seam.Api
                 NoiseSensor = 3,
 
                 [EnumMember(Value = "access_control")]
-                AccessControl = 4
+                AccessControl = 4,
             }
 
             [DataMember(

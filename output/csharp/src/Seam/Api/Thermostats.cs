@@ -351,7 +351,7 @@ namespace Seam.Api
                 Occupied = 5,
 
                 [EnumMember(Value = "unoccupied")]
-                Unoccupied = 6
+                Unoccupied = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -367,7 +367,7 @@ namespace Seam.Api
                 On = 2,
 
                 [EnumMember(Value = "circulate")]
-                Circulate = 3
+                Circulate = 3,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -389,7 +389,7 @@ namespace Seam.Api
                 HeatCool = 4,
 
                 [EnumMember(Value = "eco")]
-                Eco = 5
+                Eco = 5,
             }
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
@@ -495,7 +495,7 @@ namespace Seam.Api
                 User = 1,
 
                 [EnumMember(Value = "system")]
-                System = 2
+                System = 2,
             }
 
             [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]
@@ -1077,7 +1077,7 @@ namespace Seam.Api
                 SensiThermostat = 5,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 6
+                SmartthingsThermostat = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1102,7 +1102,7 @@ namespace Seam.Api
                 SensiThermostat = 5,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 6
+                SmartthingsThermostat = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1157,7 +1157,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1212,7 +1212,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1237,7 +1237,7 @@ namespace Seam.Api
                 Sensi = 5,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 6
+                Smartthings = 6,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
@@ -1682,7 +1682,7 @@ namespace Seam.Api
                 On = 2,
 
                 [EnumMember(Value = "circulate")]
-                Circulate = 3
+                Circulate = 3,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1698,7 +1698,7 @@ namespace Seam.Api
                 On = 2,
 
                 [EnumMember(Value = "circulate")]
-                Circulate = 3
+                Circulate = 3,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1856,7 +1856,7 @@ namespace Seam.Api
                 Unrecognized = 0,
 
                 [EnumMember(Value = "eco")]
-                Eco = 1
+                Eco = 1,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -2187,7 +2187,7 @@ namespace Seam.Api
                 Occupied = 5,
 
                 [EnumMember(Value = "unoccupied")]
-                Unoccupied = 6
+                Unoccupied = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2203,7 +2203,7 @@ namespace Seam.Api
                 On = 2,
 
                 [EnumMember(Value = "circulate")]
-                Circulate = 3
+                Circulate = 3,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2225,7 +2225,7 @@ namespace Seam.Api
                 HeatCool = 4,
 
                 [EnumMember(Value = "eco")]
-                Eco = 5
+                Eco = 5,
             }
 
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
@@ -2331,7 +2331,7 @@ namespace Seam.Api
                 User = 1,
 
                 [EnumMember(Value = "system")]
-                System = 2
+                System = 2,
             }
 
             [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]

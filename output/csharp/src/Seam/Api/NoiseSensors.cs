@@ -75,7 +75,7 @@ namespace Seam.Api
                 NoiseawareActivityZone = 1,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 2
+                MinutSensor = 2,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -88,7 +88,7 @@ namespace Seam.Api
                 NoiseawareActivityZone = 1,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 2
+                MinutSensor = 2,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -143,7 +143,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -198,7 +198,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -211,7 +211,7 @@ namespace Seam.Api
                 Minut = 1,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 2
+                Noiseaware = 2,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

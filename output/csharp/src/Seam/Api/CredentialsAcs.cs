@@ -160,7 +160,7 @@ namespace Seam.Api
                 Card = 2,
 
                 [EnumMember(Value = "mobile_key")]
-                MobileKey = 3
+                MobileKey = 3,
             }
 
             [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
@@ -426,7 +426,7 @@ namespace Seam.Api
                 TlCode = 1,
 
                 [EnumMember(Value = "rfid48")]
-                Rfid48 = 2
+                Rfid48 = 2,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -439,7 +439,7 @@ namespace Seam.Api
                 Guest = 1,
 
                 [EnumMember(Value = "staff")]
-                Staff = 2
+                Staff = 2,
             }
 
             [DataMember(

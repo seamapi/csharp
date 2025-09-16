@@ -421,7 +421,7 @@ namespace Seam.Api
                 Unrecognized = 0,
 
                 [EnumMember(Value = "visionline_metadata.is_valid")]
-                VisionlineMetadataIsValid = 1
+                VisionlineMetadataIsValid = 1,
             }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]

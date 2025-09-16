@@ -65,7 +65,7 @@ namespace Seam.Api
                 NoiseSensor = 3,
 
                 [EnumMember(Value = "access_control")]
-                AccessControl = 4
+                AccessControl = 4,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -228,7 +228,7 @@ namespace Seam.Api
                 HidCm = 51,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 52
+                GoogleNest = 52,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -244,7 +244,7 @@ namespace Seam.Api
                 Single = 2,
 
                 [EnumMember(Value = "multiple")]
-                Multiple = 3
+                Multiple = 3,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -269,7 +269,7 @@ namespace Seam.Api
                 AccessControlSystems = 5,
 
                 [EnumMember(Value = "internal_beta")]
-                InternalBeta = 6
+                InternalBeta = 6,
             }
 
             [DataMember(

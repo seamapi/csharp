@@ -79,7 +79,7 @@ namespace Seam.Api
                 _1h = 3,
 
                 [EnumMember(Value = "1d")]
-                _1d = 4
+                _1d = 4,
             }
 
             [DataMember(
@@ -379,7 +379,7 @@ namespace Seam.Api
                 Throw = 1,
 
                 [EnumMember(Value = "create_random_code")]
-                CreateRandomCode = 2
+                CreateRandomCode = 2,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -398,7 +398,7 @@ namespace Seam.Api
                 _1h = 3,
 
                 [EnumMember(Value = "1d")]
-                _1d = 4
+                _1d = 4,
             }
 
             [DataMember(
@@ -1383,7 +1383,7 @@ namespace Seam.Api
                 _1h = 3,
 
                 [EnumMember(Value = "1d")]
-                _1d = 4
+                _1d = 4,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1396,7 +1396,7 @@ namespace Seam.Api
                 Ongoing = 1,
 
                 [EnumMember(Value = "time_bound")]
-                TimeBound = 2
+                TimeBound = 2,
             }
 
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]

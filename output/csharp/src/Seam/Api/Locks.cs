@@ -246,7 +246,7 @@ namespace Seam.Api
                 TedeeLock = 26,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27
+                AkilesLock = 27,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -334,7 +334,7 @@ namespace Seam.Api
                 TedeeLock = 26,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27
+                AkilesLock = 27,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -389,7 +389,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -444,7 +444,7 @@ namespace Seam.Api
                 CanSimulateHubDisconnection = 15,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16
+                CanSimulatePaidSubscription = 16,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -535,7 +535,7 @@ namespace Seam.Api
                 Kwikset2 = 27,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 28
+                Smartthings = 28,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
