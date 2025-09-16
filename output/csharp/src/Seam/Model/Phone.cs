@@ -49,7 +49,7 @@ namespace Seam.Model
             IosPhone = 1,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 2
+            AndroidPhone = 2,
         }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]

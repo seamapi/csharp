@@ -177,7 +177,7 @@ namespace Seam.Model
             GuestDoor = 3,
 
             [EnumMember(Value = "Elevator")]
-            Elevator = 4
+            Elevator = 4,
         }
 
         [DataMember(Name = "door_name", IsRequired = true, EmitDefaultValue = false)]
@@ -355,7 +355,7 @@ namespace Seam.Model
             CommonArea = 1,
 
             [EnumMember(Value = "guest")]
-            Guest = 2
+            Guest = 2,
         }
 
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
@@ -606,7 +606,7 @@ namespace Seam.Model
             Common = 4,
 
             [EnumMember(Value = "common (PMS)")]
-            CommonPms = 5
+            CommonPms = 5,
         }
 
         [DataMember(Name = "door_category", IsRequired = true, EmitDefaultValue = false)]
@@ -667,7 +667,7 @@ namespace Seam.Model
             CommonDoor = 2,
 
             [EnumMember(Value = "touch")]
-            Touch = 3
+            Touch = 3,
         }
 
         [DataMember(

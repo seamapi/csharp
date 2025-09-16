@@ -47,7 +47,7 @@ namespace Seam.Model
             OrganizeSpaces = 3,
 
             [EnumMember(Value = "console")]
-            Console = 4
+            Console = 4,
         }
 
         [DataMember(Name = "building_block_type", IsRequired = true, EmitDefaultValue = false)]

@@ -64,7 +64,6 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessCodeErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsBridgeDisconnected),
             "bridge_disconnected"
@@ -2363,44 +2362,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessCodeErrorsUnknown_model")]
-        public class AccessCodeErrorsUnknown : AccessCodeErrors
-        {
-            [JsonConstructorAttribute]
-            protected AccessCodeErrorsUnknown() { }
-
-            public AccessCodeErrorsUnknown(string errorCode = default, string message = default)
-            {
-                ErrorCode = errorCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
@@ -2420,7 +2381,7 @@ namespace Seam.Model
             Removing = 4,
 
             [EnumMember(Value = "unknown")]
-            Unknown = 5
+            Unknown = 5,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2433,11 +2394,10 @@ namespace Seam.Model
             TimeBound = 1,
 
             [EnumMember(Value = "ongoing")]
-            Ongoing = 2
+            Ongoing = 2,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessCodeWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeWarningsKwiksetUnableToConfirmCode),
             "kwikset_unable_to_confirm_code"
@@ -3029,44 +2989,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "kwikset_unable_to_confirm_code";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_accessCodeWarningsUnknown_model")]
-        public class AccessCodeWarningsUnknown : AccessCodeWarnings
-        {
-            [JsonConstructorAttribute]
-            protected AccessCodeWarningsUnknown() { }
-
-            public AccessCodeWarningsUnknown(string warningCode = default, string message = default)
-            {
-                WarningCode = warningCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
 
             public override string ToString()
             {

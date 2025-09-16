@@ -9,7 +9,6 @@ using Seam.Model;
 namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "action_type")]
-    [JsonSubtypes.FallBackSubType(typeof(ActionAttemptUnknown))]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateNoiseThreshold), "UPDATE_NOISE_THRESHOLD")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteNoiseThreshold), "DELETE_NOISE_THRESHOLD")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateNoiseThreshold), "CREATE_NOISE_THRESHOLD")]
@@ -84,7 +83,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -156,7 +155,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -228,7 +227,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -300,7 +299,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -372,7 +371,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -444,7 +443,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -516,7 +515,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -588,7 +587,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -660,7 +659,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -732,7 +731,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -804,7 +803,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -876,7 +875,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -948,7 +947,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1020,7 +1019,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1092,7 +1091,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1164,7 +1163,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1236,7 +1235,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1308,7 +1307,7 @@ namespace Seam.Model
             Success = 2,
 
             [EnumMember(Value = "error")]
-            Error = 3
+            Error = 3,
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
@@ -1325,40 +1324,6 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_actionAttemptUnknown_model")]
-    public class ActionAttemptUnknown : ActionAttempt
-    {
-        [JsonConstructorAttribute]
-        protected ActionAttemptUnknown() { }
-
-        public ActionAttemptUnknown(string actionType = default)
-        {
-            ActionType = actionType;
-        }
-
-        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
-        public override string ActionType { get; } = "unknown";
 
         public override string ToString()
         {

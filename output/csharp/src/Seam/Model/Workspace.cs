@@ -109,7 +109,7 @@ namespace Seam.Model
             Circle = 1,
 
             [EnumMember(Value = "square")]
-            Square = 2
+            Square = 2,
         }
 
         [DataMember(Name = "inviter_logo_url", IsRequired = false, EmitDefaultValue = false)]

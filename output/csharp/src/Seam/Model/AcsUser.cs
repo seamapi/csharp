@@ -68,7 +68,6 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AcsUserErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserErrorsLatchConflictWithResidentUser),
             "latch_conflict_with_resident_user"
@@ -375,44 +374,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsUserErrorsUnknown_model")]
-        public class AcsUserErrorsUnknown : AcsUserErrors
-        {
-            [JsonConstructorAttribute]
-            protected AcsUserErrorsUnknown() { }
-
-            public AcsUserErrorsUnknown(string errorCode = default, string message = default)
-            {
-                ErrorCode = errorCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -438,11 +399,10 @@ namespace Seam.Model
             DormakabaCommunityUser = 6,
 
             [EnumMember(Value = "salto_space_user")]
-            SaltoSpaceUser = 7
+            SaltoSpaceUser = 7,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AcsUserPendingMutationsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserPendingMutationsUpdatingGroupMembership),
             "updating_group_membership"
@@ -1098,42 +1058,7 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsUserPendingMutationsUnknown_model")]
-        public class AcsUserPendingMutationsUnknown : AcsUserPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsUserPendingMutationsUnknown() { }
-
-            public AcsUserPendingMutationsUnknown(string mutationCode = default)
-            {
-                MutationCode = mutationCode;
-            }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "unknown";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AcsUserWarningsUnknown))]
         [JsonSubtypes.KnownSubType(typeof(AcsUserWarningsLatchResidentUser), "latch_resident_user")]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserWarningsUnknownIssueWithAcsUser),
@@ -1316,44 +1241,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "latch_resident_user";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_acsUserWarningsUnknown_model")]
-        public class AcsUserWarningsUnknown : AcsUserWarnings
-        {
-            [JsonConstructorAttribute]
-            protected AcsUserWarningsUnknown() { }
-
-            public AcsUserWarningsUnknown(string warningCode = default, string message = default)
-            {
-                WarningCode = warningCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
 
             public override string ToString()
             {

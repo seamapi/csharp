@@ -77,7 +77,7 @@ namespace Seam.Model
             NoiseSensor = 3,
 
             [EnumMember(Value = "access_control")]
-            AccessControl = 4
+            AccessControl = 4,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -93,7 +93,7 @@ namespace Seam.Model
             Single = 2,
 
             [EnumMember(Value = "multiple")]
-            Multiple = 3
+            Multiple = 3,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -109,7 +109,7 @@ namespace Seam.Model
             Failed = 2,
 
             [EnumMember(Value = "authorized")]
-            Authorized = 3
+            Authorized = 3,
         }
 
         [DataMember(Name = "accepted_capabilities", IsRequired = true, EmitDefaultValue = false)]

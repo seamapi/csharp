@@ -101,7 +101,7 @@ namespace Seam.Model
             Battery = 5,
 
             [EnumMember(Value = "phone")]
-            Phone = 6
+            Phone = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -222,11 +222,10 @@ namespace Seam.Model
             IosPhone = 37,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 38
+            AndroidPhone = 38,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(DeviceErrorsUnknown))]
         [JsonSubtypes.KnownSubType(typeof(DeviceErrorsBridgeDisconnected), "bridge_disconnected")]
         [JsonSubtypes.KnownSubType(typeof(DeviceErrorsInvalidCredentials), "invalid_credentials")]
         [JsonSubtypes.KnownSubType(
@@ -1131,46 +1130,7 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_deviceErrorsUnknown_model")]
-        public class DeviceErrorsUnknown : DeviceErrors
-        {
-            [JsonConstructorAttribute]
-            protected DeviceErrorsUnknown() { }
-
-            public DeviceErrorsUnknown(string errorCode = default, string message = default)
-            {
-                ErrorCode = errorCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(DeviceWarningsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsLocklyTimeZoneNotConfigured),
             "lockly_time_zone_not_configured"
@@ -2026,44 +1986,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_deviceWarningsUnknown_model")]
-        public class DeviceWarningsUnknown : DeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected DeviceWarningsUnknown() { }
-
-            public DeviceWarningsUnknown(string warningCode = default, string message = default)
-            {
-                WarningCode = warningCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "unknown";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
@@ -2467,7 +2389,7 @@ namespace Seam.Model
             Occupied = 5,
 
             [EnumMember(Value = "unoccupied")]
-            Unoccupied = 6
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2483,7 +2405,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3
+            Circulate = 3,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2505,7 +2427,7 @@ namespace Seam.Model
             HeatCool = 4,
 
             [EnumMember(Value = "eco")]
-            Eco = 5
+            Eco = 5,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -2521,7 +2443,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3
+            Circulate = 3,
         }
 
         [DataMember(Name = "accessory_keypad", IsRequired = false, EmitDefaultValue = false)]
@@ -3106,7 +3028,7 @@ namespace Seam.Model
             Good = 3,
 
             [EnumMember(Value = "full")]
-            Full = 4
+            Full = 4,
         }
 
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
@@ -4768,7 +4690,7 @@ namespace Seam.Model
             Indoor = 1,
 
             [EnumMember(Value = "outdoor")]
-            Outdoor = 2
+            Outdoor = 2,
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
@@ -5057,7 +4979,7 @@ namespace Seam.Model
             Bridge = 1,
 
             [EnumMember(Value = "doorking")]
-            Doorking = 2
+            Doorking = 2,
         }
 
         [DataMember(Name = "device_num", IsRequired = false, EmitDefaultValue = false)]
@@ -5832,7 +5754,7 @@ namespace Seam.Model
             Occupied = 5,
 
             [EnumMember(Value = "unoccupied")]
-            Unoccupied = 6
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5848,7 +5770,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3
+            Circulate = 3,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -5870,7 +5792,7 @@ namespace Seam.Model
             HeatCool = 4,
 
             [EnumMember(Value = "eco")]
-            Eco = 5
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
@@ -5981,7 +5903,7 @@ namespace Seam.Model
             User = 1,
 
             [EnumMember(Value = "system")]
-            System = 2
+            System = 2,
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
@@ -6077,7 +5999,7 @@ namespace Seam.Model
             Occupied = 5,
 
             [EnumMember(Value = "unoccupied")]
-            Unoccupied = 6
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6093,7 +6015,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3
+            Circulate = 3,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6115,7 +6037,7 @@ namespace Seam.Model
             HeatCool = 4,
 
             [EnumMember(Value = "eco")]
-            Eco = 5
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
@@ -6226,7 +6148,7 @@ namespace Seam.Model
             User = 1,
 
             [EnumMember(Value = "system")]
-            System = 2
+            System = 2,
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
@@ -6322,7 +6244,7 @@ namespace Seam.Model
             Occupied = 5,
 
             [EnumMember(Value = "unoccupied")]
-            Unoccupied = 6
+            Unoccupied = 6,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6338,7 +6260,7 @@ namespace Seam.Model
             On = 2,
 
             [EnumMember(Value = "circulate")]
-            Circulate = 3
+            Circulate = 3,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -6360,7 +6282,7 @@ namespace Seam.Model
             HeatCool = 4,
 
             [EnumMember(Value = "eco")]
-            Eco = 5
+            Eco = 5,
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
@@ -6471,7 +6393,7 @@ namespace Seam.Model
             User = 1,
 
             [EnumMember(Value = "system")]
-            System = 2
+            System = 2,
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]

@@ -48,7 +48,6 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(BridgeClientSessionErrorsUnknown))]
         [JsonSubtypes.KnownSubType(
             typeof(BridgeClientSessionErrorsNoCommunicationFromBridge),
             "no_communication_from_bridge"
@@ -179,47 +178,6 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "no_communication_from_bridge";
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_bridgeClientSessionErrorsUnknown_model")]
-        public class BridgeClientSessionErrorsUnknown : BridgeClientSessionErrors
-        {
-            [JsonConstructorAttribute]
-            protected BridgeClientSessionErrorsUnknown() { }
-
-            public BridgeClientSessionErrorsUnknown(
-                string errorCode = default,
-                string message = default
-            )
-            {
-                ErrorCode = errorCode;
-                Message = message;
-            }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "unknown";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
             public override string Message { get; set; }
