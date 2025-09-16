@@ -185,7 +185,7 @@ public class UnitTest1 : SeamConnectTest
 
         // The unknown error type should fall back to an unrecognized error type
         var error = account.Errors[0];
-        Assert.Equal("unknown", error.ErrorCode);
+        Assert.Equal("unrecognized", error.ErrorCode);
         Assert.Equal("An unknown error occurred", error.Message);
     }
 
@@ -228,8 +228,8 @@ public class UnitTest1 : SeamConnectTest
 
         // Second event with unknown type should fall back to unrecognized
         var unknownEvent = events[1];
-        Assert.IsType<EventUnknown>(unknownEvent);
-        Assert.Equal("unknown", unknownEvent.EventType);
+        Assert.IsType<EventUnrecognized>(unknownEvent);
+        Assert.Equal("unrecognized", unknownEvent.EventType);
     }
 
     [Fact]
@@ -255,6 +255,6 @@ public class UnitTest1 : SeamConnectTest
         var actionAttempt = JsonConvert.DeserializeObject<ActionAttempt>(json, settings);
 
         Assert.NotNull(actionAttempt);
-        Assert.Equal("unknown", actionAttempt.ActionType);
+        Assert.Equal("unrecognized", actionAttempt.ActionType);
     }
 }
