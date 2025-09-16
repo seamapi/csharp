@@ -145,8 +145,6 @@ public class UnitTest1 : SeamConnectTest
     [Fact]
     public void TestDiscriminatedUnionArrayWithUnknownTypes()
     {
-        // Test case for handling unknown discriminated union types in arrays
-        // This simulates the scenario where warnings/errors arrays contain unknown types
         var json =
             @"{
             ""connected_account_id"": ""test-account-id"",
@@ -187,14 +185,13 @@ public class UnitTest1 : SeamConnectTest
 
         // The unknown error type should fall back to an unrecognized error type
         var error = account.Errors[0];
-        Assert.Equal("unrecognized", error.ErrorCode);
+        Assert.Equal("unknown", error.ErrorCode);
         Assert.Equal("An unknown error occurred", error.Message);
     }
 
     [Fact]
     public void TestEventArrayWithUnknownTypes()
     {
-        // Test case for Event arrays with unknown event types
         var json =
             @"[
             {
@@ -231,8 +228,8 @@ public class UnitTest1 : SeamConnectTest
 
         // Second event with unknown type should fall back to unrecognized
         var unknownEvent = events[1];
-        Assert.IsType<EventUnrecognized>(unknownEvent);
-        Assert.Equal("unrecognized", unknownEvent.EventType);
+        Assert.IsType<EventUnknown>(unknownEvent);
+        Assert.Equal("unknown", unknownEvent.EventType);
     }
 
     [Fact]
@@ -258,6 +255,6 @@ public class UnitTest1 : SeamConnectTest
         var actionAttempt = JsonConvert.DeserializeObject<ActionAttempt>(json, settings);
 
         Assert.NotNull(actionAttempt);
-        Assert.Equal("unrecognized", actionAttempt.ActionType);
+        Assert.Equal("unknown", actionAttempt.ActionType);
     }
 }
