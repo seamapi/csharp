@@ -132,11 +132,10 @@ namespace Seam.Client
                         { "url", "https://connect.getseam.com" },
                         { "description", "No description provided" },
                     }
-                }
+                },
             };
             OperationServers = new Dictionary<string, List<IReadOnlyDictionary<string, object>>>()
-            {
-                };
+            { };
 
             // Setting Timeout has side effects (forces ApiClient creation).
             Timeout = 100000;
