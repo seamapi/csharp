@@ -31,7 +31,6 @@ namespace Seam.Model
             AcsEntranceLatchMetadata? latchMetadata = default,
             AcsEntranceSaltoKsMetadata? saltoKsMetadata = default,
             AcsEntranceSaltoSpaceMetadata? saltoSpaceMetadata = default,
-            List<string> spaceIds = default,
             AcsEntranceVisionlineMetadata? visionlineMetadata = default
         )
         {
@@ -51,7 +50,6 @@ namespace Seam.Model
             LatchMetadata = latchMetadata;
             SaltoKsMetadata = saltoKsMetadata;
             SaltoSpaceMetadata = saltoSpaceMetadata;
-            SpaceIds = spaceIds;
             VisionlineMetadata = visionlineMetadata;
         }
 
@@ -118,9 +116,6 @@ namespace Seam.Model
 
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
-
-        [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
-        public List<string> SpaceIds { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceVisionlineMetadata? VisionlineMetadata { get; set; }
@@ -260,10 +255,17 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected AcsEntranceDormakabaCommunityMetadata() { }
 
-        public AcsEntranceDormakabaCommunityMetadata(string accessPointProfile = default)
+        public AcsEntranceDormakabaCommunityMetadata(
+            string accessPointName = default,
+            string accessPointProfile = default
+        )
         {
+            AccessPointName = accessPointName;
             AccessPointProfile = accessPointProfile;
         }
+
+        [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessPointName { get; set; }
 
         [DataMember(Name = "access_point_profile", IsRequired = true, EmitDefaultValue = false)]
         public string AccessPointProfile { get; set; }

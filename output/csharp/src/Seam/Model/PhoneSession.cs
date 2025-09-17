@@ -757,7 +757,6 @@ namespace Seam.Model
                 default,
             PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata? saltoSpaceMetadata =
                 default,
-            List<string> spaceIds = default,
             PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata? visionlineMetadata =
                 default
         )
@@ -778,7 +777,6 @@ namespace Seam.Model
             LatchMetadata = latchMetadata;
             SaltoKsMetadata = saltoKsMetadata;
             SaltoSpaceMetadata = saltoSpaceMetadata;
-            SpaceIds = spaceIds;
             VisionlineMetadata = visionlineMetadata;
         }
 
@@ -845,9 +843,6 @@ namespace Seam.Model
 
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
-
-        [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
-        public List<string> SpaceIds { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata? VisionlineMetadata { get; set; }
@@ -1000,11 +995,16 @@ namespace Seam.Model
         { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata(
+            string accessPointName = default,
             string accessPointProfile = default
         )
         {
+            AccessPointName = accessPointName;
             AccessPointProfile = accessPointProfile;
         }
+
+        [DataMember(Name = "access_point_name", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessPointName { get; set; }
 
         [DataMember(Name = "access_point_profile", IsRequired = true, EmitDefaultValue = false)]
         public string AccessPointProfile { get; set; }
