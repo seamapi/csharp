@@ -9,6 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "action_type")]
+    [JsonSubtypes.FallBackSubType(typeof(ActionAttemptUnrecognized))]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptUpdateNoiseThreshold), "UPDATE_NOISE_THRESHOLD")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteNoiseThreshold), "DELETE_NOISE_THRESHOLD")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateNoiseThreshold), "CREATE_NOISE_THRESHOLD")]
@@ -1324,6 +1325,40 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptUnrecognized_model")]
+    public class ActionAttemptUnrecognized : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptUnrecognized() { }
+
+        public ActionAttemptUnrecognized(string actionType = default)
+        {
+            ActionType = actionType;
+        }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "unrecognized";
 
         public override string ToString()
         {

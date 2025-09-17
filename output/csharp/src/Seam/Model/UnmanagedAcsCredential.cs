@@ -129,6 +129,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAcsCredentialWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAcsCredentialWarningsNeedsToBeReissued),
             "needs_to_be_reissued"
@@ -425,6 +426,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "needs_to_be_reissued";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsCredentialWarningsUnrecognized_model")]
+        public class UnmanagedAcsCredentialWarningsUnrecognized : UnmanagedAcsCredentialWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsCredentialWarningsUnrecognized() { }
+
+            public UnmanagedAcsCredentialWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

@@ -9,6 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "event_type")]
+    [JsonSubtypes.FallBackSubType(typeof(EventUnrecognized))]
     [JsonSubtypes.KnownSubType(typeof(EventPhoneDeactivated), "phone.deactivated")]
     [JsonSubtypes.KnownSubType(
         typeof(EventEnrollmentAutomationDeleted),
@@ -7627,6 +7628,40 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventUnrecognized_model")]
+    public class EventUnrecognized : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventUnrecognized() { }
+
+        public EventUnrecognized(string eventType = default)
+        {
+            EventType = eventType;
+        }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "unrecognized";
 
         public override string ToString()
         {

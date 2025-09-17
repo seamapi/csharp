@@ -173,7 +173,7 @@ public class UnitTest1 : SeamConnectTest
         var settings = new JsonSerializerSettings
         {
             Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
-            MissingMemberHandling = MissingMemberHandling.Ignore
+            MissingMemberHandling = MissingMemberHandling.Ignore,
         };
 
         // Unknown discriminated union types should fall back to unrecognized type
@@ -214,7 +214,7 @@ public class UnitTest1 : SeamConnectTest
         var settings = new JsonSerializerSettings
         {
             Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
-            MissingMemberHandling = MissingMemberHandling.Ignore
+            MissingMemberHandling = MissingMemberHandling.Ignore,
         };
 
         // Unknown event types should fall back to unrecognized type
@@ -248,7 +248,7 @@ public class UnitTest1 : SeamConnectTest
         var settings = new JsonSerializerSettings
         {
             Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
-            MissingMemberHandling = MissingMemberHandling.Ignore
+            MissingMemberHandling = MissingMemberHandling.Ignore,
         };
 
         // Unknown action types should fall back to unrecognized type
