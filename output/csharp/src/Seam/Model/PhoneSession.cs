@@ -220,6 +220,9 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(
+            typeof(PhoneSessionProviderSessionsAcsCredentialsWarningsUnrecognized)
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(PhoneSessionProviderSessionsAcsCredentialsWarningsNeedsToBeReissued),
             "needs_to_be_reissued"
@@ -528,6 +531,50 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "needs_to_be_reissued";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_phoneSessionProviderSessionsAcsCredentialsWarningsUnrecognized_model"
+        )]
+        public class PhoneSessionProviderSessionsAcsCredentialsWarningsUnrecognized
+            : PhoneSessionProviderSessionsAcsCredentialsWarnings
+        {
+            [JsonConstructorAttribute]
+            protected PhoneSessionProviderSessionsAcsCredentialsWarningsUnrecognized() { }
+
+            public PhoneSessionProviderSessionsAcsCredentialsWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -1701,6 +1748,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(PhoneSessionUserIdentityErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(PhoneSessionUserIdentityErrorsIssueWithAcsUser),
             "issue_with_acs_user"
@@ -1770,7 +1818,49 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_phoneSessionUserIdentityErrorsUnrecognized_model")]
+        public class PhoneSessionUserIdentityErrorsUnrecognized : PhoneSessionUserIdentityErrors
+        {
+            [JsonConstructorAttribute]
+            protected PhoneSessionUserIdentityErrorsUnrecognized() { }
+
+            public PhoneSessionUserIdentityErrorsUnrecognized(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(PhoneSessionUserIdentityWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(PhoneSessionUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity),
             "acs_user_profile_does_not_match_user_identity"
@@ -1863,6 +1953,47 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } =
                 "acs_user_profile_does_not_match_user_identity";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_phoneSessionUserIdentityWarningsUnrecognized_model")]
+        public class PhoneSessionUserIdentityWarningsUnrecognized : PhoneSessionUserIdentityWarnings
+        {
+            [JsonConstructorAttribute]
+            protected PhoneSessionUserIdentityWarningsUnrecognized() { }
+
+            public PhoneSessionUserIdentityWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
