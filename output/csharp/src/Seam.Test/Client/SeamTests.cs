@@ -112,7 +112,8 @@ public class UnitTest1 : SeamConnectTest
             properties: {
                 ""available_fan_mode_settings"": [""unknown_mode"", ""auto""]
             },
-            custom_metadata: {}
+            custom_metadata: {},
+            space_ids: []
         }";
 
         var settings = new JsonSerializerSettings
