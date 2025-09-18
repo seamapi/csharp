@@ -18,18 +18,22 @@ namespace Seam.Model
             string companyName = default,
             string? connectPartnerName = default,
             WorkspaceConnectWebviewCustomization connectWebviewCustomization = default,
+            bool isPublishableKeyAuthEnabled = default,
             bool isSandbox = default,
             bool isSuspended = default,
             string name = default,
+            string? publishableKey = default,
             string workspaceId = default
         )
         {
             CompanyName = companyName;
             ConnectPartnerName = connectPartnerName;
             ConnectWebviewCustomization = connectWebviewCustomization;
+            IsPublishableKeyAuthEnabled = isPublishableKeyAuthEnabled;
             IsSandbox = isSandbox;
             IsSuspended = isSuspended;
             Name = name;
+            PublishableKey = publishableKey;
             WorkspaceId = workspaceId;
         }
 
@@ -46,6 +50,13 @@ namespace Seam.Model
         )]
         public WorkspaceConnectWebviewCustomization ConnectWebviewCustomization { get; set; }
 
+        [DataMember(
+            Name = "is_publishable_key_auth_enabled",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public bool IsPublishableKeyAuthEnabled { get; set; }
+
         [DataMember(Name = "is_sandbox", IsRequired = true, EmitDefaultValue = false)]
         public bool IsSandbox { get; set; }
 
@@ -54,6 +65,9 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
+
+        [DataMember(Name = "publishable_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? PublishableKey { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

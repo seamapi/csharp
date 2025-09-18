@@ -180,13 +180,20 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected CreatePortalRequestFeaturesConnect() { }
 
-            public CreatePortalRequestFeaturesConnect(bool? exclude = default)
+            public CreatePortalRequestFeaturesConnect(
+                bool? exclude = default,
+                List<string>? excludedProviders = default
+            )
             {
                 Exclude = exclude;
+                ExcludedProviders = excludedProviders;
             }
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
+
+            [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ExcludedProviders { get; set; }
 
             public override string ToString()
             {
