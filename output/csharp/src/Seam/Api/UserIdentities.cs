@@ -24,17 +24,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected AddAcsUserRequest() { }
 
-            public AddAcsUserRequest(string acsUserId = default, string userIdentityId = default)
+            public AddAcsUserRequest(
+                string acsUserId = default,
+                string? userIdentityId = default,
+                string? userIdentityKey = default
+            )
             {
                 AcsUserId = acsUserId;
                 UserIdentityId = userIdentityId;
+                UserIdentityKey = userIdentityKey;
             }
 
             [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
 
-            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityId { get; set; }
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
 
             public override string ToString()
             {
@@ -63,9 +71,19 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/add_acs_user", requestOptions);
         }
 
-        public void AddAcsUser(string acsUserId = default, string userIdentityId = default)
+        public void AddAcsUser(
+            string acsUserId = default,
+            string? userIdentityId = default,
+            string? userIdentityKey = default
+        )
         {
-            AddAcsUser(new AddAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId));
+            AddAcsUser(
+                new AddAcsUserRequest(
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId,
+                    userIdentityKey: userIdentityKey
+                )
+            );
         }
 
         public async Task AddAcsUserAsync(AddAcsUserRequest request)
@@ -77,11 +95,16 @@ namespace Seam.Api
 
         public async Task AddAcsUserAsync(
             string acsUserId = default,
-            string userIdentityId = default
+            string? userIdentityId = default,
+            string? userIdentityKey = default
         )
         {
             await AddAcsUserAsync(
-                new AddAcsUserRequest(acsUserId: acsUserId, userIdentityId: userIdentityId)
+                new AddAcsUserRequest(
+                    acsUserId: acsUserId,
+                    userIdentityId: userIdentityId,
+                    userIdentityKey: userIdentityKey
+                )
             );
         }
 
