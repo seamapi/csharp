@@ -258,4 +258,82 @@ public class UnitTest1 : SeamConnectTest
         Assert.NotNull(actionAttempt);
         Assert.Equal("unrecognized", actionAttempt.ActionType);
     }
+
+    [Fact]
+    public void TestAllDiscriminatedUnionsHasFallbackAutomatically()
+    {
+        // Automatically discover and test all discriminated unions in the SDK
+        var assembly = typeof(ActionAttempt).Assembly;
+        var discriminatedUnionTypes = assembly
+            .GetTypes()
+            .Where(t =>
+                t.IsAbstract
+                && t.GetCustomAttributes(false)
+                    .Any(attr => attr.GetType().Name == "JsonConverterAttribute")
+            )
+            .ToList();
+
+        Assert.NotEmpty(discriminatedUnionTypes); // Ensure we found at least one
+        foreach (var baseType in discriminatedUnionTypes)
+        {
+            // Find the JsonConverter attribute to get the discriminator property name
+            var jsonConverterAttr = baseType
+                .GetCustomAttributes(false)
+                .FirstOrDefault(attr => attr.GetType().Name == "JsonConverterAttribute");
+
+            Assert.NotNull(jsonConverterAttr);
+
+            // Get discriminator property name from the attribute constructor args
+            var discriminatorProperty =
+                jsonConverterAttr
+                    .GetType()
+                    .GetProperty("ConverterParameters")
+                    ?.GetValue(jsonConverterAttr) as object[];
+
+            string discriminatorName =
+                discriminatorProperty?.FirstOrDefault()?.ToString() ?? "status";
+            // Find the Unrecognized fallback type
+            var unrecognizedType = assembly
+                .GetTypes()
+                .FirstOrDefault(t =>
+                    t.Name == baseType.Name + "Unrecognized" && baseType.IsAssignableFrom(t)
+                );
+
+            Assert.NotNull(unrecognizedType);
+
+            // Create test JSON with unrecognized discriminator value
+            var testJson =
+                $@"{{
+                ""{discriminatorName}"": ""test_unrecognized_value"",
+                ""test_property"": ""test_value"",
+                ""unknown_field"": 123,
+                ""message"": ""test_message""
+            }}";
+            // Deserialize and verify fallback behavior
+            var deserializeMethod = typeof(JsonConvert)
+                .GetMethods()
+                .First(m =>
+                    m.Name == "DeserializeObject"
+                    && m.IsGenericMethod
+                    && m.GetParameters().Length == 1
+                )
+                .MakeGenericMethod(baseType);
+            var result = deserializeMethod.Invoke(null, new object[] { testJson });
+            Assert.NotNull(result);
+            Assert.IsType(unrecognizedType, result);
+            // Verify discriminator property is preserved
+            var discriminatorProp = baseType.GetProperty(
+                discriminatorName.Replace("_", ""),
+                System.Reflection.BindingFlags.Public
+                    | System.Reflection.BindingFlags.Instance
+                    | System.Reflection.BindingFlags.IgnoreCase
+            );
+
+            Assert.NotNull(discriminatorProp);
+
+            var discriminatorValue = discriminatorProp.GetValue(result)?.ToString();
+            Assert.Equal("unrecognized", discriminatorValue);
+        }
+    }
 }
+
