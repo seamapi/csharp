@@ -61,6 +61,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(ConnectedAccountErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
@@ -68,10 +69,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountErrorsBridgeDisconnected),
             "bridge_disconnected"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(ConnectedAccountErrorsInvalidCredentials),
-            "invalid_credentials"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountErrorsAccountDisconnected),
@@ -112,66 +109,6 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
-
-            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsBridgeError { get; set; }
-
-            [DataMember(
-                Name = "is_connected_account_error",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsConnectedAccountError { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_connectedAccountErrorsInvalidCredentials_model")]
-        public class ConnectedAccountErrorsInvalidCredentials : ConnectedAccountErrors
-        {
-            [JsonConstructorAttribute]
-            protected ConnectedAccountErrorsInvalidCredentials() { }
-
-            public ConnectedAccountErrorsInvalidCredentials(
-                string createdAt = default,
-                string errorCode = default,
-                bool? isBridgeError = default,
-                bool? isConnectedAccountError = default,
-                string message = default
-            )
-            {
-                CreatedAt = createdAt;
-                ErrorCode = errorCode;
-                IsBridgeError = isBridgeError;
-                IsConnectedAccountError = isConnectedAccountError;
-                Message = message;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "invalid_credentials";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -435,7 +372,53 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_connectedAccountErrorsUnrecognized_model")]
+        public class ConnectedAccountErrorsUnrecognized : ConnectedAccountErrors
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountErrorsUnrecognized() { }
+
+            public ConnectedAccountErrorsUnrecognized(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(ConnectedAccountWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountWarningsAccountReauthorizationRequested),
+            "account_reauthorization_requested"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReached),
             "salto_ks_subscription_limit_almost_reached"
@@ -689,6 +672,96 @@ namespace Seam.Model
                 EmitDefaultValue = false
             )]
             public int SubscribedSiteUserCount { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_connectedAccountWarningsAccountReauthorizationRequested_model"
+        )]
+        public class ConnectedAccountWarningsAccountReauthorizationRequested
+            : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsAccountReauthorizationRequested() { }
+
+            public ConnectedAccountWarningsAccountReauthorizationRequested(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "account_reauthorization_requested";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountWarningsUnrecognized_model")]
+        public class ConnectedAccountWarningsUnrecognized : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsUnrecognized() { }
+
+            public ConnectedAccountWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

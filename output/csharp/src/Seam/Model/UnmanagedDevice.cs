@@ -222,13 +222,10 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsBridgeDisconnected),
             "bridge_disconnected"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceErrorsInvalidCredentials),
-            "invalid_credentials"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsLocklyMissingWifiBridge),
@@ -1023,66 +1020,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedDeviceErrorsInvalidCredentials_model")]
-        public class UnmanagedDeviceErrorsInvalidCredentials : UnmanagedDeviceErrors
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedDeviceErrorsInvalidCredentials() { }
-
-            public UnmanagedDeviceErrorsInvalidCredentials(
-                string createdAt = default,
-                string errorCode = default,
-                bool? isBridgeError = default,
-                bool? isConnectedAccountError = default,
-                string message = default
-            )
-            {
-                CreatedAt = createdAt;
-                ErrorCode = errorCode;
-                IsBridgeError = isBridgeError;
-                IsConnectedAccountError = isConnectedAccountError;
-                Message = message;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "invalid_credentials";
-
-            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsBridgeError { get; set; }
-
-            [DataMember(
-                Name = "is_connected_account_error",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsConnectedAccountError { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "seamModel_unmanagedDeviceErrorsBridgeDisconnected_model")]
         public class UnmanagedDeviceErrorsBridgeDisconnected : UnmanagedDeviceErrors
         {
@@ -1143,7 +1080,49 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedDeviceErrorsUnrecognized_model")]
+        public class UnmanagedDeviceErrorsUnrecognized : UnmanagedDeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceErrorsUnrecognized() { }
+
+            public UnmanagedDeviceErrorsUnrecognized(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsLocklyTimeZoneNotConfigured),
             "lockly_time_zone_not_configured"
@@ -1992,6 +1971,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "lockly_time_zone_not_configured";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsUnrecognized_model")]
+        public class UnmanagedDeviceWarningsUnrecognized : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsUnrecognized() { }
+
+            public UnmanagedDeviceWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

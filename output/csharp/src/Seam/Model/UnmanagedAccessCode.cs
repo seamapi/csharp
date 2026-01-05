@@ -46,13 +46,10 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessCodeErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsBridgeDisconnected),
             "bridge_disconnected"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeErrorsInvalidCredentials),
-            "invalid_credentials"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsLocklyMissingWifiBridge),
@@ -109,6 +106,10 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsAccountDisconnected),
             "account_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsKwiksetInsufficientPermissions),
+            "kwikset_insufficient_permissions"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsDormakabaOracodeNoValidUserLevel),
@@ -1538,6 +1539,60 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeErrorsKwiksetInsufficientPermissions_model"
+        )]
+        public class UnmanagedAccessCodeErrorsKwiksetInsufficientPermissions
+            : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsKwiksetInsufficientPermissions() { }
+
+            public UnmanagedAccessCodeErrorsKwiksetInsufficientPermissions(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "kwikset_insufficient_permissions";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsAccountDisconnected_model")]
         public class UnmanagedAccessCodeErrorsAccountDisconnected : UnmanagedAccessCodeErrors
         {
@@ -2276,66 +2331,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsInvalidCredentials_model")]
-        public class UnmanagedAccessCodeErrorsInvalidCredentials : UnmanagedAccessCodeErrors
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeErrorsInvalidCredentials() { }
-
-            public UnmanagedAccessCodeErrorsInvalidCredentials(
-                string createdAt = default,
-                string errorCode = default,
-                bool? isBridgeError = default,
-                bool? isConnectedAccountError = default,
-                string message = default
-            )
-            {
-                CreatedAt = createdAt;
-                ErrorCode = errorCode;
-                IsBridgeError = isBridgeError;
-                IsConnectedAccountError = isConnectedAccountError;
-                Message = message;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "invalid_credentials";
-
-            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsBridgeError { get; set; }
-
-            [DataMember(
-                Name = "is_connected_account_error",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsConnectedAccountError { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsBridgeDisconnected_model")]
         public class UnmanagedAccessCodeErrorsBridgeDisconnected : UnmanagedAccessCodeErrors
         {
@@ -2396,6 +2391,47 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsUnrecognized_model")]
+        public class UnmanagedAccessCodeErrorsUnrecognized : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsUnrecognized() { }
+
+            public UnmanagedAccessCodeErrorsUnrecognized(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
@@ -2420,6 +2456,7 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessCodeWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsKwiksetUnableToConfirmCode),
             "kwikset_unable_to_confirm_code"
@@ -3034,6 +3071,47 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "kwikset_unable_to_confirm_code";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessCodeWarningsUnrecognized_model")]
+        public class UnmanagedAccessCodeWarningsUnrecognized : UnmanagedAccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeWarningsUnrecognized() { }
+
+            public UnmanagedAccessCodeWarningsUnrecognized(
+                string warningCode = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

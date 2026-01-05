@@ -9,6 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "event_type")]
+    [JsonSubtypes.FallBackSubType(typeof(EventUnrecognized))]
     [JsonSubtypes.KnownSubType(typeof(EventPhoneDeactivated), "phone.deactivated")]
     [JsonSubtypes.KnownSubType(
         typeof(EventEnrollmentAutomationDeleted),
@@ -133,6 +134,10 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(
         typeof(EventActionAttemptLockDoorSucceeded),
         "action_attempt.lock_door.succeeded"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventConnectedAccountReauthorizationRequested),
+        "connected_account.reauthorization_requested"
     )]
     [JsonSubtypes.KnownSubType(
         typeof(EventConnectedAccountCompletedFirstSyncAfterReconnection),
@@ -4045,6 +4050,76 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventConnectedAccountReauthorizationRequested_model")]
+    public class EventConnectedAccountReauthorizationRequested : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventConnectedAccountReauthorizationRequested() { }
+
+        public EventConnectedAccountReauthorizationRequested(
+            object? connectedAccountCustomMetadata = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "connected_account.reauthorization_requested";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventActionAttemptLockDoorSucceeded_model")]
     public class EventActionAttemptLockDoorSucceeded : Event
     {
@@ -7627,6 +7702,40 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventUnrecognized_model")]
+    public class EventUnrecognized : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventUnrecognized() { }
+
+        public EventUnrecognized(string eventType = default)
+        {
+            EventType = eventType;
+        }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "unrecognized";
 
         public override string ToString()
         {
