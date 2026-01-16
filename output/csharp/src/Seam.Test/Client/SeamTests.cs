@@ -151,6 +151,7 @@ public class UnitTest1 : SeamConnectTest
             ""connected_account_id"": ""test-account-id"",
             ""account_type"": ""august"",
             ""account_type_display_name"": ""August Lock"",
+            ""display_name"": ""Test Account"",
             ""automatically_manage_new_devices"": true,
             ""created_at"": ""2024-01-15T10:00:00Z"",
             ""accepted_capabilities"": [],
