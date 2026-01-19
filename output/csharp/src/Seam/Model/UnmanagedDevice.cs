@@ -198,38 +198,41 @@ namespace Seam.Model
             [EnumMember(Value = "ultraloq_lock")]
             UltraloqLock = 28,
 
+            [EnumMember(Value = "korelock_lock")]
+            KorelockLock = 29,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 29,
+            KeynestKey = 30,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 30,
+            NoiseawareActivityZone = 31,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 31,
+            MinutSensor = 32,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 32,
+            EcobeeThermostat = 33,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 33,
+            NestThermostat = 34,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 34,
+            HoneywellResideoThermostat = 35,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 35,
+            TadoThermostat = 36,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 36,
+            SensiThermostat = 37,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 37,
+            SmartthingsThermostat = 38,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 38,
+            IosPhone = 39,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 39,
+            AndroidPhone = 40,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1143,8 +1146,8 @@ namespace Seam.Model
             "keynest_unsupported_locker"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities),
-            "hub_required_for_addtional_capabilities"
+            typeof(UnmanagedDeviceWarningsHubRequiredForAdditionalCapabilities),
+            "hub_required_for_additional_capabilities"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsUltraloqTimeZoneUnknown),
@@ -2016,15 +2019,15 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_unmanagedDeviceWarningsHubRequiredForAddtionalCapabilities_model"
+            Name = "seamModel_unmanagedDeviceWarningsHubRequiredForAdditionalCapabilities_model"
         )]
-        public class UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities
+        public class UnmanagedDeviceWarningsHubRequiredForAdditionalCapabilities
             : UnmanagedDeviceWarnings
         {
             [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities() { }
+            protected UnmanagedDeviceWarningsHubRequiredForAdditionalCapabilities() { }
 
-            public UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities(
+            public UnmanagedDeviceWarningsHubRequiredForAdditionalCapabilities(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -2042,7 +2045,8 @@ namespace Seam.Model
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "hub_required_for_addtional_capabilities";
+            public override string WarningCode { get; } =
+                "hub_required_for_additional_capabilities";
 
             public override string ToString()
             {
