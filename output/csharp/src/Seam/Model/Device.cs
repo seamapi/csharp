@@ -20,6 +20,9 @@ namespace Seam.Model
             bool? canHvacHeatCool = default,
             bool? canProgramOfflineAccessCodes = default,
             bool? canProgramOnlineAccessCodes = default,
+            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool? canProgramThermostatProgramsAsSameEachDay = default,
+            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
             bool? canRemotelyLock = default,
             bool? canRemotelyUnlock = default,
             bool? canRunThermostatPrograms = default,
@@ -53,6 +56,11 @@ namespace Seam.Model
             CanHvacHeatCool = canHvacHeatCool;
             CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
+            CanProgramThermostatProgramsAsDifferentEachDay =
+                canProgramThermostatProgramsAsDifferentEachDay;
+            CanProgramThermostatProgramsAsSameEachDay = canProgramThermostatProgramsAsSameEachDay;
+            CanProgramThermostatProgramsAsWeekdayWeekend =
+                canProgramThermostatProgramsAsWeekdayWeekend;
             CanRemotelyLock = canRemotelyLock;
             CanRemotelyUnlock = canRemotelyUnlock;
             CanRunThermostatPrograms = canRunThermostatPrograms;
@@ -193,38 +201,41 @@ namespace Seam.Model
             [EnumMember(Value = "akiles_lock")]
             AkilesLock = 27,
 
+            [EnumMember(Value = "ultraloq_lock")]
+            UltraloqLock = 28,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 28,
+            KeynestKey = 29,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 29,
+            NoiseawareActivityZone = 30,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 30,
+            MinutSensor = 31,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 31,
+            EcobeeThermostat = 32,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 32,
+            NestThermostat = 33,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 33,
+            HoneywellResideoThermostat = 34,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 34,
+            TadoThermostat = 35,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 35,
+            SensiThermostat = 36,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 36,
+            SmartthingsThermostat = 37,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 37,
+            IosPhone = 38,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 38,
+            AndroidPhone = 39,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1113,6 +1124,22 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(DeviceWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsAccessoryKeypadSetupRequired),
+            "accessory_keypad_setup_required"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsKeynestUnsupportedLocker),
+            "keynest_unsupported_locker"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsHubRequiredForAddtionalCapabilities),
+            "hub_required_for_addtional_capabilities"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsUltraloqTimeZoneUnknown),
+            "ultraloq_time_zone_unknown"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsLocklyTimeZoneNotConfigured),
             "lockly_time_zone_not_configured"
         )]
@@ -1157,10 +1184,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(DeviceWarningsFunctionalOfflineDevice),
-            "functional_offline_device"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsWyzeDeviceMissingGateway),
@@ -1300,52 +1323,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "wyze_device_missing_gateway";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_deviceWarningsFunctionalOfflineDevice_model")]
-        public class DeviceWarningsFunctionalOfflineDevice : DeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected DeviceWarningsFunctionalOfflineDevice() { }
-
-            public DeviceWarningsFunctionalOfflineDevice(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "functional_offline_device";
 
             public override string ToString()
             {
@@ -1967,6 +1944,190 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_deviceWarningsUltraloqTimeZoneUnknown_model")]
+        public class DeviceWarningsUltraloqTimeZoneUnknown : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsUltraloqTimeZoneUnknown() { }
+
+            public DeviceWarningsUltraloqTimeZoneUnknown(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "ultraloq_time_zone_unknown";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsHubRequiredForAddtionalCapabilities_model")]
+        public class DeviceWarningsHubRequiredForAddtionalCapabilities : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsHubRequiredForAddtionalCapabilities() { }
+
+            public DeviceWarningsHubRequiredForAddtionalCapabilities(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "hub_required_for_addtional_capabilities";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsKeynestUnsupportedLocker_model")]
+        public class DeviceWarningsKeynestUnsupportedLocker : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsKeynestUnsupportedLocker() { }
+
+            public DeviceWarningsKeynestUnsupportedLocker(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "keynest_unsupported_locker";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_deviceWarningsAccessoryKeypadSetupRequired_model")]
+        public class DeviceWarningsAccessoryKeypadSetupRequired : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsAccessoryKeypadSetupRequired() { }
+
+            public DeviceWarningsAccessoryKeypadSetupRequired(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "accessory_keypad_setup_required";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_deviceWarningsUnrecognized_model")]
         public class DeviceWarningsUnrecognized : DeviceWarnings
         {
@@ -2030,6 +2191,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanProgramOnlineAccessCodes { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_different_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_same_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_weekday_weekend",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyLock { get; set; }
@@ -2247,6 +2429,7 @@ namespace Seam.Model
             DevicePropertiesTedeeMetadata? tedeeMetadata = default,
             DevicePropertiesTtlockMetadata? ttlockMetadata = default,
             DevicePropertiesTwoNMetadata? twoNMetadata = default,
+            DevicePropertiesUltraloqMetadata? ultraloqMetadata = default,
             DevicePropertiesVisionlineMetadata? visionlineMetadata = default,
             DevicePropertiesWyzeMetadata? wyzeMetadata = default,
             List<float>? experimentalSupportedCodeFromAccessCodesLengths = default,
@@ -2279,6 +2462,7 @@ namespace Seam.Model
             float? maxHeatingSetPointCelsius = default,
             float? maxHeatingSetPointFahrenheit = default,
             float? maxThermostatDailyProgramPeriodsPerDay = default,
+            float? maxUniqueClimatePresetsPerThermostatWeeklyProgram = default,
             float? minCoolingSetPointCelsius = default,
             float? minCoolingSetPointFahrenheit = default,
             float? minHeatingCoolingDeltaCelsius = default,
@@ -2345,6 +2529,7 @@ namespace Seam.Model
             TedeeMetadata = tedeeMetadata;
             TtlockMetadata = ttlockMetadata;
             TwoNMetadata = twoNMetadata;
+            UltraloqMetadata = ultraloqMetadata;
             VisionlineMetadata = visionlineMetadata;
             WyzeMetadata = wyzeMetadata;
             ExperimentalSupportedCodeFromAccessCodesLengths =
@@ -2376,6 +2561,8 @@ namespace Seam.Model
             MaxHeatingSetPointCelsius = maxHeatingSetPointCelsius;
             MaxHeatingSetPointFahrenheit = maxHeatingSetPointFahrenheit;
             MaxThermostatDailyProgramPeriodsPerDay = maxThermostatDailyProgramPeriodsPerDay;
+            MaxUniqueClimatePresetsPerThermostatWeeklyProgram =
+                maxUniqueClimatePresetsPerThermostatWeeklyProgram;
             MinCoolingSetPointCelsius = minCoolingSetPointCelsius;
             MinCoolingSetPointFahrenheit = minCoolingSetPointFahrenheit;
             MinHeatingCoolingDeltaCelsius = minHeatingCoolingDeltaCelsius;
@@ -2664,6 +2851,9 @@ namespace Seam.Model
         [DataMember(Name = "two_n_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTwoNMetadata? TwoNMetadata { get; set; }
 
+        [DataMember(Name = "ultraloq_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesUltraloqMetadata? UltraloqMetadata { get; set; }
+
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesVisionlineMetadata? VisionlineMetadata { get; set; }
 
@@ -2817,6 +3007,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public float? MaxThermostatDailyProgramPeriodsPerDay { get; set; }
+
+        [DataMember(
+            Name = "max_unique_climate_presets_per_thermostat_weekly_program",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? MaxUniqueClimatePresetsPerThermostatWeeklyProgram { get; set; }
 
         [DataMember(
             Name = "min_cooling_set_point_celsius",
@@ -4110,6 +4307,7 @@ namespace Seam.Model
             float? fobId = default,
             string? handoverMethod = default,
             bool? hasPhoto = default,
+            bool? isQuadientLocker = default,
             string? keyId = default,
             string? keyNotes = default,
             string? keynestAppUser = default,
@@ -4132,6 +4330,7 @@ namespace Seam.Model
             FobId = fobId;
             HandoverMethod = handoverMethod;
             HasPhoto = hasPhoto;
+            IsQuadientLocker = isQuadientLocker;
             KeyId = keyId;
             KeyNotes = keyNotes;
             KeynestAppUser = keynestAppUser;
@@ -4185,6 +4384,9 @@ namespace Seam.Model
 
         [DataMember(Name = "has_photo", IsRequired = false, EmitDefaultValue = false)]
         public bool? HasPhoto { get; set; }
+
+        [DataMember(Name = "is_quadient_locker", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsQuadientLocker { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
         public string? KeyId { get; set; }
@@ -4818,6 +5020,7 @@ namespace Seam.Model
         public DevicePropertiesSaltoKsMetadata(
             string? batteryLevel = default,
             string? customerReference = default,
+            bool? hasCustomPinSubscription = default,
             string? lockId = default,
             string? lockType = default,
             string? lockedState = default,
@@ -4826,6 +5029,7 @@ namespace Seam.Model
         {
             BatteryLevel = batteryLevel;
             CustomerReference = customerReference;
+            HasCustomPinSubscription = hasCustomPinSubscription;
             LockId = lockId;
             LockType = lockType;
             LockedState = lockedState;
@@ -4837,6 +5041,13 @@ namespace Seam.Model
 
         [DataMember(Name = "customer_reference", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerReference { get; set; }
+
+        [DataMember(
+            Name = "has_custom_pin_subscription",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? HasCustomPinSubscription { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
         public string? LockId { get; set; }
@@ -5445,6 +5656,57 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesUltraloqMetadata_model")]
+    public class DevicePropertiesUltraloqMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesUltraloqMetadata() { }
+
+        public DevicePropertiesUltraloqMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? deviceType = default,
+            string? timeZone = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            DeviceType = deviceType;
+            TimeZone = timeZone;
+        }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceType { get; set; }
+
+        [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+        public string? TimeZone { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesVisionlineMetadata_model")]
     public class DevicePropertiesVisionlineMetadata
     {
@@ -5724,7 +5986,7 @@ namespace Seam.Model
         public DevicePropertiesAvailableClimatePresets(
             bool? canDelete = default,
             bool? canEdit = default,
-            bool? canProgram = default,
+            bool? canUseWithThermostatDailyPrograms = default,
             string? climatePresetKey = default,
             DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? climatePresetMode =
                 default,
@@ -5742,7 +6004,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
-            CanProgram = canProgram;
+            CanUseWithThermostatDailyPrograms = canUseWithThermostatDailyPrograms;
             ClimatePresetKey = climatePresetKey;
             ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
@@ -5826,8 +6088,12 @@ namespace Seam.Model
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
 
-        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanProgram { get; set; }
+        [DataMember(
+            Name = "can_use_with_thermostat_daily_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -5969,7 +6235,7 @@ namespace Seam.Model
         public DevicePropertiesCurrentClimateSetting(
             bool? canDelete = default,
             bool? canEdit = default,
-            bool? canProgram = default,
+            bool? canUseWithThermostatDailyPrograms = default,
             string? climatePresetKey = default,
             DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? climatePresetMode =
                 default,
@@ -5987,7 +6253,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
-            CanProgram = canProgram;
+            CanUseWithThermostatDailyPrograms = canUseWithThermostatDailyPrograms;
             ClimatePresetKey = climatePresetKey;
             ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
@@ -6071,8 +6337,12 @@ namespace Seam.Model
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
 
-        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanProgram { get; set; }
+        [DataMember(
+            Name = "can_use_with_thermostat_daily_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -6214,7 +6484,7 @@ namespace Seam.Model
         public DevicePropertiesDefaultClimateSetting(
             bool? canDelete = default,
             bool? canEdit = default,
-            bool? canProgram = default,
+            bool? canUseWithThermostatDailyPrograms = default,
             string? climatePresetKey = default,
             DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? climatePresetMode =
                 default,
@@ -6232,7 +6502,7 @@ namespace Seam.Model
         {
             CanDelete = canDelete;
             CanEdit = canEdit;
-            CanProgram = canProgram;
+            CanUseWithThermostatDailyPrograms = canUseWithThermostatDailyPrograms;
             ClimatePresetKey = climatePresetKey;
             ClimatePresetMode = climatePresetMode;
             CoolingSetPointCelsius = coolingSetPointCelsius;
@@ -6316,8 +6586,12 @@ namespace Seam.Model
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
 
-        [DataMember(Name = "can_program", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanProgram { get; set; }
+        [DataMember(
+            Name = "can_use_with_thermostat_daily_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }

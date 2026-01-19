@@ -8,24 +8,20 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_magicLink_model")]
-    public class MagicLink
+    [DataContract(Name = "seamModel_customer_model")]
+    public class Customer
     {
         [JsonConstructorAttribute]
-        protected MagicLink() { }
+        protected Customer() { }
 
-        public MagicLink(
+        public Customer(
             string createdAt = default,
             string customerKey = default,
-            string expiresAt = default,
-            string url = default,
             string workspaceId = default
         )
         {
             CreatedAt = createdAt;
             CustomerKey = customerKey;
-            ExpiresAt = expiresAt;
-            Url = url;
             WorkspaceId = workspaceId;
         }
 
@@ -34,12 +30,6 @@ namespace Seam.Model
 
         [DataMember(Name = "customer_key", IsRequired = true, EmitDefaultValue = false)]
         public string CustomerKey { get; set; }
-
-        [DataMember(Name = "expires_at", IsRequired = true, EmitDefaultValue = false)]
-        public string ExpiresAt { get; set; }
-
-        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
-        public string Url { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

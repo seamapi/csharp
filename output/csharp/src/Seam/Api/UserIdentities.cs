@@ -649,13 +649,22 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? createdBefore = default,
                 string? credentialManagerAcsSystemId = default,
+                int? limit = default,
+                string? pageCursor = default,
                 string? search = default
             )
             {
+                CreatedBefore = createdBefore;
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
+                Limit = limit;
+                PageCursor = pageCursor;
                 Search = search;
             }
+
+            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedBefore { get; set; }
 
             [DataMember(
                 Name = "credential_manager_acs_system_id",
@@ -663,6 +672,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? CredentialManagerAcsSystemId { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
@@ -731,13 +746,19 @@ namespace Seam.Api
         }
 
         public List<UserIdentity> List(
+            string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? search = default
         )
         {
             return List(
                 new ListRequest(
+                    createdBefore: createdBefore,
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     search: search
                 )
             );
@@ -753,14 +774,20 @@ namespace Seam.Api
         }
 
         public async Task<List<UserIdentity>> ListAsync(
+            string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? search = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
+                        createdBefore: createdBefore,
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         search: search
                     )
                 )

@@ -23,6 +23,7 @@ namespace Seam.Model
             string? createdAt = default,
             object? customMetadata = default,
             string? customerKey = default,
+            string displayName = default,
             List<ConnectedAccountErrors> errors = default,
             ConnectedAccountUserIdentifier? userIdentifier = default,
             List<ConnectedAccountWarnings> warnings = default
@@ -36,6 +37,7 @@ namespace Seam.Model
             CreatedAt = createdAt;
             CustomMetadata = customMetadata;
             CustomerKey = customerKey;
+            DisplayName = displayName;
             Errors = errors;
             UserIdentifier = userIdentifier;
             Warnings = warnings;
@@ -814,6 +816,9 @@ namespace Seam.Model
 
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }

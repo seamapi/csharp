@@ -1150,14 +1150,23 @@ namespace Seam.Api
                 [EnumMember(Value = "can_run_thermostat_programs")]
                 CanRunThermostatPrograms = 13,
 
+                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
+                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
+                CanProgramThermostatProgramsAsDifferentEachDay = 15,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
+                CanProgramThermostatProgramsAsSameEachDay = 16,
+
                 [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 14,
+                CanSimulateHubConnection = 17,
 
                 [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 15,
+                CanSimulateHubDisconnection = 18,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16,
+                CanSimulatePaidSubscription = 19,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1205,14 +1214,23 @@ namespace Seam.Api
                 [EnumMember(Value = "can_run_thermostat_programs")]
                 CanRunThermostatPrograms = 13,
 
+                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
+                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
+                CanProgramThermostatProgramsAsDifferentEachDay = 15,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
+                CanProgramThermostatProgramsAsSameEachDay = 16,
+
                 [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 14,
+                CanSimulateHubConnection = 17,
 
                 [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 15,
+                CanSimulateHubDisconnection = 18,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16,
+                CanSimulatePaidSubscription = 19,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]

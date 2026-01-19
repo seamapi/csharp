@@ -20,6 +20,9 @@ namespace Seam.Model
             bool? canHvacHeatCool = default,
             bool? canProgramOfflineAccessCodes = default,
             bool? canProgramOnlineAccessCodes = default,
+            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool? canProgramThermostatProgramsAsSameEachDay = default,
+            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
             bool? canRemotelyLock = default,
             bool? canRemotelyUnlock = default,
             bool? canRunThermostatPrograms = default,
@@ -42,6 +45,11 @@ namespace Seam.Model
             CanHvacHeatCool = canHvacHeatCool;
             CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
+            CanProgramThermostatProgramsAsDifferentEachDay =
+                canProgramThermostatProgramsAsDifferentEachDay;
+            CanProgramThermostatProgramsAsSameEachDay = canProgramThermostatProgramsAsSameEachDay;
+            CanProgramThermostatProgramsAsWeekdayWeekend =
+                canProgramThermostatProgramsAsWeekdayWeekend;
             CanRemotelyLock = canRemotelyLock;
             CanRemotelyUnlock = canRemotelyUnlock;
             CanRunThermostatPrograms = canRunThermostatPrograms;
@@ -211,6 +219,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "dormakaba_ambiance")]
             DormakabaAmbiance = 49,
+
+            [EnumMember(Value = "ultraloq")]
+            Ultraloq = 50,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -257,6 +268,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanProgramOnlineAccessCodes { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_different_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_same_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_weekday_weekend",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyLock { get; set; }

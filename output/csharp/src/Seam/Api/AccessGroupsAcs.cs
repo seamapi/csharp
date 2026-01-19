@@ -108,6 +108,64 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "deleteRequest_request")]
+        public class DeleteRequest
+        {
+            [JsonConstructorAttribute]
+            protected DeleteRequest() { }
+
+            public DeleteRequest(string acsAccessGroupId = default)
+            {
+                AcsAccessGroupId = acsAccessGroupId;
+            }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsAccessGroupId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Delete(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/acs/access_groups/delete", requestOptions);
+        }
+
+        public void Delete(string acsAccessGroupId = default)
+        {
+            Delete(new DeleteRequest(acsAccessGroupId: acsAccessGroupId));
+        }
+
+        public async Task DeleteAsync(DeleteRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/acs/access_groups/delete", requestOptions);
+        }
+
+        public async Task DeleteAsync(string acsAccessGroupId = default)
+        {
+            await DeleteAsync(new DeleteRequest(acsAccessGroupId: acsAccessGroupId));
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {

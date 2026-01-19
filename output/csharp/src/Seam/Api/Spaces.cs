@@ -163,12 +163,14 @@ namespace Seam.Api
 
             public CreateRequest(
                 List<string>? acsEntranceIds = default,
+                string? customerKey = default,
                 List<string>? deviceIds = default,
                 string name = default,
                 string? spaceKey = default
             )
             {
                 AcsEntranceIds = acsEntranceIds;
+                CustomerKey = customerKey;
                 DeviceIds = deviceIds;
                 Name = name;
                 SpaceKey = spaceKey;
@@ -176,6 +178,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -249,6 +254,7 @@ namespace Seam.Api
 
         public Space Create(
             List<string>? acsEntranceIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string name = default,
             string? spaceKey = default
@@ -257,6 +263,7 @@ namespace Seam.Api
             return Create(
                 new CreateRequest(
                     acsEntranceIds: acsEntranceIds,
+                    customerKey: customerKey,
                     deviceIds: deviceIds,
                     name: name,
                     spaceKey: spaceKey
@@ -275,6 +282,7 @@ namespace Seam.Api
 
         public async Task<Space> CreateAsync(
             List<string>? acsEntranceIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string name = default,
             string? spaceKey = default
@@ -284,6 +292,7 @@ namespace Seam.Api
                 await CreateAsync(
                     new CreateRequest(
                         acsEntranceIds: acsEntranceIds,
+                        customerKey: customerKey,
                         deviceIds: deviceIds,
                         name: name,
                         spaceKey: spaceKey
@@ -444,6 +453,189 @@ namespace Seam.Api
         public async Task<Space> GetAsync(string? spaceId = default, string? spaceKey = default)
         {
             return (await GetAsync(new GetRequest(spaceId: spaceId, spaceKey: spaceKey)));
+        }
+
+        [DataContract(Name = "getRelatedRequest_request")]
+        public class GetRelatedRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedRequest() { }
+
+            public GetRelatedRequest(
+                List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+                List<GetRelatedRequest.IncludeEnum>? include = default,
+                List<string>? spaceIds = default,
+                List<string>? spaceKeys = default
+            )
+            {
+                Exclude = exclude;
+                Include = include;
+                SpaceIds = spaceIds;
+                SpaceKeys = spaceKeys;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ExcludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "connected_accounts")]
+                ConnectedAccounts = 4,
+
+                [EnumMember(Value = "acs_systems")]
+                AcsSystems = 5,
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum IncludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "connected_accounts")]
+                ConnectedAccounts = 4,
+
+                [EnumMember(Value = "acs_systems")]
+                AcsSystems = 5,
+            }
+
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.ExcludeEnum>? Exclude { get; set; }
+
+            [DataMember(Name = "include", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.IncludeEnum>? Include { get; set; }
+
+            [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceIds { get; set; }
+
+            [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceKeys { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getRelatedResponse_response")]
+        public class GetRelatedResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedResponse() { }
+
+            public GetRelatedResponse(Batch batch = default)
+            {
+                Batch = batch;
+            }
+
+            [DataMember(Name = "batch", IsRequired = false, EmitDefaultValue = false)]
+            public Batch Batch { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public Batch GetRelated(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<GetRelatedResponse>("/spaces/get_related", requestOptions).Data.Batch;
+        }
+
+        public Batch GetRelated(
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default,
+            List<string>? spaceIds = default,
+            List<string>? spaceKeys = default
+        )
+        {
+            return GetRelated(
+                new GetRelatedRequest(
+                    exclude: exclude,
+                    include: include,
+                    spaceIds: spaceIds,
+                    spaceKeys: spaceKeys
+                )
+            );
+        }
+
+        public async Task<Batch> GetRelatedAsync(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetRelatedResponse>("/spaces/get_related", requestOptions)
+            )
+                .Data
+                .Batch;
+        }
+
+        public async Task<Batch> GetRelatedAsync(
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default,
+            List<string>? spaceIds = default,
+            List<string>? spaceKeys = default
+        )
+        {
+            return (
+                await GetRelatedAsync(
+                    new GetRelatedRequest(
+                        exclude: exclude,
+                        include: include,
+                        spaceIds: spaceIds,
+                        spaceKeys: spaceKeys
+                    )
+                )
+            );
         }
 
         [DataContract(Name = "listRequest_request")]
@@ -737,6 +929,7 @@ namespace Seam.Api
 
             public UpdateRequest(
                 List<string>? acsEntranceIds = default,
+                string? customerKey = default,
                 List<string>? deviceIds = default,
                 string? name = default,
                 string? spaceId = default,
@@ -744,6 +937,7 @@ namespace Seam.Api
             )
             {
                 AcsEntranceIds = acsEntranceIds;
+                CustomerKey = customerKey;
                 DeviceIds = deviceIds;
                 Name = name;
                 SpaceId = spaceId;
@@ -752,6 +946,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -828,6 +1025,7 @@ namespace Seam.Api
 
         public Space Update(
             List<string>? acsEntranceIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string? name = default,
             string? spaceId = default,
@@ -837,6 +1035,7 @@ namespace Seam.Api
             return Update(
                 new UpdateRequest(
                     acsEntranceIds: acsEntranceIds,
+                    customerKey: customerKey,
                     deviceIds: deviceIds,
                     name: name,
                     spaceId: spaceId,
@@ -856,6 +1055,7 @@ namespace Seam.Api
 
         public async Task<Space> UpdateAsync(
             List<string>? acsEntranceIds = default,
+            string? customerKey = default,
             List<string>? deviceIds = default,
             string? name = default,
             string? spaceId = default,
@@ -866,6 +1066,7 @@ namespace Seam.Api
                 await UpdateAsync(
                     new UpdateRequest(
                         acsEntranceIds: acsEntranceIds,
+                        customerKey: customerKey,
                         deviceIds: deviceIds,
                         name: name,
                         spaceId: spaceId,

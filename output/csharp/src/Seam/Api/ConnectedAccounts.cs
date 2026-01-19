@@ -416,13 +416,15 @@ namespace Seam.Api
                 List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
                 bool? automaticallyManageNewDevices = default,
                 string connectedAccountId = default,
-                object? customMetadata = default
+                object? customMetadata = default,
+                string? customerKey = default
             )
             {
                 AcceptedCapabilities = acceptedCapabilities;
                 AutomaticallyManageNewDevices = automaticallyManageNewDevices;
                 ConnectedAccountId = connectedAccountId;
                 CustomMetadata = customMetadata;
+                CustomerKey = customerKey;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -464,6 +466,9 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
+
             public override string ToString()
             {
                 JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
@@ -495,7 +500,8 @@ namespace Seam.Api
             List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
-            object? customMetadata = default
+            object? customMetadata = default,
+            string? customerKey = default
         )
         {
             Update(
@@ -503,7 +509,8 @@ namespace Seam.Api
                     acceptedCapabilities: acceptedCapabilities,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
-                    customMetadata: customMetadata
+                    customMetadata: customMetadata,
+                    customerKey: customerKey
                 )
             );
         }
@@ -519,7 +526,8 @@ namespace Seam.Api
             List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
-            object? customMetadata = default
+            object? customMetadata = default,
+            string? customerKey = default
         )
         {
             await UpdateAsync(
@@ -527,7 +535,8 @@ namespace Seam.Api
                     acceptedCapabilities: acceptedCapabilities,
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
-                    customMetadata: customMetadata
+                    customMetadata: customMetadata,
+                    customerKey: customerKey
                 )
             );
         }

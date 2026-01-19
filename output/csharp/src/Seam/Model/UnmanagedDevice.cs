@@ -20,6 +20,9 @@ namespace Seam.Model
             bool? canHvacHeatCool = default,
             bool? canProgramOfflineAccessCodes = default,
             bool? canProgramOnlineAccessCodes = default,
+            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool? canProgramThermostatProgramsAsSameEachDay = default,
+            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
             bool? canRemotelyLock = default,
             bool? canRemotelyUnlock = default,
             bool? canRunThermostatPrograms = default,
@@ -50,6 +53,11 @@ namespace Seam.Model
             CanHvacHeatCool = canHvacHeatCool;
             CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
             CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
+            CanProgramThermostatProgramsAsDifferentEachDay =
+                canProgramThermostatProgramsAsDifferentEachDay;
+            CanProgramThermostatProgramsAsSameEachDay = canProgramThermostatProgramsAsSameEachDay;
+            CanProgramThermostatProgramsAsWeekdayWeekend =
+                canProgramThermostatProgramsAsWeekdayWeekend;
             CanRemotelyLock = canRemotelyLock;
             CanRemotelyUnlock = canRemotelyUnlock;
             CanRunThermostatPrograms = canRunThermostatPrograms;
@@ -187,38 +195,41 @@ namespace Seam.Model
             [EnumMember(Value = "akiles_lock")]
             AkilesLock = 27,
 
+            [EnumMember(Value = "ultraloq_lock")]
+            UltraloqLock = 28,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 28,
+            KeynestKey = 29,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 29,
+            NoiseawareActivityZone = 30,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 30,
+            MinutSensor = 31,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 31,
+            EcobeeThermostat = 32,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 32,
+            NestThermostat = 33,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 33,
+            HoneywellResideoThermostat = 34,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 34,
+            TadoThermostat = 35,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 35,
+            SensiThermostat = 36,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 36,
+            SmartthingsThermostat = 37,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 37,
+            IosPhone = 38,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 38,
+            AndroidPhone = 39,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1124,6 +1135,22 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceWarningsAccessoryKeypadSetupRequired),
+            "accessory_keypad_setup_required"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceWarningsKeynestUnsupportedLocker),
+            "keynest_unsupported_locker"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities),
+            "hub_required_for_addtional_capabilities"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceWarningsUltraloqTimeZoneUnknown),
+            "ultraloq_time_zone_unknown"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsLocklyTimeZoneNotConfigured),
             "lockly_time_zone_not_configured"
         )]
@@ -1174,10 +1201,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsThirdPartyIntegrationDetected),
             "third_party_integration_detected"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsFunctionalOfflineDevice),
-            "functional_offline_device"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsWyzeDeviceMissingGateway),
@@ -1317,52 +1340,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "wyze_device_missing_gateway";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_unmanagedDeviceWarningsFunctionalOfflineDevice_model")]
-        public class UnmanagedDeviceWarningsFunctionalOfflineDevice : UnmanagedDeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsFunctionalOfflineDevice() { }
-
-            public UnmanagedDeviceWarningsFunctionalOfflineDevice(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "functional_offline_device";
 
             public override string ToString()
             {
@@ -1992,6 +1969,193 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsUltraloqTimeZoneUnknown_model")]
+        public class UnmanagedDeviceWarningsUltraloqTimeZoneUnknown : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsUltraloqTimeZoneUnknown() { }
+
+            public UnmanagedDeviceWarningsUltraloqTimeZoneUnknown(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "ultraloq_time_zone_unknown";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedDeviceWarningsHubRequiredForAddtionalCapabilities_model"
+        )]
+        public class UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities
+            : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities() { }
+
+            public UnmanagedDeviceWarningsHubRequiredForAddtionalCapabilities(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "hub_required_for_addtional_capabilities";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsKeynestUnsupportedLocker_model")]
+        public class UnmanagedDeviceWarningsKeynestUnsupportedLocker : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsKeynestUnsupportedLocker() { }
+
+            public UnmanagedDeviceWarningsKeynestUnsupportedLocker(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "keynest_unsupported_locker";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedDeviceWarningsAccessoryKeypadSetupRequired_model")]
+        public class UnmanagedDeviceWarningsAccessoryKeypadSetupRequired : UnmanagedDeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceWarningsAccessoryKeypadSetupRequired() { }
+
+            public UnmanagedDeviceWarningsAccessoryKeypadSetupRequired(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "accessory_keypad_setup_required";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_unmanagedDeviceWarningsUnrecognized_model")]
         public class UnmanagedDeviceWarningsUnrecognized : UnmanagedDeviceWarnings
         {
@@ -2055,6 +2219,27 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? CanProgramOnlineAccessCodes { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_different_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_same_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
+
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_weekday_weekend",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyLock { get; set; }

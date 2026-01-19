@@ -20,6 +20,8 @@ namespace Seam.Model
             float deviceCount = default,
             string displayName = default,
             string name = default,
+            string? parentSpaceId = default,
+            string? parentSpaceKey = default,
             string spaceId = default,
             string? spaceKey = default,
             string workspaceId = default
@@ -30,6 +32,8 @@ namespace Seam.Model
             DeviceCount = deviceCount;
             DisplayName = displayName;
             Name = name;
+            ParentSpaceId = parentSpaceId;
+            ParentSpaceKey = parentSpaceKey;
             SpaceId = spaceId;
             SpaceKey = spaceKey;
             WorkspaceId = workspaceId;
@@ -49,6 +53,12 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
+
+        [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ParentSpaceId { get; set; }
+
+        [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? ParentSpaceKey { get; set; }
 
         [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
         public string SpaceId { get; set; }

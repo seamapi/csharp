@@ -348,6 +348,258 @@ namespace Seam.Api
                 )
             );
         }
+
+        [DataContract(Name = "reportDevicesRequest_request")]
+        public class ReportDevicesRequest
+        {
+            [JsonConstructorAttribute]
+            protected ReportDevicesRequest() { }
+
+            public ReportDevicesRequest(
+                List<ReportDevicesRequestAcsEncoders>? acsEncoders = default,
+                List<ReportDevicesRequestAcsEntrances>? acsEntrances = default,
+                string acsSystemId = default
+            )
+            {
+                AcsEncoders = acsEncoders;
+                AcsEntrances = acsEntrances;
+                AcsSystemId = acsSystemId;
+            }
+
+            [DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
+            public List<ReportDevicesRequestAcsEncoders>? AcsEncoders { get; set; }
+
+            [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
+            public List<ReportDevicesRequestAcsEntrances>? AcsEntrances { get; set; }
+
+            [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsSystemId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "reportDevicesRequestAcsEncoders_model")]
+        public class ReportDevicesRequestAcsEncoders
+        {
+            [JsonConstructorAttribute]
+            protected ReportDevicesRequestAcsEncoders() { }
+
+            public ReportDevicesRequestAcsEncoders(
+                ReportDevicesRequestAcsEncodersHotekMetadata hotekMetadata = default,
+                bool? isRemoved = default
+            )
+            {
+                HotekMetadata = hotekMetadata;
+                IsRemoved = isRemoved;
+            }
+
+            [DataMember(Name = "hotek_metadata", IsRequired = true, EmitDefaultValue = false)]
+            public ReportDevicesRequestAcsEncodersHotekMetadata HotekMetadata { get; set; }
+
+            [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsRemoved { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "reportDevicesRequestAcsEncodersHotekMetadata_model")]
+        public class ReportDevicesRequestAcsEncodersHotekMetadata
+        {
+            [JsonConstructorAttribute]
+            protected ReportDevicesRequestAcsEncodersHotekMetadata() { }
+
+            public ReportDevicesRequestAcsEncodersHotekMetadata(string encoderNumber = default)
+            {
+                EncoderNumber = encoderNumber;
+            }
+
+            [DataMember(Name = "encoder_number", IsRequired = true, EmitDefaultValue = false)]
+            public string EncoderNumber { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "reportDevicesRequestAcsEntrances_model")]
+        public class ReportDevicesRequestAcsEntrances
+        {
+            [JsonConstructorAttribute]
+            protected ReportDevicesRequestAcsEntrances() { }
+
+            public ReportDevicesRequestAcsEntrances(
+                ReportDevicesRequestAcsEntrancesHotekMetadata hotekMetadata = default,
+                bool? isRemoved = default
+            )
+            {
+                HotekMetadata = hotekMetadata;
+                IsRemoved = isRemoved;
+            }
+
+            [DataMember(Name = "hotek_metadata", IsRequired = true, EmitDefaultValue = false)]
+            public ReportDevicesRequestAcsEntrancesHotekMetadata HotekMetadata { get; set; }
+
+            [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsRemoved { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "reportDevicesRequestAcsEntrancesHotekMetadata_model")]
+        public class ReportDevicesRequestAcsEntrancesHotekMetadata
+        {
+            [JsonConstructorAttribute]
+            protected ReportDevicesRequestAcsEntrancesHotekMetadata() { }
+
+            public ReportDevicesRequestAcsEntrancesHotekMetadata(
+                string? commonAreaName = default,
+                string? commonAreaNumber = default,
+                string? roomNumber = default
+            )
+            {
+                CommonAreaName = commonAreaName;
+                CommonAreaNumber = commonAreaNumber;
+                RoomNumber = roomNumber;
+            }
+
+            [DataMember(Name = "common_area_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaName { get; set; }
+
+            [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaNumber { get; set; }
+
+            [DataMember(Name = "room_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? RoomNumber { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void ReportDevices(ReportDevicesRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/acs/systems/report_devices", requestOptions);
+        }
+
+        public void ReportDevices(
+            List<ReportDevicesRequestAcsEncoders>? acsEncoders = default,
+            List<ReportDevicesRequestAcsEntrances>? acsEntrances = default,
+            string acsSystemId = default
+        )
+        {
+            ReportDevices(
+                new ReportDevicesRequest(
+                    acsEncoders: acsEncoders,
+                    acsEntrances: acsEntrances,
+                    acsSystemId: acsSystemId
+                )
+            );
+        }
+
+        public async Task ReportDevicesAsync(ReportDevicesRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/acs/systems/report_devices", requestOptions);
+        }
+
+        public async Task ReportDevicesAsync(
+            List<ReportDevicesRequestAcsEncoders>? acsEncoders = default,
+            List<ReportDevicesRequestAcsEntrances>? acsEntrances = default,
+            string acsSystemId = default
+        )
+        {
+            await ReportDevicesAsync(
+                new ReportDevicesRequest(
+                    acsEncoders: acsEncoders,
+                    acsEntrances: acsEntrances,
+                    acsSystemId: acsSystemId
+                )
+            );
+        }
     }
 }
 
