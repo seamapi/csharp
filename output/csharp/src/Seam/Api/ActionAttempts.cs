@@ -120,13 +120,30 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(List<string> actionAttemptIds = default)
+            public ListRequest(
+                List<string>? actionAttemptIds = default,
+                string? deviceId = default,
+                int? limit = default,
+                string? pageCursor = default
+            )
             {
                 ActionAttemptIds = actionAttemptIds;
+                DeviceId = deviceId;
+                Limit = limit;
+                PageCursor = pageCursor;
             }
 
-            [DataMember(Name = "action_attempt_ids", IsRequired = true, EmitDefaultValue = false)]
-            public List<string> ActionAttemptIds { get; set; }
+            [DataMember(Name = "action_attempt_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ActionAttemptIds { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             public override string ToString()
             {
@@ -191,9 +208,21 @@ namespace Seam.Api
                 .Data.ActionAttempts;
         }
 
-        public List<ActionAttempt> List(List<string> actionAttemptIds = default)
+        public List<ActionAttempt> List(
+            List<string>? actionAttemptIds = default,
+            string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default
+        )
         {
-            return List(new ListRequest(actionAttemptIds: actionAttemptIds));
+            return List(
+                new ListRequest(
+                    actionAttemptIds: actionAttemptIds,
+                    deviceId: deviceId,
+                    limit: limit,
+                    pageCursor: pageCursor
+                )
+            );
         }
 
         public async Task<List<ActionAttempt>> ListAsync(ListRequest request)
@@ -205,9 +234,23 @@ namespace Seam.Api
                 .ActionAttempts;
         }
 
-        public async Task<List<ActionAttempt>> ListAsync(List<string> actionAttemptIds = default)
+        public async Task<List<ActionAttempt>> ListAsync(
+            List<string>? actionAttemptIds = default,
+            string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default
+        )
         {
-            return (await ListAsync(new ListRequest(actionAttemptIds: actionAttemptIds)));
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        actionAttemptIds: actionAttemptIds,
+                        deviceId: deviceId,
+                        limit: limit,
+                        pageCursor: pageCursor
+                    )
+                )
+            );
         }
     }
 }

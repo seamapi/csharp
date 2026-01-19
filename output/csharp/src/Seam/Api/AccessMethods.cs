@@ -279,6 +279,203 @@ namespace Seam.Api
             return (await GetAsync(new GetRequest(accessMethodId: accessMethodId)));
         }
 
+        [DataContract(Name = "getRelatedRequest_request")]
+        public class GetRelatedRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedRequest() { }
+
+            public GetRelatedRequest(
+                List<string> accessMethodIds = default,
+                List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+                List<GetRelatedRequest.IncludeEnum>? include = default
+            )
+            {
+                AccessMethodIds = accessMethodIds;
+                Exclude = exclude;
+                Include = include;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ExcludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "access_grants")]
+                AccessGrants = 4,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 5,
+
+                [EnumMember(Value = "instant_keys")]
+                InstantKeys = 6,
+
+                [EnumMember(Value = "client_sessions")]
+                ClientSessions = 7,
+
+                [EnumMember(Value = "acs_credentials")]
+                AcsCredentials = 8,
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum IncludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "access_grants")]
+                AccessGrants = 4,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 5,
+
+                [EnumMember(Value = "instant_keys")]
+                InstantKeys = 6,
+
+                [EnumMember(Value = "client_sessions")]
+                ClientSessions = 7,
+
+                [EnumMember(Value = "acs_credentials")]
+                AcsCredentials = 8,
+            }
+
+            [DataMember(Name = "access_method_ids", IsRequired = true, EmitDefaultValue = false)]
+            public List<string> AccessMethodIds { get; set; }
+
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.ExcludeEnum>? Exclude { get; set; }
+
+            [DataMember(Name = "include", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.IncludeEnum>? Include { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getRelatedResponse_response")]
+        public class GetRelatedResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedResponse() { }
+
+            public GetRelatedResponse(Batch batch = default)
+            {
+                Batch = batch;
+            }
+
+            [DataMember(Name = "batch", IsRequired = false, EmitDefaultValue = false)]
+            public Batch Batch { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public Batch GetRelated(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetRelatedResponse>("/access_methods/get_related", requestOptions)
+                .Data.Batch;
+        }
+
+        public Batch GetRelated(
+            List<string> accessMethodIds = default,
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default
+        )
+        {
+            return GetRelated(
+                new GetRelatedRequest(
+                    accessMethodIds: accessMethodIds,
+                    exclude: exclude,
+                    include: include
+                )
+            );
+        }
+
+        public async Task<Batch> GetRelatedAsync(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetRelatedResponse>(
+                    "/access_methods/get_related",
+                    requestOptions
+                )
+            )
+                .Data
+                .Batch;
+        }
+
+        public async Task<Batch> GetRelatedAsync(
+            List<string> accessMethodIds = default,
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default
+        )
+        {
+            return (
+                await GetRelatedAsync(
+                    new GetRelatedRequest(
+                        accessMethodIds: accessMethodIds,
+                        exclude: exclude,
+                        include: include
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {

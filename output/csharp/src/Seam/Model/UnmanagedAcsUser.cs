@@ -33,6 +33,7 @@ namespace Seam.Model
             string? lastSuccessfulSyncAt = default,
             List<UnmanagedAcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
+            UnmanagedAcsUserSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityFullName = default,
             string? userIdentityId = default,
@@ -59,6 +60,7 @@ namespace Seam.Model
             LastSuccessfulSyncAt = lastSuccessfulSyncAt;
             PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
+            SaltoSpaceMetadata = saltoSpaceMetadata;
             UserIdentityEmailAddress = userIdentityEmailAddress;
             UserIdentityFullName = userIdentityFullName;
             UserIdentityId = userIdentityId;
@@ -467,6 +469,10 @@ namespace Seam.Model
             typeof(UnmanagedAcsUserPendingMutationsUpdatingUserInformation),
             "updating_user_information"
         )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAcsUserPendingMutationsDeferringCreation),
+            "deferring_creation"
+        )]
         [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingMutationsDeleting), "deleting")]
         [JsonSubtypes.KnownSubType(typeof(UnmanagedAcsUserPendingMutationsCreating), "creating")]
         public abstract class UnmanagedAcsUserPendingMutations
@@ -547,6 +553,58 @@ namespace Seam.Model
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deleting";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAcsUserPendingMutationsDeferringCreation_model")]
+        public class UnmanagedAcsUserPendingMutationsDeferringCreation
+            : UnmanagedAcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAcsUserPendingMutationsDeferringCreation() { }
+
+            public UnmanagedAcsUserPendingMutationsDeferringCreation(
+                string createdAt = default,
+                string message = default,
+                string mutationCode = default,
+                string? scheduledAt = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                MutationCode = mutationCode;
+                ScheduledAt = scheduledAt;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "deferring_creation";
+
+            [DataMember(Name = "scheduled_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? ScheduledAt { get; set; }
 
             public override string ToString()
             {
@@ -1479,6 +1537,9 @@ namespace Seam.Model
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
+        [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public UnmanagedAcsUserSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
+
         [DataMember(
             Name = "user_identity_email_address",
             IsRequired = false,
@@ -1542,6 +1603,47 @@ namespace Seam.Model
 
         [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_unmanagedAcsUserSaltoSpaceMetadata_model")]
+    public class UnmanagedAcsUserSaltoSpaceMetadata
+    {
+        [JsonConstructorAttribute]
+        protected UnmanagedAcsUserSaltoSpaceMetadata() { }
+
+        public UnmanagedAcsUserSaltoSpaceMetadata(
+            bool? auditOpenings = default,
+            string? userId = default
+        )
+        {
+            AuditOpenings = auditOpenings;
+            UserId = userId;
+        }
+
+        [DataMember(Name = "audit_openings", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AuditOpenings { get; set; }
+
+        [DataMember(Name = "user_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserId { get; set; }
 
         public override string ToString()
         {

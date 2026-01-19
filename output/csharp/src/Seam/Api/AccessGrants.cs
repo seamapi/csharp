@@ -36,6 +36,7 @@ namespace Seam.Api
                 List<string>? locationIds = default,
                 string? name = default,
                 List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+                string? reservationKey = default,
                 List<string>? spaceIds = default,
                 List<string>? spaceKeys = default,
                 string? startsAt = default
@@ -52,6 +53,7 @@ namespace Seam.Api
                 LocationIds = locationIds;
                 Name = name;
                 RequestedAccessMethods = requestedAccessMethods;
+                ReservationKey = reservationKey;
                 SpaceIds = spaceIds;
                 SpaceKeys = spaceKeys;
                 StartsAt = startsAt;
@@ -97,6 +99,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<CreateRequestRequestedAccessMethods> RequestedAccessMethods { get; set; }
+
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
 
             [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceIds { get; set; }
@@ -336,6 +341,7 @@ namespace Seam.Api
             List<string>? locationIds = default,
             string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+            string? reservationKey = default,
             List<string>? spaceIds = default,
             List<string>? spaceKeys = default,
             string? startsAt = default
@@ -354,6 +360,7 @@ namespace Seam.Api
                     locationIds: locationIds,
                     name: name,
                     requestedAccessMethods: requestedAccessMethods,
+                    reservationKey: reservationKey,
                     spaceIds: spaceIds,
                     spaceKeys: spaceKeys,
                     startsAt: startsAt
@@ -382,6 +389,7 @@ namespace Seam.Api
             List<string>? locationIds = default,
             string? name = default,
             List<CreateRequestRequestedAccessMethods> requestedAccessMethods = default,
+            string? reservationKey = default,
             List<string>? spaceIds = default,
             List<string>? spaceKeys = default,
             string? startsAt = default
@@ -401,6 +409,7 @@ namespace Seam.Api
                         locationIds: locationIds,
                         name: name,
                         requestedAccessMethods: requestedAccessMethods,
+                        reservationKey: reservationKey,
                         spaceIds: spaceIds,
                         spaceKeys: spaceKeys,
                         startsAt: startsAt
@@ -574,6 +583,197 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "getRelatedRequest_request")]
+        public class GetRelatedRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedRequest() { }
+
+            public GetRelatedRequest(
+                List<string> accessGrantIds = default,
+                List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+                List<GetRelatedRequest.IncludeEnum>? include = default
+            )
+            {
+                AccessGrantIds = accessGrantIds;
+                Exclude = exclude;
+                Include = include;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ExcludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "connected_accounts")]
+                ConnectedAccounts = 4,
+
+                [EnumMember(Value = "acs_systems")]
+                AcsSystems = 5,
+
+                [EnumMember(Value = "user_identities")]
+                UserIdentities = 6,
+
+                [EnumMember(Value = "acs_access_groups")]
+                AcsAccessGroups = 7,
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum IncludeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "spaces")]
+                Spaces = 1,
+
+                [EnumMember(Value = "devices")]
+                Devices = 2,
+
+                [EnumMember(Value = "acs_entrances")]
+                AcsEntrances = 3,
+
+                [EnumMember(Value = "connected_accounts")]
+                ConnectedAccounts = 4,
+
+                [EnumMember(Value = "acs_systems")]
+                AcsSystems = 5,
+
+                [EnumMember(Value = "user_identities")]
+                UserIdentities = 6,
+
+                [EnumMember(Value = "acs_access_groups")]
+                AcsAccessGroups = 7,
+            }
+
+            [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+            public List<string> AccessGrantIds { get; set; }
+
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.ExcludeEnum>? Exclude { get; set; }
+
+            [DataMember(Name = "include", IsRequired = false, EmitDefaultValue = false)]
+            public List<GetRelatedRequest.IncludeEnum>? Include { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getRelatedResponse_response")]
+        public class GetRelatedResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetRelatedResponse() { }
+
+            public GetRelatedResponse(Batch batch = default)
+            {
+                Batch = batch;
+            }
+
+            [DataMember(Name = "batch", IsRequired = false, EmitDefaultValue = false)]
+            public Batch Batch { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public Batch GetRelated(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetRelatedResponse>("/access_grants/get_related", requestOptions)
+                .Data.Batch;
+        }
+
+        public Batch GetRelated(
+            List<string> accessGrantIds = default,
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default
+        )
+        {
+            return GetRelated(
+                new GetRelatedRequest(
+                    accessGrantIds: accessGrantIds,
+                    exclude: exclude,
+                    include: include
+                )
+            );
+        }
+
+        public async Task<Batch> GetRelatedAsync(GetRelatedRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetRelatedResponse>(
+                    "/access_grants/get_related",
+                    requestOptions
+                )
+            )
+                .Data
+                .Batch;
+        }
+
+        public async Task<Batch> GetRelatedAsync(
+            List<string> accessGrantIds = default,
+            List<GetRelatedRequest.ExcludeEnum>? exclude = default,
+            List<GetRelatedRequest.IncludeEnum>? include = default
+        )
+        {
+            return (
+                await GetRelatedAsync(
+                    new GetRelatedRequest(
+                        accessGrantIds: accessGrantIds,
+                        exclude: exclude,
+                        include: include
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -586,6 +786,7 @@ namespace Seam.Api
                 string? acsSystemId = default,
                 string? customerKey = default,
                 string? locationId = default,
+                string? reservationKey = default,
                 string? spaceId = default,
                 string? userIdentityId = default
             )
@@ -595,6 +796,7 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
                 CustomerKey = customerKey;
                 LocationId = locationId;
+                ReservationKey = reservationKey;
                 SpaceId = spaceId;
                 UserIdentityId = userIdentityId;
             }
@@ -613,6 +815,9 @@ namespace Seam.Api
 
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
+
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
 
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -689,6 +894,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? customerKey = default,
             string? locationId = default,
+            string? reservationKey = default,
             string? spaceId = default,
             string? userIdentityId = default
         )
@@ -700,6 +906,7 @@ namespace Seam.Api
                     acsSystemId: acsSystemId,
                     customerKey: customerKey,
                     locationId: locationId,
+                    reservationKey: reservationKey,
                     spaceId: spaceId,
                     userIdentityId: userIdentityId
                 )
@@ -721,6 +928,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             string? customerKey = default,
             string? locationId = default,
+            string? reservationKey = default,
             string? spaceId = default,
             string? userIdentityId = default
         )
@@ -733,8 +941,202 @@ namespace Seam.Api
                         acsSystemId: acsSystemId,
                         customerKey: customerKey,
                         locationId: locationId,
+                        reservationKey: reservationKey,
                         spaceId: spaceId,
                         userIdentityId: userIdentityId
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "requestAccessMethodsRequest_request")]
+        public class RequestAccessMethodsRequest
+        {
+            [JsonConstructorAttribute]
+            protected RequestAccessMethodsRequest() { }
+
+            public RequestAccessMethodsRequest(
+                string accessGrantId = default,
+                List<RequestAccessMethodsRequestRequestedAccessMethods> requestedAccessMethods =
+                    default
+            )
+            {
+                AccessGrantId = accessGrantId;
+                RequestedAccessMethods = requestedAccessMethods;
+            }
+
+            [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AccessGrantId { get; set; }
+
+            [DataMember(
+                Name = "requested_access_methods",
+                IsRequired = true,
+                EmitDefaultValue = false
+            )]
+            public List<RequestAccessMethodsRequestRequestedAccessMethods> RequestedAccessMethods { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "requestAccessMethodsRequestRequestedAccessMethods_model")]
+        public class RequestAccessMethodsRequestRequestedAccessMethods
+        {
+            [JsonConstructorAttribute]
+            protected RequestAccessMethodsRequestRequestedAccessMethods() { }
+
+            public RequestAccessMethodsRequestRequestedAccessMethods(
+                string? code = default,
+                RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum mode = default
+            )
+            {
+                Code = code;
+                Mode = mode;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ModeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "code")]
+                Code = 1,
+
+                [EnumMember(Value = "card")]
+                Card = 2,
+
+                [EnumMember(Value = "mobile_key")]
+                MobileKey = 3,
+            }
+
+            [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+            public string? Code { get; set; }
+
+            [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
+            public RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "requestAccessMethodsResponse_response")]
+        public class RequestAccessMethodsResponse
+        {
+            [JsonConstructorAttribute]
+            protected RequestAccessMethodsResponse() { }
+
+            public RequestAccessMethodsResponse(AccessGrant accessGrant = default)
+            {
+                AccessGrant = accessGrant;
+            }
+
+            [DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
+            public AccessGrant AccessGrant { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public AccessGrant RequestAccessMethods(RequestAccessMethodsRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<RequestAccessMethodsResponse>(
+                    "/access_grants/request_access_methods",
+                    requestOptions
+                )
+                .Data.AccessGrant;
+        }
+
+        public AccessGrant RequestAccessMethods(
+            string accessGrantId = default,
+            List<RequestAccessMethodsRequestRequestedAccessMethods> requestedAccessMethods = default
+        )
+        {
+            return RequestAccessMethods(
+                new RequestAccessMethodsRequest(
+                    accessGrantId: accessGrantId,
+                    requestedAccessMethods: requestedAccessMethods
+                )
+            );
+        }
+
+        public async Task<AccessGrant> RequestAccessMethodsAsync(
+            RequestAccessMethodsRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<RequestAccessMethodsResponse>(
+                    "/access_grants/request_access_methods",
+                    requestOptions
+                )
+            )
+                .Data
+                .AccessGrant;
+        }
+
+        public async Task<AccessGrant> RequestAccessMethodsAsync(
+            string accessGrantId = default,
+            List<RequestAccessMethodsRequestRequestedAccessMethods> requestedAccessMethods = default
+        )
+        {
+            return (
+                await RequestAccessMethodsAsync(
+                    new RequestAccessMethodsRequest(
+                        accessGrantId: accessGrantId,
+                        requestedAccessMethods: requestedAccessMethods
                     )
                 )
             );

@@ -143,8 +143,10 @@ namespace Seam.Api
             public ListRequest(
                 string? accessCodeId = default,
                 List<string>? accessCodeIds = default,
+                string? acsEntranceId = default,
                 string? acsSystemId = default,
                 List<string>? acsSystemIds = default,
+                string? acsUserId = default,
                 List<string>? between = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
@@ -156,13 +158,16 @@ namespace Seam.Api
                 List<ListRequest.EventTypesEnum>? eventTypes = default,
                 float? limit = default,
                 string? since = default,
-                float? unstableOffset = default
+                float? unstableOffset = default,
+                string? userIdentityId = default
             )
             {
                 AccessCodeId = accessCodeId;
                 AccessCodeIds = accessCodeIds;
+                AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
                 AcsSystemIds = acsSystemIds;
+                AcsUserId = acsUserId;
                 Between = between;
                 ConnectWebviewId = connectWebviewId;
                 ConnectedAccountId = connectedAccountId;
@@ -175,6 +180,7 @@ namespace Seam.Api
                 Limit = limit;
                 Since = since;
                 UnstableOffset = unstableOffset;
+                UserIdentityId = userIdentityId;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -458,6 +464,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "phone.deactivated")]
                 PhoneDeactivated = 92,
+
+                [EnumMember(Value = "space.device_membership_changed")]
+                SpaceDeviceMembershipChanged = 93,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -741,6 +750,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "phone.deactivated")]
                 PhoneDeactivated = 92,
+
+                [EnumMember(Value = "space.device_membership_changed")]
+                SpaceDeviceMembershipChanged = 93,
             }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -749,11 +761,17 @@ namespace Seam.Api
             [DataMember(Name = "access_code_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessCodeIds { get; set; }
 
+            [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsEntranceId { get; set; }
+
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
 
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
 
             [DataMember(Name = "between", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? Between { get; set; }
@@ -794,6 +812,9 @@ namespace Seam.Api
 
             [DataMember(Name = "unstable_offset", IsRequired = false, EmitDefaultValue = false)]
             public float? UnstableOffset { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -859,8 +880,10 @@ namespace Seam.Api
         public List<Event> List(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,
+            string? acsEntranceId = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
+            string? acsUserId = default,
             List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -872,15 +895,18 @@ namespace Seam.Api
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
             string? since = default,
-            float? unstableOffset = default
+            float? unstableOffset = default,
+            string? userIdentityId = default
         )
         {
             return List(
                 new ListRequest(
                     accessCodeId: accessCodeId,
                     accessCodeIds: accessCodeIds,
+                    acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
                     acsSystemIds: acsSystemIds,
+                    acsUserId: acsUserId,
                     between: between,
                     connectWebviewId: connectWebviewId,
                     connectedAccountId: connectedAccountId,
@@ -892,7 +918,8 @@ namespace Seam.Api
                     eventTypes: eventTypes,
                     limit: limit,
                     since: since,
-                    unstableOffset: unstableOffset
+                    unstableOffset: unstableOffset,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -909,8 +936,10 @@ namespace Seam.Api
         public async Task<List<Event>> ListAsync(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,
+            string? acsEntranceId = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
+            string? acsUserId = default,
             List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -922,7 +951,8 @@ namespace Seam.Api
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
             string? since = default,
-            float? unstableOffset = default
+            float? unstableOffset = default,
+            string? userIdentityId = default
         )
         {
             return (
@@ -930,8 +960,10 @@ namespace Seam.Api
                     new ListRequest(
                         accessCodeId: accessCodeId,
                         accessCodeIds: accessCodeIds,
+                        acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
                         acsSystemIds: acsSystemIds,
+                        acsUserId: acsUserId,
                         between: between,
                         connectWebviewId: connectWebviewId,
                         connectedAccountId: connectedAccountId,
@@ -943,7 +975,8 @@ namespace Seam.Api
                         eventTypes: eventTypes,
                         limit: limit,
                         since: since,
-                        unstableOffset: unstableOffset
+                        unstableOffset: unstableOffset,
+                        userIdentityId: userIdentityId
                     )
                 )
             );

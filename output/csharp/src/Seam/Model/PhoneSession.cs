@@ -15,15 +15,20 @@ namespace Seam.Model
         protected PhoneSession() { }
 
         public PhoneSession(
+            bool isSandboxWorkspace = default,
             List<PhoneSessionProviderSessions> providerSessions = default,
             PhoneSessionUserIdentity userIdentity = default,
             string workspaceId = default
         )
         {
+            IsSandboxWorkspace = isSandboxWorkspace;
             ProviderSessions = providerSessions;
             UserIdentity = userIdentity;
             WorkspaceId = workspaceId;
         }
+
+        [DataMember(Name = "is_sandbox_workspace", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsSandboxWorkspace { get; set; }
 
         [DataMember(Name = "provider_sessions", IsRequired = true, EmitDefaultValue = false)]
         public List<PhoneSessionProviderSessions> ProviderSessions { get; set; }
@@ -738,6 +743,7 @@ namespace Seam.Model
             string acsSystemId = default,
             PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
+            bool? canBelongToReservation = default,
             bool? canUnlockWithCard = default,
             bool? canUnlockWithCode = default,
             bool? canUnlockWithMobileKey = default,
@@ -765,6 +771,7 @@ namespace Seam.Model
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
+            CanBelongToReservation = canBelongToReservation;
             CanUnlockWithCard = canUnlockWithCard;
             CanUnlockWithCode = canUnlockWithCode;
             CanUnlockWithMobileKey = canUnlockWithMobileKey;
@@ -794,6 +801,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+
+        [DataMember(
+            Name = "can_belong_to_reservation",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanBelongToReservation { get; set; }
 
         [DataMember(Name = "can_unlock_with_card", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCard { get; set; }
@@ -1081,38 +1095,24 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata(
-            string displayName = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata.DoorTypeEnum doorType =
-                default,
-            string roomNumber = default
+            string? commonAreaName = default,
+            string? commonAreaNumber = default,
+            string? roomNumber = default
         )
         {
-            DisplayName = displayName;
-            DoorType = doorType;
+            CommonAreaName = commonAreaName;
+            CommonAreaNumber = commonAreaNumber;
             RoomNumber = roomNumber;
         }
 
-        [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum DoorTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
+        [DataMember(Name = "common_area_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? CommonAreaName { get; set; }
 
-            [EnumMember(Value = "common_area")]
-            CommonArea = 1,
+        [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
+        public string? CommonAreaNumber { get; set; }
 
-            [EnumMember(Value = "guest")]
-            Guest = 2,
-        }
-
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
-        public string DisplayName { get; set; }
-
-        [DataMember(Name = "door_type", IsRequired = true, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata.DoorTypeEnum DoorType { get; set; }
-
-        [DataMember(Name = "room_number", IsRequired = true, EmitDefaultValue = false)]
-        public string RoomNumber { get; set; }
+        [DataMember(Name = "room_number", IsRequired = false, EmitDefaultValue = false)]
+        public string? RoomNumber { get; set; }
 
         public override string ToString()
         {
@@ -1269,6 +1269,7 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata(
+            bool? auditOnKeys = default,
             string? doorDescription = default,
             string? doorId = default,
             string? doorName = default,
@@ -1277,6 +1278,7 @@ namespace Seam.Model
             string? roomName = default
         )
         {
+            AuditOnKeys = auditOnKeys;
             DoorDescription = doorDescription;
             DoorId = doorId;
             DoorName = doorName;
@@ -1284,6 +1286,9 @@ namespace Seam.Model
             RoomDescription = roomDescription;
             RoomName = roomName;
         }
+
+        [DataMember(Name = "audit_on_keys", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AuditOnKeys { get; set; }
 
         [DataMember(Name = "door_description", IsRequired = false, EmitDefaultValue = false)]
         public string? DoorDescription { get; set; }

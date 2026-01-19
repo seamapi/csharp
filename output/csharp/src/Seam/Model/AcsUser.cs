@@ -33,6 +33,7 @@ namespace Seam.Model
             string? lastSuccessfulSyncAt = default,
             List<AcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
+            AcsUserSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityFullName = default,
             string? userIdentityId = default,
@@ -59,6 +60,7 @@ namespace Seam.Model
             LastSuccessfulSyncAt = lastSuccessfulSyncAt;
             PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
+            SaltoSpaceMetadata = saltoSpaceMetadata;
             UserIdentityEmailAddress = userIdentityEmailAddress;
             UserIdentityFullName = userIdentityFullName;
             UserIdentityId = userIdentityId;
@@ -459,6 +461,10 @@ namespace Seam.Model
             typeof(AcsUserPendingMutationsUpdatingUserInformation),
             "updating_user_information"
         )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsUserPendingMutationsDeferringCreation),
+            "deferring_creation"
+        )]
         [JsonSubtypes.KnownSubType(typeof(AcsUserPendingMutationsDeleting), "deleting")]
         [JsonSubtypes.KnownSubType(typeof(AcsUserPendingMutationsCreating), "creating")]
         public abstract class AcsUserPendingMutations
@@ -539,6 +545,57 @@ namespace Seam.Model
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deleting";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsUserPendingMutationsDeferringCreation_model")]
+        public class AcsUserPendingMutationsDeferringCreation : AcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsDeferringCreation() { }
+
+            public AcsUserPendingMutationsDeferringCreation(
+                string createdAt = default,
+                string message = default,
+                string mutationCode = default,
+                string? scheduledAt = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                MutationCode = mutationCode;
+                ScheduledAt = scheduledAt;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "deferring_creation";
+
+            [DataMember(Name = "scheduled_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? ScheduledAt { get; set; }
 
             public override string ToString()
             {
@@ -1436,6 +1493,9 @@ namespace Seam.Model
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
+        [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsUserSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
+
         [DataMember(
             Name = "user_identity_email_address",
             IsRequired = false,
@@ -1499,6 +1559,44 @@ namespace Seam.Model
 
         [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsUserSaltoSpaceMetadata_model")]
+    public class AcsUserSaltoSpaceMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsUserSaltoSpaceMetadata() { }
+
+        public AcsUserSaltoSpaceMetadata(bool? auditOpenings = default, string? userId = default)
+        {
+            AuditOpenings = auditOpenings;
+            UserId = userId;
+        }
+
+        [DataMember(Name = "audit_openings", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AuditOpenings { get; set; }
+
+        [DataMember(Name = "user_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserId { get; set; }
 
         public override string ToString()
         {

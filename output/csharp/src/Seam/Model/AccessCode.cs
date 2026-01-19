@@ -117,12 +117,16 @@ namespace Seam.Model
             "account_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeErrorsKeynestUnsupportedThirdPartyLocker),
+            "keynest_unsupported_third_party_locker"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsKwiksetInsufficientPermissions),
             "kwikset_insufficient_permissions"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessCodeErrorsDormakabaOracodeNoValidUserLevel),
-            "dormakaba_oracode_no_valid_user_level"
+            typeof(AccessCodeErrorsDormakabaOracodeInvalidTimeRange),
+            "dormakaba_oracode_invalid_time_range"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsWyzePotentialDuplicateCode),
@@ -151,10 +155,6 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsAugustLockMissingKeypad),
             "august_lock_missing_keypad"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AccessCodeErrorsAugustDeviceSlotsFull),
-            "august_device_slots_full"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(AccessCodeErrorsAugustDeviceProgrammingDelay),
@@ -1052,57 +1052,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessCodeErrorsAugustDeviceSlotsFull_model")]
-        public class AccessCodeErrorsAugustDeviceSlotsFull : AccessCodeErrors
-        {
-            [JsonConstructorAttribute]
-            protected AccessCodeErrorsAugustDeviceSlotsFull() { }
-
-            public AccessCodeErrorsAugustDeviceSlotsFull(
-                string? createdAt = default,
-                string errorCode = default,
-                bool isAccessCodeError = default,
-                string message = default
-            )
-            {
-                CreatedAt = createdAt;
-                ErrorCode = errorCode;
-                IsAccessCodeError = isAccessCodeError;
-                Message = message;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? CreatedAt { get; set; }
-
-            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "august_device_slots_full";
-
-            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
-            public bool IsAccessCodeError { get; set; }
-
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "seamModel_accessCodeErrorsAugustLockMissingKeypad_model")]
         public class AccessCodeErrorsAugustLockMissingKeypad : AccessCodeErrors
         {
@@ -1460,13 +1409,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessCodeErrorsDormakabaOracodeNoValidUserLevel_model")]
-        public class AccessCodeErrorsDormakabaOracodeNoValidUserLevel : AccessCodeErrors
+        [DataContract(Name = "seamModel_accessCodeErrorsDormakabaOracodeInvalidTimeRange_model")]
+        public class AccessCodeErrorsDormakabaOracodeInvalidTimeRange : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected AccessCodeErrorsDormakabaOracodeNoValidUserLevel() { }
+            protected AccessCodeErrorsDormakabaOracodeInvalidTimeRange() { }
 
-            public AccessCodeErrorsDormakabaOracodeNoValidUserLevel(
+            public AccessCodeErrorsDormakabaOracodeInvalidTimeRange(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -1483,7 +1432,7 @@ namespace Seam.Model
             public string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "dormakaba_oracode_no_valid_user_level";
+            public override string ErrorCode { get; } = "dormakaba_oracode_invalid_time_range";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
@@ -1535,6 +1484,57 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "kwikset_insufficient_permissions";
+
+            [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
+            public bool IsAccessCodeError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeErrorsKeynestUnsupportedThirdPartyLocker_model")]
+        public class AccessCodeErrorsKeynestUnsupportedThirdPartyLocker : AccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeErrorsKeynestUnsupportedThirdPartyLocker() { }
+
+            public AccessCodeErrorsKeynestUnsupportedThirdPartyLocker(
+                string? createdAt = default,
+                string errorCode = default,
+                bool isAccessCodeError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsAccessCodeError = isAccessCodeError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "keynest_unsupported_third_party_locker";
 
             [DataMember(Name = "is_access_code_error", IsRequired = true, EmitDefaultValue = false)]
             public bool IsAccessCodeError { get; set; }
@@ -2433,6 +2433,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AccessCodeWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(AccessCodeWarningsUltraloqAccessCodeDisabled),
+            "ultraloq_access_code_disabled"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AccessCodeWarningsKwiksetUnableToConfirmCode),
             "kwikset_unable_to_confirm_code"
         )]
@@ -3023,6 +3027,52 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "kwikset_unable_to_confirm_code";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessCodeWarningsUltraloqAccessCodeDisabled_model")]
+        public class AccessCodeWarningsUltraloqAccessCodeDisabled : AccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessCodeWarningsUltraloqAccessCodeDisabled() { }
+
+            public AccessCodeWarningsUltraloqAccessCodeDisabled(
+                string? createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "ultraloq_access_code_disabled";
 
             public override string ToString()
             {

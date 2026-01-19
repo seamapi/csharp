@@ -10,6 +10,10 @@ namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "event_type")]
     [JsonSubtypes.FallBackSubType(typeof(EventUnrecognized))]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventSpaceDeviceMembershipChanged),
+        "space.device_membership_changed"
+    )]
     [JsonSubtypes.KnownSubType(typeof(EventPhoneDeactivated), "phone.deactivated")]
     [JsonSubtypes.KnownSubType(
         typeof(EventEnrollmentAutomationDeleted),
@@ -3916,7 +3920,9 @@ namespace Seam.Model
         public EventConnectedAccountDeleted(
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
+            string? connectedAccountType = default,
             string createdAt = default,
+            string? customerKey = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -3925,7 +3931,9 @@ namespace Seam.Model
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountType = connectedAccountType;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -3942,8 +3950,14 @@ namespace Seam.Model
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        [DataMember(Name = "connected_account_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountType { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -6617,20 +6631,27 @@ namespace Seam.Model
 
         public EventLockUnlocked(
             string? accessCodeId = default,
+            string? acsEntranceId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             string? actionAttemptId = default,
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
-            string deviceId = default,
+            string? deviceId = default,
             string eventId = default,
             string eventType = default,
             EventLockUnlocked.MethodEnum method = default,
             string occurredAt = default,
+            string? userIdentityId = default,
             string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
+            AcsEntranceId = acsEntranceId;
+            AcsSystemId = acsSystemId;
+            AcsUserId = acsUserId;
             ActionAttemptId = actionAttemptId;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
@@ -6641,6 +6662,7 @@ namespace Seam.Model
             EventType = eventType;
             Method = method;
             OccurredAt = occurredAt;
+            UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
 
@@ -6669,6 +6691,15 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsEntranceId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsSystemId { get; set; }
+
+        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsUserId { get; set; }
+
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
@@ -6688,8 +6719,8 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -6702,6 +6733,9 @@ namespace Seam.Model
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -7699,6 +7733,82 @@ namespace Seam.Model
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventSpaceDeviceMembershipChanged_model")]
+    public class EventSpaceDeviceMembershipChanged : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventSpaceDeviceMembershipChanged() { }
+
+        public EventSpaceDeviceMembershipChanged(
+            List<string> acsEntranceIds = default,
+            string createdAt = default,
+            List<string> deviceIds = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string spaceId = default,
+            string? spaceKey = default,
+            string workspaceId = default
+        )
+        {
+            AcsEntranceIds = acsEntranceIds;
+            CreatedAt = createdAt;
+            DeviceIds = deviceIds;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            SpaceId = spaceId;
+            SpaceKey = spaceKey;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_entrance_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AcsEntranceIds { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> DeviceIds { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "space.device_membership_changed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+        public string SpaceId { get; set; }
+
+        [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? SpaceKey { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

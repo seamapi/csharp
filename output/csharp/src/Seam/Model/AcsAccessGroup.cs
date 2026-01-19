@@ -26,7 +26,7 @@ namespace Seam.Model
             string externalTypeDisplayName = default,
             bool isManaged = default,
             string name = default,
-            List<AcsAccessGroupWarnings> warnings = default,
+            List<JObject> warnings = default,
             string workspaceId = default
         )
         {
@@ -143,66 +143,10 @@ namespace Seam.Model
         public string Name { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
-        public List<AcsAccessGroupWarnings> Warnings { get; set; }
+        public List<JObject> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_acsAccessGroupWarnings_model")]
-    public class AcsAccessGroupWarnings
-    {
-        [JsonConstructorAttribute]
-        protected AcsAccessGroupWarnings() { }
-
-        public AcsAccessGroupWarnings(
-            string createdAt = default,
-            string message = default,
-            AcsAccessGroupWarnings.WarningCodeEnum warningCode = default
-        )
-        {
-            CreatedAt = createdAt;
-            Message = message;
-            WarningCode = warningCode;
-        }
-
-        [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum WarningCodeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "unknown_issue_with_acs_access_group")]
-            UnknownIssueWithAcsAccessGroup = 1,
-        }
-
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
-
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-        public AcsAccessGroupWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
         {

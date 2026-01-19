@@ -27,6 +27,7 @@ namespace Seam.Model
             List<string> locationIds = default,
             string? name = default,
             List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
+            string? reservationKey = default,
             List<string> spaceIds = default,
             string startsAt = default,
             string userIdentityId = default,
@@ -46,6 +47,7 @@ namespace Seam.Model
             LocationIds = locationIds;
             Name = name;
             RequestedAccessMethods = requestedAccessMethods;
+            ReservationKey = reservationKey;
             SpaceIds = spaceIds;
             StartsAt = startsAt;
             UserIdentityId = userIdentityId;
@@ -191,6 +193,9 @@ namespace Seam.Model
 
         [DataMember(Name = "requested_access_methods", IsRequired = true, EmitDefaultValue = false)]
         public List<AccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
+
+        [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? ReservationKey { get; set; }
 
         [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
         public List<string> SpaceIds { get; set; }

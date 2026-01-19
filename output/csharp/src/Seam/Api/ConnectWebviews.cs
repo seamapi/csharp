@@ -33,6 +33,7 @@ namespace Seam.Api
                 string? customRedirectUrl = default,
                 string? customerKey = default,
                 CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+                List<string>? excludedProviders = default,
                 CreateRequest.ProviderCategoryEnum? providerCategory = default,
                 bool? waitForDeviceCreation = default
             )
@@ -45,6 +46,7 @@ namespace Seam.Api
                 CustomRedirectUrl = customRedirectUrl;
                 CustomerKey = customerKey;
                 DeviceSelectionMode = deviceSelectionMode;
+                ExcludedProviders = excludedProviders;
                 ProviderCategory = providerCategory;
                 WaitForDeviceCreation = waitForDeviceCreation;
             }
@@ -221,14 +223,17 @@ namespace Seam.Api
                 [EnumMember(Value = "dormakaba_ambiance")]
                 DormakabaAmbiance = 49,
 
+                [EnumMember(Value = "ultraloq")]
+                Ultraloq = 50,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 50,
+                YaleAccess = 51,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 51,
+                HidCm = 52,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 52,
+                GoogleNest = 53,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -312,6 +317,9 @@ namespace Seam.Api
             )]
             public CreateRequest.DeviceSelectionModeEnum? DeviceSelectionMode { get; set; }
 
+            [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ExcludedProviders { get; set; }
+
             [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
 
@@ -394,6 +402,7 @@ namespace Seam.Api
             string? customRedirectUrl = default,
             string? customerKey = default,
             CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+            List<string>? excludedProviders = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
         )
@@ -408,6 +417,7 @@ namespace Seam.Api
                     customRedirectUrl: customRedirectUrl,
                     customerKey: customerKey,
                     deviceSelectionMode: deviceSelectionMode,
+                    excludedProviders: excludedProviders,
                     providerCategory: providerCategory,
                     waitForDeviceCreation: waitForDeviceCreation
                 )
@@ -434,6 +444,7 @@ namespace Seam.Api
             string? customRedirectUrl = default,
             string? customerKey = default,
             CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
+            List<string>? excludedProviders = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
         )
@@ -449,6 +460,7 @@ namespace Seam.Api
                         customRedirectUrl: customRedirectUrl,
                         customerKey: customerKey,
                         deviceSelectionMode: deviceSelectionMode,
+                        excludedProviders: excludedProviders,
                         providerCategory: providerCategory,
                         waitForDeviceCreation: waitForDeviceCreation
                     )

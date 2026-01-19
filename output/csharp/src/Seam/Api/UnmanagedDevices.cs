@@ -253,38 +253,41 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles_lock")]
                 AkilesLock = 27,
 
+                [EnumMember(Value = "ultraloq_lock")]
+                UltraloqLock = 28,
+
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 28,
+                KeynestKey = 29,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 29,
+                NoiseawareActivityZone = 30,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 30,
+                MinutSensor = 31,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 31,
+                EcobeeThermostat = 32,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 32,
+                NestThermostat = 33,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 33,
+                HoneywellResideoThermostat = 34,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 34,
+                TadoThermostat = 35,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 35,
+                SensiThermostat = 36,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 36,
+                SmartthingsThermostat = 37,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 37,
+                IosPhone = 38,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 38,
+                AndroidPhone = 39,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -332,14 +335,23 @@ namespace Seam.Api
                 [EnumMember(Value = "can_run_thermostat_programs")]
                 CanRunThermostatPrograms = 13,
 
+                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
+                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
+                CanProgramThermostatProgramsAsDifferentEachDay = 15,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
+                CanProgramThermostatProgramsAsSameEachDay = 16,
+
                 [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 14,
+                CanSimulateHubConnection = 17,
 
                 [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 15,
+                CanSimulateHubDisconnection = 18,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16,
+                CanSimulatePaidSubscription = 19,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -387,14 +399,23 @@ namespace Seam.Api
                 [EnumMember(Value = "can_run_thermostat_programs")]
                 CanRunThermostatPrograms = 13,
 
+                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
+                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
+                CanProgramThermostatProgramsAsDifferentEachDay = 15,
+
+                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
+                CanProgramThermostatProgramsAsSameEachDay = 16,
+
                 [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 14,
+                CanSimulateHubConnection = 17,
 
                 [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 15,
+                CanSimulateHubDisconnection = 18,
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 16,
+                CanSimulatePaidSubscription = 19,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -522,6 +543,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "keynest")]
                 Keynest = 40,
+
+                [EnumMember(Value = "ultraloq")]
+                Ultraloq = 41,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
