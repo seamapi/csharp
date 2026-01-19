@@ -217,11 +217,14 @@ namespace Seam.Model
             [EnumMember(Value = "keynest")]
             Keynest = 48,
 
+            [EnumMember(Value = "korelock")]
+            Korelock = 49,
+
             [EnumMember(Value = "dormakaba_ambiance")]
-            DormakabaAmbiance = 49,
+            DormakabaAmbiance = 50,
 
             [EnumMember(Value = "ultraloq")]
-            Ultraloq = 50,
+            Ultraloq = 51,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -236,14 +239,17 @@ namespace Seam.Model
             [EnumMember(Value = "consumer_smartlocks")]
             ConsumerSmartlocks = 2,
 
+            [EnumMember(Value = "beta")]
+            Beta = 3,
+
             [EnumMember(Value = "thermostats")]
-            Thermostats = 3,
+            Thermostats = 4,
 
             [EnumMember(Value = "noise_sensors")]
-            NoiseSensors = 4,
+            NoiseSensors = 5,
 
             [EnumMember(Value = "access_control_systems")]
-            AccessControlSystems = 5,
+            AccessControlSystems = 6,
         }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]

@@ -653,7 +653,8 @@ namespace Seam.Api
                 string? credentialManagerAcsSystemId = default,
                 int? limit = default,
                 string? pageCursor = default,
-                string? search = default
+                string? search = default,
+                List<string>? userIdentityIds = default
             )
             {
                 CreatedBefore = createdBefore;
@@ -661,6 +662,7 @@ namespace Seam.Api
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
+                UserIdentityIds = userIdentityIds;
             }
 
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
@@ -681,6 +683,9 @@ namespace Seam.Api
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
 
             public override string ToString()
             {
@@ -750,7 +755,8 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             int? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            List<string>? userIdentityIds = default
         )
         {
             return List(
@@ -759,7 +765,8 @@ namespace Seam.Api
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                     limit: limit,
                     pageCursor: pageCursor,
-                    search: search
+                    search: search,
+                    userIdentityIds: userIdentityIds
                 )
             );
         }
@@ -778,7 +785,8 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             int? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            List<string>? userIdentityIds = default
         )
         {
             return (
@@ -788,7 +796,8 @@ namespace Seam.Api
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                         limit: limit,
                         pageCursor: pageCursor,
-                        search: search
+                        search: search,
+                        userIdentityIds: userIdentityIds
                     )
                 )
             );

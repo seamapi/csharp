@@ -143,6 +143,13 @@ namespace Seam.Api
             public ListRequest(
                 string? accessCodeId = default,
                 List<string>? accessCodeIds = default,
+                string? accessGrantId = default,
+                List<string>? accessGrantIds = default,
+                string? accessMethodId = default,
+                List<string>? accessMethodIds = default,
+                string? acsAccessGroupId = default,
+                string? acsCredentialId = default,
+                string? acsEncoderId = default,
                 string? acsEntranceId = default,
                 string? acsSystemId = default,
                 List<string>? acsSystemIds = default,
@@ -158,12 +165,21 @@ namespace Seam.Api
                 List<ListRequest.EventTypesEnum>? eventTypes = default,
                 float? limit = default,
                 string? since = default,
+                string? spaceId = default,
+                List<string>? spaceIds = default,
                 float? unstableOffset = default,
                 string? userIdentityId = default
             )
             {
                 AccessCodeId = accessCodeId;
                 AccessCodeIds = accessCodeIds;
+                AccessGrantId = accessGrantId;
+                AccessGrantIds = accessGrantIds;
+                AccessMethodId = accessMethodId;
+                AccessMethodIds = accessMethodIds;
+                AcsAccessGroupId = acsAccessGroupId;
+                AcsCredentialId = acsCredentialId;
+                AcsEncoderId = acsEncoderId;
                 AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
                 AcsSystemIds = acsSystemIds;
@@ -179,6 +195,8 @@ namespace Seam.Api
                 EventTypes = eventTypes;
                 Limit = limit;
                 Since = since;
+                SpaceId = spaceId;
+                SpaceIds = spaceIds;
                 UnstableOffset = unstableOffset;
                 UserIdentityId = userIdentityId;
             }
@@ -258,215 +276,224 @@ namespace Seam.Api
                 [EnumMember(Value = "access_grant.access_times_changed")]
                 AccessGrantAccessTimesChanged = 23,
 
+                [EnumMember(Value = "access_grant.could_not_create_requested_access_methods")]
+                AccessGrantCouldNotCreateRequestedAccessMethods = 24,
+
                 [EnumMember(Value = "access_method.issued")]
-                AccessMethodIssued = 24,
+                AccessMethodIssued = 25,
 
                 [EnumMember(Value = "access_method.revoked")]
-                AccessMethodRevoked = 25,
+                AccessMethodRevoked = 26,
 
                 [EnumMember(Value = "access_method.card_encoding_required")]
-                AccessMethodCardEncodingRequired = 26,
+                AccessMethodCardEncodingRequired = 27,
 
                 [EnumMember(Value = "access_method.deleted")]
-                AccessMethodDeleted = 27,
+                AccessMethodDeleted = 28,
 
                 [EnumMember(Value = "access_method.reissued")]
-                AccessMethodReissued = 28,
+                AccessMethodReissued = 29,
 
                 [EnumMember(Value = "acs_system.connected")]
-                AcsSystemConnected = 29,
+                AcsSystemConnected = 30,
 
                 [EnumMember(Value = "acs_system.added")]
-                AcsSystemAdded = 30,
+                AcsSystemAdded = 31,
 
                 [EnumMember(Value = "acs_system.disconnected")]
-                AcsSystemDisconnected = 31,
+                AcsSystemDisconnected = 32,
 
                 [EnumMember(Value = "acs_credential.deleted")]
-                AcsCredentialDeleted = 32,
+                AcsCredentialDeleted = 33,
 
                 [EnumMember(Value = "acs_credential.issued")]
-                AcsCredentialIssued = 33,
+                AcsCredentialIssued = 34,
 
                 [EnumMember(Value = "acs_credential.reissued")]
-                AcsCredentialReissued = 34,
+                AcsCredentialReissued = 35,
 
                 [EnumMember(Value = "acs_credential.invalidated")]
-                AcsCredentialInvalidated = 35,
+                AcsCredentialInvalidated = 36,
 
                 [EnumMember(Value = "acs_user.created")]
-                AcsUserCreated = 36,
+                AcsUserCreated = 37,
 
                 [EnumMember(Value = "acs_user.deleted")]
-                AcsUserDeleted = 37,
+                AcsUserDeleted = 38,
 
                 [EnumMember(Value = "acs_encoder.added")]
-                AcsEncoderAdded = 38,
+                AcsEncoderAdded = 39,
 
                 [EnumMember(Value = "acs_encoder.removed")]
-                AcsEncoderRemoved = 39,
+                AcsEncoderRemoved = 40,
 
                 [EnumMember(Value = "acs_access_group.deleted")]
-                AcsAccessGroupDeleted = 40,
+                AcsAccessGroupDeleted = 41,
 
                 [EnumMember(Value = "acs_entrance.added")]
-                AcsEntranceAdded = 41,
+                AcsEntranceAdded = 42,
 
                 [EnumMember(Value = "acs_entrance.removed")]
-                AcsEntranceRemoved = 42,
+                AcsEntranceRemoved = 43,
 
                 [EnumMember(Value = "client_session.deleted")]
-                ClientSessionDeleted = 43,
+                ClientSessionDeleted = 44,
 
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 44,
+                ConnectedAccountConnected = 45,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 45,
+                ConnectedAccountCreated = 46,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 46,
+                ConnectedAccountSuccessfulLogin = 47,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 47,
+                ConnectedAccountDisconnected = 48,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 48,
+                ConnectedAccountCompletedFirstSync = 49,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 49,
+                ConnectedAccountDeleted = 50,
 
                 [EnumMember(Value = "connected_account.completed_first_sync_after_reconnection")]
-                ConnectedAccountCompletedFirstSyncAfterReconnection = 50,
+                ConnectedAccountCompletedFirstSyncAfterReconnection = 51,
 
                 [EnumMember(Value = "connected_account.reauthorization_requested")]
-                ConnectedAccountReauthorizationRequested = 51,
+                ConnectedAccountReauthorizationRequested = 52,
 
                 [EnumMember(Value = "action_attempt.lock_door.succeeded")]
-                ActionAttemptLockDoorSucceeded = 52,
+                ActionAttemptLockDoorSucceeded = 53,
 
                 [EnumMember(Value = "action_attempt.lock_door.failed")]
-                ActionAttemptLockDoorFailed = 53,
+                ActionAttemptLockDoorFailed = 54,
 
                 [EnumMember(Value = "action_attempt.unlock_door.succeeded")]
-                ActionAttemptUnlockDoorSucceeded = 54,
+                ActionAttemptUnlockDoorSucceeded = 55,
 
                 [EnumMember(Value = "action_attempt.unlock_door.failed")]
-                ActionAttemptUnlockDoorFailed = 55,
+                ActionAttemptUnlockDoorFailed = 56,
 
                 [EnumMember(Value = "connect_webview.login_succeeded")]
-                ConnectWebviewLoginSucceeded = 56,
+                ConnectWebviewLoginSucceeded = 57,
 
                 [EnumMember(Value = "connect_webview.login_failed")]
-                ConnectWebviewLoginFailed = 57,
+                ConnectWebviewLoginFailed = 58,
 
                 [EnumMember(Value = "device.connected")]
-                DeviceConnected = 58,
+                DeviceConnected = 59,
 
                 [EnumMember(Value = "device.added")]
-                DeviceAdded = 59,
+                DeviceAdded = 60,
 
                 [EnumMember(Value = "device.converted_to_unmanaged")]
-                DeviceConvertedToUnmanaged = 60,
+                DeviceConvertedToUnmanaged = 61,
 
                 [EnumMember(Value = "device.unmanaged.converted_to_managed")]
-                DeviceUnmanagedConvertedToManaged = 61,
+                DeviceUnmanagedConvertedToManaged = 62,
 
                 [EnumMember(Value = "device.unmanaged.connected")]
-                DeviceUnmanagedConnected = 62,
+                DeviceUnmanagedConnected = 63,
 
                 [EnumMember(Value = "device.disconnected")]
-                DeviceDisconnected = 63,
+                DeviceDisconnected = 64,
 
                 [EnumMember(Value = "device.unmanaged.disconnected")]
-                DeviceUnmanagedDisconnected = 64,
+                DeviceUnmanagedDisconnected = 65,
 
                 [EnumMember(Value = "device.tampered")]
-                DeviceTampered = 65,
+                DeviceTampered = 66,
 
                 [EnumMember(Value = "device.low_battery")]
-                DeviceLowBattery = 66,
+                DeviceLowBattery = 67,
 
                 [EnumMember(Value = "device.battery_status_changed")]
-                DeviceBatteryStatusChanged = 67,
+                DeviceBatteryStatusChanged = 68,
 
                 [EnumMember(Value = "device.removed")]
-                DeviceRemoved = 68,
+                DeviceRemoved = 69,
 
                 [EnumMember(Value = "device.deleted")]
-                DeviceDeleted = 69,
+                DeviceDeleted = 70,
 
                 [EnumMember(Value = "device.third_party_integration_detected")]
-                DeviceThirdPartyIntegrationDetected = 70,
+                DeviceThirdPartyIntegrationDetected = 71,
 
                 [EnumMember(Value = "device.third_party_integration_no_longer_detected")]
-                DeviceThirdPartyIntegrationNoLongerDetected = 71,
+                DeviceThirdPartyIntegrationNoLongerDetected = 72,
 
                 [EnumMember(Value = "device.salto.privacy_mode_activated")]
-                DeviceSaltoPrivacyModeActivated = 72,
+                DeviceSaltoPrivacyModeActivated = 73,
 
                 [EnumMember(Value = "device.salto.privacy_mode_deactivated")]
-                DeviceSaltoPrivacyModeDeactivated = 73,
+                DeviceSaltoPrivacyModeDeactivated = 74,
 
                 [EnumMember(Value = "device.connection_became_flaky")]
-                DeviceConnectionBecameFlaky = 74,
+                DeviceConnectionBecameFlaky = 75,
 
                 [EnumMember(Value = "device.connection_stabilized")]
-                DeviceConnectionStabilized = 75,
+                DeviceConnectionStabilized = 76,
 
                 [EnumMember(Value = "device.error.subscription_required")]
-                DeviceErrorSubscriptionRequired = 76,
+                DeviceErrorSubscriptionRequired = 77,
 
                 [EnumMember(Value = "device.error.subscription_required.resolved")]
-                DeviceErrorSubscriptionRequiredResolved = 77,
+                DeviceErrorSubscriptionRequiredResolved = 78,
 
                 [EnumMember(Value = "device.accessory_keypad_connected")]
-                DeviceAccessoryKeypadConnected = 78,
+                DeviceAccessoryKeypadConnected = 79,
 
                 [EnumMember(Value = "device.accessory_keypad_disconnected")]
-                DeviceAccessoryKeypadDisconnected = 79,
+                DeviceAccessoryKeypadDisconnected = 80,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 80,
+                NoiseSensorNoiseThresholdTriggered = 81,
 
                 [EnumMember(Value = "lock.locked")]
-                LockLocked = 81,
+                LockLocked = 82,
 
                 [EnumMember(Value = "lock.unlocked")]
-                LockUnlocked = 82,
+                LockUnlocked = 83,
 
                 [EnumMember(Value = "lock.access_denied")]
-                LockAccessDenied = 83,
+                LockAccessDenied = 84,
 
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 84,
+                ThermostatClimatePresetActivated = 85,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 85,
+                ThermostatManuallyAdjusted = 86,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 86,
+                ThermostatTemperatureThresholdExceeded = 87,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 87,
+                ThermostatTemperatureThresholdNoLongerExceeded = 88,
 
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
-                ThermostatTemperatureReachedSetPoint = 88,
+                ThermostatTemperatureReachedSetPoint = 89,
 
                 [EnumMember(Value = "thermostat.temperature_changed")]
-                ThermostatTemperatureChanged = 89,
+                ThermostatTemperatureChanged = 90,
 
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 90,
+                DeviceNameChanged = 91,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 91,
+                EnrollmentAutomationDeleted = 92,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 92,
+                PhoneDeactivated = 93,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 93,
+                SpaceDeviceMembershipChanged = 94,
+
+                [EnumMember(Value = "space.created")]
+                SpaceCreated = 95,
+
+                [EnumMember(Value = "space.deleted")]
+                SpaceDeleted = 96,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -544,215 +571,224 @@ namespace Seam.Api
                 [EnumMember(Value = "access_grant.access_times_changed")]
                 AccessGrantAccessTimesChanged = 23,
 
+                [EnumMember(Value = "access_grant.could_not_create_requested_access_methods")]
+                AccessGrantCouldNotCreateRequestedAccessMethods = 24,
+
                 [EnumMember(Value = "access_method.issued")]
-                AccessMethodIssued = 24,
+                AccessMethodIssued = 25,
 
                 [EnumMember(Value = "access_method.revoked")]
-                AccessMethodRevoked = 25,
+                AccessMethodRevoked = 26,
 
                 [EnumMember(Value = "access_method.card_encoding_required")]
-                AccessMethodCardEncodingRequired = 26,
+                AccessMethodCardEncodingRequired = 27,
 
                 [EnumMember(Value = "access_method.deleted")]
-                AccessMethodDeleted = 27,
+                AccessMethodDeleted = 28,
 
                 [EnumMember(Value = "access_method.reissued")]
-                AccessMethodReissued = 28,
+                AccessMethodReissued = 29,
 
                 [EnumMember(Value = "acs_system.connected")]
-                AcsSystemConnected = 29,
+                AcsSystemConnected = 30,
 
                 [EnumMember(Value = "acs_system.added")]
-                AcsSystemAdded = 30,
+                AcsSystemAdded = 31,
 
                 [EnumMember(Value = "acs_system.disconnected")]
-                AcsSystemDisconnected = 31,
+                AcsSystemDisconnected = 32,
 
                 [EnumMember(Value = "acs_credential.deleted")]
-                AcsCredentialDeleted = 32,
+                AcsCredentialDeleted = 33,
 
                 [EnumMember(Value = "acs_credential.issued")]
-                AcsCredentialIssued = 33,
+                AcsCredentialIssued = 34,
 
                 [EnumMember(Value = "acs_credential.reissued")]
-                AcsCredentialReissued = 34,
+                AcsCredentialReissued = 35,
 
                 [EnumMember(Value = "acs_credential.invalidated")]
-                AcsCredentialInvalidated = 35,
+                AcsCredentialInvalidated = 36,
 
                 [EnumMember(Value = "acs_user.created")]
-                AcsUserCreated = 36,
+                AcsUserCreated = 37,
 
                 [EnumMember(Value = "acs_user.deleted")]
-                AcsUserDeleted = 37,
+                AcsUserDeleted = 38,
 
                 [EnumMember(Value = "acs_encoder.added")]
-                AcsEncoderAdded = 38,
+                AcsEncoderAdded = 39,
 
                 [EnumMember(Value = "acs_encoder.removed")]
-                AcsEncoderRemoved = 39,
+                AcsEncoderRemoved = 40,
 
                 [EnumMember(Value = "acs_access_group.deleted")]
-                AcsAccessGroupDeleted = 40,
+                AcsAccessGroupDeleted = 41,
 
                 [EnumMember(Value = "acs_entrance.added")]
-                AcsEntranceAdded = 41,
+                AcsEntranceAdded = 42,
 
                 [EnumMember(Value = "acs_entrance.removed")]
-                AcsEntranceRemoved = 42,
+                AcsEntranceRemoved = 43,
 
                 [EnumMember(Value = "client_session.deleted")]
-                ClientSessionDeleted = 43,
+                ClientSessionDeleted = 44,
 
                 [EnumMember(Value = "connected_account.connected")]
-                ConnectedAccountConnected = 44,
+                ConnectedAccountConnected = 45,
 
                 [EnumMember(Value = "connected_account.created")]
-                ConnectedAccountCreated = 45,
+                ConnectedAccountCreated = 46,
 
                 [EnumMember(Value = "connected_account.successful_login")]
-                ConnectedAccountSuccessfulLogin = 46,
+                ConnectedAccountSuccessfulLogin = 47,
 
                 [EnumMember(Value = "connected_account.disconnected")]
-                ConnectedAccountDisconnected = 47,
+                ConnectedAccountDisconnected = 48,
 
                 [EnumMember(Value = "connected_account.completed_first_sync")]
-                ConnectedAccountCompletedFirstSync = 48,
+                ConnectedAccountCompletedFirstSync = 49,
 
                 [EnumMember(Value = "connected_account.deleted")]
-                ConnectedAccountDeleted = 49,
+                ConnectedAccountDeleted = 50,
 
                 [EnumMember(Value = "connected_account.completed_first_sync_after_reconnection")]
-                ConnectedAccountCompletedFirstSyncAfterReconnection = 50,
+                ConnectedAccountCompletedFirstSyncAfterReconnection = 51,
 
                 [EnumMember(Value = "connected_account.reauthorization_requested")]
-                ConnectedAccountReauthorizationRequested = 51,
+                ConnectedAccountReauthorizationRequested = 52,
 
                 [EnumMember(Value = "action_attempt.lock_door.succeeded")]
-                ActionAttemptLockDoorSucceeded = 52,
+                ActionAttemptLockDoorSucceeded = 53,
 
                 [EnumMember(Value = "action_attempt.lock_door.failed")]
-                ActionAttemptLockDoorFailed = 53,
+                ActionAttemptLockDoorFailed = 54,
 
                 [EnumMember(Value = "action_attempt.unlock_door.succeeded")]
-                ActionAttemptUnlockDoorSucceeded = 54,
+                ActionAttemptUnlockDoorSucceeded = 55,
 
                 [EnumMember(Value = "action_attempt.unlock_door.failed")]
-                ActionAttemptUnlockDoorFailed = 55,
+                ActionAttemptUnlockDoorFailed = 56,
 
                 [EnumMember(Value = "connect_webview.login_succeeded")]
-                ConnectWebviewLoginSucceeded = 56,
+                ConnectWebviewLoginSucceeded = 57,
 
                 [EnumMember(Value = "connect_webview.login_failed")]
-                ConnectWebviewLoginFailed = 57,
+                ConnectWebviewLoginFailed = 58,
 
                 [EnumMember(Value = "device.connected")]
-                DeviceConnected = 58,
+                DeviceConnected = 59,
 
                 [EnumMember(Value = "device.added")]
-                DeviceAdded = 59,
+                DeviceAdded = 60,
 
                 [EnumMember(Value = "device.converted_to_unmanaged")]
-                DeviceConvertedToUnmanaged = 60,
+                DeviceConvertedToUnmanaged = 61,
 
                 [EnumMember(Value = "device.unmanaged.converted_to_managed")]
-                DeviceUnmanagedConvertedToManaged = 61,
+                DeviceUnmanagedConvertedToManaged = 62,
 
                 [EnumMember(Value = "device.unmanaged.connected")]
-                DeviceUnmanagedConnected = 62,
+                DeviceUnmanagedConnected = 63,
 
                 [EnumMember(Value = "device.disconnected")]
-                DeviceDisconnected = 63,
+                DeviceDisconnected = 64,
 
                 [EnumMember(Value = "device.unmanaged.disconnected")]
-                DeviceUnmanagedDisconnected = 64,
+                DeviceUnmanagedDisconnected = 65,
 
                 [EnumMember(Value = "device.tampered")]
-                DeviceTampered = 65,
+                DeviceTampered = 66,
 
                 [EnumMember(Value = "device.low_battery")]
-                DeviceLowBattery = 66,
+                DeviceLowBattery = 67,
 
                 [EnumMember(Value = "device.battery_status_changed")]
-                DeviceBatteryStatusChanged = 67,
+                DeviceBatteryStatusChanged = 68,
 
                 [EnumMember(Value = "device.removed")]
-                DeviceRemoved = 68,
+                DeviceRemoved = 69,
 
                 [EnumMember(Value = "device.deleted")]
-                DeviceDeleted = 69,
+                DeviceDeleted = 70,
 
                 [EnumMember(Value = "device.third_party_integration_detected")]
-                DeviceThirdPartyIntegrationDetected = 70,
+                DeviceThirdPartyIntegrationDetected = 71,
 
                 [EnumMember(Value = "device.third_party_integration_no_longer_detected")]
-                DeviceThirdPartyIntegrationNoLongerDetected = 71,
+                DeviceThirdPartyIntegrationNoLongerDetected = 72,
 
                 [EnumMember(Value = "device.salto.privacy_mode_activated")]
-                DeviceSaltoPrivacyModeActivated = 72,
+                DeviceSaltoPrivacyModeActivated = 73,
 
                 [EnumMember(Value = "device.salto.privacy_mode_deactivated")]
-                DeviceSaltoPrivacyModeDeactivated = 73,
+                DeviceSaltoPrivacyModeDeactivated = 74,
 
                 [EnumMember(Value = "device.connection_became_flaky")]
-                DeviceConnectionBecameFlaky = 74,
+                DeviceConnectionBecameFlaky = 75,
 
                 [EnumMember(Value = "device.connection_stabilized")]
-                DeviceConnectionStabilized = 75,
+                DeviceConnectionStabilized = 76,
 
                 [EnumMember(Value = "device.error.subscription_required")]
-                DeviceErrorSubscriptionRequired = 76,
+                DeviceErrorSubscriptionRequired = 77,
 
                 [EnumMember(Value = "device.error.subscription_required.resolved")]
-                DeviceErrorSubscriptionRequiredResolved = 77,
+                DeviceErrorSubscriptionRequiredResolved = 78,
 
                 [EnumMember(Value = "device.accessory_keypad_connected")]
-                DeviceAccessoryKeypadConnected = 78,
+                DeviceAccessoryKeypadConnected = 79,
 
                 [EnumMember(Value = "device.accessory_keypad_disconnected")]
-                DeviceAccessoryKeypadDisconnected = 79,
+                DeviceAccessoryKeypadDisconnected = 80,
 
                 [EnumMember(Value = "noise_sensor.noise_threshold_triggered")]
-                NoiseSensorNoiseThresholdTriggered = 80,
+                NoiseSensorNoiseThresholdTriggered = 81,
 
                 [EnumMember(Value = "lock.locked")]
-                LockLocked = 81,
+                LockLocked = 82,
 
                 [EnumMember(Value = "lock.unlocked")]
-                LockUnlocked = 82,
+                LockUnlocked = 83,
 
                 [EnumMember(Value = "lock.access_denied")]
-                LockAccessDenied = 83,
+                LockAccessDenied = 84,
 
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 84,
+                ThermostatClimatePresetActivated = 85,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 85,
+                ThermostatManuallyAdjusted = 86,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 86,
+                ThermostatTemperatureThresholdExceeded = 87,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 87,
+                ThermostatTemperatureThresholdNoLongerExceeded = 88,
 
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
-                ThermostatTemperatureReachedSetPoint = 88,
+                ThermostatTemperatureReachedSetPoint = 89,
 
                 [EnumMember(Value = "thermostat.temperature_changed")]
-                ThermostatTemperatureChanged = 89,
+                ThermostatTemperatureChanged = 90,
 
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 90,
+                DeviceNameChanged = 91,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 91,
+                EnrollmentAutomationDeleted = 92,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 92,
+                PhoneDeactivated = 93,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 93,
+                SpaceDeviceMembershipChanged = 94,
+
+                [EnumMember(Value = "space.created")]
+                SpaceCreated = 95,
+
+                [EnumMember(Value = "space.deleted")]
+                SpaceDeleted = 96,
             }
 
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -760,6 +796,27 @@ namespace Seam.Api
 
             [DataMember(Name = "access_code_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessCodeIds { get; set; }
+
+            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantId { get; set; }
+
+            [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessGrantIds { get; set; }
+
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
+
+            [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessMethodIds { get; set; }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsAccessGroupId { get; set; }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsEncoderId { get; set; }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
@@ -809,6 +866,12 @@ namespace Seam.Api
 
             [DataMember(Name = "since", IsRequired = false, EmitDefaultValue = false)]
             public string? Since { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
+
+            [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceIds { get; set; }
 
             [DataMember(Name = "unstable_offset", IsRequired = false, EmitDefaultValue = false)]
             public float? UnstableOffset { get; set; }
@@ -880,6 +943,13 @@ namespace Seam.Api
         public List<Event> List(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,
+            string? accessGrantId = default,
+            List<string>? accessGrantIds = default,
+            string? accessMethodId = default,
+            List<string>? accessMethodIds = default,
+            string? acsAccessGroupId = default,
+            string? acsCredentialId = default,
+            string? acsEncoderId = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
@@ -895,6 +965,8 @@ namespace Seam.Api
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
             string? since = default,
+            string? spaceId = default,
+            List<string>? spaceIds = default,
             float? unstableOffset = default,
             string? userIdentityId = default
         )
@@ -903,6 +975,13 @@ namespace Seam.Api
                 new ListRequest(
                     accessCodeId: accessCodeId,
                     accessCodeIds: accessCodeIds,
+                    accessGrantId: accessGrantId,
+                    accessGrantIds: accessGrantIds,
+                    accessMethodId: accessMethodId,
+                    accessMethodIds: accessMethodIds,
+                    acsAccessGroupId: acsAccessGroupId,
+                    acsCredentialId: acsCredentialId,
+                    acsEncoderId: acsEncoderId,
                     acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
                     acsSystemIds: acsSystemIds,
@@ -918,6 +997,8 @@ namespace Seam.Api
                     eventTypes: eventTypes,
                     limit: limit,
                     since: since,
+                    spaceId: spaceId,
+                    spaceIds: spaceIds,
                     unstableOffset: unstableOffset,
                     userIdentityId: userIdentityId
                 )
@@ -936,6 +1017,13 @@ namespace Seam.Api
         public async Task<List<Event>> ListAsync(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,
+            string? accessGrantId = default,
+            List<string>? accessGrantIds = default,
+            string? accessMethodId = default,
+            List<string>? accessMethodIds = default,
+            string? acsAccessGroupId = default,
+            string? acsCredentialId = default,
+            string? acsEncoderId = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
@@ -951,6 +1039,8 @@ namespace Seam.Api
             List<ListRequest.EventTypesEnum>? eventTypes = default,
             float? limit = default,
             string? since = default,
+            string? spaceId = default,
+            List<string>? spaceIds = default,
             float? unstableOffset = default,
             string? userIdentityId = default
         )
@@ -960,6 +1050,13 @@ namespace Seam.Api
                     new ListRequest(
                         accessCodeId: accessCodeId,
                         accessCodeIds: accessCodeIds,
+                        accessGrantId: accessGrantId,
+                        accessGrantIds: accessGrantIds,
+                        accessMethodId: accessMethodId,
+                        accessMethodIds: accessMethodIds,
+                        acsAccessGroupId: acsAccessGroupId,
+                        acsCredentialId: acsCredentialId,
+                        acsEncoderId: acsEncoderId,
                         acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
                         acsSystemIds: acsSystemIds,
@@ -975,6 +1072,8 @@ namespace Seam.Api
                         eventTypes: eventTypes,
                         limit: limit,
                         since: since,
+                        spaceId: spaceId,
+                        spaceIds: spaceIds,
                         unstableOffset: unstableOffset,
                         userIdentityId: userIdentityId
                     )

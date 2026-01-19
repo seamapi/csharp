@@ -23,6 +23,7 @@ namespace Seam.Model
             string? customizationProfileId = default,
             string displayName = default,
             string? endsAt = default,
+            List<AccessGrantErrors> errors = default,
             string? instantKeyUrl = default,
             List<string> locationIds = default,
             string? name = default,
@@ -43,6 +44,7 @@ namespace Seam.Model
             CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
             EndsAt = endsAt;
+            Errors = errors;
             InstantKeyUrl = instantKeyUrl;
             LocationIds = locationIds;
             Name = name;
@@ -53,6 +55,108 @@ namespace Seam.Model
             UserIdentityId = userIdentityId;
             Warnings = warnings;
             WorkspaceId = workspaceId;
+        }
+
+        [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(AccessGrantErrorsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessGrantErrorsCannotCreateRequestedAccessMethods),
+            "cannot_create_requested_access_methods"
+        )]
+        public abstract class AccessGrantErrors
+        {
+            public abstract string ErrorCode { get; }
+
+            public abstract string Message { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_accessGrantErrorsCannotCreateRequestedAccessMethods_model")]
+        public class AccessGrantErrorsCannotCreateRequestedAccessMethods : AccessGrantErrors
+        {
+            [JsonConstructorAttribute]
+            protected AccessGrantErrorsCannotCreateRequestedAccessMethods() { }
+
+            public AccessGrantErrorsCannotCreateRequestedAccessMethods(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "cannot_create_requested_access_methods";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessGrantErrorsUnrecognized_model")]
+        public class AccessGrantErrorsUnrecognized : AccessGrantErrors
+        {
+            [JsonConstructorAttribute]
+            protected AccessGrantErrorsUnrecognized() { }
+
+            public AccessGrantErrorsUnrecognized(
+                string errorCode = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
@@ -181,6 +285,9 @@ namespace Seam.Model
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
+
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<AccessGrantErrors> Errors { get; set; }
 
         [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string? InstantKeyUrl { get; set; }

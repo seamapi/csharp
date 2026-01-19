@@ -1248,14 +1248,14 @@ namespace Seam.Api
                 [EnumMember(Value = "nest")]
                 Nest = 3,
 
-                [EnumMember(Value = "tado")]
-                Tado = 4,
-
                 [EnumMember(Value = "sensi")]
-                Sensi = 5,
+                Sensi = 4,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 6,
+                Smartthings = 5,
+
+                [EnumMember(Value = "tado")]
+                Tado = 6,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

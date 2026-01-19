@@ -340,15 +340,10 @@ namespace Seam.Api
                 List<string> deviceIds = default,
                 string? endsAt = default,
                 bool? isExternalModificationAllowed = default,
-                bool? isOfflineAccessCode = default,
-                bool? isOneTimeUse = default,
-                CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
                 string? name = default,
                 bool? preferNativeScheduling = default,
                 float? preferredCodeLength = default,
-                string? startsAt = default,
-                bool? useBackupAccessCodePool = default,
-                bool? useOfflineAccessCode = default
+                string? startsAt = default
             )
             {
                 AllowExternalModification = allowExternalModification;
@@ -358,15 +353,10 @@ namespace Seam.Api
                 DeviceIds = deviceIds;
                 EndsAt = endsAt;
                 IsExternalModificationAllowed = isExternalModificationAllowed;
-                IsOfflineAccessCode = isOfflineAccessCode;
-                IsOneTimeUse = isOneTimeUse;
-                MaxTimeRounding = maxTimeRounding;
                 Name = name;
                 PreferNativeScheduling = preferNativeScheduling;
                 PreferredCodeLength = preferredCodeLength;
                 StartsAt = startsAt;
-                UseBackupAccessCodePool = useBackupAccessCodePool;
-                UseOfflineAccessCode = useOfflineAccessCode;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -380,25 +370,6 @@ namespace Seam.Api
 
                 [EnumMember(Value = "create_random_code")]
                 CreateRandomCode = 2,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum MaxTimeRoundingEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "1hour")]
-                _1hour = 1,
-
-                [EnumMember(Value = "1day")]
-                _1day = 2,
-
-                [EnumMember(Value = "1h")]
-                _1h = 3,
-
-                [EnumMember(Value = "1d")]
-                _1d = 4,
             }
 
             [DataMember(
@@ -438,19 +409,6 @@ namespace Seam.Api
             )]
             public bool? IsExternalModificationAllowed { get; set; }
 
-            [DataMember(
-                Name = "is_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsOfflineAccessCode { get; set; }
-
-            [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsOneTimeUse { get; set; }
-
-            [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
-            public CreateMultipleRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
-
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -470,20 +428,6 @@ namespace Seam.Api
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
-
-            [DataMember(
-                Name = "use_backup_access_code_pool",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseBackupAccessCodePool { get; set; }
-
-            [DataMember(
-                Name = "use_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseOfflineAccessCode { get; set; }
 
             public override string ToString()
             {
@@ -557,15 +501,10 @@ namespace Seam.Api
             List<string> deviceIds = default,
             string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
             string? name = default,
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
-            string? startsAt = default,
-            bool? useBackupAccessCodePool = default,
-            bool? useOfflineAccessCode = default
+            string? startsAt = default
         )
         {
             return CreateMultiple(
@@ -577,15 +516,10 @@ namespace Seam.Api
                     deviceIds: deviceIds,
                     endsAt: endsAt,
                     isExternalModificationAllowed: isExternalModificationAllowed,
-                    isOfflineAccessCode: isOfflineAccessCode,
-                    isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding,
                     name: name,
                     preferNativeScheduling: preferNativeScheduling,
                     preferredCodeLength: preferredCodeLength,
-                    startsAt: startsAt,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
-                    useOfflineAccessCode: useOfflineAccessCode
+                    startsAt: startsAt
                 )
             );
         }
@@ -613,15 +547,10 @@ namespace Seam.Api
             List<string> deviceIds = default,
             string? endsAt = default,
             bool? isExternalModificationAllowed = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            CreateMultipleRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
             string? name = default,
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
-            string? startsAt = default,
-            bool? useBackupAccessCodePool = default,
-            bool? useOfflineAccessCode = default
+            string? startsAt = default
         )
         {
             return (
@@ -634,15 +563,10 @@ namespace Seam.Api
                         deviceIds: deviceIds,
                         endsAt: endsAt,
                         isExternalModificationAllowed: isExternalModificationAllowed,
-                        isOfflineAccessCode: isOfflineAccessCode,
-                        isOneTimeUse: isOneTimeUse,
-                        maxTimeRounding: maxTimeRounding,
                         name: name,
                         preferNativeScheduling: preferNativeScheduling,
                         preferredCodeLength: preferredCodeLength,
-                        startsAt: startsAt,
-                        useBackupAccessCodePool: useBackupAccessCodePool,
-                        useOfflineAccessCode: useOfflineAccessCode
+                        startsAt: startsAt
                     )
                 )
             );

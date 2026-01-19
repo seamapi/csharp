@@ -25,6 +25,7 @@ namespace Seam.Model
             string? customerKey = default,
             string displayName = default,
             List<ConnectedAccountErrors> errors = default,
+            string? imageUrl = default,
             ConnectedAccountUserIdentifier? userIdentifier = default,
             List<ConnectedAccountWarnings> warnings = default
         )
@@ -39,6 +40,7 @@ namespace Seam.Model
             CustomerKey = customerKey;
             DisplayName = displayName;
             Errors = errors;
+            ImageUrl = imageUrl;
             UserIdentifier = userIdentifier;
             Warnings = warnings;
         }
@@ -822,6 +824,9 @@ namespace Seam.Model
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
 
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
         public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }

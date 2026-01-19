@@ -39,6 +39,8 @@ namespace Seam.Model
             string createdAt = default,
             object? customMetadata = default,
             string deviceId = default,
+            DeviceDeviceManufacturer? deviceManufacturer = default,
+            DeviceDeviceProvider? deviceProvider = default,
             Device.DeviceTypeEnum deviceType = default,
             string displayName = default,
             List<DeviceErrors> errors = default,
@@ -77,6 +79,8 @@ namespace Seam.Model
             CreatedAt = createdAt;
             CustomMetadata = customMetadata;
             DeviceId = deviceId;
+            DeviceManufacturer = deviceManufacturer;
+            DeviceProvider = deviceProvider;
             DeviceType = deviceType;
             DisplayName = displayName;
             Errors = errors;
@@ -204,38 +208,41 @@ namespace Seam.Model
             [EnumMember(Value = "ultraloq_lock")]
             UltraloqLock = 28,
 
+            [EnumMember(Value = "korelock_lock")]
+            KorelockLock = 29,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 29,
+            KeynestKey = 30,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 30,
+            NoiseawareActivityZone = 31,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 31,
+            MinutSensor = 32,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 32,
+            EcobeeThermostat = 33,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 33,
+            NestThermostat = 34,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 34,
+            HoneywellResideoThermostat = 35,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 35,
+            TadoThermostat = 36,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 36,
+            SensiThermostat = 37,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 37,
+            SmartthingsThermostat = 38,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 38,
+            IosPhone = 39,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 39,
+            AndroidPhone = 40,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1132,8 +1139,8 @@ namespace Seam.Model
             "keynest_unsupported_locker"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(DeviceWarningsHubRequiredForAddtionalCapabilities),
-            "hub_required_for_addtional_capabilities"
+            typeof(DeviceWarningsHubRequiredForAdditionalCapabilities),
+            "hub_required_for_additional_capabilities"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsUltraloqTimeZoneUnknown),
@@ -1990,13 +1997,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_deviceWarningsHubRequiredForAddtionalCapabilities_model")]
-        public class DeviceWarningsHubRequiredForAddtionalCapabilities : DeviceWarnings
+        [DataContract(Name = "seamModel_deviceWarningsHubRequiredForAdditionalCapabilities_model")]
+        public class DeviceWarningsHubRequiredForAdditionalCapabilities : DeviceWarnings
         {
             [JsonConstructorAttribute]
-            protected DeviceWarningsHubRequiredForAddtionalCapabilities() { }
+            protected DeviceWarningsHubRequiredForAdditionalCapabilities() { }
 
-            public DeviceWarningsHubRequiredForAddtionalCapabilities(
+            public DeviceWarningsHubRequiredForAdditionalCapabilities(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -2014,7 +2021,8 @@ namespace Seam.Model
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "hub_required_for_addtional_capabilities";
+            public override string WarningCode { get; } =
+                "hub_required_for_additional_capabilities";
 
             public override string ToString()
             {
@@ -2281,6 +2289,12 @@ namespace Seam.Model
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]
+        public DeviceDeviceManufacturer? DeviceManufacturer { get; set; }
+
+        [DataMember(Name = "device_provider", IsRequired = false, EmitDefaultValue = false)]
+        public DeviceDeviceProvider? DeviceProvider { get; set; }
+
         [DataMember(Name = "device_type", IsRequired = true, EmitDefaultValue = false)]
         public Device.DeviceTypeEnum DeviceType { get; set; }
 
@@ -2310,6 +2324,103 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_deviceDeviceManufacturer_model")]
+    public class DeviceDeviceManufacturer
+    {
+        [JsonConstructorAttribute]
+        protected DeviceDeviceManufacturer() { }
+
+        public DeviceDeviceManufacturer(
+            string displayName = default,
+            string? imageUrl = default,
+            string manufacturer = default
+        )
+        {
+            DisplayName = displayName;
+            ImageUrl = imageUrl;
+            Manufacturer = manufacturer;
+        }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
+
+        [DataMember(Name = "manufacturer", IsRequired = true, EmitDefaultValue = false)]
+        public string Manufacturer { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_deviceDeviceProvider_model")]
+    public class DeviceDeviceProvider
+    {
+        [JsonConstructorAttribute]
+        protected DeviceDeviceProvider() { }
+
+        public DeviceDeviceProvider(
+            string deviceProviderName = default,
+            string displayName = default,
+            string? imageUrl = default,
+            string providerCategory = default
+        )
+        {
+            DeviceProviderName = deviceProviderName;
+            DisplayName = displayName;
+            ImageUrl = imageUrl;
+            ProviderCategory = providerCategory;
+        }
+
+        [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceProviderName { get; set; }
+
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
+
+        [DataMember(Name = "provider_category", IsRequired = true, EmitDefaultValue = false)]
+        public string ProviderCategory { get; set; }
 
         public override string ToString()
         {
@@ -2413,6 +2524,7 @@ namespace Seam.Model
             DevicePropertiesIglooMetadata? iglooMetadata = default,
             DevicePropertiesIgloohomeMetadata? igloohomeMetadata = default,
             DevicePropertiesKeynestMetadata? keynestMetadata = default,
+            DevicePropertiesKorelockMetadata? korelockMetadata = default,
             DevicePropertiesKwiksetMetadata? kwiksetMetadata = default,
             DevicePropertiesLocklyMetadata? locklyMetadata = default,
             DevicePropertiesMinutMetadata? minutMetadata = default,
@@ -2513,6 +2625,7 @@ namespace Seam.Model
             IglooMetadata = iglooMetadata;
             IgloohomeMetadata = igloohomeMetadata;
             KeynestMetadata = keynestMetadata;
+            KorelockMetadata = korelockMetadata;
             KwiksetMetadata = kwiksetMetadata;
             LocklyMetadata = locklyMetadata;
             MinutMetadata = minutMetadata;
@@ -2802,6 +2915,9 @@ namespace Seam.Model
 
         [DataMember(Name = "keynest_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesKeynestMetadata? KeynestMetadata { get; set; }
+
+        [DataMember(Name = "korelock_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesKorelockMetadata? KorelockMetadata { get; set; }
 
         [DataMember(Name = "kwikset_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesKwiksetMetadata? KwiksetMetadata { get; set; }
@@ -4411,6 +4527,67 @@ namespace Seam.Model
 
         [DataMember(Name = "subscription_plan", IsRequired = false, EmitDefaultValue = false)]
         public string? SubscriptionPlan { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesKorelockMetadata_model")]
+    public class DevicePropertiesKorelockMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesKorelockMetadata() { }
+
+        public DevicePropertiesKorelockMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? firmwareVersion = default,
+            string? modelCode = default,
+            string? serialNumber = default,
+            float? wifiSignalStrength = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            FirmwareVersion = firmwareVersion;
+            ModelCode = modelCode;
+            SerialNumber = serialNumber;
+            WifiSignalStrength = wifiSignalStrength;
+        }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        [DataMember(Name = "model_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? ModelCode { get; set; }
+
+        [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
+        public string? SerialNumber { get; set; }
+
+        [DataMember(Name = "wifi_signal_strength", IsRequired = false, EmitDefaultValue = false)]
+        public float? WifiSignalStrength { get; set; }
 
         public override string ToString()
         {
