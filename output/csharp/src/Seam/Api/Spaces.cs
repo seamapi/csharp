@@ -494,6 +494,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_systems")]
                 AcsSystems = 5,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -516,6 +519,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_systems")]
                 AcsSystems = 5,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 6,
             }
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]

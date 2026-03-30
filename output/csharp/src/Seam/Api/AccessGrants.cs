@@ -237,10 +237,12 @@ namespace Seam.Api
 
             public CreateRequestRequestedAccessMethods(
                 string? code = default,
+                int? instantKeyMaxUseCount = default,
                 CreateRequestRequestedAccessMethods.ModeEnum mode = default
             )
             {
                 Code = code;
+                InstantKeyMaxUseCount = instantKeyMaxUseCount;
                 Mode = mode;
             }
 
@@ -258,10 +260,20 @@ namespace Seam.Api
 
                 [EnumMember(Value = "mobile_key")]
                 MobileKey = 3,
+
+                [EnumMember(Value = "cloud_key")]
+                CloudKey = 4,
             }
 
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
+
+            [DataMember(
+                Name = "instant_key_max_use_count",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public int? InstantKeyMaxUseCount { get; set; }
 
             [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
             public CreateRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
@@ -590,12 +602,14 @@ namespace Seam.Api
             protected GetRelatedRequest() { }
 
             public GetRelatedRequest(
-                List<string> accessGrantIds = default,
+                List<string>? accessGrantIds = default,
+                List<string>? accessGrantKeys = default,
                 List<GetRelatedRequest.ExcludeEnum>? exclude = default,
                 List<GetRelatedRequest.IncludeEnum>? include = default
             )
             {
                 AccessGrantIds = accessGrantIds;
+                AccessGrantKeys = accessGrantKeys;
                 Exclude = exclude;
                 Include = include;
             }
@@ -626,6 +640,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_access_groups")]
                 AcsAccessGroups = 7,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 8,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -654,10 +671,16 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_access_groups")]
                 AcsAccessGroups = 7,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 8,
             }
 
-            [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
-            public List<string> AccessGrantIds { get; set; }
+            [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessGrantIds { get; set; }
+
+            [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessGrantKeys { get; set; }
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public List<GetRelatedRequest.ExcludeEnum>? Exclude { get; set; }
@@ -729,7 +752,8 @@ namespace Seam.Api
         }
 
         public Batch GetRelated(
-            List<string> accessGrantIds = default,
+            List<string>? accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             List<GetRelatedRequest.ExcludeEnum>? exclude = default,
             List<GetRelatedRequest.IncludeEnum>? include = default
         )
@@ -737,6 +761,7 @@ namespace Seam.Api
             return GetRelated(
                 new GetRelatedRequest(
                     accessGrantIds: accessGrantIds,
+                    accessGrantKeys: accessGrantKeys,
                     exclude: exclude,
                     include: include
                 )
@@ -758,7 +783,8 @@ namespace Seam.Api
         }
 
         public async Task<Batch> GetRelatedAsync(
-            List<string> accessGrantIds = default,
+            List<string>? accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
             List<GetRelatedRequest.ExcludeEnum>? exclude = default,
             List<GetRelatedRequest.IncludeEnum>? include = default
         )
@@ -767,6 +793,7 @@ namespace Seam.Api
                 await GetRelatedAsync(
                     new GetRelatedRequest(
                         accessGrantIds: accessGrantIds,
+                        accessGrantKeys: accessGrantKeys,
                         exclude: exclude,
                         include: include
                     )
@@ -781,25 +808,34 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                List<string>? accessGrantIds = default,
                 string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? acsSystemId = default,
                 string? customerKey = default,
+                float? limit = default,
                 string? locationId = default,
+                string? pageCursor = default,
                 string? reservationKey = default,
                 string? spaceId = default,
                 string? userIdentityId = default
             )
             {
+                AccessGrantIds = accessGrantIds;
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
                 CustomerKey = customerKey;
+                Limit = limit;
                 LocationId = locationId;
+                PageCursor = pageCursor;
                 ReservationKey = reservationKey;
                 SpaceId = spaceId;
                 UserIdentityId = userIdentityId;
             }
+
+            [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AccessGrantIds { get; set; }
 
             [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantKey { get; set; }
@@ -813,8 +849,14 @@ namespace Seam.Api
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ReservationKey { get; set; }
@@ -889,11 +931,14 @@ namespace Seam.Api
         }
 
         public List<AccessGrant> List(
+            List<string>? accessGrantIds = default,
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             string? customerKey = default,
+            float? limit = default,
             string? locationId = default,
+            string? pageCursor = default,
             string? reservationKey = default,
             string? spaceId = default,
             string? userIdentityId = default
@@ -901,11 +946,14 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessGrantIds: accessGrantIds,
                     accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
                     customerKey: customerKey,
+                    limit: limit,
                     locationId: locationId,
+                    pageCursor: pageCursor,
                     reservationKey: reservationKey,
                     spaceId: spaceId,
                     userIdentityId: userIdentityId
@@ -923,11 +971,14 @@ namespace Seam.Api
         }
 
         public async Task<List<AccessGrant>> ListAsync(
+            List<string>? accessGrantIds = default,
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             string? customerKey = default,
+            float? limit = default,
             string? locationId = default,
+            string? pageCursor = default,
             string? reservationKey = default,
             string? spaceId = default,
             string? userIdentityId = default
@@ -936,11 +987,14 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessGrantIds: accessGrantIds,
                         accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
                         customerKey: customerKey,
+                        limit: limit,
                         locationId: locationId,
+                        pageCursor: pageCursor,
                         reservationKey: reservationKey,
                         spaceId: spaceId,
                         userIdentityId: userIdentityId
@@ -1003,10 +1057,12 @@ namespace Seam.Api
 
             public RequestAccessMethodsRequestRequestedAccessMethods(
                 string? code = default,
+                int? instantKeyMaxUseCount = default,
                 RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum mode = default
             )
             {
                 Code = code;
+                InstantKeyMaxUseCount = instantKeyMaxUseCount;
                 Mode = mode;
             }
 
@@ -1024,10 +1080,20 @@ namespace Seam.Api
 
                 [EnumMember(Value = "mobile_key")]
                 MobileKey = 3,
+
+                [EnumMember(Value = "cloud_key")]
+                CloudKey = 4,
             }
 
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
+
+            [DataMember(
+                Name = "instant_key_max_use_count",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public int? InstantKeyMaxUseCount { get; set; }
 
             [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
             public RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum Mode { get; set; }

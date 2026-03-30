@@ -161,6 +161,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "mobile_key")]
                 MobileKey = 3,
+
+                [EnumMember(Value = "cloud_key")]
+                CloudKey = 4,
             }
 
             [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]

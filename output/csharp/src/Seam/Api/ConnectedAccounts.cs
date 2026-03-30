@@ -444,6 +444,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "access_control")]
                 AccessControl = 4,
+
+                [EnumMember(Value = "camera")]
+                Camera = 5,
             }
 
             [DataMember(

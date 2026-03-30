@@ -25,6 +25,7 @@ namespace Seam.Model
             string? customerKey = default,
             string displayName = default,
             List<ConnectedAccountErrors> errors = default,
+            string? imageUrl = default,
             ConnectedAccountUserIdentifier? userIdentifier = default,
             List<ConnectedAccountWarnings> warnings = default
         )
@@ -39,6 +40,7 @@ namespace Seam.Model
             CustomerKey = customerKey;
             DisplayName = displayName;
             Errors = errors;
+            ImageUrl = imageUrl;
             UserIdentifier = userIdentifier;
             Warnings = warnings;
         }
@@ -60,6 +62,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "access_control")]
             AccessControl = 4,
+
+            [EnumMember(Value = "camera")]
+            Camera = 5,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -417,6 +422,7 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(ConnectedAccountWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(typeof(ConnectedAccountWarningsBeingDeleted), "being_deleted")]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountWarningsAccountReauthorizationRequested),
             "account_reauthorization_requested"
@@ -744,6 +750,52 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_connectedAccountWarningsBeingDeleted_model")]
+        public class ConnectedAccountWarningsBeingDeleted : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsBeingDeleted() { }
+
+            public ConnectedAccountWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_connectedAccountWarningsUnrecognized_model")]
         public class ConnectedAccountWarningsUnrecognized : ConnectedAccountWarnings
         {
@@ -822,6 +874,9 @@ namespace Seam.Model
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
 
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
         public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }

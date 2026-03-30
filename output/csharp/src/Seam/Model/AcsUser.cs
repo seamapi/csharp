@@ -446,6 +446,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsUserPendingMutationsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(AcsUserPendingMutationsDeferringGroupMembershipUpdate),
+            "deferring_group_membership_update"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AcsUserPendingMutationsUpdatingGroupMembership),
             "updating_group_membership"
         )]
@@ -1134,6 +1138,77 @@ namespace Seam.Model
 
             [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsAccessGroupId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_acsUserPendingMutationsDeferringGroupMembershipUpdate_model"
+        )]
+        public class AcsUserPendingMutationsDeferringGroupMembershipUpdate : AcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsDeferringGroupMembershipUpdate() { }
+
+            public AcsUserPendingMutationsDeferringGroupMembershipUpdate(
+                string acsAccessGroupId = default,
+                string createdAt = default,
+                string message = default,
+                string mutationCode = default,
+                AcsUserPendingMutationsDeferringGroupMembershipUpdate.VariantEnum variant = default
+            )
+            {
+                AcsAccessGroupId = acsAccessGroupId;
+                CreatedAt = createdAt;
+                Message = message;
+                MutationCode = mutationCode;
+                Variant = variant;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum VariantEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "adding")]
+                Adding = 1,
+
+                [EnumMember(Value = "removing")]
+                Removing = 2,
+            }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsAccessGroupId { get; set; }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "deferring_group_membership_update";
+
+            [DataMember(Name = "variant", IsRequired = true, EmitDefaultValue = false)]
+            public AcsUserPendingMutationsDeferringGroupMembershipUpdate.VariantEnum Variant { get; set; }
 
             public override string ToString()
             {

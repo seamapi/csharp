@@ -89,6 +89,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "mobile_key")]
             MobileKey = 3,
+
+            [EnumMember(Value = "cloud_key")]
+            CloudKey = 4,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -103,29 +106,32 @@ namespace Seam.Model
             [EnumMember(Value = "brivo_credential")]
             BrivoCredential = 2,
 
+            [EnumMember(Value = "brivo_digital_credential")]
+            BrivoDigitalCredential = 3,
+
             [EnumMember(Value = "hid_credential")]
-            HidCredential = 3,
+            HidCredential = 4,
 
             [EnumMember(Value = "visionline_card")]
-            VisionlineCard = 4,
+            VisionlineCard = 5,
 
             [EnumMember(Value = "salto_ks_credential")]
-            SaltoKsCredential = 5,
+            SaltoKsCredential = 6,
 
             [EnumMember(Value = "assa_abloy_vostio_key")]
-            AssaAbloyVostioKey = 6,
+            AssaAbloyVostioKey = 7,
 
             [EnumMember(Value = "salto_space_key")]
-            SaltoSpaceKey = 7,
+            SaltoSpaceKey = 8,
 
             [EnumMember(Value = "latch_access")]
-            LatchAccess = 8,
+            LatchAccess = 9,
 
             [EnumMember(Value = "dormakaba_ambiance_credential")]
-            DormakabaAmbianceCredential = 9,
+            DormakabaAmbianceCredential = 10,
 
             [EnumMember(Value = "hotek_card")]
-            HotekCard = 10,
+            HotekCard = 11,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]

@@ -24,13 +24,25 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(string accessMethodId = default)
+            public DeleteRequest(
+                string? accessMethodId = default,
+                string? accessGrantId = default,
+                string? reservationKey = default
+            )
             {
                 AccessMethodId = accessMethodId;
+                AccessGrantId = accessGrantId;
+                ReservationKey = reservationKey;
             }
 
-            [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessMethodId { get; set; }
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
+
+            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantId { get; set; }
+
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
 
             public override string ToString()
             {
@@ -59,9 +71,19 @@ namespace Seam.Api
             _seam.Post<object>("/access_methods/delete", requestOptions);
         }
 
-        public void Delete(string accessMethodId = default)
+        public void Delete(
+            string? accessMethodId = default,
+            string? accessGrantId = default,
+            string? reservationKey = default
+        )
         {
-            Delete(new DeleteRequest(accessMethodId: accessMethodId));
+            Delete(
+                new DeleteRequest(
+                    accessMethodId: accessMethodId,
+                    accessGrantId: accessGrantId,
+                    reservationKey: reservationKey
+                )
+            );
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -71,9 +93,19 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_methods/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(string accessMethodId = default)
+        public async Task DeleteAsync(
+            string? accessMethodId = default,
+            string? accessGrantId = default,
+            string? reservationKey = default
+        )
         {
-            await DeleteAsync(new DeleteRequest(accessMethodId: accessMethodId));
+            await DeleteAsync(
+                new DeleteRequest(
+                    accessMethodId: accessMethodId,
+                    accessGrantId: accessGrantId,
+                    reservationKey: reservationKey
+                )
+            );
         }
 
         [DataContract(Name = "encodeRequest_request")]
@@ -483,20 +515,25 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string accessGrantId = default,
+                string? accessGrantId = default,
+                string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? deviceId = default,
                 string? spaceId = default
             )
             {
                 AccessGrantId = accessGrantId;
+                AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 DeviceId = deviceId;
                 SpaceId = spaceId;
             }
 
-            [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessGrantId { get; set; }
+            [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantId { get; set; }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
@@ -571,7 +608,8 @@ namespace Seam.Api
         }
 
         public List<AccessMethod> List(
-            string accessGrantId = default,
+            string? accessGrantId = default,
+            string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
             string? spaceId = default
@@ -580,6 +618,7 @@ namespace Seam.Api
             return List(
                 new ListRequest(
                     accessGrantId: accessGrantId,
+                    accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     deviceId: deviceId,
                     spaceId: spaceId
@@ -597,7 +636,8 @@ namespace Seam.Api
         }
 
         public async Task<List<AccessMethod>> ListAsync(
-            string accessGrantId = default,
+            string? accessGrantId = default,
+            string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
             string? spaceId = default
@@ -607,6 +647,7 @@ namespace Seam.Api
                 await ListAsync(
                     new ListRequest(
                         accessGrantId: accessGrantId,
+                        accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         deviceId: deviceId,
                         spaceId: spaceId

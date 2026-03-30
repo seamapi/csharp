@@ -185,6 +185,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "mobile_key")]
             MobileKey = 3,
+
+            [EnumMember(Value = "cloud_key")]
+            CloudKey = 4,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -199,29 +202,32 @@ namespace Seam.Model
             [EnumMember(Value = "brivo_credential")]
             BrivoCredential = 2,
 
+            [EnumMember(Value = "brivo_digital_credential")]
+            BrivoDigitalCredential = 3,
+
             [EnumMember(Value = "hid_credential")]
-            HidCredential = 3,
+            HidCredential = 4,
 
             [EnumMember(Value = "visionline_card")]
-            VisionlineCard = 4,
+            VisionlineCard = 5,
 
             [EnumMember(Value = "salto_ks_credential")]
-            SaltoKsCredential = 5,
+            SaltoKsCredential = 6,
 
             [EnumMember(Value = "assa_abloy_vostio_key")]
-            AssaAbloyVostioKey = 6,
+            AssaAbloyVostioKey = 7,
 
             [EnumMember(Value = "salto_space_key")]
-            SaltoSpaceKey = 7,
+            SaltoSpaceKey = 8,
 
             [EnumMember(Value = "latch_access")]
-            LatchAccess = 8,
+            LatchAccess = 9,
 
             [EnumMember(Value = "dormakaba_ambiance_credential")]
-            DormakabaAmbianceCredential = 9,
+            DormakabaAmbianceCredential = 10,
 
             [EnumMember(Value = "hotek_card")]
-            HotekCard = 10,
+            HotekCard = 11,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
@@ -743,8 +749,11 @@ namespace Seam.Model
             string acsSystemId = default,
             PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata? brivoMetadata =
+                default,
             bool? canBelongToReservation = default,
             bool? canUnlockWithCard = default,
+            bool? canUnlockWithCloudKey = default,
             bool? canUnlockWithCode = default,
             bool? canUnlockWithMobileKey = default,
             string connectedAccountId = default,
@@ -771,8 +780,10 @@ namespace Seam.Model
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
+            BrivoMetadata = brivoMetadata;
             CanBelongToReservation = canBelongToReservation;
             CanUnlockWithCard = canUnlockWithCard;
+            CanUnlockWithCloudKey = canUnlockWithCloudKey;
             CanUnlockWithCode = canUnlockWithCode;
             CanUnlockWithMobileKey = canUnlockWithMobileKey;
             ConnectedAccountId = connectedAccountId;
@@ -802,6 +813,9 @@ namespace Seam.Model
         )]
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
+        [DataMember(Name = "brivo_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata? BrivoMetadata { get; set; }
+
         [DataMember(
             Name = "can_belong_to_reservation",
             IsRequired = false,
@@ -811,6 +825,13 @@ namespace Seam.Model
 
         [DataMember(Name = "can_unlock_with_card", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCard { get; set; }
+
+        [DataMember(
+            Name = "can_unlock_with_cloud_key",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanUnlockWithCloudKey { get; set; }
 
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCode { get; set; }
@@ -944,6 +965,54 @@ namespace Seam.Model
 
         [DataMember(Name = "stand_open", IsRequired = false, EmitDefaultValue = false)]
         public bool? StandOpen { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_phoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata_model"
+    )]
+    public class PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata
+    {
+        [JsonConstructorAttribute]
+        protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata() { }
+
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata(
+            string accessPointId = default,
+            float siteId = default,
+            string siteName = default
+        )
+        {
+            AccessPointId = accessPointId;
+            SiteId = siteId;
+            SiteName = siteName;
+        }
+
+        [DataMember(Name = "access_point_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessPointId { get; set; }
+
+        [DataMember(Name = "site_id", IsRequired = true, EmitDefaultValue = false)]
+        public float SiteId { get; set; }
+
+        [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
+        public string SiteName { get; set; }
 
         public override string ToString()
         {
@@ -1273,7 +1342,6 @@ namespace Seam.Model
             string? doorDescription = default,
             string? doorId = default,
             string? doorName = default,
-            string? extDoorId = default,
             string? roomDescription = default,
             string? roomName = default
         )
@@ -1282,7 +1350,6 @@ namespace Seam.Model
             DoorDescription = doorDescription;
             DoorId = doorId;
             DoorName = doorName;
-            ExtDoorId = extDoorId;
             RoomDescription = roomDescription;
             RoomName = roomName;
         }
@@ -1298,9 +1365,6 @@ namespace Seam.Model
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DoorName { get; set; }
-
-        [DataMember(Name = "ext_door_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ExtDoorId { get; set; }
 
         [DataMember(Name = "room_description", IsRequired = false, EmitDefaultValue = false)]
         public string? RoomDescription { get; set; }

@@ -10,6 +10,8 @@ namespace Seam.Model
 {
     [JsonConverter(typeof(JsonSubtypes), "event_type")]
     [JsonSubtypes.FallBackSubType(typeof(EventUnrecognized))]
+    [JsonSubtypes.KnownSubType(typeof(EventSpaceDeleted), "space.deleted")]
+    [JsonSubtypes.KnownSubType(typeof(EventSpaceCreated), "space.created")]
     [JsonSubtypes.KnownSubType(
         typeof(EventSpaceDeviceMembershipChanged),
         "space.device_membership_changed"
@@ -19,6 +21,8 @@ namespace Seam.Model
         typeof(EventEnrollmentAutomationDeleted),
         "enrollment_automation.deleted"
     )]
+    [JsonSubtypes.KnownSubType(typeof(EventDeviceDoorbellRang), "device.doorbell_rang")]
+    [JsonSubtypes.KnownSubType(typeof(EventCameraActivated), "camera.activated")]
     [JsonSubtypes.KnownSubType(typeof(EventDeviceNameChanged), "device.name_changed")]
     [JsonSubtypes.KnownSubType(
         typeof(EventThermostatTemperatureChanged),
@@ -124,6 +128,22 @@ namespace Seam.Model
         "connect_webview.login_succeeded"
     )]
     [JsonSubtypes.KnownSubType(
+        typeof(EventActionAttemptSimulateManualLockViaKeypadFailed),
+        "action_attempt.simulate_manual_lock_via_keypad.failed"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventActionAttemptSimulateManualLockViaKeypadSucceeded),
+        "action_attempt.simulate_manual_lock_via_keypad.succeeded"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventActionAttemptSimulateKeypadCodeEntryFailed),
+        "action_attempt.simulate_keypad_code_entry.failed"
+    )]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventActionAttemptSimulateKeypadCodeEntrySucceeded),
+        "action_attempt.simulate_keypad_code_entry.succeeded"
+    )]
+    [JsonSubtypes.KnownSubType(
         typeof(EventActionAttemptUnlockDoorFailed),
         "action_attempt.unlock_door.failed"
     )]
@@ -180,6 +200,7 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemDisconnected), "acs_system.disconnected")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemAdded), "acs_system.added")]
     [JsonSubtypes.KnownSubType(typeof(EventAcsSystemConnected), "acs_system.connected")]
+    [JsonSubtypes.KnownSubType(typeof(EventAccessMethodCreated), "access_method.created")]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodReissued), "access_method.reissued")]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodDeleted), "access_method.deleted")]
     [JsonSubtypes.KnownSubType(
@@ -188,6 +209,10 @@ namespace Seam.Model
     )]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodRevoked), "access_method.revoked")]
     [JsonSubtypes.KnownSubType(typeof(EventAccessMethodIssued), "access_method.issued")]
+    [JsonSubtypes.KnownSubType(
+        typeof(EventAccessGrantCouldNotCreateRequestedAccessMethods),
+        "access_grant.could_not_create_requested_access_methods"
+    )]
     [JsonSubtypes.KnownSubType(
         typeof(EventAccessGrantAccessTimesChanged),
         "access_grant.access_times_changed"
@@ -711,32 +736,53 @@ namespace Seam.Model
         protected EventAccessCodeDelayInSettingOnDevice() { }
 
         public EventAccessCodeDelayInSettingOnDevice(
+            List<EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors> accessCodeErrors = default,
             string accessCodeId = default,
+            List<EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings> accessCodeWarnings =
+                default,
             object? connectedAccountCustomMetadata = default,
+            List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
+            List<EventAccessCodeDelayInSettingOnDeviceDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventAccessCodeDelayInSettingOnDeviceDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessCodeErrors = accessCodeErrors;
             AccessCodeId = accessCodeId;
+            AccessCodeWarnings = accessCodeWarnings;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_code_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
+
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
+
+        [DataMember(Name = "access_code_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
@@ -745,8 +791,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -754,8 +810,14 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInSettingOnDeviceDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInSettingOnDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -789,6 +851,286 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceAccessCodeErrors_model")]
+    public class EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings_model")]
+    public class EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors_model"
+    )]
+    public class EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings_model"
+    )]
+    public class EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceDeviceErrors_model")]
+    public class EventAccessCodeDelayInSettingOnDeviceDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceDeviceErrors() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDeviceDeviceWarnings_model")]
+    public class EventAccessCodeDelayInSettingOnDeviceDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInSettingOnDeviceDeviceWarnings() { }
+
+        public EventAccessCodeDelayInSettingOnDeviceDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDevice_model")]
     public class EventAccessCodeFailedToSetOnDevice : Event
     {
@@ -796,32 +1138,52 @@ namespace Seam.Model
         protected EventAccessCodeFailedToSetOnDevice() { }
 
         public EventAccessCodeFailedToSetOnDevice(
+            List<EventAccessCodeFailedToSetOnDeviceAccessCodeErrors> accessCodeErrors = default,
             string accessCodeId = default,
+            List<EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings> accessCodeWarnings = default,
             object? connectedAccountCustomMetadata = default,
+            List<EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
+            List<EventAccessCodeFailedToSetOnDeviceDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventAccessCodeFailedToSetOnDeviceDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessCodeErrors = accessCodeErrors;
             AccessCodeId = accessCodeId;
+            AccessCodeWarnings = accessCodeWarnings;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_code_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToSetOnDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
+
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
+
+        [DataMember(Name = "access_code_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
@@ -830,8 +1192,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -839,8 +1211,14 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToSetOnDeviceDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToSetOnDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -853,6 +1231,286 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDeviceAccessCodeErrors_model")]
+    public class EventAccessCodeFailedToSetOnDeviceAccessCodeErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceAccessCodeErrors() { }
+
+        public EventAccessCodeFailedToSetOnDeviceAccessCodeErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDeviceAccessCodeWarnings_model")]
+    public class EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings() { }
+
+        public EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeFailedToSetOnDeviceConnectedAccountErrors_model"
+    )]
+    public class EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors() { }
+
+        public EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings_model"
+    )]
+    public class EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings() { }
+
+        public EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDeviceDeviceErrors_model")]
+    public class EventAccessCodeFailedToSetOnDeviceDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceDeviceErrors() { }
+
+        public EventAccessCodeFailedToSetOnDeviceDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDeviceDeviceWarnings_model")]
+    public class EventAccessCodeFailedToSetOnDeviceDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToSetOnDeviceDeviceWarnings() { }
+
+        public EventAccessCodeFailedToSetOnDeviceDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -971,32 +1629,54 @@ namespace Seam.Model
         protected EventAccessCodeDelayInRemovingFromDevice() { }
 
         public EventAccessCodeDelayInRemovingFromDevice(
+            List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors> accessCodeErrors =
+                default,
             string accessCodeId = default,
+            List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings> accessCodeWarnings =
+                default,
             object? connectedAccountCustomMetadata = default,
+            List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
+            List<EventAccessCodeDelayInRemovingFromDeviceDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessCodeErrors = accessCodeErrors;
             AccessCodeId = accessCodeId;
+            AccessCodeWarnings = accessCodeWarnings;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_code_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
+
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
+
+        [DataMember(Name = "access_code_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
@@ -1005,8 +1685,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -1014,8 +1704,14 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInRemovingFromDeviceDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -1049,6 +1745,290 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors_model"
+    )]
+    public class EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings_model"
+    )]
+    public class EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors_model"
+    )]
+    public class EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings_model"
+    )]
+    public class EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceDeviceErrors_model")]
+    public class EventAccessCodeDelayInRemovingFromDeviceDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceDeviceErrors() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeDelayInRemovingFromDeviceDeviceWarnings_model")]
+    public class EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings() { }
+
+        public EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDevice_model")]
     public class EventAccessCodeFailedToRemoveFromDevice : Event
     {
@@ -1056,32 +2036,54 @@ namespace Seam.Model
         protected EventAccessCodeFailedToRemoveFromDevice() { }
 
         public EventAccessCodeFailedToRemoveFromDevice(
+            List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors> accessCodeErrors =
+                default,
             string accessCodeId = default,
+            List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings> accessCodeWarnings =
+                default,
             object? connectedAccountCustomMetadata = default,
+            List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
+            List<EventAccessCodeFailedToRemoveFromDeviceDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessCodeErrors = accessCodeErrors;
             AccessCodeId = accessCodeId;
+            AccessCodeWarnings = accessCodeWarnings;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_code_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
+
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
+
+        [DataMember(Name = "access_code_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
@@ -1090,8 +2092,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -1099,8 +2111,14 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToRemoveFromDeviceDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -1113,6 +2131,288 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors_model")]
+    public class EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings_model"
+    )]
+    public class EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors_model"
+    )]
+    public class EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings_model"
+    )]
+    public class EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceDeviceErrors_model")]
+    public class EventAccessCodeFailedToRemoveFromDeviceDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceDeviceErrors() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDeviceDeviceWarnings_model")]
+    public class EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings() { }
+
+        public EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -1486,32 +2786,56 @@ namespace Seam.Model
         protected EventAccessCodeUnmanagedFailedToConvertToManaged() { }
 
         public EventAccessCodeUnmanagedFailedToConvertToManaged(
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors> accessCodeErrors =
+                default,
             string accessCodeId = default,
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings> accessCodeWarnings =
+                default,
             object? connectedAccountCustomMetadata = default,
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             object? deviceCustomMetadata = default,
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors> deviceErrors =
+                default,
             string deviceId = default,
+            List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings> deviceWarnings =
+                default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
             string workspaceId = default
         )
         {
+            AccessCodeErrors = accessCodeErrors;
             AccessCodeId = accessCodeId;
+            AccessCodeWarnings = accessCodeWarnings;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "access_code_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors> AccessCodeErrors { get; set; }
+
         [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
+
+        [DataMember(Name = "access_code_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
         [DataMember(
             Name = "connected_account_custom_metadata",
@@ -1520,8 +2844,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -1529,8 +2863,14 @@ namespace Seam.Model
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -1544,6 +2884,294 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings_model"
+    )]
+    public class EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings() { }
+
+        public EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -2126,6 +3754,73 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventAccessGrantCouldNotCreateRequestedAccessMethods_model")]
+    public class EventAccessGrantCouldNotCreateRequestedAccessMethods : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessGrantCouldNotCreateRequestedAccessMethods() { }
+
+        public EventAccessGrantCouldNotCreateRequestedAccessMethods(
+            string accessGrantId = default,
+            string createdAt = default,
+            string errorMessage = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantId = accessGrantId;
+            CreatedAt = createdAt;
+            ErrorMessage = errorMessage;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_message", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorMessage { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } =
+            "access_grant.could_not_create_requested_access_methods";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventAccessMethodIssued_model")]
     public class EventAccessMethodIssued : Event
     {
@@ -2501,6 +4196,77 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventAccessMethodCreated_model")]
+    public class EventAccessMethodCreated : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventAccessMethodCreated() { }
+
+        public EventAccessMethodCreated(
+            List<string> accessGrantIds = default,
+            List<string>? accessGrantKeys = default,
+            string accessMethodId = default,
+            string createdAt = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string workspaceId = default
+        )
+        {
+            AccessGrantIds = accessGrantIds;
+            AccessGrantKeys = accessGrantKeys;
+            AccessMethodId = accessMethodId;
+            CreatedAt = createdAt;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "access_grant_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AccessGrantIds { get; set; }
+
+        [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? AccessGrantKeys { get; set; }
+
+        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AccessMethodId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "access_method.created";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventAcsSystemConnected_model")]
     public class EventAcsSystemConnected : Event
     {
@@ -2640,8 +4406,13 @@ namespace Seam.Model
         protected EventAcsSystemDisconnected() { }
 
         public EventAcsSystemDisconnected(
+            List<EventAcsSystemDisconnectedAcsSystemErrors> acsSystemErrors = default,
             string acsSystemId = default,
+            List<EventAcsSystemDisconnectedAcsSystemWarnings> acsSystemWarnings = default,
+            List<EventAcsSystemDisconnectedConnectedAccountErrors> connectedAccountErrors = default,
             string? connectedAccountId = default,
+            List<EventAcsSystemDisconnectedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             string eventId = default,
             string eventType = default,
@@ -2649,8 +4420,12 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AcsSystemErrors = acsSystemErrors;
             AcsSystemId = acsSystemId;
+            AcsSystemWarnings = acsSystemWarnings;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             EventId = eventId;
             EventType = eventType;
@@ -2658,11 +4433,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        [DataMember(Name = "acs_system_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAcsSystemDisconnectedAcsSystemErrors> AcsSystemErrors { get; set; }
+
         [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        [DataMember(Name = "acs_system_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAcsSystemDisconnectedAcsSystemWarnings> AcsSystemWarnings { get; set; }
+
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventAcsSystemDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventAcsSystemDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -2678,6 +4469,190 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsSystemDisconnectedAcsSystemErrors_model")]
+    public class EventAcsSystemDisconnectedAcsSystemErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsSystemDisconnectedAcsSystemErrors() { }
+
+        public EventAcsSystemDisconnectedAcsSystemErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsSystemDisconnectedAcsSystemWarnings_model")]
+    public class EventAcsSystemDisconnectedAcsSystemWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsSystemDisconnectedAcsSystemWarnings() { }
+
+        public EventAcsSystemDisconnectedAcsSystemWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsSystemDisconnectedConnectedAccountErrors_model")]
+    public class EventAcsSystemDisconnectedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsSystemDisconnectedConnectedAccountErrors() { }
+
+        public EventAcsSystemDisconnectedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventAcsSystemDisconnectedConnectedAccountWarnings_model")]
+    public class EventAcsSystemDisconnectedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventAcsSystemDisconnectedConnectedAccountWarnings() { }
+
+        public EventAcsSystemDisconnectedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -3779,7 +5754,11 @@ namespace Seam.Model
 
         public EventConnectedAccountDisconnected(
             object? connectedAccountCustomMetadata = default,
+            List<EventConnectedAccountDisconnectedConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventConnectedAccountDisconnectedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             string eventId = default,
             string eventType = default,
@@ -3788,7 +5767,9 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             EventId = eventId;
             EventType = eventType;
@@ -3803,8 +5784,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventConnectedAccountDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventConnectedAccountDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -3820,6 +5811,100 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventConnectedAccountDisconnectedConnectedAccountErrors_model")]
+    public class EventConnectedAccountDisconnectedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventConnectedAccountDisconnectedConnectedAccountErrors() { }
+
+        public EventConnectedAccountDisconnectedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventConnectedAccountDisconnectedConnectedAccountWarnings_model"
+    )]
+    public class EventConnectedAccountDisconnectedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventConnectedAccountDisconnectedConnectedAccountWarnings() { }
+
+        public EventConnectedAccountDisconnectedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -4072,7 +6157,11 @@ namespace Seam.Model
 
         public EventConnectedAccountReauthorizationRequested(
             object? connectedAccountCustomMetadata = default,
+            List<EventConnectedAccountReauthorizationRequestedConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
             string eventId = default,
             string eventType = default,
@@ -4081,7 +6170,9 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
             EventId = eventId;
             EventType = eventType;
@@ -4096,8 +6187,18 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventConnectedAccountReauthorizationRequestedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -4134,6 +6235,102 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(
+        Name = "seamModel_eventConnectedAccountReauthorizationRequestedConnectedAccountErrors_model"
+    )]
+    public class EventConnectedAccountReauthorizationRequestedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventConnectedAccountReauthorizationRequestedConnectedAccountErrors() { }
+
+        public EventConnectedAccountReauthorizationRequestedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventConnectedAccountReauthorizationRequestedConnectedAccountWarnings_model"
+    )]
+    public class EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings() { }
+
+        public EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventActionAttemptLockDoorSucceeded_model")]
     public class EventActionAttemptLockDoorSucceeded : Event
     {
@@ -4143,7 +6340,9 @@ namespace Seam.Model
         public EventActionAttemptLockDoorSucceeded(
             string actionAttemptId = default,
             string actionType = default,
+            string? connectedAccountId = default,
             string createdAt = default,
+            string? deviceId = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -4153,7 +6352,9 @@ namespace Seam.Model
         {
             ActionAttemptId = actionAttemptId;
             ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -4167,8 +6368,14 @@ namespace Seam.Model
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -4214,7 +6421,9 @@ namespace Seam.Model
         public EventActionAttemptLockDoorFailed(
             string actionAttemptId = default,
             string actionType = default,
+            string? connectedAccountId = default,
             string createdAt = default,
+            string? deviceId = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -4224,7 +6433,9 @@ namespace Seam.Model
         {
             ActionAttemptId = actionAttemptId;
             ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -4238,8 +6449,14 @@ namespace Seam.Model
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -4285,7 +6502,9 @@ namespace Seam.Model
         public EventActionAttemptUnlockDoorSucceeded(
             string actionAttemptId = default,
             string actionType = default,
+            string? connectedAccountId = default,
             string createdAt = default,
+            string? deviceId = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -4295,7 +6514,9 @@ namespace Seam.Model
         {
             ActionAttemptId = actionAttemptId;
             ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -4309,8 +6530,14 @@ namespace Seam.Model
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -4356,7 +6583,9 @@ namespace Seam.Model
         public EventActionAttemptUnlockDoorFailed(
             string actionAttemptId = default,
             string actionType = default,
+            string? connectedAccountId = default,
             string createdAt = default,
+            string? deviceId = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -4366,7 +6595,9 @@ namespace Seam.Model
         {
             ActionAttemptId = actionAttemptId;
             ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            DeviceId = deviceId;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -4380,14 +6611,348 @@ namespace Seam.Model
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.unlock_door.failed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public string Status { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventActionAttemptSimulateKeypadCodeEntrySucceeded_model")]
+    public class EventActionAttemptSimulateKeypadCodeEntrySucceeded : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventActionAttemptSimulateKeypadCodeEntrySucceeded() { }
+
+        public EventActionAttemptSimulateKeypadCodeEntrySucceeded(
+            string actionAttemptId = default,
+            string actionType = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string? deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string status = default,
+            string workspaceId = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            Status = status;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionType { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } =
+            "action_attempt.simulate_keypad_code_entry.succeeded";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public string Status { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventActionAttemptSimulateKeypadCodeEntryFailed_model")]
+    public class EventActionAttemptSimulateKeypadCodeEntryFailed : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventActionAttemptSimulateKeypadCodeEntryFailed() { }
+
+        public EventActionAttemptSimulateKeypadCodeEntryFailed(
+            string actionAttemptId = default,
+            string actionType = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string? deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string status = default,
+            string workspaceId = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            Status = status;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionType { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } =
+            "action_attempt.simulate_keypad_code_entry.failed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public string Status { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventActionAttemptSimulateManualLockViaKeypadSucceeded_model")]
+    public class EventActionAttemptSimulateManualLockViaKeypadSucceeded : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventActionAttemptSimulateManualLockViaKeypadSucceeded() { }
+
+        public EventActionAttemptSimulateManualLockViaKeypadSucceeded(
+            string actionAttemptId = default,
+            string actionType = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string? deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string status = default,
+            string workspaceId = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            Status = status;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionType { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } =
+            "action_attempt.simulate_manual_lock_via_keypad.succeeded";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public string Status { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventActionAttemptSimulateManualLockViaKeypadFailed_model")]
+    public class EventActionAttemptSimulateManualLockViaKeypadFailed : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventActionAttemptSimulateManualLockViaKeypadFailed() { }
+
+        public EventActionAttemptSimulateManualLockViaKeypadFailed(
+            string actionAttemptId = default,
+            string actionType = default,
+            string? connectedAccountId = default,
+            string createdAt = default,
+            string? deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string status = default,
+            string workspaceId = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            Status = status;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionType { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } =
+            "action_attempt.simulate_manual_lock_via_keypad.failed";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
@@ -4569,6 +7134,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -4580,6 +7146,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -4600,6 +7167,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4649,6 +7219,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -4660,6 +7231,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -4680,6 +7252,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4729,6 +7304,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -4740,6 +7316,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -4760,6 +7337,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4809,6 +7389,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -4820,6 +7401,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -4840,6 +7422,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4889,6 +7474,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -4900,6 +7486,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -4920,6 +7507,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -4967,10 +7557,16 @@ namespace Seam.Model
 
         public EventDeviceDisconnected(
             object? connectedAccountCustomMetadata = default,
+            List<EventDeviceDisconnectedConnectedAccountErrors> connectedAccountErrors = default,
             string connectedAccountId = default,
+            List<EventDeviceDisconnectedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
+            List<EventDeviceDisconnectedDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventDeviceDisconnectedDeviceWarnings> deviceWarnings = default,
             EventDeviceDisconnected.ErrorCodeEnum errorCode = default,
             string eventId = default,
             string eventType = default,
@@ -4979,10 +7575,15 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             ErrorCode = errorCode;
             EventId = eventId;
             EventType = eventType;
@@ -5013,17 +7614,36 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventDeviceDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceDisconnectedDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public EventDeviceDisconnected.ErrorCodeEnum ErrorCode { get; set; }
@@ -5060,6 +7680,190 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventDeviceDisconnectedConnectedAccountErrors_model")]
+    public class EventDeviceDisconnectedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceDisconnectedConnectedAccountErrors() { }
+
+        public EventDeviceDisconnectedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceDisconnectedConnectedAccountWarnings_model")]
+    public class EventDeviceDisconnectedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceDisconnectedConnectedAccountWarnings() { }
+
+        public EventDeviceDisconnectedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceDisconnectedDeviceErrors_model")]
+    public class EventDeviceDisconnectedDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceDisconnectedDeviceErrors() { }
+
+        public EventDeviceDisconnectedDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceDisconnectedDeviceWarnings_model")]
+    public class EventDeviceDisconnectedDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceDisconnectedDeviceWarnings() { }
+
+        public EventDeviceDisconnectedDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnected_model")]
     public class EventDeviceUnmanagedDisconnected : Event
     {
@@ -5068,10 +7872,17 @@ namespace Seam.Model
 
         public EventDeviceUnmanagedDisconnected(
             object? connectedAccountCustomMetadata = default,
+            List<EventDeviceUnmanagedDisconnectedConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventDeviceUnmanagedDisconnectedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
+            List<EventDeviceUnmanagedDisconnectedDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventDeviceUnmanagedDisconnectedDeviceWarnings> deviceWarnings = default,
             EventDeviceUnmanagedDisconnected.ErrorCodeEnum errorCode = default,
             string eventId = default,
             string eventType = default,
@@ -5080,10 +7891,15 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             ErrorCode = errorCode;
             EventId = eventId;
             EventType = eventType;
@@ -5114,17 +7930,36 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceUnmanagedDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventDeviceUnmanagedDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceUnmanagedDisconnectedDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceUnmanagedDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public EventDeviceUnmanagedDisconnected.ErrorCodeEnum ErrorCode { get; set; }
@@ -5161,6 +7996,192 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnectedConnectedAccountErrors_model")]
+    public class EventDeviceUnmanagedDisconnectedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceUnmanagedDisconnectedConnectedAccountErrors() { }
+
+        public EventDeviceUnmanagedDisconnectedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventDeviceUnmanagedDisconnectedConnectedAccountWarnings_model"
+    )]
+    public class EventDeviceUnmanagedDisconnectedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceUnmanagedDisconnectedConnectedAccountWarnings() { }
+
+        public EventDeviceUnmanagedDisconnectedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnectedDeviceErrors_model")]
+    public class EventDeviceUnmanagedDisconnectedDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceUnmanagedDisconnectedDeviceErrors() { }
+
+        public EventDeviceUnmanagedDisconnectedDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnectedDeviceWarnings_model")]
+    public class EventDeviceUnmanagedDisconnectedDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceUnmanagedDisconnectedDeviceWarnings() { }
+
+        public EventDeviceUnmanagedDisconnectedDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventDeviceTampered_model")]
     public class EventDeviceTampered : Event
     {
@@ -5171,6 +8192,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5182,6 +8204,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5202,6 +8225,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5252,6 +8278,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5264,6 +8291,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5287,6 +8315,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5338,6 +8369,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5351,6 +8383,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5396,6 +8429,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5445,6 +8481,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5456,6 +8493,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5476,6 +8514,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5525,6 +8566,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5536,6 +8578,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5556,6 +8599,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5605,6 +8651,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5616,6 +8663,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5636,6 +8684,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5685,6 +8736,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5696,6 +8748,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5716,6 +8769,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5766,6 +8822,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5777,6 +8834,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5797,6 +8855,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5846,6 +8907,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -5857,6 +8919,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -5877,6 +8940,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -5924,10 +8990,17 @@ namespace Seam.Model
 
         public EventDeviceConnectionBecameFlaky(
             object? connectedAccountCustomMetadata = default,
+            List<EventDeviceConnectionBecameFlakyConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventDeviceConnectionBecameFlakyConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
+            List<EventDeviceConnectionBecameFlakyDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventDeviceConnectionBecameFlakyDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -5935,10 +9008,15 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -5952,17 +9030,36 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceConnectionBecameFlakyConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventDeviceConnectionBecameFlakyConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceConnectionBecameFlakyDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceConnectionBecameFlakyDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -5996,6 +9093,192 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_eventDeviceConnectionBecameFlakyConnectedAccountErrors_model")]
+    public class EventDeviceConnectionBecameFlakyConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceConnectionBecameFlakyConnectedAccountErrors() { }
+
+        public EventDeviceConnectionBecameFlakyConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventDeviceConnectionBecameFlakyConnectedAccountWarnings_model"
+    )]
+    public class EventDeviceConnectionBecameFlakyConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceConnectionBecameFlakyConnectedAccountWarnings() { }
+
+        public EventDeviceConnectionBecameFlakyConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceConnectionBecameFlakyDeviceErrors_model")]
+    public class EventDeviceConnectionBecameFlakyDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceConnectionBecameFlakyDeviceErrors() { }
+
+        public EventDeviceConnectionBecameFlakyDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceConnectionBecameFlakyDeviceWarnings_model")]
+    public class EventDeviceConnectionBecameFlakyDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceConnectionBecameFlakyDeviceWarnings() { }
+
+        public EventDeviceConnectionBecameFlakyDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventDeviceConnectionStabilized_model")]
     public class EventDeviceConnectionStabilized : Event
     {
@@ -6006,6 +9289,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6017,6 +9301,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6037,6 +9322,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6084,10 +9372,17 @@ namespace Seam.Model
 
         public EventDeviceErrorSubscriptionRequired(
             object? connectedAccountCustomMetadata = default,
+            List<EventDeviceErrorSubscriptionRequiredConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
+            List<EventDeviceErrorSubscriptionRequiredDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventDeviceErrorSubscriptionRequiredDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -6095,10 +9390,15 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -6112,17 +9412,36 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceErrorSubscriptionRequiredConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceErrorSubscriptionRequiredDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceErrorSubscriptionRequiredDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -6156,6 +9475,194 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(
+        Name = "seamModel_eventDeviceErrorSubscriptionRequiredConnectedAccountErrors_model"
+    )]
+    public class EventDeviceErrorSubscriptionRequiredConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceErrorSubscriptionRequiredConnectedAccountErrors() { }
+
+        public EventDeviceErrorSubscriptionRequiredConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventDeviceErrorSubscriptionRequiredConnectedAccountWarnings_model"
+    )]
+    public class EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings() { }
+
+        public EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceErrorSubscriptionRequiredDeviceErrors_model")]
+    public class EventDeviceErrorSubscriptionRequiredDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceErrorSubscriptionRequiredDeviceErrors() { }
+
+        public EventDeviceErrorSubscriptionRequiredDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceErrorSubscriptionRequiredDeviceWarnings_model")]
+    public class EventDeviceErrorSubscriptionRequiredDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceErrorSubscriptionRequiredDeviceWarnings() { }
+
+        public EventDeviceErrorSubscriptionRequiredDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventDeviceErrorSubscriptionRequiredResolved_model")]
     public class EventDeviceErrorSubscriptionRequiredResolved : Event
     {
@@ -6166,6 +9673,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6177,6 +9685,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6197,6 +9706,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6246,6 +9758,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6257,6 +9770,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6277,6 +9791,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6324,10 +9841,17 @@ namespace Seam.Model
 
         public EventDeviceAccessoryKeypadDisconnected(
             object? connectedAccountCustomMetadata = default,
+            List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors> connectedAccountErrors =
+                default,
             string connectedAccountId = default,
+            List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings> connectedAccountWarnings =
+                default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
+            List<EventDeviceAccessoryKeypadDisconnectedDeviceErrors> deviceErrors = default,
             string deviceId = default,
+            List<EventDeviceAccessoryKeypadDisconnectedDeviceWarnings> deviceWarnings = default,
             string eventId = default,
             string eventType = default,
             string occurredAt = default,
@@ -6335,10 +9859,15 @@ namespace Seam.Model
         )
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountErrors = connectedAccountErrors;
             ConnectedAccountId = connectedAccountId;
+            ConnectedAccountWarnings = connectedAccountWarnings;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceErrors = deviceErrors;
             DeviceId = deviceId;
+            DeviceWarnings = deviceWarnings;
             EventId = eventId;
             EventType = eventType;
             OccurredAt = occurredAt;
@@ -6352,17 +9881,36 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        [DataMember(Name = "connected_account_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
+
         [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
+
+        [DataMember(
+            Name = "connected_account_warnings",
+            IsRequired = true,
+            EmitDefaultValue = false
+        )]
+        public List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        [DataMember(Name = "device_errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceAccessoryKeypadDisconnectedDeviceErrors> DeviceErrors { get; set; }
+
         [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
+
+        [DataMember(Name = "device_warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<EventDeviceAccessoryKeypadDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
         [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
         public string EventId { get; set; }
@@ -6396,6 +9944,194 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(
+        Name = "seamModel_eventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors_model"
+    )]
+    public class EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors() { }
+
+        public EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_eventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings_model"
+    )]
+    public class EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings() { }
+
+        public EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceAccessoryKeypadDisconnectedDeviceErrors_model")]
+    public class EventDeviceAccessoryKeypadDisconnectedDeviceErrors
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceAccessoryKeypadDisconnectedDeviceErrors() { }
+
+        public EventDeviceAccessoryKeypadDisconnectedDeviceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
+        {
+            CreatedAt = createdAt;
+            ErrorCode = errorCode;
+            Message = message;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceAccessoryKeypadDisconnectedDeviceWarnings_model")]
+    public class EventDeviceAccessoryKeypadDisconnectedDeviceWarnings
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceAccessoryKeypadDisconnectedDeviceWarnings() { }
+
+        public EventDeviceAccessoryKeypadDisconnectedDeviceWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
+        {
+            CreatedAt = createdAt;
+            Message = message;
+            WarningCode = warningCode;
+        }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public string WarningCode { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_eventNoiseSensorNoiseThresholdTriggered_model")]
     public class EventNoiseSensorNoiseThresholdTriggered : Event
     {
@@ -6406,6 +10142,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6423,6 +10160,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6449,6 +10187,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6514,10 +10255,12 @@ namespace Seam.Model
 
         public EventLockLocked(
             string? accessCodeId = default,
+            bool? accessCodeIsManaged = default,
             string? actionAttemptId = default,
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6528,10 +10271,12 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            AccessCodeIsManaged = accessCodeIsManaged;
             ActionAttemptId = actionAttemptId;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6566,6 +10311,9 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AccessCodeIsManaged { get; set; }
+
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
@@ -6581,6 +10329,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6631,6 +10382,7 @@ namespace Seam.Model
 
         public EventLockUnlocked(
             string? accessCodeId = default,
+            bool? accessCodeIsManaged = default,
             string? acsEntranceId = default,
             string? acsSystemId = default,
             string? acsUserId = default,
@@ -6638,6 +10390,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string? deviceId = default,
             string eventId = default,
@@ -6649,6 +10402,7 @@ namespace Seam.Model
         )
         {
             AccessCodeId = accessCodeId;
+            AccessCodeIsManaged = accessCodeIsManaged;
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
@@ -6656,6 +10410,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6691,6 +10446,9 @@ namespace Seam.Model
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
+        public bool? AccessCodeIsManaged { get; set; }
+
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsEntranceId { get; set; }
 
@@ -6715,6 +10473,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6771,6 +10532,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6783,6 +10545,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6806,6 +10569,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6856,6 +10622,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6870,6 +10637,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -6895,6 +10663,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -6956,6 +10727,7 @@ namespace Seam.Model
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -6974,6 +10746,7 @@ namespace Seam.Model
             CoolingSetPointCelsius = coolingSetPointCelsius;
             CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -7065,6 +10838,9 @@ namespace Seam.Model
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
@@ -7136,6 +10912,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -7153,6 +10930,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -7179,6 +10957,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7246,6 +11027,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -7263,6 +11045,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -7289,6 +11072,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7357,6 +11143,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             float? desiredTemperatureCelsius = default,
             float? desiredTemperatureFahrenheit = default,
             object? deviceCustomMetadata = default,
@@ -7372,6 +11159,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DesiredTemperatureCelsius = desiredTemperatureCelsius;
             DesiredTemperatureFahrenheit = desiredTemperatureFahrenheit;
             DeviceCustomMetadata = deviceCustomMetadata;
@@ -7396,6 +11184,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(
             Name = "desired_temperature_celsius",
@@ -7465,6 +11256,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string eventId = default,
@@ -7478,6 +11270,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventId = eventId;
@@ -7500,6 +11293,9 @@ namespace Seam.Model
 
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
@@ -7555,6 +11351,7 @@ namespace Seam.Model
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
+            string? customerKey = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string deviceName = default,
@@ -7567,6 +11364,7 @@ namespace Seam.Model
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
+            CustomerKey = customerKey;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             DeviceName = deviceName;
@@ -7589,6 +11387,9 @@ namespace Seam.Model
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
@@ -7606,6 +11407,235 @@ namespace Seam.Model
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventCameraActivated_model")]
+    public class EventCameraActivated : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventCameraActivated() { }
+
+        public EventCameraActivated(
+            EventCameraActivated.ActivationReasonEnum activationReason = default,
+            object? connectedAccountCustomMetadata = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string? customerKey = default,
+            object? deviceCustomMetadata = default,
+            string deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string? imageUrl = default,
+            EventCameraActivated.MotionSubTypeEnum? motionSubType = default,
+            string occurredAt = default,
+            string? videoUrl = default,
+            string workspaceId = default
+        )
+        {
+            ActivationReason = activationReason;
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            CustomerKey = customerKey;
+            DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            ImageUrl = imageUrl;
+            MotionSubType = motionSubType;
+            OccurredAt = occurredAt;
+            VideoUrl = videoUrl;
+            WorkspaceId = workspaceId;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum ActivationReasonEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "motion_detected")]
+            MotionDetected = 1,
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum MotionSubTypeEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "human")]
+            Human = 1,
+
+            [EnumMember(Value = "vehicle")]
+            Vehicle = 2,
+
+            [EnumMember(Value = "package")]
+            Package = 3,
+
+            [EnumMember(Value = "other")]
+            Other = 4,
+        }
+
+        [DataMember(Name = "activation_reason", IsRequired = true, EmitDefaultValue = false)]
+        public EventCameraActivated.ActivationReasonEnum ActivationReason { get; set; }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "camera.activated";
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
+
+        [DataMember(Name = "motion_sub_type", IsRequired = false, EmitDefaultValue = false)]
+        public EventCameraActivated.MotionSubTypeEnum? MotionSubType { get; set; }
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "video_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? VideoUrl { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventDeviceDoorbellRang_model")]
+    public class EventDeviceDoorbellRang : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventDeviceDoorbellRang() { }
+
+        public EventDeviceDoorbellRang(
+            object? connectedAccountCustomMetadata = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string? customerKey = default,
+            object? deviceCustomMetadata = default,
+            string deviceId = default,
+            string eventId = default,
+            string eventType = default,
+            string? imageUrl = default,
+            string occurredAt = default,
+            string? videoUrl = default,
+            string workspaceId = default
+        )
+        {
+            ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
+            ConnectedAccountId = connectedAccountId;
+            CreatedAt = createdAt;
+            CustomerKey = customerKey;
+            DeviceCustomMetadata = deviceCustomMetadata;
+            DeviceId = deviceId;
+            EventId = eventId;
+            EventType = eventType;
+            ImageUrl = imageUrl;
+            OccurredAt = occurredAt;
+            VideoUrl = videoUrl;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(
+            Name = "connected_account_custom_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public object? ConnectedAccountCustomMetadata { get; set; }
+
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? CustomerKey { get; set; }
+
+        [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public object? DeviceCustomMetadata { get; set; }
+
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "device.doorbell_rang";
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "video_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? VideoUrl { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -7800,6 +11830,158 @@ namespace Seam.Model
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "space.device_membership_changed";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+        public string SpaceId { get; set; }
+
+        [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? SpaceKey { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventSpaceCreated_model")]
+    public class EventSpaceCreated : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventSpaceCreated() { }
+
+        public EventSpaceCreated(
+            List<string> acsEntranceIds = default,
+            string createdAt = default,
+            List<string> deviceIds = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string spaceId = default,
+            string? spaceKey = default,
+            string workspaceId = default
+        )
+        {
+            AcsEntranceIds = acsEntranceIds;
+            CreatedAt = createdAt;
+            DeviceIds = deviceIds;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            SpaceId = spaceId;
+            SpaceKey = spaceKey;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_entrance_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AcsEntranceIds { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> DeviceIds { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "space.created";
+
+        [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
+        public string OccurredAt { get; set; }
+
+        [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+        public string SpaceId { get; set; }
+
+        [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? SpaceKey { get; set; }
+
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_eventSpaceDeleted_model")]
+    public class EventSpaceDeleted : Event
+    {
+        [JsonConstructorAttribute]
+        protected EventSpaceDeleted() { }
+
+        public EventSpaceDeleted(
+            List<string> acsEntranceIds = default,
+            string createdAt = default,
+            List<string> deviceIds = default,
+            string eventId = default,
+            string eventType = default,
+            string occurredAt = default,
+            string spaceId = default,
+            string? spaceKey = default,
+            string workspaceId = default
+        )
+        {
+            AcsEntranceIds = acsEntranceIds;
+            CreatedAt = createdAt;
+            DeviceIds = deviceIds;
+            EventId = eventId;
+            EventType = eventType;
+            OccurredAt = occurredAt;
+            SpaceId = spaceId;
+            SpaceKey = spaceKey;
+            WorkspaceId = workspaceId;
+        }
+
+        [DataMember(Name = "acs_entrance_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AcsEntranceIds { get; set; }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
+
+        [DataMember(Name = "device_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> DeviceIds { get; set; }
+
+        [DataMember(Name = "event_id", IsRequired = true, EmitDefaultValue = false)]
+        public string EventId { get; set; }
+
+        [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string EventType { get; } = "space.deleted";
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
