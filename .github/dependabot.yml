@@ -1,3 +1,4 @@
+---
 version: 2
 updates:
   - package-ecosystem: npm
@@ -8,16 +9,15 @@ updates:
       prefix: feat
       include: scope
     allow:
-      - dependency-type: development
+      - dependency-name: '@seamapi/*'
     ignore:
       - dependency-name: '*'
         update-types:
           - 'version-update:semver-major'
     groups:
       seam:
-        dependency-type: development
         patterns:
-          - '@seamapi/types'
+          - '@seamapi/*'
         update-types:
           - patch
           - minor
