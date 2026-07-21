@@ -1,0 +1,29 @@
+[DataContract(Name = "{{dataContractName}}")]
+public class {{className}}{{#if baseClass}} : {{baseClass}}{{/if}}
+{
+[JsonConstructorAttribute]
+{{#if properties.length}}protected{{else}}public{{/if}} {{className}}() { }
+{{#if properties.length}}
+
+public {{className}}({{csParams properties}})
+{
+{{#each properties}}
+{{pascalName}} = {{camelName}};
+{{/each}}
+}
+{{/if}}
+{{#each nested}}
+
+{{#if enum}}
+{{> enum-def enum}}
+{{else}}
+{{> oneof-union union}}
+{{/if}}
+{{/each}}
+{{#each properties}}
+
+{{> data-member this}}
+{{/each}}
+
+{{> tostring}}
+}

@@ -1,0 +1,17 @@
+[JsonConverter(typeof(JsonSubtypes), "{{discriminatorSnake}}")]
+[JsonSubtypes.FallBackSubType(typeof({{unrecognizedTypeName}}))]
+{{#each knownSubTypes}}
+[JsonSubtypes.KnownSubType(typeof({{typeName}}), "{{value}}")]
+{{/each}}
+public abstract class {{className}}
+{
+{{#each abstractProps}}
+public abstract {{type}} {{pascalName}} {{#if getOnly}}{ get; }{{else}}{ get; set; }{{/if}}
+
+{{/each}}
+public abstract override string ToString();
+}
+{{#each subclasses}}
+
+{{> model-class this}}
+{{/each}}

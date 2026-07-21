@@ -2,11 +2,14 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import layouts from '@metalsmith/layouts'
+import { getHandlebarsPartials } from '@seamapi/smith'
 import Metalsmith from 'metalsmith'
 
 import { csharp, helpers } from './lib/index.js'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
+
+const partials = await getHandlebarsPartials(`${rootDir}/layouts/partials`)
 
 // TODO: Clean the generated output directory before regenerating once the
 // generated output is allowed to change. The previous nextlove generator
@@ -26,6 +29,7 @@ Metalsmith(rootDir)
       engineOptions: {
         noEscape: true,
         helpers,
+        partials,
       },
     }),
   )

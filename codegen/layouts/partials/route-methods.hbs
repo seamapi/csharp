@@ -1,0 +1,39 @@
+public {{#if isVoid}}void{{else}}{{returnType}}{{/if}} {{methodName}}({{methodName}}Request request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+{{#if isVoid}}
+_seam.Post<object>("{{path}}", requestOptions);
+{{else}}
+return _seam.Post<{{responseTypeArg}}>("{{path}}", requestOptions).Data.{{returnProp}};
+{{/if}}
+}
+
+public {{#if isVoid}}void{{else}}{{returnType}}{{/if}} {{methodName}}({{csParams params}})
+{
+{{#if isVoid}}
+{{methodName}}(new {{methodName}}Request({{csNamedArgs params}}));
+{{else}}
+return {{methodName}}(new {{methodName}}Request({{csNamedArgs params}}));
+{{/if}}
+}
+
+public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}}Async({{methodName}}Request request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+{{#if isVoid}}
+await _seam.PostAsync<object>("{{path}}", requestOptions);
+{{else}}
+return (await _seam.PostAsync<{{responseTypeArg}}>("{{path}}", requestOptions)).Data.{{returnProp}};
+{{/if}}
+}
+
+public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}}Async({{csParams params}})
+{
+{{#if isVoid}}
+await {{methodName}}Async(new {{methodName}}Request({{csNamedArgs params}}));
+{{else}}
+return (await {{methodName}}Async(new {{methodName}}Request({{csNamedArgs params}})));
+{{/if}}
+}
