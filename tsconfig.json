@@ -1,34 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "noEmit": true,
-    "strict": true,
-    "module": "nodenext",
-    "esModuleInterop": true,
-    "target": "es2021",
-    "jsx": "react-jsx",
-    "declaration": true,
-    "sourceMap": true,
-    "newLine": "lf",
-    "verbatimModuleSyntax": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
-    "resolveJsonModule": true,
-    "paths": {
-      "@seamapi/nextlove-sdk-csharp": ["./src/index.ts"],
-      "lib/*": ["./src/lib/*"]
-    }
-  },
-  "files": ["src/index.ts"],
-  "include": ["src/**/*", "test/**/*", "examples/**/*"]
+  "extends": "./node_modules/@seamapi/smith/tsconfig.base.json",
+  "files": ["codegen/index.ts"],
+  "include": ["codegen/**/*", "eslint.config.ts"]
 }
