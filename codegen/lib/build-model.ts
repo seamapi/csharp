@@ -37,7 +37,10 @@ import type {
 
 const FALLBACK_TYPE = 'object?'
 
-// C# keywords/identifiers that require remapping (ported verbatim).
+// C# keyword/identifier remapping, ported verbatim to preserve the previous
+// generator's parameter and property names.
+// TODO: Revisit these name workarounds once the generated output is allowed to
+// change (e.g. use a verbatim identifier `@event`/`@override` instead).
 const reservedKeywordMap: Record<string, string> = { override: 'mustOverride' }
 const RESERVED_TOKENS = ['event']
 
@@ -197,6 +200,13 @@ const buildClass = (
     return FALLBACK_TYPE
   }
 
+  // Resolves the C# type string for a property schema and, as a side effect,
+  // collects the inline enums, nested object classes, and nested unions it
+  // spawns. Reads the raw OpenAPI schema (oneOf/allOf/$ref/type/enum/items).
+  // TODO: Derive parameter and property types from @seamapi/blueprint once the
+  // generated output is allowed to change. Blueprint collapses the integer type
+  // into number (losing int vs float), flattens unions differently, and does
+  // not surface these inline enums, so the raw schema is used here for parity.
   const mapSchemaType = (
     schema: any,
     propertyName: string,
@@ -254,6 +264,9 @@ const buildClass = (
           return FALLBACK_TYPE
         }
         const newClassName = pascalCase(name + pascalCase(propertyName))
+        // TODO: Remove the hardcoded DeviceProperties special case once the
+        // generated output is allowed to change. It forces every property on
+        // that one class nullable/optional purely to match the previous output.
         const built = buildClass(
           newClassName,
           schema as ObjSchema,
@@ -294,6 +307,9 @@ const buildClass = (
       !forceNullable
 
     const enumOverride = topLevelEnumOverrides?.[propertyName]
+    // TODO: Replace this name-based errors/warnings `message` override heuristic
+    // with a general derivation of common union properties once the generated
+    // output is allowed to change. It only reproduces the previous output.
     const shouldOverrideMessage =
       propertyName === 'message' &&
       (name.includes('Errors') || name.includes('Warnings')) &&
@@ -346,6 +362,11 @@ const buildUnion = (
     )
   }
 
+  // TODO: Build discriminated unions from @seamapi/blueprint variant metadata
+  // once the generated output is allowed to change. This reads the raw OpenAPI
+  // oneOf/discriminator and reproduces the previous generator's quirks: the
+  // errors/warnings-only abstract `message`, the reversed KnownSubType attribute
+  // order, and the synthesized Unrecognized fallback subclass.
   const discriminator = schema.discriminator.propertyName
 
   const objSchemas = Array.from(
@@ -484,6 +505,11 @@ export const buildApiFile = (
       throw new Error('Invalid response type')
     }
 
+    // TODO: Derive the response type and nullability from
+    // @seamapi/blueprint endpoint.response once the generated output is allowed
+    // to change. Only the array element honors `nullable`; a non-array response
+    // is never marked nullable, reproducing a quirk of the previous generator
+    // (its nullable flag was misrouted and never applied to object responses).
     const returnType = route.isVoid
       ? undefined
       : route.responseArrType

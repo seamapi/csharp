@@ -45,6 +45,10 @@ export const csharp = (files: Metalsmith.Files): void => {
     if (!route.post) continue
     if (!route.post['x-fern-sdk-group-name']) continue
 
+    // TODO: Use blueprint route/namespace names once the generated output is
+    // allowed to change. The class name reverses x-fern-sdk-group-name (e.g.
+    // ['acs', 'credential_pools'] -> CredentialPoolsAcs), a load-bearing quirk
+    // of the previous generator that must be preserved for output parity.
     const groupNames = [...route.post['x-fern-sdk-group-name']]
     groupNames.reverse()
     const className = pascalCase(groupNames.join('_'))
@@ -57,6 +61,10 @@ export const csharp = (files: Metalsmith.Files): void => {
       response_schema: responseSchema,
     } = getParameterAndResponseSchema(route)
 
+    // TODO: Determine void vs. returning endpoints from
+    // @seamapi/blueprint endpoint.response once the generated output is allowed
+    // to change. This reproduces the previous generator's filter, including its
+    // `ok`-property and x-response-key special-casing, from the raw OpenAPI.
     let isVoid = false
     if (!responseObjType && !responseArrType) {
       if (
