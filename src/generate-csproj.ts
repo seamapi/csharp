@@ -1,6 +1,8 @@
-import { writeFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 
-import packageJson from '../package.json'
+const { version } = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf-8'),
+)
 
 export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
   `
@@ -51,7 +53,7 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 const main = async () => {
   writeFileSync(
     './output/csharp/src/Seam/Seam.csproj',
-    csprojTemplate(packageJson.version, ['6.0', '7.0']),
+    csprojTemplate(version, ['6.0', '7.0']),
   )
 }
 

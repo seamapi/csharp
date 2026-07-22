@@ -1,0 +1,19 @@
+using System.Runtime.Serialization;
+using System.Text;
+using JsonSubTypes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using Seam.Model;
+
+namespace Seam.Model
+{
+{{#each decls}}
+{{#if (eq kind "union")}}
+{{> oneof-union this}}
+{{else}}
+{{> model-class this}}
+{{/if}}
+
+{{/each}}
+}
