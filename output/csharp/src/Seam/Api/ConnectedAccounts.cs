@@ -203,6 +203,7 @@ namespace Seam.Api
                 int? limit = default,
                 string? pageCursor = default,
                 string? search = default,
+                string? spaceId = default,
                 string? userIdentifierKey = default
             )
             {
@@ -211,6 +212,7 @@ namespace Seam.Api
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
+                SpaceId = spaceId;
                 UserIdentifierKey = userIdentifierKey;
             }
 
@@ -228,6 +230,9 @@ namespace Seam.Api
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceId { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -301,6 +306,7 @@ namespace Seam.Api
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
+            string? spaceId = default,
             string? userIdentifierKey = default
         )
         {
@@ -311,6 +317,7 @@ namespace Seam.Api
                     limit: limit,
                     pageCursor: pageCursor,
                     search: search,
+                    spaceId: spaceId,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -331,6 +338,7 @@ namespace Seam.Api
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
+            string? spaceId = default,
             string? userIdentifierKey = default
         )
         {
@@ -342,6 +350,7 @@ namespace Seam.Api
                         limit: limit,
                         pageCursor: pageCursor,
                         search: search,
+                        spaceId: spaceId,
                         userIdentifierKey: userIdentifierKey
                     )
                 )
@@ -417,7 +426,8 @@ namespace Seam.Api
                 bool? automaticallyManageNewDevices = default,
                 string connectedAccountId = default,
                 object? customMetadata = default,
-                string? customerKey = default
+                string? customerKey = default,
+                string? displayName = default
             )
             {
                 AcceptedCapabilities = acceptedCapabilities;
@@ -425,6 +435,7 @@ namespace Seam.Api
                 ConnectedAccountId = connectedAccountId;
                 CustomMetadata = customMetadata;
                 CustomerKey = customerKey;
+                DisplayName = displayName;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -444,6 +455,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "access_control")]
                 AccessControl = 4,
+
+                [EnumMember(Value = "camera")]
+                Camera = 5,
             }
 
             [DataMember(
@@ -468,6 +482,9 @@ namespace Seam.Api
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
+
+            [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? DisplayName { get; set; }
 
             public override string ToString()
             {
@@ -501,7 +518,8 @@ namespace Seam.Api
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
             object? customMetadata = default,
-            string? customerKey = default
+            string? customerKey = default,
+            string? displayName = default
         )
         {
             Update(
@@ -510,7 +528,8 @@ namespace Seam.Api
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
                     customMetadata: customMetadata,
-                    customerKey: customerKey
+                    customerKey: customerKey,
+                    displayName: displayName
                 )
             );
         }
@@ -527,7 +546,8 @@ namespace Seam.Api
             bool? automaticallyManageNewDevices = default,
             string connectedAccountId = default,
             object? customMetadata = default,
-            string? customerKey = default
+            string? customerKey = default,
+            string? displayName = default
         )
         {
             await UpdateAsync(
@@ -536,7 +556,8 @@ namespace Seam.Api
                     automaticallyManageNewDevices: automaticallyManageNewDevices,
                     connectedAccountId: connectedAccountId,
                     customMetadata: customMetadata,
-                    customerKey: customerKey
+                    customerKey: customerKey,
+                    displayName: displayName
                 )
             );
         }

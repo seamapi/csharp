@@ -653,7 +653,8 @@ namespace Seam.Api
                 string? credentialManagerAcsSystemId = default,
                 int? limit = default,
                 string? pageCursor = default,
-                string? search = default
+                string? search = default,
+                List<string>? userIdentityIds = default
             )
             {
                 CreatedBefore = createdBefore;
@@ -661,6 +662,7 @@ namespace Seam.Api
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
+                UserIdentityIds = userIdentityIds;
             }
 
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
@@ -681,6 +683,9 @@ namespace Seam.Api
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
+
+            [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UserIdentityIds { get; set; }
 
             public override string ToString()
             {
@@ -750,7 +755,8 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             int? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            List<string>? userIdentityIds = default
         )
         {
             return List(
@@ -759,7 +765,8 @@ namespace Seam.Api
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                     limit: limit,
                     pageCursor: pageCursor,
-                    search: search
+                    search: search,
+                    userIdentityIds: userIdentityIds
                 )
             );
         }
@@ -778,7 +785,8 @@ namespace Seam.Api
             string? credentialManagerAcsSystemId = default,
             int? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            List<string>? userIdentityIds = default
         )
         {
             return (
@@ -788,7 +796,8 @@ namespace Seam.Api
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                         limit: limit,
                         pageCursor: pageCursor,
-                        search: search
+                        search: search,
+                        userIdentityIds: userIdentityIds
                     )
                 )
             );
@@ -902,6 +911,120 @@ namespace Seam.Api
             return (
                 await ListAccessibleDevicesAsync(
                     new ListAccessibleDevicesRequest(userIdentityId: userIdentityId)
+                )
+            );
+        }
+
+        [DataContract(Name = "listAccessibleEntrancesRequest_request")]
+        public class ListAccessibleEntrancesRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListAccessibleEntrancesRequest() { }
+
+            public ListAccessibleEntrancesRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listAccessibleEntrancesResponse_response")]
+        public class ListAccessibleEntrancesResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListAccessibleEntrancesResponse() { }
+
+            public ListAccessibleEntrancesResponse(List<AcsEntrance> acsEntrances = default)
+            {
+                AcsEntrances = acsEntrances;
+            }
+
+            [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
+            public List<AcsEntrance> AcsEntrances { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListAccessibleEntrancesResponse>(
+                    "/user_identities/list_accessible_entrances",
+                    requestOptions
+                )
+                .Data.AcsEntrances;
+        }
+
+        public List<AcsEntrance> ListAccessibleEntrances(string userIdentityId = default)
+        {
+            return ListAccessibleEntrances(
+                new ListAccessibleEntrancesRequest(userIdentityId: userIdentityId)
+            );
+        }
+
+        public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
+            ListAccessibleEntrancesRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListAccessibleEntrancesResponse>(
+                    "/user_identities/list_accessible_entrances",
+                    requestOptions
+                )
+            )
+                .Data
+                .AcsEntrances;
+        }
+
+        public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
+            string userIdentityId = default
+        )
+        {
+            return (
+                await ListAccessibleEntrancesAsync(
+                    new ListAccessibleEntrancesRequest(userIdentityId: userIdentityId)
                 )
             );
         }

@@ -271,11 +271,13 @@ namespace Seam.Api
             public ListRequest(
                 string? acsSystemId = default,
                 string? acsUserId = default,
+                string? search = default,
                 string? userIdentityId = default
             )
             {
                 AcsSystemId = acsSystemId;
                 AcsUserId = acsUserId;
+                Search = search;
                 UserIdentityId = userIdentityId;
             }
 
@@ -284,6 +286,9 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
@@ -354,6 +359,7 @@ namespace Seam.Api
         public List<AcsAccessGroup> List(
             string? acsSystemId = default,
             string? acsUserId = default,
+            string? search = default,
             string? userIdentityId = default
         )
         {
@@ -361,6 +367,7 @@ namespace Seam.Api
                 new ListRequest(
                     acsSystemId: acsSystemId,
                     acsUserId: acsUserId,
+                    search: search,
                     userIdentityId: userIdentityId
                 )
             );
@@ -378,6 +385,7 @@ namespace Seam.Api
         public async Task<List<AcsAccessGroup>> ListAsync(
             string? acsSystemId = default,
             string? acsUserId = default,
+            string? search = default,
             string? userIdentityId = default
         )
         {
@@ -386,6 +394,7 @@ namespace Seam.Api
                     new ListRequest(
                         acsSystemId: acsSystemId,
                         acsUserId: acsUserId,
+                        search: search,
                         userIdentityId: userIdentityId
                     )
                 )

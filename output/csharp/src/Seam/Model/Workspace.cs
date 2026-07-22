@@ -22,6 +22,7 @@ namespace Seam.Model
             bool isSandbox = default,
             bool isSuspended = default,
             string name = default,
+            string? organizationId = default,
             string? publishableKey = default,
             string workspaceId = default
         )
@@ -33,6 +34,7 @@ namespace Seam.Model
             IsSandbox = isSandbox;
             IsSuspended = isSuspended;
             Name = name;
+            OrganizationId = organizationId;
             PublishableKey = publishableKey;
             WorkspaceId = workspaceId;
         }
@@ -65,6 +67,9 @@ namespace Seam.Model
 
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string Name { get; set; }
+
+        [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? OrganizationId { get; set; }
 
         [DataMember(Name = "publishable_key", IsRequired = false, EmitDefaultValue = false)]
         public string? PublishableKey { get; set; }

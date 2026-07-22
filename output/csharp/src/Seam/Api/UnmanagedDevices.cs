@@ -214,80 +214,86 @@ namespace Seam.Api
                 [EnumMember(Value = "schlage_lock")]
                 SchlageLock = 14,
 
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 15,
-
                 [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 16,
+                SmartthingsLock = 15,
 
                 [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 17,
+                WyzeLock = 16,
 
                 [EnumMember(Value = "yale_lock")]
-                YaleLock = 18,
+                YaleLock = 17,
 
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 19,
+                TwoNIntercom = 18,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 20,
+                ControlbywebDevice = 19,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 21,
+                TtlockLock = 20,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 22,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 23,
+                IgloohomeLock = 21,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 24,
+                FourSuitesDoor = 22,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 25,
+                DormakabaOracodeDoor = 23,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 26,
+                TedeeLock = 24,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27,
+                AkilesLock = 25,
 
                 [EnumMember(Value = "ultraloq_lock")]
-                UltraloqLock = 28,
+                UltraloqLock = 26,
+
+                [EnumMember(Value = "keyincode_lock")]
+                KeyincodeLock = 27,
+
+                [EnumMember(Value = "omnitec_lock")]
+                OmnitecLock = 28,
+
+                [EnumMember(Value = "kisi_lock")]
+                KisiLock = 29,
 
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 29,
+                KeynestKey = 30,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 30,
+                NoiseawareActivityZone = 31,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 31,
+                MinutSensor = 32,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 32,
+                EcobeeThermostat = 33,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 33,
+                NestThermostat = 34,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 34,
+                HoneywellResideoThermostat = 35,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 35,
+                TadoThermostat = 36,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 36,
+                SensiThermostat = 37,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 37,
+                SmartthingsThermostat = 38,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 38,
+                IosPhone = 39,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 39,
+                AndroidPhone = 40,
+
+                [EnumMember(Value = "ring_camera")]
+                RingCamera = 41,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -352,6 +358,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -416,6 +425,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -499,53 +511,83 @@ namespace Seam.Api
                 [EnumMember(Value = "igloohome")]
                 Igloohome = 25,
 
-                [EnumMember(Value = "hubitat")]
-                Hubitat = 26,
-
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 27,
+                Controlbyweb = 26,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 28,
+                DormakabaOracode = 27,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 29,
+                Tedee = 28,
+
+                [EnumMember(Value = "keyincode")]
+                Keyincode = 29,
+
+                [EnumMember(Value = "kisi")]
+                Kisi = 30,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 30,
+                Akiles = 31,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 31,
+                Ecobee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 32,
-
-                [EnumMember(Value = "kwikset2")]
-                Kwikset2 = 33,
-
-                [EnumMember(Value = "minut")]
-                Minut = 34,
-
-                [EnumMember(Value = "nest")]
-                Nest = 35,
-
-                [EnumMember(Value = "noiseaware")]
-                Noiseaware = 36,
-
-                [EnumMember(Value = "tado")]
-                Tado = 37,
-
-                [EnumMember(Value = "sensi")]
-                Sensi = 38,
-
-                [EnumMember(Value = "smartthings")]
-                Smartthings = 39,
+                HoneywellResideo = 33,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 40,
+                Keynest = 34,
+
+                [EnumMember(Value = "korelock")]
+                Korelock = 35,
+
+                [EnumMember(Value = "minut")]
+                Minut = 36,
+
+                [EnumMember(Value = "nest")]
+                Nest = 37,
+
+                [EnumMember(Value = "noiseaware")]
+                Noiseaware = 38,
+
+                [EnumMember(Value = "sensi")]
+                Sensi = 39,
+
+                [EnumMember(Value = "smartthings")]
+                Smartthings = 40,
+
+                [EnumMember(Value = "tado")]
+                Tado = 41,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 41,
+                Ultraloq = 42,
+
+                [EnumMember(Value = "ring")]
+                Ring = 43,
+
+                [EnumMember(Value = "ical")]
+                Ical = 44,
+
+                [EnumMember(Value = "lodgify")]
+                Lodgify = 45,
+
+                [EnumMember(Value = "hostaway")]
+                Hostaway = 46,
+
+                [EnumMember(Value = "guesty")]
+                Guesty = 47,
+
+                [EnumMember(Value = "acuity_scheduling")]
+                AcuityScheduling = 48,
+
+                [EnumMember(Value = "omnitec")]
+                Omnitec = 49,
+
+                [EnumMember(Value = "kisi")]
+                Kisi = 50,
+
+                [EnumMember(Value = "slack")]
+                Slack = 51,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

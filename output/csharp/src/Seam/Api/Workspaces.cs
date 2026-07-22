@@ -30,6 +30,7 @@ namespace Seam.Api
                 CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
                 bool? isSandbox = default,
                 string name = default,
+                string? organizationId = default,
                 CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
                 string? webviewPrimaryButtonColor = default,
                 string? webviewPrimaryButtonTextColor = default,
@@ -41,6 +42,7 @@ namespace Seam.Api
                 ConnectWebviewCustomization = connectWebviewCustomization;
                 IsSandbox = isSandbox;
                 Name = name;
+                OrganizationId = organizationId;
                 WebviewLogoShape = webviewLogoShape;
                 WebviewPrimaryButtonColor = webviewPrimaryButtonColor;
                 WebviewPrimaryButtonTextColor = webviewPrimaryButtonTextColor;
@@ -82,6 +84,9 @@ namespace Seam.Api
 
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
+
+            [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? OrganizationId { get; set; }
 
             [DataMember(Name = "webview_logo_shape", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequest.WebviewLogoShapeEnum? WebviewLogoShape { get; set; }
@@ -246,6 +251,7 @@ namespace Seam.Api
             CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
             bool? isSandbox = default,
             string name = default,
+            string? organizationId = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
             string? webviewPrimaryButtonColor = default,
             string? webviewPrimaryButtonTextColor = default,
@@ -259,6 +265,7 @@ namespace Seam.Api
                     connectWebviewCustomization: connectWebviewCustomization,
                     isSandbox: isSandbox,
                     name: name,
+                    organizationId: organizationId,
                     webviewLogoShape: webviewLogoShape,
                     webviewPrimaryButtonColor: webviewPrimaryButtonColor,
                     webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor,
@@ -282,6 +289,7 @@ namespace Seam.Api
             CreateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
             bool? isSandbox = default,
             string name = default,
+            string? organizationId = default,
             CreateRequest.WebviewLogoShapeEnum? webviewLogoShape = default,
             string? webviewPrimaryButtonColor = default,
             string? webviewPrimaryButtonTextColor = default,
@@ -296,6 +304,7 @@ namespace Seam.Api
                         connectWebviewCustomization: connectWebviewCustomization,
                         isSandbox: isSandbox,
                         name: name,
+                        organizationId: organizationId,
                         webviewLogoShape: webviewLogoShape,
                         webviewPrimaryButtonColor: webviewPrimaryButtonColor,
                         webviewPrimaryButtonTextColor: webviewPrimaryButtonTextColor,

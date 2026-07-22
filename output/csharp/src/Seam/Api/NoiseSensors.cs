@@ -153,6 +153,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -217,6 +220,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]

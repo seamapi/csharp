@@ -475,9 +475,9 @@ namespace Seam.Api
             protected CreateClimatePresetRequestEcobeeMetadata() { }
 
             public CreateClimatePresetRequestEcobeeMetadata(
-                string climateRef = default,
-                bool isOptimized = default,
-                CreateClimatePresetRequestEcobeeMetadata.OwnerEnum owner = default
+                string? climateRef = default,
+                bool? isOptimized = default,
+                CreateClimatePresetRequestEcobeeMetadata.OwnerEnum? owner = default
             )
             {
                 ClimateRef = climateRef;
@@ -498,14 +498,14 @@ namespace Seam.Api
                 System = 2,
             }
 
-            [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]
-            public string ClimateRef { get; set; }
+            [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
+            public string? ClimateRef { get; set; }
 
-            [DataMember(Name = "is_optimized", IsRequired = true, EmitDefaultValue = false)]
-            public bool IsOptimized { get; set; }
+            [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsOptimized { get; set; }
 
-            [DataMember(Name = "owner", IsRequired = true, EmitDefaultValue = false)]
-            public CreateClimatePresetRequestEcobeeMetadata.OwnerEnum Owner { get; set; }
+            [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
+            public CreateClimatePresetRequestEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
             public override string ToString()
             {
@@ -1167,6 +1167,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1231,6 +1234,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1248,14 +1254,14 @@ namespace Seam.Api
                 [EnumMember(Value = "nest")]
                 Nest = 3,
 
-                [EnumMember(Value = "tado")]
-                Tado = 4,
-
                 [EnumMember(Value = "sensi")]
-                Sensi = 5,
+                Sensi = 4,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 6,
+                Smartthings = 5,
+
+                [EnumMember(Value = "tado")]
+                Tado = 6,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
@@ -2329,9 +2335,9 @@ namespace Seam.Api
             protected UpdateClimatePresetRequestEcobeeMetadata() { }
 
             public UpdateClimatePresetRequestEcobeeMetadata(
-                string climateRef = default,
-                bool isOptimized = default,
-                UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum owner = default
+                string? climateRef = default,
+                bool? isOptimized = default,
+                UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum? owner = default
             )
             {
                 ClimateRef = climateRef;
@@ -2352,14 +2358,14 @@ namespace Seam.Api
                 System = 2,
             }
 
-            [DataMember(Name = "climate_ref", IsRequired = true, EmitDefaultValue = false)]
-            public string ClimateRef { get; set; }
+            [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
+            public string? ClimateRef { get; set; }
 
-            [DataMember(Name = "is_optimized", IsRequired = true, EmitDefaultValue = false)]
-            public bool IsOptimized { get; set; }
+            [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsOptimized { get; set; }
 
-            [DataMember(Name = "owner", IsRequired = true, EmitDefaultValue = false)]
-            public UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum Owner { get; set; }
+            [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateClimatePresetRequestEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
             public override string ToString()
             {

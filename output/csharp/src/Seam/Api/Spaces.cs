@@ -90,6 +90,87 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "addConnectedAccountRequest_request")]
+        public class AddConnectedAccountRequest
+        {
+            [JsonConstructorAttribute]
+            protected AddConnectedAccountRequest() { }
+
+            public AddConnectedAccountRequest(
+                string connectedAccountId = default,
+                string spaceId = default
+            )
+            {
+                ConnectedAccountId = connectedAccountId;
+                SpaceId = spaceId;
+            }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+            public string SpaceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void AddConnectedAccount(AddConnectedAccountRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/spaces/add_connected_account", requestOptions);
+        }
+
+        public void AddConnectedAccount(
+            string connectedAccountId = default,
+            string spaceId = default
+        )
+        {
+            AddConnectedAccount(
+                new AddConnectedAccountRequest(
+                    connectedAccountId: connectedAccountId,
+                    spaceId: spaceId
+                )
+            );
+        }
+
+        public async Task AddConnectedAccountAsync(AddConnectedAccountRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/spaces/add_connected_account", requestOptions);
+        }
+
+        public async Task AddConnectedAccountAsync(
+            string connectedAccountId = default,
+            string spaceId = default
+        )
+        {
+            await AddConnectedAccountAsync(
+                new AddConnectedAccountRequest(
+                    connectedAccountId: connectedAccountId,
+                    spaceId: spaceId
+                )
+            );
+        }
+
         [DataContract(Name = "addDevicesRequest_request")]
         public class AddDevicesRequest
         {
@@ -163,6 +244,8 @@ namespace Seam.Api
 
             public CreateRequest(
                 List<string>? acsEntranceIds = default,
+                List<string>? connectedAccountIds = default,
+                CreateRequestCustomerData? customerData = default,
                 string? customerKey = default,
                 List<string>? deviceIds = default,
                 string name = default,
@@ -170,6 +253,8 @@ namespace Seam.Api
             )
             {
                 AcsEntranceIds = acsEntranceIds;
+                ConnectedAccountIds = connectedAccountIds;
+                CustomerData = customerData;
                 CustomerKey = customerKey;
                 DeviceIds = deviceIds;
                 Name = name;
@@ -178,6 +263,16 @@ namespace Seam.Api
 
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
+
+            [DataMember(
+                Name = "connected_account_ids",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? ConnectedAccountIds { get; set; }
+
+            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestCustomerData? CustomerData { get; set; }
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
@@ -190,6 +285,65 @@ namespace Seam.Api
 
             [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createRequestCustomerData_model")]
+        public class CreateRequestCustomerData
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestCustomerData() { }
+
+            public CreateRequestCustomerData(
+                string? address = default,
+                string? defaultCheckinTime = default,
+                string? defaultCheckoutTime = default,
+                string? timeZone = default
+            )
+            {
+                Address = address;
+                DefaultCheckinTime = defaultCheckinTime;
+                DefaultCheckoutTime = defaultCheckoutTime;
+                TimeZone = timeZone;
+            }
+
+            [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+            public string? Address { get; set; }
+
+            [DataMember(
+                Name = "default_checkin_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckinTime { get; set; }
+
+            [DataMember(
+                Name = "default_checkout_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckoutTime { get; set; }
+
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public string? TimeZone { get; set; }
 
             public override string ToString()
             {
@@ -254,6 +408,8 @@ namespace Seam.Api
 
         public Space Create(
             List<string>? acsEntranceIds = default,
+            List<string>? connectedAccountIds = default,
+            CreateRequestCustomerData? customerData = default,
             string? customerKey = default,
             List<string>? deviceIds = default,
             string name = default,
@@ -263,6 +419,8 @@ namespace Seam.Api
             return Create(
                 new CreateRequest(
                     acsEntranceIds: acsEntranceIds,
+                    connectedAccountIds: connectedAccountIds,
+                    customerData: customerData,
                     customerKey: customerKey,
                     deviceIds: deviceIds,
                     name: name,
@@ -282,6 +440,8 @@ namespace Seam.Api
 
         public async Task<Space> CreateAsync(
             List<string>? acsEntranceIds = default,
+            List<string>? connectedAccountIds = default,
+            CreateRequestCustomerData? customerData = default,
             string? customerKey = default,
             List<string>? deviceIds = default,
             string name = default,
@@ -292,6 +452,8 @@ namespace Seam.Api
                 await CreateAsync(
                     new CreateRequest(
                         acsEntranceIds: acsEntranceIds,
+                        connectedAccountIds: connectedAccountIds,
+                        customerData: customerData,
                         customerKey: customerKey,
                         deviceIds: deviceIds,
                         name: name,
@@ -494,6 +656,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_systems")]
                 AcsSystems = 5,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 6,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -516,6 +681,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "acs_systems")]
                 AcsSystems = 5,
+
+                [EnumMember(Value = "access_methods")]
+                AccessMethods = 6,
             }
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
@@ -647,12 +815,20 @@ namespace Seam.Api
             public ListRequest(
                 string? connectedAccountId = default,
                 string? customerKey = default,
+                float? limit = default,
+                string? pageCursor = default,
+                string? parentSpaceId = default,
+                string? parentSpaceKey = default,
                 string? search = default,
                 string? spaceKey = default
             )
             {
                 ConnectedAccountId = connectedAccountId;
                 CustomerKey = customerKey;
+                Limit = limit;
+                PageCursor = pageCursor;
+                ParentSpaceId = parentSpaceId;
+                ParentSpaceKey = parentSpaceKey;
                 Search = search;
                 SpaceKey = spaceKey;
             }
@@ -666,6 +842,18 @@ namespace Seam.Api
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
+            [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSpaceId { get; set; }
+
+            [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSpaceKey { get; set; }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
@@ -737,6 +925,10 @@ namespace Seam.Api
         public List<Space> List(
             string? connectedAccountId = default,
             string? customerKey = default,
+            float? limit = default,
+            string? pageCursor = default,
+            string? parentSpaceId = default,
+            string? parentSpaceKey = default,
             string? search = default,
             string? spaceKey = default
         )
@@ -745,6 +937,10 @@ namespace Seam.Api
                 new ListRequest(
                     connectedAccountId: connectedAccountId,
                     customerKey: customerKey,
+                    limit: limit,
+                    pageCursor: pageCursor,
+                    parentSpaceId: parentSpaceId,
+                    parentSpaceKey: parentSpaceKey,
                     search: search,
                     spaceKey: spaceKey
                 )
@@ -763,6 +959,10 @@ namespace Seam.Api
         public async Task<List<Space>> ListAsync(
             string? connectedAccountId = default,
             string? customerKey = default,
+            float? limit = default,
+            string? pageCursor = default,
+            string? parentSpaceId = default,
+            string? parentSpaceKey = default,
             string? search = default,
             string? spaceKey = default
         )
@@ -772,6 +972,10 @@ namespace Seam.Api
                     new ListRequest(
                         connectedAccountId: connectedAccountId,
                         customerKey: customerKey,
+                        limit: limit,
+                        pageCursor: pageCursor,
+                        parentSpaceId: parentSpaceId,
+                        parentSpaceKey: parentSpaceKey,
                         search: search,
                         spaceKey: spaceKey
                     )
@@ -854,6 +1058,87 @@ namespace Seam.Api
             );
         }
 
+        [DataContract(Name = "removeConnectedAccountRequest_request")]
+        public class RemoveConnectedAccountRequest
+        {
+            [JsonConstructorAttribute]
+            protected RemoveConnectedAccountRequest() { }
+
+            public RemoveConnectedAccountRequest(
+                string connectedAccountId = default,
+                string spaceId = default
+            )
+            {
+                ConnectedAccountId = connectedAccountId;
+                SpaceId = spaceId;
+            }
+
+            [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+            public string ConnectedAccountId { get; set; }
+
+            [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+            public string SpaceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void RemoveConnectedAccount(RemoveConnectedAccountRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/spaces/remove_connected_account", requestOptions);
+        }
+
+        public void RemoveConnectedAccount(
+            string connectedAccountId = default,
+            string spaceId = default
+        )
+        {
+            RemoveConnectedAccount(
+                new RemoveConnectedAccountRequest(
+                    connectedAccountId: connectedAccountId,
+                    spaceId: spaceId
+                )
+            );
+        }
+
+        public async Task RemoveConnectedAccountAsync(RemoveConnectedAccountRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/spaces/remove_connected_account", requestOptions);
+        }
+
+        public async Task RemoveConnectedAccountAsync(
+            string connectedAccountId = default,
+            string spaceId = default
+        )
+        {
+            await RemoveConnectedAccountAsync(
+                new RemoveConnectedAccountRequest(
+                    connectedAccountId: connectedAccountId,
+                    spaceId: spaceId
+                )
+            );
+        }
+
         [DataContract(Name = "removeDevicesRequest_request")]
         public class RemoveDevicesRequest
         {
@@ -929,17 +1214,21 @@ namespace Seam.Api
 
             public UpdateRequest(
                 List<string>? acsEntranceIds = default,
-                string? customerKey = default,
+                UpdateRequestCustomerData? customerData = default,
                 List<string>? deviceIds = default,
                 string? name = default,
+                string? parentSpaceId = default,
+                string? parentSpaceKey = default,
                 string? spaceId = default,
                 string? spaceKey = default
             )
             {
                 AcsEntranceIds = acsEntranceIds;
-                CustomerKey = customerKey;
+                CustomerData = customerData;
                 DeviceIds = deviceIds;
                 Name = name;
+                ParentSpaceId = parentSpaceId;
+                ParentSpaceKey = parentSpaceKey;
                 SpaceId = spaceId;
                 SpaceKey = spaceKey;
             }
@@ -947,8 +1236,8 @@ namespace Seam.Api
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
 
-            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? CustomerKey { get; set; }
+            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequestCustomerData? CustomerData { get; set; }
 
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -956,11 +1245,76 @@ namespace Seam.Api
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSpaceId { get; set; }
+
+            [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSpaceKey { get; set; }
+
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
             [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "updateRequestCustomerData_model")]
+        public class UpdateRequestCustomerData
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequestCustomerData() { }
+
+            public UpdateRequestCustomerData(
+                string? address = default,
+                string? defaultCheckinTime = default,
+                string? defaultCheckoutTime = default,
+                string? timeZone = default
+            )
+            {
+                Address = address;
+                DefaultCheckinTime = defaultCheckinTime;
+                DefaultCheckoutTime = defaultCheckoutTime;
+                TimeZone = timeZone;
+            }
+
+            [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+            public string? Address { get; set; }
+
+            [DataMember(
+                Name = "default_checkin_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckinTime { get; set; }
+
+            [DataMember(
+                Name = "default_checkout_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckoutTime { get; set; }
+
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public string? TimeZone { get; set; }
 
             public override string ToString()
             {
@@ -1025,9 +1379,11 @@ namespace Seam.Api
 
         public Space Update(
             List<string>? acsEntranceIds = default,
-            string? customerKey = default,
+            UpdateRequestCustomerData? customerData = default,
             List<string>? deviceIds = default,
             string? name = default,
+            string? parentSpaceId = default,
+            string? parentSpaceKey = default,
             string? spaceId = default,
             string? spaceKey = default
         )
@@ -1035,9 +1391,11 @@ namespace Seam.Api
             return Update(
                 new UpdateRequest(
                     acsEntranceIds: acsEntranceIds,
-                    customerKey: customerKey,
+                    customerData: customerData,
                     deviceIds: deviceIds,
                     name: name,
+                    parentSpaceId: parentSpaceId,
+                    parentSpaceKey: parentSpaceKey,
                     spaceId: spaceId,
                     spaceKey: spaceKey
                 )
@@ -1055,9 +1413,11 @@ namespace Seam.Api
 
         public async Task<Space> UpdateAsync(
             List<string>? acsEntranceIds = default,
-            string? customerKey = default,
+            UpdateRequestCustomerData? customerData = default,
             List<string>? deviceIds = default,
             string? name = default,
+            string? parentSpaceId = default,
+            string? parentSpaceKey = default,
             string? spaceId = default,
             string? spaceKey = default
         )
@@ -1066,9 +1426,11 @@ namespace Seam.Api
                 await UpdateAsync(
                     new UpdateRequest(
                         acsEntranceIds: acsEntranceIds,
-                        customerKey: customerKey,
+                        customerData: customerData,
                         deviceIds: deviceIds,
                         name: name,
+                        parentSpaceId: parentSpaceId,
+                        parentSpaceKey: parentSpaceKey,
                         spaceId: spaceId,
                         spaceKey: spaceKey
                     )
