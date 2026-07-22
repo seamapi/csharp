@@ -89,6 +89,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "mobile_key")]
             MobileKey = 3,
+
+            [EnumMember(Value = "cloud_key")]
+            CloudKey = 4,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -126,6 +129,15 @@ namespace Seam.Model
 
             [EnumMember(Value = "hotek_card")]
             HotekCard = 10,
+
+            [EnumMember(Value = "salto_ks_tag")]
+            SaltoKsTag = 11,
+
+            [EnumMember(Value = "avigilon_alta_credential")]
+            AvigilonAltaCredential = 12,
+
+            [EnumMember(Value = "kisi_credential")]
+            KisiCredential = 13,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
@@ -687,11 +699,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected UnmanagedAcsCredentialErrors() { }
 
-        public UnmanagedAcsCredentialErrors(string errorCode = default, string message = default)
+        public UnmanagedAcsCredentialErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
@@ -727,7 +747,7 @@ namespace Seam.Model
 
         public UnmanagedAcsCredentialVisionlineMetadata(
             bool? autoJoin = default,
-            UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
+            UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType =
                 default,
             string? cardId = default,
             List<string>? commonAcsEntranceIds = default,
@@ -763,8 +783,8 @@ namespace Seam.Model
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
         public bool? AutoJoin { get; set; }
 
-        [DataMember(Name = "card_function_type", IsRequired = true, EmitDefaultValue = false)]
-        public UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
+        [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
+        public UnmanagedAcsCredentialVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
         public string? CardId { get; set; }

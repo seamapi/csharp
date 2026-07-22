@@ -118,10 +118,15 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string? connectedAccountId = default, string? customerKey = default)
+            public ListRequest(
+                string? connectedAccountId = default,
+                string? customerKey = default,
+                string? search = default
+            )
             {
                 ConnectedAccountId = connectedAccountId;
                 CustomerKey = customerKey;
+                Search = search;
             }
 
             [DataMember(
@@ -133,6 +138,9 @@ namespace Seam.Api
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             public override string ToString()
             {
@@ -197,11 +205,16 @@ namespace Seam.Api
 
         public List<AcsSystem> List(
             string? connectedAccountId = default,
-            string? customerKey = default
+            string? customerKey = default,
+            string? search = default
         )
         {
             return List(
-                new ListRequest(connectedAccountId: connectedAccountId, customerKey: customerKey)
+                new ListRequest(
+                    connectedAccountId: connectedAccountId,
+                    customerKey: customerKey,
+                    search: search
+                )
             );
         }
 
@@ -216,14 +229,16 @@ namespace Seam.Api
 
         public async Task<List<AcsSystem>> ListAsync(
             string? connectedAccountId = default,
-            string? customerKey = default
+            string? customerKey = default,
+            string? search = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
                         connectedAccountId: connectedAccountId,
-                        customerKey: customerKey
+                        customerKey: customerKey,
+                        search: search
                     )
                 )
             );

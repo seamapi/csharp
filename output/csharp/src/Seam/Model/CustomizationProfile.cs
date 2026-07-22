@@ -19,6 +19,7 @@ namespace Seam.Model
             CustomizationProfileCustomerPortalTheme? customerPortalTheme = default,
             string customizationProfileId = default,
             string? logoUrl = default,
+            object? messageOverrides = default,
             string? name = default,
             string? primaryColor = default,
             string? secondaryColor = default,
@@ -29,6 +30,7 @@ namespace Seam.Model
             CustomerPortalTheme = customerPortalTheme;
             CustomizationProfileId = customizationProfileId;
             LogoUrl = logoUrl;
+            MessageOverrides = messageOverrides;
             Name = name;
             PrimaryColor = primaryColor;
             SecondaryColor = secondaryColor;
@@ -46,6 +48,9 @@ namespace Seam.Model
 
         [DataMember(Name = "logo_url", IsRequired = false, EmitDefaultValue = false)]
         public string? LogoUrl { get; set; }
+
+        [DataMember(Name = "message_overrides", IsRequired = false, EmitDefaultValue = false)]
+        public object? MessageOverrides { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -86,17 +91,27 @@ namespace Seam.Model
         protected CustomizationProfileCustomerPortalTheme() { }
 
         public CustomizationProfileCustomerPortalTheme(
+            string? fontFamily = default,
+            string? monoFontFamily = default,
             string? primaryColor = default,
             string? primaryForegroundColor = default,
             string? secondaryColor = default,
             string? secondaryForegroundColor = default
         )
         {
+            FontFamily = fontFamily;
+            MonoFontFamily = monoFontFamily;
             PrimaryColor = primaryColor;
             PrimaryForegroundColor = primaryForegroundColor;
             SecondaryColor = secondaryColor;
             SecondaryForegroundColor = secondaryForegroundColor;
         }
+
+        [DataMember(Name = "font_family", IsRequired = false, EmitDefaultValue = false)]
+        public string? FontFamily { get; set; }
+
+        [DataMember(Name = "mono_font_family", IsRequired = false, EmitDefaultValue = false)]
+        public string? MonoFontFamily { get; set; }
 
         [DataMember(Name = "primary_color", IsRequired = false, EmitDefaultValue = false)]
         public string? PrimaryColor { get; set; }

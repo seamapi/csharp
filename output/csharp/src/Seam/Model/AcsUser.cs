@@ -33,6 +33,7 @@ namespace Seam.Model
             string? lastSuccessfulSyncAt = default,
             List<AcsUserPendingMutations>? pendingMutations = default,
             string? phoneNumber = default,
+            AcsUserSaltoKsMetadata? saltoKsMetadata = default,
             AcsUserSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? userIdentityEmailAddress = default,
             string? userIdentityFullName = default,
@@ -60,6 +61,7 @@ namespace Seam.Model
             LastSuccessfulSyncAt = lastSuccessfulSyncAt;
             PendingMutations = pendingMutations;
             PhoneNumber = phoneNumber;
+            SaltoKsMetadata = saltoKsMetadata;
             SaltoSpaceMetadata = saltoSpaceMetadata;
             UserIdentityEmailAddress = userIdentityEmailAddress;
             UserIdentityFullName = userIdentityFullName;
@@ -441,10 +443,24 @@ namespace Seam.Model
 
             [EnumMember(Value = "salto_space_user")]
             SaltoSpaceUser = 7,
+
+            [EnumMember(Value = "avigilon_alta_user")]
+            AvigilonAltaUser = 8,
+
+            [EnumMember(Value = "kisi_user")]
+            KisiUser = 9,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsUserPendingMutationsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsUserPendingMutationsUpdatingCredentialAssignment),
+            "updating_credential_assignment"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsUserPendingMutationsDeferringGroupMembershipUpdate),
+            "deferring_group_membership_update"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserPendingMutationsUpdatingGroupMembership),
             "updating_group_membership"
@@ -1155,6 +1171,209 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(
+            Name = "seamModel_acsUserPendingMutationsDeferringGroupMembershipUpdate_model"
+        )]
+        public class AcsUserPendingMutationsDeferringGroupMembershipUpdate : AcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsDeferringGroupMembershipUpdate() { }
+
+            public AcsUserPendingMutationsDeferringGroupMembershipUpdate(
+                string acsAccessGroupId = default,
+                string createdAt = default,
+                string message = default,
+                string mutationCode = default,
+                AcsUserPendingMutationsDeferringGroupMembershipUpdate.VariantEnum variant = default
+            )
+            {
+                AcsAccessGroupId = acsAccessGroupId;
+                CreatedAt = createdAt;
+                Message = message;
+                MutationCode = mutationCode;
+                Variant = variant;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum VariantEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "adding")]
+                Adding = 1,
+
+                [EnumMember(Value = "removing")]
+                Removing = 2,
+            }
+
+            [DataMember(Name = "acs_access_group_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsAccessGroupId { get; set; }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "deferring_group_membership_update";
+
+            [DataMember(Name = "variant", IsRequired = true, EmitDefaultValue = false)]
+            public AcsUserPendingMutationsDeferringGroupMembershipUpdate.VariantEnum Variant { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsUserPendingMutationsUpdatingCredentialAssignment_model")]
+        public class AcsUserPendingMutationsUpdatingCredentialAssignment : AcsUserPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsUpdatingCredentialAssignment() { }
+
+            public AcsUserPendingMutationsUpdatingCredentialAssignment(
+                string createdAt = default,
+                AcsUserPendingMutationsUpdatingCredentialAssignmentFrom from = default,
+                string message = default,
+                string mutationCode = default,
+                AcsUserPendingMutationsUpdatingCredentialAssignmentTo to = default
+            )
+            {
+                CreatedAt = createdAt;
+                From = from;
+                Message = message;
+                MutationCode = mutationCode;
+                To = to;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+            public AcsUserPendingMutationsUpdatingCredentialAssignmentFrom From { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "updating_credential_assignment";
+
+            [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+            public AcsUserPendingMutationsUpdatingCredentialAssignmentTo To { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_acsUserPendingMutationsUpdatingCredentialAssignmentFrom_model"
+        )]
+        public class AcsUserPendingMutationsUpdatingCredentialAssignmentFrom
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsUpdatingCredentialAssignmentFrom() { }
+
+            public AcsUserPendingMutationsUpdatingCredentialAssignmentFrom(
+                string? acsCredentialId = default
+            )
+            {
+                AcsCredentialId = acsCredentialId;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_acsUserPendingMutationsUpdatingCredentialAssignmentTo_model"
+        )]
+        public class AcsUserPendingMutationsUpdatingCredentialAssignmentTo
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserPendingMutationsUpdatingCredentialAssignmentTo() { }
+
+            public AcsUserPendingMutationsUpdatingCredentialAssignmentTo(
+                string? acsCredentialId = default
+            )
+            {
+                AcsCredentialId = acsCredentialId;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_acsUserPendingMutationsUnrecognized_model")]
         public class AcsUserPendingMutationsUnrecognized : AcsUserPendingMutations
         {
@@ -1196,6 +1415,7 @@ namespace Seam.Model
             typeof(AcsUserWarningsUnknownIssueWithAcsUser),
             "unknown_issue_with_acs_user"
         )]
+        [JsonSubtypes.KnownSubType(typeof(AcsUserWarningsAcsUserInactive), "acs_user_inactive")]
         [JsonSubtypes.KnownSubType(
             typeof(AcsUserWarningsSaltoKsUserNotSubscribed),
             "salto_ks_user_not_subscribed"
@@ -1281,6 +1501,52 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "salto_ks_user_not_subscribed";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsUserWarningsAcsUserInactive_model")]
+        public class AcsUserWarningsAcsUserInactive : AcsUserWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsUserWarningsAcsUserInactive() { }
+
+            public AcsUserWarningsAcsUserInactive(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "acs_user_inactive";
 
             public override string ToString()
             {
@@ -1493,6 +1759,9 @@ namespace Seam.Model
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
+        [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsUserSaltoKsMetadata? SaltoKsMetadata { get; set; }
+
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsUserSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
 
@@ -1559,6 +1828,40 @@ namespace Seam.Model
 
         [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsUserSaltoKsMetadata_model")]
+    public class AcsUserSaltoKsMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsUserSaltoKsMetadata() { }
+
+        public AcsUserSaltoKsMetadata(bool? isSubscribed = default)
+        {
+            IsSubscribed = isSubscribed;
+        }
+
+        [DataMember(Name = "is_subscribed", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsSubscribed { get; set; }
 
         public override string ToString()
         {
