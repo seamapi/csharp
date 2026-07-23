@@ -11622,6 +11622,9 @@ namespace Seam.Model
         public EventLockLocked(
             string? accessCodeId = default,
             bool? accessCodeIsManaged = default,
+            string? acsEntranceId = default,
+            string? acsSystemId = default,
+            string? acsUserId = default,
             string? actionAttemptId = default,
             string? code = default,
             object? connectedAccountCustomMetadata = default,
@@ -11637,11 +11640,15 @@ namespace Seam.Model
             bool? isViaNfc = default,
             EventLockLocked.MethodEnum method = default,
             string occurredAt = default,
+            string? userIdentityId = default,
             string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
             AccessCodeIsManaged = accessCodeIsManaged;
+            AcsEntranceId = acsEntranceId;
+            AcsSystemId = acsSystemId;
+            AcsUserId = acsUserId;
             ActionAttemptId = actionAttemptId;
             Code = code;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
@@ -11657,6 +11664,7 @@ namespace Seam.Model
             IsViaNfc = isViaNfc;
             Method = method;
             OccurredAt = occurredAt;
+            UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
 
@@ -11680,6 +11688,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "remote")]
             Remote = 5,
+
+            [EnumMember(Value = "card")]
+            Card = 6,
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
@@ -11687,6 +11698,15 @@ namespace Seam.Model
 
         [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool? AccessCodeIsManaged { get; set; }
+
+        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsEntranceId { get; set; }
+
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsSystemId { get; set; }
+
+        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? AcsUserId { get; set; }
 
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
@@ -11736,6 +11756,9 @@ namespace Seam.Model
 
         [DataMember(Name = "occurred_at", IsRequired = true, EmitDefaultValue = false)]
         public string OccurredAt { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -11835,6 +11858,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "remote")]
             Remote = 5,
+
+            [EnumMember(Value = "card")]
+            Card = 6,
         }
 
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
