@@ -58,7 +58,7 @@
     "npm": ">=10.9.4"
   },
   "devDependencies": {
-    "@seamapi/blueprint": "^0.59.0",
+    "@seamapi/blueprint": "^0.60.0",
     "@seamapi/smith": "^0.5.2",
     "@seamapi/types": "1.970.0",
     "@types/node": "^24.10.9",

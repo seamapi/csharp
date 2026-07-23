@@ -158,10 +158,14 @@ const normalizeItemKind = (property: Property): Kind => {
 }
 
 const normalizeProperty = (property: Property): Field => {
-  // Resource properties do not carry required/nullable metadata; every model
-  // property is emitted as optional and nullable so response deserialization
-  // never fails on a missing or added field.
-  const base = { name: property.name, isRequired: false, nullable: true }
+  // `isOptional` controls whether the property must be present in the payload
+  // (the DataMember IsRequired flag); `isNullable` controls whether its value
+  // may be null (the C# nullable annotation). The two are independent.
+  const base = {
+    name: property.name,
+    isRequired: !property.isOptional,
+    nullable: property.isNullable,
+  }
   switch (property.format) {
     case 'string':
     case 'id':
