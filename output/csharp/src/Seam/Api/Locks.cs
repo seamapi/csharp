@@ -18,6 +18,145 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "configureAutoLockRequest_request")]
+        public class ConfigureAutoLockRequest
+        {
+            [JsonConstructorAttribute]
+            protected ConfigureAutoLockRequest() { }
+
+            public ConfigureAutoLockRequest(
+                float? autoLockDelaySeconds = default,
+                bool autoLockEnabled = default,
+                string deviceId = default
+            )
+            {
+                AutoLockDelaySeconds = autoLockDelaySeconds;
+                AutoLockEnabled = autoLockEnabled;
+                DeviceId = deviceId;
+            }
+
+            [DataMember(
+                Name = "auto_lock_delay_seconds",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? AutoLockDelaySeconds { get; set; }
+
+            [DataMember(Name = "auto_lock_enabled", IsRequired = true, EmitDefaultValue = false)]
+            public bool AutoLockEnabled { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "configureAutoLockResponse_response")]
+        public class ConfigureAutoLockResponse
+        {
+            [JsonConstructorAttribute]
+            protected ConfigureAutoLockResponse() { }
+
+            public ConfigureAutoLockResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt ConfigureAutoLock(ConfigureAutoLockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ConfigureAutoLockResponse>("/locks/configure_auto_lock", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt ConfigureAutoLock(
+            float? autoLockDelaySeconds = default,
+            bool autoLockEnabled = default,
+            string deviceId = default
+        )
+        {
+            return ConfigureAutoLock(
+                new ConfigureAutoLockRequest(
+                    autoLockDelaySeconds: autoLockDelaySeconds,
+                    autoLockEnabled: autoLockEnabled,
+                    deviceId: deviceId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> ConfigureAutoLockAsync(ConfigureAutoLockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ConfigureAutoLockResponse>(
+                    "/locks/configure_auto_lock",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> ConfigureAutoLockAsync(
+            float? autoLockDelaySeconds = default,
+            bool autoLockEnabled = default,
+            string deviceId = default
+        )
+        {
+            return (
+                await ConfigureAutoLockAsync(
+                    new ConfigureAutoLockRequest(
+                        autoLockDelaySeconds: autoLockDelaySeconds,
+                        autoLockEnabled: autoLockEnabled,
+                        deviceId: deviceId
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -209,47 +348,50 @@ namespace Seam.Api
                 [EnumMember(Value = "schlage_lock")]
                 SchlageLock = 14,
 
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 15,
-
                 [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 16,
+                SmartthingsLock = 15,
 
                 [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 17,
+                WyzeLock = 16,
 
                 [EnumMember(Value = "yale_lock")]
-                YaleLock = 18,
+                YaleLock = 17,
 
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 19,
+                TwoNIntercom = 18,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 20,
+                ControlbywebDevice = 19,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 21,
+                TtlockLock = 20,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 22,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 23,
+                IgloohomeLock = 21,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 24,
+                FourSuitesDoor = 22,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 25,
+                DormakabaOracodeDoor = 23,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 26,
+                TedeeLock = 24,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27,
+                AkilesLock = 25,
 
                 [EnumMember(Value = "ultraloq_lock")]
-                UltraloqLock = 28,
+                UltraloqLock = 26,
+
+                [EnumMember(Value = "keyincode_lock")]
+                KeyincodeLock = 27,
+
+                [EnumMember(Value = "omnitec_lock")]
+                OmnitecLock = 28,
+
+                [EnumMember(Value = "kisi_lock")]
+                KisiLock = 29,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -300,47 +442,50 @@ namespace Seam.Api
                 [EnumMember(Value = "schlage_lock")]
                 SchlageLock = 14,
 
-                [EnumMember(Value = "seam_relay")]
-                SeamRelay = 15,
-
                 [EnumMember(Value = "smartthings_lock")]
-                SmartthingsLock = 16,
+                SmartthingsLock = 15,
 
                 [EnumMember(Value = "wyze_lock")]
-                WyzeLock = 17,
+                WyzeLock = 16,
 
                 [EnumMember(Value = "yale_lock")]
-                YaleLock = 18,
+                YaleLock = 17,
 
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 19,
+                TwoNIntercom = 18,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 20,
+                ControlbywebDevice = 19,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 21,
+                TtlockLock = 20,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 22,
-
-                [EnumMember(Value = "hubitat_lock")]
-                HubitatLock = 23,
+                IgloohomeLock = 21,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 24,
+                FourSuitesDoor = 22,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 25,
+                DormakabaOracodeDoor = 23,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 26,
+                TedeeLock = 24,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 27,
+                AkilesLock = 25,
 
                 [EnumMember(Value = "ultraloq_lock")]
-                UltraloqLock = 28,
+                UltraloqLock = 26,
+
+                [EnumMember(Value = "keyincode_lock")]
+                KeyincodeLock = 27,
+
+                [EnumMember(Value = "omnitec_lock")]
+                OmnitecLock = 28,
+
+                [EnumMember(Value = "kisi_lock")]
+                KisiLock = 29,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -405,6 +550,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -469,6 +617,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "can_simulate_paid_subscription")]
                 CanSimulatePaidSubscription = 19,
+
+                [EnumMember(Value = "can_configure_auto_lock")]
+                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -540,29 +691,35 @@ namespace Seam.Api
                 [EnumMember(Value = "igloohome")]
                 Igloohome = 21,
 
-                [EnumMember(Value = "hubitat")]
-                Hubitat = 22,
-
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 23,
+                FourSuites = 22,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 24,
+                DormakabaOracode = 23,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 25,
+                Tedee = 24,
+
+                [EnumMember(Value = "keyincode")]
+                Keyincode = 25,
 
                 [EnumMember(Value = "akiles")]
                 Akiles = 26,
 
-                [EnumMember(Value = "kwikset2")]
-                Kwikset2 = 27,
+                [EnumMember(Value = "korelock")]
+                Korelock = 27,
 
                 [EnumMember(Value = "smartthings")]
                 Smartthings = 28,
 
                 [EnumMember(Value = "ultraloq")]
                 Ultraloq = 29,
+
+                [EnumMember(Value = "omnitec")]
+                Omnitec = 30,
+
+                [EnumMember(Value = "kisi")]
+                Kisi = 31,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

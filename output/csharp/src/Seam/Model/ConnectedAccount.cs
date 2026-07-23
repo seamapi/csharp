@@ -23,8 +23,14 @@ namespace Seam.Model
             string? createdAt = default,
             object? customMetadata = default,
             string? customerKey = default,
+            string? defaultCheckinTime = default,
+            string? defaultCheckoutTime = default,
             string displayName = default,
             List<ConnectedAccountErrors> errors = default,
+            string? icalFeedOrigin = default,
+            string? icalUrl = default,
+            string? imageUrl = default,
+            string? timeZone = default,
             ConnectedAccountUserIdentifier? userIdentifier = default,
             List<ConnectedAccountWarnings> warnings = default
         )
@@ -37,8 +43,14 @@ namespace Seam.Model
             CreatedAt = createdAt;
             CustomMetadata = customMetadata;
             CustomerKey = customerKey;
+            DefaultCheckinTime = defaultCheckinTime;
+            DefaultCheckoutTime = defaultCheckoutTime;
             DisplayName = displayName;
             Errors = errors;
+            IcalFeedOrigin = icalFeedOrigin;
+            IcalUrl = icalUrl;
+            ImageUrl = imageUrl;
+            TimeZone = timeZone;
             UserIdentifier = userIdentifier;
             Warnings = warnings;
         }
@@ -60,10 +72,17 @@ namespace Seam.Model
 
             [EnumMember(Value = "access_control")]
             AccessControl = 4,
+
+            [EnumMember(Value = "camera")]
+            Camera = 5,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.FallBackSubType(typeof(ConnectedAccountErrorsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountErrorsDormakabaSitesDisconnected),
+            "dormakaba_sites_disconnected"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
@@ -282,15 +301,15 @@ namespace Seam.Model
             protected ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata() { }
 
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata(
-                List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> sites =
+                List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites>? sites =
                     default
             )
             {
                 Sites = sites;
             }
 
-            [DataMember(Name = "sites", IsRequired = true, EmitDefaultValue = false)]
-            public List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> Sites { get; set; }
+            [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
+            public List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites>? Sites { get; set; }
 
             public override string ToString()
             {
@@ -322,10 +341,10 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites(
-                string siteId = default,
-                string siteName = default,
-                int siteUserSubscriptionLimit = default,
-                int subscribedSiteUserCount = default
+                string? siteId = default,
+                string? siteName = default,
+                int? siteUserSubscriptionLimit = default,
+                int? subscribedSiteUserCount = default
             )
             {
                 SiteId = siteId;
@@ -334,25 +353,85 @@ namespace Seam.Model
                 SubscribedSiteUserCount = subscribedSiteUserCount;
             }
 
-            [DataMember(Name = "site_id", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteId { get; set; }
+            [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteId { get; set; }
 
-            [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteName { get; set; }
+            [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteName { get; set; }
 
             [DataMember(
                 Name = "site_user_subscription_limit",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SiteUserSubscriptionLimit { get; set; }
+            public int? SiteUserSubscriptionLimit { get; set; }
 
             [DataMember(
                 Name = "subscribed_site_user_count",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SubscribedSiteUserCount { get; set; }
+            public int? SubscribedSiteUserCount { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountErrorsDormakabaSitesDisconnected_model")]
+        public class ConnectedAccountErrorsDormakabaSitesDisconnected : ConnectedAccountErrors
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountErrorsDormakabaSitesDisconnected() { }
+
+            public ConnectedAccountErrorsDormakabaSitesDisconnected(
+                string createdAt = default,
+                string errorCode = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsBridgeError = isBridgeError;
+                IsConnectedAccountError = isConnectedAccountError;
+                Message = message;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
+
+            [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsBridgeError { get; set; }
+
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsConnectedAccountError { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -417,6 +496,16 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(ConnectedAccountWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountWarningsDormakabaSitesUnapproved),
+            "dormakaba_sites_unapproved"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(ConnectedAccountWarningsSetupRequired), "setup_required")]
+        [JsonSubtypes.KnownSubType(
+            typeof(ConnectedAccountWarningsProviderServiceUnavailable),
+            "provider_service_unavailable"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(ConnectedAccountWarningsBeingDeleted), "being_deleted")]
         [JsonSubtypes.KnownSubType(
             typeof(ConnectedAccountWarningsAccountReauthorizationRequested),
             "account_reauthorization_requested"
@@ -603,15 +692,15 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadata(
-                List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites> sites =
+                List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites>? sites =
                     default
             )
             {
                 Sites = sites;
             }
 
-            [DataMember(Name = "sites", IsRequired = true, EmitDefaultValue = false)]
-            public List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites> Sites { get; set; }
+            [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
+            public List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites>? Sites { get; set; }
 
             public override string ToString()
             {
@@ -643,10 +732,10 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites(
-                string siteId = default,
-                string siteName = default,
-                int siteUserSubscriptionLimit = default,
-                int subscribedSiteUserCount = default
+                string? siteId = default,
+                string? siteName = default,
+                int? siteUserSubscriptionLimit = default,
+                int? subscribedSiteUserCount = default
             )
             {
                 SiteId = siteId;
@@ -655,25 +744,25 @@ namespace Seam.Model
                 SubscribedSiteUserCount = subscribedSiteUserCount;
             }
 
-            [DataMember(Name = "site_id", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteId { get; set; }
+            [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteId { get; set; }
 
-            [DataMember(Name = "site_name", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteName { get; set; }
+            [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteName { get; set; }
 
             [DataMember(
                 Name = "site_user_subscription_limit",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SiteUserSubscriptionLimit { get; set; }
+            public int? SiteUserSubscriptionLimit { get; set; }
 
             [DataMember(
                 Name = "subscribed_site_user_count",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SubscribedSiteUserCount { get; set; }
+            public int? SubscribedSiteUserCount { get; set; }
 
             public override string ToString()
             {
@@ -723,6 +812,190 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "account_reauthorization_requested";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountWarningsBeingDeleted_model")]
+        public class ConnectedAccountWarningsBeingDeleted : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsBeingDeleted() { }
+
+            public ConnectedAccountWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountWarningsProviderServiceUnavailable_model")]
+        public class ConnectedAccountWarningsProviderServiceUnavailable : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsProviderServiceUnavailable() { }
+
+            public ConnectedAccountWarningsProviderServiceUnavailable(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "provider_service_unavailable";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountWarningsSetupRequired_model")]
+        public class ConnectedAccountWarningsSetupRequired : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsSetupRequired() { }
+
+            public ConnectedAccountWarningsSetupRequired(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "setup_required";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_connectedAccountWarningsDormakabaSitesUnapproved_model")]
+        public class ConnectedAccountWarningsDormakabaSitesUnapproved : ConnectedAccountWarnings
+        {
+            [JsonConstructorAttribute]
+            protected ConnectedAccountWarningsDormakabaSitesUnapproved() { }
+
+            public ConnectedAccountWarningsDormakabaSitesUnapproved(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "dormakaba_sites_unapproved";
 
             public override string ToString()
             {
@@ -817,11 +1090,29 @@ namespace Seam.Model
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        [DataMember(Name = "default_checkin_time", IsRequired = false, EmitDefaultValue = false)]
+        public string? DefaultCheckinTime { get; set; }
+
+        [DataMember(Name = "default_checkout_time", IsRequired = false, EmitDefaultValue = false)]
+        public string? DefaultCheckoutTime { get; set; }
+
         [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }
+
+        [DataMember(Name = "ical_feed_origin", IsRequired = false, EmitDefaultValue = false)]
+        public string? IcalFeedOrigin { get; set; }
+
+        [DataMember(Name = "ical_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? IcalUrl { get; set; }
+
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
+
+        [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+        public string? TimeZone { get; set; }
 
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
         public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }

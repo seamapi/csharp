@@ -108,11 +108,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected PhoneErrors() { }
 
-        public PhoneErrors(string errorCode = default, string message = default)
+        public PhoneErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
@@ -198,19 +206,19 @@ namespace Seam.Model
         protected PhonePropertiesAssaAbloyCredentialServiceMetadata() { }
 
         public PhonePropertiesAssaAbloyCredentialServiceMetadata(
-            List<PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints> endpoints = default,
-            bool hasActiveEndpoint = default
+            List<PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? endpoints = default,
+            bool? hasActiveEndpoint = default
         )
         {
             Endpoints = endpoints;
             HasActiveEndpoint = hasActiveEndpoint;
         }
 
-        [DataMember(Name = "endpoints", IsRequired = true, EmitDefaultValue = false)]
-        public List<PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints> Endpoints { get; set; }
+        [DataMember(Name = "endpoints", IsRequired = false, EmitDefaultValue = false)]
+        public List<PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? Endpoints { get; set; }
 
-        [DataMember(Name = "has_active_endpoint", IsRequired = true, EmitDefaultValue = false)]
-        public bool HasActiveEndpoint { get; set; }
+        [DataMember(Name = "has_active_endpoint", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasActiveEndpoint { get; set; }
 
         public override string ToString()
         {
@@ -241,19 +249,19 @@ namespace Seam.Model
         protected PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints() { }
 
         public PhonePropertiesAssaAbloyCredentialServiceMetadataEndpoints(
-            string endpointId = default,
-            bool isActive = default
+            string? endpointId = default,
+            bool? isActive = default
         )
         {
             EndpointId = endpointId;
             IsActive = isActive;
         }
 
-        [DataMember(Name = "endpoint_id", IsRequired = true, EmitDefaultValue = false)]
-        public string EndpointId { get; set; }
+        [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndpointId { get; set; }
 
-        [DataMember(Name = "is_active", IsRequired = true, EmitDefaultValue = false)]
-        public bool IsActive { get; set; }
+        [DataMember(Name = "is_active", IsRequired = false, EmitDefaultValue = false)]
+        public bool? IsActive { get; set; }
 
         public override string ToString()
         {
@@ -281,13 +289,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected PhonePropertiesSaltoSpaceCredentialServiceMetadata() { }
 
-        public PhonePropertiesSaltoSpaceCredentialServiceMetadata(bool hasActivePhone = default)
+        public PhonePropertiesSaltoSpaceCredentialServiceMetadata(bool? hasActivePhone = default)
         {
             HasActivePhone = hasActivePhone;
         }
 
-        [DataMember(Name = "has_active_phone", IsRequired = true, EmitDefaultValue = false)]
-        public bool HasActivePhone { get; set; }
+        [DataMember(Name = "has_active_phone", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasActivePhone { get; set; }
 
         public override string ToString()
         {
@@ -315,11 +323,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected PhoneWarnings() { }
 
-        public PhoneWarnings(string message = default, string warningCode = default)
+        public PhoneWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
         {
+            CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
         public string Message { get; set; }

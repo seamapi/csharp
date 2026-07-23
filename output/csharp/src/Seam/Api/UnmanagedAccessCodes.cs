@@ -331,12 +331,14 @@ namespace Seam.Api
                 string deviceId = default,
                 float? limit = default,
                 string? pageCursor = default,
+                string? search = default,
                 string? userIdentifierKey = default
             )
             {
                 DeviceId = deviceId;
                 Limit = limit;
                 PageCursor = pageCursor;
+                Search = search;
                 UserIdentifierKey = userIdentifierKey;
             }
 
@@ -348,6 +350,9 @@ namespace Seam.Api
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
@@ -419,6 +424,7 @@ namespace Seam.Api
             string deviceId = default,
             float? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentifierKey = default
         )
         {
@@ -427,6 +433,7 @@ namespace Seam.Api
                     deviceId: deviceId,
                     limit: limit,
                     pageCursor: pageCursor,
+                    search: search,
                     userIdentifierKey: userIdentifierKey
                 )
             );
@@ -447,6 +454,7 @@ namespace Seam.Api
             string deviceId = default,
             float? limit = default,
             string? pageCursor = default,
+            string? search = default,
             string? userIdentifierKey = default
         )
         {
@@ -456,6 +464,7 @@ namespace Seam.Api
                         deviceId: deviceId,
                         limit: limit,
                         pageCursor: pageCursor,
+                        search: search,
                         userIdentifierKey: userIdentifierKey
                     )
                 )

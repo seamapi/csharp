@@ -25,21 +25,30 @@ namespace Seam.Api
             protected CreatePortalRequest() { }
 
             public CreatePortalRequest(
+                bool? dev = default,
+                List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters =
+                    default,
                 string? customizationProfileId = default,
+                CreatePortalRequestDeepLink? deepLink = default,
+                bool? excludeLocalePicker = default,
                 CreatePortalRequestFeatures? features = default,
                 bool? isEmbedded = default,
                 CreatePortalRequestLandingPage? landingPage = default,
                 CreatePortalRequest.LocaleEnum? locale = default,
-                object? propertyListingFilter = default,
+                CreatePortalRequest.NavigationModeEnum? navigationMode = default,
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
+                Dev = dev;
+                CustomerResourcesFilters = customerResourcesFilters;
                 CustomizationProfileId = customizationProfileId;
+                DeepLink = deepLink;
+                ExcludeLocalePicker = excludeLocalePicker;
                 Features = features;
                 IsEmbedded = isEmbedded;
                 LandingPage = landingPage;
                 Locale = locale;
-                PropertyListingFilter = propertyListingFilter;
+                NavigationMode = navigationMode;
                 CustomerData = customerData;
             }
 
@@ -63,7 +72,45 @@ namespace Seam.Api
 
                 [EnumMember(Value = "es-ES")]
                 EsEs = 5,
+
+                [EnumMember(Value = "de-DE")]
+                DeDe = 6,
+
+                [EnumMember(Value = "nl-NL")]
+                NlNl = 7,
+
+                [EnumMember(Value = "el-GR")]
+                ElGr = 8,
+
+                [EnumMember(Value = "pl-PL")]
+                PlPl = 9,
+
+                [EnumMember(Value = "ru-RU")]
+                RuRu = 10,
             }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum NavigationModeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "full")]
+                Full = 1,
+
+                [EnumMember(Value = "restricted")]
+                Restricted = 2,
+            }
+
+            [DataMember(Name = "dev", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Dev { get; set; }
+
+            [DataMember(
+                Name = "customer_resources_filters",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<CreatePortalRequestCustomerResourcesFilters>? CustomerResourcesFilters { get; set; }
 
             [DataMember(
                 Name = "customization_profile_id",
@@ -71,6 +118,16 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? CustomizationProfileId { get; set; }
+
+            [DataMember(Name = "deep_link", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink? DeepLink { get; set; }
+
+            [DataMember(
+                Name = "exclude_locale_picker",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeLocalePicker { get; set; }
 
             [DataMember(Name = "features", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeatures? Features { get; set; }
@@ -84,15 +141,121 @@ namespace Seam.Api
             [DataMember(Name = "locale", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequest.LocaleEnum? Locale { get; set; }
 
-            [DataMember(
-                Name = "property_listing_filter",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public object? PropertyListingFilter { get; set; }
+            [DataMember(Name = "navigation_mode", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequest.NavigationModeEnum? NavigationMode { get; set; }
 
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerData? CustomerData { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestCustomerResourcesFilters_model")]
+        public class CreatePortalRequestCustomerResourcesFilters
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerResourcesFilters() { }
+
+            public CreatePortalRequestCustomerResourcesFilters(
+                string field = default,
+                CreatePortalRequestCustomerResourcesFilters.OperationEnum operation = default,
+                object? value = default
+            )
+            {
+                Field = field;
+                Operation = operation;
+                Value = value;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum OperationEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "=")]
+                empty = 1,
+            }
+
+            [DataMember(Name = "field", IsRequired = true, EmitDefaultValue = false)]
+            public string Field { get; set; }
+
+            [DataMember(Name = "operation", IsRequired = true, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerResourcesFilters.OperationEnum Operation { get; set; }
+
+            [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
+            public object? Value { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestDeepLink_model")]
+        public class CreatePortalRequestDeepLink
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestDeepLink() { }
+
+            public CreatePortalRequestDeepLink(
+                string resourceKey = default,
+                CreatePortalRequestDeepLink.ResourceTypeEnum resourceType = default
+            )
+            {
+                ResourceKey = resourceKey;
+                ResourceType = resourceType;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ResourceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "reservation")]
+                Reservation = 1,
+
+                [EnumMember(Value = "space")]
+                Space = 2,
+            }
+
+            [DataMember(Name = "resource_key", IsRequired = true, EmitDefaultValue = false)]
+            public string ResourceKey { get; set; }
+
+            [DataMember(Name = "resource_type", IsRequired = true, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink.ResourceTypeEnum ResourceType { get; set; }
 
             public override string ToString()
             {
@@ -286,15 +449,32 @@ namespace Seam.Api
             protected CreatePortalRequestFeaturesManage() { }
 
             public CreatePortalRequestFeaturesManage(
+                CreatePortalRequestFeaturesManageDeviceManagementConfirmation? deviceManagementConfirmation =
+                    default,
+                CreatePortalRequestFeaturesManageEvents? events = default,
                 bool? exclude = default,
                 bool? excludeReservationManagement = default,
+                bool? excludeReservationTechnicalDetails = default,
                 bool? excludeStaffManagement = default
             )
             {
+                DeviceManagementConfirmation = deviceManagementConfirmation;
+                Events = events;
                 Exclude = exclude;
                 ExcludeReservationManagement = excludeReservationManagement;
+                ExcludeReservationTechnicalDetails = excludeReservationTechnicalDetails;
                 ExcludeStaffManagement = excludeStaffManagement;
             }
+
+            [DataMember(
+                Name = "device_management_confirmation",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; set; }
+
+            [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesManageEvents? Events { get; set; }
 
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
@@ -307,11 +487,114 @@ namespace Seam.Api
             public bool? ExcludeReservationManagement { get; set; }
 
             [DataMember(
+                Name = "exclude_reservation_technical_details",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeReservationTechnicalDetails { get; set; }
+
+            [DataMember(
                 Name = "exclude_staff_management",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool? ExcludeStaffManagement { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManageDeviceManagementConfirmation_model")]
+        public class CreatePortalRequestFeaturesManageDeviceManagementConfirmation
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManageDeviceManagementConfirmation() { }
+
+            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation(
+                string? body = default,
+                string? cancelButtonLabel = default,
+                string? confirmButtonLabel = default,
+                string? title = default
+            )
+            {
+                Body = body;
+                CancelButtonLabel = cancelButtonLabel;
+                ConfirmButtonLabel = confirmButtonLabel;
+                Title = title;
+            }
+
+            [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
+            public string? Body { get; set; }
+
+            [DataMember(Name = "cancel_button_label", IsRequired = false, EmitDefaultValue = false)]
+            public string? CancelButtonLabel { get; set; }
+
+            [DataMember(
+                Name = "confirm_button_label",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? ConfirmButtonLabel { get; set; }
+
+            [DataMember(Name = "title", IsRequired = false, EmitDefaultValue = false)]
+            public string? Title { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManageEvents_model")]
+        public class CreatePortalRequestFeaturesManageEvents
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManageEvents() { }
+
+            public CreatePortalRequestFeaturesManageEvents(
+                List<string>? allowedEvents = default,
+                List<string>? defaultEvents = default
+            )
+            {
+                AllowedEvents = allowedEvents;
+                DefaultEvents = defaultEvents;
+            }
+
+            [DataMember(Name = "allowed_events", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AllowedEvents { get; set; }
+
+            [DataMember(Name = "default_events", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? DefaultEvents { get; set; }
 
             public override string ToString()
             {
@@ -1124,6 +1407,7 @@ namespace Seam.Api
             public CreatePortalRequestCustomerDataReservations(
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
+                object? customMetadata = default,
                 string? endsAt = default,
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
@@ -1144,6 +1428,7 @@ namespace Seam.Api
             {
                 BuildingKeys = buildingKeys;
                 CommonAreaKeys = commonAreaKeys;
+                CustomMetadata = customMetadata;
                 EndsAt = endsAt;
                 FacilityKeys = facilityKeys;
                 GuestKey = guestKey;
@@ -1167,6 +1452,9 @@ namespace Seam.Api
 
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
+
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
@@ -1381,19 +1669,139 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataSpaces() { }
 
             public CreatePortalRequestCustomerDataSpaces(
+                CreatePortalRequestCustomerDataSpacesCustomerData? customerData = default,
+                int? durationMinutes = default,
+                CreatePortalRequestCustomerDataSpacesGeolocation? geolocation = default,
                 string name = default,
+                string? parentSiteKey = default,
                 string spaceKey = default
             )
             {
+                CustomerData = customerData;
+                DurationMinutes = durationMinutes;
+                Geolocation = geolocation;
                 Name = name;
+                ParentSiteKey = parentSiteKey;
                 SpaceKey = spaceKey;
             }
+
+            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerDataSpacesCustomerData? CustomerData { get; set; }
+
+            [DataMember(Name = "duration_minutes", IsRequired = false, EmitDefaultValue = false)]
+            public int? DurationMinutes { get; set; }
+
+            [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerDataSpacesGeolocation? Geolocation { get; set; }
 
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
 
+            [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSiteKey { get; set; }
+
             [DataMember(Name = "space_key", IsRequired = true, EmitDefaultValue = false)]
             public string SpaceKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestCustomerDataSpacesCustomerData_model")]
+        public class CreatePortalRequestCustomerDataSpacesCustomerData
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerDataSpacesCustomerData() { }
+
+            public CreatePortalRequestCustomerDataSpacesCustomerData(
+                string? address = default,
+                string? defaultCheckinTime = default,
+                string? defaultCheckoutTime = default,
+                string? timeZone = default
+            )
+            {
+                Address = address;
+                DefaultCheckinTime = defaultCheckinTime;
+                DefaultCheckoutTime = defaultCheckoutTime;
+                TimeZone = timeZone;
+            }
+
+            [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+            public string? Address { get; set; }
+
+            [DataMember(
+                Name = "default_checkin_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckinTime { get; set; }
+
+            [DataMember(
+                Name = "default_checkout_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckoutTime { get; set; }
+
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public string? TimeZone { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestCustomerDataSpacesGeolocation_model")]
+        public class CreatePortalRequestCustomerDataSpacesGeolocation
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerDataSpacesGeolocation() { }
+
+            public CreatePortalRequestCustomerDataSpacesGeolocation(
+                float latitude = default,
+                float longitude = default
+            )
+            {
+                Latitude = latitude;
+                Longitude = longitude;
+            }
+
+            [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = false)]
+            public float Latitude { get; set; }
+
+            [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = false)]
+            public float Longitude { get; set; }
 
             public override string ToString()
             {
@@ -1725,13 +2133,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected CreatePortalResponse() { }
 
-            public CreatePortalResponse(MagicLink magicLink = default)
+            public CreatePortalResponse(CustomerPortal customerPortal = default)
             {
-                MagicLink = magicLink;
+                CustomerPortal = customerPortal;
             }
 
-            [DataMember(Name = "magic_link", IsRequired = false, EmitDefaultValue = false)]
-            public MagicLink MagicLink { get; set; }
+            [DataMember(Name = "customer_portal", IsRequired = false, EmitDefaultValue = false)]
+            public CustomerPortal CustomerPortal { get; set; }
 
             public override string ToString()
             {
@@ -1753,39 +2161,47 @@ namespace Seam.Api
             }
         }
 
-        public MagicLink CreatePortal(CreatePortalRequest request)
+        public CustomerPortal CreatePortal(CreatePortalRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
                 .Post<CreatePortalResponse>("/customers/create_portal", requestOptions)
-                .Data.MagicLink;
+                .Data.CustomerPortal;
         }
 
-        public MagicLink CreatePortal(
+        public CustomerPortal CreatePortal(
+            bool? dev = default,
+            List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
+            bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
-            object? propertyListingFilter = default,
+            CreatePortalRequest.NavigationModeEnum? navigationMode = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
             return CreatePortal(
                 new CreatePortalRequest(
+                    dev: dev,
+                    customerResourcesFilters: customerResourcesFilters,
                     customizationProfileId: customizationProfileId,
+                    deepLink: deepLink,
+                    excludeLocalePicker: excludeLocalePicker,
                     features: features,
                     isEmbedded: isEmbedded,
                     landingPage: landingPage,
                     locale: locale,
-                    propertyListingFilter: propertyListingFilter,
+                    navigationMode: navigationMode,
                     customerData: customerData
                 )
             );
         }
 
-        public async Task<MagicLink> CreatePortalAsync(CreatePortalRequest request)
+        public async Task<CustomerPortal> CreatePortalAsync(CreatePortalRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -1796,28 +2212,36 @@ namespace Seam.Api
                 )
             )
                 .Data
-                .MagicLink;
+                .CustomerPortal;
         }
 
-        public async Task<MagicLink> CreatePortalAsync(
+        public async Task<CustomerPortal> CreatePortalAsync(
+            bool? dev = default,
+            List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
+            bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
-            object? propertyListingFilter = default,
+            CreatePortalRequest.NavigationModeEnum? navigationMode = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
             return (
                 await CreatePortalAsync(
                     new CreatePortalRequest(
+                        dev: dev,
+                        customerResourcesFilters: customerResourcesFilters,
                         customizationProfileId: customizationProfileId,
+                        deepLink: deepLink,
+                        excludeLocalePicker: excludeLocalePicker,
                         features: features,
                         isEmbedded: isEmbedded,
                         landingPage: landingPage,
                         locale: locale,
-                        propertyListingFilter: propertyListingFilter,
+                        navigationMode: navigationMode,
                         customerData: customerData
                     )
                 )
@@ -2739,6 +3163,7 @@ namespace Seam.Api
             public PushDataRequestReservations(
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
+                object? customMetadata = default,
                 string? endsAt = default,
                 List<string>? facilityKeys = default,
                 string? guestKey = default,
@@ -2759,6 +3184,7 @@ namespace Seam.Api
             {
                 BuildingKeys = buildingKeys;
                 CommonAreaKeys = commonAreaKeys;
+                CustomMetadata = customMetadata;
                 EndsAt = endsAt;
                 FacilityKeys = facilityKeys;
                 GuestKey = guestKey;
@@ -2782,6 +3208,9 @@ namespace Seam.Api
 
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
+
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
@@ -2992,17 +3421,140 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestSpaces() { }
 
-            public PushDataRequestSpaces(string name = default, string spaceKey = default)
+            public PushDataRequestSpaces(
+                PushDataRequestSpacesCustomerData? customerData = default,
+                int? durationMinutes = default,
+                PushDataRequestSpacesGeolocation? geolocation = default,
+                string name = default,
+                string? parentSiteKey = default,
+                string spaceKey = default
+            )
             {
+                CustomerData = customerData;
+                DurationMinutes = durationMinutes;
+                Geolocation = geolocation;
                 Name = name;
+                ParentSiteKey = parentSiteKey;
                 SpaceKey = spaceKey;
             }
+
+            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
+            public PushDataRequestSpacesCustomerData? CustomerData { get; set; }
+
+            [DataMember(Name = "duration_minutes", IsRequired = false, EmitDefaultValue = false)]
+            public int? DurationMinutes { get; set; }
+
+            [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
+            public PushDataRequestSpacesGeolocation? Geolocation { get; set; }
 
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
 
+            [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ParentSiteKey { get; set; }
+
             [DataMember(Name = "space_key", IsRequired = true, EmitDefaultValue = false)]
             public string SpaceKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "pushDataRequestSpacesCustomerData_model")]
+        public class PushDataRequestSpacesCustomerData
+        {
+            [JsonConstructorAttribute]
+            protected PushDataRequestSpacesCustomerData() { }
+
+            public PushDataRequestSpacesCustomerData(
+                string? address = default,
+                string? defaultCheckinTime = default,
+                string? defaultCheckoutTime = default,
+                string? timeZone = default
+            )
+            {
+                Address = address;
+                DefaultCheckinTime = defaultCheckinTime;
+                DefaultCheckoutTime = defaultCheckoutTime;
+                TimeZone = timeZone;
+            }
+
+            [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+            public string? Address { get; set; }
+
+            [DataMember(
+                Name = "default_checkin_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckinTime { get; set; }
+
+            [DataMember(
+                Name = "default_checkout_time",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? DefaultCheckoutTime { get; set; }
+
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public string? TimeZone { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "pushDataRequestSpacesGeolocation_model")]
+        public class PushDataRequestSpacesGeolocation
+        {
+            [JsonConstructorAttribute]
+            protected PushDataRequestSpacesGeolocation() { }
+
+            public PushDataRequestSpacesGeolocation(
+                float latitude = default,
+                float longitude = default
+            )
+            {
+                Latitude = latitude;
+                Longitude = longitude;
+            }
+
+            [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = false)]
+            public float Latitude { get; set; }
+
+            [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = false)]
+            public float Longitude { get; set; }
 
             public override string ToString()
             {

@@ -17,6 +17,7 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteAccessCode), "DELETE_ACCESS_CODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateAccessCode), "CREATE_ACCESS_CODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptSyncAccessCodes), "SYNC_ACCESS_CODES")]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptConfigureAutoLock), "CONFIGURE_AUTO_LOCK")]
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptPushThermostatPrograms),
         "PUSH_THERMOSTAT_PROGRAMS"
@@ -38,6 +39,11 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptResetSandboxWorkspace),
         "RESET_SANDBOX_WORKSPACE"
+    )]
+    [JsonSubtypes.KnownSubType(typeof(ActionAttemptAssignCredential), "ASSIGN_CREDENTIAL")]
+    [JsonSubtypes.KnownSubType(
+        typeof(ActionAttemptScanToAssignCredential),
+        "SCAN_TO_ASSIGN_CREDENTIAL"
     )]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptEncodeCredential), "ENCODE_CREDENTIAL")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptScanCredential), "SCAN_CREDENTIAL")]
@@ -317,6 +323,150 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredential.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptScanToAssignCredential_model")]
+    public class ActionAttemptScanToAssignCredential : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptScanToAssignCredential() { }
+
+        public ActionAttemptScanToAssignCredential(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptScanToAssignCredential.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "SCAN_TO_ASSIGN_CREDENTIAL";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public ActionAttemptScanToAssignCredential.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptAssignCredential_model")]
+    public class ActionAttemptAssignCredential : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptAssignCredential() { }
+
+        public ActionAttemptAssignCredential(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptAssignCredential.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "ASSIGN_CREDENTIAL";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public ActionAttemptAssignCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
         {
@@ -821,6 +971,78 @@ namespace Seam.Model
 
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
         public ActionAttemptPushThermostatPrograms.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptConfigureAutoLock_model")]
+    public class ActionAttemptConfigureAutoLock : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptConfigureAutoLock() { }
+
+        public ActionAttemptConfigureAutoLock(
+            string actionAttemptId = default,
+            string actionType = default,
+            Object error = default,
+            Object result = default,
+            ActionAttemptConfigureAutoLock.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending = 1,
+
+            [EnumMember(Value = "success")]
+            Success = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "CONFIGURE_AUTO_LOCK";
+
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public Object Error { get; set; }
+
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public Object Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        public ActionAttemptConfigureAutoLock.StatusEnum Status { get; set; }
 
         public override string ToString()
         {

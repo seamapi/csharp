@@ -541,6 +541,121 @@ namespace Seam.Api
                 )
             );
         }
+
+        [DataContract(Name = "unlockRequest_request")]
+        public class UnlockRequest
+        {
+            [JsonConstructorAttribute]
+            protected UnlockRequest() { }
+
+            public UnlockRequest(string acsCredentialId = default, string acsEntranceId = default)
+            {
+                AcsCredentialId = acsCredentialId;
+                AcsEntranceId = acsEntranceId;
+            }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEntranceId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "unlockResponse_response")]
+        public class UnlockResponse
+        {
+            [JsonConstructorAttribute]
+            protected UnlockResponse() { }
+
+            public UnlockResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt Unlock(UnlockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<UnlockResponse>("/acs/entrances/unlock", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt Unlock(
+            string acsCredentialId = default,
+            string acsEntranceId = default
+        )
+        {
+            return Unlock(
+                new UnlockRequest(acsCredentialId: acsCredentialId, acsEntranceId: acsEntranceId)
+            );
+        }
+
+        public async Task<ActionAttempt> UnlockAsync(UnlockRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<UnlockResponse>("/acs/entrances/unlock", requestOptions))
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> UnlockAsync(
+            string acsCredentialId = default,
+            string acsEntranceId = default
+        )
+        {
+            return (
+                await UnlockAsync(
+                    new UnlockRequest(
+                        acsCredentialId: acsCredentialId,
+                        acsEntranceId: acsEntranceId
+                    )
+                )
+            );
+        }
     }
 }
 
