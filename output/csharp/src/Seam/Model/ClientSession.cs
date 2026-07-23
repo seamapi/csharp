@@ -15,18 +15,18 @@ namespace Seam.Model
         protected ClientSession() { }
 
         public ClientSession(
-            string? clientSessionId = default,
-            List<string>? connectWebviewIds = default,
-            List<string>? connectedAccountIds = default,
-            string? createdAt = default,
-            string? customerKey = default,
-            float? deviceCount = default,
-            string? expiresAt = default,
-            string? token = default,
+            string clientSessionId = default,
+            List<string> connectWebviewIds = default,
+            List<string> connectedAccountIds = default,
+            string createdAt = default,
+            string customerKey = default,
+            float deviceCount = default,
+            string expiresAt = default,
+            string token = default,
             string? userIdentifierKey = default,
-            string? userIdentityId = default,
-            List<string>? userIdentityIds = default,
-            string? workspaceId = default
+            string userIdentityId = default,
+            List<string> userIdentityIds = default,
+            string workspaceId = default
         )
         {
             ClientSessionId = clientSessionId;
@@ -43,41 +43,41 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ClientSessionId { get; set; }
+        [DataMember(Name = "client_session_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ClientSessionId { get; set; }
 
-        [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? ConnectWebviewIds { get; set; }
+        [DataMember(Name = "connect_webview_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> ConnectWebviewIds { get; set; }
 
-        [DataMember(Name = "connected_account_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? ConnectedAccountIds { get; set; }
+        [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> ConnectedAccountIds { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? CustomerKey { get; set; }
+        public string CustomerKey { get; set; }
 
-        [DataMember(Name = "device_count", IsRequired = false, EmitDefaultValue = false)]
-        public float? DeviceCount { get; set; }
+        [DataMember(Name = "device_count", IsRequired = true, EmitDefaultValue = false)]
+        public float DeviceCount { get; set; }
 
-        [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? ExpiresAt { get; set; }
+        [DataMember(Name = "expires_at", IsRequired = true, EmitDefaultValue = false)]
+        public string ExpiresAt { get; set; }
 
-        [DataMember(Name = "token", IsRequired = false, EmitDefaultValue = false)]
-        public string? Token { get; set; }
+        [DataMember(Name = "token", IsRequired = true, EmitDefaultValue = false)]
+        public string Token { get; set; }
 
-        [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "user_identifier_key", IsRequired = true, EmitDefaultValue = false)]
         public string? UserIdentifierKey { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
+        public string UserIdentityId { get; set; }
 
-        [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? UserIdentityIds { get; set; }
+        [DataMember(Name = "user_identity_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> UserIdentityIds { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

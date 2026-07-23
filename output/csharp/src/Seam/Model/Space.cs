@@ -15,19 +15,19 @@ namespace Seam.Model
         protected Space() { }
 
         public Space(
-            float? acsEntranceCount = default,
-            string? createdAt = default,
-            SpaceCustomerData? customerData = default,
-            string? customerKey = default,
-            float? deviceCount = default,
-            string? displayName = default,
+            float acsEntranceCount = default,
+            string createdAt = default,
+            SpaceCustomerData customerData = default,
+            string customerKey = default,
+            float deviceCount = default,
+            string displayName = default,
             SpaceGeolocation? geolocation = default,
-            string? name = default,
-            string? parentSpaceId = default,
-            string? parentSpaceKey = default,
-            string? spaceId = default,
-            string? spaceKey = default,
-            string? workspaceId = default
+            string name = default,
+            string parentSpaceId = default,
+            string parentSpaceKey = default,
+            string spaceId = default,
+            string spaceKey = default,
+            string workspaceId = default
         )
         {
             AcsEntranceCount = acsEntranceCount;
@@ -45,44 +45,44 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "acs_entrance_count", IsRequired = false, EmitDefaultValue = false)]
-        public float? AcsEntranceCount { get; set; }
+        [DataMember(Name = "acs_entrance_count", IsRequired = true, EmitDefaultValue = false)]
+        public float AcsEntranceCount { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
-        public SpaceCustomerData? CustomerData { get; set; }
+        public SpaceCustomerData CustomerData { get; set; }
 
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? CustomerKey { get; set; }
+        public string CustomerKey { get; set; }
 
-        [DataMember(Name = "device_count", IsRequired = false, EmitDefaultValue = false)]
-        public float? DeviceCount { get; set; }
+        [DataMember(Name = "device_count", IsRequired = true, EmitDefaultValue = false)]
+        public float DeviceCount { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
         [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
         public SpaceGeolocation? Geolocation { get; set; }
 
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string? Name { get; set; }
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        public string Name { get; set; }
 
         [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ParentSpaceId { get; set; }
+        public string ParentSpaceId { get; set; }
 
         [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? ParentSpaceKey { get; set; }
+        public string ParentSpaceKey { get; set; }
 
-        [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? SpaceId { get; set; }
+        [DataMember(Name = "space_id", IsRequired = true, EmitDefaultValue = false)]
+        public string SpaceId { get; set; }
 
         [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? SpaceKey { get; set; }
+        public string SpaceKey { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -161,17 +161,17 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected SpaceGeolocation() { }
 
-        public SpaceGeolocation(float? latitude = default, float? longitude = default)
+        public SpaceGeolocation(float latitude = default, float longitude = default)
         {
             Latitude = latitude;
             Longitude = longitude;
         }
 
-        [DataMember(Name = "latitude", IsRequired = false, EmitDefaultValue = false)]
-        public float? Latitude { get; set; }
+        [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = false)]
+        public float Latitude { get; set; }
 
-        [DataMember(Name = "longitude", IsRequired = false, EmitDefaultValue = false)]
-        public float? Longitude { get; set; }
+        [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = false)]
+        public float Longitude { get; set; }
 
         public override string ToString()
         {

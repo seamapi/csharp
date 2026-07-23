@@ -15,13 +15,13 @@ namespace Seam.Model
         protected AcsCredentialPool() { }
 
         public AcsCredentialPool(
-            string? acsCredentialPoolId = default,
-            string? acsSystemId = default,
-            string? createdAt = default,
-            string? displayName = default,
-            AcsCredentialPool.ExternalTypeEnum? externalType = default,
-            string? externalTypeDisplayName = default,
-            string? workspaceId = default
+            string acsCredentialPoolId = default,
+            string acsSystemId = default,
+            string createdAt = default,
+            string displayName = default,
+            AcsCredentialPool.ExternalTypeEnum externalType = default,
+            string externalTypeDisplayName = default,
+            string workspaceId = default
         )
         {
             AcsCredentialPoolId = acsCredentialPoolId;
@@ -43,30 +43,30 @@ namespace Seam.Model
             HidPartNumber = 1,
         }
 
-        [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsCredentialPoolId { get; set; }
+        [DataMember(Name = "acs_credential_pool_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsCredentialPoolId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsCredentialPool.ExternalTypeEnum? ExternalType { get; set; }
+        [DataMember(Name = "external_type", IsRequired = true, EmitDefaultValue = false)]
+        public AcsCredentialPool.ExternalTypeEnum ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? ExternalTypeDisplayName { get; set; }
+        public string ExternalTypeDisplayName { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

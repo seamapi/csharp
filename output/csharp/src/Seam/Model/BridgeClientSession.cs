@@ -15,17 +15,17 @@ namespace Seam.Model
         protected BridgeClientSession() { }
 
         public BridgeClientSession(
-            string? bridgeClientMachineIdentifierKey = default,
-            string? bridgeClientName = default,
-            string? bridgeClientSessionId = default,
-            string? bridgeClientSessionToken = default,
-            string? bridgeClientTimeZone = default,
-            string? createdAt = default,
-            List<BridgeClientSessionErrors>? errors = default,
-            string? pairingCode = default,
-            string? pairingCodeExpiresAt = default,
+            string bridgeClientMachineIdentifierKey = default,
+            string bridgeClientName = default,
+            string bridgeClientSessionId = default,
+            string bridgeClientSessionToken = default,
+            string bridgeClientTimeZone = default,
+            string createdAt = default,
+            List<BridgeClientSessionErrors> errors = default,
+            string pairingCode = default,
+            string pairingCodeExpiresAt = default,
             string? tailscaleAuthKey = default,
-            string? tailscaleHostname = default,
+            string tailscaleHostname = default,
             string? telemetryToken = default,
             string? telemetryTokenExpiresAt = default,
             string? telemetryUrl = default
@@ -73,12 +73,12 @@ namespace Seam.Model
             public BridgeClientSessionErrorsBridgeLanUnreachable(
                 bool? canTailscaleProxyReachBridge = default,
                 bool? canTailscaleProxyReachTailscaleNetwork = default,
-                string? createdAt = default,
+                string createdAt = default,
                 string errorCode = default,
                 bool? isBridgeSocksServerHealthy = default,
                 bool? isTailscaleProxyReachable = default,
                 bool? isTailscaleProxySocksServerHealthy = default,
-                string? message = default
+                string message = default
             )
             {
                 CanTailscaleProxyReachBridge = canTailscaleProxyReachBridge;
@@ -93,47 +93,47 @@ namespace Seam.Model
 
             [DataMember(
                 Name = "can_tailscale_proxy_reach_bridge",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
             public bool? CanTailscaleProxyReachBridge { get; set; }
 
             [DataMember(
                 Name = "can_tailscale_proxy_reach_tailscale_network",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
             public bool? CanTailscaleProxyReachTailscaleNetwork { get; set; }
 
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? CreatedAt { get; set; }
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_lan_unreachable";
 
             [DataMember(
                 Name = "is_bridge_socks_server_healthy",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
             public bool? IsBridgeSocksServerHealthy { get; set; }
 
             [DataMember(
                 Name = "is_tailscale_proxy_reachable",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
             public bool? IsTailscaleProxyReachable { get; set; }
 
             [DataMember(
                 Name = "is_tailscale_proxy_socks_server_healthy",
-                IsRequired = false,
+                IsRequired = true,
                 EmitDefaultValue = false
             )]
             public bool? IsTailscaleProxySocksServerHealthy { get; set; }
 
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public string? Message { get; set; }
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
 
             public override string ToString()
             {
@@ -162,9 +162,9 @@ namespace Seam.Model
             protected BridgeClientSessionErrorsNoCommunicationFromBridge() { }
 
             public BridgeClientSessionErrorsNoCommunicationFromBridge(
-                string? createdAt = default,
+                string createdAt = default,
                 string errorCode = default,
-                string? message = default
+                string message = default
             )
             {
                 CreatedAt = createdAt;
@@ -172,14 +172,14 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public string? CreatedAt { get; set; }
+            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "no_communication_from_bridge";
 
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public string? Message { get; set; }
+            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            public string Message { get; set; }
 
             public override string ToString()
             {
@@ -237,60 +237,56 @@ namespace Seam.Model
 
         [DataMember(
             Name = "bridge_client_machine_identifier_key",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? BridgeClientMachineIdentifierKey { get; set; }
+        public string BridgeClientMachineIdentifierKey { get; set; }
 
-        [DataMember(Name = "bridge_client_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? BridgeClientName { get; set; }
+        [DataMember(Name = "bridge_client_name", IsRequired = true, EmitDefaultValue = false)]
+        public string BridgeClientName { get; set; }
 
-        [DataMember(
-            Name = "bridge_client_session_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? BridgeClientSessionId { get; set; }
+        [DataMember(Name = "bridge_client_session_id", IsRequired = true, EmitDefaultValue = false)]
+        public string BridgeClientSessionId { get; set; }
 
         [DataMember(
             Name = "bridge_client_session_token",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? BridgeClientSessionToken { get; set; }
+        public string BridgeClientSessionToken { get; set; }
 
-        [DataMember(Name = "bridge_client_time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string? BridgeClientTimeZone { get; set; }
+        [DataMember(Name = "bridge_client_time_zone", IsRequired = true, EmitDefaultValue = false)]
+        public string BridgeClientTimeZone { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<BridgeClientSessionErrors>? Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<BridgeClientSessionErrors> Errors { get; set; }
 
-        [DataMember(Name = "pairing_code", IsRequired = false, EmitDefaultValue = false)]
-        public string? PairingCode { get; set; }
+        [DataMember(Name = "pairing_code", IsRequired = true, EmitDefaultValue = false)]
+        public string PairingCode { get; set; }
 
-        [DataMember(Name = "pairing_code_expires_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? PairingCodeExpiresAt { get; set; }
+        [DataMember(Name = "pairing_code_expires_at", IsRequired = true, EmitDefaultValue = false)]
+        public string PairingCodeExpiresAt { get; set; }
 
-        [DataMember(Name = "tailscale_auth_key", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "tailscale_auth_key", IsRequired = true, EmitDefaultValue = false)]
         public string? TailscaleAuthKey { get; set; }
 
-        [DataMember(Name = "tailscale_hostname", IsRequired = false, EmitDefaultValue = false)]
-        public string? TailscaleHostname { get; set; }
+        [DataMember(Name = "tailscale_hostname", IsRequired = true, EmitDefaultValue = false)]
+        public string TailscaleHostname { get; set; }
 
-        [DataMember(Name = "telemetry_token", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "telemetry_token", IsRequired = true, EmitDefaultValue = false)]
         public string? TelemetryToken { get; set; }
 
         [DataMember(
             Name = "telemetry_token_expires_at",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
         public string? TelemetryTokenExpiresAt { get; set; }
 
-        [DataMember(Name = "telemetry_url", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "telemetry_url", IsRequired = true, EmitDefaultValue = false)]
         public string? TelemetryUrl { get; set; }
 
         public override string ToString()

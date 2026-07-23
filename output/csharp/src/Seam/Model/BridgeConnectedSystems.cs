@@ -15,14 +15,14 @@ namespace Seam.Model
         protected BridgeConnectedSystems() { }
 
         public BridgeConnectedSystems(
-            string? acsSystemDisplayName = default,
-            string? acsSystemId = default,
-            string? bridgeCreatedAt = default,
-            string? bridgeId = default,
-            string? connectedAccountCreatedAt = default,
-            string? connectedAccountId = default,
-            string? workspaceDisplayName = default,
-            string? workspaceId = default
+            string acsSystemDisplayName = default,
+            string acsSystemId = default,
+            string bridgeCreatedAt = default,
+            string bridgeId = default,
+            string connectedAccountCreatedAt = default,
+            string connectedAccountId = default,
+            string workspaceDisplayName = default,
+            string workspaceId = default
         )
         {
             AcsSystemDisplayName = acsSystemDisplayName;
@@ -35,33 +35,33 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "acs_system_display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemDisplayName { get; set; }
+        [DataMember(Name = "acs_system_display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemDisplayName { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
-        [DataMember(Name = "bridge_created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? BridgeCreatedAt { get; set; }
+        [DataMember(Name = "bridge_created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string BridgeCreatedAt { get; set; }
 
-        [DataMember(Name = "bridge_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? BridgeId { get; set; }
+        [DataMember(Name = "bridge_id", IsRequired = true, EmitDefaultValue = false)]
+        public string BridgeId { get; set; }
 
         [DataMember(
             Name = "connected_account_created_at",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? ConnectedAccountCreatedAt { get; set; }
+        public string ConnectedAccountCreatedAt { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "workspace_display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceDisplayName { get; set; }
+        [DataMember(Name = "workspace_display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceDisplayName { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

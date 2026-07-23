@@ -15,13 +15,13 @@ namespace Seam.Model
         protected NoiseThreshold() { }
 
         public NoiseThreshold(
-            string? deviceId = default,
-            string? endsDailyAt = default,
-            string? name = default,
-            float? noiseThresholdDecibels = default,
-            string? noiseThresholdId = default,
-            float? noiseThresholdNrs = default,
-            string? startsDailyAt = default
+            string deviceId = default,
+            string endsDailyAt = default,
+            string name = default,
+            float noiseThresholdDecibels = default,
+            string noiseThresholdId = default,
+            float noiseThresholdNrs = default,
+            string startsDailyAt = default
         )
         {
             DeviceId = deviceId;
@@ -33,30 +33,26 @@ namespace Seam.Model
             StartsDailyAt = startsDailyAt;
         }
 
-        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? DeviceId { get; set; }
+        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        public string DeviceId { get; set; }
 
-        [DataMember(Name = "ends_daily_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? EndsDailyAt { get; set; }
+        [DataMember(Name = "ends_daily_at", IsRequired = true, EmitDefaultValue = false)]
+        public string EndsDailyAt { get; set; }
 
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string? Name { get; set; }
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        public string Name { get; set; }
 
-        [DataMember(
-            Name = "noise_threshold_decibels",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public float? NoiseThresholdDecibels { get; set; }
+        [DataMember(Name = "noise_threshold_decibels", IsRequired = true, EmitDefaultValue = false)]
+        public float NoiseThresholdDecibels { get; set; }
 
-        [DataMember(Name = "noise_threshold_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? NoiseThresholdId { get; set; }
+        [DataMember(Name = "noise_threshold_id", IsRequired = true, EmitDefaultValue = false)]
+        public string NoiseThresholdId { get; set; }
 
         [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
-        public float? NoiseThresholdNrs { get; set; }
+        public float NoiseThresholdNrs { get; set; }
 
-        [DataMember(Name = "starts_daily_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? StartsDailyAt { get; set; }
+        [DataMember(Name = "starts_daily_at", IsRequired = true, EmitDefaultValue = false)]
+        public string StartsDailyAt { get; set; }
 
         public override string ToString()
         {

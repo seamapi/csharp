@@ -15,13 +15,13 @@ namespace Seam.Model
         protected AcsEncoder() { }
 
         public AcsEncoder(
-            string? acsEncoderId = default,
-            string? acsSystemId = default,
-            string? connectedAccountId = default,
-            string? createdAt = default,
-            string? displayName = default,
-            List<AcsEncoderErrors>? errors = default,
-            string? workspaceId = default
+            string acsEncoderId = default,
+            string acsSystemId = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string displayName = default,
+            List<AcsEncoderErrors> errors = default,
+            string workspaceId = default
         )
         {
             AcsEncoderId = acsEncoderId;
@@ -33,26 +33,26 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "acs_encoder_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsEncoderId { get; set; }
+        [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEncoderId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<AcsEncoderErrors>? Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<AcsEncoderErrors> Errors { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -81,9 +81,9 @@ namespace Seam.Model
         protected AcsEncoderErrors() { }
 
         public AcsEncoderErrors(
-            string? createdAt = default,
-            AcsEncoderErrors.ErrorCodeEnum? errorCode = default,
-            string? message = default
+            string createdAt = default,
+            AcsEncoderErrors.ErrorCodeEnum errorCode = default,
+            string message = default
         )
         {
             CreatedAt = createdAt;
@@ -101,14 +101,14 @@ namespace Seam.Model
             AcsEncoderRemoved = 1,
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-        public AcsEncoderErrors.ErrorCodeEnum? ErrorCode { get; set; }
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public AcsEncoderErrors.ErrorCodeEnum ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {

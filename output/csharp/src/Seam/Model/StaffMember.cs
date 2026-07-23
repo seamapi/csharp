@@ -15,20 +15,20 @@ namespace Seam.Model
         protected StaffMember() { }
 
         public StaffMember(
-            List<string>? buildingKeys = default,
-            List<string>? commonAreaKeys = default,
-            string? emailAddress = default,
-            List<string>? facilityKeys = default,
-            List<string>? listingKeys = default,
-            string? name = default,
-            string? phoneNumber = default,
-            List<string>? propertyKeys = default,
-            List<string>? propertyListingKeys = default,
-            List<string>? roomKeys = default,
-            List<string>? siteKeys = default,
-            List<string>? spaceKeys = default,
-            string? staffMemberKey = default,
-            List<string>? unitKeys = default
+            List<string> buildingKeys = default,
+            List<string> commonAreaKeys = default,
+            string emailAddress = default,
+            List<string> facilityKeys = default,
+            List<string> listingKeys = default,
+            string name = default,
+            string phoneNumber = default,
+            List<string> propertyKeys = default,
+            List<string> propertyListingKeys = default,
+            List<string> roomKeys = default,
+            List<string> siteKeys = default,
+            List<string> spaceKeys = default,
+            string staffMemberKey = default,
+            List<string> unitKeys = default
         )
         {
             BuildingKeys = buildingKeys;
@@ -48,46 +48,46 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? BuildingKeys { get; set; }
+        public List<string> BuildingKeys { get; set; }
 
         [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? CommonAreaKeys { get; set; }
+        public List<string> CommonAreaKeys { get; set; }
 
         [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
-        public string? EmailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
         [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? FacilityKeys { get; set; }
+        public List<string> FacilityKeys { get; set; }
 
         [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? ListingKeys { get; set; }
+        public List<string> ListingKeys { get; set; }
 
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string? Name { get; set; }
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        public string Name { get; set; }
 
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
-        public string? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? PropertyKeys { get; set; }
+        public List<string> PropertyKeys { get; set; }
 
         [DataMember(Name = "property_listing_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? PropertyListingKeys { get; set; }
+        public List<string> PropertyListingKeys { get; set; }
 
         [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? RoomKeys { get; set; }
+        public List<string> RoomKeys { get; set; }
 
         [DataMember(Name = "site_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? SiteKeys { get; set; }
+        public List<string> SiteKeys { get; set; }
 
         [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? SpaceKeys { get; set; }
+        public List<string> SpaceKeys { get; set; }
 
-        [DataMember(Name = "staff_member_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? StaffMemberKey { get; set; }
+        [DataMember(Name = "staff_member_key", IsRequired = true, EmitDefaultValue = false)]
+        public string StaffMemberKey { get; set; }
 
         [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? UnitKeys { get; set; }
+        public List<string> UnitKeys { get; set; }
 
         public override string ToString()
         {

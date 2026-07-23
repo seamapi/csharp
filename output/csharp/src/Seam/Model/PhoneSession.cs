@@ -15,10 +15,10 @@ namespace Seam.Model
         protected PhoneSession() { }
 
         public PhoneSession(
-            bool? isSandboxWorkspace = default,
-            List<PhoneSessionProviderSessions>? providerSessions = default,
-            PhoneSessionUserIdentity? userIdentity = default,
-            string? workspaceId = default
+            bool isSandboxWorkspace = default,
+            List<PhoneSessionProviderSessions> providerSessions = default,
+            PhoneSessionUserIdentity userIdentity = default,
+            string workspaceId = default
         )
         {
             IsSandboxWorkspace = isSandboxWorkspace;
@@ -27,17 +27,17 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "is_sandbox_workspace", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsSandboxWorkspace { get; set; }
+        [DataMember(Name = "is_sandbox_workspace", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsSandboxWorkspace { get; set; }
 
-        [DataMember(Name = "provider_sessions", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessions>? ProviderSessions { get; set; }
+        [DataMember(Name = "provider_sessions", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessions> ProviderSessions { get; set; }
 
-        [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionUserIdentity? UserIdentity { get; set; }
+        [DataMember(Name = "user_identity", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionUserIdentity UserIdentity { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -66,19 +66,19 @@ namespace Seam.Model
         protected PhoneSessionProviderSessions() { }
 
         public PhoneSessionProviderSessions(
-            List<PhoneSessionProviderSessionsAcsCredentials>? acsCredentials = default,
-            PhoneSessionProviderSessionsPhoneRegistration? phoneRegistration = default
+            List<PhoneSessionProviderSessionsAcsCredentials> acsCredentials = default,
+            PhoneSessionProviderSessionsPhoneRegistration phoneRegistration = default
         )
         {
             AcsCredentials = acsCredentials;
             PhoneRegistration = phoneRegistration;
         }
 
-        [DataMember(Name = "acs_credentials", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentials>? AcsCredentials { get; set; }
+        [DataMember(Name = "acs_credentials", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentials> AcsCredentials { get; set; }
 
-        [DataMember(Name = "phone_registration", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsPhoneRegistration? PhoneRegistration { get; set; }
+        [DataMember(Name = "phone_registration", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionProviderSessionsPhoneRegistration PhoneRegistration { get; set; }
 
         public override string ToString()
         {
@@ -107,37 +107,37 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentials() { }
 
         public PhoneSessionProviderSessionsAcsCredentials(
-            PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum? accessMethod = default,
+            PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum accessMethod = default,
             string? acsCredentialId = default,
-            string? acsCredentialPoolId = default,
-            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrances>? acsEntrances = default,
-            string? acsSystemId = default,
-            string? acsUserId = default,
-            PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
+            string acsCredentialPoolId = default,
+            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrances> acsEntrances = default,
+            string acsSystemId = default,
+            string acsUserId = default,
+            PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
             string? code = default,
-            string? connectedAccountId = default,
-            string? createdAt = default,
-            string? displayName = default,
-            string? endsAt = default,
-            List<PhoneSessionProviderSessionsAcsCredentialsErrors>? errors = default,
-            PhoneSessionProviderSessionsAcsCredentials.ExternalTypeEnum? externalType = default,
-            string? externalTypeDisplayName = default,
-            bool? isIssued = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string displayName = default,
+            string endsAt = default,
+            List<PhoneSessionProviderSessionsAcsCredentialsErrors> errors = default,
+            PhoneSessionProviderSessionsAcsCredentials.ExternalTypeEnum externalType = default,
+            string externalTypeDisplayName = default,
+            bool isIssued = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
-            bool? isManaged = default,
-            bool? isMultiPhoneSyncCredential = default,
-            bool? isOneTimeUse = default,
+            bool isManaged = default,
+            bool isMultiPhoneSyncCredential = default,
+            bool isOneTimeUse = default,
             string? issuedAt = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
-            string? parentAcsCredentialId = default,
-            string? startsAt = default,
-            string? userIdentityId = default,
-            PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata? visionlineMetadata =
+            string parentAcsCredentialId = default,
+            string startsAt = default,
+            string userIdentityId = default,
+            PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata visionlineMetadata =
                 default,
-            List<PhoneSessionProviderSessionsAcsCredentialsWarnings>? warnings = default,
-            string? workspaceId = default
+            List<PhoneSessionProviderSessionsAcsCredentialsWarnings> warnings = default,
+            string workspaceId = default
         )
         {
             AccessMethod = accessMethod;
@@ -236,30 +236,30 @@ namespace Seam.Model
             KisiCredential = 13,
         }
 
-        [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum? AccessMethod { get; set; }
+        [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionProviderSessionsAcsCredentials.AccessMethodEnum AccessMethod { get; set; }
 
-        [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
         public string? AcsCredentialId { get; set; }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsCredentialPoolId { get; set; }
+        public string AcsCredentialPoolId { get; set; }
 
-        [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrances>? AcsEntrances { get; set; }
+        [DataMember(Name = "acs_entrances", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrances> AcsEntrances { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsUserId { get; set; }
+        public string AcsUserId { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
@@ -267,33 +267,33 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? EndsAt { get; set; }
+        public string EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsErrors>? Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentialsErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentials.ExternalTypeEnum? ExternalType { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentials.ExternalTypeEnum ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? ExternalTypeDisplayName { get; set; }
+        public string ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsIssued { get; set; }
+        public bool IsIssued { get; set; }
 
         [DataMember(
             Name = "is_latest_desired_state_synced_with_provider",
@@ -302,18 +302,18 @@ namespace Seam.Model
         )]
         public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsManaged { get; set; }
+        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsManaged { get; set; }
 
         [DataMember(
             Name = "is_multi_phone_sync_credential",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? IsMultiPhoneSyncCredential { get; set; }
+        public bool IsMultiPhoneSyncCredential { get; set; }
 
         [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsOneTimeUse { get; set; }
+        public bool IsOneTimeUse { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
@@ -330,22 +330,22 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? ParentAcsCredentialId { get; set; }
+        public string ParentAcsCredentialId { get; set; }
 
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? StartsAt { get; set; }
+        public string StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
+        public string UserIdentityId { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata? VisionlineMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsWarnings>? Warnings { get; set; }
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentialsWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -374,40 +374,40 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrances() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrances(
-            string? acsEntranceId = default,
-            string? acsSystemId = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
+            string acsEntranceId = default,
+            string acsSystemId = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata assaAbloyVostioMetadata =
                 default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata? avigilonAltaMetadata =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata avigilonAltaMetadata =
                 default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata? brivoMetadata =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata brivoMetadata =
                 default,
-            bool? canBelongToReservation = default,
-            bool? canUnlockWithCard = default,
-            bool? canUnlockWithCloudKey = default,
-            bool? canUnlockWithCode = default,
-            bool? canUnlockWithMobileKey = default,
-            string? connectedAccountId = default,
-            string? createdAt = default,
-            string? displayName = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaAmbianceMetadata? dormakabaAmbianceMetadata =
+            bool canBelongToReservation = default,
+            bool canUnlockWithCard = default,
+            bool canUnlockWithCloudKey = default,
+            bool canUnlockWithCode = default,
+            bool canUnlockWithMobileKey = default,
+            string connectedAccountId = default,
+            string createdAt = default,
+            string displayName = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaAmbianceMetadata dormakabaAmbianceMetadata =
                 default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata? dormakabaCommunityMetadata =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata dormakabaCommunityMetadata =
                 default,
-            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors>? errors = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata? hotekMetadata =
+            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors> errors = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata hotekMetadata =
                 default,
-            bool? isLocked = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata? latchMetadata =
+            bool isLocked = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata latchMetadata =
                 default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata? saltoKsMetadata =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata saltoKsMetadata =
                 default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata? saltoSpaceMetadata =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata saltoSpaceMetadata =
                 default,
-            List<string>? spaceIds = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata? visionlineMetadata =
+            List<string> spaceIds = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata visionlineMetadata =
                 default,
-            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings>? warnings = default
+            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings> warnings = default
         )
         {
             AcsEntranceId = acsEntranceId;
@@ -436,101 +436,101 @@ namespace Seam.Model
             Warnings = warnings;
         }
 
-        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsEntranceId { get; set; }
+        [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsEntranceId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "avigilon_alta_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata? AvigilonAltaMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata AvigilonAltaMetadata { get; set; }
 
         [DataMember(Name = "brivo_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata? BrivoMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata BrivoMetadata { get; set; }
 
         [DataMember(
             Name = "can_belong_to_reservation",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanBelongToReservation { get; set; }
+        public bool CanBelongToReservation { get; set; }
 
         [DataMember(Name = "can_unlock_with_card", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanUnlockWithCard { get; set; }
+        public bool CanUnlockWithCard { get; set; }
 
         [DataMember(
             Name = "can_unlock_with_cloud_key",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanUnlockWithCloudKey { get; set; }
+        public bool CanUnlockWithCloudKey { get; set; }
 
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanUnlockWithCode { get; set; }
+        public bool CanUnlockWithCode { get; set; }
 
         [DataMember(
             Name = "can_unlock_with_mobile_key",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanUnlockWithMobileKey { get; set; }
+        public bool CanUnlockWithMobileKey { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountId { get; set; }
+        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
         [DataMember(
             Name = "dormakaba_ambiance_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaAmbianceMetadata? DormakabaAmbianceMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaAmbianceMetadata DormakabaAmbianceMetadata { get; set; }
 
         [DataMember(
             Name = "dormakaba_community_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata? DormakabaCommunityMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata DormakabaCommunityMetadata { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors>? Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors> Errors { get; set; }
 
         [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata? HotekMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata HotekMetadata { get; set; }
 
         [DataMember(Name = "is_locked", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsLocked { get; set; }
+        public bool IsLocked { get; set; }
 
         [DataMember(Name = "latch_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata? LatchMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata LatchMetadata { get; set; }
 
         [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata? SaltoKsMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata SaltoKsMetadata { get; set; }
 
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata SaltoSpaceMetadata { get; set; }
 
-        [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? SpaceIds { get; set; }
+        [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> SpaceIds { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata? VisionlineMetadata { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings>? Warnings { get; set; }
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings> Warnings { get; set; }
 
         public override string ToString()
         {
@@ -562,12 +562,12 @@ namespace Seam.Model
         { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata(
-            string? doorName = default,
-            float? doorNumber = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata.DoorTypeEnum? doorType =
+            string doorName = default,
+            float doorNumber = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata.DoorTypeEnum doorType =
                 default,
-            string? pmsId = default,
-            bool? standOpen = default
+            string pmsId = default,
+            bool standOpen = default
         )
         {
             DoorName = doorName;
@@ -597,19 +597,19 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorName { get; set; }
+        public string DoorName { get; set; }
 
         [DataMember(Name = "door_number", IsRequired = false, EmitDefaultValue = false)]
-        public float? DoorNumber { get; set; }
+        public float DoorNumber { get; set; }
 
         [DataMember(Name = "door_type", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata.DoorTypeEnum? DoorType { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAssaAbloyVostioMetadata.DoorTypeEnum DoorType { get; set; }
 
         [DataMember(Name = "pms_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? PmsId { get; set; }
+        public string PmsId { get; set; }
 
         [DataMember(Name = "stand_open", IsRequired = false, EmitDefaultValue = false)]
-        public bool? StandOpen { get; set; }
+        public bool StandOpen { get; set; }
 
         public override string ToString()
         {
@@ -640,13 +640,13 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesAvigilonAltaMetadata(
-            string? entryName = default,
-            float? entryRelaysTotalCount = default,
-            string? orgName = default,
-            float? siteId = default,
-            string? siteName = default,
-            float? zoneId = default,
-            string? zoneName = default
+            string entryName = default,
+            float entryRelaysTotalCount = default,
+            string orgName = default,
+            float siteId = default,
+            string siteName = default,
+            float zoneId = default,
+            string zoneName = default
         )
         {
             EntryName = entryName;
@@ -659,29 +659,29 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "entry_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? EntryName { get; set; }
+        public string EntryName { get; set; }
 
         [DataMember(
             Name = "entry_relays_total_count",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float? EntryRelaysTotalCount { get; set; }
+        public float EntryRelaysTotalCount { get; set; }
 
         [DataMember(Name = "org_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? OrgName { get; set; }
+        public string OrgName { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-        public float? SiteId { get; set; }
+        public float SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? SiteName { get; set; }
+        public string SiteName { get; set; }
 
         [DataMember(Name = "zone_id", IsRequired = false, EmitDefaultValue = false)]
-        public float? ZoneId { get; set; }
+        public float ZoneId { get; set; }
 
         [DataMember(Name = "zone_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? ZoneName { get; set; }
+        public string ZoneName { get; set; }
 
         public override string ToString()
         {
@@ -712,9 +712,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesBrivoMetadata(
-            string? accessPointId = default,
-            float? siteId = default,
-            string? siteName = default
+            string accessPointId = default,
+            float siteId = default,
+            string siteName = default
         )
         {
             AccessPointId = accessPointId;
@@ -723,13 +723,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "access_point_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AccessPointId { get; set; }
+        public string AccessPointId { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-        public float? SiteId { get; set; }
+        public float SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? SiteName { get; set; }
+        public string SiteName { get; set; }
 
         public override string ToString()
         {
@@ -761,14 +761,14 @@ namespace Seam.Model
         { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaAmbianceMetadata(
-            string? accessPointName = default
+            string accessPointName = default
         )
         {
             AccessPointName = accessPointName;
         }
 
         [DataMember(Name = "access_point_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? AccessPointName { get; set; }
+        public string AccessPointName { get; set; }
 
         public override string ToString()
         {
@@ -800,14 +800,14 @@ namespace Seam.Model
         { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesDormakabaCommunityMetadata(
-            string? accessPointProfile = default
+            string accessPointProfile = default
         )
         {
             AccessPointProfile = accessPointProfile;
         }
 
         [DataMember(Name = "access_point_profile", IsRequired = false, EmitDefaultValue = false)]
-        public string? AccessPointProfile { get; set; }
+        public string AccessPointProfile { get; set; }
 
         public override string ToString()
         {
@@ -838,9 +838,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesErrors(
-            string? createdAt = default,
-            string? errorCode = default,
-            string? message = default
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
         )
         {
             CreatedAt = createdAt;
@@ -848,14 +848,14 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-        public string? ErrorCode { get; set; }
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {
@@ -886,9 +886,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesHotekMetadata(
-            string? commonAreaName = default,
-            string? commonAreaNumber = default,
-            string? roomNumber = default
+            string commonAreaName = default,
+            string commonAreaNumber = default,
+            string roomNumber = default
         )
         {
             CommonAreaName = commonAreaName;
@@ -897,13 +897,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "common_area_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? CommonAreaName { get; set; }
+        public string CommonAreaName { get; set; }
 
         [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
-        public string? CommonAreaNumber { get; set; }
+        public string CommonAreaNumber { get; set; }
 
         [DataMember(Name = "room_number", IsRequired = false, EmitDefaultValue = false)]
-        public string? RoomNumber { get; set; }
+        public string RoomNumber { get; set; }
 
         public override string ToString()
         {
@@ -934,10 +934,10 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesLatchMetadata(
-            string? accessibilityType = default,
-            string? doorName = default,
-            string? doorType = default,
-            bool? isConnected = default
+            string accessibilityType = default,
+            string doorName = default,
+            string doorType = default,
+            bool isConnected = default
         )
         {
             AccessibilityType = accessibilityType;
@@ -947,16 +947,16 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "accessibility_type", IsRequired = false, EmitDefaultValue = false)]
-        public string? AccessibilityType { get; set; }
+        public string AccessibilityType { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorName { get; set; }
+        public string DoorName { get; set; }
 
         [DataMember(Name = "door_type", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorType { get; set; }
+        public string DoorType { get; set; }
 
         [DataMember(Name = "is_connected", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsConnected { get; set; }
+        public bool IsConnected { get; set; }
 
         public override string ToString()
         {
@@ -987,14 +987,14 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoKsMetadata(
-            string? batteryLevel = default,
-            string? doorName = default,
-            bool? intrusionAlarm = default,
-            bool? leftOpenAlarm = default,
-            string? lockType = default,
-            string? lockedState = default,
-            bool? online = default,
-            bool? privacyMode = default
+            string batteryLevel = default,
+            string doorName = default,
+            bool intrusionAlarm = default,
+            bool leftOpenAlarm = default,
+            string lockType = default,
+            string lockedState = default,
+            bool online = default,
+            bool privacyMode = default
         )
         {
             BatteryLevel = batteryLevel;
@@ -1008,28 +1008,28 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
-        public string? BatteryLevel { get; set; }
+        public string BatteryLevel { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorName { get; set; }
+        public string DoorName { get; set; }
 
         [DataMember(Name = "intrusion_alarm", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IntrusionAlarm { get; set; }
+        public bool IntrusionAlarm { get; set; }
 
         [DataMember(Name = "left_open_alarm", IsRequired = false, EmitDefaultValue = false)]
-        public bool? LeftOpenAlarm { get; set; }
+        public bool LeftOpenAlarm { get; set; }
 
         [DataMember(Name = "lock_type", IsRequired = false, EmitDefaultValue = false)]
-        public string? LockType { get; set; }
+        public string LockType { get; set; }
 
         [DataMember(Name = "locked_state", IsRequired = false, EmitDefaultValue = false)]
-        public string? LockedState { get; set; }
+        public string LockedState { get; set; }
 
         [DataMember(Name = "online", IsRequired = false, EmitDefaultValue = false)]
-        public bool? Online { get; set; }
+        public bool Online { get; set; }
 
         [DataMember(Name = "privacy_mode", IsRequired = false, EmitDefaultValue = false)]
-        public bool? PrivacyMode { get; set; }
+        public bool PrivacyMode { get; set; }
 
         public override string ToString()
         {
@@ -1060,12 +1060,12 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesSaltoSpaceMetadata(
-            bool? auditOnKeys = default,
-            string? doorDescription = default,
-            string? doorId = default,
-            string? doorName = default,
-            string? roomDescription = default,
-            string? roomName = default
+            bool auditOnKeys = default,
+            string doorDescription = default,
+            string doorId = default,
+            string doorName = default,
+            string roomDescription = default,
+            string roomName = default
         )
         {
             AuditOnKeys = auditOnKeys;
@@ -1077,22 +1077,22 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "audit_on_keys", IsRequired = false, EmitDefaultValue = false)]
-        public bool? AuditOnKeys { get; set; }
+        public bool AuditOnKeys { get; set; }
 
         [DataMember(Name = "door_description", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorDescription { get; set; }
+        public string DoorDescription { get; set; }
 
         [DataMember(Name = "door_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorId { get; set; }
+        public string DoorId { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorName { get; set; }
+        public string DoorName { get; set; }
 
         [DataMember(Name = "room_description", IsRequired = false, EmitDefaultValue = false)]
-        public string? RoomDescription { get; set; }
+        public string RoomDescription { get; set; }
 
         [DataMember(Name = "room_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? RoomName { get; set; }
+        public string RoomName { get; set; }
 
         public override string ToString()
         {
@@ -1123,10 +1123,10 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata(
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata.DoorCategoryEnum? doorCategory =
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata.DoorCategoryEnum doorCategory =
                 default,
-            string? doorName = default,
-            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles>? profiles =
+            string doorName = default,
+            List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles> profiles =
                 default
         )
         {
@@ -1158,13 +1158,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "door_category", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata.DoorCategoryEnum? DoorCategory { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadata.DoorCategoryEnum DoorCategory { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DoorName { get; set; }
+        public string DoorName { get; set; }
 
         [DataMember(Name = "profiles", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles>? Profiles { get; set; }
+        public List<PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles> Profiles { get; set; }
 
         public override string ToString()
         {
@@ -1196,8 +1196,8 @@ namespace Seam.Model
         { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles(
-            string? visionlineDoorProfileId = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles.VisionlineDoorProfileTypeEnum? visionlineDoorProfileType =
+            string visionlineDoorProfileId = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles.VisionlineDoorProfileTypeEnum visionlineDoorProfileType =
                 default
         )
         {
@@ -1226,14 +1226,14 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? VisionlineDoorProfileId { get; set; }
+        public string VisionlineDoorProfileId { get; set; }
 
         [DataMember(
             Name = "visionline_door_profile_type",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles.VisionlineDoorProfileTypeEnum? VisionlineDoorProfileType { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesVisionlineMetadataProfiles.VisionlineDoorProfileTypeEnum VisionlineDoorProfileType { get; set; }
 
         public override string ToString()
         {
@@ -1264,9 +1264,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings(
-            string? createdAt = default,
-            string? message = default,
-            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings.WarningCodeEnum? warningCode =
+            string createdAt = default,
+            string message = default,
+            PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings.WarningCodeEnum warningCode =
                 default
         )
         {
@@ -1297,14 +1297,14 @@ namespace Seam.Model
             PrivacyMode = 5,
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings.WarningCodeEnum? WarningCode { get; set; }
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionProviderSessionsAcsCredentialsAcsEntrancesWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -1335,12 +1335,12 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsAssaAbloyVostioMetadata(
-            bool? autoJoin = default,
-            List<string>? doorNames = default,
-            string? endpointId = default,
-            string? keyId = default,
-            string? keyIssuingRequestId = default,
-            List<string>? overrideGuestAcsEntranceIds = default
+            bool autoJoin = default,
+            List<string> doorNames = default,
+            string endpointId = default,
+            string keyId = default,
+            string keyIssuingRequestId = default,
+            List<string> overrideGuestAcsEntranceIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -1352,26 +1352,26 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool? AutoJoin { get; set; }
+        public bool AutoJoin { get; set; }
 
         [DataMember(Name = "door_names", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? DoorNames { get; set; }
+        public List<string> DoorNames { get; set; }
 
         [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? EndpointId { get; set; }
+        public string EndpointId { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? KeyId { get; set; }
+        public string KeyId { get; set; }
 
         [DataMember(Name = "key_issuing_request_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? KeyIssuingRequestId { get; set; }
+        public string KeyIssuingRequestId { get; set; }
 
         [DataMember(
             Name = "override_guest_acs_entrance_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string>? OverrideGuestAcsEntranceIds { get; set; }
+        public List<string> OverrideGuestAcsEntranceIds { get; set; }
 
         public override string ToString()
         {
@@ -1400,9 +1400,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsErrors() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsErrors(
-            string? createdAt = default,
-            string? errorCode = default,
-            string? message = default
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
         )
         {
             CreatedAt = createdAt;
@@ -1410,14 +1410,14 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-        public string? ErrorCode { get; set; }
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {
@@ -1448,15 +1448,15 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata(
-            bool? autoJoin = default,
-            PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType =
+            bool autoJoin = default,
+            PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
                 default,
-            string? cardId = default,
-            List<string>? commonAcsEntranceIds = default,
-            string? credentialId = default,
-            List<string>? guestAcsEntranceIds = default,
-            bool? isValid = default,
-            List<string>? joinerAcsCredentialIds = default
+            string cardId = default,
+            List<string> commonAcsEntranceIds = default,
+            string credentialId = default,
+            List<string> guestAcsEntranceIds = default,
+            bool isValid = default,
+            List<string> joinerAcsCredentialIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -1483,32 +1483,32 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool? AutoJoin { get; set; }
+        public bool AutoJoin { get; set; }
 
         [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
+        public PhoneSessionProviderSessionsAcsCredentialsVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? CardId { get; set; }
+        public string CardId { get; set; }
 
         [DataMember(Name = "common_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? CommonAcsEntranceIds { get; set; }
+        public List<string> CommonAcsEntranceIds { get; set; }
 
         [DataMember(Name = "credential_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? CredentialId { get; set; }
+        public string CredentialId { get; set; }
 
         [DataMember(Name = "guest_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? GuestAcsEntranceIds { get; set; }
+        public List<string> GuestAcsEntranceIds { get; set; }
 
         [DataMember(Name = "is_valid", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsValid { get; set; }
+        public bool IsValid { get; set; }
 
         [DataMember(
             Name = "joiner_acs_credential_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string>? JoinerAcsCredentialIds { get; set; }
+        public List<string> JoinerAcsCredentialIds { get; set; }
 
         public override string ToString()
         {
@@ -1537,10 +1537,9 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsAcsCredentialsWarnings() { }
 
         public PhoneSessionProviderSessionsAcsCredentialsWarnings(
-            string? createdAt = default,
-            string? message = default,
-            PhoneSessionProviderSessionsAcsCredentialsWarnings.WarningCodeEnum? warningCode =
-                default
+            string createdAt = default,
+            string message = default,
+            PhoneSessionProviderSessionsAcsCredentialsWarnings.WarningCodeEnum warningCode = default
         )
         {
             CreatedAt = createdAt;
@@ -1573,14 +1572,14 @@ namespace Seam.Model
             NeedsToBeReissued = 6,
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionProviderSessionsAcsCredentialsWarnings.WarningCodeEnum? WarningCode { get; set; }
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionProviderSessionsAcsCredentialsWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
         {
@@ -1609,8 +1608,8 @@ namespace Seam.Model
         protected PhoneSessionProviderSessionsPhoneRegistration() { }
 
         public PhoneSessionProviderSessionsPhoneRegistration(
-            bool? isBeingActivated = default,
-            string? phoneRegistrationId = default,
+            bool isBeingActivated = default,
+            string phoneRegistrationId = default,
             string? providerName = default
         )
         {
@@ -1619,13 +1618,13 @@ namespace Seam.Model
             ProviderName = providerName;
         }
 
-        [DataMember(Name = "is_being_activated", IsRequired = false, EmitDefaultValue = false)]
-        public bool? IsBeingActivated { get; set; }
+        [DataMember(Name = "is_being_activated", IsRequired = true, EmitDefaultValue = false)]
+        public bool IsBeingActivated { get; set; }
 
-        [DataMember(Name = "phone_registration_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? PhoneRegistrationId { get; set; }
+        [DataMember(Name = "phone_registration_id", IsRequired = true, EmitDefaultValue = false)]
+        public string PhoneRegistrationId { get; set; }
 
-        [DataMember(Name = "provider_name", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "provider_name", IsRequired = true, EmitDefaultValue = false)]
         public string? ProviderName { get; set; }
 
         public override string ToString()
@@ -1655,17 +1654,17 @@ namespace Seam.Model
         protected PhoneSessionUserIdentity() { }
 
         public PhoneSessionUserIdentity(
-            List<string>? acsUserIds = default,
-            string? createdAt = default,
-            string? displayName = default,
+            List<string> acsUserIds = default,
+            string createdAt = default,
+            string displayName = default,
             string? emailAddress = default,
-            List<PhoneSessionUserIdentityErrors>? errors = default,
+            List<PhoneSessionUserIdentityErrors> errors = default,
             string? fullName = default,
             string? phoneNumber = default,
-            string? userIdentityId = default,
+            string userIdentityId = default,
             string? userIdentityKey = default,
-            List<PhoneSessionUserIdentityWarnings>? warnings = default,
-            string? workspaceId = default
+            List<PhoneSessionUserIdentityWarnings> warnings = default,
+            string workspaceId = default
         )
         {
             AcsUserIds = acsUserIds;
@@ -1681,38 +1680,38 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "acs_user_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string>? AcsUserIds { get; set; }
+        [DataMember(Name = "acs_user_ids", IsRequired = true, EmitDefaultValue = false)]
+        public List<string> AcsUserIds { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "email_address", IsRequired = true, EmitDefaultValue = false)]
         public string? EmailAddress { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionUserIdentityErrors>? Errors { get; set; }
+        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionUserIdentityErrors> Errors { get; set; }
 
-        [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "full_name", IsRequired = true, EmitDefaultValue = false)]
         public string? FullName { get; set; }
 
-        [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "phone_number", IsRequired = true, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
-        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
+        [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+        public string UserIdentityId { get; set; }
 
-        [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "user_identity_key", IsRequired = true, EmitDefaultValue = false)]
         public string? UserIdentityKey { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<PhoneSessionUserIdentityWarnings>? Warnings { get; set; }
+        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        public List<PhoneSessionUserIdentityWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -1741,11 +1740,11 @@ namespace Seam.Model
         protected PhoneSessionUserIdentityErrors() { }
 
         public PhoneSessionUserIdentityErrors(
-            string? acsSystemId = default,
-            string? acsUserId = default,
-            string? createdAt = default,
-            PhoneSessionUserIdentityErrors.ErrorCodeEnum? errorCode = default,
-            string? message = default
+            string acsSystemId = default,
+            string acsUserId = default,
+            string createdAt = default,
+            PhoneSessionUserIdentityErrors.ErrorCodeEnum errorCode = default,
+            string message = default
         )
         {
             AcsSystemId = acsSystemId;
@@ -1765,20 +1764,20 @@ namespace Seam.Model
             IssueWithAcsUser = 1,
         }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
+        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsSystemId { get; set; }
 
-        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsUserId { get; set; }
+        [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
+        public string AcsUserId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionUserIdentityErrors.ErrorCodeEnum? ErrorCode { get; set; }
+        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionUserIdentityErrors.ErrorCodeEnum ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         public override string ToString()
         {
@@ -1807,9 +1806,9 @@ namespace Seam.Model
         protected PhoneSessionUserIdentityWarnings() { }
 
         public PhoneSessionUserIdentityWarnings(
-            string? createdAt = default,
-            string? message = default,
-            PhoneSessionUserIdentityWarnings.WarningCodeEnum? warningCode = default
+            string createdAt = default,
+            string message = default,
+            PhoneSessionUserIdentityWarnings.WarningCodeEnum warningCode = default
         )
         {
             CreatedAt = createdAt;
@@ -1830,14 +1829,14 @@ namespace Seam.Model
             AcsUserProfileDoesNotMatchUserIdentity = 2,
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string? Message { get; set; }
+        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
-        public PhoneSessionUserIdentityWarnings.WarningCodeEnum? WarningCode { get; set; }
+        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        public PhoneSessionUserIdentityWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
         {

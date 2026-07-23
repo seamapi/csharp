@@ -15,9 +15,9 @@ namespace Seam.Model
         protected Customer() { }
 
         public Customer(
-            string? createdAt = default,
-            string? customerKey = default,
-            string? workspaceId = default
+            string createdAt = default,
+            string customerKey = default,
+            string workspaceId = default
         )
         {
             CreatedAt = createdAt;
@@ -25,14 +25,14 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? CustomerKey { get; set; }
+        [DataMember(Name = "customer_key", IsRequired = true, EmitDefaultValue = false)]
+        public string CustomerKey { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

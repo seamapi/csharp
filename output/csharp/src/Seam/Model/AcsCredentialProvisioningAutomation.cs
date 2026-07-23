@@ -15,11 +15,11 @@ namespace Seam.Model
         protected AcsCredentialProvisioningAutomation() { }
 
         public AcsCredentialProvisioningAutomation(
-            string? acsCredentialProvisioningAutomationId = default,
-            string? createdAt = default,
-            string? credentialManagerAcsSystemId = default,
-            string? userIdentityId = default,
-            string? workspaceId = default
+            string acsCredentialProvisioningAutomationId = default,
+            string createdAt = default,
+            string credentialManagerAcsSystemId = default,
+            string userIdentityId = default,
+            string workspaceId = default
         )
         {
             AcsCredentialProvisioningAutomationId = acsCredentialProvisioningAutomationId;
@@ -31,26 +31,26 @@ namespace Seam.Model
 
         [DataMember(
             Name = "acs_credential_provisioning_automation_id",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? AcsCredentialProvisioningAutomationId { get; set; }
+        public string AcsCredentialProvisioningAutomationId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(
             Name = "credential_manager_acs_system_id",
-            IsRequired = false,
+            IsRequired = true,
             EmitDefaultValue = false
         )]
-        public string? CredentialManagerAcsSystemId { get; set; }
+        public string CredentialManagerAcsSystemId { get; set; }
 
-        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
+        [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+        public string UserIdentityId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {

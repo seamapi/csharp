@@ -15,30 +15,30 @@ namespace Seam.Model
         protected DeviceProvider() { }
 
         public DeviceProvider(
-            bool? canConfigureAutoLock = default,
-            bool? canHvacCool = default,
-            bool? canHvacHeat = default,
-            bool? canHvacHeatCool = default,
-            bool? canProgramOfflineAccessCodes = default,
-            bool? canProgramOnlineAccessCodes = default,
-            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
-            bool? canProgramThermostatProgramsAsSameEachDay = default,
-            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
-            bool? canRemotelyLock = default,
-            bool? canRemotelyUnlock = default,
-            bool? canRunThermostatPrograms = default,
-            bool? canSimulateConnection = default,
-            bool? canSimulateDisconnection = default,
-            bool? canSimulateHubConnection = default,
-            bool? canSimulateHubDisconnection = default,
-            bool? canSimulatePaidSubscription = default,
-            bool? canSimulateRemoval = default,
-            bool? canTurnOffHvac = default,
-            bool? canUnlockWithCode = default,
-            DeviceProvider.DeviceProviderNameEnum? deviceProviderName = default,
-            string? displayName = default,
-            string? imageUrl = default,
-            List<DeviceProvider.ProviderCategoriesEnum>? providerCategories = default
+            bool canConfigureAutoLock = default,
+            bool canHvacCool = default,
+            bool canHvacHeat = default,
+            bool canHvacHeatCool = default,
+            bool canProgramOfflineAccessCodes = default,
+            bool canProgramOnlineAccessCodes = default,
+            bool canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool canProgramThermostatProgramsAsSameEachDay = default,
+            bool canProgramThermostatProgramsAsWeekdayWeekend = default,
+            bool canRemotelyLock = default,
+            bool canRemotelyUnlock = default,
+            bool canRunThermostatPrograms = default,
+            bool canSimulateConnection = default,
+            bool canSimulateDisconnection = default,
+            bool canSimulateHubConnection = default,
+            bool canSimulateHubDisconnection = default,
+            bool canSimulatePaidSubscription = default,
+            bool canSimulateRemoval = default,
+            bool canTurnOffHvac = default,
+            bool canUnlockWithCode = default,
+            DeviceProvider.DeviceProviderNameEnum deviceProviderName = default,
+            string displayName = default,
+            string imageUrl = default,
+            List<DeviceProvider.ProviderCategoriesEnum> providerCategories = default
         )
         {
             CanConfigureAutoLock = canConfigureAutoLock;
@@ -294,116 +294,116 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanConfigureAutoLock { get; set; }
+        public bool CanConfigureAutoLock { get; set; }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanHvacCool { get; set; }
+        public bool CanHvacCool { get; set; }
 
         [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanHvacHeat { get; set; }
+        public bool CanHvacHeat { get; set; }
 
         [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanHvacHeatCool { get; set; }
+        public bool CanHvacHeatCool { get; set; }
 
         [DataMember(
             Name = "can_program_offline_access_codes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanProgramOfflineAccessCodes { get; set; }
+        public bool CanProgramOfflineAccessCodes { get; set; }
 
         [DataMember(
             Name = "can_program_online_access_codes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanProgramOnlineAccessCodes { get; set; }
+        public bool CanProgramOnlineAccessCodes { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_different_each_day",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+        public bool CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_same_each_day",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
+        public bool CanProgramThermostatProgramsAsSameEachDay { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_weekday_weekend",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
+        public bool CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanRemotelyLock { get; set; }
+        public bool CanRemotelyLock { get; set; }
 
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanRemotelyUnlock { get; set; }
+        public bool CanRemotelyUnlock { get; set; }
 
         [DataMember(
             Name = "can_run_thermostat_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanRunThermostatPrograms { get; set; }
+        public bool CanRunThermostatPrograms { get; set; }
 
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanSimulateConnection { get; set; }
+        public bool CanSimulateConnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_disconnection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanSimulateDisconnection { get; set; }
+        public bool CanSimulateDisconnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_hub_connection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanSimulateHubConnection { get; set; }
+        public bool CanSimulateHubConnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_hub_disconnection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanSimulateHubDisconnection { get; set; }
+        public bool CanSimulateHubDisconnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_paid_subscription",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool? CanSimulatePaidSubscription { get; set; }
+        public bool CanSimulatePaidSubscription { get; set; }
 
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanSimulateRemoval { get; set; }
+        public bool CanSimulateRemoval { get; set; }
 
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanTurnOffHvac { get; set; }
+        public bool CanTurnOffHvac { get; set; }
 
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
-        public bool? CanUnlockWithCode { get; set; }
+        public bool CanUnlockWithCode { get; set; }
 
-        [DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
-        public DeviceProvider.DeviceProviderNameEnum? DeviceProviderName { get; set; }
+        [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
+        public DeviceProvider.DeviceProviderNameEnum DeviceProviderName { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string? DisplayName { get; set; }
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-        public string? ImageUrl { get; set; }
+        [DataMember(Name = "image_url", IsRequired = true, EmitDefaultValue = false)]
+        public string ImageUrl { get; set; }
 
-        [DataMember(Name = "provider_categories", IsRequired = false, EmitDefaultValue = false)]
-        public List<DeviceProvider.ProviderCategoriesEnum>? ProviderCategories { get; set; }
+        [DataMember(Name = "provider_categories", IsRequired = true, EmitDefaultValue = false)]
+        public List<DeviceProvider.ProviderCategoriesEnum> ProviderCategories { get; set; }
 
         public override string ToString()
         {

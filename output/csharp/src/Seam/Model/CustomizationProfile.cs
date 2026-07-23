@@ -15,15 +15,15 @@ namespace Seam.Model
         protected CustomizationProfile() { }
 
         public CustomizationProfile(
-            string? createdAt = default,
-            CustomizationProfileCustomerPortalTheme? customerPortalTheme = default,
-            string? customizationProfileId = default,
-            string? logoUrl = default,
-            object? messageOverrides = default,
+            string createdAt = default,
+            CustomizationProfileCustomerPortalTheme customerPortalTheme = default,
+            string customizationProfileId = default,
+            string logoUrl = default,
+            object messageOverrides = default,
             string? name = default,
-            string? primaryColor = default,
-            string? secondaryColor = default,
-            string? workspaceId = default
+            string primaryColor = default,
+            string secondaryColor = default,
+            string workspaceId = default
         )
         {
             CreatedAt = createdAt;
@@ -37,36 +37,32 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? CreatedAt { get; set; }
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "customer_portal_theme", IsRequired = false, EmitDefaultValue = false)]
-        public CustomizationProfileCustomerPortalTheme? CustomerPortalTheme { get; set; }
+        public CustomizationProfileCustomerPortalTheme CustomerPortalTheme { get; set; }
 
-        [DataMember(
-            Name = "customization_profile_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? CustomizationProfileId { get; set; }
+        [DataMember(Name = "customization_profile_id", IsRequired = true, EmitDefaultValue = false)]
+        public string CustomizationProfileId { get; set; }
 
         [DataMember(Name = "logo_url", IsRequired = false, EmitDefaultValue = false)]
-        public string? LogoUrl { get; set; }
+        public string LogoUrl { get; set; }
 
         [DataMember(Name = "message_overrides", IsRequired = false, EmitDefaultValue = false)]
-        public object? MessageOverrides { get; set; }
+        public object MessageOverrides { get; set; }
 
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
         [DataMember(Name = "primary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string? PrimaryColor { get; set; }
+        public string PrimaryColor { get; set; }
 
         [DataMember(Name = "secondary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string? SecondaryColor { get; set; }
+        public string SecondaryColor { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? WorkspaceId { get; set; }
+        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        public string WorkspaceId { get; set; }
 
         public override string ToString()
         {
@@ -95,12 +91,12 @@ namespace Seam.Model
         protected CustomizationProfileCustomerPortalTheme() { }
 
         public CustomizationProfileCustomerPortalTheme(
-            string? fontFamily = default,
-            string? monoFontFamily = default,
-            string? primaryColor = default,
-            string? primaryForegroundColor = default,
-            string? secondaryColor = default,
-            string? secondaryForegroundColor = default
+            string fontFamily = default,
+            string monoFontFamily = default,
+            string primaryColor = default,
+            string primaryForegroundColor = default,
+            string secondaryColor = default,
+            string secondaryForegroundColor = default
         )
         {
             FontFamily = fontFamily;
@@ -112,30 +108,30 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "font_family", IsRequired = false, EmitDefaultValue = false)]
-        public string? FontFamily { get; set; }
+        public string FontFamily { get; set; }
 
         [DataMember(Name = "mono_font_family", IsRequired = false, EmitDefaultValue = false)]
-        public string? MonoFontFamily { get; set; }
+        public string MonoFontFamily { get; set; }
 
         [DataMember(Name = "primary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string? PrimaryColor { get; set; }
+        public string PrimaryColor { get; set; }
 
         [DataMember(
             Name = "primary_foreground_color",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? PrimaryForegroundColor { get; set; }
+        public string PrimaryForegroundColor { get; set; }
 
         [DataMember(Name = "secondary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string? SecondaryColor { get; set; }
+        public string SecondaryColor { get; set; }
 
         [DataMember(
             Name = "secondary_foreground_color",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string? SecondaryForegroundColor { get; set; }
+        public string SecondaryForegroundColor { get; set; }
 
         public override string ToString()
         {
