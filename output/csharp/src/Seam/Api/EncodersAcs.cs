@@ -9,594 +9,744 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-public class EncodersAcs
-{
-private ISeamClient _seam;
-
-public EncodersAcs(ISeamClient seam)
-{
-_seam = seam;
-}
-
-[DataContract(Name = "encodeCredentialRequest_request")]
-public class EncodeCredentialRequest
-{
-[JsonConstructorAttribute]
-protected EncodeCredentialRequest() { }
-
-public EncodeCredentialRequest(string? accessMethodId = default, string? acsCredentialId = default, string acsEncoderId = default)
-{
-AccessMethodId = accessMethodId;
-AcsCredentialId = acsCredentialId;
-AcsEncoderId = acsEncoderId;
-}
-
-[DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
-public string? AccessMethodId { get; set; }
-
-[DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
-public string? AcsCredentialId { get; set; }
-
-[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-public string AcsEncoderId { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "encodeCredentialResponse_response")]
-public class EncodeCredentialResponse
-{
-[JsonConstructorAttribute]
-protected EncodeCredentialResponse() { }
-
-public EncodeCredentialResponse(ActionAttempt actionAttempt = default)
-{
-ActionAttempt = actionAttempt;
-}
-
-[DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-public ActionAttempt ActionAttempt { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-public ActionAttempt EncodeCredential(EncodeCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return _seam.Post<EncodeCredentialResponse>("/acs/encoders/encode_credential", requestOptions).Data.ActionAttempt;
-}
-
-public ActionAttempt EncodeCredential(string? accessMethodId = default, string? acsCredentialId = default, string acsEncoderId = default)
-{
-return EncodeCredential(new EncodeCredentialRequest(accessMethodId: accessMethodId, acsCredentialId: acsCredentialId, acsEncoderId: acsEncoderId));
-}
-
-public async Task<ActionAttempt> EncodeCredentialAsync(EncodeCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return (await _seam.PostAsync<EncodeCredentialResponse>("/acs/encoders/encode_credential", requestOptions)).Data.ActionAttempt;
-}
-
-public async Task<ActionAttempt> EncodeCredentialAsync(string? accessMethodId = default, string? acsCredentialId = default, string acsEncoderId = default)
-{
-return (await EncodeCredentialAsync(new EncodeCredentialRequest(accessMethodId: accessMethodId, acsCredentialId: acsCredentialId, acsEncoderId: acsEncoderId)));
-}
-
-[DataContract(Name = "getRequest_request")]
-public class GetRequest
-{
-[JsonConstructorAttribute]
-protected GetRequest() { }
-
-public GetRequest(string acsEncoderId = default)
-{
-AcsEncoderId = acsEncoderId;
-}
-
-[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-public string AcsEncoderId { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "getResponse_response")]
-public class GetResponse
-{
-[JsonConstructorAttribute]
-protected GetResponse() { }
-
-public GetResponse(AcsEncoder acsEncoder = default)
-{
-AcsEncoder = acsEncoder;
-}
-
-[DataMember(Name = "acs_encoder", IsRequired = false, EmitDefaultValue = false)]
-public AcsEncoder AcsEncoder { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-public AcsEncoder Get(GetRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return _seam.Post<GetResponse>("/acs/encoders/get", requestOptions).Data.AcsEncoder;
-}
-
-public AcsEncoder Get(string acsEncoderId = default)
-{
-return Get(new GetRequest(acsEncoderId: acsEncoderId));
-}
-
-public async Task<AcsEncoder> GetAsync(GetRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return (await _seam.PostAsync<GetResponse>("/acs/encoders/get", requestOptions)).Data.AcsEncoder;
-}
-
-public async Task<AcsEncoder> GetAsync(string acsEncoderId = default)
-{
-return (await GetAsync(new GetRequest(acsEncoderId: acsEncoderId)));
-}
-
-[DataContract(Name = "listRequest_request")]
-public class ListRequest
-{
-[JsonConstructorAttribute]
-protected ListRequest() { }
-
-public ListRequest(string? acsSystemId = default, List<string>? acsSystemIds = default, List<string>? acsEncoderIds = default, float? limit = default, string? pageCursor = default)
-{
-AcsSystemId = acsSystemId;
-AcsSystemIds = acsSystemIds;
-AcsEncoderIds = acsEncoderIds;
-Limit = limit;
-PageCursor = pageCursor;
-}
-
-[DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-public string? AcsSystemId { get; set; }
-
-[DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
-public List<string>? AcsSystemIds { get; set; }
-
-[DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
-public List<string>? AcsEncoderIds { get; set; }
-
-[DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-public float? Limit { get; set; }
-
-[DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
-public string? PageCursor { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "listResponse_response")]
-public class ListResponse
-{
-[JsonConstructorAttribute]
-protected ListResponse() { }
-
-public ListResponse(List<AcsEncoder> acsEncoders = default)
-{
-AcsEncoders = acsEncoders;
-}
-
-[DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
-public List<AcsEncoder> AcsEncoders { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-public List<AcsEncoder> List(ListRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return _seam.Post<ListResponse>("/acs/encoders/list", requestOptions).Data.AcsEncoders;
-}
-
-public List<AcsEncoder> List(string? acsSystemId = default, List<string>? acsSystemIds = default, List<string>? acsEncoderIds = default, float? limit = default, string? pageCursor = default)
-{
-return List(new ListRequest(acsSystemId: acsSystemId, acsSystemIds: acsSystemIds, acsEncoderIds: acsEncoderIds, limit: limit, pageCursor: pageCursor));
-}
-
-public async Task<List<AcsEncoder>> ListAsync(ListRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return (await _seam.PostAsync<ListResponse>("/acs/encoders/list", requestOptions)).Data.AcsEncoders;
-}
-
-public async Task<List<AcsEncoder>> ListAsync(string? acsSystemId = default, List<string>? acsSystemIds = default, List<string>? acsEncoderIds = default, float? limit = default, string? pageCursor = default)
-{
-return (await ListAsync(new ListRequest(acsSystemId: acsSystemId, acsSystemIds: acsSystemIds, acsEncoderIds: acsEncoderIds, limit: limit, pageCursor: pageCursor)));
-}
-
-[DataContract(Name = "scanCredentialRequest_request")]
-public class ScanCredentialRequest
-{
-[JsonConstructorAttribute]
-protected ScanCredentialRequest() { }
-
-public ScanCredentialRequest(string acsEncoderId = default, ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default)
-{
-AcsEncoderId = acsEncoderId;
-SaltoKsMetadata = saltoKsMetadata;
-}
-
-[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-public string AcsEncoderId { get; set; }
-
-[DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
-public ScanCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "scanCredentialRequestSaltoKsMetadata_model")]
-public class ScanCredentialRequestSaltoKsMetadata
-{
-[JsonConstructorAttribute]
-protected ScanCredentialRequestSaltoKsMetadata() { }
-
-public ScanCredentialRequestSaltoKsMetadata(bool? detectNewTags = default)
-{
-DetectNewTags = detectNewTags;
-}
-
-[DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
-public bool? DetectNewTags { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "scanCredentialResponse_response")]
-public class ScanCredentialResponse
-{
-[JsonConstructorAttribute]
-protected ScanCredentialResponse() { }
-
-public ScanCredentialResponse(ActionAttempt actionAttempt = default)
-{
-ActionAttempt = actionAttempt;
-}
-
-[DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-public ActionAttempt ActionAttempt { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-public ActionAttempt ScanCredential(ScanCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return _seam.Post<ScanCredentialResponse>("/acs/encoders/scan_credential", requestOptions).Data.ActionAttempt;
-}
-
-public ActionAttempt ScanCredential(string acsEncoderId = default, ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default)
-{
-return ScanCredential(new ScanCredentialRequest(acsEncoderId: acsEncoderId, saltoKsMetadata: saltoKsMetadata));
-}
-
-public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return (await _seam.PostAsync<ScanCredentialResponse>("/acs/encoders/scan_credential", requestOptions)).Data.ActionAttempt;
-}
-
-public async Task<ActionAttempt> ScanCredentialAsync(string acsEncoderId = default, ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default)
-{
-return (await ScanCredentialAsync(new ScanCredentialRequest(acsEncoderId: acsEncoderId, saltoKsMetadata: saltoKsMetadata)));
-}
-
-[DataContract(Name = "scanToAssignCredentialRequest_request")]
-public class ScanToAssignCredentialRequest
-{
-[JsonConstructorAttribute]
-protected ScanToAssignCredentialRequest() { }
-
-public ScanToAssignCredentialRequest(string acsEncoderId = default, string? acsUserId = default, ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default, string? userIdentityId = default)
-{
-AcsEncoderId = acsEncoderId;
-AcsUserId = acsUserId;
-SaltoKsMetadata = saltoKsMetadata;
-UserIdentityId = userIdentityId;
-}
-
-[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-public string AcsEncoderId { get; set; }
-
-[DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-public string? AcsUserId { get; set; }
-
-[DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
-public ScanToAssignCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
-
-[DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-public string? UserIdentityId { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "scanToAssignCredentialRequestSaltoKsMetadata_model")]
-public class ScanToAssignCredentialRequestSaltoKsMetadata
-{
-[JsonConstructorAttribute]
-protected ScanToAssignCredentialRequestSaltoKsMetadata() { }
-
-public ScanToAssignCredentialRequestSaltoKsMetadata(bool? detectNewTags = default)
-{
-DetectNewTags = detectNewTags;
-}
-
-[DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
-public bool? DetectNewTags { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-[DataContract(Name = "scanToAssignCredentialResponse_response")]
-public class ScanToAssignCredentialResponse
-{
-[JsonConstructorAttribute]
-protected ScanToAssignCredentialResponse() { }
-
-public ScanToAssignCredentialResponse(ActionAttempt actionAttempt = default)
-{
-ActionAttempt = actionAttempt;
-}
-
-[DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-public ActionAttempt ActionAttempt { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
-public ActionAttempt ScanToAssignCredential(ScanToAssignCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return _seam.Post<ScanToAssignCredentialResponse>("/acs/encoders/scan_to_assign_credential", requestOptions).Data.ActionAttempt;
-}
-
-public ActionAttempt ScanToAssignCredential(string acsEncoderId = default, string? acsUserId = default, ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default, string? userIdentityId = default)
-{
-return ScanToAssignCredential(new ScanToAssignCredentialRequest(acsEncoderId: acsEncoderId, acsUserId: acsUserId, saltoKsMetadata: saltoKsMetadata, userIdentityId: userIdentityId));
-}
-
-public async Task<ActionAttempt> ScanToAssignCredentialAsync(ScanToAssignCredentialRequest request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-return (await _seam.PostAsync<ScanToAssignCredentialResponse>("/acs/encoders/scan_to_assign_credential", requestOptions)).Data.ActionAttempt;
-}
-
-public async Task<ActionAttempt> ScanToAssignCredentialAsync(string acsEncoderId = default, string? acsUserId = default, ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default, string? userIdentityId = default)
-{
-return (await ScanToAssignCredentialAsync(new ScanToAssignCredentialRequest(acsEncoderId: acsEncoderId, acsUserId: acsUserId, saltoKsMetadata: saltoKsMetadata, userIdentityId: userIdentityId)));
-}
-}
+    public class EncodersAcs
+    {
+        private ISeamClient _seam;
+
+        public EncodersAcs(ISeamClient seam)
+        {
+            _seam = seam;
+        }
+
+        [DataContract(Name = "encodeCredentialRequest_request")]
+        public class EncodeCredentialRequest
+        {
+            [JsonConstructorAttribute]
+            protected EncodeCredentialRequest() { }
+
+            public EncodeCredentialRequest(
+                string? accessMethodId = default,
+                string? acsCredentialId = default,
+                string acsEncoderId = default
+            )
+            {
+                AccessMethodId = accessMethodId;
+                AcsCredentialId = acsCredentialId;
+                AcsEncoderId = acsEncoderId;
+            }
+
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
+
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "encodeCredentialResponse_response")]
+        public class EncodeCredentialResponse
+        {
+            [JsonConstructorAttribute]
+            protected EncodeCredentialResponse() { }
+
+            public EncodeCredentialResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt EncodeCredential(EncodeCredentialRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<EncodeCredentialResponse>("/acs/encoders/encode_credential", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt EncodeCredential(
+            string? accessMethodId = default,
+            string? acsCredentialId = default,
+            string acsEncoderId = default
+        )
+        {
+            return EncodeCredential(
+                new EncodeCredentialRequest(
+                    accessMethodId: accessMethodId,
+                    acsCredentialId: acsCredentialId,
+                    acsEncoderId: acsEncoderId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> EncodeCredentialAsync(EncodeCredentialRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<EncodeCredentialResponse>(
+                    "/acs/encoders/encode_credential",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> EncodeCredentialAsync(
+            string? accessMethodId = default,
+            string? acsCredentialId = default,
+            string acsEncoderId = default
+        )
+        {
+            return (
+                await EncodeCredentialAsync(
+                    new EncodeCredentialRequest(
+                        accessMethodId: accessMethodId,
+                        acsCredentialId: acsCredentialId,
+                        acsEncoderId: acsEncoderId
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string acsEncoderId = default)
+            {
+                AcsEncoderId = acsEncoderId;
+            }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(AcsEncoder acsEncoder = default)
+            {
+                AcsEncoder = acsEncoder;
+            }
+
+            [DataMember(Name = "acs_encoder", IsRequired = false, EmitDefaultValue = false)]
+            public AcsEncoder AcsEncoder { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public AcsEncoder Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<GetResponse>("/acs/encoders/get", requestOptions).Data.AcsEncoder;
+        }
+
+        public AcsEncoder Get(string acsEncoderId = default)
+        {
+            return Get(new GetRequest(acsEncoderId: acsEncoderId));
+        }
+
+        public async Task<AcsEncoder> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<GetResponse>("/acs/encoders/get", requestOptions))
+                .Data
+                .AcsEncoder;
+        }
+
+        public async Task<AcsEncoder> GetAsync(string acsEncoderId = default)
+        {
+            return (await GetAsync(new GetRequest(acsEncoderId: acsEncoderId)));
+        }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListRequest() { }
+
+            public ListRequest(
+                string? acsSystemId = default,
+                List<string>? acsSystemIds = default,
+                List<string>? acsEncoderIds = default,
+                float? limit = default,
+                string? pageCursor = default
+            )
+            {
+                AcsSystemId = acsSystemId;
+                AcsSystemIds = acsSystemIds;
+                AcsEncoderIds = acsEncoderIds;
+                Limit = limit;
+                PageCursor = pageCursor;
+            }
+
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsSystemIds { get; set; }
+
+            [DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsEncoderIds { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public float? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<AcsEncoder> acsEncoders = default)
+            {
+                AcsEncoders = acsEncoders;
+            }
+
+            [DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
+            public List<AcsEncoder> AcsEncoders { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<AcsEncoder> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam.Post<ListResponse>("/acs/encoders/list", requestOptions).Data.AcsEncoders;
+        }
+
+        public List<AcsEncoder> List(
+            string? acsSystemId = default,
+            List<string>? acsSystemIds = default,
+            List<string>? acsEncoderIds = default,
+            float? limit = default,
+            string? pageCursor = default
+        )
+        {
+            return List(
+                new ListRequest(
+                    acsSystemId: acsSystemId,
+                    acsSystemIds: acsSystemIds,
+                    acsEncoderIds: acsEncoderIds,
+                    limit: limit,
+                    pageCursor: pageCursor
+                )
+            );
+        }
+
+        public async Task<List<AcsEncoder>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (await _seam.PostAsync<ListResponse>("/acs/encoders/list", requestOptions))
+                .Data
+                .AcsEncoders;
+        }
+
+        public async Task<List<AcsEncoder>> ListAsync(
+            string? acsSystemId = default,
+            List<string>? acsSystemIds = default,
+            List<string>? acsEncoderIds = default,
+            float? limit = default,
+            string? pageCursor = default
+        )
+        {
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        acsSystemId: acsSystemId,
+                        acsSystemIds: acsSystemIds,
+                        acsEncoderIds: acsEncoderIds,
+                        limit: limit,
+                        pageCursor: pageCursor
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "scanCredentialRequest_request")]
+        public class ScanCredentialRequest
+        {
+            [JsonConstructorAttribute]
+            protected ScanCredentialRequest() { }
+
+            public ScanCredentialRequest(
+                string acsEncoderId = default,
+                ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default
+            )
+            {
+                AcsEncoderId = acsEncoderId;
+                SaltoKsMetadata = saltoKsMetadata;
+            }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public ScanCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "scanCredentialRequestSaltoKsMetadata_model")]
+        public class ScanCredentialRequestSaltoKsMetadata
+        {
+            [JsonConstructorAttribute]
+            protected ScanCredentialRequestSaltoKsMetadata() { }
+
+            public ScanCredentialRequestSaltoKsMetadata(bool? detectNewTags = default)
+            {
+                DetectNewTags = detectNewTags;
+            }
+
+            [DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
+            public bool? DetectNewTags { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "scanCredentialResponse_response")]
+        public class ScanCredentialResponse
+        {
+            [JsonConstructorAttribute]
+            protected ScanCredentialResponse() { }
+
+            public ScanCredentialResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt ScanCredential(ScanCredentialRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ScanCredentialResponse>("/acs/encoders/scan_credential", requestOptions)
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt ScanCredential(
+            string acsEncoderId = default,
+            ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default
+        )
+        {
+            return ScanCredential(
+                new ScanCredentialRequest(
+                    acsEncoderId: acsEncoderId,
+                    saltoKsMetadata: saltoKsMetadata
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ScanCredentialResponse>(
+                    "/acs/encoders/scan_credential",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> ScanCredentialAsync(
+            string acsEncoderId = default,
+            ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default
+        )
+        {
+            return (
+                await ScanCredentialAsync(
+                    new ScanCredentialRequest(
+                        acsEncoderId: acsEncoderId,
+                        saltoKsMetadata: saltoKsMetadata
+                    )
+                )
+            );
+        }
+
+        [DataContract(Name = "scanToAssignCredentialRequest_request")]
+        public class ScanToAssignCredentialRequest
+        {
+            [JsonConstructorAttribute]
+            protected ScanToAssignCredentialRequest() { }
+
+            public ScanToAssignCredentialRequest(
+                string acsEncoderId = default,
+                string? acsUserId = default,
+                ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default,
+                string? userIdentityId = default
+            )
+            {
+                AcsEncoderId = acsEncoderId;
+                AcsUserId = acsUserId;
+                SaltoKsMetadata = saltoKsMetadata;
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+            public string AcsEncoderId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
+
+            [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public ScanToAssignCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
+
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "scanToAssignCredentialRequestSaltoKsMetadata_model")]
+        public class ScanToAssignCredentialRequestSaltoKsMetadata
+        {
+            [JsonConstructorAttribute]
+            protected ScanToAssignCredentialRequestSaltoKsMetadata() { }
+
+            public ScanToAssignCredentialRequestSaltoKsMetadata(bool? detectNewTags = default)
+            {
+                DetectNewTags = detectNewTags;
+            }
+
+            [DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
+            public bool? DetectNewTags { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "scanToAssignCredentialResponse_response")]
+        public class ScanToAssignCredentialResponse
+        {
+            [JsonConstructorAttribute]
+            protected ScanToAssignCredentialResponse() { }
+
+            public ScanToAssignCredentialResponse(ActionAttempt actionAttempt = default)
+            {
+                ActionAttempt = actionAttempt;
+            }
+
+            [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
+            public ActionAttempt ActionAttempt { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public ActionAttempt ScanToAssignCredential(ScanToAssignCredentialRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ScanToAssignCredentialResponse>(
+                    "/acs/encoders/scan_to_assign_credential",
+                    requestOptions
+                )
+                .Data.ActionAttempt;
+        }
+
+        public ActionAttempt ScanToAssignCredential(
+            string acsEncoderId = default,
+            string? acsUserId = default,
+            ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default,
+            string? userIdentityId = default
+        )
+        {
+            return ScanToAssignCredential(
+                new ScanToAssignCredentialRequest(
+                    acsEncoderId: acsEncoderId,
+                    acsUserId: acsUserId,
+                    saltoKsMetadata: saltoKsMetadata,
+                    userIdentityId: userIdentityId
+                )
+            );
+        }
+
+        public async Task<ActionAttempt> ScanToAssignCredentialAsync(
+            ScanToAssignCredentialRequest request
+        )
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ScanToAssignCredentialResponse>(
+                    "/acs/encoders/scan_to_assign_credential",
+                    requestOptions
+                )
+            )
+                .Data
+                .ActionAttempt;
+        }
+
+        public async Task<ActionAttempt> ScanToAssignCredentialAsync(
+            string acsEncoderId = default,
+            string? acsUserId = default,
+            ScanToAssignCredentialRequestSaltoKsMetadata? saltoKsMetadata = default,
+            string? userIdentityId = default
+        )
+        {
+            return (
+                await ScanToAssignCredentialAsync(
+                    new ScanToAssignCredentialRequest(
+                        acsEncoderId: acsEncoderId,
+                        acsUserId: acsUserId,
+                        saltoKsMetadata: saltoKsMetadata,
+                        userIdentityId: userIdentityId
+                    )
+                )
+            );
+        }
+    }
 }
 
 namespace Seam.Client
 {
-public partial class SeamClient
-{
-public Api.EncodersAcs EncodersAcs => new(this);
-}
+    public partial class SeamClient
+    {
+        public Api.EncodersAcs EncodersAcs => new(this);
+    }
 
-public partial interface ISeamClient
-{
-public Api.EncodersAcs EncodersAcs { get; }
-}
+    public partial interface ISeamClient
+    {
+        public Api.EncodersAcs EncodersAcs { get; }
+    }
 }

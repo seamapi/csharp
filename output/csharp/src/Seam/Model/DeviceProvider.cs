@@ -8,354 +8,420 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-[DataContract(Name = "seamModel_deviceProvider_model")]
-public class DeviceProvider
-{
-[JsonConstructorAttribute]
-protected DeviceProvider() { }
-
-public DeviceProvider(bool? canConfigureAutoLock = default, bool? canHvacCool = default, bool? canHvacHeat = default, bool? canHvacHeatCool = default, bool? canProgramOfflineAccessCodes = default, bool? canProgramOnlineAccessCodes = default, bool? canProgramThermostatProgramsAsDifferentEachDay = default, bool? canProgramThermostatProgramsAsSameEachDay = default, bool? canProgramThermostatProgramsAsWeekdayWeekend = default, bool? canRemotelyLock = default, bool? canRemotelyUnlock = default, bool? canRunThermostatPrograms = default, bool? canSimulateConnection = default, bool? canSimulateDisconnection = default, bool? canSimulateHubConnection = default, bool? canSimulateHubDisconnection = default, bool? canSimulatePaidSubscription = default, bool? canSimulateRemoval = default, bool? canTurnOffHvac = default, bool? canUnlockWithCode = default, DeviceProvider.DeviceProviderNameEnum? deviceProviderName = default, string? displayName = default, string? imageUrl = default, List<DeviceProvider.ProviderCategoriesEnum>? providerCategories = default)
-{
-CanConfigureAutoLock = canConfigureAutoLock;
-CanHvacCool = canHvacCool;
-CanHvacHeat = canHvacHeat;
-CanHvacHeatCool = canHvacHeatCool;
-CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
-CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
-CanProgramThermostatProgramsAsDifferentEachDay = canProgramThermostatProgramsAsDifferentEachDay;
-CanProgramThermostatProgramsAsSameEachDay = canProgramThermostatProgramsAsSameEachDay;
-CanProgramThermostatProgramsAsWeekdayWeekend = canProgramThermostatProgramsAsWeekdayWeekend;
-CanRemotelyLock = canRemotelyLock;
-CanRemotelyUnlock = canRemotelyUnlock;
-CanRunThermostatPrograms = canRunThermostatPrograms;
-CanSimulateConnection = canSimulateConnection;
-CanSimulateDisconnection = canSimulateDisconnection;
-CanSimulateHubConnection = canSimulateHubConnection;
-CanSimulateHubDisconnection = canSimulateHubDisconnection;
-CanSimulatePaidSubscription = canSimulatePaidSubscription;
-CanSimulateRemoval = canSimulateRemoval;
-CanTurnOffHvac = canTurnOffHvac;
-CanUnlockWithCode = canUnlockWithCode;
-DeviceProviderName = deviceProviderName;
-DisplayName = displayName;
-ImageUrl = imageUrl;
-ProviderCategories = providerCategories;
-}
+    [DataContract(Name = "seamModel_deviceProvider_model")]
+    public class DeviceProvider
+    {
+        [JsonConstructorAttribute]
+        protected DeviceProvider() { }
+
+        public DeviceProvider(
+            bool? canConfigureAutoLock = default,
+            bool? canHvacCool = default,
+            bool? canHvacHeat = default,
+            bool? canHvacHeatCool = default,
+            bool? canProgramOfflineAccessCodes = default,
+            bool? canProgramOnlineAccessCodes = default,
+            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool? canProgramThermostatProgramsAsSameEachDay = default,
+            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
+            bool? canRemotelyLock = default,
+            bool? canRemotelyUnlock = default,
+            bool? canRunThermostatPrograms = default,
+            bool? canSimulateConnection = default,
+            bool? canSimulateDisconnection = default,
+            bool? canSimulateHubConnection = default,
+            bool? canSimulateHubDisconnection = default,
+            bool? canSimulatePaidSubscription = default,
+            bool? canSimulateRemoval = default,
+            bool? canTurnOffHvac = default,
+            bool? canUnlockWithCode = default,
+            DeviceProvider.DeviceProviderNameEnum? deviceProviderName = default,
+            string? displayName = default,
+            string? imageUrl = default,
+            List<DeviceProvider.ProviderCategoriesEnum>? providerCategories = default
+        )
+        {
+            CanConfigureAutoLock = canConfigureAutoLock;
+            CanHvacCool = canHvacCool;
+            CanHvacHeat = canHvacHeat;
+            CanHvacHeatCool = canHvacHeatCool;
+            CanProgramOfflineAccessCodes = canProgramOfflineAccessCodes;
+            CanProgramOnlineAccessCodes = canProgramOnlineAccessCodes;
+            CanProgramThermostatProgramsAsDifferentEachDay =
+                canProgramThermostatProgramsAsDifferentEachDay;
+            CanProgramThermostatProgramsAsSameEachDay = canProgramThermostatProgramsAsSameEachDay;
+            CanProgramThermostatProgramsAsWeekdayWeekend =
+                canProgramThermostatProgramsAsWeekdayWeekend;
+            CanRemotelyLock = canRemotelyLock;
+            CanRemotelyUnlock = canRemotelyUnlock;
+            CanRunThermostatPrograms = canRunThermostatPrograms;
+            CanSimulateConnection = canSimulateConnection;
+            CanSimulateDisconnection = canSimulateDisconnection;
+            CanSimulateHubConnection = canSimulateHubConnection;
+            CanSimulateHubDisconnection = canSimulateHubDisconnection;
+            CanSimulatePaidSubscription = canSimulatePaidSubscription;
+            CanSimulateRemoval = canSimulateRemoval;
+            CanTurnOffHvac = canTurnOffHvac;
+            CanUnlockWithCode = canUnlockWithCode;
+            DeviceProviderName = deviceProviderName;
+            DisplayName = displayName;
+            ImageUrl = imageUrl;
+            ProviderCategories = providerCategories;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum DeviceProviderNameEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "hotek")]
+            Hotek = 1,
+
+            [EnumMember(Value = "dormakaba_community")]
+            DormakabaCommunity = 2,
+
+            [EnumMember(Value = "legic_connect")]
+            LegicConnect = 3,
+
+            [EnumMember(Value = "akuvox")]
+            Akuvox = 4,
+
+            [EnumMember(Value = "august")]
+            August = 5,
+
+            [EnumMember(Value = "avigilon_alta")]
+            AvigilonAlta = 6,
+
+            [EnumMember(Value = "brivo")]
+            Brivo = 7,
+
+            [EnumMember(Value = "butterflymx")]
+            Butterflymx = 8,
+
+            [EnumMember(Value = "schlage")]
+            Schlage = 9,
+
+            [EnumMember(Value = "smartthings")]
+            Smartthings = 10,
+
+            [EnumMember(Value = "yale")]
+            Yale = 11,
+
+            [EnumMember(Value = "genie")]
+            Genie = 12,
 
-[JsonConverter(typeof(SafeStringEnumConverter))]
-public enum DeviceProviderNameEnum
-{
-[EnumMember(Value = "unrecognized")]
-Unrecognized = 0,
+            [EnumMember(Value = "doorking")]
+            Doorking = 13,
 
-[EnumMember(Value = "hotek")]
-Hotek = 1,
+            [EnumMember(Value = "salto")]
+            Salto = 14,
 
-[EnumMember(Value = "dormakaba_community")]
-DormakabaCommunity = 2,
+            [EnumMember(Value = "salto_ks")]
+            SaltoKs = 15,
 
-[EnumMember(Value = "legic_connect")]
-LegicConnect = 3,
+            [EnumMember(Value = "salto_ks_accept")]
+            SaltoKsAccept = 16,
 
-[EnumMember(Value = "akuvox")]
-Akuvox = 4,
+            [EnumMember(Value = "lockly")]
+            Lockly = 17,
 
-[EnumMember(Value = "august")]
-August = 5,
+            [EnumMember(Value = "ttlock")]
+            Ttlock = 18,
 
-[EnumMember(Value = "avigilon_alta")]
-AvigilonAlta = 6,
+            [EnumMember(Value = "linear")]
+            Linear = 19,
 
-[EnumMember(Value = "brivo")]
-Brivo = 7,
+            [EnumMember(Value = "noiseaware")]
+            Noiseaware = 20,
 
-[EnumMember(Value = "butterflymx")]
-Butterflymx = 8,
+            [EnumMember(Value = "nuki")]
+            Nuki = 21,
 
-[EnumMember(Value = "schlage")]
-Schlage = 9,
+            [EnumMember(Value = "igloo")]
+            Igloo = 22,
 
-[EnumMember(Value = "smartthings")]
-Smartthings = 10,
+            [EnumMember(Value = "kwikset")]
+            Kwikset = 23,
 
-[EnumMember(Value = "yale")]
-Yale = 11,
+            [EnumMember(Value = "minut")]
+            Minut = 24,
 
-[EnumMember(Value = "genie")]
-Genie = 12,
+            [EnumMember(Value = "my_2n")]
+            My_2n = 25,
 
-[EnumMember(Value = "doorking")]
-Doorking = 13,
+            [EnumMember(Value = "controlbyweb")]
+            Controlbyweb = 26,
 
-[EnumMember(Value = "salto")]
-Salto = 14,
+            [EnumMember(Value = "nest")]
+            Nest = 27,
 
-[EnumMember(Value = "salto_ks")]
-SaltoKs = 15,
+            [EnumMember(Value = "igloohome")]
+            Igloohome = 28,
 
-[EnumMember(Value = "salto_ks_accept")]
-SaltoKsAccept = 16,
+            [EnumMember(Value = "ecobee")]
+            Ecobee = 29,
 
-[EnumMember(Value = "lockly")]
-Lockly = 17,
+            [EnumMember(Value = "four_suites")]
+            FourSuites = 30,
 
-[EnumMember(Value = "ttlock")]
-Ttlock = 18,
+            [EnumMember(Value = "dormakaba_oracode")]
+            DormakabaOracode = 31,
 
-[EnumMember(Value = "linear")]
-Linear = 19,
+            [EnumMember(Value = "pti")]
+            Pti = 32,
 
-[EnumMember(Value = "noiseaware")]
-Noiseaware = 20,
+            [EnumMember(Value = "wyze")]
+            Wyze = 33,
 
-[EnumMember(Value = "nuki")]
-Nuki = 21,
+            [EnumMember(Value = "seam_passport")]
+            SeamPassport = 34,
 
-[EnumMember(Value = "igloo")]
-Igloo = 22,
+            [EnumMember(Value = "visionline")]
+            Visionline = 35,
 
-[EnumMember(Value = "kwikset")]
-Kwikset = 23,
+            [EnumMember(Value = "assa_abloy_credential_service")]
+            AssaAbloyCredentialService = 36,
 
-[EnumMember(Value = "minut")]
-Minut = 24,
+            [EnumMember(Value = "tedee")]
+            Tedee = 37,
 
-[EnumMember(Value = "my_2n")]
-My_2n = 25,
+            [EnumMember(Value = "honeywell_resideo")]
+            HoneywellResideo = 38,
 
-[EnumMember(Value = "controlbyweb")]
-Controlbyweb = 26,
+            [EnumMember(Value = "first_alert")]
+            FirstAlert = 39,
 
-[EnumMember(Value = "nest")]
-Nest = 27,
+            [EnumMember(Value = "latch")]
+            Latch = 40,
 
-[EnumMember(Value = "igloohome")]
-Igloohome = 28,
+            [EnumMember(Value = "akiles")]
+            Akiles = 41,
 
-[EnumMember(Value = "ecobee")]
-Ecobee = 29,
+            [EnumMember(Value = "assa_abloy_vostio")]
+            AssaAbloyVostio = 42,
 
-[EnumMember(Value = "four_suites")]
-FourSuites = 30,
+            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
+            AssaAbloyVostioCredentialService = 43,
 
-[EnumMember(Value = "dormakaba_oracode")]
-DormakabaOracode = 31,
+            [EnumMember(Value = "tado")]
+            Tado = 44,
 
-[EnumMember(Value = "pti")]
-Pti = 32,
+            [EnumMember(Value = "salto_space")]
+            SaltoSpace = 45,
 
-[EnumMember(Value = "wyze")]
-Wyze = 33,
+            [EnumMember(Value = "sensi")]
+            Sensi = 46,
 
-[EnumMember(Value = "seam_passport")]
-SeamPassport = 34,
+            [EnumMember(Value = "keynest")]
+            Keynest = 47,
 
-[EnumMember(Value = "visionline")]
-Visionline = 35,
+            [EnumMember(Value = "korelock")]
+            Korelock = 48,
 
-[EnumMember(Value = "assa_abloy_credential_service")]
-AssaAbloyCredentialService = 36,
+            [EnumMember(Value = "keyincode")]
+            Keyincode = 49,
 
-[EnumMember(Value = "tedee")]
-Tedee = 37,
+            [EnumMember(Value = "dormakaba_ambiance")]
+            DormakabaAmbiance = 50,
 
-[EnumMember(Value = "honeywell_resideo")]
-HoneywellResideo = 38,
+            [EnumMember(Value = "ultraloq")]
+            Ultraloq = 51,
 
-[EnumMember(Value = "first_alert")]
-FirstAlert = 39,
+            [EnumMember(Value = "dusaw")]
+            Dusaw = 52,
 
-[EnumMember(Value = "latch")]
-Latch = 40,
+            [EnumMember(Value = "sifely")]
+            Sifely = 53,
 
-[EnumMember(Value = "akiles")]
-Akiles = 41,
+            [EnumMember(Value = "thirty_three_lock")]
+            ThirtyThreeLock = 54,
 
-[EnumMember(Value = "assa_abloy_vostio")]
-AssaAbloyVostio = 42,
+            [EnumMember(Value = "ring")]
+            Ring = 55,
 
-[EnumMember(Value = "assa_abloy_vostio_credential_service")]
-AssaAbloyVostioCredentialService = 43,
+            [EnumMember(Value = "ical")]
+            Ical = 56,
 
-[EnumMember(Value = "tado")]
-Tado = 44,
+            [EnumMember(Value = "lodgify")]
+            Lodgify = 57,
 
-[EnumMember(Value = "salto_space")]
-SaltoSpace = 45,
+            [EnumMember(Value = "hostaway")]
+            Hostaway = 58,
 
-[EnumMember(Value = "sensi")]
-Sensi = 46,
+            [EnumMember(Value = "guesty")]
+            Guesty = 59,
 
-[EnumMember(Value = "keynest")]
-Keynest = 47,
+            [EnumMember(Value = "acuity_scheduling")]
+            AcuityScheduling = 60,
 
-[EnumMember(Value = "korelock")]
-Korelock = 48,
+            [EnumMember(Value = "omnitec")]
+            Omnitec = 61,
 
-[EnumMember(Value = "keyincode")]
-Keyincode = 49,
+            [EnumMember(Value = "kisi")]
+            Kisi = 62,
+        }
 
-[EnumMember(Value = "dormakaba_ambiance")]
-DormakabaAmbiance = 50,
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum ProviderCategoriesEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
 
-[EnumMember(Value = "ultraloq")]
-Ultraloq = 51,
+            [EnumMember(Value = "stable")]
+            Stable = 1,
 
-[EnumMember(Value = "dusaw")]
-Dusaw = 52,
+            [EnumMember(Value = "consumer_smartlocks")]
+            ConsumerSmartlocks = 2,
 
-[EnumMember(Value = "sifely")]
-Sifely = 53,
+            [EnumMember(Value = "beta")]
+            Beta = 3,
 
-[EnumMember(Value = "thirty_three_lock")]
-ThirtyThreeLock = 54,
+            [EnumMember(Value = "thermostats")]
+            Thermostats = 4,
 
-[EnumMember(Value = "ring")]
-Ring = 55,
+            [EnumMember(Value = "noise_sensors")]
+            NoiseSensors = 5,
 
-[EnumMember(Value = "ical")]
-Ical = 56,
+            [EnumMember(Value = "access_control_systems")]
+            AccessControlSystems = 6,
 
-[EnumMember(Value = "lodgify")]
-Lodgify = 57,
+            [EnumMember(Value = "cameras")]
+            Cameras = 7,
 
-[EnumMember(Value = "hostaway")]
-Hostaway = 58,
+            [EnumMember(Value = "connectors")]
+            Connectors = 8,
+        }
 
-[EnumMember(Value = "guesty")]
-Guesty = 59,
+        [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanConfigureAutoLock { get; set; }
 
-[EnumMember(Value = "acuity_scheduling")]
-AcuityScheduling = 60,
+        [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacCool { get; set; }
 
-[EnumMember(Value = "omnitec")]
-Omnitec = 61,
+        [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacHeat { get; set; }
 
-[EnumMember(Value = "kisi")]
-Kisi = 62,
-}
+        [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanHvacHeatCool { get; set; }
 
-[JsonConverter(typeof(SafeStringEnumConverter))]
-public enum ProviderCategoriesEnum
-{
-[EnumMember(Value = "unrecognized")]
-Unrecognized = 0,
+        [DataMember(
+            Name = "can_program_offline_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOfflineAccessCodes { get; set; }
 
-[EnumMember(Value = "stable")]
-Stable = 1,
+        [DataMember(
+            Name = "can_program_online_access_codes",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramOnlineAccessCodes { get; set; }
 
-[EnumMember(Value = "consumer_smartlocks")]
-ConsumerSmartlocks = 2,
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_different_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
 
-[EnumMember(Value = "beta")]
-Beta = 3,
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_same_each_day",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
 
-[EnumMember(Value = "thermostats")]
-Thermostats = 4,
+        [DataMember(
+            Name = "can_program_thermostat_programs_as_weekday_weekend",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
-[EnumMember(Value = "noise_sensors")]
-NoiseSensors = 5,
+        [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyLock { get; set; }
 
-[EnumMember(Value = "access_control_systems")]
-AccessControlSystems = 6,
+        [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanRemotelyUnlock { get; set; }
 
-[EnumMember(Value = "cameras")]
-Cameras = 7,
+        [DataMember(
+            Name = "can_run_thermostat_programs",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanRunThermostatPrograms { get; set; }
 
-[EnumMember(Value = "connectors")]
-Connectors = 8,
-}
+        [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanSimulateConnection { get; set; }
 
-[DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanConfigureAutoLock { get; set; }
+        [DataMember(
+            Name = "can_simulate_disconnection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateDisconnection { get; set; }
 
-[DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanHvacCool { get; set; }
+        [DataMember(
+            Name = "can_simulate_hub_connection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubConnection { get; set; }
 
-[DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanHvacHeat { get; set; }
+        [DataMember(
+            Name = "can_simulate_hub_disconnection",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulateHubDisconnection { get; set; }
 
-[DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanHvacHeatCool { get; set; }
+        [DataMember(
+            Name = "can_simulate_paid_subscription",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanSimulatePaidSubscription { get; set; }
 
-[DataMember(Name = "can_program_offline_access_codes", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanProgramOfflineAccessCodes { get; set; }
+        [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanSimulateRemoval { get; set; }
 
-[DataMember(Name = "can_program_online_access_codes", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanProgramOnlineAccessCodes { get; set; }
+        [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanTurnOffHvac { get; set; }
 
-[DataMember(Name = "can_program_thermostat_programs_as_different_each_day", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+        [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanUnlockWithCode { get; set; }
 
-[DataMember(Name = "can_program_thermostat_programs_as_same_each_day", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
+        [DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
+        public DeviceProvider.DeviceProviderNameEnum? DeviceProviderName { get; set; }
 
-[DataMember(Name = "can_program_thermostat_programs_as_weekday_weekend", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DisplayName { get; set; }
 
-[DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanRemotelyLock { get; set; }
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
+        public string? ImageUrl { get; set; }
 
-[DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanRemotelyUnlock { get; set; }
+        [DataMember(Name = "provider_categories", IsRequired = false, EmitDefaultValue = false)]
+        public List<DeviceProvider.ProviderCategoriesEnum>? ProviderCategories { get; set; }
 
-[DataMember(Name = "can_run_thermostat_programs", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanRunThermostatPrograms { get; set; }
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-[DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulateConnection { get; set; }
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
 
-[DataMember(Name = "can_simulate_disconnection", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulateDisconnection { get; set; }
-
-[DataMember(Name = "can_simulate_hub_connection", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulateHubConnection { get; set; }
-
-[DataMember(Name = "can_simulate_hub_disconnection", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulateHubDisconnection { get; set; }
-
-[DataMember(Name = "can_simulate_paid_subscription", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulatePaidSubscription { get; set; }
-
-[DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanSimulateRemoval { get; set; }
-
-[DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanTurnOffHvac { get; set; }
-
-[DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
-public bool? CanUnlockWithCode { get; set; }
-
-[DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
-public DeviceProvider.DeviceProviderNameEnum? DeviceProviderName { get; set; }
-
-[DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-public string? DisplayName { get; set; }
-
-[DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-public string? ImageUrl { get; set; }
-
-[DataMember(Name = "provider_categories", IsRequired = false, EmitDefaultValue = false)]
-public List<DeviceProvider.ProviderCategoriesEnum>? ProviderCategories { get; set; }
-
-public override string ToString()
-{
-JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-StringWriter stringWriter = new StringWriter(
-new StringBuilder(256),
-System.Globalization.CultureInfo.InvariantCulture
-);
-using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-{
-jsonTextWriter.IndentChar = ' ';
-jsonTextWriter.Indentation = 2;
-jsonTextWriter.Formatting = Formatting.Indented;
-jsonSerializer.Serialize(jsonTextWriter, this, null);
-}
-
-return stringWriter.ToString();
-}
-}
-
+            return stringWriter.ToString();
+        }
+    }
 }
