@@ -1,9 +1,9 @@
 // Durable data model for the C# SDK codegen.
 //
 // These interfaces hold the resolved structure of each generated file, decoupled
-// from serialization. build-model.ts produces them from the (raw-OpenAPI)
-// schemas; the Handlebars layouts and their context builders turn them into C#.
-// String serialization lives entirely in the templates.
+// from serialization. build-model.ts produces them from the @seamapi/blueprint;
+// the Handlebars layouts turn them into C#. String serialization lives entirely
+// in the templates.
 
 // A single enum member, e.g. `[EnumMember(Value = "setting")] Setting = 1,`.
 export interface CsEnumMember {

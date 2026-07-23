@@ -9,11 +9,11 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-public class ActionAttempts
+public class UnmanagedAccessMethods
 {
 private ISeamClient _seam;
 
-public ActionAttempts(ISeamClient seam)
+public UnmanagedAccessMethods(ISeamClient seam)
 {
 _seam = seam;
 }
@@ -24,13 +24,13 @@ public class GetRequest
 [JsonConstructorAttribute]
 protected GetRequest() { }
 
-public GetRequest(string actionAttemptId = default)
+public GetRequest(string accessMethodId = default)
 {
-ActionAttemptId = actionAttemptId;
+AccessMethodId = accessMethodId;
 }
 
-[DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-public string ActionAttemptId { get; set; }
+[DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+public string AccessMethodId { get; set; }
 
 public override string ToString()
 {
@@ -58,13 +58,13 @@ public class GetResponse
 [JsonConstructorAttribute]
 protected GetResponse() { }
 
-public GetResponse(ActionAttempt actionAttempt = default)
+public GetResponse(AccessMethod accessMethod = default)
 {
-ActionAttempt = actionAttempt;
+AccessMethod = accessMethod;
 }
 
-[DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
-public ActionAttempt ActionAttempt { get; set; }
+[DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
+public AccessMethod AccessMethod { get; set; }
 
 public override string ToString()
 {
@@ -86,28 +86,28 @@ return stringWriter.ToString();
 }
 }
 
-public ActionAttempt Get(GetRequest request)
+public AccessMethod Get(GetRequest request)
 {
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
-return _seam.Post<GetResponse>("/action_attempts/get", requestOptions).Data.ActionAttempt;
+return _seam.Post<GetResponse>("/access_methods/unmanaged/get", requestOptions).Data.AccessMethod;
 }
 
-public ActionAttempt Get(string actionAttemptId = default)
+public AccessMethod Get(string accessMethodId = default)
 {
-return Get(new GetRequest(actionAttemptId: actionAttemptId));
+return Get(new GetRequest(accessMethodId: accessMethodId));
 }
 
-public async Task<ActionAttempt> GetAsync(GetRequest request)
+public async Task<AccessMethod> GetAsync(GetRequest request)
 {
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
-return (await _seam.PostAsync<GetResponse>("/action_attempts/get", requestOptions)).Data.ActionAttempt;
+return (await _seam.PostAsync<GetResponse>("/access_methods/unmanaged/get", requestOptions)).Data.AccessMethod;
 }
 
-public async Task<ActionAttempt> GetAsync(string actionAttemptId = default)
+public async Task<AccessMethod> GetAsync(string accessMethodId = default)
 {
-return (await GetAsync(new GetRequest(actionAttemptId: actionAttemptId)));
+return (await GetAsync(new GetRequest(accessMethodId: accessMethodId)));
 }
 
 [DataContract(Name = "listRequest_request")]
@@ -116,25 +116,25 @@ public class ListRequest
 [JsonConstructorAttribute]
 protected ListRequest() { }
 
-public ListRequest(List<string>? actionAttemptIds = default, string? deviceId = default, int? limit = default, string? pageCursor = default)
+public ListRequest(string accessGrantId = default, string? acsEntranceId = default, string? deviceId = default, string? spaceId = default)
 {
-ActionAttemptIds = actionAttemptIds;
+AccessGrantId = accessGrantId;
+AcsEntranceId = acsEntranceId;
 DeviceId = deviceId;
-Limit = limit;
-PageCursor = pageCursor;
+SpaceId = spaceId;
 }
 
-[DataMember(Name = "action_attempt_ids", IsRequired = false, EmitDefaultValue = false)]
-public List<string>? ActionAttemptIds { get; set; }
+[DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+public string AccessGrantId { get; set; }
+
+[DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsEntranceId { get; set; }
 
 [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
 public string? DeviceId { get; set; }
 
-[DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
-public int? Limit { get; set; }
-
-[DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
-public string? PageCursor { get; set; }
+[DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
+public string? SpaceId { get; set; }
 
 public override string ToString()
 {
@@ -162,13 +162,13 @@ public class ListResponse
 [JsonConstructorAttribute]
 protected ListResponse() { }
 
-public ListResponse(List<ActionAttempt> actionAttempts = default)
+public ListResponse(List<Unknown> accessMethods = default)
 {
-ActionAttempts = actionAttempts;
+AccessMethods = accessMethods;
 }
 
-[DataMember(Name = "action_attempts", IsRequired = false, EmitDefaultValue = false)]
-public List<ActionAttempt> ActionAttempts { get; set; }
+[DataMember(Name = "access_methods", IsRequired = false, EmitDefaultValue = false)]
+public List<Unknown> AccessMethods { get; set; }
 
 public override string ToString()
 {
@@ -190,28 +190,28 @@ return stringWriter.ToString();
 }
 }
 
-public List<ActionAttempt> List(ListRequest request)
+public List<Unknown> List(ListRequest request)
 {
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
-return _seam.Post<ListResponse>("/action_attempts/list", requestOptions).Data.ActionAttempts;
+return _seam.Post<ListResponse>("/access_methods/unmanaged/list", requestOptions).Data.AccessMethods;
 }
 
-public List<ActionAttempt> List(List<string>? actionAttemptIds = default, string? deviceId = default, int? limit = default, string? pageCursor = default)
+public List<Unknown> List(string accessGrantId = default, string? acsEntranceId = default, string? deviceId = default, string? spaceId = default)
 {
-return List(new ListRequest(actionAttemptIds: actionAttemptIds, deviceId: deviceId, limit: limit, pageCursor: pageCursor));
+return List(new ListRequest(accessGrantId: accessGrantId, acsEntranceId: acsEntranceId, deviceId: deviceId, spaceId: spaceId));
 }
 
-public async Task<List<ActionAttempt>> ListAsync(ListRequest request)
+public async Task<List<Unknown>> ListAsync(ListRequest request)
 {
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
-return (await _seam.PostAsync<ListResponse>("/action_attempts/list", requestOptions)).Data.ActionAttempts;
+return (await _seam.PostAsync<ListResponse>("/access_methods/unmanaged/list", requestOptions)).Data.AccessMethods;
 }
 
-public async Task<List<ActionAttempt>> ListAsync(List<string>? actionAttemptIds = default, string? deviceId = default, int? limit = default, string? pageCursor = default)
+public async Task<List<Unknown>> ListAsync(string accessGrantId = default, string? acsEntranceId = default, string? deviceId = default, string? spaceId = default)
 {
-return (await ListAsync(new ListRequest(actionAttemptIds: actionAttemptIds, deviceId: deviceId, limit: limit, pageCursor: pageCursor)));
+return (await ListAsync(new ListRequest(accessGrantId: accessGrantId, acsEntranceId: acsEntranceId, deviceId: deviceId, spaceId: spaceId)));
 }
 }
 }
@@ -220,11 +220,11 @@ namespace Seam.Client
 {
 public partial class SeamClient
 {
-public Api.ActionAttempts ActionAttempts => new(this);
+public Api.UnmanagedAccessMethods UnmanagedAccessMethods => new(this);
 }
 
 public partial interface ISeamClient
 {
-public Api.ActionAttempts ActionAttempts { get; }
+public Api.UnmanagedAccessMethods UnmanagedAccessMethods { get; }
 }
 }

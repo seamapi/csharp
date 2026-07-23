@@ -9,116 +9,296 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-    public class UnmanagedAccessGrants
-    {
-        private ISeamClient _seam;
+public class UnmanagedAccessGrants
+{
+private ISeamClient _seam;
 
-        public UnmanagedAccessGrants(ISeamClient seam)
-        {
-            _seam = seam;
-        }
+public UnmanagedAccessGrants(ISeamClient seam)
+{
+_seam = seam;
+}
 
-        [DataContract(Name = "updateRequest_request")]
-        public class UpdateRequest
-        {
-            [JsonConstructorAttribute]
-            protected UpdateRequest() { }
+[DataContract(Name = "getRequest_request")]
+public class GetRequest
+{
+[JsonConstructorAttribute]
+protected GetRequest() { }
 
-            public UpdateRequest(
-                string accessGrantId = default,
-                string? accessGrantKey = default,
-                bool isManaged = default
-            )
-            {
-                AccessGrantId = accessGrantId;
-                AccessGrantKey = accessGrantKey;
-                IsManaged = isManaged;
-            }
+public GetRequest(string accessGrantId = default)
+{
+AccessGrantId = accessGrantId;
+}
 
-            [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessGrantId { get; set; }
+[DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+public string AccessGrantId { get; set; }
 
-            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessGrantKey { get; set; }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-            [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
-            public bool IsManaged { get; set; }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+return stringWriter.ToString();
+}
+}
 
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
+[DataContract(Name = "getResponse_response")]
+public class GetResponse
+{
+[JsonConstructorAttribute]
+protected GetResponse() { }
 
-                return stringWriter.ToString();
-            }
-        }
+public GetResponse(AccessGrant accessGrant = default)
+{
+AccessGrant = accessGrant;
+}
 
-        public void Update(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>("/access_grants/unmanaged/update", requestOptions);
-        }
+[DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
+public AccessGrant AccessGrant { get; set; }
 
-        public void Update(
-            string accessGrantId = default,
-            string? accessGrantKey = default,
-            bool isManaged = default
-        )
-        {
-            Update(
-                new UpdateRequest(
-                    accessGrantId: accessGrantId,
-                    accessGrantKey: accessGrantKey,
-                    isManaged: isManaged
-                )
-            );
-        }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public async Task UpdateAsync(UpdateRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_grants/unmanaged/update", requestOptions);
-        }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-        public async Task UpdateAsync(
-            string accessGrantId = default,
-            string? accessGrantKey = default,
-            bool isManaged = default
-        )
-        {
-            await UpdateAsync(
-                new UpdateRequest(
-                    accessGrantId: accessGrantId,
-                    accessGrantKey: accessGrantKey,
-                    isManaged: isManaged
-                )
-            );
-        }
-    }
+return stringWriter.ToString();
+}
+}
+
+public AccessGrant Get(GetRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+return _seam.Post<GetResponse>("/access_grants/unmanaged/get", requestOptions).Data.AccessGrant;
+}
+
+public AccessGrant Get(string accessGrantId = default)
+{
+return Get(new GetRequest(accessGrantId: accessGrantId));
+}
+
+public async Task<AccessGrant> GetAsync(GetRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+return (await _seam.PostAsync<GetResponse>("/access_grants/unmanaged/get", requestOptions)).Data.AccessGrant;
+}
+
+public async Task<AccessGrant> GetAsync(string accessGrantId = default)
+{
+return (await GetAsync(new GetRequest(accessGrantId: accessGrantId)));
+}
+
+[DataContract(Name = "listRequest_request")]
+public class ListRequest
+{
+[JsonConstructorAttribute]
+protected ListRequest() { }
+
+public ListRequest(string? acsEntranceId = default, string? acsSystemId = default, float? limit = default, string? pageCursor = default, string? reservationKey = default, string? userIdentityId = default)
+{
+AcsEntranceId = acsEntranceId;
+AcsSystemId = acsSystemId;
+Limit = limit;
+PageCursor = pageCursor;
+ReservationKey = reservationKey;
+UserIdentityId = userIdentityId;
+}
+
+[DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsEntranceId { get; set; }
+
+[DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsSystemId { get; set; }
+
+[DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+public float? Limit { get; set; }
+
+[DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+public string? PageCursor { get; set; }
+
+[DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+public string? ReservationKey { get; set; }
+
+[DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+public string? UserIdentityId { get; set; }
+
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
+
+return stringWriter.ToString();
+}
+}
+
+[DataContract(Name = "listResponse_response")]
+public class ListResponse
+{
+[JsonConstructorAttribute]
+protected ListResponse() { }
+
+public ListResponse(List<Unknown> accessGrants = default)
+{
+AccessGrants = accessGrants;
+}
+
+[DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
+public List<Unknown> AccessGrants { get; set; }
+
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
+
+return stringWriter.ToString();
+}
+}
+
+public List<Unknown> List(ListRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+return _seam.Post<ListResponse>("/access_grants/unmanaged/list", requestOptions).Data.AccessGrants;
+}
+
+public List<Unknown> List(string? acsEntranceId = default, string? acsSystemId = default, float? limit = default, string? pageCursor = default, string? reservationKey = default, string? userIdentityId = default)
+{
+return List(new ListRequest(acsEntranceId: acsEntranceId, acsSystemId: acsSystemId, limit: limit, pageCursor: pageCursor, reservationKey: reservationKey, userIdentityId: userIdentityId));
+}
+
+public async Task<List<Unknown>> ListAsync(ListRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+return (await _seam.PostAsync<ListResponse>("/access_grants/unmanaged/list", requestOptions)).Data.AccessGrants;
+}
+
+public async Task<List<Unknown>> ListAsync(string? acsEntranceId = default, string? acsSystemId = default, float? limit = default, string? pageCursor = default, string? reservationKey = default, string? userIdentityId = default)
+{
+return (await ListAsync(new ListRequest(acsEntranceId: acsEntranceId, acsSystemId: acsSystemId, limit: limit, pageCursor: pageCursor, reservationKey: reservationKey, userIdentityId: userIdentityId)));
+}
+
+[DataContract(Name = "updateRequest_request")]
+public class UpdateRequest
+{
+[JsonConstructorAttribute]
+protected UpdateRequest() { }
+
+public UpdateRequest(string accessGrantId = default, string? accessGrantKey = default, bool isManaged = default)
+{
+AccessGrantId = accessGrantId;
+AccessGrantKey = accessGrantKey;
+IsManaged = isManaged;
+}
+
+[DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
+public string AccessGrantId { get; set; }
+
+[DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+public string? AccessGrantKey { get; set; }
+
+[DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+public bool IsManaged { get; set; }
+
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
+
+return stringWriter.ToString();
+}
+}
+
+public void Update(UpdateRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+_seam.Post<object>("/access_grants/unmanaged/update", requestOptions);
+}
+
+public void Update(string accessGrantId = default, string? accessGrantKey = default, bool isManaged = default)
+{
+Update(new UpdateRequest(accessGrantId: accessGrantId, accessGrantKey: accessGrantKey, isManaged: isManaged));
+}
+
+public async Task UpdateAsync(UpdateRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+await _seam.PostAsync<object>("/access_grants/unmanaged/update", requestOptions);
+}
+
+public async Task UpdateAsync(string accessGrantId = default, string? accessGrantKey = default, bool isManaged = default)
+{
+await UpdateAsync(new UpdateRequest(accessGrantId: accessGrantId, accessGrantKey: accessGrantKey, isManaged: isManaged));
+}
+}
 }
 
 namespace Seam.Client
 {
-    public partial class SeamClient
-    {
-        public Api.UnmanagedAccessGrants UnmanagedAccessGrants => new(this);
-    }
+public partial class SeamClient
+{
+public Api.UnmanagedAccessGrants UnmanagedAccessGrants => new(this);
+}
 
-    public partial interface ISeamClient
-    {
-        public Api.UnmanagedAccessGrants UnmanagedAccessGrants { get; }
-    }
+public partial interface ISeamClient
+{
+public Api.UnmanagedAccessGrants UnmanagedAccessGrants { get; }
+}
 }

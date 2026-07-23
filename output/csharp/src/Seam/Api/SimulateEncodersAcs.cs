@@ -9,461 +9,350 @@ using Seam.Model;
 
 namespace Seam.Api
 {
-    public class SimulateEncodersAcs
-    {
-        private ISeamClient _seam;
+public class SimulateEncodersAcs
+{
+private ISeamClient _seam;
 
-        public SimulateEncodersAcs(ISeamClient seam)
-        {
-            _seam = seam;
-        }
+public SimulateEncodersAcs(ISeamClient seam)
+{
+_seam = seam;
+}
 
-        [DataContract(Name = "nextCredentialEncodeWillFailRequest_request")]
-        public class NextCredentialEncodeWillFailRequest
-        {
-            [JsonConstructorAttribute]
-            protected NextCredentialEncodeWillFailRequest() { }
+[DataContract(Name = "nextCredentialEncodeWillFailRequest_request")]
+public class NextCredentialEncodeWillFailRequest
+{
+[JsonConstructorAttribute]
+protected NextCredentialEncodeWillFailRequest() { }
 
-            public NextCredentialEncodeWillFailRequest(
-                string acsEncoderId = default,
-                NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-                string? acsCredentialId = default
-            )
-            {
-                AcsEncoderId = acsEncoderId;
-                ErrorCode = errorCode;
-                AcsCredentialId = acsCredentialId;
-            }
+public NextCredentialEncodeWillFailRequest(string acsEncoderId = default, NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialId = default)
+{
+AcsEncoderId = acsEncoderId;
+ErrorCode = errorCode;
+AcsCredentialId = acsCredentialId;
+}
 
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ErrorCodeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
+[JsonConverter(typeof(SafeStringEnumConverter))]
+public enum ErrorCodeEnum
+{
+[EnumMember(Value = "unrecognized")]
+Unrecognized = 0,
 
-                [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 1,
+[EnumMember(Value = "no_credential_on_encoder")]
+NoCredentialOnEncoder = 1,
 
-                [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
-            }
+[EnumMember(Value = "encoding_interrupted")]
+EncodingInterrupted = 2,
 
-            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsEncoderId { get; set; }
+[EnumMember(Value = "uncategorized_error")]
+UncategorizedError = 3,
 
-            [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-            public NextCredentialEncodeWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
+[EnumMember(Value = "action_attempt_expired")]
+ActionAttemptExpired = 4,
+}
 
-            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsCredentialId { get; set; }
+[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+public string AcsEncoderId { get; set; }
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+[DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
+public NextCredentialEncodeWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
 
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
+[DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsCredentialId { get; set; }
 
-                return stringWriter.ToString();
-            }
-        }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public void NextCredentialEncodeWillFail(NextCredentialEncodeWillFailRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>(
-                "/acs/encoders/simulate/next_credential_encode_will_fail",
-                requestOptions
-            );
-        }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-        public void NextCredentialEncodeWillFail(
-            string acsEncoderId = default,
-            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialId = default
-        )
-        {
-            NextCredentialEncodeWillFail(
-                new NextCredentialEncodeWillFailRequest(
-                    acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialId: acsCredentialId
-                )
-            );
-        }
+return stringWriter.ToString();
+}
+}
 
-        public async Task NextCredentialEncodeWillFailAsync(
-            NextCredentialEncodeWillFailRequest request
-        )
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>(
-                "/acs/encoders/simulate/next_credential_encode_will_fail",
-                requestOptions
-            );
-        }
+public void NextCredentialEncodeWillFail(NextCredentialEncodeWillFailRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+_seam.Post<object>("/acs/encoders/simulate/next_credential_encode_will_fail", requestOptions);
+}
 
-        public async Task NextCredentialEncodeWillFailAsync(
-            string acsEncoderId = default,
-            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialId = default
-        )
-        {
-            await NextCredentialEncodeWillFailAsync(
-                new NextCredentialEncodeWillFailRequest(
-                    acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialId: acsCredentialId
-                )
-            );
-        }
+public void NextCredentialEncodeWillFail(string acsEncoderId = default, NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialId = default)
+{
+NextCredentialEncodeWillFail(new NextCredentialEncodeWillFailRequest(acsEncoderId: acsEncoderId, errorCode: errorCode, acsCredentialId: acsCredentialId));
+}
 
-        [DataContract(Name = "nextCredentialEncodeWillSucceedRequest_request")]
-        public class NextCredentialEncodeWillSucceedRequest
-        {
-            [JsonConstructorAttribute]
-            protected NextCredentialEncodeWillSucceedRequest() { }
+public async Task NextCredentialEncodeWillFailAsync(NextCredentialEncodeWillFailRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+await _seam.PostAsync<object>("/acs/encoders/simulate/next_credential_encode_will_fail", requestOptions);
+}
 
-            public NextCredentialEncodeWillSucceedRequest(
-                string acsEncoderId = default,
-                NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default
-            )
-            {
-                AcsEncoderId = acsEncoderId;
-                Scenario = scenario;
-            }
+public async Task NextCredentialEncodeWillFailAsync(string acsEncoderId = default, NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialId = default)
+{
+await NextCredentialEncodeWillFailAsync(new NextCredentialEncodeWillFailRequest(acsEncoderId: acsEncoderId, errorCode: errorCode, acsCredentialId: acsCredentialId));
+}
 
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ScenarioEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
+[DataContract(Name = "nextCredentialEncodeWillSucceedRequest_request")]
+public class NextCredentialEncodeWillSucceedRequest
+{
+[JsonConstructorAttribute]
+protected NextCredentialEncodeWillSucceedRequest() { }
 
-                [EnumMember(Value = "credential_is_issued")]
-                CredentialIsIssued = 1,
-            }
+public NextCredentialEncodeWillSucceedRequest(string acsEncoderId = default, NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+AcsEncoderId = acsEncoderId;
+Scenario = scenario;
+}
 
-            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsEncoderId { get; set; }
+[JsonConverter(typeof(SafeStringEnumConverter))]
+public enum ScenarioEnum
+{
+[EnumMember(Value = "unrecognized")]
+Unrecognized = 0,
 
-            [DataMember(Name = "scenario", IsRequired = false, EmitDefaultValue = false)]
-            public NextCredentialEncodeWillSucceedRequest.ScenarioEnum? Scenario { get; set; }
+[EnumMember(Value = "credential_is_issued")]
+CredentialIsIssued = 1,
+}
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+public string AcsEncoderId { get; set; }
 
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
+[DataMember(Name = "scenario", IsRequired = false, EmitDefaultValue = false)]
+public NextCredentialEncodeWillSucceedRequest.ScenarioEnum? Scenario { get; set; }
 
-                return stringWriter.ToString();
-            }
-        }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public void NextCredentialEncodeWillSucceed(NextCredentialEncodeWillSucceedRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>(
-                "/acs/encoders/simulate/next_credential_encode_will_succeed",
-                requestOptions
-            );
-        }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-        public void NextCredentialEncodeWillSucceed(
-            string acsEncoderId = default,
-            NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default
-        )
-        {
-            NextCredentialEncodeWillSucceed(
-                new NextCredentialEncodeWillSucceedRequest(
-                    acsEncoderId: acsEncoderId,
-                    scenario: scenario
-                )
-            );
-        }
+return stringWriter.ToString();
+}
+}
 
-        public async Task NextCredentialEncodeWillSucceedAsync(
-            NextCredentialEncodeWillSucceedRequest request
-        )
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>(
-                "/acs/encoders/simulate/next_credential_encode_will_succeed",
-                requestOptions
-            );
-        }
+public void NextCredentialEncodeWillSucceed(NextCredentialEncodeWillSucceedRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+_seam.Post<object>("/acs/encoders/simulate/next_credential_encode_will_succeed", requestOptions);
+}
 
-        public async Task NextCredentialEncodeWillSucceedAsync(
-            string acsEncoderId = default,
-            NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default
-        )
-        {
-            await NextCredentialEncodeWillSucceedAsync(
-                new NextCredentialEncodeWillSucceedRequest(
-                    acsEncoderId: acsEncoderId,
-                    scenario: scenario
-                )
-            );
-        }
+public void NextCredentialEncodeWillSucceed(string acsEncoderId = default, NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+NextCredentialEncodeWillSucceed(new NextCredentialEncodeWillSucceedRequest(acsEncoderId: acsEncoderId, scenario: scenario));
+}
 
-        [DataContract(Name = "nextCredentialScanWillFailRequest_request")]
-        public class NextCredentialScanWillFailRequest
-        {
-            [JsonConstructorAttribute]
-            protected NextCredentialScanWillFailRequest() { }
+public async Task NextCredentialEncodeWillSucceedAsync(NextCredentialEncodeWillSucceedRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+await _seam.PostAsync<object>("/acs/encoders/simulate/next_credential_encode_will_succeed", requestOptions);
+}
 
-            public NextCredentialScanWillFailRequest(
-                string acsEncoderId = default,
-                NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-                string? acsCredentialIdOnSeam = default
-            )
-            {
-                AcsEncoderId = acsEncoderId;
-                ErrorCode = errorCode;
-                AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
-            }
+public async Task NextCredentialEncodeWillSucceedAsync(string acsEncoderId = default, NextCredentialEncodeWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+await NextCredentialEncodeWillSucceedAsync(new NextCredentialEncodeWillSucceedRequest(acsEncoderId: acsEncoderId, scenario: scenario));
+}
 
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ErrorCodeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
+[DataContract(Name = "nextCredentialScanWillFailRequest_request")]
+public class NextCredentialScanWillFailRequest
+{
+[JsonConstructorAttribute]
+protected NextCredentialScanWillFailRequest() { }
 
-                [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 1,
+public NextCredentialScanWillFailRequest(string acsEncoderId = default, NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialIdOnSeam = default)
+{
+AcsEncoderId = acsEncoderId;
+ErrorCode = errorCode;
+AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
+}
 
-                [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
-            }
+[JsonConverter(typeof(SafeStringEnumConverter))]
+public enum ErrorCodeEnum
+{
+[EnumMember(Value = "unrecognized")]
+Unrecognized = 0,
 
-            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsEncoderId { get; set; }
+[EnumMember(Value = "no_credential_on_encoder")]
+NoCredentialOnEncoder = 1,
 
-            [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-            public NextCredentialScanWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
+[EnumMember(Value = "uncategorized_error")]
+UncategorizedError = 2,
 
-            [DataMember(
-                Name = "acs_credential_id_on_seam",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? AcsCredentialIdOnSeam { get; set; }
+[EnumMember(Value = "action_attempt_expired")]
+ActionAttemptExpired = 3,
+}
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+public string AcsEncoderId { get; set; }
 
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
+[DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
+public NextCredentialScanWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
 
-                return stringWriter.ToString();
-            }
-        }
+[DataMember(Name = "acs_credential_id_on_seam", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsCredentialIdOnSeam { get; set; }
 
-        public void NextCredentialScanWillFail(NextCredentialScanWillFailRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>(
-                "/acs/encoders/simulate/next_credential_scan_will_fail",
-                requestOptions
-            );
-        }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-        public void NextCredentialScanWillFail(
-            string acsEncoderId = default,
-            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialIdOnSeam = default
-        )
-        {
-            NextCredentialScanWillFail(
-                new NextCredentialScanWillFailRequest(
-                    acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam
-                )
-            );
-        }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-        public async Task NextCredentialScanWillFailAsync(NextCredentialScanWillFailRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>(
-                "/acs/encoders/simulate/next_credential_scan_will_fail",
-                requestOptions
-            );
-        }
+return stringWriter.ToString();
+}
+}
 
-        public async Task NextCredentialScanWillFailAsync(
-            string acsEncoderId = default,
-            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialIdOnSeam = default
-        )
-        {
-            await NextCredentialScanWillFailAsync(
-                new NextCredentialScanWillFailRequest(
-                    acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam
-                )
-            );
-        }
+public void NextCredentialScanWillFail(NextCredentialScanWillFailRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+_seam.Post<object>("/acs/encoders/simulate/next_credential_scan_will_fail", requestOptions);
+}
 
-        [DataContract(Name = "nextCredentialScanWillSucceedRequest_request")]
-        public class NextCredentialScanWillSucceedRequest
-        {
-            [JsonConstructorAttribute]
-            protected NextCredentialScanWillSucceedRequest() { }
+public void NextCredentialScanWillFail(string acsEncoderId = default, NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialIdOnSeam = default)
+{
+NextCredentialScanWillFail(new NextCredentialScanWillFailRequest(acsEncoderId: acsEncoderId, errorCode: errorCode, acsCredentialIdOnSeam: acsCredentialIdOnSeam));
+}
 
-            public NextCredentialScanWillSucceedRequest(
-                string? acsCredentialIdOnSeam = default,
-                string acsEncoderId = default,
-                NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default
-            )
-            {
-                AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
-                AcsEncoderId = acsEncoderId;
-                Scenario = scenario;
-            }
+public async Task NextCredentialScanWillFailAsync(NextCredentialScanWillFailRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+await _seam.PostAsync<object>("/acs/encoders/simulate/next_credential_scan_will_fail", requestOptions);
+}
 
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ScenarioEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
+public async Task NextCredentialScanWillFailAsync(string acsEncoderId = default, NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default, string? acsCredentialIdOnSeam = default)
+{
+await NextCredentialScanWillFailAsync(new NextCredentialScanWillFailRequest(acsEncoderId: acsEncoderId, errorCode: errorCode, acsCredentialIdOnSeam: acsCredentialIdOnSeam));
+}
 
-                [EnumMember(Value = "credential_on_encoder_is_empty")]
-                CredentialOnEncoderIsEmpty = 1,
-            }
+[DataContract(Name = "nextCredentialScanWillSucceedRequest_request")]
+public class NextCredentialScanWillSucceedRequest
+{
+[JsonConstructorAttribute]
+protected NextCredentialScanWillSucceedRequest() { }
 
-            [DataMember(
-                Name = "acs_credential_id_on_seam",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? AcsCredentialIdOnSeam { get; set; }
+public NextCredentialScanWillSucceedRequest(string? acsCredentialIdOnSeam = default, string acsEncoderId = default, NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
+AcsEncoderId = acsEncoderId;
+Scenario = scenario;
+}
 
-            [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsEncoderId { get; set; }
+[JsonConverter(typeof(SafeStringEnumConverter))]
+public enum ScenarioEnum
+{
+[EnumMember(Value = "unrecognized")]
+Unrecognized = 0,
 
-            [DataMember(Name = "scenario", IsRequired = false, EmitDefaultValue = false)]
-            public NextCredentialScanWillSucceedRequest.ScenarioEnum? Scenario { get; set; }
+[EnumMember(Value = "credential_exists_on_seam")]
+CredentialExistsOnSeam = 1,
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+[EnumMember(Value = "credential_on_encoder_needs_update")]
+CredentialOnEncoderNeedsUpdate = 2,
 
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
+[EnumMember(Value = "credential_does_not_exist_on_seam")]
+CredentialDoesNotExistOnSeam = 3,
 
-                return stringWriter.ToString();
-            }
-        }
+[EnumMember(Value = "credential_on_encoder_is_empty")]
+CredentialOnEncoderIsEmpty = 4,
+}
 
-        public void NextCredentialScanWillSucceed(NextCredentialScanWillSucceedRequest request)
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            _seam.Post<object>(
-                "/acs/encoders/simulate/next_credential_scan_will_succeed",
-                requestOptions
-            );
-        }
+[DataMember(Name = "acs_credential_id_on_seam", IsRequired = false, EmitDefaultValue = false)]
+public string? AcsCredentialIdOnSeam { get; set; }
 
-        public void NextCredentialScanWillSucceed(
-            string? acsCredentialIdOnSeam = default,
-            string acsEncoderId = default,
-            NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default
-        )
-        {
-            NextCredentialScanWillSucceed(
-                new NextCredentialScanWillSucceedRequest(
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam,
-                    acsEncoderId: acsEncoderId,
-                    scenario: scenario
-                )
-            );
-        }
+[DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
+public string AcsEncoderId { get; set; }
 
-        public async Task NextCredentialScanWillSucceedAsync(
-            NextCredentialScanWillSucceedRequest request
-        )
-        {
-            var requestOptions = new RequestOptions();
-            requestOptions.Data = request;
-            await _seam.PostAsync<object>(
-                "/acs/encoders/simulate/next_credential_scan_will_succeed",
-                requestOptions
-            );
-        }
+[DataMember(Name = "scenario", IsRequired = false, EmitDefaultValue = false)]
+public NextCredentialScanWillSucceedRequest.ScenarioEnum? Scenario { get; set; }
 
-        public async Task NextCredentialScanWillSucceedAsync(
-            string? acsCredentialIdOnSeam = default,
-            string acsEncoderId = default,
-            NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default
-        )
-        {
-            await NextCredentialScanWillSucceedAsync(
-                new NextCredentialScanWillSucceedRequest(
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam,
-                    acsEncoderId: acsEncoderId,
-                    scenario: scenario
-                )
-            );
-        }
-    }
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
+
+return stringWriter.ToString();
+}
+}
+
+public void NextCredentialScanWillSucceed(NextCredentialScanWillSucceedRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+_seam.Post<object>("/acs/encoders/simulate/next_credential_scan_will_succeed", requestOptions);
+}
+
+public void NextCredentialScanWillSucceed(string? acsCredentialIdOnSeam = default, string acsEncoderId = default, NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+NextCredentialScanWillSucceed(new NextCredentialScanWillSucceedRequest(acsCredentialIdOnSeam: acsCredentialIdOnSeam, acsEncoderId: acsEncoderId, scenario: scenario));
+}
+
+public async Task NextCredentialScanWillSucceedAsync(NextCredentialScanWillSucceedRequest request)
+{
+var requestOptions = new RequestOptions();
+requestOptions.Data = request;
+await _seam.PostAsync<object>("/acs/encoders/simulate/next_credential_scan_will_succeed", requestOptions);
+}
+
+public async Task NextCredentialScanWillSucceedAsync(string? acsCredentialIdOnSeam = default, string acsEncoderId = default, NextCredentialScanWillSucceedRequest.ScenarioEnum? scenario = default)
+{
+await NextCredentialScanWillSucceedAsync(new NextCredentialScanWillSucceedRequest(acsCredentialIdOnSeam: acsCredentialIdOnSeam, acsEncoderId: acsEncoderId, scenario: scenario));
+}
+}
 }
 
 namespace Seam.Client
 {
-    public partial class SeamClient
-    {
-        public Api.SimulateEncodersAcs SimulateEncodersAcs => new(this);
-    }
+public partial class SeamClient
+{
+public Api.SimulateEncodersAcs SimulateEncodersAcs => new(this);
+}
 
-    public partial interface ISeamClient
-    {
-        public Api.SimulateEncodersAcs SimulateEncodersAcs { get; }
-    }
+public partial interface ISeamClient
+{
+public Api.SimulateEncodersAcs SimulateEncodersAcs { get; }
+}
 }
