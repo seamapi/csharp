@@ -523,71 +523,68 @@ namespace Seam.Api
                 [EnumMember(Value = "keyincode")]
                 Keyincode = 29,
 
-                [EnumMember(Value = "kisi")]
-                Kisi = 30,
-
                 [EnumMember(Value = "akiles")]
-                Akiles = 31,
+                Akiles = 30,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 32,
+                Ecobee = 31,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33,
+                HoneywellResideo = 32,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 34,
+                Keynest = 33,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 35,
+                Korelock = 34,
 
                 [EnumMember(Value = "minut")]
-                Minut = 36,
+                Minut = 35,
 
                 [EnumMember(Value = "nest")]
-                Nest = 37,
+                Nest = 36,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 38,
+                Noiseaware = 37,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 39,
+                Sensi = 38,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 40,
+                Smartthings = 39,
 
                 [EnumMember(Value = "tado")]
-                Tado = 41,
+                Tado = 40,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 42,
+                Ultraloq = 41,
 
                 [EnumMember(Value = "ring")]
-                Ring = 43,
+                Ring = 42,
 
                 [EnumMember(Value = "ical")]
-                Ical = 44,
+                Ical = 43,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 45,
+                Lodgify = 44,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 46,
+                Hostaway = 45,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 47,
+                Guesty = 46,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 48,
+                AcuityScheduling = 47,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 49,
+                Omnitec = 48,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 50,
+                Kisi = 49,
 
                 [EnumMember(Value = "slack")]
-                Slack = 51,
+                Slack = 50,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

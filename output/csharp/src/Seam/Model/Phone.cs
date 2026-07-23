@@ -108,11 +108,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected PhoneErrors() { }
 
-        public PhoneErrors(string errorCode = default, string message = default)
+        public PhoneErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
@@ -315,11 +323,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected PhoneWarnings() { }
 
-        public PhoneWarnings(string message = default, string warningCode = default)
+        public PhoneWarnings(
+            string createdAt = default,
+            string message = default,
+            string warningCode = default
+        )
         {
+            CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
         public string Message { get; set; }

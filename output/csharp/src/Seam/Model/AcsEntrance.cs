@@ -751,11 +751,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected AcsEntranceErrors() { }
 
-        public AcsEntranceErrors(string errorCode = default, string message = default)
+        public AcsEntranceErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }

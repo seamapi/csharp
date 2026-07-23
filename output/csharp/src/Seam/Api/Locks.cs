@@ -703,26 +703,23 @@ namespace Seam.Api
                 [EnumMember(Value = "keyincode")]
                 Keyincode = 25,
 
-                [EnumMember(Value = "kisi")]
-                Kisi = 26,
-
                 [EnumMember(Value = "akiles")]
-                Akiles = 27,
+                Akiles = 26,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 28,
+                Korelock = 27,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 29,
+                Smartthings = 28,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 30,
+                Ultraloq = 29,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 31,
+                Omnitec = 30,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 32,
+                Kisi = 31,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

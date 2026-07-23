@@ -6904,13 +6904,18 @@ namespace Seam.Model
         protected DevicePropertiesActiveThermostatScheduleErrors() { }
 
         public DevicePropertiesActiveThermostatScheduleErrors(
+            string? createdAt = default,
             string? errorCode = default,
             string? message = default
         )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string? ErrorCode { get; set; }

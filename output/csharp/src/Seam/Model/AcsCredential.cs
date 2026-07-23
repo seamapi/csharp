@@ -688,11 +688,19 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected AcsCredentialErrors() { }
 
-        public AcsCredentialErrors(string errorCode = default, string message = default)
+        public AcsCredentialErrors(
+            string createdAt = default,
+            string errorCode = default,
+            string message = default
+        )
         {
+            CreatedAt = createdAt;
             ErrorCode = errorCode;
             Message = message;
         }
+
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        public string CreatedAt { get; set; }
 
         [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
