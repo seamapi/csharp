@@ -26,7 +26,7 @@ namespace Seam.Model
             object customMetadata = default,
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
-            string customerKey = default,
+            string? customerKey = default,
             ConnectWebview.DeviceSelectionModeEnum deviceSelectionMode = default,
             bool loginSuccessful = default,
             string? selectedProvider = default,
@@ -111,69 +111,73 @@ namespace Seam.Model
             Authorized = 3,
         }
 
-        [DataMember(Name = "accepted_capabilities", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "accepted_capabilities", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectWebview.AcceptedCapabilitiesEnum> AcceptedCapabilities { get; set; }
 
-        [DataMember(Name = "accepted_providers", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AcceptedProviders { get; set; }
 
-        [DataMember(Name = "any_provider_allowed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "any_provider_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool AnyProviderAllowed { get; set; }
 
-        [DataMember(Name = "authorized_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "authorized_at", IsRequired = false, EmitDefaultValue = false)]
         public string? AuthorizedAt { get; set; }
 
         [DataMember(
             Name = "automatically_manage_new_devices",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public bool AutomaticallyManageNewDevices { get; set; }
 
-        [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
 
         [DataMember(
             Name = "custom_redirect_failure_url",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public string? CustomRedirectFailureUrl { get; set; }
 
-        [DataMember(Name = "custom_redirect_url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomRedirectUrl { get; set; }
 
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-        public string CustomerKey { get; set; }
+        public string? CustomerKey { get; set; }
 
-        [DataMember(Name = "device_selection_mode", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_selection_mode", IsRequired = false, EmitDefaultValue = false)]
         public ConnectWebview.DeviceSelectionModeEnum DeviceSelectionMode { get; set; }
 
-        [DataMember(Name = "login_successful", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "login_successful", IsRequired = false, EmitDefaultValue = false)]
         public bool LoginSuccessful { get; set; }
 
-        [DataMember(Name = "selected_provider", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "selected_provider", IsRequired = false, EmitDefaultValue = false)]
         public string? SelectedProvider { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ConnectWebview.StatusEnum Status { get; set; }
 
-        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "url", IsRequired = false, EmitDefaultValue = false)]
         public string Url { get; set; }
 
-        [DataMember(Name = "wait_for_device_creation", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(
+            Name = "wait_for_device_creation",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
         public bool WaitForDeviceCreation { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()

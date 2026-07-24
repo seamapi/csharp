@@ -17,8 +17,8 @@ namespace Seam.Model
         public InstantKey(
             string clientSessionId = default,
             string createdAt = default,
-            InstantKeyCustomization customization = default,
-            string customizationProfileId = default,
+            InstantKeyCustomization? customization = default,
+            string? customizationProfileId = default,
             string expiresAt = default,
             string instantKeyId = default,
             string instantKeyUrl = default,
@@ -37,35 +37,35 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "client_session_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
         public string ClientSessionId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         [DataMember(Name = "customization", IsRequired = false, EmitDefaultValue = false)]
-        public InstantKeyCustomization Customization { get; set; }
+        public InstantKeyCustomization? Customization { get; set; }
 
         [DataMember(
             Name = "customization_profile_id",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string CustomizationProfileId { get; set; }
+        public string? CustomizationProfileId { get; set; }
 
-        [DataMember(Name = "expires_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
         public string ExpiresAt { get; set; }
 
-        [DataMember(Name = "instant_key_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "instant_key_id", IsRequired = false, EmitDefaultValue = false)]
         public string InstantKeyId { get; set; }
 
-        [DataMember(Name = "instant_key_url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string InstantKeyUrl { get; set; }
 
-        [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -95,9 +95,9 @@ namespace Seam.Model
         protected InstantKeyCustomization() { }
 
         public InstantKeyCustomization(
-            string logoUrl = default,
-            string primaryColor = default,
-            string secondaryColor = default
+            string? logoUrl = default,
+            string? primaryColor = default,
+            string? secondaryColor = default
         )
         {
             LogoUrl = logoUrl;
@@ -106,13 +106,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "logo_url", IsRequired = false, EmitDefaultValue = false)]
-        public string LogoUrl { get; set; }
+        public string? LogoUrl { get; set; }
 
         [DataMember(Name = "primary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string PrimaryColor { get; set; }
+        public string? PrimaryColor { get; set; }
 
         [DataMember(Name = "secondary_color", IsRequired = false, EmitDefaultValue = false)]
-        public string SecondaryColor { get; set; }
+        public string? SecondaryColor { get; set; }
 
         public override string ToString()
         {

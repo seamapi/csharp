@@ -95,19 +95,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "LOCK_DOOR";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptLockDoorError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptLockDoorResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptLockDoor.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -142,10 +142,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -174,13 +174,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected ActionAttemptLockDoorResult() { }
 
-        public ActionAttemptLockDoorResult(bool wasConfirmedByDevice = default)
+        public ActionAttemptLockDoorResult(bool? wasConfirmedByDevice = default)
         {
             WasConfirmedByDevice = wasConfirmedByDevice;
         }
 
         [DataMember(Name = "was_confirmed_by_device", IsRequired = false, EmitDefaultValue = false)]
-        public bool WasConfirmedByDevice { get; set; }
+        public bool? WasConfirmedByDevice { get; set; }
 
         public override string ToString()
         {
@@ -239,19 +239,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UNLOCK_DOOR";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUnlockDoorError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUnlockDoorResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUnlockDoor.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -286,10 +286,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -318,13 +318,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected ActionAttemptUnlockDoorResult() { }
 
-        public ActionAttemptUnlockDoorResult(bool wasConfirmedByDevice = default)
+        public ActionAttemptUnlockDoorResult(bool? wasConfirmedByDevice = default)
         {
             WasConfirmedByDevice = wasConfirmedByDevice;
         }
 
         [DataMember(Name = "was_confirmed_by_device", IsRequired = false, EmitDefaultValue = false)]
-        public bool WasConfirmedByDevice { get; set; }
+        public bool? WasConfirmedByDevice { get; set; }
 
         public override string ToString()
         {
@@ -383,19 +383,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SCAN_CREDENTIAL";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -458,10 +458,10 @@ namespace Seam.Model
             BridgeDisconnected = 6,
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialError.TypeEnum Type { get; set; }
 
         public override string ToString()
@@ -504,15 +504,15 @@ namespace Seam.Model
 
         [DataMember(
             Name = "acs_credential_on_encoder",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public ActionAttemptScanCredentialResultAcsCredentialOnEncoder? AcsCredentialOnEncoder { get; set; }
 
-        [DataMember(Name = "acs_credential_on_seam", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_credential_on_seam", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResultAcsCredentialOnSeam AcsCredentialOnSeam { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptScanCredentialResultWarnings> Warnings { get; set; }
 
         public override string ToString()
@@ -547,7 +547,7 @@ namespace Seam.Model
             string? endsAt = default,
             bool? isIssued = default,
             string? startsAt = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata visionlineMetadata =
+            ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata? visionlineMetadata =
                 default
         )
         {
@@ -559,23 +559,23 @@ namespace Seam.Model
             VisionlineMetadata = visionlineMetadata;
         }
 
-        [DataMember(Name = "card_number", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string? CreatedAt { get; set; }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
-        [DataMember(Name = "is_issued", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsIssued { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata VisionlineMetadata { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata? VisionlineMetadata { get; set; }
 
         public override string ToString()
         {
@@ -606,19 +606,19 @@ namespace Seam.Model
         protected ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata() { }
 
         public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata(
-            bool cancelled = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum cardFormat =
+            bool? cancelled = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum? cardFormat =
                 default,
-            string cardHolder = default,
-            string cardId = default,
-            List<string> commonAcsEntranceIds = default,
-            bool discarded = default,
-            bool expired = default,
-            List<string> guestAcsEntranceIds = default,
-            float numberOfIssuedCards = default,
-            bool overridden = default,
-            bool overwritten = default,
-            bool pendingAutoUpdate = default
+            string? cardHolder = default,
+            string? cardId = default,
+            List<string>? commonAcsEntranceIds = default,
+            bool? discarded = default,
+            bool? expired = default,
+            List<string>? guestAcsEntranceIds = default,
+            float? numberOfIssuedCards = default,
+            bool? overridden = default,
+            bool? overwritten = default,
+            bool? pendingAutoUpdate = default
         )
         {
             Cancelled = cancelled;
@@ -649,40 +649,40 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "cancelled", IsRequired = false, EmitDefaultValue = false)]
-        public bool Cancelled { get; set; }
+        public bool? Cancelled { get; set; }
 
         [DataMember(Name = "card_format", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum CardFormat { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum? CardFormat { get; set; }
 
         [DataMember(Name = "card_holder", IsRequired = false, EmitDefaultValue = false)]
-        public string CardHolder { get; set; }
+        public string? CardHolder { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CardId { get; set; }
+        public string? CardId { get; set; }
 
         [DataMember(Name = "common_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> CommonAcsEntranceIds { get; set; }
+        public List<string>? CommonAcsEntranceIds { get; set; }
 
         [DataMember(Name = "discarded", IsRequired = false, EmitDefaultValue = false)]
-        public bool Discarded { get; set; }
+        public bool? Discarded { get; set; }
 
         [DataMember(Name = "expired", IsRequired = false, EmitDefaultValue = false)]
-        public bool Expired { get; set; }
+        public bool? Expired { get; set; }
 
         [DataMember(Name = "guest_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> GuestAcsEntranceIds { get; set; }
+        public List<string>? GuestAcsEntranceIds { get; set; }
 
         [DataMember(Name = "number_of_issued_cards", IsRequired = false, EmitDefaultValue = false)]
-        public float NumberOfIssuedCards { get; set; }
+        public float? NumberOfIssuedCards { get; set; }
 
         [DataMember(Name = "overridden", IsRequired = false, EmitDefaultValue = false)]
-        public bool Overridden { get; set; }
+        public bool? Overridden { get; set; }
 
         [DataMember(Name = "overwritten", IsRequired = false, EmitDefaultValue = false)]
-        public bool Overwritten { get; set; }
+        public bool? Overwritten { get; set; }
 
         [DataMember(Name = "pending_auto_update", IsRequired = false, EmitDefaultValue = false)]
-        public bool PendingAutoUpdate { get; set; }
+        public bool? PendingAutoUpdate { get; set; }
 
         public override string ToString()
         {
@@ -714,32 +714,32 @@ namespace Seam.Model
             ActionAttemptScanCredentialResultAcsCredentialOnSeam.AccessMethodEnum accessMethod =
                 default,
             string acsCredentialId = default,
-            string acsCredentialPoolId = default,
+            string? acsCredentialPoolId = default,
             string acsSystemId = default,
-            string acsUserId = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata assaAbloyVostioMetadata =
+            string? acsUserId = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
             string? code = default,
             string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
-            string endsAt = default,
+            string? endsAt = default,
             List<ActionAttemptScanCredentialResultAcsCredentialOnSeamErrors> errors = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnSeam.ExternalTypeEnum externalType =
+            ActionAttemptScanCredentialResultAcsCredentialOnSeam.ExternalTypeEnum? externalType =
                 default,
-            string externalTypeDisplayName = default,
-            bool isIssued = default,
+            string? externalTypeDisplayName = default,
+            bool? isIssued = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
-            bool isMultiPhoneSyncCredential = default,
-            bool isOneTimeUse = default,
+            bool? isMultiPhoneSyncCredential = default,
+            bool? isOneTimeUse = default,
             string? issuedAt = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
-            string parentAcsCredentialId = default,
-            string startsAt = default,
-            string userIdentityId = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata visionlineMetadata =
+            string? parentAcsCredentialId = default,
+            string? startsAt = default,
+            string? userIdentityId = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata? visionlineMetadata =
                 default,
             List<ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings> warnings = default,
             string workspaceId = default
@@ -840,27 +840,27 @@ namespace Seam.Model
             KisiCredential = 13,
         }
 
-        [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResultAcsCredentialOnSeam.AccessMethodEnum AccessMethod { get; set; }
 
-        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsCredentialPoolId { get; set; }
+        public string? AcsCredentialPoolId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsUserId { get; set; }
+        public string? AcsUserId { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
@@ -868,33 +868,33 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string EndsAt { get; set; }
+        public string? EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptScanCredentialResultAcsCredentialOnSeamErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeam.ExternalTypeEnum ExternalType { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeam.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public string? ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsIssued { get; set; }
+        public bool? IsIssued { get; set; }
 
         [DataMember(
             Name = "is_latest_desired_state_synced_with_provider",
@@ -903,7 +903,7 @@ namespace Seam.Model
         )]
         public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
         [DataMember(
@@ -911,10 +911,10 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IsMultiPhoneSyncCredential { get; set; }
+        public bool? IsMultiPhoneSyncCredential { get; set; }
 
         [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOneTimeUse { get; set; }
+        public bool? IsOneTimeUse { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
@@ -931,21 +931,21 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ParentAcsCredentialId { get; set; }
+        public string? ParentAcsCredentialId { get; set; }
 
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string StartsAt { get; set; }
+        public string? StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string UserIdentityId { get; set; }
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata VisionlineMetadata { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata? VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -977,12 +977,12 @@ namespace Seam.Model
         protected ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata() { }
 
         public ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata(
-            bool autoJoin = default,
-            List<string> doorNames = default,
-            string endpointId = default,
-            string keyId = default,
-            string keyIssuingRequestId = default,
-            List<string> overrideGuestAcsEntranceIds = default
+            bool? autoJoin = default,
+            List<string>? doorNames = default,
+            string? endpointId = default,
+            string? keyId = default,
+            string? keyIssuingRequestId = default,
+            List<string>? overrideGuestAcsEntranceIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -994,26 +994,26 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "door_names", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> DoorNames { get; set; }
+        public List<string>? DoorNames { get; set; }
 
         [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EndpointId { get; set; }
+        public string? EndpointId { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyId { get; set; }
+        public string? KeyId { get; set; }
 
         [DataMember(Name = "key_issuing_request_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyIssuingRequestId { get; set; }
+        public string? KeyIssuingRequestId { get; set; }
 
         [DataMember(
             Name = "override_guest_acs_entrance_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> OverrideGuestAcsEntranceIds { get; set; }
+        public List<string>? OverrideGuestAcsEntranceIds { get; set; }
 
         public override string ToString()
         {
@@ -1054,13 +1054,13 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()
@@ -1092,15 +1092,15 @@ namespace Seam.Model
         protected ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata() { }
 
         public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata(
-            bool autoJoin = default,
-            ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
+            bool? autoJoin = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType =
                 default,
-            string cardId = default,
-            List<string> commonAcsEntranceIds = default,
-            string credentialId = default,
-            List<string> guestAcsEntranceIds = default,
-            bool isValid = default,
-            List<string> joinerAcsCredentialIds = default
+            string? cardId = default,
+            List<string>? commonAcsEntranceIds = default,
+            string? credentialId = default,
+            List<string>? guestAcsEntranceIds = default,
+            bool? isValid = default,
+            List<string>? joinerAcsCredentialIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -1127,32 +1127,32 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CardId { get; set; }
+        public string? CardId { get; set; }
 
         [DataMember(Name = "common_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> CommonAcsEntranceIds { get; set; }
+        public List<string>? CommonAcsEntranceIds { get; set; }
 
         [DataMember(Name = "credential_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CredentialId { get; set; }
+        public string? CredentialId { get; set; }
 
         [DataMember(Name = "guest_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> GuestAcsEntranceIds { get; set; }
+        public List<string>? GuestAcsEntranceIds { get; set; }
 
         [DataMember(Name = "is_valid", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsValid { get; set; }
+        public bool? IsValid { get; set; }
 
         [DataMember(
             Name = "joiner_acs_credential_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> JoinerAcsCredentialIds { get; set; }
+        public List<string>? JoinerAcsCredentialIds { get; set; }
 
         public override string ToString()
         {
@@ -1219,13 +1219,13 @@ namespace Seam.Model
             NeedsToBeReissued = 6,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
@@ -1276,10 +1276,10 @@ namespace Seam.Model
             AcsCredentialOnSeamNotFound = 2,
         }
 
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
 
-        [DataMember(Name = "warning_message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_message", IsRequired = false, EmitDefaultValue = false)]
         public string WarningMessage { get; set; }
 
         public override string ToString()
@@ -1339,19 +1339,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ENCODE_CREDENTIAL";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -1426,10 +1426,10 @@ namespace Seam.Model
             CredentialDeleted = 10,
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialError.TypeEnum Type { get; set; }
 
         public override string ToString()
@@ -1461,31 +1461,31 @@ namespace Seam.Model
         public ActionAttemptEncodeCredentialResult(
             ActionAttemptEncodeCredentialResult.AccessMethodEnum accessMethod = default,
             string acsCredentialId = default,
-            string acsCredentialPoolId = default,
+            string? acsCredentialPoolId = default,
             string acsSystemId = default,
-            string acsUserId = default,
-            ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata assaAbloyVostioMetadata =
+            string? acsUserId = default,
+            ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
             string? code = default,
             string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
-            string endsAt = default,
+            string? endsAt = default,
             List<ActionAttemptEncodeCredentialResultErrors> errors = default,
-            ActionAttemptEncodeCredentialResult.ExternalTypeEnum externalType = default,
-            string externalTypeDisplayName = default,
-            bool isIssued = default,
+            ActionAttemptEncodeCredentialResult.ExternalTypeEnum? externalType = default,
+            string? externalTypeDisplayName = default,
+            bool? isIssued = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
-            bool isMultiPhoneSyncCredential = default,
-            bool isOneTimeUse = default,
+            bool? isMultiPhoneSyncCredential = default,
+            bool? isOneTimeUse = default,
             string? issuedAt = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
-            string parentAcsCredentialId = default,
-            string startsAt = default,
-            string userIdentityId = default,
-            ActionAttemptEncodeCredentialResultVisionlineMetadata visionlineMetadata = default,
+            string? parentAcsCredentialId = default,
+            string? startsAt = default,
+            string? userIdentityId = default,
+            ActionAttemptEncodeCredentialResultVisionlineMetadata? visionlineMetadata = default,
             List<ActionAttemptEncodeCredentialResultWarnings> warnings = default,
             string workspaceId = default
         )
@@ -1585,27 +1585,27 @@ namespace Seam.Model
             KisiCredential = 13,
         }
 
-        [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialResult.AccessMethodEnum AccessMethod { get; set; }
 
-        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsCredentialPoolId { get; set; }
+        public string? AcsCredentialPoolId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsUserId { get; set; }
+        public string? AcsUserId { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
+        public ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
@@ -1613,33 +1613,33 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string EndsAt { get; set; }
+        public string? EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptEncodeCredentialResultErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptEncodeCredentialResult.ExternalTypeEnum ExternalType { get; set; }
+        public ActionAttemptEncodeCredentialResult.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public string? ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsIssued { get; set; }
+        public bool? IsIssued { get; set; }
 
         [DataMember(
             Name = "is_latest_desired_state_synced_with_provider",
@@ -1648,7 +1648,7 @@ namespace Seam.Model
         )]
         public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
         [DataMember(
@@ -1656,10 +1656,10 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IsMultiPhoneSyncCredential { get; set; }
+        public bool? IsMultiPhoneSyncCredential { get; set; }
 
         [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOneTimeUse { get; set; }
+        public bool? IsOneTimeUse { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
@@ -1676,21 +1676,21 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ParentAcsCredentialId { get; set; }
+        public string? ParentAcsCredentialId { get; set; }
 
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string StartsAt { get; set; }
+        public string? StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string UserIdentityId { get; set; }
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptEncodeCredentialResultVisionlineMetadata VisionlineMetadata { get; set; }
+        public ActionAttemptEncodeCredentialResultVisionlineMetadata? VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptEncodeCredentialResultWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -1722,12 +1722,12 @@ namespace Seam.Model
         protected ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata() { }
 
         public ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata(
-            bool autoJoin = default,
-            List<string> doorNames = default,
-            string endpointId = default,
-            string keyId = default,
-            string keyIssuingRequestId = default,
-            List<string> overrideGuestAcsEntranceIds = default
+            bool? autoJoin = default,
+            List<string>? doorNames = default,
+            string? endpointId = default,
+            string? keyId = default,
+            string? keyIssuingRequestId = default,
+            List<string>? overrideGuestAcsEntranceIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -1739,26 +1739,26 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "door_names", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> DoorNames { get; set; }
+        public List<string>? DoorNames { get; set; }
 
         [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EndpointId { get; set; }
+        public string? EndpointId { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyId { get; set; }
+        public string? KeyId { get; set; }
 
         [DataMember(Name = "key_issuing_request_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyIssuingRequestId { get; set; }
+        public string? KeyIssuingRequestId { get; set; }
 
         [DataMember(
             Name = "override_guest_acs_entrance_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> OverrideGuestAcsEntranceIds { get; set; }
+        public List<string>? OverrideGuestAcsEntranceIds { get; set; }
 
         public override string ToString()
         {
@@ -1797,13 +1797,13 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()
@@ -1833,15 +1833,15 @@ namespace Seam.Model
         protected ActionAttemptEncodeCredentialResultVisionlineMetadata() { }
 
         public ActionAttemptEncodeCredentialResultVisionlineMetadata(
-            bool autoJoin = default,
-            ActionAttemptEncodeCredentialResultVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
+            bool? autoJoin = default,
+            ActionAttemptEncodeCredentialResultVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType =
                 default,
-            string cardId = default,
-            List<string> commonAcsEntranceIds = default,
-            string credentialId = default,
-            List<string> guestAcsEntranceIds = default,
-            bool isValid = default,
-            List<string> joinerAcsCredentialIds = default
+            string? cardId = default,
+            List<string>? commonAcsEntranceIds = default,
+            string? credentialId = default,
+            List<string>? guestAcsEntranceIds = default,
+            bool? isValid = default,
+            List<string>? joinerAcsCredentialIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -1868,32 +1868,32 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptEncodeCredentialResultVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
+        public ActionAttemptEncodeCredentialResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CardId { get; set; }
+        public string? CardId { get; set; }
 
         [DataMember(Name = "common_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> CommonAcsEntranceIds { get; set; }
+        public List<string>? CommonAcsEntranceIds { get; set; }
 
         [DataMember(Name = "credential_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CredentialId { get; set; }
+        public string? CredentialId { get; set; }
 
         [DataMember(Name = "guest_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> GuestAcsEntranceIds { get; set; }
+        public List<string>? GuestAcsEntranceIds { get; set; }
 
         [DataMember(Name = "is_valid", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsValid { get; set; }
+        public bool? IsValid { get; set; }
 
         [DataMember(
             Name = "joiner_acs_credential_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> JoinerAcsCredentialIds { get; set; }
+        public List<string>? JoinerAcsCredentialIds { get; set; }
 
         public override string ToString()
         {
@@ -1957,13 +1957,13 @@ namespace Seam.Model
             NeedsToBeReissued = 6,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
@@ -2023,19 +2023,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SCAN_TO_ASSIGN_CREDENTIAL";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -2089,10 +2089,10 @@ namespace Seam.Model
             NoCredentialOnEncoder = 3,
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialError.TypeEnum Type { get; set; }
 
         public override string ToString()
@@ -2124,31 +2124,31 @@ namespace Seam.Model
         public ActionAttemptScanToAssignCredentialResult(
             ActionAttemptScanToAssignCredentialResult.AccessMethodEnum accessMethod = default,
             string acsCredentialId = default,
-            string acsCredentialPoolId = default,
+            string? acsCredentialPoolId = default,
             string acsSystemId = default,
-            string acsUserId = default,
-            ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata assaAbloyVostioMetadata =
+            string? acsUserId = default,
+            ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
             string? code = default,
             string connectedAccountId = default,
             string createdAt = default,
             string displayName = default,
-            string endsAt = default,
+            string? endsAt = default,
             List<ActionAttemptScanToAssignCredentialResultErrors> errors = default,
-            ActionAttemptScanToAssignCredentialResult.ExternalTypeEnum externalType = default,
-            string externalTypeDisplayName = default,
-            bool isIssued = default,
+            ActionAttemptScanToAssignCredentialResult.ExternalTypeEnum? externalType = default,
+            string? externalTypeDisplayName = default,
+            bool? isIssued = default,
             bool? isLatestDesiredStateSyncedWithProvider = default,
             bool isManaged = default,
-            bool isMultiPhoneSyncCredential = default,
-            bool isOneTimeUse = default,
+            bool? isMultiPhoneSyncCredential = default,
+            bool? isOneTimeUse = default,
             string? issuedAt = default,
             string? latestDesiredStateSyncedWithProviderAt = default,
-            string parentAcsCredentialId = default,
-            string startsAt = default,
-            string userIdentityId = default,
-            ActionAttemptScanToAssignCredentialResultVisionlineMetadata visionlineMetadata =
+            string? parentAcsCredentialId = default,
+            string? startsAt = default,
+            string? userIdentityId = default,
+            ActionAttemptScanToAssignCredentialResultVisionlineMetadata? visionlineMetadata =
                 default,
             List<ActionAttemptScanToAssignCredentialResultWarnings> warnings = default,
             string workspaceId = default
@@ -2249,27 +2249,27 @@ namespace Seam.Model
             KisiCredential = 13,
         }
 
-        [DataMember(Name = "access_method", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialResult.AccessMethodEnum AccessMethod { get; set; }
 
-        [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
         [DataMember(Name = "acs_credential_pool_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsCredentialPoolId { get; set; }
+        public string? AcsCredentialPoolId { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsUserId { get; set; }
+        public string? AcsUserId { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
+        public ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
@@ -2277,33 +2277,33 @@ namespace Seam.Model
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string EndsAt { get; set; }
+        public string? EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptScanToAssignCredentialResultErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanToAssignCredentialResult.ExternalTypeEnum ExternalType { get; set; }
+        public ActionAttemptScanToAssignCredentialResult.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public string? ExternalTypeDisplayName { get; set; }
 
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsIssued { get; set; }
+        public bool? IsIssued { get; set; }
 
         [DataMember(
             Name = "is_latest_desired_state_synced_with_provider",
@@ -2312,7 +2312,7 @@ namespace Seam.Model
         )]
         public bool? IsLatestDesiredStateSyncedWithProvider { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
         [DataMember(
@@ -2320,10 +2320,10 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IsMultiPhoneSyncCredential { get; set; }
+        public bool? IsMultiPhoneSyncCredential { get; set; }
 
         [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOneTimeUse { get; set; }
+        public bool? IsOneTimeUse { get; set; }
 
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
@@ -2340,21 +2340,21 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ParentAcsCredentialId { get; set; }
+        public string? ParentAcsCredentialId { get; set; }
 
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string StartsAt { get; set; }
+        public string? StartsAt { get; set; }
 
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string UserIdentityId { get; set; }
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata VisionlineMetadata { get; set; }
+        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata? VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptScanToAssignCredentialResultWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -2386,12 +2386,12 @@ namespace Seam.Model
         protected ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata() { }
 
         public ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata(
-            bool autoJoin = default,
-            List<string> doorNames = default,
-            string endpointId = default,
-            string keyId = default,
-            string keyIssuingRequestId = default,
-            List<string> overrideGuestAcsEntranceIds = default
+            bool? autoJoin = default,
+            List<string>? doorNames = default,
+            string? endpointId = default,
+            string? keyId = default,
+            string? keyIssuingRequestId = default,
+            List<string>? overrideGuestAcsEntranceIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -2403,26 +2403,26 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "door_names", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> DoorNames { get; set; }
+        public List<string>? DoorNames { get; set; }
 
         [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EndpointId { get; set; }
+        public string? EndpointId { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyId { get; set; }
+        public string? KeyId { get; set; }
 
         [DataMember(Name = "key_issuing_request_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyIssuingRequestId { get; set; }
+        public string? KeyIssuingRequestId { get; set; }
 
         [DataMember(
             Name = "override_guest_acs_entrance_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> OverrideGuestAcsEntranceIds { get; set; }
+        public List<string>? OverrideGuestAcsEntranceIds { get; set; }
 
         public override string ToString()
         {
@@ -2461,13 +2461,13 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()
@@ -2499,15 +2499,15 @@ namespace Seam.Model
         protected ActionAttemptScanToAssignCredentialResultVisionlineMetadata() { }
 
         public ActionAttemptScanToAssignCredentialResultVisionlineMetadata(
-            bool autoJoin = default,
-            ActionAttemptScanToAssignCredentialResultVisionlineMetadata.CardFunctionTypeEnum cardFunctionType =
+            bool? autoJoin = default,
+            ActionAttemptScanToAssignCredentialResultVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType =
                 default,
-            string cardId = default,
-            List<string> commonAcsEntranceIds = default,
-            string credentialId = default,
-            List<string> guestAcsEntranceIds = default,
-            bool isValid = default,
-            List<string> joinerAcsCredentialIds = default
+            string? cardId = default,
+            List<string>? commonAcsEntranceIds = default,
+            string? credentialId = default,
+            List<string>? guestAcsEntranceIds = default,
+            bool? isValid = default,
+            List<string>? joinerAcsCredentialIds = default
         )
         {
             AutoJoin = autoJoin;
@@ -2534,32 +2534,32 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoJoin { get; set; }
+        public bool? AutoJoin { get; set; }
 
         [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata.CardFunctionTypeEnum CardFunctionType { get; set; }
+        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
 
         [DataMember(Name = "card_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CardId { get; set; }
+        public string? CardId { get; set; }
 
         [DataMember(Name = "common_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> CommonAcsEntranceIds { get; set; }
+        public List<string>? CommonAcsEntranceIds { get; set; }
 
         [DataMember(Name = "credential_id", IsRequired = false, EmitDefaultValue = false)]
-        public string CredentialId { get; set; }
+        public string? CredentialId { get; set; }
 
         [DataMember(Name = "guest_acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> GuestAcsEntranceIds { get; set; }
+        public List<string>? GuestAcsEntranceIds { get; set; }
 
         [DataMember(Name = "is_valid", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsValid { get; set; }
+        public bool? IsValid { get; set; }
 
         [DataMember(
             Name = "joiner_acs_credential_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> JoinerAcsCredentialIds { get; set; }
+        public List<string>? JoinerAcsCredentialIds { get; set; }
 
         public override string ToString()
         {
@@ -2623,13 +2623,13 @@ namespace Seam.Model
             NeedsToBeReissued = 6,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
 
         public override string ToString()
@@ -2689,19 +2689,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ASSIGN_CREDENTIAL";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredential.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -2755,10 +2755,10 @@ namespace Seam.Model
             CredentialNotFound = 3,
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialError.TypeEnum Type { get; set; }
 
         public override string ToString()
@@ -2789,18 +2789,18 @@ namespace Seam.Model
 
         public ActionAttemptAssignCredentialResult(
             string accessMethodId = default,
-            string clientSessionToken = default,
+            string? clientSessionToken = default,
             string? code = default,
             string createdAt = default,
-            string customizationProfileId = default,
+            string? customizationProfileId = default,
             string displayName = default,
             List<ActionAttemptAssignCredentialResultErrors> errors = default,
-            string instantKeyUrl = default,
-            bool isAssignmentRequired = default,
-            bool isEncodingRequired = default,
+            string? instantKeyUrl = default,
+            bool? isAssignmentRequired = default,
+            bool? isEncodingRequired = default,
             bool isIssued = default,
-            bool isReadyForAssignment = default,
-            bool isReadyForEncoding = default,
+            bool? isReadyForAssignment = default,
+            bool? isReadyForEncoding = default,
             string? issuedAt = default,
             ActionAttemptAssignCredentialResult.ModeEnum mode = default,
             List<ActionAttemptAssignCredentialResultPendingMutations> pendingMutations = default,
@@ -2847,16 +2847,16 @@ namespace Seam.Model
             CloudKey = 4,
         }
 
-        [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
         [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
-        public string ClientSessionToken { get; set; }
+        public string? ClientSessionToken { get; set; }
 
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         [DataMember(
@@ -2864,45 +2864,45 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string CustomizationProfileId { get; set; }
+        public string? CustomizationProfileId { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptAssignCredentialResultErrors> Errors { get; set; }
 
         [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
-        public string InstantKeyUrl { get; set; }
+        public string? InstantKeyUrl { get; set; }
 
         [DataMember(Name = "is_assignment_required", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsAssignmentRequired { get; set; }
+        public bool? IsAssignmentRequired { get; set; }
 
         [DataMember(Name = "is_encoding_required", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsEncodingRequired { get; set; }
+        public bool? IsEncodingRequired { get; set; }
 
-        [DataMember(Name = "is_issued", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
         public bool IsIssued { get; set; }
 
         [DataMember(Name = "is_ready_for_assignment", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsReadyForAssignment { get; set; }
+        public bool? IsReadyForAssignment { get; set; }
 
         [DataMember(Name = "is_ready_for_encoding", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsReadyForEncoding { get; set; }
+        public bool? IsReadyForEncoding { get; set; }
 
-        [DataMember(Name = "issued_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
 
-        [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResult.ModeEnum Mode { get; set; }
 
-        [DataMember(Name = "pending_mutations", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptAssignCredentialResultPendingMutations> PendingMutations { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ActionAttemptAssignCredentialResultWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -2952,13 +2952,13 @@ namespace Seam.Model
             FailedToIssue = 1,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultErrors.ErrorCodeEnum ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()
@@ -3019,19 +3019,19 @@ namespace Seam.Model
             UpdatingAccessTimes = 3,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultPendingMutationsFrom From { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "mutation_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultPendingMutations.MutationCodeEnum MutationCode { get; set; }
 
-        [DataMember(Name = "to", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultPendingMutationsTo To { get; set; }
 
         public override string ToString()
@@ -3069,10 +3069,10 @@ namespace Seam.Model
             StartsAt = startsAt;
         }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
         public override string ToString()
@@ -3110,10 +3110,10 @@ namespace Seam.Model
             StartsAt = startsAt;
         }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
         public override string ToString()
@@ -3146,7 +3146,7 @@ namespace Seam.Model
             string createdAt = default,
             string message = default,
             ActionAttemptAssignCredentialResultWarnings.WarningCodeEnum warningCode = default,
-            string originalAccessMethodId = default
+            string? originalAccessMethodId = default
         )
         {
             CreatedAt = createdAt;
@@ -3174,13 +3174,13 @@ namespace Seam.Model
             DelayInIssuing = 4,
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
 
         [DataMember(
@@ -3188,7 +3188,7 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string OriginalAccessMethodId { get; set; }
+        public string? OriginalAccessMethodId { get; set; }
 
         public override string ToString()
         {
@@ -3247,19 +3247,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "RESET_SANDBOX_WORKSPACE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptResetSandboxWorkspaceError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptResetSandboxWorkspaceResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptResetSandboxWorkspace.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3297,10 +3297,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -3386,19 +3386,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_FAN_MODE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetFanModeError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetFanModeResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetFanMode.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3433,10 +3433,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -3522,19 +3522,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_HVAC_MODE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetHvacModeError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetHvacModeResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSetHvacMode.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3569,10 +3569,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -3658,19 +3658,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ACTIVATE_CLIMATE_PRESET";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptActivateClimatePresetError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptActivateClimatePresetResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptActivateClimatePreset.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3708,10 +3708,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -3797,19 +3797,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SIMULATE_KEYPAD_CODE_ENTRY";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateKeypadCodeEntryError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateKeypadCodeEntryResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateKeypadCodeEntry.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3847,10 +3847,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -3936,19 +3936,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SIMULATE_MANUAL_LOCK_VIA_KEYPAD";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateManualLockViaKeypadError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateManualLockViaKeypadResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSimulateManualLockViaKeypad.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3986,10 +3986,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4075,19 +4075,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "PUSH_THERMOSTAT_PROGRAMS";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptPushThermostatProgramsError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptPushThermostatProgramsResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptPushThermostatPrograms.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4125,10 +4125,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4214,19 +4214,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CONFIGURE_AUTO_LOCK";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptConfigureAutoLockError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptConfigureAutoLockResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptConfigureAutoLock.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4261,10 +4261,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4350,19 +4350,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SYNC_ACCESS_CODES";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSyncAccessCodesError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSyncAccessCodesResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptSyncAccessCodes.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4397,10 +4397,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4486,19 +4486,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_ACCESS_CODE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateAccessCodeError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateAccessCodeResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4533,10 +4533,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4622,19 +4622,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_ACCESS_CODE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteAccessCodeError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteAccessCodeResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4669,10 +4669,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4758,19 +4758,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_ACCESS_CODE";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateAccessCodeError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateAccessCodeResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateAccessCode.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4805,10 +4805,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -4894,19 +4894,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_NOISE_THRESHOLD";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateNoiseThresholdError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateNoiseThresholdResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptCreateNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -4944,10 +4944,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -5033,19 +5033,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_NOISE_THRESHOLD";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteNoiseThresholdError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteNoiseThresholdResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptDeleteNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -5083,10 +5083,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()
@@ -5172,19 +5172,19 @@ namespace Seam.Model
             Error = 3,
         }
 
-        [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_NOISE_THRESHOLD";
 
-        [DataMember(Name = "error", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateNoiseThresholdError Error { get; set; }
 
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateNoiseThresholdResult Result { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptUpdateNoiseThreshold.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -5222,10 +5222,10 @@ namespace Seam.Model
             Type = type;
         }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
         public string Type { get; set; }
 
         public override string ToString()

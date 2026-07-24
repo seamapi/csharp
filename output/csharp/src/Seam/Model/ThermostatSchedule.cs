@@ -20,7 +20,7 @@ namespace Seam.Model
             string deviceId = default,
             string endsAt = default,
             List<ThermostatScheduleErrors> errors = default,
-            bool isOverrideAllowed = default,
+            bool? isOverrideAllowed = default,
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
@@ -41,23 +41,23 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ThermostatScheduleErrors> Errors { get; set; }
 
         [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOverrideAllowed { get; set; }
+        public bool? IsOverrideAllowed { get; set; }
 
         [DataMember(
             Name = "max_override_period_minutes",
@@ -66,16 +66,16 @@ namespace Seam.Model
         )]
         public int? MaxOverridePeriodMinutes { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
 
-        [DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string ThermostatScheduleId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -115,13 +115,13 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()

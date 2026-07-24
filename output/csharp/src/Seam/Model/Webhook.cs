@@ -15,8 +15,8 @@ namespace Seam.Model
         protected Webhook() { }
 
         public Webhook(
-            List<string> eventTypes = default,
-            string secret = default,
+            List<string>? eventTypes = default,
+            string? secret = default,
             string url = default,
             string webhookId = default
         )
@@ -28,15 +28,15 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "event_types", IsRequired = false, EmitDefaultValue = false)]
-        public List<string> EventTypes { get; set; }
+        public List<string>? EventTypes { get; set; }
 
         [DataMember(Name = "secret", IsRequired = false, EmitDefaultValue = false)]
-        public string Secret { get; set; }
+        public string? Secret { get; set; }
 
-        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "url", IsRequired = false, EmitDefaultValue = false)]
         public string Url { get; set; }
 
-        [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "webhook_id", IsRequired = false, EmitDefaultValue = false)]
         public string WebhookId { get; set; }
 
         public override string ToString()

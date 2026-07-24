@@ -16,22 +16,22 @@ namespace Seam.Model
 
         public ConnectedAccount(
             List<ConnectedAccount.AcceptedCapabilitiesEnum> acceptedCapabilities = default,
-            string accountType = default,
+            string? accountType = default,
             string accountTypeDisplayName = default,
             bool automaticallyManageNewDevices = default,
             string connectedAccountId = default,
-            string createdAt = default,
+            string? createdAt = default,
             object customMetadata = default,
-            string customerKey = default,
-            string defaultCheckinTime = default,
-            string defaultCheckoutTime = default,
+            string? customerKey = default,
+            string? defaultCheckinTime = default,
+            string? defaultCheckoutTime = default,
             string displayName = default,
             List<ConnectedAccountErrors> errors = default,
-            string icalFeedOrigin = default,
-            string icalUrl = default,
-            string imageUrl = default,
-            string timeZone = default,
-            ConnectedAccountUserIdentifier userIdentifier = default,
+            string? icalFeedOrigin = default,
+            string? icalUrl = default,
+            string? imageUrl = default,
+            string? timeZone = default,
+            ConnectedAccountUserIdentifier? userIdentifier = default,
             List<ConnectedAccountWarnings> warnings = default
         )
         {
@@ -101,9 +101,9 @@ namespace Seam.Model
 
             public abstract string CreatedAt { get; set; }
 
-            public abstract bool IsBridgeError { get; set; }
+            public abstract bool? IsBridgeError { get; set; }
 
-            public abstract bool IsConnectedAccountError { get; set; }
+            public abstract bool? IsConnectedAccountError { get; set; }
 
             public abstract string Message { get; set; }
 
@@ -119,8 +119,8 @@ namespace Seam.Model
             public ConnectedAccountErrorsAccountDisconnected(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
@@ -131,23 +131,23 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public override bool IsBridgeError { get; set; }
+            public override bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public override bool IsConnectedAccountError { get; set; }
+            public override bool? IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -179,8 +179,8 @@ namespace Seam.Model
             public ConnectedAccountErrorsBridgeDisconnected(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
@@ -191,23 +191,23 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public override bool IsBridgeError { get; set; }
+            public override bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public override bool IsConnectedAccountError { get; set; }
+            public override bool? IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -241,8 +241,8 @@ namespace Seam.Model
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceeded(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default,
                 ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata saltoKsMetadata =
                     default
@@ -256,26 +256,26 @@ namespace Seam.Model
                 SaltoKsMetadata = saltoKsMetadata;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public override bool IsBridgeError { get; set; }
+            public override bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public override bool IsConnectedAccountError { get; set; }
+            public override bool? IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
-            [DataMember(Name = "salto_ks_metadata", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata SaltoKsMetadata { get; set; }
 
             public override string ToString()
@@ -307,7 +307,7 @@ namespace Seam.Model
             protected ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata() { }
 
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata(
-                List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> sites =
+                List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites>? sites =
                     default
             )
             {
@@ -315,7 +315,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
-            public List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites> Sites { get; set; }
+            public List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites>? Sites { get; set; }
 
             public override string ToString()
             {
@@ -347,10 +347,10 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites(
-                string siteId = default,
-                string siteName = default,
-                int siteUserSubscriptionLimit = default,
-                int subscribedSiteUserCount = default
+                string? siteId = default,
+                string? siteName = default,
+                int? siteUserSubscriptionLimit = default,
+                int? subscribedSiteUserCount = default
             )
             {
                 SiteId = siteId;
@@ -360,24 +360,24 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-            public string SiteId { get; set; }
+            public string? SiteId { get; set; }
 
             [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-            public string SiteName { get; set; }
+            public string? SiteName { get; set; }
 
             [DataMember(
                 Name = "site_user_subscription_limit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SiteUserSubscriptionLimit { get; set; }
+            public int? SiteUserSubscriptionLimit { get; set; }
 
             [DataMember(
                 Name = "subscribed_site_user_count",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SubscribedSiteUserCount { get; set; }
+            public int? SubscribedSiteUserCount { get; set; }
 
             public override string ToString()
             {
@@ -408,8 +408,8 @@ namespace Seam.Model
             public ConnectedAccountErrorsDormakabaSitesDisconnected(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
@@ -420,23 +420,23 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public override bool IsBridgeError { get; set; }
+            public override bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public override bool IsConnectedAccountError { get; set; }
+            public override bool? IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -468,8 +468,8 @@ namespace Seam.Model
             public ConnectedAccountErrorsUnrecognized(
                 string errorCode = default,
                 string createdAt = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
@@ -487,14 +487,14 @@ namespace Seam.Model
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public override bool IsBridgeError { get; set; }
+            public override bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public override bool IsConnectedAccountError { get; set; }
+            public override bool? IsConnectedAccountError { get; set; }
 
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
@@ -575,10 +575,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -624,10 +624,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -676,13 +676,13 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
-            [DataMember(Name = "salto_ks_metadata", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadata SaltoKsMetadata { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -719,7 +719,7 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadata(
-                List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites> sites =
+                List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites>? sites =
                     default
             )
             {
@@ -727,7 +727,7 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
-            public List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites> Sites { get; set; }
+            public List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites>? Sites { get; set; }
 
             public override string ToString()
             {
@@ -759,10 +759,10 @@ namespace Seam.Model
             { }
 
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites(
-                string siteId = default,
-                string siteName = default,
-                int siteUserSubscriptionLimit = default,
-                int subscribedSiteUserCount = default
+                string? siteId = default,
+                string? siteName = default,
+                int? siteUserSubscriptionLimit = default,
+                int? subscribedSiteUserCount = default
             )
             {
                 SiteId = siteId;
@@ -772,24 +772,24 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-            public string SiteId { get; set; }
+            public string? SiteId { get; set; }
 
             [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-            public string SiteName { get; set; }
+            public string? SiteName { get; set; }
 
             [DataMember(
                 Name = "site_user_subscription_limit",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SiteUserSubscriptionLimit { get; set; }
+            public int? SiteUserSubscriptionLimit { get; set; }
 
             [DataMember(
                 Name = "subscribed_site_user_count",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public int SubscribedSiteUserCount { get; set; }
+            public int? SubscribedSiteUserCount { get; set; }
 
             public override string ToString()
             {
@@ -831,10 +831,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -877,10 +877,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -923,10 +923,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -969,10 +969,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1015,10 +1015,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1090,66 +1090,66 @@ namespace Seam.Model
             }
         }
 
-        [DataMember(Name = "accepted_capabilities", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "accepted_capabilities", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccount.AcceptedCapabilitiesEnum> AcceptedCapabilities { get; set; }
 
         [DataMember(Name = "account_type", IsRequired = false, EmitDefaultValue = false)]
-        public string AccountType { get; set; }
+        public string? AccountType { get; set; }
 
         [DataMember(
             Name = "account_type_display_name",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public string AccountTypeDisplayName { get; set; }
 
         [DataMember(
             Name = "automatically_manage_new_devices",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public bool AutomaticallyManageNewDevices { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
 
-        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
 
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
-        public string CustomerKey { get; set; }
+        public string? CustomerKey { get; set; }
 
         [DataMember(Name = "default_checkin_time", IsRequired = false, EmitDefaultValue = false)]
-        public string DefaultCheckinTime { get; set; }
+        public string? DefaultCheckinTime { get; set; }
 
         [DataMember(Name = "default_checkout_time", IsRequired = false, EmitDefaultValue = false)]
-        public string DefaultCheckoutTime { get; set; }
+        public string? DefaultCheckoutTime { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }
 
         [DataMember(Name = "ical_feed_origin", IsRequired = false, EmitDefaultValue = false)]
-        public string IcalFeedOrigin { get; set; }
+        public string? IcalFeedOrigin { get; set; }
 
         [DataMember(Name = "ical_url", IsRequired = false, EmitDefaultValue = false)]
-        public string IcalUrl { get; set; }
+        public string? IcalUrl { get; set; }
 
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string TimeZone { get; set; }
+        public string? TimeZone { get; set; }
 
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
-        public ConnectedAccountUserIdentifier UserIdentifier { get; set; }
+        public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccountWarnings> Warnings { get; set; }
 
         public override string ToString()
@@ -1179,11 +1179,11 @@ namespace Seam.Model
         protected ConnectedAccountUserIdentifier() { }
 
         public ConnectedAccountUserIdentifier(
-            string apiUrl = default,
-            string email = default,
-            bool exclusive = default,
-            string phone = default,
-            string username = default
+            string? apiUrl = default,
+            string? email = default,
+            bool? exclusive = default,
+            string? phone = default,
+            string? username = default
         )
         {
             ApiUrl = apiUrl;
@@ -1194,19 +1194,19 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "api_url", IsRequired = false, EmitDefaultValue = false)]
-        public string ApiUrl { get; set; }
+        public string? ApiUrl { get; set; }
 
         [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [DataMember(Name = "exclusive", IsRequired = false, EmitDefaultValue = false)]
-        public bool Exclusive { get; set; }
+        public bool? Exclusive { get; set; }
 
         [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         [DataMember(Name = "username", IsRequired = false, EmitDefaultValue = false)]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         public override string ToString()
         {

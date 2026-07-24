@@ -23,7 +23,7 @@ namespace Seam.Model
             bool isSuspended = default,
             string name = default,
             string? organizationId = default,
-            string publishableKey = default,
+            string? publishableKey = default,
             string workspaceId = default
         )
         {
@@ -39,42 +39,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "company_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]
         public string CompanyName { get; set; }
 
-        [DataMember(Name = "connect_partner_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connect_partner_name", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectPartnerName { get; set; }
 
         [DataMember(
             Name = "connect_webview_customization",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public WorkspaceConnectWebviewCustomization ConnectWebviewCustomization { get; set; }
 
         [DataMember(
             Name = "is_publishable_key_auth_enabled",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public bool IsPublishableKeyAuthEnabled { get; set; }
 
-        [DataMember(Name = "is_sandbox", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_sandbox", IsRequired = false, EmitDefaultValue = false)]
         public bool IsSandbox { get; set; }
 
-        [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
         public bool IsSuspended { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
-        [DataMember(Name = "organization_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
         public string? OrganizationId { get; set; }
 
         [DataMember(Name = "publishable_key", IsRequired = false, EmitDefaultValue = false)]
-        public string PublishableKey { get; set; }
+        public string? PublishableKey { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -104,11 +104,11 @@ namespace Seam.Model
         protected WorkspaceConnectWebviewCustomization() { }
 
         public WorkspaceConnectWebviewCustomization(
-            string inviterLogoUrl = default,
-            WorkspaceConnectWebviewCustomization.LogoShapeEnum logoShape = default,
-            string primaryButtonColor = default,
-            string primaryButtonTextColor = default,
-            string successMessage = default
+            string? inviterLogoUrl = default,
+            WorkspaceConnectWebviewCustomization.LogoShapeEnum? logoShape = default,
+            string? primaryButtonColor = default,
+            string? primaryButtonTextColor = default,
+            string? successMessage = default
         )
         {
             InviterLogoUrl = inviterLogoUrl;
@@ -132,23 +132,23 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "inviter_logo_url", IsRequired = false, EmitDefaultValue = false)]
-        public string InviterLogoUrl { get; set; }
+        public string? InviterLogoUrl { get; set; }
 
         [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]
-        public WorkspaceConnectWebviewCustomization.LogoShapeEnum LogoShape { get; set; }
+        public WorkspaceConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; set; }
 
         [DataMember(Name = "primary_button_color", IsRequired = false, EmitDefaultValue = false)]
-        public string PrimaryButtonColor { get; set; }
+        public string? PrimaryButtonColor { get; set; }
 
         [DataMember(
             Name = "primary_button_text_color",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string PrimaryButtonTextColor { get; set; }
+        public string? PrimaryButtonTextColor { get; set; }
 
         [DataMember(Name = "success_message", IsRequired = false, EmitDefaultValue = false)]
-        public string SuccessMessage { get; set; }
+        public string? SuccessMessage { get; set; }
 
         public override string ToString()
         {

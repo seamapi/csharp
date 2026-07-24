@@ -15,39 +15,39 @@ namespace Seam.Model
         protected Device() { }
 
         public Device(
-            bool canConfigureAutoLock = default,
-            bool canHvacCool = default,
-            bool canHvacHeat = default,
-            bool canHvacHeatCool = default,
-            bool canProgramOfflineAccessCodes = default,
-            bool canProgramOnlineAccessCodes = default,
-            bool canProgramThermostatProgramsAsDifferentEachDay = default,
-            bool canProgramThermostatProgramsAsSameEachDay = default,
-            bool canProgramThermostatProgramsAsWeekdayWeekend = default,
-            bool canRemotelyLock = default,
-            bool canRemotelyUnlock = default,
-            bool canRunThermostatPrograms = default,
-            bool canSimulateConnection = default,
-            bool canSimulateDisconnection = default,
-            bool canSimulateHubConnection = default,
-            bool canSimulateHubDisconnection = default,
-            bool canSimulatePaidSubscription = default,
-            bool canSimulateRemoval = default,
-            bool canTurnOffHvac = default,
-            bool canUnlockWithCode = default,
+            bool? canConfigureAutoLock = default,
+            bool? canHvacCool = default,
+            bool? canHvacHeat = default,
+            bool? canHvacHeatCool = default,
+            bool? canProgramOfflineAccessCodes = default,
+            bool? canProgramOnlineAccessCodes = default,
+            bool? canProgramThermostatProgramsAsDifferentEachDay = default,
+            bool? canProgramThermostatProgramsAsSameEachDay = default,
+            bool? canProgramThermostatProgramsAsWeekdayWeekend = default,
+            bool? canRemotelyLock = default,
+            bool? canRemotelyUnlock = default,
+            bool? canRunThermostatPrograms = default,
+            bool? canSimulateConnection = default,
+            bool? canSimulateDisconnection = default,
+            bool? canSimulateHubConnection = default,
+            bool? canSimulateHubDisconnection = default,
+            bool? canSimulatePaidSubscription = default,
+            bool? canSimulateRemoval = default,
+            bool? canTurnOffHvac = default,
+            bool? canUnlockWithCode = default,
             List<Device.CapabilitiesSupportedEnum> capabilitiesSupported = default,
             string connectedAccountId = default,
             string createdAt = default,
             object customMetadata = default,
             string deviceId = default,
-            DeviceDeviceManufacturer deviceManufacturer = default,
-            DeviceDeviceProvider deviceProvider = default,
+            DeviceDeviceManufacturer? deviceManufacturer = default,
+            DeviceDeviceProvider? deviceProvider = default,
             Device.DeviceTypeEnum deviceType = default,
             string displayName = default,
             List<DeviceErrors> errors = default,
             bool isManaged = default,
-            DeviceLocation location = default,
-            string nickname = default,
+            DeviceLocation? location = default,
+            string? nickname = default,
             DeviceProperties properties = default,
             List<string> spaceIds = default,
             List<DeviceWarnings> warnings = default,
@@ -318,7 +318,7 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
@@ -326,15 +326,15 @@ namespace Seam.Model
 
             [DataMember(
                 Name = "is_connected_account_error",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -378,7 +378,7 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
@@ -386,15 +386,15 @@ namespace Seam.Model
 
             [DataMember(
                 Name = "is_connected_account_error",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -438,7 +438,7 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
@@ -446,15 +446,15 @@ namespace Seam.Model
 
             [DataMember(
                 Name = "is_connected_account_error",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
             public bool IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -496,16 +496,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_offline";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -547,16 +547,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_removed";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -598,16 +598,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hub_disconnected";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -649,16 +649,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_disconnected";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -700,16 +700,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "empty_backup_access_code_pool";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -751,16 +751,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_not_authorized";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -802,16 +802,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "missing_device_credentials";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -853,16 +853,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "auxiliary_heat_running";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -904,16 +904,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "subscription_required";
 
-            [DataMember(Name = "is_device_error", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -945,8 +945,8 @@ namespace Seam.Model
             public DeviceErrorsBridgeDisconnected(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
-                bool isConnectedAccountError = default,
+                bool? isBridgeError = default,
+                bool? isConnectedAccountError = default,
                 string message = default
             )
             {
@@ -957,23 +957,23 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public bool IsBridgeError { get; set; }
+            public bool? IsBridgeError { get; set; }
 
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public bool IsConnectedAccountError { get; set; }
+            public bool? IsConnectedAccountError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -1166,10 +1166,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1212,10 +1212,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1258,10 +1258,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1304,10 +1304,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1351,10 +1351,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1397,10 +1397,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1443,10 +1443,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1489,10 +1489,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1535,10 +1535,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1581,10 +1581,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1627,10 +1627,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1673,10 +1673,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1719,10 +1719,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1765,10 +1765,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1812,10 +1812,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1859,10 +1859,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1905,10 +1905,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1951,10 +1951,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -1997,10 +1997,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2043,10 +2043,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2089,10 +2089,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2135,10 +2135,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2182,10 +2182,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2228,10 +2228,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2274,10 +2274,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2320,10 +2320,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2372,22 +2372,22 @@ namespace Seam.Model
 
             [DataMember(
                 Name = "active_access_code_count",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
             public int ActiveAccessCodeCount { get; set; }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(
                 Name = "max_active_access_code_count",
-                IsRequired = true,
+                IsRequired = false,
                 EmitDefaultValue = false
             )]
             public int MaxActiveAccessCodeCount { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2430,10 +2430,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -2506,154 +2506,154 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanConfigureAutoLock { get; set; }
+        public bool? CanConfigureAutoLock { get; set; }
 
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanHvacCool { get; set; }
+        public bool? CanHvacCool { get; set; }
 
         [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanHvacHeat { get; set; }
+        public bool? CanHvacHeat { get; set; }
 
         [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanHvacHeatCool { get; set; }
+        public bool? CanHvacHeatCool { get; set; }
 
         [DataMember(
             Name = "can_program_offline_access_codes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanProgramOfflineAccessCodes { get; set; }
+        public bool? CanProgramOfflineAccessCodes { get; set; }
 
         [DataMember(
             Name = "can_program_online_access_codes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanProgramOnlineAccessCodes { get; set; }
+        public bool? CanProgramOnlineAccessCodes { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_different_each_day",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
+        public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_same_each_day",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanProgramThermostatProgramsAsSameEachDay { get; set; }
+        public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
 
         [DataMember(
             Name = "can_program_thermostat_programs_as_weekday_weekend",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
+        public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanRemotelyLock { get; set; }
+        public bool? CanRemotelyLock { get; set; }
 
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanRemotelyUnlock { get; set; }
+        public bool? CanRemotelyUnlock { get; set; }
 
         [DataMember(
             Name = "can_run_thermostat_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanRunThermostatPrograms { get; set; }
+        public bool? CanRunThermostatPrograms { get; set; }
 
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanSimulateConnection { get; set; }
+        public bool? CanSimulateConnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_disconnection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanSimulateDisconnection { get; set; }
+        public bool? CanSimulateDisconnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_hub_connection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanSimulateHubConnection { get; set; }
+        public bool? CanSimulateHubConnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_hub_disconnection",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanSimulateHubDisconnection { get; set; }
+        public bool? CanSimulateHubDisconnection { get; set; }
 
         [DataMember(
             Name = "can_simulate_paid_subscription",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanSimulatePaidSubscription { get; set; }
+        public bool? CanSimulatePaidSubscription { get; set; }
 
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanSimulateRemoval { get; set; }
+        public bool? CanSimulateRemoval { get; set; }
 
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanTurnOffHvac { get; set; }
+        public bool? CanTurnOffHvac { get; set; }
 
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanUnlockWithCode { get; set; }
+        public bool? CanUnlockWithCode { get; set; }
 
-        [DataMember(Name = "capabilities_supported", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "capabilities_supported", IsRequired = false, EmitDefaultValue = false)]
         public List<Device.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "custom_metadata", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
         [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]
-        public DeviceDeviceManufacturer DeviceManufacturer { get; set; }
+        public DeviceDeviceManufacturer? DeviceManufacturer { get; set; }
 
         [DataMember(Name = "device_provider", IsRequired = false, EmitDefaultValue = false)]
-        public DeviceDeviceProvider DeviceProvider { get; set; }
+        public DeviceDeviceProvider? DeviceProvider { get; set; }
 
-        [DataMember(Name = "device_type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
         public Device.DeviceTypeEnum DeviceType { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<DeviceErrors> Errors { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
-        public DeviceLocation Location { get; set; }
+        public DeviceLocation? Location { get; set; }
 
         [DataMember(Name = "nickname", IsRequired = false, EmitDefaultValue = false)]
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
 
-        [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public DeviceProperties Properties { get; set; }
 
-        [DataMember(Name = "space_ids", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> SpaceIds { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<DeviceWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -2684,7 +2684,7 @@ namespace Seam.Model
 
         public DeviceDeviceManufacturer(
             string displayName = default,
-            string imageUrl = default,
+            string? imageUrl = default,
             string manufacturer = default
         )
         {
@@ -2693,13 +2693,13 @@ namespace Seam.Model
             Manufacturer = manufacturer;
         }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
-        [DataMember(Name = "manufacturer", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
         public string Manufacturer { get; set; }
 
         public override string ToString()
@@ -2731,7 +2731,7 @@ namespace Seam.Model
         public DeviceDeviceProvider(
             string deviceProviderName = default,
             string displayName = default,
-            string imageUrl = default,
+            string? imageUrl = default,
             string providerCategory = default
         )
         {
@@ -2741,16 +2741,16 @@ namespace Seam.Model
             ProviderCategory = providerCategory;
         }
 
-        [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceProviderName { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
-        [DataMember(Name = "provider_category", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
         public string ProviderCategory { get; set; }
 
         public override string ToString()
@@ -2780,9 +2780,9 @@ namespace Seam.Model
         protected DeviceLocation() { }
 
         public DeviceLocation(
-            string locationName = default,
-            string timeZone = default,
-            string timezone = default
+            string? locationName = default,
+            string? timeZone = default,
+            string? timezone = default
         )
         {
             LocationName = locationName;
@@ -2791,13 +2791,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "location_name", IsRequired = false, EmitDefaultValue = false)]
-        public string LocationName { get; set; }
+        public string? LocationName { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string TimeZone { get; set; }
+        public string? TimeZone { get; set; }
 
         [DataMember(Name = "timezone", IsRequired = false, EmitDefaultValue = false)]
-        public string Timezone { get; set; }
+        public string? Timezone { get; set; }
 
         public override string ToString()
         {
@@ -2826,112 +2826,112 @@ namespace Seam.Model
         protected DeviceProperties() { }
 
         public DeviceProperties(
-            DevicePropertiesAccessoryKeypad accessoryKeypad = default,
+            DevicePropertiesAccessoryKeypad? accessoryKeypad = default,
             DevicePropertiesAppearance appearance = default,
-            DevicePropertiesBattery battery = default,
-            float batteryLevel = default,
-            List<string> currentlyTriggeringNoiseThresholdIds = default,
-            bool hasDirectPower = default,
-            string imageAltText = default,
-            string imageUrl = default,
-            string manufacturer = default,
+            DevicePropertiesBattery? battery = default,
+            float? batteryLevel = default,
+            List<string>? currentlyTriggeringNoiseThresholdIds = default,
+            bool? hasDirectPower = default,
+            string? imageAltText = default,
+            string? imageUrl = default,
+            string? manufacturer = default,
             DevicePropertiesModel model = default,
             string name = default,
-            float noiseLevelDecibels = default,
-            bool offlineAccessCodesEnabled = default,
+            float? noiseLevelDecibels = default,
+            bool? offlineAccessCodesEnabled = default,
             bool online = default,
-            bool onlineAccessCodesEnabled = default,
-            string serialNumber = default,
-            bool supportsAccessoryKeypad = default,
-            bool supportsOfflineAccessCodes = default,
-            DevicePropertiesAssaAbloyCredentialServiceMetadata assaAbloyCredentialServiceMetadata =
+            bool? onlineAccessCodesEnabled = default,
+            string? serialNumber = default,
+            bool? supportsAccessoryKeypad = default,
+            bool? supportsOfflineAccessCodes = default,
+            DevicePropertiesAssaAbloyCredentialServiceMetadata? assaAbloyCredentialServiceMetadata =
                 default,
-            DevicePropertiesSaltoSpaceCredentialServiceMetadata saltoSpaceCredentialServiceMetadata =
+            DevicePropertiesSaltoSpaceCredentialServiceMetadata? saltoSpaceCredentialServiceMetadata =
                 default,
-            DevicePropertiesAkilesMetadata akilesMetadata = default,
-            DevicePropertiesAssaAbloyVostioMetadata assaAbloyVostioMetadata = default,
-            DevicePropertiesAugustMetadata augustMetadata = default,
-            DevicePropertiesAvigilonAltaMetadata avigilonAltaMetadata = default,
-            DevicePropertiesBrivoMetadata brivoMetadata = default,
-            DevicePropertiesControlbywebMetadata controlbywebMetadata = default,
-            DevicePropertiesDormakabaOracodeMetadata dormakabaOracodeMetadata = default,
-            DevicePropertiesEcobeeMetadata ecobeeMetadata = default,
-            DevicePropertiesFourSuitesMetadata fourSuitesMetadata = default,
-            DevicePropertiesGenieMetadata genieMetadata = default,
-            DevicePropertiesHoneywellResideoMetadata honeywellResideoMetadata = default,
-            DevicePropertiesIglooMetadata iglooMetadata = default,
-            DevicePropertiesIgloohomeMetadata igloohomeMetadata = default,
-            DevicePropertiesKeynestMetadata keynestMetadata = default,
-            DevicePropertiesKisiMetadata kisiMetadata = default,
-            DevicePropertiesKorelockMetadata korelockMetadata = default,
-            DevicePropertiesKwiksetMetadata kwiksetMetadata = default,
-            DevicePropertiesLocklyMetadata locklyMetadata = default,
-            DevicePropertiesMinutMetadata minutMetadata = default,
-            DevicePropertiesNestMetadata nestMetadata = default,
-            DevicePropertiesNoiseawareMetadata noiseawareMetadata = default,
-            DevicePropertiesNukiMetadata nukiMetadata = default,
-            DevicePropertiesOmnitecMetadata omnitecMetadata = default,
-            DevicePropertiesRingMetadata ringMetadata = default,
-            DevicePropertiesSaltoKsMetadata saltoKsMetadata = default,
-            DevicePropertiesSaltoMetadata saltoMetadata = default,
-            DevicePropertiesSchlageMetadata schlageMetadata = default,
-            DevicePropertiesSeamBridgeMetadata seamBridgeMetadata = default,
-            DevicePropertiesSensiMetadata sensiMetadata = default,
-            DevicePropertiesSmartthingsMetadata smartthingsMetadata = default,
-            DevicePropertiesTadoMetadata tadoMetadata = default,
-            DevicePropertiesTedeeMetadata tedeeMetadata = default,
-            DevicePropertiesTtlockMetadata ttlockMetadata = default,
-            DevicePropertiesTwoNMetadata twoNMetadata = default,
-            DevicePropertiesUltraloqMetadata ultraloqMetadata = default,
-            DevicePropertiesVisionlineMetadata visionlineMetadata = default,
-            DevicePropertiesWyzeMetadata wyzeMetadata = default,
-            float autoLockDelaySeconds = default,
-            bool autoLockEnabled = default,
-            bool backupAccessCodePoolEnabled = default,
-            List<DevicePropertiesCodeConstraints> codeConstraints = default,
-            bool doorOpen = default,
-            bool hasNativeEntryEvents = default,
-            DevicePropertiesKeypadBattery keypadBattery = default,
-            bool locked = default,
-            float maxActiveCodesSupported = default,
-            List<DevicePropertiesOfflineTimeFrameOptions> offlineTimeFrameOptions = default,
-            List<DevicePropertiesOnlineTimeFrameOptions> onlineTimeFrameOptions = default,
-            List<float> supportedCodeLengths = default,
-            bool supportsBackupAccessCodePool = default,
+            DevicePropertiesAkilesMetadata? akilesMetadata = default,
+            DevicePropertiesAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
+            DevicePropertiesAugustMetadata? augustMetadata = default,
+            DevicePropertiesAvigilonAltaMetadata? avigilonAltaMetadata = default,
+            DevicePropertiesBrivoMetadata? brivoMetadata = default,
+            DevicePropertiesControlbywebMetadata? controlbywebMetadata = default,
+            DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
+            DevicePropertiesEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesFourSuitesMetadata? fourSuitesMetadata = default,
+            DevicePropertiesGenieMetadata? genieMetadata = default,
+            DevicePropertiesHoneywellResideoMetadata? honeywellResideoMetadata = default,
+            DevicePropertiesIglooMetadata? iglooMetadata = default,
+            DevicePropertiesIgloohomeMetadata? igloohomeMetadata = default,
+            DevicePropertiesKeynestMetadata? keynestMetadata = default,
+            DevicePropertiesKisiMetadata? kisiMetadata = default,
+            DevicePropertiesKorelockMetadata? korelockMetadata = default,
+            DevicePropertiesKwiksetMetadata? kwiksetMetadata = default,
+            DevicePropertiesLocklyMetadata? locklyMetadata = default,
+            DevicePropertiesMinutMetadata? minutMetadata = default,
+            DevicePropertiesNestMetadata? nestMetadata = default,
+            DevicePropertiesNoiseawareMetadata? noiseawareMetadata = default,
+            DevicePropertiesNukiMetadata? nukiMetadata = default,
+            DevicePropertiesOmnitecMetadata? omnitecMetadata = default,
+            DevicePropertiesRingMetadata? ringMetadata = default,
+            DevicePropertiesSaltoKsMetadata? saltoKsMetadata = default,
+            DevicePropertiesSaltoMetadata? saltoMetadata = default,
+            DevicePropertiesSchlageMetadata? schlageMetadata = default,
+            DevicePropertiesSeamBridgeMetadata? seamBridgeMetadata = default,
+            DevicePropertiesSensiMetadata? sensiMetadata = default,
+            DevicePropertiesSmartthingsMetadata? smartthingsMetadata = default,
+            DevicePropertiesTadoMetadata? tadoMetadata = default,
+            DevicePropertiesTedeeMetadata? tedeeMetadata = default,
+            DevicePropertiesTtlockMetadata? ttlockMetadata = default,
+            DevicePropertiesTwoNMetadata? twoNMetadata = default,
+            DevicePropertiesUltraloqMetadata? ultraloqMetadata = default,
+            DevicePropertiesVisionlineMetadata? visionlineMetadata = default,
+            DevicePropertiesWyzeMetadata? wyzeMetadata = default,
+            float? autoLockDelaySeconds = default,
+            bool? autoLockEnabled = default,
+            bool? backupAccessCodePoolEnabled = default,
+            List<DevicePropertiesCodeConstraints>? codeConstraints = default,
+            bool? doorOpen = default,
+            bool? hasNativeEntryEvents = default,
+            DevicePropertiesKeypadBattery? keypadBattery = default,
+            bool? locked = default,
+            float? maxActiveCodesSupported = default,
+            List<DevicePropertiesOfflineTimeFrameOptions>? offlineTimeFrameOptions = default,
+            List<DevicePropertiesOnlineTimeFrameOptions>? onlineTimeFrameOptions = default,
+            List<float>? supportedCodeLengths = default,
+            bool? supportsBackupAccessCodePool = default,
             DevicePropertiesActiveThermostatSchedule? activeThermostatSchedule = default,
             string? activeThermostatScheduleId = default,
-            List<DeviceProperties.AvailableClimatePresetModesEnum> availableClimatePresetModes =
+            List<DeviceProperties.AvailableClimatePresetModesEnum>? availableClimatePresetModes =
                 default,
-            List<DevicePropertiesAvailableClimatePresets> availableClimatePresets = default,
-            List<DeviceProperties.AvailableFanModeSettingsEnum> availableFanModeSettings = default,
-            List<DeviceProperties.AvailableHvacModeSettingsEnum> availableHvacModeSettings =
+            List<DevicePropertiesAvailableClimatePresets>? availableClimatePresets = default,
+            List<DeviceProperties.AvailableFanModeSettingsEnum>? availableFanModeSettings = default,
+            List<DeviceProperties.AvailableHvacModeSettingsEnum>? availableHvacModeSettings =
                 default,
-            DevicePropertiesCurrentClimateSetting currentClimateSetting = default,
-            DevicePropertiesDefaultClimateSetting defaultClimateSetting = default,
+            DevicePropertiesCurrentClimateSetting? currentClimateSetting = default,
+            DevicePropertiesDefaultClimateSetting? defaultClimateSetting = default,
             string? fallbackClimatePresetKey = default,
-            DeviceProperties.FanModeSettingEnum fanModeSetting = default,
-            bool isCooling = default,
-            bool isFanRunning = default,
-            bool isHeating = default,
-            bool isTemporaryManualOverrideActive = default,
-            float maxCoolingSetPointCelsius = default,
-            float maxCoolingSetPointFahrenheit = default,
-            float maxHeatingSetPointCelsius = default,
-            float maxHeatingSetPointFahrenheit = default,
-            float maxThermostatDailyProgramPeriodsPerDay = default,
-            float maxUniqueClimatePresetsPerThermostatWeeklyProgram = default,
-            float minCoolingSetPointCelsius = default,
-            float minCoolingSetPointFahrenheit = default,
-            float minHeatingCoolingDeltaCelsius = default,
-            float minHeatingCoolingDeltaFahrenheit = default,
-            float minHeatingSetPointCelsius = default,
-            float minHeatingSetPointFahrenheit = default,
-            float relativeHumidity = default,
-            float temperatureCelsius = default,
-            float temperatureFahrenheit = default,
-            DevicePropertiesTemperatureThreshold temperatureThreshold = default,
-            float thermostatDailyProgramPeriodPrecisionMinutes = default,
-            List<DevicePropertiesThermostatDailyPrograms> thermostatDailyPrograms = default,
+            DeviceProperties.FanModeSettingEnum? fanModeSetting = default,
+            bool? isCooling = default,
+            bool? isFanRunning = default,
+            bool? isHeating = default,
+            bool? isTemporaryManualOverrideActive = default,
+            float? maxCoolingSetPointCelsius = default,
+            float? maxCoolingSetPointFahrenheit = default,
+            float? maxHeatingSetPointCelsius = default,
+            float? maxHeatingSetPointFahrenheit = default,
+            float? maxThermostatDailyProgramPeriodsPerDay = default,
+            float? maxUniqueClimatePresetsPerThermostatWeeklyProgram = default,
+            float? minCoolingSetPointCelsius = default,
+            float? minCoolingSetPointFahrenheit = default,
+            float? minHeatingCoolingDeltaCelsius = default,
+            float? minHeatingCoolingDeltaFahrenheit = default,
+            float? minHeatingSetPointCelsius = default,
+            float? minHeatingSetPointFahrenheit = default,
+            float? relativeHumidity = default,
+            float? temperatureCelsius = default,
+            float? temperatureFahrenheit = default,
+            DevicePropertiesTemperatureThreshold? temperatureThreshold = default,
+            float? thermostatDailyProgramPeriodPrecisionMinutes = default,
+            List<DevicePropertiesThermostatDailyPrograms>? thermostatDailyPrograms = default,
             DevicePropertiesThermostatWeeklyProgram? thermostatWeeklyProgram = default
         )
         {
@@ -3122,53 +3122,53 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "accessory_keypad", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAccessoryKeypad AccessoryKeypad { get; set; }
+        public DevicePropertiesAccessoryKeypad? AccessoryKeypad { get; set; }
 
-        [DataMember(Name = "appearance", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "appearance", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAppearance Appearance { get; set; }
 
         [DataMember(Name = "battery", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesBattery Battery { get; set; }
+        public DevicePropertiesBattery? Battery { get; set; }
 
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
-        public float BatteryLevel { get; set; }
+        public float? BatteryLevel { get; set; }
 
         [DataMember(
             Name = "currently_triggering_noise_threshold_ids",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<string> CurrentlyTriggeringNoiseThresholdIds { get; set; }
+        public List<string>? CurrentlyTriggeringNoiseThresholdIds { get; set; }
 
         [DataMember(Name = "has_direct_power", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasDirectPower { get; set; }
+        public bool? HasDirectPower { get; set; }
 
         [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
-        public string ImageAltText { get; set; }
+        public string? ImageAltText { get; set; }
 
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
-        public string Manufacturer { get; set; }
+        public string? Manufacturer { get; set; }
 
-        [DataMember(Name = "model", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesModel Model { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
         [DataMember(Name = "noise_level_decibels", IsRequired = false, EmitDefaultValue = false)]
-        public float NoiseLevelDecibels { get; set; }
+        public float? NoiseLevelDecibels { get; set; }
 
         [DataMember(
             Name = "offline_access_codes_enabled",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool OfflineAccessCodesEnabled { get; set; }
+        public bool? OfflineAccessCodesEnabled { get; set; }
 
-        [DataMember(Name = "online", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "online", IsRequired = false, EmitDefaultValue = false)]
         public bool Online { get; set; }
 
         [DataMember(
@@ -3176,220 +3176,220 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool OnlineAccessCodesEnabled { get; set; }
+        public bool? OnlineAccessCodesEnabled { get; set; }
 
         [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
-        public string SerialNumber { get; set; }
+        public string? SerialNumber { get; set; }
 
         [DataMember(
             Name = "supports_accessory_keypad",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool SupportsAccessoryKeypad { get; set; }
+        public bool? SupportsAccessoryKeypad { get; set; }
 
         [DataMember(
             Name = "supports_offline_access_codes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool SupportsOfflineAccessCodes { get; set; }
+        public bool? SupportsOfflineAccessCodes { get; set; }
 
         [DataMember(
             Name = "assa_abloy_credential_service_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public DevicePropertiesAssaAbloyCredentialServiceMetadata AssaAbloyCredentialServiceMetadata { get; set; }
+        public DevicePropertiesAssaAbloyCredentialServiceMetadata? AssaAbloyCredentialServiceMetadata { get; set; }
 
         [DataMember(
             Name = "salto_space_credential_service_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public DevicePropertiesSaltoSpaceCredentialServiceMetadata SaltoSpaceCredentialServiceMetadata { get; set; }
+        public DevicePropertiesSaltoSpaceCredentialServiceMetadata? SaltoSpaceCredentialServiceMetadata { get; set; }
 
         [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAkilesMetadata AkilesMetadata { get; set; }
+        public DevicePropertiesAkilesMetadata? AkilesMetadata { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public DevicePropertiesAssaAbloyVostioMetadata AssaAbloyVostioMetadata { get; set; }
+        public DevicePropertiesAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         [DataMember(Name = "august_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAugustMetadata AugustMetadata { get; set; }
+        public DevicePropertiesAugustMetadata? AugustMetadata { get; set; }
 
         [DataMember(Name = "avigilon_alta_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvigilonAltaMetadata AvigilonAltaMetadata { get; set; }
+        public DevicePropertiesAvigilonAltaMetadata? AvigilonAltaMetadata { get; set; }
 
         [DataMember(Name = "brivo_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesBrivoMetadata BrivoMetadata { get; set; }
+        public DevicePropertiesBrivoMetadata? BrivoMetadata { get; set; }
 
         [DataMember(Name = "controlbyweb_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesControlbywebMetadata ControlbywebMetadata { get; set; }
+        public DevicePropertiesControlbywebMetadata? ControlbywebMetadata { get; set; }
 
         [DataMember(
             Name = "dormakaba_oracode_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public DevicePropertiesDormakabaOracodeMetadata DormakabaOracodeMetadata { get; set; }
+        public DevicePropertiesDormakabaOracodeMetadata? DormakabaOracodeMetadata { get; set; }
 
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesEcobeeMetadata EcobeeMetadata { get; set; }
+        public DevicePropertiesEcobeeMetadata? EcobeeMetadata { get; set; }
 
         [DataMember(Name = "four_suites_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesFourSuitesMetadata FourSuitesMetadata { get; set; }
+        public DevicePropertiesFourSuitesMetadata? FourSuitesMetadata { get; set; }
 
         [DataMember(Name = "genie_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesGenieMetadata GenieMetadata { get; set; }
+        public DevicePropertiesGenieMetadata? GenieMetadata { get; set; }
 
         [DataMember(
             Name = "honeywell_resideo_metadata",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public DevicePropertiesHoneywellResideoMetadata HoneywellResideoMetadata { get; set; }
+        public DevicePropertiesHoneywellResideoMetadata? HoneywellResideoMetadata { get; set; }
 
         [DataMember(Name = "igloo_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesIglooMetadata IglooMetadata { get; set; }
+        public DevicePropertiesIglooMetadata? IglooMetadata { get; set; }
 
         [DataMember(Name = "igloohome_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesIgloohomeMetadata IgloohomeMetadata { get; set; }
+        public DevicePropertiesIgloohomeMetadata? IgloohomeMetadata { get; set; }
 
         [DataMember(Name = "keynest_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesKeynestMetadata KeynestMetadata { get; set; }
+        public DevicePropertiesKeynestMetadata? KeynestMetadata { get; set; }
 
         [DataMember(Name = "kisi_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesKisiMetadata KisiMetadata { get; set; }
+        public DevicePropertiesKisiMetadata? KisiMetadata { get; set; }
 
         [DataMember(Name = "korelock_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesKorelockMetadata KorelockMetadata { get; set; }
+        public DevicePropertiesKorelockMetadata? KorelockMetadata { get; set; }
 
         [DataMember(Name = "kwikset_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesKwiksetMetadata KwiksetMetadata { get; set; }
+        public DevicePropertiesKwiksetMetadata? KwiksetMetadata { get; set; }
 
         [DataMember(Name = "lockly_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesLocklyMetadata LocklyMetadata { get; set; }
+        public DevicePropertiesLocklyMetadata? LocklyMetadata { get; set; }
 
         [DataMember(Name = "minut_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadata MinutMetadata { get; set; }
+        public DevicePropertiesMinutMetadata? MinutMetadata { get; set; }
 
         [DataMember(Name = "nest_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesNestMetadata NestMetadata { get; set; }
+        public DevicePropertiesNestMetadata? NestMetadata { get; set; }
 
         [DataMember(Name = "noiseaware_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesNoiseawareMetadata NoiseawareMetadata { get; set; }
+        public DevicePropertiesNoiseawareMetadata? NoiseawareMetadata { get; set; }
 
         [DataMember(Name = "nuki_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesNukiMetadata NukiMetadata { get; set; }
+        public DevicePropertiesNukiMetadata? NukiMetadata { get; set; }
 
         [DataMember(Name = "omnitec_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesOmnitecMetadata OmnitecMetadata { get; set; }
+        public DevicePropertiesOmnitecMetadata? OmnitecMetadata { get; set; }
 
         [DataMember(Name = "ring_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesRingMetadata RingMetadata { get; set; }
+        public DevicePropertiesRingMetadata? RingMetadata { get; set; }
 
         [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSaltoKsMetadata SaltoKsMetadata { get; set; }
+        public DevicePropertiesSaltoKsMetadata? SaltoKsMetadata { get; set; }
 
         [DataMember(Name = "salto_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSaltoMetadata SaltoMetadata { get; set; }
+        public DevicePropertiesSaltoMetadata? SaltoMetadata { get; set; }
 
         [DataMember(Name = "schlage_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSchlageMetadata SchlageMetadata { get; set; }
+        public DevicePropertiesSchlageMetadata? SchlageMetadata { get; set; }
 
         [DataMember(Name = "seam_bridge_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSeamBridgeMetadata SeamBridgeMetadata { get; set; }
+        public DevicePropertiesSeamBridgeMetadata? SeamBridgeMetadata { get; set; }
 
         [DataMember(Name = "sensi_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSensiMetadata SensiMetadata { get; set; }
+        public DevicePropertiesSensiMetadata? SensiMetadata { get; set; }
 
         [DataMember(Name = "smartthings_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSmartthingsMetadata SmartthingsMetadata { get; set; }
+        public DevicePropertiesSmartthingsMetadata? SmartthingsMetadata { get; set; }
 
         [DataMember(Name = "tado_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTadoMetadata TadoMetadata { get; set; }
+        public DevicePropertiesTadoMetadata? TadoMetadata { get; set; }
 
         [DataMember(Name = "tedee_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTedeeMetadata TedeeMetadata { get; set; }
+        public DevicePropertiesTedeeMetadata? TedeeMetadata { get; set; }
 
         [DataMember(Name = "ttlock_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTtlockMetadata TtlockMetadata { get; set; }
+        public DevicePropertiesTtlockMetadata? TtlockMetadata { get; set; }
 
         [DataMember(Name = "two_n_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTwoNMetadata TwoNMetadata { get; set; }
+        public DevicePropertiesTwoNMetadata? TwoNMetadata { get; set; }
 
         [DataMember(Name = "ultraloq_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesUltraloqMetadata UltraloqMetadata { get; set; }
+        public DevicePropertiesUltraloqMetadata? UltraloqMetadata { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesVisionlineMetadata VisionlineMetadata { get; set; }
+        public DevicePropertiesVisionlineMetadata? VisionlineMetadata { get; set; }
 
         [DataMember(Name = "wyze_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesWyzeMetadata WyzeMetadata { get; set; }
+        public DevicePropertiesWyzeMetadata? WyzeMetadata { get; set; }
 
         [DataMember(Name = "auto_lock_delay_seconds", IsRequired = false, EmitDefaultValue = false)]
-        public float AutoLockDelaySeconds { get; set; }
+        public float? AutoLockDelaySeconds { get; set; }
 
         [DataMember(Name = "auto_lock_enabled", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoLockEnabled { get; set; }
+        public bool? AutoLockEnabled { get; set; }
 
         [DataMember(
             Name = "backup_access_code_pool_enabled",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool BackupAccessCodePoolEnabled { get; set; }
+        public bool? BackupAccessCodePoolEnabled { get; set; }
 
         [DataMember(Name = "code_constraints", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesCodeConstraints> CodeConstraints { get; set; }
+        public List<DevicePropertiesCodeConstraints>? CodeConstraints { get; set; }
 
         [DataMember(Name = "door_open", IsRequired = false, EmitDefaultValue = false)]
-        public bool DoorOpen { get; set; }
+        public bool? DoorOpen { get; set; }
 
         [DataMember(Name = "has_native_entry_events", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasNativeEntryEvents { get; set; }
+        public bool? HasNativeEntryEvents { get; set; }
 
         [DataMember(Name = "keypad_battery", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesKeypadBattery KeypadBattery { get; set; }
+        public DevicePropertiesKeypadBattery? KeypadBattery { get; set; }
 
         [DataMember(Name = "locked", IsRequired = false, EmitDefaultValue = false)]
-        public bool Locked { get; set; }
+        public bool? Locked { get; set; }
 
         [DataMember(
             Name = "max_active_codes_supported",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxActiveCodesSupported { get; set; }
+        public float? MaxActiveCodesSupported { get; set; }
 
         [DataMember(
             Name = "offline_time_frame_options",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DevicePropertiesOfflineTimeFrameOptions> OfflineTimeFrameOptions { get; set; }
+        public List<DevicePropertiesOfflineTimeFrameOptions>? OfflineTimeFrameOptions { get; set; }
 
         [DataMember(
             Name = "online_time_frame_options",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DevicePropertiesOnlineTimeFrameOptions> OnlineTimeFrameOptions { get; set; }
+        public List<DevicePropertiesOnlineTimeFrameOptions>? OnlineTimeFrameOptions { get; set; }
 
         [DataMember(Name = "supported_code_lengths", IsRequired = false, EmitDefaultValue = false)]
-        public List<float> SupportedCodeLengths { get; set; }
+        public List<float>? SupportedCodeLengths { get; set; }
 
         [DataMember(
             Name = "supports_backup_access_code_pool",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool SupportsBackupAccessCodePool { get; set; }
+        public bool? SupportsBackupAccessCodePool { get; set; }
 
         [DataMember(
             Name = "active_thermostat_schedule",
@@ -3410,34 +3410,34 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DeviceProperties.AvailableClimatePresetModesEnum> AvailableClimatePresetModes { get; set; }
+        public List<DeviceProperties.AvailableClimatePresetModesEnum>? AvailableClimatePresetModes { get; set; }
 
         [DataMember(
             Name = "available_climate_presets",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DevicePropertiesAvailableClimatePresets> AvailableClimatePresets { get; set; }
+        public List<DevicePropertiesAvailableClimatePresets>? AvailableClimatePresets { get; set; }
 
         [DataMember(
             Name = "available_fan_mode_settings",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DeviceProperties.AvailableFanModeSettingsEnum> AvailableFanModeSettings { get; set; }
+        public List<DeviceProperties.AvailableFanModeSettingsEnum>? AvailableFanModeSettings { get; set; }
 
         [DataMember(
             Name = "available_hvac_mode_settings",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DeviceProperties.AvailableHvacModeSettingsEnum> AvailableHvacModeSettings { get; set; }
+        public List<DeviceProperties.AvailableHvacModeSettingsEnum>? AvailableHvacModeSettings { get; set; }
 
         [DataMember(Name = "current_climate_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSetting CurrentClimateSetting { get; set; }
+        public DevicePropertiesCurrentClimateSetting? CurrentClimateSetting { get; set; }
 
         [DataMember(Name = "default_climate_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSetting DefaultClimateSetting { get; set; }
+        public DevicePropertiesDefaultClimateSetting? DefaultClimateSetting { get; set; }
 
         [DataMember(
             Name = "fallback_climate_preset_key",
@@ -3447,133 +3447,133 @@ namespace Seam.Model
         public string? FallbackClimatePresetKey { get; set; }
 
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DeviceProperties.FanModeSettingEnum FanModeSetting { get; set; }
+        public DeviceProperties.FanModeSettingEnum? FanModeSetting { get; set; }
 
         [DataMember(Name = "is_cooling", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsCooling { get; set; }
+        public bool? IsCooling { get; set; }
 
         [DataMember(Name = "is_fan_running", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsFanRunning { get; set; }
+        public bool? IsFanRunning { get; set; }
 
         [DataMember(Name = "is_heating", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsHeating { get; set; }
+        public bool? IsHeating { get; set; }
 
         [DataMember(
             Name = "is_temporary_manual_override_active",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IsTemporaryManualOverrideActive { get; set; }
+        public bool? IsTemporaryManualOverrideActive { get; set; }
 
         [DataMember(
             Name = "max_cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxCoolingSetPointCelsius { get; set; }
+        public float? MaxCoolingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "max_cooling_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxCoolingSetPointFahrenheit { get; set; }
+        public float? MaxCoolingSetPointFahrenheit { get; set; }
 
         [DataMember(
             Name = "max_heating_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxHeatingSetPointCelsius { get; set; }
+        public float? MaxHeatingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "max_heating_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxHeatingSetPointFahrenheit { get; set; }
+        public float? MaxHeatingSetPointFahrenheit { get; set; }
 
         [DataMember(
             Name = "max_thermostat_daily_program_periods_per_day",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxThermostatDailyProgramPeriodsPerDay { get; set; }
+        public float? MaxThermostatDailyProgramPeriodsPerDay { get; set; }
 
         [DataMember(
             Name = "max_unique_climate_presets_per_thermostat_weekly_program",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MaxUniqueClimatePresetsPerThermostatWeeklyProgram { get; set; }
+        public float? MaxUniqueClimatePresetsPerThermostatWeeklyProgram { get; set; }
 
         [DataMember(
             Name = "min_cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinCoolingSetPointCelsius { get; set; }
+        public float? MinCoolingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "min_cooling_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinCoolingSetPointFahrenheit { get; set; }
+        public float? MinCoolingSetPointFahrenheit { get; set; }
 
         [DataMember(
             Name = "min_heating_cooling_delta_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinHeatingCoolingDeltaCelsius { get; set; }
+        public float? MinHeatingCoolingDeltaCelsius { get; set; }
 
         [DataMember(
             Name = "min_heating_cooling_delta_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinHeatingCoolingDeltaFahrenheit { get; set; }
+        public float? MinHeatingCoolingDeltaFahrenheit { get; set; }
 
         [DataMember(
             Name = "min_heating_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinHeatingSetPointCelsius { get; set; }
+        public float? MinHeatingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "min_heating_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float MinHeatingSetPointFahrenheit { get; set; }
+        public float? MinHeatingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "relative_humidity", IsRequired = false, EmitDefaultValue = false)]
-        public float RelativeHumidity { get; set; }
+        public float? RelativeHumidity { get; set; }
 
         [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
-        public float TemperatureCelsius { get; set; }
+        public float? TemperatureCelsius { get; set; }
 
         [DataMember(Name = "temperature_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
-        public float TemperatureFahrenheit { get; set; }
+        public float? TemperatureFahrenheit { get; set; }
 
         [DataMember(Name = "temperature_threshold", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTemperatureThreshold TemperatureThreshold { get; set; }
+        public DevicePropertiesTemperatureThreshold? TemperatureThreshold { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_program_period_precision_minutes",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float ThermostatDailyProgramPeriodPrecisionMinutes { get; set; }
+        public float? ThermostatDailyProgramPeriodPrecisionMinutes { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<DevicePropertiesThermostatDailyPrograms> ThermostatDailyPrograms { get; set; }
+        public List<DevicePropertiesThermostatDailyPrograms>? ThermostatDailyPrograms { get; set; }
 
         [DataMember(
             Name = "thermostat_weekly_program",
@@ -3609,7 +3609,7 @@ namespace Seam.Model
         protected DevicePropertiesAccessoryKeypad() { }
 
         public DevicePropertiesAccessoryKeypad(
-            DevicePropertiesAccessoryKeypadBattery battery = default,
+            DevicePropertiesAccessoryKeypadBattery? battery = default,
             bool isConnected = default
         )
         {
@@ -3618,9 +3618,9 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "battery", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAccessoryKeypadBattery Battery { get; set; }
+        public DevicePropertiesAccessoryKeypadBattery? Battery { get; set; }
 
-        [DataMember(Name = "is_connected", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_connected", IsRequired = false, EmitDefaultValue = false)]
         public bool IsConnected { get; set; }
 
         public override string ToString()
@@ -3654,7 +3654,7 @@ namespace Seam.Model
             Level = level;
         }
 
-        [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public float Level { get; set; }
 
         public override string ToString()
@@ -3688,7 +3688,7 @@ namespace Seam.Model
             Name = name;
         }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
         public override string ToString()
@@ -3745,10 +3745,10 @@ namespace Seam.Model
             Full = 4,
         }
 
-        [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public float Level { get; set; }
 
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesBattery.StatusEnum Status { get; set; }
 
         public override string ToString()
@@ -3778,13 +3778,13 @@ namespace Seam.Model
         protected DevicePropertiesModel() { }
 
         public DevicePropertiesModel(
-            bool accessoryKeypadSupported = default,
-            bool canConnectAccessoryKeypad = default,
+            bool? accessoryKeypadSupported = default,
+            bool? canConnectAccessoryKeypad = default,
             string displayName = default,
-            bool hasBuiltInKeypad = default,
+            bool? hasBuiltInKeypad = default,
             string manufacturerDisplayName = default,
-            bool offlineAccessCodesSupported = default,
-            bool onlineAccessCodesSupported = default
+            bool? offlineAccessCodesSupported = default,
+            bool? onlineAccessCodesSupported = default
         )
         {
             AccessoryKeypadSupported = accessoryKeypadSupported;
@@ -3801,24 +3801,24 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool AccessoryKeypadSupported { get; set; }
+        public bool? AccessoryKeypadSupported { get; set; }
 
         [DataMember(
             Name = "can_connect_accessory_keypad",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanConnectAccessoryKeypad { get; set; }
+        public bool? CanConnectAccessoryKeypad { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "has_built_in_keypad", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasBuiltInKeypad { get; set; }
+        public bool? HasBuiltInKeypad { get; set; }
 
         [DataMember(
             Name = "manufacturer_display_name",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public string ManufacturerDisplayName { get; set; }
@@ -3828,14 +3828,14 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool OfflineAccessCodesSupported { get; set; }
+        public bool? OfflineAccessCodesSupported { get; set; }
 
         [DataMember(
             Name = "online_access_codes_supported",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool OnlineAccessCodesSupported { get; set; }
+        public bool? OnlineAccessCodesSupported { get; set; }
 
         public override string ToString()
         {
@@ -3864,8 +3864,8 @@ namespace Seam.Model
         protected DevicePropertiesAssaAbloyCredentialServiceMetadata() { }
 
         public DevicePropertiesAssaAbloyCredentialServiceMetadata(
-            List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints> endpoints = default,
-            bool hasActiveEndpoint = default
+            List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? endpoints = default,
+            bool? hasActiveEndpoint = default
         )
         {
             Endpoints = endpoints;
@@ -3873,10 +3873,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "endpoints", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints> Endpoints { get; set; }
+        public List<DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints>? Endpoints { get; set; }
 
         [DataMember(Name = "has_active_endpoint", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasActiveEndpoint { get; set; }
+        public bool? HasActiveEndpoint { get; set; }
 
         public override string ToString()
         {
@@ -3907,8 +3907,8 @@ namespace Seam.Model
         protected DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints() { }
 
         public DevicePropertiesAssaAbloyCredentialServiceMetadataEndpoints(
-            string endpointId = default,
-            bool isActive = default
+            string? endpointId = default,
+            bool? isActive = default
         )
         {
             EndpointId = endpointId;
@@ -3916,10 +3916,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "endpoint_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EndpointId { get; set; }
+        public string? EndpointId { get; set; }
 
         [DataMember(Name = "is_active", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public override string ToString()
         {
@@ -3947,13 +3947,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesSaltoSpaceCredentialServiceMetadata() { }
 
-        public DevicePropertiesSaltoSpaceCredentialServiceMetadata(bool hasActivePhone = default)
+        public DevicePropertiesSaltoSpaceCredentialServiceMetadata(bool? hasActivePhone = default)
         {
             HasActivePhone = hasActivePhone;
         }
 
         [DataMember(Name = "has_active_phone", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasActivePhone { get; set; }
+        public bool? HasActivePhone { get; set; }
 
         public override string ToString()
         {
@@ -3982,10 +3982,10 @@ namespace Seam.Model
         protected DevicePropertiesAkilesMetadata() { }
 
         public DevicePropertiesAkilesMetadata(
-            string memberGroupId = default,
-            string gadgetId = default,
-            string gadgetName = default,
-            string productName = default
+            string? memberGroupId = default,
+            string? gadgetId = default,
+            string? gadgetName = default,
+            string? productName = default
         )
         {
             MemberGroupId = memberGroupId;
@@ -3995,16 +3995,16 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "member_group_id", IsRequired = false, EmitDefaultValue = false)]
-        public string MemberGroupId { get; set; }
+        public string? MemberGroupId { get; set; }
 
         [DataMember(Name = "gadget_id", IsRequired = false, EmitDefaultValue = false)]
-        public string GadgetId { get; set; }
+        public string? GadgetId { get; set; }
 
         [DataMember(Name = "gadget_name", IsRequired = false, EmitDefaultValue = false)]
-        public string GadgetName { get; set; }
+        public string? GadgetName { get; set; }
 
         [DataMember(Name = "product_name", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductName { get; set; }
+        public string? ProductName { get; set; }
 
         public override string ToString()
         {
@@ -4032,13 +4032,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesAssaAbloyVostioMetadata() { }
 
-        public DevicePropertiesAssaAbloyVostioMetadata(string encoderName = default)
+        public DevicePropertiesAssaAbloyVostioMetadata(string? encoderName = default)
         {
             EncoderName = encoderName;
         }
 
         [DataMember(Name = "encoder_name", IsRequired = false, EmitDefaultValue = false)]
-        public string EncoderName { get; set; }
+        public string? EncoderName { get; set; }
 
         public override string ToString()
         {
@@ -4067,13 +4067,13 @@ namespace Seam.Model
         protected DevicePropertiesAugustMetadata() { }
 
         public DevicePropertiesAugustMetadata(
-            bool hasKeypad = default,
-            string houseId = default,
-            string houseName = default,
-            string keypadBatteryLevel = default,
-            string lockId = default,
-            string lockName = default,
-            string model = default
+            bool? hasKeypad = default,
+            string? houseId = default,
+            string? houseName = default,
+            string? keypadBatteryLevel = default,
+            string? lockId = default,
+            string? lockName = default,
+            string? model = default
         )
         {
             HasKeypad = hasKeypad;
@@ -4086,25 +4086,25 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "has_keypad", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasKeypad { get; set; }
+        public bool? HasKeypad { get; set; }
 
         [DataMember(Name = "house_id", IsRequired = false, EmitDefaultValue = false)]
-        public string HouseId { get; set; }
+        public string? HouseId { get; set; }
 
         [DataMember(Name = "house_name", IsRequired = false, EmitDefaultValue = false)]
-        public string HouseName { get; set; }
+        public string? HouseName { get; set; }
 
         [DataMember(Name = "keypad_battery_level", IsRequired = false, EmitDefaultValue = false)]
-        public string KeypadBatteryLevel { get; set; }
+        public string? KeypadBatteryLevel { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public string LockId { get; set; }
+        public string? LockId { get; set; }
 
         [DataMember(Name = "lock_name", IsRequired = false, EmitDefaultValue = false)]
-        public string LockName { get; set; }
+        public string? LockName { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -4133,13 +4133,13 @@ namespace Seam.Model
         protected DevicePropertiesAvigilonAltaMetadata() { }
 
         public DevicePropertiesAvigilonAltaMetadata(
-            string entryName = default,
-            float entryRelaysTotalCount = default,
-            string orgName = default,
-            float siteId = default,
-            string siteName = default,
-            float zoneId = default,
-            string zoneName = default
+            string? entryName = default,
+            float? entryRelaysTotalCount = default,
+            string? orgName = default,
+            float? siteId = default,
+            string? siteName = default,
+            float? zoneId = default,
+            string? zoneName = default
         )
         {
             EntryName = entryName;
@@ -4152,29 +4152,29 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "entry_name", IsRequired = false, EmitDefaultValue = false)]
-        public string EntryName { get; set; }
+        public string? EntryName { get; set; }
 
         [DataMember(
             Name = "entry_relays_total_count",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float EntryRelaysTotalCount { get; set; }
+        public float? EntryRelaysTotalCount { get; set; }
 
         [DataMember(Name = "org_name", IsRequired = false, EmitDefaultValue = false)]
-        public string OrgName { get; set; }
+        public string? OrgName { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-        public float SiteId { get; set; }
+        public float? SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteName { get; set; }
+        public string? SiteName { get; set; }
 
         [DataMember(Name = "zone_id", IsRequired = false, EmitDefaultValue = false)]
-        public float ZoneId { get; set; }
+        public float? ZoneId { get; set; }
 
         [DataMember(Name = "zone_name", IsRequired = false, EmitDefaultValue = false)]
-        public string ZoneName { get; set; }
+        public string? ZoneName { get; set; }
 
         public override string ToString()
         {
@@ -4203,8 +4203,8 @@ namespace Seam.Model
         protected DevicePropertiesBrivoMetadata() { }
 
         public DevicePropertiesBrivoMetadata(
-            bool activationEnabled = default,
-            string deviceName = default
+            bool? activationEnabled = default,
+            string? deviceName = default
         )
         {
             ActivationEnabled = activationEnabled;
@@ -4212,10 +4212,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "activation_enabled", IsRequired = false, EmitDefaultValue = false)]
-        public bool ActivationEnabled { get; set; }
+        public bool? ActivationEnabled { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         public override string ToString()
         {
@@ -4244,8 +4244,8 @@ namespace Seam.Model
         protected DevicePropertiesControlbywebMetadata() { }
 
         public DevicePropertiesControlbywebMetadata(
-            string deviceId = default,
-            string deviceName = default,
+            string? deviceId = default,
+            string? deviceName = default,
             string? relayName = default
         )
         {
@@ -4255,10 +4255,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "relay_name", IsRequired = false, EmitDefaultValue = false)]
         public string? RelayName { get; set; }
@@ -4290,15 +4290,15 @@ namespace Seam.Model
         protected DevicePropertiesDormakabaOracodeMetadata() { }
 
         public DevicePropertiesDormakabaOracodeMetadata(
-            DevicePropertiesDormakabaOracodeMetadataDeviceId deviceId = default,
-            float doorId = default,
-            bool doorIsWireless = default,
-            string doorName = default,
-            string ianaTimezone = default,
-            List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots> predefinedTimeSlots =
+            DevicePropertiesDormakabaOracodeMetadataDeviceId? deviceId = default,
+            float? doorId = default,
+            bool? doorIsWireless = default,
+            string? doorName = default,
+            string? ianaTimezone = default,
+            List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots>? predefinedTimeSlots =
                 default,
             float? siteId = default,
-            string siteName = default
+            string? siteName = default
         )
         {
             DeviceId = deviceId;
@@ -4312,28 +4312,28 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDormakabaOracodeMetadataDeviceId DeviceId { get; set; }
+        public DevicePropertiesDormakabaOracodeMetadataDeviceId? DeviceId { get; set; }
 
         [DataMember(Name = "door_id", IsRequired = false, EmitDefaultValue = false)]
-        public float DoorId { get; set; }
+        public float? DoorId { get; set; }
 
         [DataMember(Name = "door_is_wireless", IsRequired = false, EmitDefaultValue = false)]
-        public bool DoorIsWireless { get; set; }
+        public bool? DoorIsWireless { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DoorName { get; set; }
+        public string? DoorName { get; set; }
 
         [DataMember(Name = "iana_timezone", IsRequired = false, EmitDefaultValue = false)]
-        public string IanaTimezone { get; set; }
+        public string? IanaTimezone { get; set; }
 
         [DataMember(Name = "predefined_time_slots", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots> PredefinedTimeSlots { get; set; }
+        public List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots>? PredefinedTimeSlots { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
         public float? SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteName { get; set; }
+        public string? SiteName { get; set; }
 
         public override string ToString()
         {
@@ -4390,16 +4390,16 @@ namespace Seam.Model
         protected DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots() { }
 
         public DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots(
-            string checkInTime = default,
-            string checkOutTime = default,
-            string dormakabaOracodeUserLevelId = default,
-            float dormakabaOracodeUserLevelPrefix = default,
-            bool is_24Hour = default,
-            bool isBiweeklyMode = default,
-            bool isMaster = default,
-            bool isOneShot = default,
-            string name = default,
-            float prefix = default
+            string? checkInTime = default,
+            string? checkOutTime = default,
+            string? dormakabaOracodeUserLevelId = default,
+            float? dormakabaOracodeUserLevelPrefix = default,
+            bool? is_24Hour = default,
+            bool? isBiweeklyMode = default,
+            bool? isMaster = default,
+            bool? isOneShot = default,
+            string? name = default,
+            float? prefix = default
         )
         {
             CheckInTime = checkInTime;
@@ -4415,42 +4415,42 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "check_in_time", IsRequired = false, EmitDefaultValue = false)]
-        public string CheckInTime { get; set; }
+        public string? CheckInTime { get; set; }
 
         [DataMember(Name = "check_out_time", IsRequired = false, EmitDefaultValue = false)]
-        public string CheckOutTime { get; set; }
+        public string? CheckOutTime { get; set; }
 
         [DataMember(
             Name = "dormakaba_oracode_user_level_id",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string DormakabaOracodeUserLevelId { get; set; }
+        public string? DormakabaOracodeUserLevelId { get; set; }
 
         [DataMember(
             Name = "dormakaba_oracode_user_level_prefix",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float DormakabaOracodeUserLevelPrefix { get; set; }
+        public float? DormakabaOracodeUserLevelPrefix { get; set; }
 
         [DataMember(Name = "is_24_hour", IsRequired = false, EmitDefaultValue = false)]
-        public bool Is_24Hour { get; set; }
+        public bool? Is_24Hour { get; set; }
 
         [DataMember(Name = "is_biweekly_mode", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsBiweeklyMode { get; set; }
+        public bool? IsBiweeklyMode { get; set; }
 
         [DataMember(Name = "is_master", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsMaster { get; set; }
+        public bool? IsMaster { get; set; }
 
         [DataMember(Name = "is_one_shot", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOneShot { get; set; }
+        public bool? IsOneShot { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [DataMember(Name = "prefix", IsRequired = false, EmitDefaultValue = false)]
-        public float Prefix { get; set; }
+        public float? Prefix { get; set; }
 
         public override string ToString()
         {
@@ -4479,8 +4479,8 @@ namespace Seam.Model
         protected DevicePropertiesEcobeeMetadata() { }
 
         public DevicePropertiesEcobeeMetadata(
-            string deviceName = default,
-            string ecobeeDeviceId = default
+            string? deviceName = default,
+            string? ecobeeDeviceId = default
         )
         {
             DeviceName = deviceName;
@@ -4488,10 +4488,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "ecobee_device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EcobeeDeviceId { get; set; }
+        public string? EcobeeDeviceId { get; set; }
 
         public override string ToString()
         {
@@ -4520,9 +4520,9 @@ namespace Seam.Model
         protected DevicePropertiesFourSuitesMetadata() { }
 
         public DevicePropertiesFourSuitesMetadata(
-            float deviceId = default,
-            string deviceName = default,
-            float recloseDelayInSeconds = default
+            float? deviceId = default,
+            string? deviceName = default,
+            float? recloseDelayInSeconds = default
         )
         {
             DeviceId = deviceId;
@@ -4531,17 +4531,17 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public float DeviceId { get; set; }
+        public float? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(
             Name = "reclose_delay_in_seconds",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float RecloseDelayInSeconds { get; set; }
+        public float? RecloseDelayInSeconds { get; set; }
 
         public override string ToString()
         {
@@ -4569,17 +4569,20 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesGenieMetadata() { }
 
-        public DevicePropertiesGenieMetadata(string deviceName = default, string doorName = default)
+        public DevicePropertiesGenieMetadata(
+            string? deviceName = default,
+            string? doorName = default
+        )
         {
             DeviceName = deviceName;
             DoorName = doorName;
         }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DoorName { get; set; }
+        public string? DoorName { get; set; }
 
         public override string ToString()
         {
@@ -4608,8 +4611,8 @@ namespace Seam.Model
         protected DevicePropertiesHoneywellResideoMetadata() { }
 
         public DevicePropertiesHoneywellResideoMetadata(
-            string deviceName = default,
-            string honeywellResideoDeviceId = default
+            string? deviceName = default,
+            string? honeywellResideoDeviceId = default
         )
         {
             DeviceName = deviceName;
@@ -4617,14 +4620,14 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(
             Name = "honeywell_resideo_device_id",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string HoneywellResideoDeviceId { get; set; }
+        public string? HoneywellResideoDeviceId { get; set; }
 
         public override string ToString()
         {
@@ -4653,9 +4656,9 @@ namespace Seam.Model
         protected DevicePropertiesIglooMetadata() { }
 
         public DevicePropertiesIglooMetadata(
-            string bridgeId = default,
-            string deviceId = default,
-            string model = default
+            string? bridgeId = default,
+            string? deviceId = default,
+            string? model = default
         )
         {
             BridgeId = bridgeId;
@@ -4664,13 +4667,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "bridge_id", IsRequired = false, EmitDefaultValue = false)]
-        public string BridgeId { get; set; }
+        public string? BridgeId { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -4699,12 +4702,12 @@ namespace Seam.Model
         protected DevicePropertiesIgloohomeMetadata() { }
 
         public DevicePropertiesIgloohomeMetadata(
-            string bridgeId = default,
-            string bridgeName = default,
-            string deviceId = default,
-            string deviceName = default,
-            bool isAccessoryKeypadLinkedToBridge = default,
-            string keypadId = default
+            string? bridgeId = default,
+            string? bridgeName = default,
+            string? deviceId = default,
+            string? deviceName = default,
+            bool? isAccessoryKeypadLinkedToBridge = default,
+            string? keypadId = default
         )
         {
             BridgeId = bridgeId;
@@ -4716,26 +4719,26 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "bridge_id", IsRequired = false, EmitDefaultValue = false)]
-        public string BridgeId { get; set; }
+        public string? BridgeId { get; set; }
 
         [DataMember(Name = "bridge_name", IsRequired = false, EmitDefaultValue = false)]
-        public string BridgeName { get; set; }
+        public string? BridgeName { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(
             Name = "is_accessory_keypad_linked_to_bridge",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IsAccessoryKeypadLinkedToBridge { get; set; }
+        public bool? IsAccessoryKeypadLinkedToBridge { get; set; }
 
         [DataMember(Name = "keypad_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeypadId { get; set; }
+        public string? KeypadId { get; set; }
 
         public override string ToString()
         {
@@ -4765,26 +4768,26 @@ namespace Seam.Model
 
         public DevicePropertiesKeynestMetadata(
             string? address = default,
-            float currentOrLastStoreId = default,
+            float? currentOrLastStoreId = default,
             string? currentStatus = default,
             string? currentUserCompany = default,
             string? currentUserEmail = default,
             string? currentUserName = default,
             string? currentUserPhoneNumber = default,
-            float defaultOfficeId = default,
-            string deviceName = default,
-            float fobId = default,
+            float? defaultOfficeId = default,
+            string? deviceName = default,
+            float? fobId = default,
             string? handoverMethod = default,
-            bool hasPhoto = default,
-            bool isQuadientLocker = default,
-            string keyId = default,
+            bool? hasPhoto = default,
+            bool? isQuadientLocker = default,
+            string? keyId = default,
             string? keyNotes = default,
             string? keynestAppUser = default,
-            string lastMovement = default,
+            string? lastMovement = default,
             string? propertyId = default,
             string? propertyPostcode = default,
-            string statusType = default,
-            string subscriptionPlan = default
+            string? statusType = default,
+            string? subscriptionPlan = default
         )
         {
             Address = address;
@@ -4818,7 +4821,7 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CurrentOrLastStoreId { get; set; }
+        public float? CurrentOrLastStoreId { get; set; }
 
         [DataMember(Name = "current_status", IsRequired = false, EmitDefaultValue = false)]
         public string? CurrentStatus { get; set; }
@@ -4840,25 +4843,25 @@ namespace Seam.Model
         public string? CurrentUserPhoneNumber { get; set; }
 
         [DataMember(Name = "default_office_id", IsRequired = false, EmitDefaultValue = false)]
-        public float DefaultOfficeId { get; set; }
+        public float? DefaultOfficeId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "fob_id", IsRequired = false, EmitDefaultValue = false)]
-        public float FobId { get; set; }
+        public float? FobId { get; set; }
 
         [DataMember(Name = "handover_method", IsRequired = false, EmitDefaultValue = false)]
         public string? HandoverMethod { get; set; }
 
         [DataMember(Name = "has_photo", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasPhoto { get; set; }
+        public bool? HasPhoto { get; set; }
 
         [DataMember(Name = "is_quadient_locker", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsQuadientLocker { get; set; }
+        public bool? IsQuadientLocker { get; set; }
 
         [DataMember(Name = "key_id", IsRequired = false, EmitDefaultValue = false)]
-        public string KeyId { get; set; }
+        public string? KeyId { get; set; }
 
         [DataMember(Name = "key_notes", IsRequired = false, EmitDefaultValue = false)]
         public string? KeyNotes { get; set; }
@@ -4867,7 +4870,7 @@ namespace Seam.Model
         public string? KeynestAppUser { get; set; }
 
         [DataMember(Name = "last_movement", IsRequired = false, EmitDefaultValue = false)]
-        public string LastMovement { get; set; }
+        public string? LastMovement { get; set; }
 
         [DataMember(Name = "property_id", IsRequired = false, EmitDefaultValue = false)]
         public string? PropertyId { get; set; }
@@ -4876,10 +4879,10 @@ namespace Seam.Model
         public string? PropertyPostcode { get; set; }
 
         [DataMember(Name = "status_type", IsRequired = false, EmitDefaultValue = false)]
-        public string StatusType { get; set; }
+        public string? StatusType { get; set; }
 
         [DataMember(Name = "subscription_plan", IsRequired = false, EmitDefaultValue = false)]
-        public string SubscriptionPlan { get; set; }
+        public string? SubscriptionPlan { get; set; }
 
         public override string ToString()
         {
@@ -4909,8 +4912,8 @@ namespace Seam.Model
 
         public DevicePropertiesKisiMetadata(
             string? description = default,
-            float lockId = default,
-            string lockName = default,
+            float? lockId = default,
+            string? lockName = default,
             string? placeName = default
         )
         {
@@ -4924,10 +4927,10 @@ namespace Seam.Model
         public string? Description { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public float LockId { get; set; }
+        public float? LockId { get; set; }
 
         [DataMember(Name = "lock_name", IsRequired = false, EmitDefaultValue = false)]
-        public string LockName { get; set; }
+        public string? LockName { get; set; }
 
         [DataMember(Name = "place_name", IsRequired = false, EmitDefaultValue = false)]
         public string? PlaceName { get; set; }
@@ -4959,13 +4962,13 @@ namespace Seam.Model
         protected DevicePropertiesKorelockMetadata() { }
 
         public DevicePropertiesKorelockMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string firmwareVersion = default,
+            string? deviceId = default,
+            string? deviceName = default,
+            string? firmwareVersion = default,
             string? locationId = default,
-            string modelCode = default,
-            string serialNumber = default,
-            float wifiSignalStrength = default
+            string? modelCode = default,
+            string? serialNumber = default,
+            float? wifiSignalStrength = default
         )
         {
             DeviceId = deviceId;
@@ -4978,25 +4981,25 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
-        public string FirmwareVersion { get; set; }
+        public string? FirmwareVersion { get; set; }
 
         [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
         public string? LocationId { get; set; }
 
         [DataMember(Name = "model_code", IsRequired = false, EmitDefaultValue = false)]
-        public string ModelCode { get; set; }
+        public string? ModelCode { get; set; }
 
         [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
-        public string SerialNumber { get; set; }
+        public string? SerialNumber { get; set; }
 
         [DataMember(Name = "wifi_signal_strength", IsRequired = false, EmitDefaultValue = false)]
-        public float WifiSignalStrength { get; set; }
+        public float? WifiSignalStrength { get; set; }
 
         public override string ToString()
         {
@@ -5025,9 +5028,9 @@ namespace Seam.Model
         protected DevicePropertiesKwiksetMetadata() { }
 
         public DevicePropertiesKwiksetMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string modelNumber = default
+            string? deviceId = default,
+            string? deviceName = default,
+            string? modelNumber = default
         )
         {
             DeviceId = deviceId;
@@ -5036,13 +5039,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "model_number", IsRequired = false, EmitDefaultValue = false)]
-        public string ModelNumber { get; set; }
+        public string? ModelNumber { get; set; }
 
         public override string ToString()
         {
@@ -5071,9 +5074,9 @@ namespace Seam.Model
         protected DevicePropertiesLocklyMetadata() { }
 
         public DevicePropertiesLocklyMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string model = default
+            string? deviceId = default,
+            string? deviceName = default,
+            string? model = default
         )
         {
             DeviceId = deviceId;
@@ -5082,13 +5085,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -5117,9 +5120,9 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadata() { }
 
         public DevicePropertiesMinutMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            DevicePropertiesMinutMetadataLatestSensorValues latestSensorValues = default
+            string? deviceId = default,
+            string? deviceName = default,
+            DevicePropertiesMinutMetadataLatestSensorValues? latestSensorValues = default
         )
         {
             DeviceId = deviceId;
@@ -5128,13 +5131,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "latest_sensor_values", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValues LatestSensorValues { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValues? LatestSensorValues { get; set; }
 
         public override string ToString()
         {
@@ -5163,11 +5166,11 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValues() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValues(
-            DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ accelerometerZ = default,
-            DevicePropertiesMinutMetadataLatestSensorValuesHumidity humidity = default,
-            DevicePropertiesMinutMetadataLatestSensorValuesPressure pressure = default,
-            DevicePropertiesMinutMetadataLatestSensorValuesSound sound = default,
-            DevicePropertiesMinutMetadataLatestSensorValuesTemperature temperature = default
+            DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ? accelerometerZ = default,
+            DevicePropertiesMinutMetadataLatestSensorValuesHumidity? humidity = default,
+            DevicePropertiesMinutMetadataLatestSensorValuesPressure? pressure = default,
+            DevicePropertiesMinutMetadataLatestSensorValuesSound? sound = default,
+            DevicePropertiesMinutMetadataLatestSensorValuesTemperature? temperature = default
         )
         {
             AccelerometerZ = accelerometerZ;
@@ -5178,19 +5181,19 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "accelerometer_z", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ AccelerometerZ { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ? AccelerometerZ { get; set; }
 
         [DataMember(Name = "humidity", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValuesHumidity Humidity { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValuesHumidity? Humidity { get; set; }
 
         [DataMember(Name = "pressure", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValuesPressure Pressure { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValuesPressure? Pressure { get; set; }
 
         [DataMember(Name = "sound", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValuesSound Sound { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValuesSound? Sound { get; set; }
 
         [DataMember(Name = "temperature", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesMinutMetadataLatestSensorValuesTemperature Temperature { get; set; }
+        public DevicePropertiesMinutMetadataLatestSensorValuesTemperature? Temperature { get; set; }
 
         public override string ToString()
         {
@@ -5221,8 +5224,8 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValuesAccelerometerZ(
-            string time = default,
-            float value = default
+            string? time = default,
+            float? value = default
         )
         {
             Time = time;
@@ -5230,10 +5233,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public string Time { get; set; }
+        public string? Time { get; set; }
 
         [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-        public float Value { get; set; }
+        public float? Value { get; set; }
 
         public override string ToString()
         {
@@ -5262,8 +5265,8 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValuesHumidity() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValuesHumidity(
-            string time = default,
-            float value = default
+            string? time = default,
+            float? value = default
         )
         {
             Time = time;
@@ -5271,10 +5274,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public string Time { get; set; }
+        public string? Time { get; set; }
 
         [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-        public float Value { get; set; }
+        public float? Value { get; set; }
 
         public override string ToString()
         {
@@ -5303,8 +5306,8 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValuesPressure() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValuesPressure(
-            string time = default,
-            float value = default
+            string? time = default,
+            float? value = default
         )
         {
             Time = time;
@@ -5312,10 +5315,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public string Time { get; set; }
+        public string? Time { get; set; }
 
         [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-        public float Value { get; set; }
+        public float? Value { get; set; }
 
         public override string ToString()
         {
@@ -5344,8 +5347,8 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValuesSound() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValuesSound(
-            string time = default,
-            float value = default
+            string? time = default,
+            float? value = default
         )
         {
             Time = time;
@@ -5353,10 +5356,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public string Time { get; set; }
+        public string? Time { get; set; }
 
         [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-        public float Value { get; set; }
+        public float? Value { get; set; }
 
         public override string ToString()
         {
@@ -5387,8 +5390,8 @@ namespace Seam.Model
         protected DevicePropertiesMinutMetadataLatestSensorValuesTemperature() { }
 
         public DevicePropertiesMinutMetadataLatestSensorValuesTemperature(
-            string time = default,
-            float value = default
+            string? time = default,
+            float? value = default
         )
         {
             Time = time;
@@ -5396,10 +5399,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public string Time { get; set; }
+        public string? Time { get; set; }
 
         [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-        public float Value { get; set; }
+        public float? Value { get; set; }
 
         public override string ToString()
         {
@@ -5428,10 +5431,10 @@ namespace Seam.Model
         protected DevicePropertiesNestMetadata() { }
 
         public DevicePropertiesNestMetadata(
-            string deviceCustomName = default,
-            string deviceName = default,
-            string displayName = default,
-            string nestDeviceId = default
+            string? deviceCustomName = default,
+            string? deviceName = default,
+            string? displayName = default,
+            string? nestDeviceId = default
         )
         {
             DeviceCustomName = deviceCustomName;
@@ -5441,16 +5444,16 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_custom_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceCustomName { get; set; }
+        public string? DeviceCustomName { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [DataMember(Name = "nest_device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string NestDeviceId { get; set; }
+        public string? NestDeviceId { get; set; }
 
         public override string ToString()
         {
@@ -5479,11 +5482,11 @@ namespace Seam.Model
         protected DevicePropertiesNoiseawareMetadata() { }
 
         public DevicePropertiesNoiseawareMetadata(
-            string deviceId = default,
-            DevicePropertiesNoiseawareMetadata.DeviceModelEnum deviceModel = default,
-            string deviceName = default,
-            float noiseLevelDecibel = default,
-            float noiseLevelNrs = default
+            string? deviceId = default,
+            DevicePropertiesNoiseawareMetadata.DeviceModelEnum? deviceModel = default,
+            string? deviceName = default,
+            float? noiseLevelDecibel = default,
+            float? noiseLevelNrs = default
         )
         {
             DeviceId = deviceId;
@@ -5507,19 +5510,19 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesNoiseawareMetadata.DeviceModelEnum DeviceModel { get; set; }
+        public DevicePropertiesNoiseawareMetadata.DeviceModelEnum? DeviceModel { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "noise_level_decibel", IsRequired = false, EmitDefaultValue = false)]
-        public float NoiseLevelDecibel { get; set; }
+        public float? NoiseLevelDecibel { get; set; }
 
         [DataMember(Name = "noise_level_nrs", IsRequired = false, EmitDefaultValue = false)]
-        public float NoiseLevelNrs { get; set; }
+        public float? NoiseLevelNrs { get; set; }
 
         public override string ToString()
         {
@@ -5548,11 +5551,11 @@ namespace Seam.Model
         protected DevicePropertiesNukiMetadata() { }
 
         public DevicePropertiesNukiMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            bool keypad_2Paired = default,
-            bool keypadBatteryCritical = default,
-            bool keypadPaired = default
+            string? deviceId = default,
+            string? deviceName = default,
+            bool? keypad_2Paired = default,
+            bool? keypadBatteryCritical = default,
+            bool? keypadPaired = default
         )
         {
             DeviceId = deviceId;
@@ -5563,19 +5566,19 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "keypad_2_paired", IsRequired = false, EmitDefaultValue = false)]
-        public bool Keypad_2Paired { get; set; }
+        public bool? Keypad_2Paired { get; set; }
 
         [DataMember(Name = "keypad_battery_critical", IsRequired = false, EmitDefaultValue = false)]
-        public bool KeypadBatteryCritical { get; set; }
+        public bool? KeypadBatteryCritical { get; set; }
 
         [DataMember(Name = "keypad_paired", IsRequired = false, EmitDefaultValue = false)]
-        public bool KeypadPaired { get; set; }
+        public bool? KeypadPaired { get; set; }
 
         public override string ToString()
         {
@@ -5604,13 +5607,13 @@ namespace Seam.Model
         protected DevicePropertiesOmnitecMetadata() { }
 
         public DevicePropertiesOmnitecMetadata(
-            bool hasGateway = default,
-            string lockAlias = default,
-            float lockId = default,
-            string lockMac = default,
-            string lockName = default,
+            bool? hasGateway = default,
+            string? lockAlias = default,
+            float? lockId = default,
+            string? lockMac = default,
+            string? lockName = default,
             string? timeZone = default,
-            float timezoneRawOffsetMs = default
+            float? timezoneRawOffsetMs = default
         )
         {
             HasGateway = hasGateway;
@@ -5623,25 +5626,25 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "has_gateway", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasGateway { get; set; }
+        public bool? HasGateway { get; set; }
 
         [DataMember(Name = "lock_alias", IsRequired = false, EmitDefaultValue = false)]
-        public string LockAlias { get; set; }
+        public string? LockAlias { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public float LockId { get; set; }
+        public float? LockId { get; set; }
 
         [DataMember(Name = "lock_mac", IsRequired = false, EmitDefaultValue = false)]
-        public string LockMac { get; set; }
+        public string? LockMac { get; set; }
 
         [DataMember(Name = "lock_name", IsRequired = false, EmitDefaultValue = false)]
-        public string LockName { get; set; }
+        public string? LockName { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
 
         [DataMember(Name = "timezone_raw_offset_ms", IsRequired = false, EmitDefaultValue = false)]
-        public float TimezoneRawOffsetMs { get; set; }
+        public float? TimezoneRawOffsetMs { get; set; }
 
         public override string ToString()
         {
@@ -5669,17 +5672,20 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesRingMetadata() { }
 
-        public DevicePropertiesRingMetadata(string deviceId = default, string deviceName = default)
+        public DevicePropertiesRingMetadata(
+            string? deviceId = default,
+            string? deviceName = default
+        )
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         public override string ToString()
         {
@@ -5708,15 +5714,15 @@ namespace Seam.Model
         protected DevicePropertiesSaltoKsMetadata() { }
 
         public DevicePropertiesSaltoKsMetadata(
-            string batteryLevel = default,
-            string customerReference = default,
-            bool hasCustomPinSubscription = default,
-            string lockId = default,
-            string lockType = default,
-            string lockedState = default,
-            string model = default,
-            string siteId = default,
-            string siteName = default
+            string? batteryLevel = default,
+            string? customerReference = default,
+            bool? hasCustomPinSubscription = default,
+            string? lockId = default,
+            string? lockType = default,
+            string? lockedState = default,
+            string? model = default,
+            string? siteId = default,
+            string? siteName = default
         )
         {
             BatteryLevel = batteryLevel;
@@ -5731,35 +5737,35 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
-        public string BatteryLevel { get; set; }
+        public string? BatteryLevel { get; set; }
 
         [DataMember(Name = "customer_reference", IsRequired = false, EmitDefaultValue = false)]
-        public string CustomerReference { get; set; }
+        public string? CustomerReference { get; set; }
 
         [DataMember(
             Name = "has_custom_pin_subscription",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool HasCustomPinSubscription { get; set; }
+        public bool? HasCustomPinSubscription { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public string LockId { get; set; }
+        public string? LockId { get; set; }
 
         [DataMember(Name = "lock_type", IsRequired = false, EmitDefaultValue = false)]
-        public string LockType { get; set; }
+        public string? LockType { get; set; }
 
         [DataMember(Name = "locked_state", IsRequired = false, EmitDefaultValue = false)]
-        public string LockedState { get; set; }
+        public string? LockedState { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteId { get; set; }
+        public string? SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteName { get; set; }
+        public string? SiteName { get; set; }
 
         public override string ToString()
         {
@@ -5788,14 +5794,14 @@ namespace Seam.Model
         protected DevicePropertiesSaltoMetadata() { }
 
         public DevicePropertiesSaltoMetadata(
-            string batteryLevel = default,
-            string customerReference = default,
-            string lockId = default,
-            string lockType = default,
-            string lockedState = default,
-            string model = default,
-            string siteId = default,
-            string siteName = default
+            string? batteryLevel = default,
+            string? customerReference = default,
+            string? lockId = default,
+            string? lockType = default,
+            string? lockedState = default,
+            string? model = default,
+            string? siteId = default,
+            string? siteName = default
         )
         {
             BatteryLevel = batteryLevel;
@@ -5809,28 +5815,28 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
-        public string BatteryLevel { get; set; }
+        public string? BatteryLevel { get; set; }
 
         [DataMember(Name = "customer_reference", IsRequired = false, EmitDefaultValue = false)]
-        public string CustomerReference { get; set; }
+        public string? CustomerReference { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public string LockId { get; set; }
+        public string? LockId { get; set; }
 
         [DataMember(Name = "lock_type", IsRequired = false, EmitDefaultValue = false)]
-        public string LockType { get; set; }
+        public string? LockType { get; set; }
 
         [DataMember(Name = "locked_state", IsRequired = false, EmitDefaultValue = false)]
-        public string LockedState { get; set; }
+        public string? LockedState { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteId { get; set; }
+        public string? SiteId { get; set; }
 
         [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
-        public string SiteName { get; set; }
+        public string? SiteName { get; set; }
 
         public override string ToString()
         {
@@ -5859,9 +5865,9 @@ namespace Seam.Model
         protected DevicePropertiesSchlageMetadata() { }
 
         public DevicePropertiesSchlageMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string model = default
+            string? deviceId = default,
+            string? deviceName = default,
+            string? model = default
         )
         {
             DeviceId = deviceId;
@@ -5870,13 +5876,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -5905,9 +5911,9 @@ namespace Seam.Model
         protected DevicePropertiesSeamBridgeMetadata() { }
 
         public DevicePropertiesSeamBridgeMetadata(
-            float deviceNum = default,
-            string name = default,
-            DevicePropertiesSeamBridgeMetadata.UnlockMethodEnum unlockMethod = default
+            float? deviceNum = default,
+            string? name = default,
+            DevicePropertiesSeamBridgeMetadata.UnlockMethodEnum? unlockMethod = default
         )
         {
             DeviceNum = deviceNum;
@@ -5929,13 +5935,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_num", IsRequired = false, EmitDefaultValue = false)]
-        public float DeviceNum { get; set; }
+        public float? DeviceNum { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [DataMember(Name = "unlock_method", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesSeamBridgeMetadata.UnlockMethodEnum UnlockMethod { get; set; }
+        public DevicePropertiesSeamBridgeMetadata.UnlockMethodEnum? UnlockMethod { get; set; }
 
         public override string ToString()
         {
@@ -5964,10 +5970,10 @@ namespace Seam.Model
         protected DevicePropertiesSensiMetadata() { }
 
         public DevicePropertiesSensiMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            bool dualSetpointsNotSupported = default,
-            string productType = default
+            string? deviceId = default,
+            string? deviceName = default,
+            bool? dualSetpointsNotSupported = default,
+            string? productType = default
         )
         {
             DeviceId = deviceId;
@@ -5977,20 +5983,20 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(
             Name = "dual_setpoints_not_supported",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool DualSetpointsNotSupported { get; set; }
+        public bool? DualSetpointsNotSupported { get; set; }
 
         [DataMember(Name = "product_type", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductType { get; set; }
+        public string? ProductType { get; set; }
 
         public override string ToString()
         {
@@ -6019,10 +6025,10 @@ namespace Seam.Model
         protected DevicePropertiesSmartthingsMetadata() { }
 
         public DevicePropertiesSmartthingsMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string locationId = default,
-            string model = default
+            string? deviceId = default,
+            string? deviceName = default,
+            string? locationId = default,
+            string? model = default
         )
         {
             DeviceId = deviceId;
@@ -6032,16 +6038,16 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
-        public string LocationId { get; set; }
+        public string? LocationId { get; set; }
 
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -6069,17 +6075,20 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesTadoMetadata() { }
 
-        public DevicePropertiesTadoMetadata(string deviceType = default, string serialNo = default)
+        public DevicePropertiesTadoMetadata(
+            string? deviceType = default,
+            string? serialNo = default
+        )
         {
             DeviceType = deviceType;
             SerialNo = serialNo;
         }
 
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceType { get; set; }
+        public string? DeviceType { get; set; }
 
         [DataMember(Name = "serial_no", IsRequired = false, EmitDefaultValue = false)]
-        public string SerialNo { get; set; }
+        public string? SerialNo { get; set; }
 
         public override string ToString()
         {
@@ -6108,13 +6117,13 @@ namespace Seam.Model
         protected DevicePropertiesTedeeMetadata() { }
 
         public DevicePropertiesTedeeMetadata(
-            float bridgeId = default,
-            string bridgeName = default,
-            float deviceId = default,
-            string deviceModel = default,
-            string deviceName = default,
-            float keypadId = default,
-            string serialNumber = default
+            float? bridgeId = default,
+            string? bridgeName = default,
+            float? deviceId = default,
+            string? deviceModel = default,
+            string? deviceName = default,
+            float? keypadId = default,
+            string? serialNumber = default
         )
         {
             BridgeId = bridgeId;
@@ -6127,25 +6136,25 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "bridge_id", IsRequired = false, EmitDefaultValue = false)]
-        public float BridgeId { get; set; }
+        public float? BridgeId { get; set; }
 
         [DataMember(Name = "bridge_name", IsRequired = false, EmitDefaultValue = false)]
-        public string BridgeName { get; set; }
+        public string? BridgeName { get; set; }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public float DeviceId { get; set; }
+        public float? DeviceId { get; set; }
 
         [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceModel { get; set; }
+        public string? DeviceModel { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "keypad_id", IsRequired = false, EmitDefaultValue = false)]
-        public float KeypadId { get; set; }
+        public float? KeypadId { get; set; }
 
         [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
-        public string SerialNumber { get; set; }
+        public string? SerialNumber { get; set; }
 
         public override string ToString()
         {
@@ -6174,13 +6183,13 @@ namespace Seam.Model
         protected DevicePropertiesTtlockMetadata() { }
 
         public DevicePropertiesTtlockMetadata(
-            string featureValue = default,
-            DevicePropertiesTtlockMetadataFeatures features = default,
-            bool hasGateway = default,
-            string lockAlias = default,
-            float lockId = default,
+            string? featureValue = default,
+            DevicePropertiesTtlockMetadataFeatures? features = default,
+            bool? hasGateway = default,
+            string? lockAlias = default,
+            float? lockId = default,
             float? timezoneRawOffsetMs = default,
-            List<DevicePropertiesTtlockMetadataWirelessKeypads> wirelessKeypads = default
+            List<DevicePropertiesTtlockMetadataWirelessKeypads>? wirelessKeypads = default
         )
         {
             FeatureValue = featureValue;
@@ -6193,25 +6202,25 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "feature_value", IsRequired = false, EmitDefaultValue = false)]
-        public string FeatureValue { get; set; }
+        public string? FeatureValue { get; set; }
 
         [DataMember(Name = "features", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesTtlockMetadataFeatures Features { get; set; }
+        public DevicePropertiesTtlockMetadataFeatures? Features { get; set; }
 
         [DataMember(Name = "has_gateway", IsRequired = false, EmitDefaultValue = false)]
-        public bool HasGateway { get; set; }
+        public bool? HasGateway { get; set; }
 
         [DataMember(Name = "lock_alias", IsRequired = false, EmitDefaultValue = false)]
-        public string LockAlias { get; set; }
+        public string? LockAlias { get; set; }
 
         [DataMember(Name = "lock_id", IsRequired = false, EmitDefaultValue = false)]
-        public float LockId { get; set; }
+        public float? LockId { get; set; }
 
         [DataMember(Name = "timezone_raw_offset_ms", IsRequired = false, EmitDefaultValue = false)]
         public float? TimezoneRawOffsetMs { get; set; }
 
         [DataMember(Name = "wireless_keypads", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesTtlockMetadataWirelessKeypads> WirelessKeypads { get; set; }
+        public List<DevicePropertiesTtlockMetadataWirelessKeypads>? WirelessKeypads { get; set; }
 
         public override string ToString()
         {
@@ -6240,13 +6249,13 @@ namespace Seam.Model
         protected DevicePropertiesTtlockMetadataFeatures() { }
 
         public DevicePropertiesTtlockMetadataFeatures(
-            bool autoLockTimeConfig = default,
-            bool incompleteKeyboardPasscode = default,
-            bool lockCommand = default,
-            bool passcode = default,
-            bool passcodeManagement = default,
-            bool unlockViaGateway = default,
-            bool wifi = default
+            bool? autoLockTimeConfig = default,
+            bool? incompleteKeyboardPasscode = default,
+            bool? lockCommand = default,
+            bool? passcode = default,
+            bool? passcodeManagement = default,
+            bool? unlockViaGateway = default,
+            bool? wifi = default
         )
         {
             AutoLockTimeConfig = autoLockTimeConfig;
@@ -6259,29 +6268,29 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "auto_lock_time_config", IsRequired = false, EmitDefaultValue = false)]
-        public bool AutoLockTimeConfig { get; set; }
+        public bool? AutoLockTimeConfig { get; set; }
 
         [DataMember(
             Name = "incomplete_keyboard_passcode",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool IncompleteKeyboardPasscode { get; set; }
+        public bool? IncompleteKeyboardPasscode { get; set; }
 
         [DataMember(Name = "lock_command", IsRequired = false, EmitDefaultValue = false)]
-        public bool LockCommand { get; set; }
+        public bool? LockCommand { get; set; }
 
         [DataMember(Name = "passcode", IsRequired = false, EmitDefaultValue = false)]
-        public bool Passcode { get; set; }
+        public bool? Passcode { get; set; }
 
         [DataMember(Name = "passcode_management", IsRequired = false, EmitDefaultValue = false)]
-        public bool PasscodeManagement { get; set; }
+        public bool? PasscodeManagement { get; set; }
 
         [DataMember(Name = "unlock_via_gateway", IsRequired = false, EmitDefaultValue = false)]
-        public bool UnlockViaGateway { get; set; }
+        public bool? UnlockViaGateway { get; set; }
 
         [DataMember(Name = "wifi", IsRequired = false, EmitDefaultValue = false)]
-        public bool Wifi { get; set; }
+        public bool? Wifi { get; set; }
 
         public override string ToString()
         {
@@ -6310,8 +6319,8 @@ namespace Seam.Model
         protected DevicePropertiesTtlockMetadataWirelessKeypads() { }
 
         public DevicePropertiesTtlockMetadataWirelessKeypads(
-            float wirelessKeypadId = default,
-            string wirelessKeypadName = default
+            float? wirelessKeypadId = default,
+            string? wirelessKeypadName = default
         )
         {
             WirelessKeypadId = wirelessKeypadId;
@@ -6319,10 +6328,10 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "wireless_keypad_id", IsRequired = false, EmitDefaultValue = false)]
-        public float WirelessKeypadId { get; set; }
+        public float? WirelessKeypadId { get; set; }
 
         [DataMember(Name = "wireless_keypad_name", IsRequired = false, EmitDefaultValue = false)]
-        public string WirelessKeypadName { get; set; }
+        public string? WirelessKeypadName { get; set; }
 
         public override string ToString()
         {
@@ -6350,17 +6359,17 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesTwoNMetadata() { }
 
-        public DevicePropertiesTwoNMetadata(float deviceId = default, string deviceName = default)
+        public DevicePropertiesTwoNMetadata(float? deviceId = default, string? deviceName = default)
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public float DeviceId { get; set; }
+        public float? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         public override string ToString()
         {
@@ -6389,9 +6398,9 @@ namespace Seam.Model
         protected DevicePropertiesUltraloqMetadata() { }
 
         public DevicePropertiesUltraloqMetadata(
-            string deviceId = default,
-            string deviceName = default,
-            string deviceType = default,
+            string? deviceId = default,
+            string? deviceName = default,
+            string? deviceType = default,
             string? timeZone = default
         )
         {
@@ -6402,13 +6411,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceType { get; set; }
+        public string? DeviceType { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
@@ -6439,13 +6448,13 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected DevicePropertiesVisionlineMetadata() { }
 
-        public DevicePropertiesVisionlineMetadata(string encoderId = default)
+        public DevicePropertiesVisionlineMetadata(string? encoderId = default)
         {
             EncoderId = encoderId;
         }
 
         [DataMember(Name = "encoder_id", IsRequired = false, EmitDefaultValue = false)]
-        public string EncoderId { get; set; }
+        public string? EncoderId { get; set; }
 
         public override string ToString()
         {
@@ -6474,14 +6483,14 @@ namespace Seam.Model
         protected DevicePropertiesWyzeMetadata() { }
 
         public DevicePropertiesWyzeMetadata(
-            string deviceId = default,
-            string deviceInfoModel = default,
-            string deviceName = default,
-            string keypadUuid = default,
-            float lockerStatusHardlock = default,
-            string productModel = default,
-            string productName = default,
-            string productType = default
+            string? deviceId = default,
+            string? deviceInfoModel = default,
+            string? deviceName = default,
+            string? keypadUuid = default,
+            float? lockerStatusHardlock = default,
+            string? productModel = default,
+            string? productName = default,
+            string? productType = default
         )
         {
             DeviceId = deviceId;
@@ -6495,28 +6504,28 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
 
         [DataMember(Name = "device_info_model", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceInfoModel { get; set; }
+        public string? DeviceInfoModel { get; set; }
 
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DeviceName { get; set; }
+        public string? DeviceName { get; set; }
 
         [DataMember(Name = "keypad_uuid", IsRequired = false, EmitDefaultValue = false)]
-        public string KeypadUuid { get; set; }
+        public string? KeypadUuid { get; set; }
 
         [DataMember(Name = "locker_status_hardlock", IsRequired = false, EmitDefaultValue = false)]
-        public float LockerStatusHardlock { get; set; }
+        public float? LockerStatusHardlock { get; set; }
 
         [DataMember(Name = "product_model", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductModel { get; set; }
+        public string? ProductModel { get; set; }
 
         [DataMember(Name = "product_name", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductName { get; set; }
+        public string? ProductName { get; set; }
 
         [DataMember(Name = "product_type", IsRequired = false, EmitDefaultValue = false)]
-        public string ProductType { get; set; }
+        public string? ProductType { get; set; }
 
         public override string ToString()
         {
@@ -6546,8 +6555,8 @@ namespace Seam.Model
 
         public DevicePropertiesCodeConstraints(
             DevicePropertiesCodeConstraints.ConstraintTypeEnum constraintType = default,
-            float maxLength = default,
-            float minLength = default
+            float? maxLength = default,
+            float? minLength = default
         )
         {
             ConstraintType = constraintType;
@@ -6604,14 +6613,14 @@ namespace Seam.Model
             NameMustBeUnique = 14,
         }
 
-        [DataMember(Name = "constraint_type", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "constraint_type", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesCodeConstraints.ConstraintTypeEnum ConstraintType { get; set; }
 
         [DataMember(Name = "max_length", IsRequired = false, EmitDefaultValue = false)]
-        public float MaxLength { get; set; }
+        public float? MaxLength { get; set; }
 
         [DataMember(Name = "min_length", IsRequired = false, EmitDefaultValue = false)]
-        public float MinLength { get; set; }
+        public float? MinLength { get; set; }
 
         public override string ToString()
         {
@@ -6644,7 +6653,7 @@ namespace Seam.Model
             Level = level;
         }
 
-        [DataMember(Name = "level", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public float Level { get; set; }
 
         public override string ToString()
@@ -6675,13 +6684,13 @@ namespace Seam.Model
 
         public DevicePropertiesOfflineTimeFrameOptions(
             string displayName = default,
-            string endDateRecurrenceRule = default,
-            bool matchingStartEndTime = default,
-            string maxDuration = default,
-            string minDuration = default,
-            string startDateRecurrenceRule = default,
-            List<DevicePropertiesOfflineTimeFrameOptionsTimePairs> timePairs = default,
-            string timeZone = default
+            string? endDateRecurrenceRule = default,
+            bool? matchingStartEndTime = default,
+            string? maxDuration = default,
+            string? minDuration = default,
+            string? startDateRecurrenceRule = default,
+            List<DevicePropertiesOfflineTimeFrameOptionsTimePairs>? timePairs = default,
+            string? timeZone = default
         )
         {
             DisplayName = displayName;
@@ -6694,7 +6703,7 @@ namespace Seam.Model
             TimeZone = timeZone;
         }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(
@@ -6702,29 +6711,29 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string EndDateRecurrenceRule { get; set; }
+        public string? EndDateRecurrenceRule { get; set; }
 
         [DataMember(Name = "matching_start_end_time", IsRequired = false, EmitDefaultValue = false)]
-        public bool MatchingStartEndTime { get; set; }
+        public bool? MatchingStartEndTime { get; set; }
 
         [DataMember(Name = "max_duration", IsRequired = false, EmitDefaultValue = false)]
-        public string MaxDuration { get; set; }
+        public string? MaxDuration { get; set; }
 
         [DataMember(Name = "min_duration", IsRequired = false, EmitDefaultValue = false)]
-        public string MinDuration { get; set; }
+        public string? MinDuration { get; set; }
 
         [DataMember(
             Name = "start_date_recurrence_rule",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string StartDateRecurrenceRule { get; set; }
+        public string? StartDateRecurrenceRule { get; set; }
 
         [DataMember(Name = "time_pairs", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesOfflineTimeFrameOptionsTimePairs> TimePairs { get; set; }
+        public List<DevicePropertiesOfflineTimeFrameOptionsTimePairs>? TimePairs { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string TimeZone { get; set; }
+        public string? TimeZone { get; set; }
 
         public override string ToString()
         {
@@ -6763,13 +6772,13 @@ namespace Seam.Model
             StartTime = startTime;
         }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "end_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "end_time", IsRequired = false, EmitDefaultValue = false)]
         public string EndTime { get; set; }
 
-        [DataMember(Name = "start_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "start_time", IsRequired = false, EmitDefaultValue = false)]
         public string StartTime { get; set; }
 
         public override string ToString()
@@ -6800,13 +6809,13 @@ namespace Seam.Model
 
         public DevicePropertiesOnlineTimeFrameOptions(
             string displayName = default,
-            string endDateRecurrenceRule = default,
-            bool matchingStartEndTime = default,
-            string maxDuration = default,
-            string minDuration = default,
-            string startDateRecurrenceRule = default,
-            List<DevicePropertiesOnlineTimeFrameOptionsTimePairs> timePairs = default,
-            string timeZone = default
+            string? endDateRecurrenceRule = default,
+            bool? matchingStartEndTime = default,
+            string? maxDuration = default,
+            string? minDuration = default,
+            string? startDateRecurrenceRule = default,
+            List<DevicePropertiesOnlineTimeFrameOptionsTimePairs>? timePairs = default,
+            string? timeZone = default
         )
         {
             DisplayName = displayName;
@@ -6819,7 +6828,7 @@ namespace Seam.Model
             TimeZone = timeZone;
         }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(
@@ -6827,29 +6836,29 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string EndDateRecurrenceRule { get; set; }
+        public string? EndDateRecurrenceRule { get; set; }
 
         [DataMember(Name = "matching_start_end_time", IsRequired = false, EmitDefaultValue = false)]
-        public bool MatchingStartEndTime { get; set; }
+        public bool? MatchingStartEndTime { get; set; }
 
         [DataMember(Name = "max_duration", IsRequired = false, EmitDefaultValue = false)]
-        public string MaxDuration { get; set; }
+        public string? MaxDuration { get; set; }
 
         [DataMember(Name = "min_duration", IsRequired = false, EmitDefaultValue = false)]
-        public string MinDuration { get; set; }
+        public string? MinDuration { get; set; }
 
         [DataMember(
             Name = "start_date_recurrence_rule",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string StartDateRecurrenceRule { get; set; }
+        public string? StartDateRecurrenceRule { get; set; }
 
         [DataMember(Name = "time_pairs", IsRequired = false, EmitDefaultValue = false)]
-        public List<DevicePropertiesOnlineTimeFrameOptionsTimePairs> TimePairs { get; set; }
+        public List<DevicePropertiesOnlineTimeFrameOptionsTimePairs>? TimePairs { get; set; }
 
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
-        public string TimeZone { get; set; }
+        public string? TimeZone { get; set; }
 
         public override string ToString()
         {
@@ -6888,13 +6897,13 @@ namespace Seam.Model
             StartTime = startTime;
         }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "end_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "end_time", IsRequired = false, EmitDefaultValue = false)]
         public string EndTime { get; set; }
 
-        [DataMember(Name = "start_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "start_time", IsRequired = false, EmitDefaultValue = false)]
         public string StartTime { get; set; }
 
         public override string ToString()
@@ -6929,7 +6938,7 @@ namespace Seam.Model
             string deviceId = default,
             string endsAt = default,
             List<DevicePropertiesActiveThermostatScheduleErrors> errors = default,
-            bool isOverrideAllowed = default,
+            bool? isOverrideAllowed = default,
             int? maxOverridePeriodMinutes = default,
             string? name = default,
             string startsAt = default,
@@ -6950,23 +6959,23 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<DevicePropertiesActiveThermostatScheduleErrors> Errors { get; set; }
 
         [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOverrideAllowed { get; set; }
+        public bool? IsOverrideAllowed { get; set; }
 
         [DataMember(
             Name = "max_override_period_minutes",
@@ -6975,16 +6984,16 @@ namespace Seam.Model
         )]
         public int? MaxOverridePeriodMinutes { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
 
-        [DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string ThermostatScheduleId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -7024,13 +7033,13 @@ namespace Seam.Model
             Message = message;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         public override string ToString()
@@ -7064,16 +7073,16 @@ namespace Seam.Model
             bool canEdit = default,
             bool canUseWithThermostatDailyPrograms = default,
             string climatePresetKey = default,
-            DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum climatePresetMode =
+            DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? climatePresetMode =
                 default,
-            float coolingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
             string displayName = default,
-            DevicePropertiesAvailableClimatePresetsEcobeeMetadata ecobeeMetadata = default,
-            DevicePropertiesAvailableClimatePresets.FanModeSettingEnum fanModeSetting = default,
-            float heatingSetPointCelsius = default,
-            float heatingSetPointFahrenheit = default,
-            DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum hvacModeSetting = default,
+            DevicePropertiesAvailableClimatePresetsEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesAvailableClimatePresets.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum? hvacModeSetting = default,
             bool manualOverrideAllowed = default,
             string? name = default
         )
@@ -7158,66 +7167,66 @@ namespace Seam.Model
             Eco = 5,
         }
 
-        [DataMember(Name = "can_delete", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
         public bool CanDelete { get; set; }
 
-        [DataMember(Name = "can_edit", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool CanEdit { get; set; }
 
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public bool CanUseWithThermostatDailyPrograms { get; set; }
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
         [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum ClimatePresetMode { get; set; }
+        public DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointCelsius { get; set; }
+        public float? CoolingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointFahrenheit { get; set; }
+        public float? CoolingSetPointFahrenheit { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata EcobeeMetadata { get; set; }
+        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata? EcobeeMetadata { get; set; }
 
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvailableClimatePresets.FanModeSettingEnum FanModeSetting { get; set; }
+        public DevicePropertiesAvailableClimatePresets.FanModeSettingEnum? FanModeSetting { get; set; }
 
         [DataMember(
             Name = "heating_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointCelsius { get; set; }
+        public float? HeatingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "heating_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointFahrenheit { get; set; }
+        public float? HeatingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum HvacModeSetting { get; set; }
+        public DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
-        [DataMember(Name = "manual_override_allowed", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool ManualOverrideAllowed { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
@@ -7250,9 +7259,9 @@ namespace Seam.Model
         protected DevicePropertiesAvailableClimatePresetsEcobeeMetadata() { }
 
         public DevicePropertiesAvailableClimatePresetsEcobeeMetadata(
-            string climateRef = default,
-            bool isOptimized = default,
-            DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum owner = default
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum? owner = default
         )
         {
             ClimateRef = climateRef;
@@ -7274,13 +7283,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
-        public string ClimateRef { get; set; }
+        public string? ClimateRef { get; set; }
 
         [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOptimized { get; set; }
+        public bool? IsOptimized { get; set; }
 
         [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum Owner { get; set; }
+        public DevicePropertiesAvailableClimatePresetsEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
         public override string ToString()
         {
@@ -7309,20 +7318,21 @@ namespace Seam.Model
         protected DevicePropertiesCurrentClimateSetting() { }
 
         public DevicePropertiesCurrentClimateSetting(
-            bool canDelete = default,
-            bool canEdit = default,
-            bool canUseWithThermostatDailyPrograms = default,
-            string climatePresetKey = default,
-            DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum climatePresetMode = default,
-            float coolingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            string displayName = default,
-            DevicePropertiesCurrentClimateSettingEcobeeMetadata ecobeeMetadata = default,
-            DevicePropertiesCurrentClimateSetting.FanModeSettingEnum fanModeSetting = default,
-            float heatingSetPointCelsius = default,
-            float heatingSetPointFahrenheit = default,
-            DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum hvacModeSetting = default,
-            bool manualOverrideAllowed = default,
+            bool? canDelete = default,
+            bool? canEdit = default,
+            bool? canUseWithThermostatDailyPrograms = default,
+            string? climatePresetKey = default,
+            DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? climatePresetMode =
+                default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            string? displayName = default,
+            DevicePropertiesCurrentClimateSettingEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesCurrentClimateSetting.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum? hvacModeSetting = default,
+            bool? manualOverrideAllowed = default,
             string? name = default
         )
         {
@@ -7407,66 +7417,66 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanDelete { get; set; }
+        public bool? CanDelete { get; set; }
 
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanEdit { get; set; }
+        public bool? CanEdit { get; set; }
 
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanUseWithThermostatDailyPrograms { get; set; }
+        public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
-        public string ClimatePresetKey { get; set; }
+        public string? ClimatePresetKey { get; set; }
 
         [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum ClimatePresetMode { get; set; }
+        public DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointCelsius { get; set; }
+        public float? CoolingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointFahrenheit { get; set; }
+        public float? CoolingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSettingEcobeeMetadata EcobeeMetadata { get; set; }
+        public DevicePropertiesCurrentClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
 
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSetting.FanModeSettingEnum FanModeSetting { get; set; }
+        public DevicePropertiesCurrentClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
         [DataMember(
             Name = "heating_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointCelsius { get; set; }
+        public float? HeatingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "heating_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointFahrenheit { get; set; }
+        public float? HeatingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum HvacModeSetting { get; set; }
+        public DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
         [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
-        public bool ManualOverrideAllowed { get; set; }
+        public bool? ManualOverrideAllowed { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -7498,9 +7508,9 @@ namespace Seam.Model
         protected DevicePropertiesCurrentClimateSettingEcobeeMetadata() { }
 
         public DevicePropertiesCurrentClimateSettingEcobeeMetadata(
-            string climateRef = default,
-            bool isOptimized = default,
-            DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum owner = default
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum? owner = default
         )
         {
             ClimateRef = climateRef;
@@ -7522,13 +7532,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
-        public string ClimateRef { get; set; }
+        public string? ClimateRef { get; set; }
 
         [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOptimized { get; set; }
+        public bool? IsOptimized { get; set; }
 
         [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum Owner { get; set; }
+        public DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
         public override string ToString()
         {
@@ -7557,20 +7567,21 @@ namespace Seam.Model
         protected DevicePropertiesDefaultClimateSetting() { }
 
         public DevicePropertiesDefaultClimateSetting(
-            bool canDelete = default,
-            bool canEdit = default,
-            bool canUseWithThermostatDailyPrograms = default,
-            string climatePresetKey = default,
-            DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum climatePresetMode = default,
-            float coolingSetPointCelsius = default,
-            float coolingSetPointFahrenheit = default,
-            string displayName = default,
-            DevicePropertiesDefaultClimateSettingEcobeeMetadata ecobeeMetadata = default,
-            DevicePropertiesDefaultClimateSetting.FanModeSettingEnum fanModeSetting = default,
-            float heatingSetPointCelsius = default,
-            float heatingSetPointFahrenheit = default,
-            DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum hvacModeSetting = default,
-            bool manualOverrideAllowed = default,
+            bool? canDelete = default,
+            bool? canEdit = default,
+            bool? canUseWithThermostatDailyPrograms = default,
+            string? climatePresetKey = default,
+            DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? climatePresetMode =
+                default,
+            float? coolingSetPointCelsius = default,
+            float? coolingSetPointFahrenheit = default,
+            string? displayName = default,
+            DevicePropertiesDefaultClimateSettingEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? fanModeSetting = default,
+            float? heatingSetPointCelsius = default,
+            float? heatingSetPointFahrenheit = default,
+            DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum? hvacModeSetting = default,
+            bool? manualOverrideAllowed = default,
             string? name = default
         )
         {
@@ -7655,66 +7666,66 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanDelete { get; set; }
+        public bool? CanDelete { get; set; }
 
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
-        public bool CanEdit { get; set; }
+        public bool? CanEdit { get; set; }
 
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public bool CanUseWithThermostatDailyPrograms { get; set; }
+        public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
-        public string ClimatePresetKey { get; set; }
+        public string? ClimatePresetKey { get; set; }
 
         [DataMember(Name = "climate_preset_mode", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum ClimatePresetMode { get; set; }
+        public DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointCelsius { get; set; }
+        public float? CoolingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float CoolingSetPointFahrenheit { get; set; }
+        public float? CoolingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [DataMember(Name = "ecobee_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSettingEcobeeMetadata EcobeeMetadata { get; set; }
+        public DevicePropertiesDefaultClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
 
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSetting.FanModeSettingEnum FanModeSetting { get; set; }
+        public DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
         [DataMember(
             Name = "heating_set_point_celsius",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointCelsius { get; set; }
+        public float? HeatingSetPointCelsius { get; set; }
 
         [DataMember(
             Name = "heating_set_point_fahrenheit",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public float HeatingSetPointFahrenheit { get; set; }
+        public float? HeatingSetPointFahrenheit { get; set; }
 
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum HvacModeSetting { get; set; }
+        public DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
         [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
-        public bool ManualOverrideAllowed { get; set; }
+        public bool? ManualOverrideAllowed { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -7746,9 +7757,9 @@ namespace Seam.Model
         protected DevicePropertiesDefaultClimateSettingEcobeeMetadata() { }
 
         public DevicePropertiesDefaultClimateSettingEcobeeMetadata(
-            string climateRef = default,
-            bool isOptimized = default,
-            DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum owner = default
+            string? climateRef = default,
+            bool? isOptimized = default,
+            DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum? owner = default
         )
         {
             ClimateRef = climateRef;
@@ -7770,13 +7781,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "climate_ref", IsRequired = false, EmitDefaultValue = false)]
-        public string ClimateRef { get; set; }
+        public string? ClimateRef { get; set; }
 
         [DataMember(Name = "is_optimized", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOptimized { get; set; }
+        public bool? IsOptimized { get; set; }
 
         [DataMember(Name = "owner", IsRequired = false, EmitDefaultValue = false)]
-        public DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum Owner { get; set; }
+        public DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; set; }
 
         public override string ToString()
         {
@@ -7817,16 +7828,16 @@ namespace Seam.Model
             UpperLimitFahrenheit = upperLimitFahrenheit;
         }
 
-        [DataMember(Name = "lower_limit_celsius", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "lower_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitCelsius { get; set; }
 
-        [DataMember(Name = "lower_limit_fahrenheit", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "lower_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitFahrenheit { get; set; }
 
-        [DataMember(Name = "upper_limit_celsius", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "upper_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitCelsius { get; set; }
 
-        [DataMember(Name = "upper_limit_fahrenheit", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
 
         public override string ToString()
@@ -7872,26 +7883,26 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
-        [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "periods", IsRequired = false, EmitDefaultValue = false)]
         public List<DevicePropertiesThermostatDailyProgramsPeriods> Periods { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_program_id",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public string ThermostatDailyProgramId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -7929,10 +7940,10 @@ namespace Seam.Model
             StartsAtTime = startsAtTime;
         }
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
-        [DataMember(Name = "starts_at_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAtTime { get; set; }
 
         public override string ToString()
@@ -7982,28 +7993,28 @@ namespace Seam.Model
             WednesdayProgramId = wednesdayProgramId;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "friday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "friday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? FridayProgramId { get; set; }
 
-        [DataMember(Name = "monday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "monday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? MondayProgramId { get; set; }
 
-        [DataMember(Name = "saturday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "saturday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? SaturdayProgramId { get; set; }
 
-        [DataMember(Name = "sunday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "sunday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? SundayProgramId { get; set; }
 
-        [DataMember(Name = "thursday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "thursday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ThursdayProgramId { get; set; }
 
-        [DataMember(Name = "tuesday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "tuesday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? TuesdayProgramId { get; set; }
 
-        [DataMember(Name = "wednesday_program_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "wednesday_program_id", IsRequired = false, EmitDefaultValue = false)]
         public string? WednesdayProgramId { get; set; }
 
         public override string ToString()

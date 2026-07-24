@@ -15,24 +15,24 @@ namespace Seam.Model
         protected AcsSystem() { }
 
         public AcsSystem(
-            float acsAccessGroupCount = default,
+            float? acsAccessGroupCount = default,
             string acsSystemId = default,
-            float acsUserCount = default,
+            float? acsUserCount = default,
             string connectedAccountId = default,
             List<string> connectedAccountIds = default,
             string createdAt = default,
             string? defaultCredentialManagerAcsSystemId = default,
             List<AcsSystemErrors> errors = default,
-            AcsSystem.ExternalTypeEnum externalType = default,
-            string externalTypeDisplayName = default,
+            AcsSystem.ExternalTypeEnum? externalType = default,
+            string? externalTypeDisplayName = default,
             string imageAltText = default,
             string imageUrl = default,
             bool isCredentialManager = default,
             AcsSystemLocation location = default,
             string name = default,
-            AcsSystem.SystemTypeEnum systemType = default,
-            string systemTypeDisplayName = default,
-            AcsSystemVisionlineMetadata visionlineMetadata = default,
+            AcsSystem.SystemTypeEnum? systemType = default,
+            string? systemTypeDisplayName = default,
+            AcsSystemVisionlineMetadata? visionlineMetadata = default,
             List<AcsSystemWarnings> warnings = default,
             string workspaceId = default
         )
@@ -121,13 +121,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "seam_bridge_disconnected";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -159,7 +159,7 @@ namespace Seam.Model
             public AcsSystemErrorsBridgeDisconnected(
                 string createdAt = default,
                 string errorCode = default,
-                bool isBridgeError = default,
+                bool? isBridgeError = default,
                 string message = default
             )
             {
@@ -169,16 +169,16 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
-            public bool IsBridgeError { get; set; }
+            public bool? IsBridgeError { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -218,13 +218,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "visionline_instance_unreachable";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -264,13 +264,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -310,13 +310,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "acs_system_disconnected";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -356,13 +356,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -402,13 +402,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_certification_expired";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -448,13 +448,13 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "provider_service_unavailable";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -674,10 +674,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -713,7 +713,7 @@ namespace Seam.Model
             public AcsSystemWarningsTimeZoneDoesNotMatchLocation(
                 string createdAt = default,
                 string message = default,
-                List<string> misconfiguredAcsEntranceIds = default,
+                List<string>? misconfiguredAcsEntranceIds = default,
                 string warningCode = default
             )
             {
@@ -723,10 +723,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(
@@ -734,7 +734,7 @@ namespace Seam.Model
                 IsRequired = false,
                 EmitDefaultValue = false
             )]
-            public List<string> MisconfiguredAcsEntranceIds { get; set; }
+            public List<string>? MisconfiguredAcsEntranceIds { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "time_zone_does_not_match_location";
@@ -776,10 +776,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -852,21 +852,21 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "acs_access_group_count", IsRequired = false, EmitDefaultValue = false)]
-        public float AcsAccessGroupCount { get; set; }
+        public float? AcsAccessGroupCount { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         [DataMember(Name = "acs_user_count", IsRequired = false, EmitDefaultValue = false)]
-        public float AcsUserCount { get; set; }
+        public float? AcsUserCount { get; set; }
 
-        [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
-        [DataMember(Name = "connected_account_ids", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "connected_account_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         [DataMember(
@@ -876,51 +876,51 @@ namespace Seam.Model
         )]
         public string? DefaultCredentialManagerAcsSystemId { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemErrors> Errors { get; set; }
 
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystem.ExternalTypeEnum ExternalType { get; set; }
+        public AcsSystem.ExternalTypeEnum? ExternalType { get; set; }
 
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public string? ExternalTypeDisplayName { get; set; }
 
-        [DataMember(Name = "image_alt_text", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
         public string ImageAltText { get; set; }
 
-        [DataMember(Name = "image_url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string ImageUrl { get; set; }
 
-        [DataMember(Name = "is_credential_manager", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_credential_manager", IsRequired = false, EmitDefaultValue = false)]
         public bool IsCredentialManager { get; set; }
 
-        [DataMember(Name = "location", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystemLocation Location { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
         [DataMember(Name = "system_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystem.SystemTypeEnum SystemType { get; set; }
+        public AcsSystem.SystemTypeEnum? SystemType { get; set; }
 
         [DataMember(
             Name = "system_type_display_name",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string SystemTypeDisplayName { get; set; }
+        public string? SystemTypeDisplayName { get; set; }
 
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
-        public AcsSystemVisionlineMetadata VisionlineMetadata { get; set; }
+        public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -954,7 +954,7 @@ namespace Seam.Model
             TimeZone = timeZone;
         }
 
-        [DataMember(Name = "time_zone", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
 
         public override string ToString()
@@ -984,9 +984,9 @@ namespace Seam.Model
         protected AcsSystemVisionlineMetadata() { }
 
         public AcsSystemVisionlineMetadata(
-            string lanAddress = default,
-            string mobileAccessUuid = default,
-            string systemId = default
+            string? lanAddress = default,
+            string? mobileAccessUuid = default,
+            string? systemId = default
         )
         {
             LanAddress = lanAddress;
@@ -995,13 +995,13 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "lan_address", IsRequired = false, EmitDefaultValue = false)]
-        public string LanAddress { get; set; }
+        public string? LanAddress { get; set; }
 
         [DataMember(Name = "mobile_access_uuid", IsRequired = false, EmitDefaultValue = false)]
-        public string MobileAccessUuid { get; set; }
+        public string? MobileAccessUuid { get; set; }
 
         [DataMember(Name = "system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string SystemId { get; set; }
+        public string? SystemId { get; set; }
 
         public override string ToString()
         {

@@ -15,30 +15,30 @@ namespace Seam.Model
         protected Batch() { }
 
         public Batch(
-            object accessCodes = default,
-            object accessGrants = default,
-            object accessMethods = default,
-            object acsAccessGroups = default,
-            object acsCredentials = default,
-            object acsEncoders = default,
-            object acsEntrances = default,
-            object acsSystems = default,
-            object acsUsers = default,
-            object actionAttempts = default,
-            object clientSessions = default,
-            object connectWebviews = default,
-            object connectedAccounts = default,
-            object devices = default,
-            object events = default,
-            object instantKeys = default,
-            object noiseThresholds = default,
-            object spaces = default,
-            object thermostatDailyPrograms = default,
-            object thermostatSchedules = default,
-            object unmanagedAccessCodes = default,
-            object unmanagedDevices = default,
-            object userIdentities = default,
-            object workspaces = default
+            object? accessCodes = default,
+            object? accessGrants = default,
+            object? accessMethods = default,
+            object? acsAccessGroups = default,
+            object? acsCredentials = default,
+            object? acsEncoders = default,
+            object? acsEntrances = default,
+            object? acsSystems = default,
+            object? acsUsers = default,
+            object? actionAttempts = default,
+            object? clientSessions = default,
+            object? connectWebviews = default,
+            object? connectedAccounts = default,
+            object? devices = default,
+            object? events = default,
+            object? instantKeys = default,
+            object? noiseThresholds = default,
+            object? spaces = default,
+            object? thermostatDailyPrograms = default,
+            object? thermostatSchedules = default,
+            object? unmanagedAccessCodes = default,
+            object? unmanagedDevices = default,
+            object? userIdentities = default,
+            object? workspaces = default
         )
         {
             AccessCodes = accessCodes;
@@ -68,80 +68,80 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "access_codes", IsRequired = false, EmitDefaultValue = false)]
-        public object AccessCodes { get; set; }
+        public object? AccessCodes { get; set; }
 
         [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
-        public object AccessGrants { get; set; }
+        public object? AccessGrants { get; set; }
 
         [DataMember(Name = "access_methods", IsRequired = false, EmitDefaultValue = false)]
-        public object AccessMethods { get; set; }
+        public object? AccessMethods { get; set; }
 
         [DataMember(Name = "acs_access_groups", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsAccessGroups { get; set; }
+        public object? AcsAccessGroups { get; set; }
 
         [DataMember(Name = "acs_credentials", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsCredentials { get; set; }
+        public object? AcsCredentials { get; set; }
 
         [DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsEncoders { get; set; }
+        public object? AcsEncoders { get; set; }
 
         [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsEntrances { get; set; }
+        public object? AcsEntrances { get; set; }
 
         [DataMember(Name = "acs_systems", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsSystems { get; set; }
+        public object? AcsSystems { get; set; }
 
         [DataMember(Name = "acs_users", IsRequired = false, EmitDefaultValue = false)]
-        public object AcsUsers { get; set; }
+        public object? AcsUsers { get; set; }
 
         [DataMember(Name = "action_attempts", IsRequired = false, EmitDefaultValue = false)]
-        public object ActionAttempts { get; set; }
+        public object? ActionAttempts { get; set; }
 
         [DataMember(Name = "client_sessions", IsRequired = false, EmitDefaultValue = false)]
-        public object ClientSessions { get; set; }
+        public object? ClientSessions { get; set; }
 
         [DataMember(Name = "connect_webviews", IsRequired = false, EmitDefaultValue = false)]
-        public object ConnectWebviews { get; set; }
+        public object? ConnectWebviews { get; set; }
 
         [DataMember(Name = "connected_accounts", IsRequired = false, EmitDefaultValue = false)]
-        public object ConnectedAccounts { get; set; }
+        public object? ConnectedAccounts { get; set; }
 
         [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
-        public object Devices { get; set; }
+        public object? Devices { get; set; }
 
         [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
-        public object Events { get; set; }
+        public object? Events { get; set; }
 
         [DataMember(Name = "instant_keys", IsRequired = false, EmitDefaultValue = false)]
-        public object InstantKeys { get; set; }
+        public object? InstantKeys { get; set; }
 
         [DataMember(Name = "noise_thresholds", IsRequired = false, EmitDefaultValue = false)]
-        public object NoiseThresholds { get; set; }
+        public object? NoiseThresholds { get; set; }
 
         [DataMember(Name = "spaces", IsRequired = false, EmitDefaultValue = false)]
-        public object Spaces { get; set; }
+        public object? Spaces { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_programs",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public object ThermostatDailyPrograms { get; set; }
+        public object? ThermostatDailyPrograms { get; set; }
 
         [DataMember(Name = "thermostat_schedules", IsRequired = false, EmitDefaultValue = false)]
-        public object ThermostatSchedules { get; set; }
+        public object? ThermostatSchedules { get; set; }
 
         [DataMember(Name = "unmanaged_access_codes", IsRequired = false, EmitDefaultValue = false)]
-        public object UnmanagedAccessCodes { get; set; }
+        public object? UnmanagedAccessCodes { get; set; }
 
         [DataMember(Name = "unmanaged_devices", IsRequired = false, EmitDefaultValue = false)]
-        public object UnmanagedDevices { get; set; }
+        public object? UnmanagedDevices { get; set; }
 
         [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
-        public object UserIdentities { get; set; }
+        public object? UserIdentities { get; set; }
 
         [DataMember(Name = "workspaces", IsRequired = false, EmitDefaultValue = false)]
-        public object Workspaces { get; set; }
+        public object? Workspaces { get; set; }
 
         public override string ToString()
         {
