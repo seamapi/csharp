@@ -289,6 +289,8 @@ interface BuildClassOptions {
   // When set, the class is a discriminated-union subclass: the discriminator
   // property is emitted as a get-only override with a constant value.
   discriminator?: { name: string; value: string; base: string }
+  // Property names lifted onto the union's abstract base; emitted as overrides.
+  overrideNames?: Set<string> | undefined
 }
 
 interface BuiltClass {
@@ -303,7 +305,7 @@ const buildClass = (
   fields: Field[],
   options: BuildClassOptions,
 ): BuiltClass => {
-  const { resourceType, namespace, discriminator } = options
+  const { resourceType, namespace, discriminator, overrideNames } = options
   const nested: CsNested[] = []
   const siblings: CsClass[] = []
   const nestedByKey = new Map<string, CsNested>()
@@ -367,7 +369,7 @@ const buildClass = (
     snakeName: snakeCase(field.name),
     type: csType(field.kind, field.name, field.nullable),
     isRequired: field.isRequired,
-    isOverride: false,
+    isOverride: overrideNames?.has(field.name) ?? false,
     getOnly: false,
   })
 
@@ -410,6 +412,33 @@ const buildUnion = (
 ): CsUnion => {
   const { resourceType, namespace } = options
 
+  // Lift properties shared by every variant onto the abstract base so consumers
+  // can read them polymorphically without downcasting. Only primitive-typed
+  // properties with an identical resolved C# type across all variants qualify
+  // (enum/object/list types are owned by a specific subclass and cannot be
+  // shared). The discriminator is lifted separately as a get-only override.
+  const primType = (field: Field): string | null =>
+    field.kind.t === 'prim' ? withNullable(field.kind.cs, field.nullable) : null
+
+  const byName = new Map<string, Field[]>()
+  for (const variant of variants) {
+    for (const field of variant.fields) {
+      if (field.name === discriminator) continue
+      byName.set(field.name, [...(byName.get(field.name) ?? []), field])
+    }
+  }
+  const liftedFields = [...byName.values()]
+    .filter((fields) => fields.length === variants.length)
+    .map((fields) => fields[0] as Field)
+    .filter((field) => {
+      const type = primType(field)
+      return (
+        type != null &&
+        byName.get(field.name)?.every((f) => primType(f) === type)
+      )
+    })
+  const overrideNames = new Set(liftedFields.map((f) => f.name))
+
   const subclasses: CsClass[] = []
   const known: Array<[string, string]> = []
 
@@ -423,21 +452,29 @@ const buildUnion = (
         value: variant.value,
         base: className,
       },
+      overrideNames,
     })
     subclasses.push(built.main, ...built.siblings)
     known.push([subName, variant.value])
   }
 
   const unrecognizedTypeName = `${className}Unrecognized`
-  const fallback = buildClass(unrecognizedTypeName, [], {
-    resourceType,
-    namespace,
-    discriminator: {
-      name: discriminator,
-      value: 'unrecognized',
-      base: className,
+  const fallback = buildClass(
+    unrecognizedTypeName,
+    // The fallback carries the lifted properties so it satisfies the abstract
+    // base; they are optional since an unrecognized payload may omit them.
+    liftedFields.map((field) => ({ ...field, isRequired: false })),
+    {
+      resourceType,
+      namespace,
+      discriminator: {
+        name: discriminator,
+        value: 'unrecognized',
+        base: className,
+      },
+      overrideNames,
     },
-  })
+  )
   subclasses.push(fallback.main, ...fallback.siblings)
 
   // The KnownSubType attribute order is the reverse of subclass definition order.
@@ -453,6 +490,11 @@ const buildUnion = (
     unrecognizedTypeName,
     abstractProps: [
       { type: 'string', pascalName: pascalCase(discriminator), getOnly: true },
+      ...liftedFields.map((field) => ({
+        type: primType(field) as string,
+        pascalName: pascalCase(field.name),
+        getOnly: false,
+      })),
     ],
     subclasses,
   }
