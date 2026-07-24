@@ -90,6 +90,10 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -114,10 +118,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } =
@@ -161,10 +165,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "entrance_shares_zone";
@@ -207,10 +211,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "entrance_setup_required";
@@ -253,10 +257,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "salto_ks_privacy_mode";
@@ -299,10 +303,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "privacy_mode";
@@ -333,13 +337,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AcsEntranceWarningsUnrecognized() { }
 
-            public AcsEntranceWarningsUnrecognized(string warningCode = default)
+            public AcsEntranceWarningsUnrecognized(
+                string warningCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 WarningCode = warningCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

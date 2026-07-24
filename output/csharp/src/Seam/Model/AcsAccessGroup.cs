@@ -95,6 +95,10 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -116,13 +120,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_create_on_acs_system";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -150,13 +154,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AcsAccessGroupErrorsUnrecognized() { }
 
-            public AcsAccessGroupErrorsUnrecognized(string errorCode = default)
+            public AcsAccessGroupErrorsUnrecognized(
+                string errorCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 ErrorCode = errorCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -244,6 +260,10 @@ namespace Seam.Model
         {
             public abstract string MutationCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -265,10 +285,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "creating";
@@ -311,10 +331,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deleting";
@@ -358,10 +378,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deferring_deletion";
@@ -411,13 +431,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_group_information";
@@ -544,13 +564,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_schedule";
@@ -689,13 +709,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_user_membership";
@@ -824,13 +844,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_entrance_membership";
@@ -976,10 +996,10 @@ namespace Seam.Model
             public string AcsUserId { get; set; }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deferring_user_membership_update";
@@ -1013,13 +1033,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AcsAccessGroupPendingMutationsUnrecognized() { }
 
-            public AcsAccessGroupPendingMutationsUnrecognized(string mutationCode = default)
+            public AcsAccessGroupPendingMutationsUnrecognized(
+                string mutationCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 MutationCode = mutationCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {

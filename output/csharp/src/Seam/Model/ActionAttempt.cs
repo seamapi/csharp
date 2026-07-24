@@ -53,6 +53,8 @@ namespace Seam.Model
     {
         public abstract string ActionType { get; }
 
+        public abstract string ActionAttemptId { get; set; }
+
         public abstract override string ToString();
     }
 
@@ -94,7 +96,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "LOCK_DOOR";
@@ -238,7 +240,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UNLOCK_DOOR";
@@ -382,7 +384,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SCAN_CREDENTIAL";
@@ -1338,7 +1340,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ENCODE_CREDENTIAL";
@@ -2022,7 +2024,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SCAN_TO_ASSIGN_CREDENTIAL";
@@ -2688,7 +2690,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ASSIGN_CREDENTIAL";
@@ -3246,7 +3248,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "RESET_SANDBOX_WORKSPACE";
@@ -3385,7 +3387,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_FAN_MODE";
@@ -3521,7 +3523,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SET_HVAC_MODE";
@@ -3657,7 +3659,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "ACTIVATE_CLIMATE_PRESET";
@@ -3796,7 +3798,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SIMULATE_KEYPAD_CODE_ENTRY";
@@ -3935,7 +3937,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SIMULATE_MANUAL_LOCK_VIA_KEYPAD";
@@ -4074,7 +4076,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "PUSH_THERMOSTAT_PROGRAMS";
@@ -4213,7 +4215,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CONFIGURE_AUTO_LOCK";
@@ -4349,7 +4351,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "SYNC_ACCESS_CODES";
@@ -4485,7 +4487,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_ACCESS_CODE";
@@ -4621,7 +4623,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_ACCESS_CODE";
@@ -4757,7 +4759,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_ACCESS_CODE";
@@ -4893,7 +4895,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "CREATE_NOISE_THRESHOLD";
@@ -5032,7 +5034,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "DELETE_NOISE_THRESHOLD";
@@ -5171,7 +5173,7 @@ namespace Seam.Model
         }
 
         [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ActionAttemptId { get; set; }
+        public override string ActionAttemptId { get; set; }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "UPDATE_NOISE_THRESHOLD";
@@ -5278,13 +5280,20 @@ namespace Seam.Model
         [JsonConstructorAttribute]
         protected ActionAttemptUnrecognized() { }
 
-        public ActionAttemptUnrecognized(string actionType = default)
+        public ActionAttemptUnrecognized(
+            string actionType = default,
+            string actionAttemptId = default
+        )
         {
             ActionType = actionType;
+            ActionAttemptId = actionAttemptId;
         }
 
         [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
         public override string ActionType { get; } = "unrecognized";
+
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
+        public override string ActionAttemptId { get; set; }
 
         public override string ToString()
         {

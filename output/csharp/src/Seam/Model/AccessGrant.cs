@@ -69,6 +69,10 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -92,13 +96,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "cannot_create_requested_access_methods";
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "missing_device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> MissingDeviceIds { get; set; }
@@ -129,13 +133,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AccessGrantErrorsUnrecognized() { }
 
-            public AccessGrantErrorsUnrecognized(string errorCode = default)
+            public AccessGrantErrorsUnrecognized(
+                string errorCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 ErrorCode = errorCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -171,6 +187,10 @@ namespace Seam.Model
         {
             public abstract string MutationCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -196,13 +216,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingSpacesFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_spaces";
@@ -332,13 +352,13 @@ namespace Seam.Model
             public List<string> AccessMethodIds { get; set; }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = true, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_times";
@@ -454,13 +474,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AccessGrantPendingMutationsUnrecognized() { }
 
-            public AccessGrantPendingMutationsUnrecognized(string mutationCode = default)
+            public AccessGrantPendingMutationsUnrecognized(
+                string mutationCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 MutationCode = mutationCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -513,6 +545,10 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
             public abstract override string ToString();
         }
 
@@ -534,10 +570,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "being_deleted";
@@ -580,10 +616,10 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "underprovisioned_access";
@@ -628,13 +664,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "failed_devices", IsRequired = false, EmitDefaultValue = false)]
             public List<AccessGrantWarningsOverprovisionedAccessFailedDevices> FailedDevices { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "overprovisioned_access";
@@ -730,10 +766,10 @@ namespace Seam.Model
             public List<string> AccessMethodIds { get; set; }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "updating_access_times";
@@ -782,13 +818,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "new_code", IsRequired = true, EmitDefaultValue = false)]
             public string NewCode { get; set; }
@@ -839,13 +875,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "device_does_not_support_access_codes";
@@ -908,13 +944,13 @@ namespace Seam.Model
             }
 
             [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
             [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-            public string Message { get; set; }
+            public override string Message { get; set; }
 
             [DataMember(Name = "reason", IsRequired = true, EmitDefaultValue = false)]
             public AccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; set; }
@@ -948,13 +984,25 @@ namespace Seam.Model
             [JsonConstructorAttribute]
             protected AccessGrantWarningsUnrecognized() { }
 
-            public AccessGrantWarningsUnrecognized(string warningCode = default)
+            public AccessGrantWarningsUnrecognized(
+                string warningCode = default,
+                string createdAt = default,
+                string message = default
+            )
             {
                 WarningCode = warningCode;
+                CreatedAt = createdAt;
+                Message = message;
             }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
