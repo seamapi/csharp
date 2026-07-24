@@ -31,26 +31,26 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
-        [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "periods", IsRequired = false, EmitDefaultValue = false)]
         public List<ThermostatDailyProgramPeriods> Periods { get; set; }
 
         [DataMember(
             Name = "thermostat_daily_program_id",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public string ThermostatDailyProgramId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()
@@ -88,10 +88,10 @@ namespace Seam.Model
             StartsAtTime = startsAtTime;
         }
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
-        [DataMember(Name = "starts_at_time", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAtTime { get; set; }
 
         public override string ToString()

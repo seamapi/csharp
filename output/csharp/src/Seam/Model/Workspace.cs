@@ -39,7 +39,7 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "company_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]
         public string CompanyName { get; set; }
 
         [DataMember(Name = "connect_partner_name", IsRequired = false, EmitDefaultValue = false)]
@@ -47,25 +47,25 @@ namespace Seam.Model
 
         [DataMember(
             Name = "connect_webview_customization",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public WorkspaceConnectWebviewCustomization ConnectWebviewCustomization { get; set; }
 
         [DataMember(
             Name = "is_publishable_key_auth_enabled",
-            IsRequired = true,
+            IsRequired = false,
             EmitDefaultValue = false
         )]
         public bool IsPublishableKeyAuthEnabled { get; set; }
 
-        [DataMember(Name = "is_sandbox", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_sandbox", IsRequired = false, EmitDefaultValue = false)]
         public bool IsSandbox { get; set; }
 
-        [DataMember(Name = "is_suspended", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
         public bool IsSuspended { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
         [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
@@ -74,7 +74,7 @@ namespace Seam.Model
         [DataMember(Name = "publishable_key", IsRequired = false, EmitDefaultValue = false)]
         public string? PublishableKey { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()

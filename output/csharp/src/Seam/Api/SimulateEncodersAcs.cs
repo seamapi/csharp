@@ -41,11 +41,17 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "no_credential_on_encoder")]
+                NoCredentialOnEncoder = 1,
+
+                [EnumMember(Value = "encoding_interrupted")]
+                EncodingInterrupted = 2,
+
                 [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 1,
+                UncategorizedError = 3,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
+                ActionAttemptExpired = 4,
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -251,11 +257,14 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "no_credential_on_encoder")]
+                NoCredentialOnEncoder = 1,
+
                 [EnumMember(Value = "uncategorized_error")]
-                UncategorizedError = 1,
+                UncategorizedError = 2,
 
                 [EnumMember(Value = "action_attempt_expired")]
-                ActionAttemptExpired = 2,
+                ActionAttemptExpired = 3,
             }
 
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -364,8 +373,17 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "credential_exists_on_seam")]
+                CredentialExistsOnSeam = 1,
+
+                [EnumMember(Value = "credential_on_encoder_needs_update")]
+                CredentialOnEncoderNeedsUpdate = 2,
+
+                [EnumMember(Value = "credential_does_not_exist_on_seam")]
+                CredentialDoesNotExistOnSeam = 3,
+
                 [EnumMember(Value = "credential_on_encoder_is_empty")]
-                CredentialOnEncoderIsEmpty = 1,
+                CredentialOnEncoderIsEmpty = 4,
             }
 
             [DataMember(

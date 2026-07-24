@@ -813,32 +813,19 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? connectedAccountId = default,
                 string? customerKey = default,
                 float? limit = default,
                 string? pageCursor = default,
-                string? parentSpaceId = default,
-                string? parentSpaceKey = default,
                 string? search = default,
                 string? spaceKey = default
             )
             {
-                ConnectedAccountId = connectedAccountId;
                 CustomerKey = customerKey;
                 Limit = limit;
                 PageCursor = pageCursor;
-                ParentSpaceId = parentSpaceId;
-                ParentSpaceKey = parentSpaceKey;
                 Search = search;
                 SpaceKey = spaceKey;
             }
-
-            [DataMember(
-                Name = "connected_account_id",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? ConnectedAccountId { get; set; }
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
@@ -848,12 +835,6 @@ namespace Seam.Api
 
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
-
-            [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ParentSpaceId { get; set; }
-
-            [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? ParentSpaceKey { get; set; }
 
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
@@ -923,24 +904,18 @@ namespace Seam.Api
         }
 
         public List<Space> List(
-            string? connectedAccountId = default,
             string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
-            string? parentSpaceId = default,
-            string? parentSpaceKey = default,
             string? search = default,
             string? spaceKey = default
         )
         {
             return List(
                 new ListRequest(
-                    connectedAccountId: connectedAccountId,
                     customerKey: customerKey,
                     limit: limit,
                     pageCursor: pageCursor,
-                    parentSpaceId: parentSpaceId,
-                    parentSpaceKey: parentSpaceKey,
                     search: search,
                     spaceKey: spaceKey
                 )
@@ -957,12 +932,9 @@ namespace Seam.Api
         }
 
         public async Task<List<Space>> ListAsync(
-            string? connectedAccountId = default,
             string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
-            string? parentSpaceId = default,
-            string? parentSpaceKey = default,
             string? search = default,
             string? spaceKey = default
         )
@@ -970,12 +942,9 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
-                        connectedAccountId: connectedAccountId,
                         customerKey: customerKey,
                         limit: limit,
                         pageCursor: pageCursor,
-                        parentSpaceId: parentSpaceId,
-                        parentSpaceKey: parentSpaceKey,
                         search: search,
                         spaceKey: spaceKey
                     )
@@ -1217,8 +1186,6 @@ namespace Seam.Api
                 UpdateRequestCustomerData? customerData = default,
                 List<string>? deviceIds = default,
                 string? name = default,
-                string? parentSpaceId = default,
-                string? parentSpaceKey = default,
                 string? spaceId = default,
                 string? spaceKey = default
             )
@@ -1227,8 +1194,6 @@ namespace Seam.Api
                 CustomerData = customerData;
                 DeviceIds = deviceIds;
                 Name = name;
-                ParentSpaceId = parentSpaceId;
-                ParentSpaceKey = parentSpaceKey;
                 SpaceId = spaceId;
                 SpaceKey = spaceKey;
             }
@@ -1244,12 +1209,6 @@ namespace Seam.Api
 
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
-
-            [DataMember(Name = "parent_space_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ParentSpaceId { get; set; }
-
-            [DataMember(Name = "parent_space_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? ParentSpaceKey { get; set; }
 
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -1382,8 +1341,6 @@ namespace Seam.Api
             UpdateRequestCustomerData? customerData = default,
             List<string>? deviceIds = default,
             string? name = default,
-            string? parentSpaceId = default,
-            string? parentSpaceKey = default,
             string? spaceId = default,
             string? spaceKey = default
         )
@@ -1394,8 +1351,6 @@ namespace Seam.Api
                     customerData: customerData,
                     deviceIds: deviceIds,
                     name: name,
-                    parentSpaceId: parentSpaceId,
-                    parentSpaceKey: parentSpaceKey,
                     spaceId: spaceId,
                     spaceKey: spaceKey
                 )
@@ -1416,8 +1371,6 @@ namespace Seam.Api
             UpdateRequestCustomerData? customerData = default,
             List<string>? deviceIds = default,
             string? name = default,
-            string? parentSpaceId = default,
-            string? parentSpaceKey = default,
             string? spaceId = default,
             string? spaceKey = default
         )
@@ -1429,8 +1382,6 @@ namespace Seam.Api
                         customerData: customerData,
                         deviceIds: deviceIds,
                         name: name,
-                        parentSpaceId: parentSpaceId,
-                        parentSpaceKey: parentSpaceKey,
                         spaceId: spaceId,
                         spaceKey: spaceKey
                     )

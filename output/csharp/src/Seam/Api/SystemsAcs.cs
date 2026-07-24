@@ -417,7 +417,7 @@ namespace Seam.Api
             protected ReportDevicesRequestAcsEncoders() { }
 
             public ReportDevicesRequestAcsEncoders(
-                ReportDevicesRequestAcsEncodersHotekMetadata hotekMetadata = default,
+                ReportDevicesRequestAcsEncodersHotekMetadata? hotekMetadata = default,
                 bool? isRemoved = default
             )
             {
@@ -425,8 +425,8 @@ namespace Seam.Api
                 IsRemoved = isRemoved;
             }
 
-            [DataMember(Name = "hotek_metadata", IsRequired = true, EmitDefaultValue = false)]
-            public ReportDevicesRequestAcsEncodersHotekMetadata HotekMetadata { get; set; }
+            [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public ReportDevicesRequestAcsEncodersHotekMetadata? HotekMetadata { get; set; }
 
             [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsRemoved { get; set; }
@@ -457,13 +457,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ReportDevicesRequestAcsEncodersHotekMetadata() { }
 
-            public ReportDevicesRequestAcsEncodersHotekMetadata(string encoderNumber = default)
+            public ReportDevicesRequestAcsEncodersHotekMetadata(string? encoderNumber = default)
             {
                 EncoderNumber = encoderNumber;
             }
 
-            [DataMember(Name = "encoder_number", IsRequired = true, EmitDefaultValue = false)]
-            public string EncoderNumber { get; set; }
+            [DataMember(Name = "encoder_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? EncoderNumber { get; set; }
 
             public override string ToString()
             {
@@ -492,7 +492,7 @@ namespace Seam.Api
             protected ReportDevicesRequestAcsEntrances() { }
 
             public ReportDevicesRequestAcsEntrances(
-                ReportDevicesRequestAcsEntrancesHotekMetadata hotekMetadata = default,
+                ReportDevicesRequestAcsEntrancesHotekMetadata? hotekMetadata = default,
                 bool? isRemoved = default
             )
             {
@@ -500,8 +500,8 @@ namespace Seam.Api
                 IsRemoved = isRemoved;
             }
 
-            [DataMember(Name = "hotek_metadata", IsRequired = true, EmitDefaultValue = false)]
-            public ReportDevicesRequestAcsEntrancesHotekMetadata HotekMetadata { get; set; }
+            [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public ReportDevicesRequestAcsEntrancesHotekMetadata? HotekMetadata { get; set; }
 
             [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsRemoved { get; set; }

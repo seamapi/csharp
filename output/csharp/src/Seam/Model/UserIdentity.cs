@@ -51,6 +51,12 @@ namespace Seam.Model
         {
             public abstract string ErrorCode { get; }
 
+            public abstract string AcsSystemId { get; set; }
+
+            public abstract string AcsUserId { get; set; }
+
+            public abstract string CreatedAt { get; set; }
+
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -77,19 +83,19 @@ namespace Seam.Model
                 Message = message;
             }
 
-            [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsSystemId { get; set; }
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public override string AcsSystemId { get; set; }
 
-            [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public override string AcsUserId { get; set; }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "issue_with_acs_user";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -120,17 +126,32 @@ namespace Seam.Model
 
             public UserIdentityErrorsUnrecognized(
                 string errorCode = default,
+                string acsSystemId = default,
+                string acsUserId = default,
+                string createdAt = default,
                 string message = default
             )
             {
                 ErrorCode = errorCode;
+                AcsSystemId = acsSystemId;
+                AcsUserId = acsUserId;
+                CreatedAt = createdAt;
                 Message = message;
             }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
+            public override string AcsSystemId { get; set; }
+
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public override string AcsUserId { get; set; }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -164,6 +185,8 @@ namespace Seam.Model
         {
             public abstract string WarningCode { get; }
 
+            public abstract string CreatedAt { get; set; }
+
             public abstract string Message { get; set; }
 
             public abstract override string ToString();
@@ -186,10 +209,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -235,10 +258,10 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
-            [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-            public string CreatedAt { get; set; }
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
@@ -273,17 +296,22 @@ namespace Seam.Model
 
             public UserIdentityWarningsUnrecognized(
                 string warningCode = default,
+                string createdAt = default,
                 string message = default
             )
             {
                 WarningCode = warningCode;
+                CreatedAt = createdAt;
                 Message = message;
             }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
-            [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             public override string ToString()
@@ -306,19 +334,19 @@ namespace Seam.Model
             }
         }
 
-        [DataMember(Name = "acs_user_ids", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "acs_user_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AcsUserIds { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
         public string? EmailAddress { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<UserIdentityErrors> Errors { get; set; }
 
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
@@ -327,16 +355,16 @@ namespace Seam.Model
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
-        [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
 
         [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityKey { get; set; }
 
-        [DataMember(Name = "warnings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<UserIdentityWarnings> Warnings { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()

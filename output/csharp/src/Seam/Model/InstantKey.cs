@@ -37,10 +37,10 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
-        [DataMember(Name = "client_session_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
         public string ClientSessionId { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         [DataMember(Name = "customization", IsRequired = false, EmitDefaultValue = false)]
@@ -53,19 +53,19 @@ namespace Seam.Model
         )]
         public string? CustomizationProfileId { get; set; }
 
-        [DataMember(Name = "expires_at", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
         public string ExpiresAt { get; set; }
 
-        [DataMember(Name = "instant_key_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "instant_key_id", IsRequired = false, EmitDefaultValue = false)]
         public string InstantKeyId { get; set; }
 
-        [DataMember(Name = "instant_key_url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string InstantKeyUrl { get; set; }
 
-        [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
         public override string ToString()

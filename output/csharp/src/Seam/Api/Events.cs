@@ -70,13 +70,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(Event? event_ = default)
+            public GetResponse(Event event_ = default)
             {
                 Event = event_;
             }
 
             [DataMember(Name = "event", IsRequired = false, EmitDefaultValue = false)]
-            public Event? Event { get; set; }
+            public Event Event { get; set; }
 
             public override string ToString()
             {
@@ -154,7 +154,7 @@ namespace Seam.Api
                 string? acsSystemId = default,
                 List<string>? acsSystemIds = default,
                 string? acsUserId = default,
-                List<string>? between = default,
+                List<ListRequestBetween>? between = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 string? customerKey = default,
@@ -909,7 +909,7 @@ namespace Seam.Api
             public string? AcsUserId { get; set; }
 
             [DataMember(Name = "between", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? Between { get; set; }
+            public List<ListRequestBetween>? Between { get; set; }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
@@ -956,6 +956,32 @@ namespace Seam.Api
 
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listRequestBetween_model")]
+        public class ListRequestBetween
+        {
+            [JsonConstructorAttribute]
+            public ListRequestBetween() { }
 
             public override string ToString()
             {
@@ -1032,7 +1058,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
             string? acsUserId = default,
-            List<string>? between = default,
+            List<ListRequestBetween>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             string? customerKey = default,
@@ -1106,7 +1132,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
             string? acsUserId = default,
-            List<string>? between = default,
+            List<ListRequestBetween>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             string? customerKey = default,

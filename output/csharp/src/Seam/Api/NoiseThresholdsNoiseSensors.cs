@@ -30,8 +30,7 @@ namespace Seam.Api
                 string? name = default,
                 float? noiseThresholdDecibels = default,
                 float? noiseThresholdNrs = default,
-                string startsDailyAt = default,
-                bool? sync = default
+                string startsDailyAt = default
             )
             {
                 DeviceId = deviceId;
@@ -40,7 +39,6 @@ namespace Seam.Api
                 NoiseThresholdDecibels = noiseThresholdDecibels;
                 NoiseThresholdNrs = noiseThresholdNrs;
                 StartsDailyAt = startsDailyAt;
-                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -64,9 +62,6 @@ namespace Seam.Api
 
             [DataMember(Name = "starts_daily_at", IsRequired = true, EmitDefaultValue = false)]
             public string StartsDailyAt { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -137,8 +132,7 @@ namespace Seam.Api
             string? name = default,
             float? noiseThresholdDecibels = default,
             float? noiseThresholdNrs = default,
-            string startsDailyAt = default,
-            bool? sync = default
+            string startsDailyAt = default
         )
         {
             return Create(
@@ -148,8 +142,7 @@ namespace Seam.Api
                     name: name,
                     noiseThresholdDecibels: noiseThresholdDecibels,
                     noiseThresholdNrs: noiseThresholdNrs,
-                    startsDailyAt: startsDailyAt,
-                    sync: sync
+                    startsDailyAt: startsDailyAt
                 )
             );
         }
@@ -174,8 +167,7 @@ namespace Seam.Api
             string? name = default,
             float? noiseThresholdDecibels = default,
             float? noiseThresholdNrs = default,
-            string startsDailyAt = default,
-            bool? sync = default
+            string startsDailyAt = default
         )
         {
             return (
@@ -186,8 +178,7 @@ namespace Seam.Api
                         name: name,
                         noiseThresholdDecibels: noiseThresholdDecibels,
                         noiseThresholdNrs: noiseThresholdNrs,
-                        startsDailyAt: startsDailyAt,
-                        sync: sync
+                        startsDailyAt: startsDailyAt
                     )
                 )
             );
@@ -199,15 +190,10 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(
-                string deviceId = default,
-                string noiseThresholdId = default,
-                bool? sync = default
-            )
+            public DeleteRequest(string deviceId = default, string noiseThresholdId = default)
             {
                 DeviceId = deviceId;
                 NoiseThresholdId = noiseThresholdId;
-                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -215,9 +201,6 @@ namespace Seam.Api
 
             [DataMember(Name = "noise_threshold_id", IsRequired = true, EmitDefaultValue = false)]
             public string NoiseThresholdId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -246,19 +229,9 @@ namespace Seam.Api
             _seam.Post<object>("/noise_sensors/noise_thresholds/delete", requestOptions);
         }
 
-        public void Delete(
-            string deviceId = default,
-            string noiseThresholdId = default,
-            bool? sync = default
-        )
+        public void Delete(string deviceId = default, string noiseThresholdId = default)
         {
-            Delete(
-                new DeleteRequest(
-                    deviceId: deviceId,
-                    noiseThresholdId: noiseThresholdId,
-                    sync: sync
-                )
-            );
+            Delete(new DeleteRequest(deviceId: deviceId, noiseThresholdId: noiseThresholdId));
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -268,18 +241,10 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/noise_sensors/noise_thresholds/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(
-            string deviceId = default,
-            string noiseThresholdId = default,
-            bool? sync = default
-        )
+        public async Task DeleteAsync(string deviceId = default, string noiseThresholdId = default)
         {
             await DeleteAsync(
-                new DeleteRequest(
-                    deviceId: deviceId,
-                    noiseThresholdId: noiseThresholdId,
-                    sync: sync
-                )
+                new DeleteRequest(deviceId: deviceId, noiseThresholdId: noiseThresholdId)
             );
         }
 
@@ -390,17 +355,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListRequest() { }
 
-            public ListRequest(string deviceId = default, bool? isProgrammed = default)
+            public ListRequest(string deviceId = default)
             {
                 DeviceId = deviceId;
-                IsProgrammed = isProgrammed;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
-
-            [DataMember(Name = "is_programmed", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsProgrammed { get; set; }
 
             public override string ToString()
             {
@@ -465,9 +426,9 @@ namespace Seam.Api
                 .Data.NoiseThresholds;
         }
 
-        public List<NoiseThreshold> List(string deviceId = default, bool? isProgrammed = default)
+        public List<NoiseThreshold> List(string deviceId = default)
         {
-            return List(new ListRequest(deviceId: deviceId, isProgrammed: isProgrammed));
+            return List(new ListRequest(deviceId: deviceId));
         }
 
         public async Task<List<NoiseThreshold>> ListAsync(ListRequest request)
@@ -484,14 +445,9 @@ namespace Seam.Api
                 .NoiseThresholds;
         }
 
-        public async Task<List<NoiseThreshold>> ListAsync(
-            string deviceId = default,
-            bool? isProgrammed = default
-        )
+        public async Task<List<NoiseThreshold>> ListAsync(string deviceId = default)
         {
-            return (
-                await ListAsync(new ListRequest(deviceId: deviceId, isProgrammed: isProgrammed))
-            );
+            return (await ListAsync(new ListRequest(deviceId: deviceId)));
         }
 
         [DataContract(Name = "updateRequest_request")]
@@ -507,8 +463,7 @@ namespace Seam.Api
                 float? noiseThresholdDecibels = default,
                 string noiseThresholdId = default,
                 float? noiseThresholdNrs = default,
-                string? startsDailyAt = default,
-                bool? sync = default
+                string? startsDailyAt = default
             )
             {
                 DeviceId = deviceId;
@@ -518,7 +473,6 @@ namespace Seam.Api
                 NoiseThresholdId = noiseThresholdId;
                 NoiseThresholdNrs = noiseThresholdNrs;
                 StartsDailyAt = startsDailyAt;
-                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -545,9 +499,6 @@ namespace Seam.Api
 
             [DataMember(Name = "starts_daily_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsDailyAt { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -583,8 +534,7 @@ namespace Seam.Api
             float? noiseThresholdDecibels = default,
             string noiseThresholdId = default,
             float? noiseThresholdNrs = default,
-            string? startsDailyAt = default,
-            bool? sync = default
+            string? startsDailyAt = default
         )
         {
             Update(
@@ -595,8 +545,7 @@ namespace Seam.Api
                     noiseThresholdDecibels: noiseThresholdDecibels,
                     noiseThresholdId: noiseThresholdId,
                     noiseThresholdNrs: noiseThresholdNrs,
-                    startsDailyAt: startsDailyAt,
-                    sync: sync
+                    startsDailyAt: startsDailyAt
                 )
             );
         }
@@ -615,8 +564,7 @@ namespace Seam.Api
             float? noiseThresholdDecibels = default,
             string noiseThresholdId = default,
             float? noiseThresholdNrs = default,
-            string? startsDailyAt = default,
-            bool? sync = default
+            string? startsDailyAt = default
         )
         {
             await UpdateAsync(
@@ -627,8 +575,7 @@ namespace Seam.Api
                     noiseThresholdDecibels: noiseThresholdDecibels,
                     noiseThresholdId: noiseThresholdId,
                     noiseThresholdNrs: noiseThresholdNrs,
-                    startsDailyAt: startsDailyAt,
-                    sync: sync
+                    startsDailyAt: startsDailyAt
                 )
             );
         }

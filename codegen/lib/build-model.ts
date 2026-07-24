@@ -1,21 +1,25 @@
-// Durable model builder for the C# SDK codegen.
+// Model builder for the C# SDK codegen.
 //
-// Ports the traversal of the previous nextlove C# serializer
-// (generate-csharp-sdk/templates/dataclass.ts) but produces the plain data model
-// in class-model.ts instead of AST nodes. All string serialization now lives in
-// the Handlebars layouts; this file only decides *what* classes, enums, unions,
-// properties, and routes exist, their names, order, types, and nullability.
+// Consumes the normalized @seamapi/blueprint and produces the plain data model
+// in class-model.ts. This file decides *what* classes, enums, unions,
+// properties, and routes exist, their names, order, types, and nullability. All
+// string serialization lives in the Handlebars layouts.
 //
-// Type resolution reads the raw OpenAPI schema (via the openapi/* parsing
-// helpers) because it distinguishes int/float, Object/object, and inline enums
-// in ways @seamapi/blueprint normalizes away.
-// TODO: Derive types, resources, and namespaces from @seamapi/blueprint once the
-// generated output is allowed to change.
+// The builder depends only on the blueprint. It never reads the OpenAPI spec:
+// the blueprint already resolves int vs. float (Number.isInt), enum members,
+// inline objects, discriminated unions, and endpoint request/response shapes.
 
+import type {
+  ActionAttempt,
+  Endpoint,
+  EventResource,
+  Parameter,
+  Property,
+  Resource,
+} from '@seamapi/blueprint'
 import { camelCase, pascalCase, snakeCase } from 'change-case'
 
 import type {
-  CsAbstractProp,
   CsApiFile,
   CsClass,
   CsEnum,
@@ -26,59 +30,34 @@ import type {
   CsUnion,
 } from './class-model.js'
 import { GLOBAL_NAMESPACE } from './constants.js'
-import { deepFlattenAllOfSchema } from './openapi/flatten-obj-schema.js'
-import type {
-  AllOfSchema,
-  ObjSchema,
-  OneOfSchema,
-  PropertySchema,
-  RefSchema,
-} from './types.js'
 
-const FALLBACK_TYPE = 'object?'
+const MODEL_NAMESPACE = [...GLOBAL_NAMESPACE, 'Model']
 
-// C# keyword/identifier remapping, ported verbatim to preserve the previous
-// generator's parameter and property names.
-// TODO: Revisit these name workarounds once the generated output is allowed to
-// change (e.g. use a verbatim identifier `@event`/`@override` instead).
+// C# reserved identifiers cannot be used verbatim as camelCase parameter or
+// local names. `override` is renamed and `event` is suffixed to keep the
+// generated argument names legal.
 const reservedKeywordMap: Record<string, string> = { override: 'mustOverride' }
 const RESERVED_TOKENS = ['event']
 
 const applyReserved = (token: string): string =>
   RESERVED_TOKENS.includes(token) ? `${token}_` : token
 
+const camelIdentifier = (name: string): string =>
+  applyReserved(reservedKeywordMap[camelCase(name)] ?? camelCase(name))
+
 const withNullable = (type: string, nullable: boolean): string =>
   nullable ? `${type}?` : type
 
-type SupportedPropertySchema = Exclude<PropertySchema, AllOfSchema>
-
-interface TopLevelOptions {
-  enumOverrides?: Record<string, string>
-  base?: string
-}
-
-interface PersistentOptions {
-  forceNullable?: boolean
-}
-
-interface BuiltClass {
-  main: CsClass
-  // Sibling classes spawned by inline-object properties, flattened in
-  // discovery order; appended after `main` at the enclosing level.
-  siblings: CsClass[]
-  properties: CsProperty[]
-}
-
 const dataContractName = (
-  name: string,
-  resourceType: string,
+  className: string,
+  resourceType: 'response' | 'request' | 'model',
   namespace?: string[],
 ): string =>
   [
     ...(namespace != null && namespace.length > 0
       ? [camelCase(namespace.join('_'))]
       : []),
-    camelCase(name),
+    camelCase(className),
     resourceType,
   ].join('_')
 
@@ -89,361 +68,418 @@ const safeWrapEnumValue = (value: string): string => {
   return isAlpha ? value : `_${value}`
 }
 
-const buildEnum = (
-  propertyName: string,
-  enumValues: Array<string | number>,
-  ty: 'number' | 'string',
-): CsEnum => {
+const buildEnum = (propertyName: string, enumValues: string[]): CsEnum => {
   const name = pascalCase(`${propertyName}Enum`)
-  const isString = ty === 'string'
-
   const members = [
-    ...(isString
-      ? [{ identifier: 'Unrecognized', assign: 0, value: 'unrecognized' }]
-      : []),
+    { identifier: 'Unrecognized', assign: 0, value: 'unrecognized' },
     ...enumValues.map((value, i) => ({
-      identifier: safeWrapEnumValue(
-        typeof value === 'string' ? pascalCase(value) : `${name}${i}`,
-      ),
-      assign: isString ? i + 1 : i,
+      identifier: safeWrapEnumValue(pascalCase(value)),
+      assign: i + 1,
       value,
     })),
   ]
-
-  return { name, isString, members }
+  return { name, isString: true, members }
 }
 
-const isSchemaObjectRecursive = (schemas: any[]): boolean =>
-  schemas.every(
-    (s: any) =>
-      ('type' in s && s.type === 'object') ||
-      ('allOf' in s && isSchemaObjectRecursive(s.allOf)) ||
-      ('oneOf' in s && isSchemaObjectRecursive(s.oneOf)),
-  )
+// Normalized field model. Both resource/model properties and endpoint request
+// parameters are normalized into this shape so a single builder can turn them
+// into class-model properties, nested enums, sibling classes, and unions.
+interface Field {
+  name: string
+  isRequired: boolean
+  nullable: boolean
+  kind: Kind
+}
+
+type Kind =
+  | { t: 'prim'; cs: string }
+  | { t: 'enum'; values: string[] }
+  | { t: 'object'; fields: Field[] }
+  | { t: 'list'; item: Kind }
+  | { t: 'union'; discriminator: string; variants: Variant[] }
+  // A direct reference to an already-declared type (a model class or a
+  // List<...> of one). Used for endpoint response wrapper properties.
+  | { t: 'ref'; cs: string }
+
+interface Variant {
+  value: string
+  fields: Field[]
+}
+
+const enumValueNames = (values: Array<{ name: string }>): string[] =>
+  values.map((v) => v.name)
+
+// Reads the single discriminator enum value carried by a union variant, e.g.
+// the one member of the variant's `error_code`/`action_type` enum.
+const discriminatorValue = (
+  fields: Field[],
+  discriminator: string,
+): string | undefined => {
+  const field = fields.find((f) => f.name === discriminator)
+  if (field?.kind.t === 'enum') return field.kind.values[0]
+  return undefined
+}
+
+const normalizeItemKind = (property: Property): Kind => {
+  if (property.format !== 'list') {
+    throw new Error(`Expected list property, got ${property.format}`)
+  }
+  switch (property.itemFormat) {
+    case 'string':
+    case 'id':
+    case 'datetime':
+      return { t: 'prim', cs: 'string' }
+    case 'number':
+      return { t: 'prim', cs: property.isItemInt ? 'int' : 'float' }
+    case 'enum':
+      return { t: 'enum', values: enumValueNames(property.itemEnumValues) }
+    case 'record':
+      return { t: 'prim', cs: 'object' }
+    case 'object':
+      return {
+        t: 'object',
+        fields: property.itemProperties.map(normalizeProperty),
+      }
+    case 'discriminated_object':
+      return {
+        t: 'union',
+        discriminator: property.discriminator,
+        variants: property.variants.map((variant) => {
+          const fields = variant.properties.map(normalizeProperty)
+          return {
+            value: discriminatorValue(fields, property.discriminator) ?? '',
+            fields,
+          }
+        }),
+      }
+    default:
+      return { t: 'prim', cs: 'object' }
+  }
+}
+
+const normalizeProperty = (property: Property): Field => {
+  // Response models deserialize leniently: `IsRequired` stays false so a
+  // payload that omits a field (as real responses and partial fixtures do)
+  // never throws. `isOptional` and `isNullable` instead widen the C# type to
+  // nullable, so a value that may be absent or null is representable.
+  const base = {
+    name: property.name,
+    isRequired: false,
+    nullable: property.isNullable || property.isOptional,
+  }
+  switch (property.format) {
+    case 'string':
+    case 'id':
+    case 'datetime':
+      return { ...base, kind: { t: 'prim', cs: 'string' } }
+    case 'boolean':
+      return { ...base, kind: { t: 'prim', cs: 'bool' } }
+    case 'number':
+      return {
+        ...base,
+        kind: { t: 'prim', cs: property.isInt ? 'int' : 'float' },
+      }
+    case 'record':
+      return { ...base, kind: { t: 'prim', cs: 'object' } }
+    case 'enum':
+      return {
+        ...base,
+        kind: { t: 'enum', values: enumValueNames(property.values) },
+      }
+    case 'object':
+      return {
+        ...base,
+        kind: {
+          t: 'object',
+          fields: property.properties.map(normalizeProperty),
+        },
+      }
+    case 'list':
+      return { ...base, kind: { t: 'list', item: normalizeItemKind(property) } }
+    default:
+      return { ...base, kind: { t: 'prim', cs: 'object' } }
+  }
+}
+
+const normalizeParameterItemKind = (parameter: Parameter): Kind => {
+  if (parameter.format !== 'list') {
+    throw new Error(`Expected list parameter, got ${parameter.format}`)
+  }
+  switch (parameter.itemFormat) {
+    case 'string':
+    case 'id':
+    case 'datetime':
+      return { t: 'prim', cs: 'string' }
+    case 'number':
+      return { t: 'prim', cs: parameter.isItemInt ? 'int' : 'float' }
+    case 'boolean':
+      return { t: 'prim', cs: 'bool' }
+    case 'enum':
+      return { t: 'enum', values: enumValueNames(parameter.itemEnumValues) }
+    case 'record':
+      return { t: 'prim', cs: 'object' }
+    case 'object':
+      return {
+        t: 'object',
+        fields: parameter.itemParameters.map(normalizeParameter),
+      }
+    case 'discriminated_object':
+      return {
+        t: 'union',
+        discriminator: parameter.discriminator,
+        variants: parameter.variants.map((variant) => {
+          const fields = variant.parameters.map(normalizeParameter)
+          return {
+            value: discriminatorValue(fields, parameter.discriminator) ?? '',
+            fields,
+          }
+        }),
+      }
+    default:
+      return { t: 'prim', cs: 'object' }
+  }
+}
+
+const normalizeParameter = (parameter: Parameter): Field => {
+  // Endpoint parameters carry `isRequired`; optional parameters become nullable.
+  const base = {
+    name: parameter.name,
+    isRequired: parameter.isRequired,
+    nullable: !parameter.isRequired,
+  }
+  switch (parameter.format) {
+    case 'string':
+    case 'id':
+    case 'datetime':
+      return { ...base, kind: { t: 'prim', cs: 'string' } }
+    case 'boolean':
+      return { ...base, kind: { t: 'prim', cs: 'bool' } }
+    case 'number':
+      return {
+        ...base,
+        kind: { t: 'prim', cs: parameter.isInt ? 'int' : 'float' },
+      }
+    case 'record':
+      return { ...base, kind: { t: 'prim', cs: 'object' } }
+    case 'enum':
+      return {
+        ...base,
+        kind: { t: 'enum', values: enumValueNames(parameter.values) },
+      }
+    case 'object':
+      return {
+        ...base,
+        kind: {
+          t: 'object',
+          fields: parameter.parameters.map(normalizeParameter),
+        },
+      }
+    case 'list':
+      return {
+        ...base,
+        kind: { t: 'list', item: normalizeParameterItemKind(parameter) },
+      }
+    default:
+      return { ...base, kind: { t: 'prim', cs: 'object' } }
+  }
+}
+
+interface BuildClassOptions {
+  resourceType: 'response' | 'request' | 'model'
+  namespace?: string[] | undefined
+  // When set, the class is a discriminated-union subclass: the discriminator
+  // property is emitted as a get-only override with a constant value.
+  discriminator?: { name: string; value: string; base: string }
+  // Property names lifted onto the union's abstract base; emitted as overrides.
+  overrideNames?: Set<string> | undefined
+}
+
+interface BuiltClass {
+  main: CsClass
+  // Sibling classes spawned by inline-object properties, appended after `main`.
+  siblings: CsClass[]
+  properties: CsProperty[]
+}
 
 const buildClass = (
-  name: string,
-  schema: ObjSchema | RefSchema,
-  resourceType: 'response' | 'request' | 'model',
-  namespace?: string[],
-  topLevelOptions: TopLevelOptions = {},
-  persistentOptions: PersistentOptions = {},
+  className: string,
+  fields: Field[],
+  options: BuildClassOptions,
 ): BuiltClass => {
-  const { enumOverrides: topLevelEnumOverrides, base } = topLevelOptions
-  const { forceNullable = false } = persistentOptions
-
+  const { resourceType, namespace, discriminator, overrideNames } = options
   const nested: CsNested[] = []
   const siblings: CsClass[] = []
-  // Preserve Map insertion semantics of the original extraFields.
   const nestedByKey = new Map<string, CsNested>()
 
-  const required =
-    'required' in schema ? new Set(schema.required) : new Set<string>()
-  const properties: Array<[string, PropertySchema]> =
-    'properties' in schema ? Object.entries(schema.properties) : []
-
   const setNested = (key: string, value: CsNested): void => {
-    if (!nestedByKey.has(key)) {
-      nested.push(value)
-    }
+    if (!nestedByKey.has(key)) nested.push(value)
     nestedByKey.set(key, value)
   }
 
-  const mapSchemaEnum = (
-    propertyName: string,
-    nullable: boolean,
-    enumValues: Array<string | number>,
-    ty: 'number' | 'string',
-  ): string => {
-    const csEnum = buildEnum(propertyName, enumValues, ty)
-    setNested(csEnum.name, { enum: csEnum })
-    return withNullable(`${name}.${csEnum.name}`, nullable)
-  }
-
-  const mapOneOfType = (
-    oneOf: OneOfSchema,
-    propertyName: string,
-    nullable: boolean,
-  ): string => {
-    if (!oneOf.discriminator) {
-      if (oneOf.oneOf.every((s: any) => 'type' in s && s.type === 'string')) {
-        return withNullable('string', nullable)
+  const csType = (kind: Kind, fieldName: string, nullable: boolean): string => {
+    switch (kind.t) {
+      case 'prim':
+        return withNullable(kind.cs, nullable)
+      case 'ref':
+        return kind.cs
+      case 'enum': {
+        const csEnum = buildEnum(fieldName, kind.values)
+        setNested(csEnum.name, { enum: csEnum })
+        return withNullable(`${className}.${csEnum.name}`, nullable)
       }
-      if (isSchemaObjectRecursive(oneOf.oneOf)) {
-        return withNullable('JObject', nullable)
-      }
-      return FALLBACK_TYPE
-    }
-
-    const built = buildUnion(
-      `${name} ${propertyName}`,
-      oneOf,
-      resourceType,
-      namespace,
-    )
-    setNested(built.className, { union: built })
-    return withNullable(built.className, nullable)
-  }
-
-  const mapAllOfType = (
-    allOf: AllOfSchema,
-    propertyName: string,
-    nullable: boolean,
-  ): string => {
-    const flattened = deepFlattenAllOfSchema(allOf)
-    if (flattened != null) {
-      return mapSchemaType(flattened, propertyName, nullable)
-    }
-    if (isSchemaObjectRecursive(allOf.allOf)) {
-      return withNullable('JObject', nullable)
-    }
-    return FALLBACK_TYPE
-  }
-
-  // Resolves the C# type string for a property schema and, as a side effect,
-  // collects the inline enums, nested object classes, and nested unions it
-  // spawns. Reads the raw OpenAPI schema (oneOf/allOf/$ref/type/enum/items).
-  // TODO: Derive parameter and property types from @seamapi/blueprint once the
-  // generated output is allowed to change. Blueprint collapses the integer type
-  // into number (losing int vs float), flattens unions differently, and does
-  // not surface these inline enums, so the raw schema is used here for parity.
-  const mapSchemaType = (
-    schema: any,
-    propertyName: string,
-    nullable: boolean,
-  ): string => {
-    if ('$ref' in schema) {
-      const refPath = schema.$ref
-      if (refPath.startsWith('#/components/schemas/')) {
-        return withNullable(
-          pascalCase(refPath.split('/').pop() as string),
-          nullable,
-        )
-      }
-      return withNullable(refPath, nullable)
-    }
-
-    if ('oneOf' in schema) {
-      if (
-        schema.oneOf.every(
-          (s: any) => 'type' in s && s.type === 'string' && s.enum,
-        )
-      ) {
-        schema = {
-          type: 'string',
-          enum: schema.oneOf.flatMap((s: any) =>
-            'type' in s && s.type === 'string' ? (s.enum ?? []) : [],
-          ),
-          ...schema,
-        }
-      } else {
-        return mapOneOfType(schema, propertyName, nullable)
-      }
-    }
-
-    if ('allOf' in schema) {
-      return mapAllOfType(schema, propertyName, nullable)
-    }
-
-    switch (schema.type) {
-      case 'string': {
-        if (schema.enum && !topLevelEnumOverrides?.[propertyName]) {
-          return mapSchemaEnum(propertyName, nullable, schema.enum, 'string')
-        }
-        return withNullable('string', nullable)
-      }
-      case 'integer':
-        if (schema.enum) {
-          return mapSchemaEnum(propertyName, nullable, schema.enum, 'number')
-        }
-        return withNullable('int', nullable)
-      case 'boolean':
-        return withNullable('bool', nullable)
       case 'object': {
-        if ('additionalProperties' in schema) {
-          return FALLBACK_TYPE
-        }
-        const newClassName = pascalCase(name + pascalCase(propertyName))
-        // TODO: Remove the hardcoded DeviceProperties special case once the
-        // generated output is allowed to change. It forces every property on
-        // that one class nullable/optional purely to match the previous output.
-        const built = buildClass(
-          newClassName,
-          schema as ObjSchema,
-          'model',
+        const childName = pascalCase(className + pascalCase(fieldName))
+        const built = buildClass(childName, kind.fields, {
+          resourceType: 'model',
           namespace,
-          {},
-          {
-            ...persistentOptions,
-            ...(newClassName === 'DeviceProperties' && { forceNullable: true }),
-          },
-        )
+        })
         siblings.push(built.main, ...built.siblings)
-        return withNullable(newClassName, nullable)
+        return withNullable(childName, nullable)
       }
-      case 'array':
+      case 'list':
         return withNullable(
-          `List<${mapSchemaType(
-            schema.items,
-            propertyName,
-            'nullable' in schema.items ? !!schema.items.nullable : false,
-          )}>`,
+          `List<${csType(kind.item, fieldName, false)}>`,
           nullable,
         )
-      case 'number':
-        return withNullable('float', nullable)
-      default:
-        return 'Object'
+      case 'union': {
+        const unionName = pascalCase(className + pascalCase(fieldName))
+        const union = buildUnion(unionName, kind.discriminator, kind.variants, {
+          resourceType,
+          namespace,
+        })
+        setNested(unionName, { union })
+        return withNullable(unionName, nullable)
+      }
     }
   }
 
-  const mapTypeToProperty = ([propertyName, schema]: [
-    string,
-    PropertySchema,
-  ]): CsProperty => {
-    const isRequired =
-      required.has(propertyName) &&
-      !('nullable' in schema && schema.nullable) &&
-      !forceNullable
+  const overrideProperty = (name: string, value: string): CsProperty => ({
+    pascalName: pascalCase(name),
+    camelName: camelIdentifier(name),
+    snakeName: snakeCase(name),
+    type: 'string',
+    isRequired: true,
+    isOverride: true,
+    getOnly: true,
+    initializer: `"${value}"`,
+  })
 
-    const enumOverride = topLevelEnumOverrides?.[propertyName]
-    // TODO: Replace this name-based errors/warnings `message` override heuristic
-    // with a general derivation of common union properties once the generated
-    // output is allowed to change. It only reproduces the previous output.
-    const shouldOverrideMessage =
-      propertyName === 'message' &&
-      (name.includes('Errors') || name.includes('Warnings')) &&
-      (Object.keys(topLevelOptions.enumOverrides ?? {})[0]?.endsWith('_code') ??
-        false)
+  const mapField = (field: Field): CsProperty => ({
+    pascalName: pascalCase(field.name),
+    camelName: camelIdentifier(field.name),
+    snakeName: snakeCase(field.name),
+    type: csType(field.kind, field.name, field.nullable),
+    isRequired: field.isRequired,
+    isOverride: overrideNames?.has(field.name) ?? false,
+    getOnly: false,
+  })
 
-    const type = mapSchemaType(
-      schema,
-      propertyName,
-      forceNullable || ('nullable' in schema ? !!schema.nullable : !isRequired),
+  const properties: CsProperty[] = []
+  let emittedDiscriminator = false
+  for (const field of fields) {
+    if (discriminator != null && field.name === discriminator.name) {
+      properties.push(overrideProperty(discriminator.name, discriminator.value))
+      emittedDiscriminator = true
+      continue
+    }
+    properties.push(mapField(field))
+  }
+  if (discriminator != null && !emittedDiscriminator) {
+    properties.unshift(
+      overrideProperty(discriminator.name, discriminator.value),
     )
-
-    return {
-      pascalName: pascalCase(propertyName),
-      camelName: applyReserved(
-        reservedKeywordMap[camelCase(propertyName)] ?? camelCase(propertyName),
-      ),
-      snakeName: snakeCase(propertyName),
-      type,
-      isRequired,
-      isOverride: enumOverride != null || shouldOverrideMessage,
-      getOnly: enumOverride != null,
-      ...(enumOverride != null ? { initializer: `"${enumOverride}"` } : {}),
-    }
   }
-
-  const csProperties = properties.map(mapTypeToProperty)
 
   const main: CsClass = {
     kind: 'class',
-    className: pascalCase(name),
-    dataContractName: dataContractName(name, resourceType, namespace),
-    ...(base != null ? { baseClass: base } : {}),
+    className,
+    dataContractName: dataContractName(className, resourceType, namespace),
+    ...(discriminator != null ? { baseClass: discriminator.base } : {}),
     nested,
-    properties: csProperties,
+    properties,
   }
 
-  return { main, siblings, properties: csProperties }
+  return { main, siblings, properties }
 }
 
 const buildUnion = (
-  name: string,
-  schema: OneOfSchema,
-  resourceType: 'response' | 'request' | 'model',
-  namespace?: string[],
+  className: string,
+  discriminator: string,
+  variants: Variant[],
+  options: {
+    resourceType: 'response' | 'request' | 'model'
+    namespace?: string[] | undefined
+  },
 ): CsUnion => {
-  if (!schema.discriminator) {
-    throw new Error(
-      `OneOfSchema must have discriminator: ${JSON.stringify(schema, null, 2)}`,
-    )
+  const { resourceType, namespace } = options
+
+  // Lift properties shared by every variant onto the abstract base so consumers
+  // can read them polymorphically without downcasting. Only primitive-typed
+  // properties with an identical resolved C# type across all variants qualify
+  // (enum/object/list types are owned by a specific subclass and cannot be
+  // shared). The discriminator is lifted separately as a get-only override.
+  const primType = (field: Field): string | null =>
+    field.kind.t === 'prim' ? withNullable(field.kind.cs, field.nullable) : null
+
+  const byName = new Map<string, Field[]>()
+  for (const variant of variants) {
+    for (const field of variant.fields) {
+      if (field.name === discriminator) continue
+      byName.set(field.name, [...(byName.get(field.name) ?? []), field])
+    }
   }
-
-  // TODO: Build discriminated unions from @seamapi/blueprint variant metadata
-  // once the generated output is allowed to change. This reads the raw OpenAPI
-  // oneOf/discriminator and reproduces the previous generator's quirks: the
-  // errors/warnings-only abstract `message`, the reversed KnownSubType attribute
-  // order, and the synthesized Unrecognized fallback subclass.
-  const discriminator = schema.discriminator.propertyName
-
-  const objSchemas = Array.from(
-    schema.oneOf
-      .reduce((map, s) => {
-        if (!('type' in s && s.type === 'object')) {
-          throw new Error('OneOfSchema must have object types')
-        }
-        const prop = s.properties[discriminator]
-        if (!(
-          prop &&
-          'type' in prop &&
-          prop.type === 'string' &&
-          prop.enum &&
-          prop.enum.length === 1
-        )) {
-          throw new Error(
-            `OneOfSchema must have string discriminator: ${JSON.stringify(schema, null, 2)}`,
-          )
-        }
-        const specificName = prop.enum[0] as string
-        if (!map.has(specificName)) {
-          map.set(specificName, [specificName, s as ObjSchema] as const)
-        }
-        return map
-      }, new Map<string, readonly [string, ObjSchema]>())
-      .values(),
-  )
-
-  const isErrorsOrWarnings =
-    name.endsWith('errors') || name.endsWith('warnings')
-
-  const className = pascalCase(name)
-
-  const abstractProps: CsAbstractProp[] = [
-    { type: 'string', pascalName: pascalCase(discriminator), getOnly: true },
-    ...(isErrorsOrWarnings
-      ? [{ type: 'string', pascalName: 'Message', getOnly: false }]
-      : []),
-  ]
+  const liftedFields = [...byName.values()]
+    .filter((fields) => fields.length === variants.length)
+    .map((fields) => fields[0] as Field)
+    .filter((field) => {
+      const type = primType(field)
+      return (
+        type != null &&
+        byName.get(field.name)?.every((f) => primType(f) === type)
+      )
+    })
+  const overrideNames = new Set(liftedFields.map((f) => f.name))
 
   const subclasses: CsClass[] = []
-  const specifiedClassNames: Array<[string, string]> = []
+  const known: Array<[string, string]> = []
 
-  for (const [specifiedName, subschema] of objSchemas) {
-    const specifiedClassName = pascalCase(name) + pascalCase(specifiedName)
-    const built = buildClass(
-      specifiedClassName,
-      subschema,
+  for (const variant of variants) {
+    const subName = pascalCase(className + pascalCase(variant.value))
+    const built = buildClass(subName, variant.fields, {
       resourceType,
       namespace,
-      { enumOverrides: { [discriminator]: specifiedName }, base: className },
-    )
+      discriminator: {
+        name: discriminator,
+        value: variant.value,
+        base: className,
+      },
+      overrideNames,
+    })
     subclasses.push(built.main, ...built.siblings)
-    specifiedClassNames.push([specifiedClassName, specifiedName])
+    known.push([subName, variant.value])
   }
 
-  const unrecognizedTypeName = `${pascalCase(name)}Unrecognized`
-  const fallbackSchema: ObjSchema = {
-    type: 'object',
-    properties: {
-      [discriminator]: { type: 'string' },
-      ...(isErrorsOrWarnings ? { message: { type: 'string' } } : {}),
-    },
-    required: [discriminator, ...(isErrorsOrWarnings ? ['message'] : [])],
-  }
+  const unrecognizedTypeName = `${className}Unrecognized`
   const fallback = buildClass(
     unrecognizedTypeName,
-    fallbackSchema,
-    resourceType,
-    namespace,
-    { enumOverrides: { [discriminator]: 'unrecognized' }, base: className },
+    // The fallback carries the lifted properties so it satisfies the abstract
+    // base; they are optional since an unrecognized payload may omit them.
+    liftedFields.map((field) => ({ ...field, isRequired: false })),
+    {
+      resourceType,
+      namespace,
+      discriminator: {
+        name: discriminator,
+        value: 'unrecognized',
+        base: className,
+      },
+      overrideNames,
+    },
   )
   subclasses.push(fallback.main, ...fallback.siblings)
 
-  // Attribute order is the reverse of subclass definition order.
-  const knownSubTypes = [...specifiedClassNames]
+  // The KnownSubType attribute order is the reverse of subclass definition order.
+  const knownSubTypes = [...known]
     .reverse()
     .map(([typeName, value]) => ({ typeName, value }))
 
@@ -453,104 +489,160 @@ const buildUnion = (
     discriminatorSnake: discriminator,
     knownSubTypes,
     unrecognizedTypeName,
-    abstractProps,
+    abstractProps: [
+      { type: 'string', pascalName: pascalCase(discriminator), getOnly: true },
+      ...liftedFields.map((field) => ({
+        type: primType(field) as string,
+        pascalName: pascalCase(field.name),
+        getOnly: false,
+      })),
+    ],
     subclasses,
   }
 }
 
 export const buildModelFile = (
-  schemaName: string,
-  schema: SupportedPropertySchema,
-  namespace: string[],
+  resource: Resource,
 ): { name: string; file: CsModelFile } => {
-  const name = pascalCase(schemaName)
+  const name = pascalCase(resource.resourceType)
+  const built = buildClass(name, resource.properties.map(normalizeProperty), {
+    resourceType: 'model',
+    namespace: MODEL_NAMESPACE,
+  })
+  return { name, file: { decls: [built.main, ...built.siblings] } }
+}
 
-  if ('oneOf' in schema) {
-    const union = buildUnion(name, schema, 'model', namespace)
-    return { name, file: { decls: [union] } }
-  }
+const buildUnionModelFile = (
+  name: string,
+  discriminator: string,
+  variants: Variant[],
+): { name: string; file: CsModelFile } => {
+  const union = buildUnion(name, discriminator, variants, {
+    resourceType: 'model',
+    namespace: MODEL_NAMESPACE,
+  })
+  return { name, file: { decls: [union] } }
+}
 
-  if ('$ref' in schema || schema.type === 'object') {
-    const built = buildClass(name, schema, 'model', namespace)
-    return { name, file: { decls: [built.main, ...built.siblings] } }
-  }
-
-  throw new Error(
-    `Unsupported schema: ${JSON.stringify({ schema, name }, null, 2)}`,
+export const buildActionAttemptFile = (
+  actionAttempts: ActionAttempt[],
+): { name: string; file: CsModelFile } =>
+  buildUnionModelFile(
+    'ActionAttempt',
+    'action_type',
+    actionAttempts.map((actionAttempt) => ({
+      value: actionAttempt.actionAttemptType,
+      fields: actionAttempt.properties.map(normalizeProperty),
+    })),
   )
+
+export const buildEventFile = (
+  events: EventResource[],
+): { name: string; file: CsModelFile } =>
+  buildUnionModelFile(
+    'Event',
+    'event_type',
+    events.map((event) => ({
+      value: event.eventType,
+      fields: event.properties.map(normalizeProperty),
+    })),
+  )
+
+// Resolves the model type for a resource reference. A reference to a type that
+// is not a generated model (e.g. an undocumented resource, which the blueprint
+// reports as `unknown`) falls back to the untyped `object`. The batch
+// find-anything endpoint is keyed by its response key, which is a model.
+const resolveModel = (
+  resourceType: string,
+  responseKey: string,
+  modelTypes: Set<string>,
+): string => {
+  if (modelTypes.has(resourceType)) return pascalCase(resourceType)
+  if (modelTypes.has(responseKey)) return pascalCase(responseKey)
+  return 'object'
+}
+
+// The C# type for an endpoint's return value, and the resource property name it
+// is unwrapped from in the response body.
+const responseReturn = (
+  response: Endpoint['response'],
+  modelTypes: Set<string>,
+): { returnType: string; returnProp: string } | undefined => {
+  if (response.responseType === 'void') return undefined
+  const returnProp = pascalCase(response.responseKey)
+  const model = resolveModel(
+    response.resourceType,
+    response.responseKey,
+    modelTypes,
+  )
+  const returnType =
+    response.responseType === 'resource_list' ? `List<${model}>` : model
+  return { returnType, returnProp }
 }
 
 export const buildApiFile = (
   className: string,
-  routes: Array<{
-    methodName: string
-    path: string
-    parameterSchema: ObjSchema
-    responseObjType: string | undefined
-    responseArrType: string | undefined
-    isVoid: boolean
-    nullable: boolean
-    returnPath: string
-  }>,
+  endpoints: Endpoint[],
+  modelTypes: Set<string>,
 ): CsApiFile => {
-  const csRoutes: CsRoute[] = routes.map((route) => {
-    const method = pascalCase(route.methodName)
+  const routes: CsRoute[] = endpoints.map((endpoint) => {
+    const methodName = pascalCase(endpoint.name)
+
     const request = buildClass(
-      pascalCase(`${route.methodName}_request`),
-      route.parameterSchema,
-      'request',
+      pascalCase(`${endpoint.name}_request`),
+      endpoint.request.parameters.map(normalizeParameter),
+      { resourceType: 'request' },
     )
 
-    if (!route.responseObjType && !route.responseArrType && !route.isVoid) {
-      throw new Error('Invalid response type')
+    const returned = responseReturn(endpoint.response, modelTypes)
+    const isVoid = returned == null
+
+    if (isVoid) {
+      return {
+        methodName,
+        path: endpoint.path,
+        request: request.main,
+        requestSiblings: request.siblings,
+        responseSiblings: [],
+        responseTypeArg: 'object',
+        isVoid: true,
+        params: request.properties,
+      }
     }
 
-    // TODO: Derive the response type and nullability from
-    // @seamapi/blueprint endpoint.response once the generated output is allowed
-    // to change. Only the array element honors `nullable`; a non-array response
-    // is never marked nullable, reproducing a quirk of the previous generator
-    // (its nullable flag was misrouted and never applied to object responses).
-    const returnType = route.isVoid
-      ? undefined
-      : route.responseArrType
-        ? `List<${pascalCase(route.responseArrType)}${route.nullable ? '?' : ''}>`
-        : pascalCase(route.responseObjType as string)
-
-    const responseName = pascalCase(`${route.methodName}_response`)
-    const response = route.isVoid
-      ? undefined
-      : buildClass(
-          responseName,
-          {
-            type: 'object',
-            required: [],
-            properties: {
-              [pascalCase(route.returnPath)]: {
-                $ref: returnType as string,
-                nullable: route.nullable,
-              } as unknown as PropertySchema,
-            },
-          },
-          'response',
-        )
+    const { returnType, returnProp } = returned
+    const responseKey = (endpoint.response as { responseKey: string })
+      .responseKey
+    const responseClassName = pascalCase(`${endpoint.name}_response`)
+    const response = buildClass(
+      responseClassName,
+      [
+        {
+          name: responseKey,
+          isRequired: false,
+          nullable: false,
+          kind: { t: 'ref', cs: returnType },
+        },
+      ],
+      { resourceType: 'response' },
+    )
 
     return {
-      methodName: method,
-      path: route.path,
+      methodName,
+      path: endpoint.path,
       request: request.main,
       requestSiblings: request.siblings,
-      ...(response != null
-        ? { response: response.main, responseSiblings: response.siblings }
-        : { responseSiblings: [] as CsClass[] }),
-      responseTypeArg: response != null ? responseName : 'object',
-      ...(route.isVoid ? {} : { returnProp: pascalCase(route.returnPath) }),
-      ...(returnType != null ? { returnType } : {}),
-      isVoid: route.isVoid,
+      response: response.main,
+      responseSiblings: response.siblings,
+      responseTypeArg: responseClassName,
+      returnProp,
+      returnType,
+      isVoid: false,
       params: request.properties,
     }
   })
 
-  return { className: pascalCase(className), routes: csRoutes }
+  return { className: pascalCase(className), routes }
 }
 
 export { GLOBAL_NAMESPACE }

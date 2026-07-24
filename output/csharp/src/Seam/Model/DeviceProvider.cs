@@ -393,16 +393,16 @@ namespace Seam.Model
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCode { get; set; }
 
-        [DataMember(Name = "device_provider_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
         public DeviceProvider.DeviceProviderNameEnum DeviceProviderName { get; set; }
 
-        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "image_url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string ImageUrl { get; set; }
 
-        [DataMember(Name = "provider_categories", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "provider_categories", IsRequired = false, EmitDefaultValue = false)]
         public List<DeviceProvider.ProviderCategoriesEnum> ProviderCategories { get; set; }
 
         public override string ToString()

@@ -28,15 +28,13 @@ namespace Seam.Api
                 string accessCodeId = default,
                 bool? allowExternalModification = default,
                 bool? force = default,
-                bool? isExternalModificationAllowed = default,
-                bool? sync = default
+                bool? isExternalModificationAllowed = default
             )
             {
                 AccessCodeId = accessCodeId;
                 AllowExternalModification = allowExternalModification;
                 Force = force;
                 IsExternalModificationAllowed = isExternalModificationAllowed;
-                Sync = sync;
             }
 
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
@@ -58,9 +56,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? IsExternalModificationAllowed { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -93,8 +88,7 @@ namespace Seam.Api
             string accessCodeId = default,
             bool? allowExternalModification = default,
             bool? force = default,
-            bool? isExternalModificationAllowed = default,
-            bool? sync = default
+            bool? isExternalModificationAllowed = default
         )
         {
             ConvertToManaged(
@@ -102,8 +96,7 @@ namespace Seam.Api
                     accessCodeId: accessCodeId,
                     allowExternalModification: allowExternalModification,
                     force: force,
-                    isExternalModificationAllowed: isExternalModificationAllowed,
-                    sync: sync
+                    isExternalModificationAllowed: isExternalModificationAllowed
                 )
             );
         }
@@ -122,8 +115,7 @@ namespace Seam.Api
             string accessCodeId = default,
             bool? allowExternalModification = default,
             bool? force = default,
-            bool? isExternalModificationAllowed = default,
-            bool? sync = default
+            bool? isExternalModificationAllowed = default
         )
         {
             await ConvertToManagedAsync(
@@ -131,8 +123,7 @@ namespace Seam.Api
                     accessCodeId: accessCodeId,
                     allowExternalModification: allowExternalModification,
                     force: force,
-                    isExternalModificationAllowed: isExternalModificationAllowed,
-                    sync: sync
+                    isExternalModificationAllowed: isExternalModificationAllowed
                 )
             );
         }
@@ -143,17 +134,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(string accessCodeId = default, bool? sync = default)
+            public DeleteRequest(string accessCodeId = default)
             {
                 AccessCodeId = accessCodeId;
-                Sync = sync;
             }
 
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -182,9 +169,9 @@ namespace Seam.Api
             _seam.Post<object>("/access_codes/unmanaged/delete", requestOptions);
         }
 
-        public void Delete(string accessCodeId = default, bool? sync = default)
+        public void Delete(string accessCodeId = default)
         {
-            Delete(new DeleteRequest(accessCodeId: accessCodeId, sync: sync));
+            Delete(new DeleteRequest(accessCodeId: accessCodeId));
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -194,9 +181,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_codes/unmanaged/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(string accessCodeId = default, bool? sync = default)
+        public async Task DeleteAsync(string accessCodeId = default)
         {
-            await DeleteAsync(new DeleteRequest(accessCodeId: accessCodeId, sync: sync));
+            await DeleteAsync(new DeleteRequest(accessCodeId: accessCodeId));
         }
 
         [DataContract(Name = "getRequest_request")]

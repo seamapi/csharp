@@ -24,17 +24,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(string connectedAccountId = default, bool? sync = default)
+            public DeleteRequest(string connectedAccountId = default)
             {
                 ConnectedAccountId = connectedAccountId;
-                Sync = sync;
             }
 
             [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
             public string ConnectedAccountId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -63,9 +59,9 @@ namespace Seam.Api
             _seam.Post<object>("/connected_accounts/delete", requestOptions);
         }
 
-        public void Delete(string connectedAccountId = default, bool? sync = default)
+        public void Delete(string connectedAccountId = default)
         {
-            Delete(new DeleteRequest(connectedAccountId: connectedAccountId, sync: sync));
+            Delete(new DeleteRequest(connectedAccountId: connectedAccountId));
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -75,11 +71,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/connected_accounts/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(string connectedAccountId = default, bool? sync = default)
+        public async Task DeleteAsync(string connectedAccountId = default)
         {
-            await DeleteAsync(
-                new DeleteRequest(connectedAccountId: connectedAccountId, sync: sync)
-            );
+            await DeleteAsync(new DeleteRequest(connectedAccountId: connectedAccountId));
         }
 
         [DataContract(Name = "getRequest_request")]

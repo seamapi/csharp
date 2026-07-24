@@ -238,7 +238,7 @@ namespace Seam.Api
             public CreateRequestRequestedAccessMethods(
                 string? code = default,
                 int? instantKeyMaxUseCount = default,
-                CreateRequestRequestedAccessMethods.ModeEnum mode = default
+                CreateRequestRequestedAccessMethods.ModeEnum? mode = default
             )
             {
                 Code = code;
@@ -275,8 +275,8 @@ namespace Seam.Api
             )]
             public int? InstantKeyMaxUseCount { get; set; }
 
-            [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
-            public CreateRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
+            [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestRequestedAccessMethods.ModeEnum? Mode { get; set; }
 
             public override string ToString()
             {
@@ -1076,7 +1076,7 @@ namespace Seam.Api
             public RequestAccessMethodsRequestRequestedAccessMethods(
                 string? code = default,
                 int? instantKeyMaxUseCount = default,
-                RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum mode = default
+                RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum? mode = default
             )
             {
                 Code = code;
@@ -1113,8 +1113,8 @@ namespace Seam.Api
             )]
             public int? InstantKeyMaxUseCount { get; set; }
 
-            [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = false)]
-            public RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum Mode { get; set; }
+            [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
+            public RequestAccessMethodsRequestRequestedAccessMethods.ModeEnum? Mode { get; set; }
 
             public override string ToString()
             {

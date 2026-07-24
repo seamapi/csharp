@@ -2,7 +2,8 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import layouts from '@metalsmith/layouts'
-import { getHandlebarsPartials } from '@seamapi/smith'
+import { blueprint, getHandlebarsPartials } from '@seamapi/smith'
+import * as types from '@seamapi/types/connect'
 import Metalsmith from 'metalsmith'
 
 import { csharp, helpers } from './lib/index.js'
@@ -11,17 +12,18 @@ const rootDir = dirname(fileURLToPath(import.meta.url))
 
 const partials = await getHandlebarsPartials(`${rootDir}/layouts/partials`)
 
-// TODO: Clean the generated output directory before regenerating once the
-// generated output is allowed to change. The previous nextlove generator
-// overwrote files without deleting, so the committed output still contains
-// stale files (e.g. models and routes for schemas removed from the pinned
-// @seamapi/types). Deleting them here would remove those files and change the
-// output, so cleaning is intentionally skipped to stay byte-identical.
-
+// The destination is the repository root, so cleaning is left disabled to avoid
+// deleting checked-in package source. Generated files no longer produced by the
+// blueprint are pruned by removing them from version control.
+//
+// `omitUndocumented` excludes undocumented routes, endpoints, resources, and
+// properties from the blueprint so the generated SDK contains only the public
+// API surface; the codegen relies on this instead of filtering them itself.
 Metalsmith(rootDir)
   .source('./content')
   .destination('../')
   .clean(false)
+  .use(blueprint({ types, omitUndocumented: true }))
   .use(csharp)
   .use(
     layouts({

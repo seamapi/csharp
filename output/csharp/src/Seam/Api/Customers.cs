@@ -25,11 +25,9 @@ namespace Seam.Api
             protected CreatePortalRequest() { }
 
             public CreatePortalRequest(
-                bool? dev = default,
                 List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters =
                     default,
                 string? customizationProfileId = default,
-                CreatePortalRequestDeepLink? deepLink = default,
                 bool? excludeLocalePicker = default,
                 CreatePortalRequestFeatures? features = default,
                 bool? isEmbedded = default,
@@ -39,10 +37,8 @@ namespace Seam.Api
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
-                Dev = dev;
                 CustomerResourcesFilters = customerResourcesFilters;
                 CustomizationProfileId = customizationProfileId;
-                DeepLink = deepLink;
                 ExcludeLocalePicker = excludeLocalePicker;
                 Features = features;
                 IsEmbedded = isEmbedded;
@@ -102,9 +98,6 @@ namespace Seam.Api
                 Restricted = 2,
             }
 
-            [DataMember(Name = "dev", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Dev { get; set; }
-
             [DataMember(
                 Name = "customer_resources_filters",
                 IsRequired = false,
@@ -118,9 +111,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? CustomizationProfileId { get; set; }
-
-            [DataMember(Name = "deep_link", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestDeepLink? DeepLink { get; set; }
 
             [DataMember(
                 Name = "exclude_locale_picker",
@@ -174,9 +164,9 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerResourcesFilters() { }
 
             public CreatePortalRequestCustomerResourcesFilters(
-                string field = default,
-                CreatePortalRequestCustomerResourcesFilters.OperationEnum operation = default,
-                object? value = default
+                string? field = default,
+                CreatePortalRequestCustomerResourcesFilters.OperationEnum? operation = default,
+                CreatePortalRequestCustomerResourcesFiltersValue? value = default
             )
             {
                 Field = field;
@@ -194,14 +184,14 @@ namespace Seam.Api
                 empty = 1,
             }
 
-            [DataMember(Name = "field", IsRequired = true, EmitDefaultValue = false)]
-            public string Field { get; set; }
+            [DataMember(Name = "field", IsRequired = false, EmitDefaultValue = false)]
+            public string? Field { get; set; }
 
-            [DataMember(Name = "operation", IsRequired = true, EmitDefaultValue = false)]
-            public CreatePortalRequestCustomerResourcesFilters.OperationEnum Operation { get; set; }
+            [DataMember(Name = "operation", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; set; }
 
-            [DataMember(Name = "value", IsRequired = true, EmitDefaultValue = false)]
-            public object? Value { get; set; }
+            [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerResourcesFiltersValue? Value { get; set; }
 
             public override string ToString()
             {
@@ -223,39 +213,11 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "createPortalRequestDeepLink_model")]
-        public class CreatePortalRequestDeepLink
+        [DataContract(Name = "createPortalRequestCustomerResourcesFiltersValue_model")]
+        public class CreatePortalRequestCustomerResourcesFiltersValue
         {
             [JsonConstructorAttribute]
-            protected CreatePortalRequestDeepLink() { }
-
-            public CreatePortalRequestDeepLink(
-                string resourceKey = default,
-                CreatePortalRequestDeepLink.ResourceTypeEnum resourceType = default
-            )
-            {
-                ResourceKey = resourceKey;
-                ResourceType = resourceType;
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ResourceTypeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "reservation")]
-                Reservation = 1,
-
-                [EnumMember(Value = "space")]
-                Space = 2,
-            }
-
-            [DataMember(Name = "resource_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ResourceKey { get; set; }
-
-            [DataMember(Name = "resource_type", IsRequired = true, EmitDefaultValue = false)]
-            public CreatePortalRequestDeepLink.ResourceTypeEnum ResourceType { get; set; }
+            public CreatePortalRequestCustomerResourcesFiltersValue() { }
 
             public override string ToString()
             {
@@ -690,13 +652,115 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected CreatePortalRequestLandingPage() { }
 
-            public CreatePortalRequestLandingPage(JObject? manage = default)
+            public CreatePortalRequestLandingPage(
+                CreatePortalRequestLandingPageManage? manage = default
+            )
             {
                 Manage = manage;
             }
 
             [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
-            public JObject? Manage { get; set; }
+            public CreatePortalRequestLandingPageManage? Manage { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestLandingPageManage_model")]
+        public class CreatePortalRequestLandingPageManage
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestLandingPageManage() { }
+
+            public CreatePortalRequestLandingPageManage(
+                string? spaceKey = default,
+                string? propertyKey = default,
+                string? roomKey = default,
+                string? commonAreaKey = default,
+                string? unitKey = default,
+                string? facilityKey = default,
+                string? buildingKey = default,
+                string? listingKey = default,
+                string? propertyListingKey = default,
+                string? siteKey = default,
+                string? reservationKey = default,
+                string? bookingKey = default,
+                string? accessGrantKey = default
+            )
+            {
+                SpaceKey = spaceKey;
+                PropertyKey = propertyKey;
+                RoomKey = roomKey;
+                CommonAreaKey = commonAreaKey;
+                UnitKey = unitKey;
+                FacilityKey = facilityKey;
+                BuildingKey = buildingKey;
+                ListingKey = listingKey;
+                PropertyListingKey = propertyListingKey;
+                SiteKey = siteKey;
+                ReservationKey = reservationKey;
+                BookingKey = bookingKey;
+                AccessGrantKey = accessGrantKey;
+            }
+
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
+
+            [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? PropertyKey { get; set; }
+
+            [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? RoomKey { get; set; }
+
+            [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaKey { get; set; }
+
+            [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UnitKey { get; set; }
+
+            [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? FacilityKey { get; set; }
+
+            [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BuildingKey { get; set; }
+
+            [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ListingKey { get; set; }
+
+            [DataMember(
+                Name = "property_listing_key",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PropertyListingKey { get; set; }
+
+            [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteKey { get; set; }
+
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
+
+            [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BookingKey { get; set; }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             public override string ToString()
             {
@@ -729,7 +793,7 @@ namespace Seam.Api
                 List<CreatePortalRequestCustomerDataBookings>? bookings = default,
                 List<CreatePortalRequestCustomerDataBuildings>? buildings = default,
                 List<CreatePortalRequestCustomerDataCommonAreas>? commonAreas = default,
-                string customerKey = default,
+                string? customerKey = default,
                 List<CreatePortalRequestCustomerDataFacilities>? facilities = default,
                 List<CreatePortalRequestCustomerDataGuests>? guests = default,
                 List<CreatePortalRequestCustomerDataListings>? listings = default,
@@ -781,8 +845,8 @@ namespace Seam.Api
             [DataMember(Name = "common_areas", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataCommonAreas>? CommonAreas { get; set; }
 
-            [DataMember(Name = "customer_key", IsRequired = true, EmitDefaultValue = false)]
-            public string CustomerKey { get; set; }
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             [DataMember(Name = "facilities", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataFacilities>? Facilities { get; set; }
@@ -856,7 +920,7 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataAccessGrants() { }
 
             public CreatePortalRequestCustomerDataAccessGrants(
-                string accessGrantKey = default,
+                string? accessGrantKey = default,
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
                 string? endsAt = default,
@@ -896,8 +960,8 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
-            [DataMember(Name = "access_grant_key", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessGrantKey { get; set; }
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
@@ -977,7 +1041,7 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataBookings() { }
 
             public CreatePortalRequestCustomerDataBookings(
-                string bookingKey = default,
+                string? bookingKey = default,
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
                 string? endsAt = default,
@@ -1017,8 +1081,8 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
-            [DataMember(Name = "booking_key", IsRequired = true, EmitDefaultValue = false)]
-            public string BookingKey { get; set; }
+            [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BookingKey { get; set; }
 
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
@@ -1098,19 +1162,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataBuildings() { }
 
             public CreatePortalRequestCustomerDataBuildings(
-                string buildingKey = default,
-                string name = default
+                string? buildingKey = default,
+                string? name = default
             )
             {
                 BuildingKey = buildingKey;
                 Name = name;
             }
 
-            [DataMember(Name = "building_key", IsRequired = true, EmitDefaultValue = false)]
-            public string BuildingKey { get; set; }
+            [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BuildingKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -1139,8 +1203,8 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataCommonAreas() { }
 
             public CreatePortalRequestCustomerDataCommonAreas(
-                string commonAreaKey = default,
-                string name = default,
+                string? commonAreaKey = default,
+                string? name = default,
                 string? parentSiteKey = default
             )
             {
@@ -1149,11 +1213,11 @@ namespace Seam.Api
                 ParentSiteKey = parentSiteKey;
             }
 
-            [DataMember(Name = "common_area_key", IsRequired = true, EmitDefaultValue = false)]
-            public string CommonAreaKey { get; set; }
+            [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
@@ -1185,19 +1249,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataFacilities() { }
 
             public CreatePortalRequestCustomerDataFacilities(
-                string facilityKey = default,
-                string name = default
+                string? facilityKey = default,
+                string? name = default
             )
             {
                 FacilityKey = facilityKey;
                 Name = name;
             }
 
-            [DataMember(Name = "facility_key", IsRequired = true, EmitDefaultValue = false)]
-            public string FacilityKey { get; set; }
+            [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? FacilityKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -1227,8 +1291,8 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataGuests(
                 string? emailAddress = default,
-                string guestKey = default,
-                string name = default,
+                string? guestKey = default,
+                string? name = default,
                 string? phoneNumber = default
             )
             {
@@ -1241,11 +1305,11 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "guest_key", IsRequired = true, EmitDefaultValue = false)]
-            public string GuestKey { get; set; }
+            [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? GuestKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -1277,19 +1341,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataListings() { }
 
             public CreatePortalRequestCustomerDataListings(
-                string listingKey = default,
-                string name = default
+                string? listingKey = default,
+                string? name = default
             )
             {
                 ListingKey = listingKey;
                 Name = name;
             }
 
-            [DataMember(Name = "listing_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ListingKey { get; set; }
+            [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ListingKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -1318,19 +1382,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataProperties() { }
 
             public CreatePortalRequestCustomerDataProperties(
-                string name = default,
-                string propertyKey = default
+                string? name = default,
+                string? propertyKey = default
             )
             {
                 Name = name;
                 PropertyKey = propertyKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "property_key", IsRequired = true, EmitDefaultValue = false)]
-            public string PropertyKey { get; set; }
+            [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? PropertyKey { get; set; }
 
             public override string ToString()
             {
@@ -1360,8 +1424,8 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataPropertyListings(
                 object? customMetadata = default,
-                string name = default,
-                string propertyListingKey = default
+                string? name = default,
+                string? propertyListingKey = default
             )
             {
                 CustomMetadata = customMetadata;
@@ -1372,11 +1436,15 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "property_listing_key", IsRequired = true, EmitDefaultValue = false)]
-            public string PropertyListingKey { get; set; }
+            [DataMember(
+                Name = "property_listing_key",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PropertyListingKey { get; set; }
 
             public override string ToString()
             {
@@ -1415,7 +1483,7 @@ namespace Seam.Api
                 string? name = default,
                 string? preferredCode = default,
                 List<string>? propertyKeys = default,
-                string reservationKey = default,
+                string? reservationKey = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
                 List<string>? spaceKeys = default,
@@ -1477,8 +1545,8 @@ namespace Seam.Api
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
-            [DataMember(Name = "reservation_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ReservationKey { get; set; }
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
 
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
@@ -1532,9 +1600,9 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataResidents(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string residentKey = default
+                string? residentKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -1546,14 +1614,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "resident_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ResidentKey { get; set; }
+            [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResidentKey { get; set; }
 
             public override string ToString()
             {
@@ -1582,9 +1650,9 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataRooms() { }
 
             public CreatePortalRequestCustomerDataRooms(
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string roomKey = default
+                string? roomKey = default
             )
             {
                 Name = name;
@@ -1592,14 +1660,14 @@ namespace Seam.Api
                 RoomKey = roomKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "room_key", IsRequired = true, EmitDefaultValue = false)]
-            public string RoomKey { get; set; }
+            [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? RoomKey { get; set; }
 
             public override string ToString()
             {
@@ -1628,19 +1696,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataSites() { }
 
             public CreatePortalRequestCustomerDataSites(
-                string name = default,
-                string siteKey = default
+                string? name = default,
+                string? siteKey = default
             )
             {
                 Name = name;
                 SiteKey = siteKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "site_key", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteKey { get; set; }
+            [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteKey { get; set; }
 
             public override string ToString()
             {
@@ -1672,9 +1740,9 @@ namespace Seam.Api
                 CreatePortalRequestCustomerDataSpacesCustomerData? customerData = default,
                 int? durationMinutes = default,
                 CreatePortalRequestCustomerDataSpacesGeolocation? geolocation = default,
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string spaceKey = default
+                string? spaceKey = default
             )
             {
                 CustomerData = customerData;
@@ -1694,14 +1762,14 @@ namespace Seam.Api
             [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerDataSpacesGeolocation? Geolocation { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "space_key", IsRequired = true, EmitDefaultValue = false)]
-            public string SpaceKey { get; set; }
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
 
             public override string ToString()
             {
@@ -1789,19 +1857,19 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataSpacesGeolocation() { }
 
             public CreatePortalRequestCustomerDataSpacesGeolocation(
-                float latitude = default,
-                float longitude = default
+                float? latitude = default,
+                float? longitude = default
             )
             {
                 Latitude = latitude;
                 Longitude = longitude;
             }
 
-            [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = false)]
-            public float Latitude { get; set; }
+            [DataMember(Name = "latitude", IsRequired = false, EmitDefaultValue = false)]
+            public float? Latitude { get; set; }
 
-            [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = false)]
-            public float Longitude { get; set; }
+            [DataMember(Name = "longitude", IsRequired = false, EmitDefaultValue = false)]
+            public float? Longitude { get; set; }
 
             public override string ToString()
             {
@@ -1835,14 +1903,14 @@ namespace Seam.Api
                 string? emailAddress = default,
                 List<string>? facilityKeys = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
                 List<string>? propertyKeys = default,
                 List<string>? propertyListingKeys = default,
                 List<string>? roomKeys = default,
                 List<string>? siteKeys = default,
                 List<string>? spaceKeys = default,
-                string staffMemberKey = default,
+                string? staffMemberKey = default,
                 List<string>? unitKeys = default
             )
             {
@@ -1877,8 +1945,8 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -1902,8 +1970,8 @@ namespace Seam.Api
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
-            [DataMember(Name = "staff_member_key", IsRequired = true, EmitDefaultValue = false)]
-            public string StaffMemberKey { get; set; }
+            [DataMember(Name = "staff_member_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? StaffMemberKey { get; set; }
 
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
@@ -1936,9 +2004,9 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataTenants(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string tenantKey = default
+                string? tenantKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -1950,14 +2018,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "tenant_key", IsRequired = true, EmitDefaultValue = false)]
-            public string TenantKey { get; set; }
+            [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? TenantKey { get; set; }
 
             public override string ToString()
             {
@@ -1986,9 +2054,9 @@ namespace Seam.Api
             protected CreatePortalRequestCustomerDataUnits() { }
 
             public CreatePortalRequestCustomerDataUnits(
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string unitKey = default
+                string? unitKey = default
             )
             {
                 Name = name;
@@ -1996,14 +2064,14 @@ namespace Seam.Api
                 UnitKey = unitKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "unit_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UnitKey { get; set; }
+            [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UnitKey { get; set; }
 
             public override string ToString()
             {
@@ -2033,9 +2101,9 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataUserIdentities(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string userIdentityKey = default
+                string? userIdentityKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -2047,14 +2115,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "user_identity_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityKey { get; set; }
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
 
             public override string ToString()
             {
@@ -2084,9 +2152,9 @@ namespace Seam.Api
 
             public CreatePortalRequestCustomerDataUsers(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string userKey = default
+                string? userKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -2098,14 +2166,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "user_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UserKey { get; set; }
+            [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserKey { get; set; }
 
             public override string ToString()
             {
@@ -2171,10 +2239,8 @@ namespace Seam.Api
         }
 
         public CustomerPortal CreatePortal(
-            bool? dev = default,
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
-            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
@@ -2186,10 +2252,8 @@ namespace Seam.Api
         {
             return CreatePortal(
                 new CreatePortalRequest(
-                    dev: dev,
                     customerResourcesFilters: customerResourcesFilters,
                     customizationProfileId: customizationProfileId,
-                    deepLink: deepLink,
                     excludeLocalePicker: excludeLocalePicker,
                     features: features,
                     isEmbedded: isEmbedded,
@@ -2216,10 +2280,8 @@ namespace Seam.Api
         }
 
         public async Task<CustomerPortal> CreatePortalAsync(
-            bool? dev = default,
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
-            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
@@ -2232,10 +2294,8 @@ namespace Seam.Api
             return (
                 await CreatePortalAsync(
                     new CreatePortalRequest(
-                        dev: dev,
                         customerResourcesFilters: customerResourcesFilters,
                         customizationProfileId: customizationProfileId,
-                        deepLink: deepLink,
                         excludeLocalePicker: excludeLocalePicker,
                         features: features,
                         isEmbedded: isEmbedded,
@@ -2624,7 +2684,7 @@ namespace Seam.Api
             protected PushDataRequestAccessGrants() { }
 
             public PushDataRequestAccessGrants(
-                string accessGrantKey = default,
+                string? accessGrantKey = default,
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
                 string? endsAt = default,
@@ -2664,8 +2724,8 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
-            [DataMember(Name = "access_grant_key", IsRequired = true, EmitDefaultValue = false)]
-            public string AccessGrantKey { get; set; }
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
 
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
@@ -2745,7 +2805,7 @@ namespace Seam.Api
             protected PushDataRequestBookings() { }
 
             public PushDataRequestBookings(
-                string bookingKey = default,
+                string? bookingKey = default,
                 List<string>? buildingKeys = default,
                 List<string>? commonAreaKeys = default,
                 string? endsAt = default,
@@ -2785,8 +2845,8 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
-            [DataMember(Name = "booking_key", IsRequired = true, EmitDefaultValue = false)]
-            public string BookingKey { get; set; }
+            [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BookingKey { get; set; }
 
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
@@ -2865,17 +2925,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestBuildings() { }
 
-            public PushDataRequestBuildings(string buildingKey = default, string name = default)
+            public PushDataRequestBuildings(string? buildingKey = default, string? name = default)
             {
                 BuildingKey = buildingKey;
                 Name = name;
             }
 
-            [DataMember(Name = "building_key", IsRequired = true, EmitDefaultValue = false)]
-            public string BuildingKey { get; set; }
+            [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BuildingKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -2904,8 +2964,8 @@ namespace Seam.Api
             protected PushDataRequestCommonAreas() { }
 
             public PushDataRequestCommonAreas(
-                string commonAreaKey = default,
-                string name = default,
+                string? commonAreaKey = default,
+                string? name = default,
                 string? parentSiteKey = default
             )
             {
@@ -2914,11 +2974,11 @@ namespace Seam.Api
                 ParentSiteKey = parentSiteKey;
             }
 
-            [DataMember(Name = "common_area_key", IsRequired = true, EmitDefaultValue = false)]
-            public string CommonAreaKey { get; set; }
+            [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
@@ -2949,17 +3009,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestFacilities() { }
 
-            public PushDataRequestFacilities(string facilityKey = default, string name = default)
+            public PushDataRequestFacilities(string? facilityKey = default, string? name = default)
             {
                 FacilityKey = facilityKey;
                 Name = name;
             }
 
-            [DataMember(Name = "facility_key", IsRequired = true, EmitDefaultValue = false)]
-            public string FacilityKey { get; set; }
+            [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? FacilityKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -2989,8 +3049,8 @@ namespace Seam.Api
 
             public PushDataRequestGuests(
                 string? emailAddress = default,
-                string guestKey = default,
-                string name = default,
+                string? guestKey = default,
+                string? name = default,
                 string? phoneNumber = default
             )
             {
@@ -3003,11 +3063,11 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "guest_key", IsRequired = true, EmitDefaultValue = false)]
-            public string GuestKey { get; set; }
+            [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? GuestKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -3038,17 +3098,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestListings() { }
 
-            public PushDataRequestListings(string listingKey = default, string name = default)
+            public PushDataRequestListings(string? listingKey = default, string? name = default)
             {
                 ListingKey = listingKey;
                 Name = name;
             }
 
-            [DataMember(Name = "listing_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ListingKey { get; set; }
+            [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ListingKey { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             public override string ToString()
             {
@@ -3076,17 +3136,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestProperties() { }
 
-            public PushDataRequestProperties(string name = default, string propertyKey = default)
+            public PushDataRequestProperties(string? name = default, string? propertyKey = default)
             {
                 Name = name;
                 PropertyKey = propertyKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "property_key", IsRequired = true, EmitDefaultValue = false)]
-            public string PropertyKey { get; set; }
+            [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? PropertyKey { get; set; }
 
             public override string ToString()
             {
@@ -3116,8 +3176,8 @@ namespace Seam.Api
 
             public PushDataRequestPropertyListings(
                 object? customMetadata = default,
-                string name = default,
-                string propertyListingKey = default
+                string? name = default,
+                string? propertyListingKey = default
             )
             {
                 CustomMetadata = customMetadata;
@@ -3128,11 +3188,15 @@ namespace Seam.Api
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "property_listing_key", IsRequired = true, EmitDefaultValue = false)]
-            public string PropertyListingKey { get; set; }
+            [DataMember(
+                Name = "property_listing_key",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PropertyListingKey { get; set; }
 
             public override string ToString()
             {
@@ -3171,7 +3235,7 @@ namespace Seam.Api
                 string? name = default,
                 string? preferredCode = default,
                 List<string>? propertyKeys = default,
-                string reservationKey = default,
+                string? reservationKey = default,
                 string? residentKey = default,
                 List<string>? roomKeys = default,
                 List<string>? spaceKeys = default,
@@ -3233,8 +3297,8 @@ namespace Seam.Api
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
-            [DataMember(Name = "reservation_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ReservationKey { get; set; }
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
 
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
@@ -3288,9 +3352,9 @@ namespace Seam.Api
 
             public PushDataRequestResidents(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string residentKey = default
+                string? residentKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -3302,14 +3366,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "resident_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ResidentKey { get; set; }
+            [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResidentKey { get; set; }
 
             public override string ToString()
             {
@@ -3338,9 +3402,9 @@ namespace Seam.Api
             protected PushDataRequestRooms() { }
 
             public PushDataRequestRooms(
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string roomKey = default
+                string? roomKey = default
             )
             {
                 Name = name;
@@ -3348,14 +3412,14 @@ namespace Seam.Api
                 RoomKey = roomKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "room_key", IsRequired = true, EmitDefaultValue = false)]
-            public string RoomKey { get; set; }
+            [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? RoomKey { get; set; }
 
             public override string ToString()
             {
@@ -3383,17 +3447,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected PushDataRequestSites() { }
 
-            public PushDataRequestSites(string name = default, string siteKey = default)
+            public PushDataRequestSites(string? name = default, string? siteKey = default)
             {
                 Name = name;
                 SiteKey = siteKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
-            [DataMember(Name = "site_key", IsRequired = true, EmitDefaultValue = false)]
-            public string SiteKey { get; set; }
+            [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteKey { get; set; }
 
             public override string ToString()
             {
@@ -3425,9 +3489,9 @@ namespace Seam.Api
                 PushDataRequestSpacesCustomerData? customerData = default,
                 int? durationMinutes = default,
                 PushDataRequestSpacesGeolocation? geolocation = default,
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string spaceKey = default
+                string? spaceKey = default
             )
             {
                 CustomerData = customerData;
@@ -3447,14 +3511,14 @@ namespace Seam.Api
             [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
             public PushDataRequestSpacesGeolocation? Geolocation { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "space_key", IsRequired = true, EmitDefaultValue = false)]
-            public string SpaceKey { get; set; }
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
 
             public override string ToString()
             {
@@ -3542,19 +3606,19 @@ namespace Seam.Api
             protected PushDataRequestSpacesGeolocation() { }
 
             public PushDataRequestSpacesGeolocation(
-                float latitude = default,
-                float longitude = default
+                float? latitude = default,
+                float? longitude = default
             )
             {
                 Latitude = latitude;
                 Longitude = longitude;
             }
 
-            [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = false)]
-            public float Latitude { get; set; }
+            [DataMember(Name = "latitude", IsRequired = false, EmitDefaultValue = false)]
+            public float? Latitude { get; set; }
 
-            [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = false)]
-            public float Longitude { get; set; }
+            [DataMember(Name = "longitude", IsRequired = false, EmitDefaultValue = false)]
+            public float? Longitude { get; set; }
 
             public override string ToString()
             {
@@ -3588,14 +3652,14 @@ namespace Seam.Api
                 string? emailAddress = default,
                 List<string>? facilityKeys = default,
                 List<string>? listingKeys = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
                 List<string>? propertyKeys = default,
                 List<string>? propertyListingKeys = default,
                 List<string>? roomKeys = default,
                 List<string>? siteKeys = default,
                 List<string>? spaceKeys = default,
-                string staffMemberKey = default,
+                string? staffMemberKey = default,
                 List<string>? unitKeys = default
             )
             {
@@ -3630,8 +3694,8 @@ namespace Seam.Api
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -3655,8 +3719,8 @@ namespace Seam.Api
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
-            [DataMember(Name = "staff_member_key", IsRequired = true, EmitDefaultValue = false)]
-            public string StaffMemberKey { get; set; }
+            [DataMember(Name = "staff_member_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? StaffMemberKey { get; set; }
 
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
@@ -3689,9 +3753,9 @@ namespace Seam.Api
 
             public PushDataRequestTenants(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string tenantKey = default
+                string? tenantKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -3703,14 +3767,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "tenant_key", IsRequired = true, EmitDefaultValue = false)]
-            public string TenantKey { get; set; }
+            [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? TenantKey { get; set; }
 
             public override string ToString()
             {
@@ -3739,9 +3803,9 @@ namespace Seam.Api
             protected PushDataRequestUnits() { }
 
             public PushDataRequestUnits(
-                string name = default,
+                string? name = default,
                 string? parentSiteKey = default,
-                string unitKey = default
+                string? unitKey = default
             )
             {
                 Name = name;
@@ -3749,14 +3813,14 @@ namespace Seam.Api
                 UnitKey = unitKey;
             }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
-            [DataMember(Name = "unit_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UnitKey { get; set; }
+            [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UnitKey { get; set; }
 
             public override string ToString()
             {
@@ -3786,9 +3850,9 @@ namespace Seam.Api
 
             public PushDataRequestUserIdentities(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string userIdentityKey = default
+                string? userIdentityKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -3800,14 +3864,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "user_identity_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UserIdentityKey { get; set; }
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
 
             public override string ToString()
             {
@@ -3837,9 +3901,9 @@ namespace Seam.Api
 
             public PushDataRequestUsers(
                 string? emailAddress = default,
-                string name = default,
+                string? name = default,
                 string? phoneNumber = default,
-                string userKey = default
+                string? userKey = default
             )
             {
                 EmailAddress = emailAddress;
@@ -3851,14 +3915,14 @@ namespace Seam.Api
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
-            [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-            public string Name { get; set; }
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
 
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
-            [DataMember(Name = "user_key", IsRequired = true, EmitDefaultValue = false)]
-            public string UserKey { get; set; }
+            [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserKey { get; set; }
 
             public override string ToString()
             {

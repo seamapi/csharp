@@ -128,10 +128,8 @@ namespace Seam.Api
                 object? customMetadataHas = default,
                 string? customerKey = default,
                 List<string>? deviceIds = default,
-                string? deviceType = default,
+                ListRequest.DeviceTypeEnum? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-                List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-                List<ListRequest.IncludeIfEnum>? includeIf = default,
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 string? pageCursor = default,
@@ -150,8 +148,6 @@ namespace Seam.Api
                 DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
-                ExcludeIf = excludeIf;
-                IncludeIf = includeIf;
                 Limit = limit;
                 Manufacturer = manufacturer;
                 PageCursor = pageCursor;
@@ -159,6 +155,136 @@ namespace Seam.Api
                 SpaceId = spaceId;
                 UnstableLocationId = unstableLocationId;
                 UserIdentifierKey = userIdentifierKey;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum DeviceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "akuvox_lock")]
+                AkuvoxLock = 1,
+
+                [EnumMember(Value = "august_lock")]
+                AugustLock = 2,
+
+                [EnumMember(Value = "brivo_access_point")]
+                BrivoAccessPoint = 3,
+
+                [EnumMember(Value = "butterflymx_panel")]
+                ButterflymxPanel = 4,
+
+                [EnumMember(Value = "avigilon_alta_entry")]
+                AvigilonAltaEntry = 5,
+
+                [EnumMember(Value = "doorking_lock")]
+                DoorkingLock = 6,
+
+                [EnumMember(Value = "genie_door")]
+                GenieDoor = 7,
+
+                [EnumMember(Value = "igloo_lock")]
+                IglooLock = 8,
+
+                [EnumMember(Value = "linear_lock")]
+                LinearLock = 9,
+
+                [EnumMember(Value = "lockly_lock")]
+                LocklyLock = 10,
+
+                [EnumMember(Value = "kwikset_lock")]
+                KwiksetLock = 11,
+
+                [EnumMember(Value = "nuki_lock")]
+                NukiLock = 12,
+
+                [EnumMember(Value = "salto_lock")]
+                SaltoLock = 13,
+
+                [EnumMember(Value = "schlage_lock")]
+                SchlageLock = 14,
+
+                [EnumMember(Value = "smartthings_lock")]
+                SmartthingsLock = 15,
+
+                [EnumMember(Value = "wyze_lock")]
+                WyzeLock = 16,
+
+                [EnumMember(Value = "yale_lock")]
+                YaleLock = 17,
+
+                [EnumMember(Value = "two_n_intercom")]
+                TwoNIntercom = 18,
+
+                [EnumMember(Value = "controlbyweb_device")]
+                ControlbywebDevice = 19,
+
+                [EnumMember(Value = "ttlock_lock")]
+                TtlockLock = 20,
+
+                [EnumMember(Value = "igloohome_lock")]
+                IgloohomeLock = 21,
+
+                [EnumMember(Value = "four_suites_door")]
+                FourSuitesDoor = 22,
+
+                [EnumMember(Value = "dormakaba_oracode_door")]
+                DormakabaOracodeDoor = 23,
+
+                [EnumMember(Value = "tedee_lock")]
+                TedeeLock = 24,
+
+                [EnumMember(Value = "akiles_lock")]
+                AkilesLock = 25,
+
+                [EnumMember(Value = "ultraloq_lock")]
+                UltraloqLock = 26,
+
+                [EnumMember(Value = "keyincode_lock")]
+                KeyincodeLock = 27,
+
+                [EnumMember(Value = "omnitec_lock")]
+                OmnitecLock = 28,
+
+                [EnumMember(Value = "kisi_lock")]
+                KisiLock = 29,
+
+                [EnumMember(Value = "keynest_key")]
+                KeynestKey = 30,
+
+                [EnumMember(Value = "noiseaware_activity_zone")]
+                NoiseawareActivityZone = 31,
+
+                [EnumMember(Value = "minut_sensor")]
+                MinutSensor = 32,
+
+                [EnumMember(Value = "ecobee_thermostat")]
+                EcobeeThermostat = 33,
+
+                [EnumMember(Value = "nest_thermostat")]
+                NestThermostat = 34,
+
+                [EnumMember(Value = "honeywell_resideo_thermostat")]
+                HoneywellResideoThermostat = 35,
+
+                [EnumMember(Value = "tado_thermostat")]
+                TadoThermostat = 36,
+
+                [EnumMember(Value = "sensi_thermostat")]
+                SensiThermostat = 37,
+
+                [EnumMember(Value = "smartthings_thermostat")]
+                SmartthingsThermostat = 38,
+
+                [EnumMember(Value = "ios_phone")]
+                IosPhone = 39,
+
+                [EnumMember(Value = "android_phone")]
+                AndroidPhone = 40,
+
+                [EnumMember(Value = "ring_camera")]
+                RingCamera = 41,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -289,140 +415,6 @@ namespace Seam.Api
 
                 [EnumMember(Value = "ring_camera")]
                 RingCamera = 41,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ExcludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum IncludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -612,16 +604,10 @@ namespace Seam.Api
             public List<string>? DeviceIds { get; set; }
 
             [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
-            public string? DeviceType { get; set; }
+            public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
 
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
-
-            [DataMember(Name = "exclude_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.ExcludeIfEnum>? ExcludeIf { get; set; }
-
-            [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.IncludeIfEnum>? IncludeIf { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -717,10 +703,8 @@ namespace Seam.Api
             object? customMetadataHas = default,
             string? customerKey = default,
             List<string>? deviceIds = default,
-            string? deviceType = default,
+            ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -741,8 +725,6 @@ namespace Seam.Api
                     deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
-                    excludeIf: excludeIf,
-                    includeIf: includeIf,
                     limit: limit,
                     manufacturer: manufacturer,
                     pageCursor: pageCursor,
@@ -771,10 +753,8 @@ namespace Seam.Api
             object? customMetadataHas = default,
             string? customerKey = default,
             List<string>? deviceIds = default,
-            string? deviceType = default,
+            ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -796,8 +776,6 @@ namespace Seam.Api
                         deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,
-                        excludeIf: excludeIf,
-                        includeIf: includeIf,
                         limit: limit,
                         manufacturer: manufacturer,
                         pageCursor: pageCursor,
@@ -999,7 +977,7 @@ namespace Seam.Api
             protected ReportProviderMetadataRequestDevices() { }
 
             public ReportProviderMetadataRequestDevices(
-                string deviceId = default,
+                string? deviceId = default,
                 ReportProviderMetadataRequestDevicesOmnitecMetadata? omnitecMetadata = default,
                 ReportProviderMetadataRequestDevicesSchlageMetadata? schlageMetadata = default,
                 ReportProviderMetadataRequestDevicesUltraloqMetadata? ultraloqMetadata = default
@@ -1011,8 +989,8 @@ namespace Seam.Api
                 UltraloqMetadata = ultraloqMetadata;
             }
 
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? DeviceId { get; set; }
 
             [DataMember(Name = "omnitec_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesOmnitecMetadata? OmnitecMetadata { get; set; }
@@ -1050,7 +1028,7 @@ namespace Seam.Api
             protected ReportProviderMetadataRequestDevicesOmnitecMetadata() { }
 
             public ReportProviderMetadataRequestDevicesOmnitecMetadata(
-                ReportProviderMetadataRequestDevicesOmnitecMetadata.TimeZoneEnum timeZone = default
+                ReportProviderMetadataRequestDevicesOmnitecMetadata.TimeZoneEnum? timeZone = default
             )
             {
                 TimeZone = timeZone;
@@ -2350,8 +2328,8 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
-            [DataMember(Name = "time_zone", IsRequired = true, EmitDefaultValue = false)]
-            public ReportProviderMetadataRequestDevicesOmnitecMetadata.TimeZoneEnum TimeZone { get; set; }
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public ReportProviderMetadataRequestDevicesOmnitecMetadata.TimeZoneEnum? TimeZone { get; set; }
 
             public override string ToString()
             {
@@ -2380,7 +2358,7 @@ namespace Seam.Api
             protected ReportProviderMetadataRequestDevicesSchlageMetadata() { }
 
             public ReportProviderMetadataRequestDevicesSchlageMetadata(
-                ReportProviderMetadataRequestDevicesSchlageMetadata.TimeZoneEnum timeZone = default
+                ReportProviderMetadataRequestDevicesSchlageMetadata.TimeZoneEnum? timeZone = default
             )
             {
                 TimeZone = timeZone;
@@ -3680,8 +3658,8 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
-            [DataMember(Name = "time_zone", IsRequired = true, EmitDefaultValue = false)]
-            public ReportProviderMetadataRequestDevicesSchlageMetadata.TimeZoneEnum TimeZone { get; set; }
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public ReportProviderMetadataRequestDevicesSchlageMetadata.TimeZoneEnum? TimeZone { get; set; }
 
             public override string ToString()
             {
@@ -3710,7 +3688,8 @@ namespace Seam.Api
             protected ReportProviderMetadataRequestDevicesUltraloqMetadata() { }
 
             public ReportProviderMetadataRequestDevicesUltraloqMetadata(
-                ReportProviderMetadataRequestDevicesUltraloqMetadata.TimeZoneEnum timeZone = default
+                ReportProviderMetadataRequestDevicesUltraloqMetadata.TimeZoneEnum? timeZone =
+                    default
             )
             {
                 TimeZone = timeZone;
@@ -5010,8 +4989,8 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
-            [DataMember(Name = "time_zone", IsRequired = true, EmitDefaultValue = false)]
-            public ReportProviderMetadataRequestDevicesUltraloqMetadata.TimeZoneEnum TimeZone { get; set; }
+            [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+            public ReportProviderMetadataRequestDevicesUltraloqMetadata.TimeZoneEnum? TimeZone { get; set; }
 
             public override string ToString()
             {

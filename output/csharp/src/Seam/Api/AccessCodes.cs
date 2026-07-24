@@ -39,7 +39,6 @@ namespace Seam.Api
                 bool? preferNativeScheduling = default,
                 float? preferredCodeLength = default,
                 string? startsAt = default,
-                bool? sync = default,
                 bool? useBackupAccessCodePool = default,
                 bool? useOfflineAccessCode = default
             )
@@ -58,7 +57,6 @@ namespace Seam.Api
                 PreferNativeScheduling = preferNativeScheduling;
                 PreferredCodeLength = preferredCodeLength;
                 StartsAt = startsAt;
-                Sync = sync;
                 UseBackupAccessCodePool = useBackupAccessCodePool;
                 UseOfflineAccessCode = useOfflineAccessCode;
             }
@@ -147,9 +145,6 @@ namespace Seam.Api
 
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             [DataMember(
                 Name = "use_backup_access_code_pool",
@@ -243,7 +238,6 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
             string? startsAt = default,
-            bool? sync = default,
             bool? useBackupAccessCodePool = default,
             bool? useOfflineAccessCode = default
         )
@@ -264,7 +258,6 @@ namespace Seam.Api
                     preferNativeScheduling: preferNativeScheduling,
                     preferredCodeLength: preferredCodeLength,
                     startsAt: startsAt,
-                    sync: sync,
                     useBackupAccessCodePool: useBackupAccessCodePool,
                     useOfflineAccessCode: useOfflineAccessCode
                 )
@@ -295,7 +288,6 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
             string? startsAt = default,
-            bool? sync = default,
             bool? useBackupAccessCodePool = default,
             bool? useOfflineAccessCode = default
         )
@@ -317,7 +309,6 @@ namespace Seam.Api
                         preferNativeScheduling: preferNativeScheduling,
                         preferredCodeLength: preferredCodeLength,
                         startsAt: startsAt,
-                        sync: sync,
                         useBackupAccessCodePool: useBackupAccessCodePool,
                         useOfflineAccessCode: useOfflineAccessCode
                     )
@@ -591,15 +582,10 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected DeleteRequest() { }
 
-            public DeleteRequest(
-                string accessCodeId = default,
-                string? deviceId = default,
-                bool? sync = default
-            )
+            public DeleteRequest(string accessCodeId = default, string? deviceId = default)
             {
                 AccessCodeId = accessCodeId;
                 DeviceId = deviceId;
-                Sync = sync;
             }
 
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
@@ -607,9 +593,6 @@ namespace Seam.Api
 
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -638,13 +621,9 @@ namespace Seam.Api
             _seam.Post<object>("/access_codes/delete", requestOptions);
         }
 
-        public void Delete(
-            string accessCodeId = default,
-            string? deviceId = default,
-            bool? sync = default
-        )
+        public void Delete(string accessCodeId = default, string? deviceId = default)
         {
-            Delete(new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId, sync: sync));
+            Delete(new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId));
         }
 
         public async Task DeleteAsync(DeleteRequest request)
@@ -654,15 +633,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_codes/delete", requestOptions);
         }
 
-        public async Task DeleteAsync(
-            string accessCodeId = default,
-            string? deviceId = default,
-            bool? sync = default
-        )
+        public async Task DeleteAsync(string accessCodeId = default, string? deviceId = default)
         {
-            await DeleteAsync(
-                new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId, sync: sync)
-            );
+            await DeleteAsync(new DeleteRequest(accessCodeId: accessCodeId, deviceId: deviceId));
         }
 
         [DataContract(Name = "generateCodeRequest_request")]
@@ -1313,7 +1286,6 @@ namespace Seam.Api
                 bool? preferNativeScheduling = default,
                 float? preferredCodeLength = default,
                 string? startsAt = default,
-                bool? sync = default,
                 UpdateRequest.TypeEnum? type = default,
                 bool? useBackupAccessCodePool = default,
                 bool? useOfflineAccessCode = default
@@ -1334,7 +1306,6 @@ namespace Seam.Api
                 PreferNativeScheduling = preferNativeScheduling;
                 PreferredCodeLength = preferredCodeLength;
                 StartsAt = startsAt;
-                Sync = sync;
                 Type = type;
                 UseBackupAccessCodePool = useBackupAccessCodePool;
                 UseOfflineAccessCode = useOfflineAccessCode;
@@ -1441,9 +1412,6 @@ namespace Seam.Api
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
-
             [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
             public UpdateRequest.TypeEnum? Type { get; set; }
 
@@ -1504,7 +1472,6 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
             string? startsAt = default,
-            bool? sync = default,
             UpdateRequest.TypeEnum? type = default,
             bool? useBackupAccessCodePool = default,
             bool? useOfflineAccessCode = default
@@ -1527,7 +1494,6 @@ namespace Seam.Api
                     preferNativeScheduling: preferNativeScheduling,
                     preferredCodeLength: preferredCodeLength,
                     startsAt: startsAt,
-                    sync: sync,
                     type: type,
                     useBackupAccessCodePool: useBackupAccessCodePool,
                     useOfflineAccessCode: useOfflineAccessCode
@@ -1558,7 +1524,6 @@ namespace Seam.Api
             bool? preferNativeScheduling = default,
             float? preferredCodeLength = default,
             string? startsAt = default,
-            bool? sync = default,
             UpdateRequest.TypeEnum? type = default,
             bool? useBackupAccessCodePool = default,
             bool? useOfflineAccessCode = default
@@ -1581,7 +1546,6 @@ namespace Seam.Api
                     preferNativeScheduling: preferNativeScheduling,
                     preferredCodeLength: preferredCodeLength,
                     startsAt: startsAt,
-                    sync: sync,
                     type: type,
                     useBackupAccessCodePool: useBackupAccessCodePool,
                     useOfflineAccessCode: useOfflineAccessCode

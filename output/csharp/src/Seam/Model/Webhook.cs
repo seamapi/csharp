@@ -33,10 +33,10 @@ namespace Seam.Model
         [DataMember(Name = "secret", IsRequired = false, EmitDefaultValue = false)]
         public string? Secret { get; set; }
 
-        [DataMember(Name = "url", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "url", IsRequired = false, EmitDefaultValue = false)]
         public string Url { get; set; }
 
-        [DataMember(Name = "webhook_id", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "webhook_id", IsRequired = false, EmitDefaultValue = false)]
         public string WebhookId { get; set; }
 
         public override string ToString()

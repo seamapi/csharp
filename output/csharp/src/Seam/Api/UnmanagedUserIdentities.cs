@@ -18,6 +18,248 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        [DataContract(Name = "getRequest_request")]
+        public class GetRequest
+        {
+            [JsonConstructorAttribute]
+            protected GetRequest() { }
+
+            public GetRequest(string userIdentityId = default)
+            {
+                UserIdentityId = userIdentityId;
+            }
+
+            [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
+            public string UserIdentityId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "getResponse_response")]
+        public class GetResponse
+        {
+            [JsonConstructorAttribute]
+            protected GetResponse() { }
+
+            public GetResponse(UserIdentity userIdentity = default)
+            {
+                UserIdentity = userIdentity;
+            }
+
+            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
+            public UserIdentity UserIdentity { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public UserIdentity Get(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<GetResponse>("/user_identities/unmanaged/get", requestOptions)
+                .Data.UserIdentity;
+        }
+
+        public UserIdentity Get(string userIdentityId = default)
+        {
+            return Get(new GetRequest(userIdentityId: userIdentityId));
+        }
+
+        public async Task<UserIdentity> GetAsync(GetRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<GetResponse>("/user_identities/unmanaged/get", requestOptions)
+            )
+                .Data
+                .UserIdentity;
+        }
+
+        public async Task<UserIdentity> GetAsync(string userIdentityId = default)
+        {
+            return (await GetAsync(new GetRequest(userIdentityId: userIdentityId)));
+        }
+
+        [DataContract(Name = "listRequest_request")]
+        public class ListRequest
+        {
+            [JsonConstructorAttribute]
+            protected ListRequest() { }
+
+            public ListRequest(
+                string? createdBefore = default,
+                int? limit = default,
+                string? pageCursor = default,
+                string? search = default
+            )
+            {
+                CreatedBefore = createdBefore;
+                Limit = limit;
+                PageCursor = pageCursor;
+                Search = search;
+            }
+
+            [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
+            public string? CreatedBefore { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "listResponse_response")]
+        public class ListResponse
+        {
+            [JsonConstructorAttribute]
+            protected ListResponse() { }
+
+            public ListResponse(List<object> userIdentities = default)
+            {
+                UserIdentities = userIdentities;
+            }
+
+            [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
+            public List<object> UserIdentities { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public List<object> List(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return _seam
+                .Post<ListResponse>("/user_identities/unmanaged/list", requestOptions)
+                .Data.UserIdentities;
+        }
+
+        public List<object> List(
+            string? createdBefore = default,
+            int? limit = default,
+            string? pageCursor = default,
+            string? search = default
+        )
+        {
+            return List(
+                new ListRequest(
+                    createdBefore: createdBefore,
+                    limit: limit,
+                    pageCursor: pageCursor,
+                    search: search
+                )
+            );
+        }
+
+        public async Task<List<object>> ListAsync(ListRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            return (
+                await _seam.PostAsync<ListResponse>(
+                    "/user_identities/unmanaged/list",
+                    requestOptions
+                )
+            )
+                .Data
+                .UserIdentities;
+        }
+
+        public async Task<List<object>> ListAsync(
+            string? createdBefore = default,
+            int? limit = default,
+            string? pageCursor = default,
+            string? search = default
+        )
+        {
+            return (
+                await ListAsync(
+                    new ListRequest(
+                        createdBefore: createdBefore,
+                        limit: limit,
+                        pageCursor: pageCursor,
+                        search: search
+                    )
+                )
+            );
+        }
+
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {

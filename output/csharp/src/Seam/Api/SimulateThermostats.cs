@@ -47,8 +47,17 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "off")]
+                Off = 1,
+
+                [EnumMember(Value = "cool")]
+                Cool = 2,
+
+                [EnumMember(Value = "heat")]
+                Heat = 3,
+
                 [EnumMember(Value = "heat_cool")]
-                HeatCool = 1,
+                HeatCool = 4,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]

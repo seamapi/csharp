@@ -123,7 +123,6 @@ namespace Seam.Api
                 string? code = default,
                 string? credentialManagerAcsSystemId = default,
                 string? endsAt = default,
-                CreateRequestHotekMetadata? hotekMetadata = default,
                 bool? isMultiPhoneSyncCredential = default,
                 CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
                 string? startsAt = default,
@@ -139,7 +138,6 @@ namespace Seam.Api
                 Code = code;
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
                 EndsAt = endsAt;
-                HotekMetadata = hotekMetadata;
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
                 SaltoSpaceMetadata = saltoSpaceMetadata;
                 StartsAt = startsAt;
@@ -201,9 +199,6 @@ namespace Seam.Api
 
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
-
-            [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
-            public CreateRequestHotekMetadata? HotekMetadata { get; set; }
 
             [DataMember(
                 Name = "is_multi_phone_sync_credential",
@@ -311,67 +306,19 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "createRequestHotekMetadata_model")]
-        public class CreateRequestHotekMetadata
-        {
-            [JsonConstructorAttribute]
-            protected CreateRequestHotekMetadata() { }
-
-            public CreateRequestHotekMetadata(
-                bool? autoJoin = default,
-                bool? mustOverride = default
-            )
-            {
-                AutoJoin = autoJoin;
-                Override = mustOverride;
-            }
-
-            [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
-            public bool? AutoJoin { get; set; }
-
-            [DataMember(Name = "override", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Override { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "createRequestSaltoSpaceMetadata_model")]
         public class CreateRequestSaltoSpaceMetadata
         {
             [JsonConstructorAttribute]
             protected CreateRequestSaltoSpaceMetadata() { }
 
-            public CreateRequestSaltoSpaceMetadata(
-                bool? assignNewKey = default,
-                bool? updateCurrentKey = default
-            )
+            public CreateRequestSaltoSpaceMetadata(bool? assignNewKey = default)
             {
                 AssignNewKey = assignNewKey;
-                UpdateCurrentKey = updateCurrentKey;
             }
 
             [DataMember(Name = "assign_new_key", IsRequired = false, EmitDefaultValue = false)]
             public bool? AssignNewKey { get; set; }
-
-            [DataMember(Name = "update_current_key", IsRequired = false, EmitDefaultValue = false)]
-            public bool? UpdateCurrentKey { get; set; }
 
             public override string ToString()
             {
@@ -400,21 +347,16 @@ namespace Seam.Api
             protected CreateRequestVisionlineMetadata() { }
 
             public CreateRequestVisionlineMetadata(
-                string? assaAbloyCredentialServiceMobileEndpointId = default,
                 bool? autoJoin = default,
                 CreateRequestVisionlineMetadata.CardFormatEnum? cardFormat = default,
                 CreateRequestVisionlineMetadata.CardFunctionTypeEnum? cardFunctionType = default,
-                bool? isOverrideKey = default,
                 List<string>? joinerAcsCredentialIds = default,
                 bool? mustOverride = default
             )
             {
-                AssaAbloyCredentialServiceMobileEndpointId =
-                    assaAbloyCredentialServiceMobileEndpointId;
                 AutoJoin = autoJoin;
                 CardFormat = cardFormat;
                 CardFunctionType = cardFunctionType;
-                IsOverrideKey = isOverrideKey;
                 JoinerAcsCredentialIds = joinerAcsCredentialIds;
                 Override = mustOverride;
             }
@@ -445,13 +387,6 @@ namespace Seam.Api
                 Staff = 2,
             }
 
-            [DataMember(
-                Name = "assa_abloy_credential_service_mobile_endpoint_id",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? AssaAbloyCredentialServiceMobileEndpointId { get; set; }
-
             [DataMember(Name = "auto_join", IsRequired = false, EmitDefaultValue = false)]
             public bool? AutoJoin { get; set; }
 
@@ -460,9 +395,6 @@ namespace Seam.Api
 
             [DataMember(Name = "card_function_type", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequestVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; set; }
-
-            [DataMember(Name = "is_override_key", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsOverrideKey { get; set; }
 
             [DataMember(
                 Name = "joiner_acs_credential_ids",
@@ -546,7 +478,6 @@ namespace Seam.Api
             string? code = default,
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
-            CreateRequestHotekMetadata? hotekMetadata = default,
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
@@ -564,7 +495,6 @@ namespace Seam.Api
                     code: code,
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                     endsAt: endsAt,
-                    hotekMetadata: hotekMetadata,
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                     saltoSpaceMetadata: saltoSpaceMetadata,
                     startsAt: startsAt,
@@ -594,7 +524,6 @@ namespace Seam.Api
             string? code = default,
             string? credentialManagerAcsSystemId = default,
             string? endsAt = default,
-            CreateRequestHotekMetadata? hotekMetadata = default,
             bool? isMultiPhoneSyncCredential = default,
             CreateRequestSaltoSpaceMetadata? saltoSpaceMetadata = default,
             string? startsAt = default,
@@ -613,7 +542,6 @@ namespace Seam.Api
                         code: code,
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
                         endsAt: endsAt,
-                        hotekMetadata: hotekMetadata,
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                         saltoSpaceMetadata: saltoSpaceMetadata,
                         startsAt: startsAt,

@@ -578,6 +578,207 @@ namespace Seam.Api
         {
             return (await ResetSandboxAsync(new ResetSandboxRequest()));
         }
+
+        [DataContract(Name = "updateRequest_request")]
+        public class UpdateRequest
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequest() { }
+
+            public UpdateRequest(
+                string? connectPartnerName = default,
+                UpdateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
+                bool? isPublishableKeyAuthEnabled = default,
+                bool? isSuspended = default,
+                string? name = default,
+                string? organizationId = default
+            )
+            {
+                ConnectPartnerName = connectPartnerName;
+                ConnectWebviewCustomization = connectWebviewCustomization;
+                IsPublishableKeyAuthEnabled = isPublishableKeyAuthEnabled;
+                IsSuspended = isSuspended;
+                Name = name;
+                OrganizationId = organizationId;
+            }
+
+            [DataMember(
+                Name = "connect_partner_name",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? ConnectPartnerName { get; set; }
+
+            [DataMember(
+                Name = "connect_webview_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public UpdateRequestConnectWebviewCustomization? ConnectWebviewCustomization { get; set; }
+
+            [DataMember(
+                Name = "is_publishable_key_auth_enabled",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? IsPublishableKeyAuthEnabled { get; set; }
+
+            [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsSuspended { get; set; }
+
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? OrganizationId { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "updateRequestConnectWebviewCustomization_model")]
+        public class UpdateRequestConnectWebviewCustomization
+        {
+            [JsonConstructorAttribute]
+            protected UpdateRequestConnectWebviewCustomization() { }
+
+            public UpdateRequestConnectWebviewCustomization(
+                UpdateRequestConnectWebviewCustomization.LogoShapeEnum? logoShape = default,
+                string? primaryButtonColor = default,
+                string? primaryButtonTextColor = default,
+                string? successMessage = default
+            )
+            {
+                LogoShape = logoShape;
+                PrimaryButtonColor = primaryButtonColor;
+                PrimaryButtonTextColor = primaryButtonTextColor;
+                SuccessMessage = successMessage;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum LogoShapeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "circle")]
+                Circle = 1,
+
+                [EnumMember(Value = "square")]
+                Square = 2,
+            }
+
+            [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]
+            public UpdateRequestConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; set; }
+
+            [DataMember(
+                Name = "primary_button_color",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PrimaryButtonColor { get; set; }
+
+            [DataMember(
+                Name = "primary_button_text_color",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PrimaryButtonTextColor { get; set; }
+
+            [DataMember(Name = "success_message", IsRequired = false, EmitDefaultValue = false)]
+            public string? SuccessMessage { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        public void Update(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/workspaces/update", requestOptions);
+        }
+
+        public void Update(
+            string? connectPartnerName = default,
+            UpdateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
+            bool? isPublishableKeyAuthEnabled = default,
+            bool? isSuspended = default,
+            string? name = default,
+            string? organizationId = default
+        )
+        {
+            Update(
+                new UpdateRequest(
+                    connectPartnerName: connectPartnerName,
+                    connectWebviewCustomization: connectWebviewCustomization,
+                    isPublishableKeyAuthEnabled: isPublishableKeyAuthEnabled,
+                    isSuspended: isSuspended,
+                    name: name,
+                    organizationId: organizationId
+                )
+            );
+        }
+
+        public async Task UpdateAsync(UpdateRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/workspaces/update", requestOptions);
+        }
+
+        public async Task UpdateAsync(
+            string? connectPartnerName = default,
+            UpdateRequestConnectWebviewCustomization? connectWebviewCustomization = default,
+            bool? isPublishableKeyAuthEnabled = default,
+            bool? isSuspended = default,
+            string? name = default,
+            string? organizationId = default
+        )
+        {
+            await UpdateAsync(
+                new UpdateRequest(
+                    connectPartnerName: connectPartnerName,
+                    connectWebviewCustomization: connectWebviewCustomization,
+                    isPublishableKeyAuthEnabled: isPublishableKeyAuthEnabled,
+                    isSuspended: isSuspended,
+                    name: name,
+                    organizationId: organizationId
+                )
+            );
+        }
     }
 }
 

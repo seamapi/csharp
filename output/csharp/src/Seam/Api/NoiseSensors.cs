@@ -34,8 +34,6 @@ namespace Seam.Api
                 List<string>? deviceIds = default,
                 ListRequest.DeviceTypeEnum? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-                List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-                List<ListRequest.IncludeIfEnum>? includeIf = default,
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 string? pageCursor = default,
@@ -54,8 +52,6 @@ namespace Seam.Api
                 DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
-                ExcludeIf = excludeIf;
-                IncludeIf = includeIf;
                 Limit = limit;
                 Manufacturer = manufacturer;
                 PageCursor = pageCursor;
@@ -89,140 +85,6 @@ namespace Seam.Api
 
                 [EnumMember(Value = "minut_sensor")]
                 MinutSensor = 2,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ExcludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum IncludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -272,12 +134,6 @@ namespace Seam.Api
 
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
-
-            [DataMember(Name = "exclude_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.ExcludeIfEnum>? ExcludeIf { get; set; }
-
-            [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.IncludeIfEnum>? IncludeIf { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -375,8 +231,6 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -397,8 +251,6 @@ namespace Seam.Api
                     deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
-                    excludeIf: excludeIf,
-                    includeIf: includeIf,
                     limit: limit,
                     manufacturer: manufacturer,
                     pageCursor: pageCursor,
@@ -429,8 +281,6 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -452,8 +302,6 @@ namespace Seam.Api
                         deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,
-                        excludeIf: excludeIf,
-                        includeIf: includeIf,
                         limit: limit,
                         manufacturer: manufacturer,
                         pageCursor: pageCursor,

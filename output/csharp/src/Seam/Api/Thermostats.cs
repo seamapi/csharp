@@ -158,14 +158,12 @@ namespace Seam.Api
             public CoolRequest(
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
-                string deviceId = default,
-                bool? sync = default
+                string deviceId = default
             )
             {
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
                 DeviceId = deviceId;
-                Sync = sync;
             }
 
             [DataMember(
@@ -184,9 +182,6 @@ namespace Seam.Api
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -252,16 +247,14 @@ namespace Seam.Api
         public ActionAttempt Cool(
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
-            string deviceId = default,
-            bool? sync = default
+            string deviceId = default
         )
         {
             return Cool(
                 new CoolRequest(
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
-                    deviceId: deviceId,
-                    sync: sync
+                    deviceId: deviceId
                 )
             );
         }
@@ -278,8 +271,7 @@ namespace Seam.Api
         public async Task<ActionAttempt> CoolAsync(
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
-            string deviceId = default,
-            bool? sync = default
+            string deviceId = default
         )
         {
             return (
@@ -287,8 +279,7 @@ namespace Seam.Api
                     new CoolRequest(
                         coolingSetPointCelsius: coolingSetPointCelsius,
                         coolingSetPointFahrenheit: coolingSetPointFahrenheit,
-                        deviceId: deviceId,
-                        sync: sync
+                        deviceId: deviceId
                     )
                 )
             );
@@ -697,14 +688,12 @@ namespace Seam.Api
             public HeatRequest(
                 string deviceId = default,
                 float? heatingSetPointCelsius = default,
-                float? heatingSetPointFahrenheit = default,
-                bool? sync = default
+                float? heatingSetPointFahrenheit = default
             )
             {
                 DeviceId = deviceId;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
-                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
@@ -723,9 +712,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -791,16 +777,14 @@ namespace Seam.Api
         public ActionAttempt Heat(
             string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default,
-            bool? sync = default
+            float? heatingSetPointFahrenheit = default
         )
         {
             return Heat(
                 new HeatRequest(
                     deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
-                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                    sync: sync
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
                 )
             );
         }
@@ -817,8 +801,7 @@ namespace Seam.Api
         public async Task<ActionAttempt> HeatAsync(
             string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default,
-            bool? sync = default
+            float? heatingSetPointFahrenheit = default
         )
         {
             return (
@@ -826,8 +809,7 @@ namespace Seam.Api
                     new HeatRequest(
                         deviceId: deviceId,
                         heatingSetPointCelsius: heatingSetPointCelsius,
-                        heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                        sync: sync
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit
                     )
                 )
             );
@@ -844,8 +826,7 @@ namespace Seam.Api
                 float? coolingSetPointFahrenheit = default,
                 string deviceId = default,
                 float? heatingSetPointCelsius = default,
-                float? heatingSetPointFahrenheit = default,
-                bool? sync = default
+                float? heatingSetPointFahrenheit = default
             )
             {
                 CoolingSetPointCelsius = coolingSetPointCelsius;
@@ -853,7 +834,6 @@ namespace Seam.Api
                 DeviceId = deviceId;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
-                Sync = sync;
             }
 
             [DataMember(
@@ -886,9 +866,6 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -958,8 +935,7 @@ namespace Seam.Api
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default,
-            bool? sync = default
+            float? heatingSetPointFahrenheit = default
         )
         {
             return HeatCool(
@@ -968,8 +944,7 @@ namespace Seam.Api
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                     deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
-                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                    sync: sync
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
                 )
             );
         }
@@ -990,8 +965,7 @@ namespace Seam.Api
             float? coolingSetPointFahrenheit = default,
             string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default,
-            bool? sync = default
+            float? heatingSetPointFahrenheit = default
         )
         {
             return (
@@ -1001,8 +975,7 @@ namespace Seam.Api
                         coolingSetPointFahrenheit: coolingSetPointFahrenheit,
                         deviceId: deviceId,
                         heatingSetPointCelsius: heatingSetPointCelsius,
-                        heatingSetPointFahrenheit: heatingSetPointFahrenheit,
-                        sync: sync
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit
                     )
                 )
             );
@@ -1024,8 +997,6 @@ namespace Seam.Api
                 List<string>? deviceIds = default,
                 ListRequest.DeviceTypeEnum? deviceType = default,
                 List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-                List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-                List<ListRequest.IncludeIfEnum>? includeIf = default,
                 float? limit = default,
                 ListRequest.ManufacturerEnum? manufacturer = default,
                 string? pageCursor = default,
@@ -1044,8 +1015,6 @@ namespace Seam.Api
                 DeviceIds = deviceIds;
                 DeviceType = deviceType;
                 DeviceTypes = deviceTypes;
-                ExcludeIf = excludeIf;
-                IncludeIf = includeIf;
                 Limit = limit;
                 Manufacturer = manufacturer;
                 PageCursor = pageCursor;
@@ -1103,140 +1072,6 @@ namespace Seam.Api
 
                 [EnumMember(Value = "smartthings_thermostat")]
                 SmartthingsThermostat = 6,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ExcludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum IncludeIfEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "can_remotely_unlock")]
-                CanRemotelyUnlock = 1,
-
-                [EnumMember(Value = "can_remotely_lock")]
-                CanRemotelyLock = 2,
-
-                [EnumMember(Value = "can_program_offline_access_codes")]
-                CanProgramOfflineAccessCodes = 3,
-
-                [EnumMember(Value = "can_program_online_access_codes")]
-                CanProgramOnlineAccessCodes = 4,
-
-                [EnumMember(Value = "can_hvac_heat")]
-                CanHvacHeat = 5,
-
-                [EnumMember(Value = "can_hvac_cool")]
-                CanHvacCool = 6,
-
-                [EnumMember(Value = "can_hvac_heat_cool")]
-                CanHvacHeatCool = 7,
-
-                [EnumMember(Value = "can_turn_off_hvac")]
-                CanTurnOffHvac = 8,
-
-                [EnumMember(Value = "can_simulate_removal")]
-                CanSimulateRemoval = 9,
-
-                [EnumMember(Value = "can_simulate_connection")]
-                CanSimulateConnection = 10,
-
-                [EnumMember(Value = "can_simulate_disconnection")]
-                CanSimulateDisconnection = 11,
-
-                [EnumMember(Value = "can_unlock_with_code")]
-                CanUnlockWithCode = 12,
-
-                [EnumMember(Value = "can_run_thermostat_programs")]
-                CanRunThermostatPrograms = 13,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_weekday_weekend")]
-                CanProgramThermostatProgramsAsWeekdayWeekend = 14,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_different_each_day")]
-                CanProgramThermostatProgramsAsDifferentEachDay = 15,
-
-                [EnumMember(Value = "can_program_thermostat_programs_as_same_each_day")]
-                CanProgramThermostatProgramsAsSameEachDay = 16,
-
-                [EnumMember(Value = "can_simulate_hub_connection")]
-                CanSimulateHubConnection = 17,
-
-                [EnumMember(Value = "can_simulate_hub_disconnection")]
-                CanSimulateHubDisconnection = 18,
-
-                [EnumMember(Value = "can_simulate_paid_subscription")]
-                CanSimulatePaidSubscription = 19,
-
-                [EnumMember(Value = "can_configure_auto_lock")]
-                CanConfigureAutoLock = 20,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1298,12 +1133,6 @@ namespace Seam.Api
 
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
-
-            [DataMember(Name = "exclude_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.ExcludeIfEnum>? ExcludeIf { get; set; }
-
-            [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequest.IncludeIfEnum>? IncludeIf { get; set; }
 
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
@@ -1401,8 +1230,6 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -1423,8 +1250,6 @@ namespace Seam.Api
                     deviceIds: deviceIds,
                     deviceType: deviceType,
                     deviceTypes: deviceTypes,
-                    excludeIf: excludeIf,
-                    includeIf: includeIf,
                     limit: limit,
                     manufacturer: manufacturer,
                     pageCursor: pageCursor,
@@ -1455,8 +1280,6 @@ namespace Seam.Api
             List<string>? deviceIds = default,
             ListRequest.DeviceTypeEnum? deviceType = default,
             List<ListRequest.DeviceTypesEnum>? deviceTypes = default,
-            List<ListRequest.ExcludeIfEnum>? excludeIf = default,
-            List<ListRequest.IncludeIfEnum>? includeIf = default,
             float? limit = default,
             ListRequest.ManufacturerEnum? manufacturer = default,
             string? pageCursor = default,
@@ -1478,8 +1301,6 @@ namespace Seam.Api
                         deviceIds: deviceIds,
                         deviceType: deviceType,
                         deviceTypes: deviceTypes,
-                        excludeIf: excludeIf,
-                        includeIf: includeIf,
                         limit: limit,
                         manufacturer: manufacturer,
                         pageCursor: pageCursor,
@@ -1498,17 +1319,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected OffRequest() { }
 
-            public OffRequest(string deviceId = default, bool? sync = default)
+            public OffRequest(string deviceId = default)
             {
                 DeviceId = deviceId;
-                Sync = sync;
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -1571,9 +1388,9 @@ namespace Seam.Api
             return _seam.Post<OffResponse>("/thermostats/off", requestOptions).Data.ActionAttempt;
         }
 
-        public ActionAttempt Off(string deviceId = default, bool? sync = default)
+        public ActionAttempt Off(string deviceId = default)
         {
-            return Off(new OffRequest(deviceId: deviceId, sync: sync));
+            return Off(new OffRequest(deviceId: deviceId));
         }
 
         public async Task<ActionAttempt> OffAsync(OffRequest request)
@@ -1585,9 +1402,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
-        public async Task<ActionAttempt> OffAsync(string deviceId = default, bool? sync = default)
+        public async Task<ActionAttempt> OffAsync(string deviceId = default)
         {
-            return (await OffAsync(new OffRequest(deviceId: deviceId, sync: sync)));
+            return (await OffAsync(new OffRequest(deviceId: deviceId)));
         }
 
         [DataContract(Name = "setFallbackClimatePresetRequest_request")]
@@ -1683,14 +1500,12 @@ namespace Seam.Api
             public SetFanModeRequest(
                 string deviceId = default,
                 SetFanModeRequest.FanModeEnum? fanMode = default,
-                SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
-                bool? sync = default
+                SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default
             )
             {
                 DeviceId = deviceId;
                 FanMode = fanMode;
                 FanModeSetting = fanModeSetting;
-                Sync = sync;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1733,9 +1548,6 @@ namespace Seam.Api
 
             [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
             public SetFanModeRequest.FanModeSettingEnum? FanModeSetting { get; set; }
-
-            [DataMember(Name = "sync", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Sync { get; set; }
 
             public override string ToString()
             {
@@ -1803,16 +1615,14 @@ namespace Seam.Api
         public ActionAttempt SetFanMode(
             string deviceId = default,
             SetFanModeRequest.FanModeEnum? fanMode = default,
-            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
-            bool? sync = default
+            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default
         )
         {
             return SetFanMode(
                 new SetFanModeRequest(
                     deviceId: deviceId,
                     fanMode: fanMode,
-                    fanModeSetting: fanModeSetting,
-                    sync: sync
+                    fanModeSetting: fanModeSetting
                 )
             );
         }
@@ -1834,8 +1644,7 @@ namespace Seam.Api
         public async Task<ActionAttempt> SetFanModeAsync(
             string deviceId = default,
             SetFanModeRequest.FanModeEnum? fanMode = default,
-            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default,
-            bool? sync = default
+            SetFanModeRequest.FanModeSettingEnum? fanModeSetting = default
         )
         {
             return (
@@ -1843,8 +1652,7 @@ namespace Seam.Api
                     new SetFanModeRequest(
                         deviceId: deviceId,
                         fanMode: fanMode,
-                        fanModeSetting: fanModeSetting,
-                        sync: sync
+                        fanModeSetting: fanModeSetting
                     )
                 )
             );
@@ -1879,8 +1687,20 @@ namespace Seam.Api
                 [EnumMember(Value = "unrecognized")]
                 Unrecognized = 0,
 
+                [EnumMember(Value = "off")]
+                Off = 1,
+
+                [EnumMember(Value = "cool")]
+                Cool = 2,
+
+                [EnumMember(Value = "heat")]
+                Heat = 3,
+
+                [EnumMember(Value = "heat_cool")]
+                HeatCool = 4,
+
                 [EnumMember(Value = "eco")]
-                Eco = 1,
+                Eco = 5,
             }
 
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]

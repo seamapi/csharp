@@ -71,19 +71,19 @@ namespace Seam.Api
             protected CreateRequestPeriods() { }
 
             public CreateRequestPeriods(
-                string climatePresetKey = default,
-                string startsAtTime = default
+                string? climatePresetKey = default,
+                string? startsAtTime = default
             )
             {
                 ClimatePresetKey = climatePresetKey;
                 StartsAtTime = startsAtTime;
             }
 
-            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ClimatePresetKey { get; set; }
+            [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ClimatePresetKey { get; set; }
 
-            [DataMember(Name = "starts_at_time", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsAtTime { get; set; }
+            [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAtTime { get; set; }
 
             public override string ToString()
             {
@@ -309,19 +309,19 @@ namespace Seam.Api
             protected UpdateRequestPeriods() { }
 
             public UpdateRequestPeriods(
-                string climatePresetKey = default,
-                string startsAtTime = default
+                string? climatePresetKey = default,
+                string? startsAtTime = default
             )
             {
                 ClimatePresetKey = climatePresetKey;
                 StartsAtTime = startsAtTime;
             }
 
-            [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
-            public string ClimatePresetKey { get; set; }
+            [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ClimatePresetKey { get; set; }
 
-            [DataMember(Name = "starts_at_time", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsAtTime { get; set; }
+            [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAtTime { get; set; }
 
             public override string ToString()
             {

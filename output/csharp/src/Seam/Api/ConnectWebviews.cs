@@ -32,7 +32,6 @@ namespace Seam.Api
                 string? customRedirectFailureUrl = default,
                 string? customRedirectUrl = default,
                 string? customerKey = default,
-                CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
                 List<string>? excludedProviders = default,
                 CreateRequest.ProviderCategoryEnum? providerCategory = default,
                 bool? waitForDeviceCreation = default
@@ -45,7 +44,6 @@ namespace Seam.Api
                 CustomRedirectFailureUrl = customRedirectFailureUrl;
                 CustomRedirectUrl = customRedirectUrl;
                 CustomerKey = customerKey;
-                DeviceSelectionMode = deviceSelectionMode;
                 ExcludedProviders = excludedProviders;
                 ProviderCategory = providerCategory;
                 WaitForDeviceCreation = waitForDeviceCreation;
@@ -279,22 +277,6 @@ namespace Seam.Api
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum DeviceSelectionModeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "none")]
-                None = 1,
-
-                [EnumMember(Value = "single")]
-                Single = 2,
-
-                [EnumMember(Value = "multiple")]
-                Multiple = 3,
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ProviderCategoryEnum
             {
                 [EnumMember(Value = "unrecognized")]
@@ -360,13 +342,6 @@ namespace Seam.Api
 
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
-
-            [DataMember(
-                Name = "device_selection_mode",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public CreateRequest.DeviceSelectionModeEnum? DeviceSelectionMode { get; set; }
 
             [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ExcludedProviders { get; set; }
@@ -452,7 +427,6 @@ namespace Seam.Api
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
             string? customerKey = default,
-            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
             List<string>? excludedProviders = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
@@ -467,7 +441,6 @@ namespace Seam.Api
                     customRedirectFailureUrl: customRedirectFailureUrl,
                     customRedirectUrl: customRedirectUrl,
                     customerKey: customerKey,
-                    deviceSelectionMode: deviceSelectionMode,
                     excludedProviders: excludedProviders,
                     providerCategory: providerCategory,
                     waitForDeviceCreation: waitForDeviceCreation
@@ -494,7 +467,6 @@ namespace Seam.Api
             string? customRedirectFailureUrl = default,
             string? customRedirectUrl = default,
             string? customerKey = default,
-            CreateRequest.DeviceSelectionModeEnum? deviceSelectionMode = default,
             List<string>? excludedProviders = default,
             CreateRequest.ProviderCategoryEnum? providerCategory = default,
             bool? waitForDeviceCreation = default
@@ -510,7 +482,6 @@ namespace Seam.Api
                         customRedirectFailureUrl: customRedirectFailureUrl,
                         customRedirectUrl: customRedirectUrl,
                         customerKey: customerKey,
-                        deviceSelectionMode: deviceSelectionMode,
                         excludedProviders: excludedProviders,
                         providerCategory: providerCategory,
                         waitForDeviceCreation: waitForDeviceCreation

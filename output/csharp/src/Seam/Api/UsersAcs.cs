@@ -1295,17 +1295,17 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected UpdateRequestAccessSchedule() { }
 
-            public UpdateRequestAccessSchedule(string endsAt = default, string startsAt = default)
+            public UpdateRequestAccessSchedule(string? endsAt = default, string? startsAt = default)
             {
                 EndsAt = endsAt;
                 StartsAt = startsAt;
             }
 
-            [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
-            public string EndsAt { get; set; }
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
 
-            [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
-            public string StartsAt { get; set; }
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
 
             public override string ToString()
             {
