@@ -60,7 +60,7 @@
   "devDependencies": {
     "@seamapi/blueprint": "^1.0.0",
     "@seamapi/smith": "^1.0.0",
-    "@seamapi/types": "1.975.0",
+    "@seamapi/types": "1.977.0",
     "@types/node": "^24.10.9",
     "ava": "^5.0.1",
     "c8": "^8.0.0",
