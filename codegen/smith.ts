@@ -2,8 +2,7 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import layouts from '@metalsmith/layouts'
-import { createBlueprint, TypesModuleSchema } from '@seamapi/blueprint'
-import { getHandlebarsPartials } from '@seamapi/smith'
+import { blueprint, getHandlebarsPartials } from '@seamapi/smith'
 import * as types from '@seamapi/types/connect'
 import Metalsmith from 'metalsmith'
 
@@ -13,21 +12,18 @@ const rootDir = dirname(fileURLToPath(import.meta.url))
 
 const partials = await getHandlebarsPartials(`${rootDir}/layouts/partials`)
 
-// Build the blueprint with undocumented routes, endpoints, resources, and
-// properties omitted so the generated SDK contains only the public API surface.
-// The codegen relies on this instead of filtering undocumented items itself.
-const blueprint = await createBlueprint(TypesModuleSchema.parse({ ...types }), {
-  omitUndocumented: true,
-})
-
 // The destination is the repository root, so cleaning is left disabled to avoid
 // deleting checked-in package source. Generated files no longer produced by the
 // blueprint are pruned by removing them from version control.
+//
+// `omitUndocumented` excludes undocumented routes, endpoints, resources, and
+// properties from the blueprint so the generated SDK contains only the public
+// API surface; the codegen relies on this instead of filtering them itself.
 Metalsmith(rootDir)
-  .metadata({ blueprint })
   .source('./content')
   .destination('../')
   .clean(false)
+  .use(blueprint({ types, omitUndocumented: true }))
   .use(csharp)
   .use(
     layouts({
