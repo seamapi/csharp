@@ -505,31 +505,42 @@ export const buildEventFile = (
     })),
   )
 
+// Resolves the model type for a resource reference. A reference to a type that
+// is not a generated model (e.g. an undocumented resource, which the blueprint
+// reports as `unknown`) falls back to the untyped `object`. The batch
+// find-anything endpoint is keyed by its response key, which is a model.
+const resolveModel = (
+  resourceType: string,
+  responseKey: string,
+  modelTypes: Set<string>,
+): string => {
+  if (modelTypes.has(resourceType)) return pascalCase(resourceType)
+  if (modelTypes.has(responseKey)) return pascalCase(responseKey)
+  return 'object'
+}
+
 // The C# type for an endpoint's return value, and the resource property name it
 // is unwrapped from in the response body.
 const responseReturn = (
   response: Endpoint['response'],
+  modelTypes: Set<string>,
 ): { returnType: string; returnProp: string } | undefined => {
   if (response.responseType === 'void') return undefined
   const returnProp = pascalCase(response.responseKey)
-  if (response.responseType === 'resource_list') {
-    return {
-      returnType: `List<${pascalCase(response.resourceType)}>`,
-      returnProp,
-    }
-  }
-  // A `resource` response whose type is not a named resource (the batch
-  // find-anything endpoint) is keyed by its response key instead.
-  const modelName =
-    response.resourceType === 'unknown'
-      ? pascalCase(response.responseKey)
-      : pascalCase(response.resourceType)
-  return { returnType: modelName, returnProp }
+  const model = resolveModel(
+    response.resourceType,
+    response.responseKey,
+    modelTypes,
+  )
+  const returnType =
+    response.responseType === 'resource_list' ? `List<${model}>` : model
+  return { returnType, returnProp }
 }
 
 export const buildApiFile = (
   className: string,
   endpoints: Endpoint[],
+  modelTypes: Set<string>,
 ): CsApiFile => {
   const routes: CsRoute[] = endpoints.map((endpoint) => {
     const methodName = pascalCase(endpoint.name)
@@ -540,7 +551,7 @@ export const buildApiFile = (
       { resourceType: 'request' },
     )
 
-    const returned = responseReturn(endpoint.response)
+    const returned = responseReturn(endpoint.response, modelTypes)
     const isVoid = returned == null
 
     if (isVoid) {

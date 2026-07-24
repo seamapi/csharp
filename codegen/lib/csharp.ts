@@ -58,20 +58,21 @@ export const csharp = (
     writeModel(name, file)
   }
 
+  // Resource types emitted as models, used to resolve endpoint return types.
+  // action_attempt is not a resource but is emitted as a union model.
+  const modelTypes = new Set(blueprint.resources.map((r) => r.resourceType))
+  modelTypes.add('action_attempt')
+
   const endpointsByClass = new Map<string, Endpoint[]>()
   for (const route of blueprint.routes) {
-    if (route.isUndocumented) continue
-    const endpoints = route.endpoints.filter(
-      (endpoint) => !endpoint.isUndocumented,
-    )
-    if (endpoints.length === 0) continue
+    if (route.endpoints.length === 0) continue
     const className = apiClassName(route.path)
     const existing = endpointsByClass.get(className) ?? []
-    endpointsByClass.set(className, [...existing, ...endpoints])
+    endpointsByClass.set(className, [...existing, ...route.endpoints])
   }
 
   for (const [className, endpoints] of endpointsByClass) {
-    const apiFile = buildApiFile(className, endpoints)
+    const apiFile = buildApiFile(className, endpoints, modelTypes)
     files[`${outputRoot}/Api/${apiFile.className}.cs`] = {
       contents: Buffer.from('\n'),
       layout: 'api.hbs',

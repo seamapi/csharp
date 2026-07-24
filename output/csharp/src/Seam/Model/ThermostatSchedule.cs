@@ -8,139 +8,120 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_thermostatSchedule_model")]
-    public class ThermostatSchedule
-    {
-        [JsonConstructorAttribute]
-        protected ThermostatSchedule() { }
+[DataContract(Name = "seamModel_thermostatSchedule_model")]
+public class ThermostatSchedule
+{
+[JsonConstructorAttribute]
+protected ThermostatSchedule() { }
 
-        public ThermostatSchedule(
-            string climatePresetKey = default,
-            string createdAt = default,
-            string deviceId = default,
-            string endsAt = default,
-            List<ThermostatScheduleErrors> errors = default,
-            bool isOverrideAllowed = default,
-            int? maxOverridePeriodMinutes = default,
-            string? name = default,
-            string startsAt = default,
-            string thermostatScheduleId = default,
-            string workspaceId = default
-        )
-        {
-            ClimatePresetKey = climatePresetKey;
-            CreatedAt = createdAt;
-            DeviceId = deviceId;
-            EndsAt = endsAt;
-            Errors = errors;
-            IsOverrideAllowed = isOverrideAllowed;
-            MaxOverridePeriodMinutes = maxOverridePeriodMinutes;
-            Name = name;
-            StartsAt = startsAt;
-            ThermostatScheduleId = thermostatScheduleId;
-            WorkspaceId = workspaceId;
-        }
+public ThermostatSchedule(string climatePresetKey = default, string createdAt = default, string deviceId = default, string endsAt = default, List<ThermostatScheduleErrors> errors = default, bool isOverrideAllowed = default, int? maxOverridePeriodMinutes = default, string? name = default, string startsAt = default, string thermostatScheduleId = default, string workspaceId = default)
+{
+ClimatePresetKey = climatePresetKey;
+CreatedAt = createdAt;
+DeviceId = deviceId;
+EndsAt = endsAt;
+Errors = errors;
+IsOverrideAllowed = isOverrideAllowed;
+MaxOverridePeriodMinutes = maxOverridePeriodMinutes;
+Name = name;
+StartsAt = startsAt;
+ThermostatScheduleId = thermostatScheduleId;
+WorkspaceId = workspaceId;
+}
 
-        [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
-        public string ClimatePresetKey { get; set; }
+[DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
+public string ClimatePresetKey { get; set; }
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
+[DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+public string CreatedAt { get; set; }
 
-        [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-        public string DeviceId { get; set; }
+[DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+public string DeviceId { get; set; }
 
-        [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
-        public string EndsAt { get; set; }
+[DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
+public string EndsAt { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
-        public List<ThermostatScheduleErrors> Errors { get; set; }
+[DataMember(Name = "errors", IsRequired = true, EmitDefaultValue = false)]
+public List<ThermostatScheduleErrors> Errors { get; set; }
 
-        [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsOverrideAllowed { get; set; }
+[DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
+public bool IsOverrideAllowed { get; set; }
 
-        [DataMember(
-            Name = "max_override_period_minutes",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public int? MaxOverridePeriodMinutes { get; set; }
+[DataMember(Name = "max_override_period_minutes", IsRequired = false, EmitDefaultValue = false)]
+public int? MaxOverridePeriodMinutes { get; set; }
 
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
-        public string? Name { get; set; }
+[DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
+public string? Name { get; set; }
 
-        [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
-        public string StartsAt { get; set; }
+[DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
+public string StartsAt { get; set; }
 
-        [DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
-        public string ThermostatScheduleId { get; set; }
+[DataMember(Name = "thermostat_schedule_id", IsRequired = true, EmitDefaultValue = false)]
+public string ThermostatScheduleId { get; set; }
 
-        [DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
-        public string WorkspaceId { get; set; }
+[DataMember(Name = "workspace_id", IsRequired = true, EmitDefaultValue = false)]
+public string WorkspaceId { get; set; }
 
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-            return stringWriter.ToString();
-        }
-    }
+return stringWriter.ToString();
+}
+}
 
-    [DataContract(Name = "seamModel_thermostatScheduleErrors_model")]
-    public class ThermostatScheduleErrors
-    {
-        [JsonConstructorAttribute]
-        protected ThermostatScheduleErrors() { }
+[DataContract(Name = "seamModel_thermostatScheduleErrors_model")]
+public class ThermostatScheduleErrors
+{
+[JsonConstructorAttribute]
+protected ThermostatScheduleErrors() { }
 
-        public ThermostatScheduleErrors(
-            string createdAt = default,
-            string errorCode = default,
-            string message = default
-        )
-        {
-            CreatedAt = createdAt;
-            ErrorCode = errorCode;
-            Message = message;
-        }
+public ThermostatScheduleErrors(string createdAt = default, string errorCode = default, string message = default)
+{
+CreatedAt = createdAt;
+ErrorCode = errorCode;
+Message = message;
+}
 
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
+[DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = false)]
+public string CreatedAt { get; set; }
 
-        [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-        public string ErrorCode { get; set; }
+[DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+public string ErrorCode { get; set; }
 
-        [DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
-        public string Message { get; set; }
+[DataMember(Name = "message", IsRequired = true, EmitDefaultValue = false)]
+public string Message { get; set; }
 
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+public override string ToString()
+{
+JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
 
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
+StringWriter stringWriter = new StringWriter(
+new StringBuilder(256),
+System.Globalization.CultureInfo.InvariantCulture
+);
+using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+{
+jsonTextWriter.IndentChar = ' ';
+jsonTextWriter.Indentation = 2;
+jsonTextWriter.Formatting = Formatting.Indented;
+jsonSerializer.Serialize(jsonTextWriter, this, null);
+}
 
-            return stringWriter.ToString();
-        }
-    }
+return stringWriter.ToString();
+}
+}
+
 }
