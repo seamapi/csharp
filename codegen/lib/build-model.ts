@@ -158,13 +158,14 @@ const normalizeItemKind = (property: Property): Kind => {
 }
 
 const normalizeProperty = (property: Property): Field => {
-  // `isOptional` controls whether the property must be present in the payload
-  // (the DataMember IsRequired flag); `isNullable` controls whether its value
-  // may be null (the C# nullable annotation). The two are independent.
+  // Response models deserialize leniently: `IsRequired` stays false so a
+  // payload that omits a field (as real responses and partial fixtures do)
+  // never throws. `isOptional` and `isNullable` instead widen the C# type to
+  // nullable, so a value that may be absent or null is representable.
   const base = {
     name: property.name,
-    isRequired: !property.isOptional,
-    nullable: property.isNullable,
+    isRequired: false,
+    nullable: property.isNullable || property.isOptional,
   }
   switch (property.format) {
     case 'string':
