@@ -28,23 +28,27 @@ namespace Seam.Api
                 List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters =
                     default,
                 string? customizationProfileId = default,
+                CreatePortalRequestDeepLink? deepLink = default,
                 bool? excludeLocalePicker = default,
                 CreatePortalRequestFeatures? features = default,
                 bool? isEmbedded = default,
                 CreatePortalRequestLandingPage? landingPage = default,
                 CreatePortalRequest.LocaleEnum? locale = default,
                 CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+                bool? readOnly = default,
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
                 CustomerResourcesFilters = customerResourcesFilters;
                 CustomizationProfileId = customizationProfileId;
+                DeepLink = deepLink;
                 ExcludeLocalePicker = excludeLocalePicker;
                 Features = features;
                 IsEmbedded = isEmbedded;
                 LandingPage = landingPage;
                 Locale = locale;
                 NavigationMode = navigationMode;
+                ReadOnly = readOnly;
                 CustomerData = customerData;
             }
 
@@ -112,6 +116,9 @@ namespace Seam.Api
             )]
             public string? CustomizationProfileId { get; set; }
 
+            [DataMember(Name = "deep_link", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink? DeepLink { get; set; }
+
             [DataMember(
                 Name = "exclude_locale_picker",
                 IsRequired = false,
@@ -133,6 +140,9 @@ namespace Seam.Api
 
             [DataMember(Name = "navigation_mode", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequest.NavigationModeEnum? NavigationMode { get; set; }
+
+            [DataMember(Name = "read_only", IsRequired = false, EmitDefaultValue = false)]
+            public bool? ReadOnly { get; set; }
 
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerData? CustomerData { get; set; }
@@ -218,6 +228,68 @@ namespace Seam.Api
         {
             [JsonConstructorAttribute]
             public CreatePortalRequestCustomerResourcesFiltersValue() { }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestDeepLink_model")]
+        public class CreatePortalRequestDeepLink
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestDeepLink() { }
+
+            public CreatePortalRequestDeepLink(
+                string? resourceKey = default,
+                CreatePortalRequestDeepLink.ResourceTypeEnum? resourceType = default,
+                string? resourceId = default
+            )
+            {
+                ResourceKey = resourceKey;
+                ResourceType = resourceType;
+                ResourceId = resourceId;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ResourceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "reservation")]
+                Reservation = 1,
+
+                [EnumMember(Value = "space")]
+                Space = 2,
+
+                [EnumMember(Value = "device")]
+                Device = 3,
+            }
+
+            [DataMember(Name = "resource_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceKey { get; set; }
+
+            [DataMember(Name = "resource_type", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; set; }
+
+            [DataMember(Name = "resource_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceId { get; set; }
 
             public override string ToString()
             {
@@ -2241,12 +2313,14 @@ namespace Seam.Api
         public CustomerPortal CreatePortal(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+            bool? readOnly = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -2254,12 +2328,14 @@ namespace Seam.Api
                 new CreatePortalRequest(
                     customerResourcesFilters: customerResourcesFilters,
                     customizationProfileId: customizationProfileId,
+                    deepLink: deepLink,
                     excludeLocalePicker: excludeLocalePicker,
                     features: features,
                     isEmbedded: isEmbedded,
                     landingPage: landingPage,
                     locale: locale,
                     navigationMode: navigationMode,
+                    readOnly: readOnly,
                     customerData: customerData
                 )
             );
@@ -2282,12 +2358,14 @@ namespace Seam.Api
         public async Task<CustomerPortal> CreatePortalAsync(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+            bool? readOnly = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -2296,12 +2374,14 @@ namespace Seam.Api
                     new CreatePortalRequest(
                         customerResourcesFilters: customerResourcesFilters,
                         customizationProfileId: customizationProfileId,
+                        deepLink: deepLink,
                         excludeLocalePicker: excludeLocalePicker,
                         features: features,
                         isEmbedded: isEmbedded,
                         landingPage: landingPage,
                         locale: locale,
                         navigationMode: navigationMode,
+                        readOnly: readOnly,
                         customerData: customerData
                     )
                 )
