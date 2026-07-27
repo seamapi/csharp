@@ -576,6 +576,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_organization")]
             KisiOrganization = 16,
+
+            [EnumMember(Value = "akiles_organization")]
+            AkilesOrganization = 17,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -631,6 +634,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_organization")]
             KisiOrganization = 16,
+
+            [EnumMember(Value = "akiles_organization")]
+            AkilesOrganization = 17,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]

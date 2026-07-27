@@ -203,41 +203,44 @@ namespace Seam.Model
             [EnumMember(Value = "kisi_lock")]
             KisiLock = 29,
 
+            [EnumMember(Value = "aqara_lock")]
+            AqaraLock = 30,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 30,
+            KeynestKey = 31,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 31,
+            NoiseawareActivityZone = 32,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 32,
+            MinutSensor = 33,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 33,
+            EcobeeThermostat = 34,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 34,
+            NestThermostat = 35,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 35,
+            HoneywellResideoThermostat = 36,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 36,
+            TadoThermostat = 37,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 37,
+            SensiThermostat = 38,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 38,
+            SmartthingsThermostat = 39,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 39,
+            IosPhone = 40,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 40,
+            AndroidPhone = 41,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 41,
+            RingCamera = 42,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]

@@ -209,6 +209,7 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? accessMethodId = default,
                 string? acsCredentialId = default,
                 List<string>? acsEntranceIds = default,
                 string? acsSystemId = default,
@@ -221,6 +222,7 @@ namespace Seam.Api
                 string? spaceId = default
             )
             {
+                AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
                 AcsEntranceIds = acsEntranceIds;
                 AcsSystemId = acsSystemId;
@@ -232,6 +234,9 @@ namespace Seam.Api
                 Search = search;
                 SpaceId = spaceId;
             }
+
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
 
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
@@ -331,6 +336,7 @@ namespace Seam.Api
         }
 
         public List<AcsEntrance> List(
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
@@ -345,6 +351,7 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
                     acsEntranceIds: acsEntranceIds,
                     acsSystemId: acsSystemId,
@@ -369,6 +376,7 @@ namespace Seam.Api
         }
 
         public async Task<List<AcsEntrance>> ListAsync(
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
@@ -384,6 +392,7 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
                         acsEntranceIds: acsEntranceIds,
                         acsSystemId: acsSystemId,
