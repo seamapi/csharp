@@ -8,6 +8,13 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    ///
+    /// Within an `acs_system`, create [`acs_user`s](https://docs.seam.co/api/acs/users/object) and [`acs_credential`s](https://docs.seam.co/api/acs/credentials/object) to grant access to the `acs_user`s.
+    ///
+    /// For details about the resources associated with an access control system, see the [access control systems namespace](https://docs.seam.co/api/acs).
+    /// </summary>
     [DataContract(Name = "seamModel_acsSystem_model")]
     public class AcsSystem
     {
@@ -121,12 +128,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "seam_bridge_disconnected";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -169,15 +182,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
+            /// <summary>
+            /// Indicates whether the error is related to the [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -218,12 +240,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "visionline_instance_unreachable";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -264,12 +292,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -310,12 +344,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "acs_system_disconnected";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -356,12 +396,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -402,12 +448,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_certification_expired";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -448,12 +500,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "provider_service_unavailable";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -497,9 +555,15 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -523,6 +587,9 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -674,9 +741,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -723,12 +796,19 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            [Obsolete("this field is deprecated.")]
             [DataMember(
                 Name = "misconfigured_acs_entrance_ids",
                 IsRequired = false,
@@ -776,9 +856,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -825,9 +911,15 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -851,24 +943,46 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// Number of access groups in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "acs_access_group_count", IsRequired = false, EmitDefaultValue = false)]
         public float? AcsAccessGroupCount { get; set; }
 
+        /// <summary>
+        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// Number of users in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "acs_user_count", IsRequired = false, EmitDefaultValue = false)]
         public float? AcsUserCount { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
+        [Obsolete("Use `connected_account_id`.")]
         [DataMember(Name = "connected_account_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the [access control system](https://docs.seam.co/low-level-apis/access-systems) was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the default credential manager `acs_system` for this [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(
             Name = "default_credential_manager_acs_system_id",
             IsRequired = false,
@@ -876,12 +990,21 @@ namespace Seam.Model
         )]
         public string? DefaultCredentialManagerAcsSystemId { get; set; }
 
+        /// <summary>
+        /// Errors associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemErrors> Errors { get; set; }
 
+        /// <summary>
+        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// </summary>
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystem.ExternalTypeEnum? ExternalType { get; set; }
 
+        /// <summary>
+        /// Display name that corresponds to the brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// </summary>
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
@@ -889,24 +1012,41 @@ namespace Seam.Model
         )]
         public string? ExternalTypeDisplayName { get; set; }
 
+        /// <summary>
+        /// Alternative text for the [access control system](https://docs.seam.co/low-level-apis/access-systems) image.
+        /// </summary>
         [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
         public string ImageAltText { get; set; }
 
+        /// <summary>
+        /// URL for the image that represents the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string ImageUrl { get; set; }
 
+        /// <summary>
+        /// Indicates whether the `acs_system` is a credential manager.
+        /// </summary>
         [DataMember(Name = "is_credential_manager", IsRequired = false, EmitDefaultValue = false)]
         public bool IsCredentialManager { get; set; }
 
+        /// <summary>
+        /// Location information for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystemLocation Location { get; set; }
 
+        /// <summary>
+        /// Name of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
+        [Obsolete("Use `external_type`.")]
         [DataMember(Name = "system_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystem.SystemTypeEnum? SystemType { get; set; }
 
+        [Obsolete("Use `external_type_display_name`.")]
         [DataMember(
             Name = "system_type_display_name",
             IsRequired = false,
@@ -914,12 +1054,21 @@ namespace Seam.Model
         )]
         public string? SystemTypeDisplayName { get; set; }
 
+        /// <summary>
+        /// Visionline-specific metadata for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemWarnings> Warnings { get; set; }
 
+        /// <summary>
+        /// ID of the workspace that contains the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
@@ -954,6 +1103,9 @@ namespace Seam.Model
             TimeZone = timeZone;
         }
 
+        /// <summary>
+        /// Time zone in which the [access control system](https://docs.seam.co/low-level-apis/access-systems) is located.
+        /// </summary>
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
 
@@ -994,12 +1146,21 @@ namespace Seam.Model
             SystemId = systemId;
         }
 
+        /// <summary>
+        /// IP address or hostname of the main Visionline server relative to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge) on the local network.
+        /// </summary>
         [DataMember(Name = "lan_address", IsRequired = false, EmitDefaultValue = false)]
         public string? LanAddress { get; set; }
 
+        /// <summary>
+        /// Keyset loaded into a reader. Mobile keys and reader administration tools securely authenticate only with readers programmed with a matching keyset.
+        /// </summary>
         [DataMember(Name = "mobile_access_uuid", IsRequired = false, EmitDefaultValue = false)]
         public string? MobileAccessUuid { get; set; }
 
+        /// <summary>
+        /// Unique ID assigned by the ASSA ABLOY licensing team that identifies each hotel in your credential manager.
+        /// </summary>
         [DataMember(Name = "system_id", IsRequired = false, EmitDefaultValue = false)]
         public string? SystemId { get; set; }
 

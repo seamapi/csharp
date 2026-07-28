@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Convert an Unmanaged Access Code.
+        /// </summary>
         [DataContract(Name = "convertToManagedRequest_request")]
         public class ConvertToManagedRequest
         {
@@ -37,9 +40,15 @@ namespace Seam.Api
                 IsExternalModificationAllowed = isExternalModificationAllowed;
             }
 
+            /// <summary>
+            /// ID of the unmanaged access code that you want to convert to a managed access code.
+            /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
 
+            /// <summary>
+            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
+            /// </summary>
             [DataMember(
                 Name = "allow_external_modification",
                 IsRequired = false,
@@ -47,9 +56,15 @@ namespace Seam.Api
             )]
             public bool? AllowExternalModification { get; set; }
 
+            /// <summary>
+            /// Indicates whether to force the access code conversion. To switch management of an access code from one Seam workspace to another, set `force` to `true`.
+            /// </summary>
             [DataMember(Name = "force", IsRequired = false, EmitDefaultValue = false)]
             public bool? Force { get; set; }
 
+            /// <summary>
+            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
+            /// </summary>
             [DataMember(
                 Name = "is_external_modification_allowed",
                 IsRequired = false,
@@ -77,6 +92,13 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Converts an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        ///
+        /// An unmanaged access code has a limited set of operations that you can perform on it. Once you convert an unmanaged access code to a managed access code, the full set of access code operations and lifecycle events becomes available for it.
+        ///
+        /// Note that not all device providers support converting an unmanaged access code to a managed access code.
+        /// </summary>
         public void ConvertToManaged(ConvertToManagedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -84,6 +106,13 @@ namespace Seam.Api
             _seam.Post<object>("/access_codes/unmanaged/convert_to_managed", requestOptions);
         }
 
+        /// <summary>
+        /// Converts an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        ///
+        /// An unmanaged access code has a limited set of operations that you can perform on it. Once you convert an unmanaged access code to a managed access code, the full set of access code operations and lifecycle events becomes available for it.
+        ///
+        /// Note that not all device providers support converting an unmanaged access code to a managed access code.
+        /// </summary>
         public void ConvertToManaged(
             string accessCodeId = default,
             bool? allowExternalModification = default,
@@ -101,6 +130,13 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Converts an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        ///
+        /// An unmanaged access code has a limited set of operations that you can perform on it. Once you convert an unmanaged access code to a managed access code, the full set of access code operations and lifecycle events becomes available for it.
+        ///
+        /// Note that not all device providers support converting an unmanaged access code to a managed access code.
+        /// </summary>
         public async Task ConvertToManagedAsync(ConvertToManagedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -111,6 +147,13 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Converts an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        ///
+        /// An unmanaged access code has a limited set of operations that you can perform on it. Once you convert an unmanaged access code to a managed access code, the full set of access code operations and lifecycle events becomes available for it.
+        ///
+        /// Note that not all device providers support converting an unmanaged access code to a managed access code.
+        /// </summary>
         public async Task ConvertToManagedAsync(
             string accessCodeId = default,
             bool? allowExternalModification = default,
@@ -128,6 +171,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete an Unmanaged Access Code.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -139,6 +185,9 @@ namespace Seam.Api
                 AccessCodeId = accessCodeId;
             }
 
+            /// <summary>
+            /// ID of the unmanaged access code that you want to delete.
+            /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
 
@@ -162,6 +211,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -169,11 +221,17 @@ namespace Seam.Api
             _seam.Post<object>("/access_codes/unmanaged/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public void Delete(string accessCodeId = default)
         {
             Delete(new DeleteRequest(accessCodeId: accessCodeId));
         }
 
+        /// <summary>
+        /// Deletes an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -181,11 +239,17 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_codes/unmanaged/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task DeleteAsync(string accessCodeId = default)
         {
             await DeleteAsync(new DeleteRequest(accessCodeId: accessCodeId));
         }
 
+        /// <summary>
+        /// Request parameters for Get an Unmanaged Access Code.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -203,12 +267,21 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// ID of the unmanaged access code that you want to get. You must specify either `access_code_id` or both `device_id` and `code`.
+            /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessCodeId { get; set; }
 
+            /// <summary>
+            /// Code of the unmanaged access code that you want to get. You must specify either `access_code_id` or both `device_id` and `code`.
+            /// </summary>
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
 
+            /// <summary>
+            /// ID of the device containing the unmanaged access code that you want to get. You must specify either `access_code_id` or both `device_id` and `code`.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
@@ -243,6 +316,9 @@ namespace Seam.Api
                 AccessCode = accessCode;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
             public UnmanagedAccessCode AccessCode { get; set; }
 
@@ -266,6 +342,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        ///
+        /// You must specify either `access_code_id` or both `device_id` and `code`.
+        /// </summary>
         public UnmanagedAccessCode Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -275,6 +356,11 @@ namespace Seam.Api
                 .Data.AccessCode;
         }
 
+        /// <summary>
+        /// Returns a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        ///
+        /// You must specify either `access_code_id` or both `device_id` and `code`.
+        /// </summary>
         public UnmanagedAccessCode Get(
             string? accessCodeId = default,
             string? code = default,
@@ -284,6 +370,11 @@ namespace Seam.Api
             return Get(new GetRequest(accessCodeId: accessCodeId, code: code, deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Returns a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        ///
+        /// You must specify either `access_code_id` or both `device_id` and `code`.
+        /// </summary>
         public async Task<UnmanagedAccessCode> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -295,6 +386,11 @@ namespace Seam.Api
                 .AccessCode;
         }
 
+        /// <summary>
+        /// Returns a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        ///
+        /// You must specify either `access_code_id` or both `device_id` and `code`.
+        /// </summary>
         public async Task<UnmanagedAccessCode> GetAsync(
             string? accessCodeId = default,
             string? code = default,
@@ -308,6 +404,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Unmanaged Access Codes.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -329,18 +428,33 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// ID of the device for which you want to list unmanaged access codes.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of unmanaged access codes to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned access codes to include all records that satisfy a partial match using `name`, `code` or `access_code_id`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// Your user ID for the user by which to filter unmanaged access codes.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -375,6 +489,9 @@ namespace Seam.Api
                 AccessCodes = accessCodes;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_codes", IsRequired = false, EmitDefaultValue = false)]
             public List<UnmanagedAccessCode> AccessCodes { get; set; }
 
@@ -398,6 +515,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [unmanaged access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public List<UnmanagedAccessCode> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -407,6 +527,9 @@ namespace Seam.Api
                 .Data.AccessCodes;
         }
 
+        /// <summary>
+        /// Returns a list of all [unmanaged access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public List<UnmanagedAccessCode> List(
             string deviceId = default,
             float? limit = default,
@@ -426,6 +549,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [unmanaged access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task<List<UnmanagedAccessCode>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -437,6 +563,9 @@ namespace Seam.Api
                 .AccessCodes;
         }
 
+        /// <summary>
+        /// Returns a list of all [unmanaged access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task<List<UnmanagedAccessCode>> ListAsync(
             string deviceId = default,
             float? limit = default,
@@ -458,6 +587,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Update an Unmanaged Access Code.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -479,9 +611,15 @@ namespace Seam.Api
                 IsManaged = isManaged;
             }
 
+            /// <summary>
+            /// ID of the unmanaged access code that you want to update.
+            /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessCodeId { get; set; }
 
+            /// <summary>
+            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
+            /// </summary>
             [DataMember(
                 Name = "allow_external_modification",
                 IsRequired = false,
@@ -489,9 +627,15 @@ namespace Seam.Api
             )]
             public bool? AllowExternalModification { get; set; }
 
+            /// <summary>
+            /// Indicates whether to force the unmanaged access code update.
+            /// </summary>
             [DataMember(Name = "force", IsRequired = false, EmitDefaultValue = false)]
             public bool? Force { get; set; }
 
+            /// <summary>
+            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
+            /// </summary>
             [DataMember(
                 Name = "is_external_modification_allowed",
                 IsRequired = false,
@@ -522,6 +666,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public void Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -529,6 +676,9 @@ namespace Seam.Api
             _seam.Post<object>("/access_codes/unmanaged/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public void Update(
             string accessCodeId = default,
             bool? allowExternalModification = default,
@@ -548,6 +698,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -555,6 +708,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_codes/unmanaged/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// </summary>
         public async Task UpdateAsync(
             string accessCodeId = default,
             bool? allowExternalModification = default,

@@ -12,12 +12,15 @@ export interface CsEnumMember {
   // The value rendered inside [EnumMember(Value = ...)]. Strings are quoted by
   // the template (isString), numbers are emitted bare.
   value: string | number
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 export interface CsEnum {
   name: string
   isString: boolean
   members: CsEnumMember[]
+  documentation?: string
 }
 
 // A resolved property: one [DataMember] declaration plus its constructor
@@ -34,6 +37,8 @@ export interface CsProperty {
   getOnly: boolean
   // A constant initializer appended to the property, e.g. ` = "LOCK_DOOR"`.
   initializer?: string
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 // An extra member nested inside a class body (before the properties): an inline
@@ -52,6 +57,8 @@ export interface CsClass {
   baseClass?: string
   nested: CsNested[]
   properties: CsProperty[]
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 // The abstract base of a discriminated union.
@@ -103,6 +110,8 @@ export interface CsRoute {
   isVoid: boolean
   // Expanded-overload parameters (the request class properties).
   params: CsProperty[]
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 // A generated Api file (output/csharp/src/Seam/Api/<Name>.cs).

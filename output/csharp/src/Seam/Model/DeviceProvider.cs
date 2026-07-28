@@ -69,6 +69,9 @@ namespace Seam.Model
             ProviderCategories = providerCategories;
         }
 
+        /// <summary>
+        /// Name of the device provider.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceProviderNameEnum
         {
@@ -262,6 +265,9 @@ namespace Seam.Model
             Kisi = 62,
         }
 
+        /// <summary>
+        /// List of provider categories to which the device provider belongs, such as `stable`, `consumer_smartlocks`, `thermostats`, and so on.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ProviderCategoriesEnum
         {
@@ -293,18 +299,33 @@ namespace Seam.Model
             Connectors = 8,
         }
 
+        /// <summary>
+        /// Indicates whether the lock supports configuring automatic locking.
+        /// </summary>
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanConfigureAutoLock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports cooling.
+        /// </summary>
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports heating.
+        /// </summary>
         [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacHeat { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports simultaneous heating and cooling.
+        /// </summary>
         [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacHeatCool { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports programming offline access codes.
+        /// </summary>
         [DataMember(
             Name = "can_program_offline_access_codes",
             IsRequired = false,
@@ -312,6 +333,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramOfflineAccessCodes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports programming online access codes.
+        /// </summary>
         [DataMember(
             Name = "can_program_online_access_codes",
             IsRequired = false,
@@ -319,6 +343,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramOnlineAccessCodes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports different climate programs for each day of the week.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_different_each_day",
             IsRequired = false,
@@ -326,6 +353,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports a single climate program applied to every day.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_same_each_day",
             IsRequired = false,
@@ -333,6 +363,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports weekday/weekend climate programs.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_weekday_weekend",
             IsRequired = false,
@@ -340,12 +373,21 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports remote locking.
+        /// </summary>
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyLock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports remote unlocking.
+        /// </summary>
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports running climate programs.
+        /// </summary>
         [DataMember(
             Name = "can_run_thermostat_programs",
             IsRequired = false,
@@ -353,9 +395,15 @@ namespace Seam.Model
         )]
         public bool? CanRunThermostatPrograms { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating connection in a sandbox.
+        /// </summary>
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateConnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating disconnection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_disconnection",
             IsRequired = false,
@@ -363,6 +411,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateDisconnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the hub supports simulating connection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_hub_connection",
             IsRequired = false,
@@ -370,6 +421,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateHubConnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the hub supports simulating disconnection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_hub_disconnection",
             IsRequired = false,
@@ -377,6 +431,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateHubDisconnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating a paid subscription in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_paid_subscription",
             IsRequired = false,
@@ -384,24 +441,45 @@ namespace Seam.Model
         )]
         public bool? CanSimulatePaidSubscription { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating removal in a sandbox.
+        /// </summary>
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateRemoval { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat can be turned off.
+        /// </summary>
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanTurnOffHvac { get; set; }
 
+        /// <summary>
+        /// Indicates whether the lock supports unlocking with an access code.
+        /// </summary>
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCode { get; set; }
 
+        /// <summary>
+        /// Name of the device provider.
+        /// </summary>
         [DataMember(Name = "device_provider_name", IsRequired = false, EmitDefaultValue = false)]
         public DeviceProvider.DeviceProviderNameEnum DeviceProviderName { get; set; }
 
+        /// <summary>
+        /// Display name for the device provider.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Image URL for the device provider.
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string ImageUrl { get; set; }
 
+        /// <summary>
+        /// List of provider categories to which the device provider belongs, such as `stable`, `consumer_smartlocks`, `thermostats`, and so on.
+        /// </summary>
         [DataMember(Name = "provider_categories", IsRequired = false, EmitDefaultValue = false)]
         public List<DeviceProvider.ProviderCategoriesEnum> ProviderCategories { get; set; }
 

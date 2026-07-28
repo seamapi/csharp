@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Create a Sandbox Phone.
+        /// </summary>
         [DataContract(Name = "createSandboxPhoneRequest_request")]
         public class CreateSandboxPhoneRequest
         {
@@ -37,9 +40,15 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ASSA ABLOY metadata that you want to associate with the simulated phone.
+            /// </summary>
             [DataMember(Name = "assa_abloy_metadata", IsRequired = false, EmitDefaultValue = false)]
             public CreateSandboxPhoneRequestAssaAbloyMetadata? AssaAbloyMetadata { get; set; }
 
+            /// <summary>
+            /// ID of the custom SDK installation that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(
                 Name = "custom_sdk_installation_id",
                 IsRequired = false,
@@ -47,9 +56,15 @@ namespace Seam.Api
             )]
             public string? CustomSdkInstallationId { get; set; }
 
+            /// <summary>
+            /// Metadata that you want to associate with the simulated phone.
+            /// </summary>
             [DataMember(Name = "phone_metadata", IsRequired = false, EmitDefaultValue = false)]
             public CreateSandboxPhoneRequestPhoneMetadata? PhoneMetadata { get; set; }
 
+            /// <summary>
+            /// ID of the user identity that you want to associate with the simulated phone.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -96,21 +111,39 @@ namespace Seam.Api
                 SeosTsmEndpointId = seosTsmEndpointId;
             }
 
+            /// <summary>
+            /// Application version that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "application_version", IsRequired = false, EmitDefaultValue = false)]
             public string? ApplicationVersion { get; set; }
 
+            /// <summary>
+            /// Indicates whether the simulated phone should have Bluetooth low energy (BLE) capability.
+            /// </summary>
             [DataMember(Name = "ble_capability", IsRequired = false, EmitDefaultValue = false)]
             public bool? BleCapability { get; set; }
 
+            /// <summary>
+            /// Indicates whether the simulated phone should have host card emulation (HCE) capability.
+            /// </summary>
             [DataMember(Name = "hce_capability", IsRequired = false, EmitDefaultValue = false)]
             public bool? HceCapability { get; set; }
 
+            /// <summary>
+            /// Indicates whether the simulated phone should have near-field communication (NFC) capability.
+            /// </summary>
             [DataMember(Name = "nfc_capability", IsRequired = false, EmitDefaultValue = false)]
             public bool? NfcCapability { get; set; }
 
+            /// <summary>
+            /// SEOS applet version that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "seos_applet_version", IsRequired = false, EmitDefaultValue = false)]
             public string? SeosAppletVersion { get; set; }
 
+            /// <summary>
+            /// ID of the SEOS trusted service manager (TSM) endpoint that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(
                 Name = "seos_tsm_endpoint_id",
                 IsRequired = false,
@@ -158,6 +191,9 @@ namespace Seam.Api
                 OsVersion = osVersion;
             }
 
+            /// <summary>
+            /// Mobile operating system that you want to use for the simulated phone.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum OperatingSystemEnum
             {
@@ -171,15 +207,27 @@ namespace Seam.Api
                 Ios = 2,
             }
 
+            /// <summary>
+            /// Manufacturer that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "device_manufacturer", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceManufacturer { get; set; }
 
+            /// <summary>
+            /// Device model that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "device_model", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceModel { get; set; }
 
+            /// <summary>
+            /// Mobile operating system that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "operating_system", IsRequired = false, EmitDefaultValue = false)]
             public CreateSandboxPhoneRequestPhoneMetadata.OperatingSystemEnum? OperatingSystem { get; set; }
 
+            /// <summary>
+            /// Mobile operating system version that you want to use for the simulated phone.
+            /// </summary>
             [DataMember(Name = "os_version", IsRequired = false, EmitDefaultValue = false)]
             public string? OsVersion { get; set; }
 
@@ -214,6 +262,9 @@ namespace Seam.Api
                 Phone = phone;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
             public Phone Phone { get; set; }
 
@@ -237,6 +288,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new simulated phone in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://docs.seam.co/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
+        /// </summary>
         public Phone CreateSandboxPhone(CreateSandboxPhoneRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -249,6 +303,9 @@ namespace Seam.Api
                 .Data.Phone;
         }
 
+        /// <summary>
+        /// Creates a new simulated phone in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://docs.seam.co/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
+        /// </summary>
         public Phone CreateSandboxPhone(
             CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default,
             string? customSdkInstallationId = default,
@@ -266,6 +323,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Creates a new simulated phone in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://docs.seam.co/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
+        /// </summary>
         public async Task<Phone> CreateSandboxPhoneAsync(CreateSandboxPhoneRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -280,6 +340,9 @@ namespace Seam.Api
                 .Phone;
         }
 
+        /// <summary>
+        /// Creates a new simulated phone in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://docs.seam.co/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
+        /// </summary>
         public async Task<Phone> CreateSandboxPhoneAsync(
             CreateSandboxPhoneRequestAssaAbloyMetadata? assaAbloyMetadata = default,
             string? customSdkInstallationId = default,

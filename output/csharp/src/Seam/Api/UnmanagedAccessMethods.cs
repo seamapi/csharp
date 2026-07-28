@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an Unmanaged Access Method.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 AccessMethodId = accessMethodId;
             }
 
+            /// <summary>
+            /// ID of unmanaged access method to get.
+            /// </summary>
             [DataMember(Name = "access_method_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessMethodId { get; set; }
 
@@ -63,6 +69,9 @@ namespace Seam.Api
                 AccessMethod = accessMethod;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethod AccessMethod { get; set; }
 
@@ -86,6 +95,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Gets an unmanaged access method (where is_managed = false).
+        /// </summary>
         public AccessMethod Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -95,11 +107,17 @@ namespace Seam.Api
                 .Data.AccessMethod;
         }
 
+        /// <summary>
+        /// Gets an unmanaged access method (where is_managed = false).
+        /// </summary>
         public AccessMethod Get(string accessMethodId = default)
         {
             return Get(new GetRequest(accessMethodId: accessMethodId));
         }
 
+        /// <summary>
+        /// Gets an unmanaged access method (where is_managed = false).
+        /// </summary>
         public async Task<AccessMethod> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -111,11 +129,17 @@ namespace Seam.Api
                 .AccessMethod;
         }
 
+        /// <summary>
+        /// Gets an unmanaged access method (where is_managed = false).
+        /// </summary>
         public async Task<AccessMethod> GetAsync(string accessMethodId = default)
         {
             return (await GetAsync(new GetRequest(accessMethodId: accessMethodId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Unmanaged Access Methods.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -135,15 +159,27 @@ namespace Seam.Api
                 SpaceId = spaceId;
             }
 
+            /// <summary>
+            /// ID of Access Grant to list unmanaged access methods for.
+            /// </summary>
             [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessGrantId { get; set; }
 
+            /// <summary>
+            /// ID of the entrance for which you want to retrieve all unmanaged access methods.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
+            /// <summary>
+            /// ID of the device for which you want to retrieve all unmanaged access methods.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to retrieve all unmanaged access methods.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
@@ -178,6 +214,9 @@ namespace Seam.Api
                 AccessMethods = accessMethods;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_methods", IsRequired = false, EmitDefaultValue = false)]
             public List<object> AccessMethods { get; set; }
 
@@ -201,6 +240,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
+        /// </summary>
         public List<object> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -210,6 +252,9 @@ namespace Seam.Api
                 .Data.AccessMethods;
         }
 
+        /// <summary>
+        /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
+        /// </summary>
         public List<object> List(
             string accessGrantId = default,
             string? acsEntranceId = default,
@@ -227,6 +272,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
+        /// </summary>
         public async Task<List<object>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -241,6 +289,9 @@ namespace Seam.Api
                 .AccessMethods;
         }
 
+        /// <summary>
+        /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
+        /// </summary>
         public async Task<List<object>> ListAsync(
             string accessGrantId = default,
             string? acsEntranceId = default,

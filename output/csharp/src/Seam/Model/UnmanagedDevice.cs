@@ -8,6 +8,9 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+    /// </summary>
     [DataContract(Name = "seamModel_unmanagedDevice_model")]
     public class UnmanagedDevice
     {
@@ -85,6 +88,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CapabilitiesSupportedEnum
         {
@@ -110,6 +116,9 @@ namespace Seam.Model
             Phone = 6,
         }
 
+        /// <summary>
+        /// Type of the device.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceTypeEnum
         {
@@ -320,12 +329,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
 
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -333,9 +348,15 @@ namespace Seam.Model
             )]
             public bool IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -382,12 +403,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -395,9 +422,15 @@ namespace Seam.Model
             )]
             public bool IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -442,12 +475,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -455,9 +494,15 @@ namespace Seam.Model
             )]
             public bool IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -500,15 +545,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_offline";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -551,15 +605,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_removed";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -602,15 +665,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "hub_disconnected";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -653,15 +725,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "device_disconnected";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -704,15 +785,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "empty_backup_access_code_pool";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -755,15 +845,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "august_lock_not_authorized";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -806,15 +905,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "missing_device_credentials";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -857,15 +965,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "auxiliary_heat_running";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -908,15 +1025,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "subscription_required";
 
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
             [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
             public bool IsDeviceError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -961,15 +1087,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -977,6 +1112,9 @@ namespace Seam.Model
             )]
             public bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1020,9 +1158,15 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1182,9 +1326,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1228,9 +1378,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1276,9 +1432,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1325,9 +1487,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1372,9 +1540,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1418,9 +1592,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1464,9 +1644,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1510,9 +1696,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1556,9 +1748,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1602,9 +1800,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1648,9 +1852,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1694,9 +1904,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1740,9 +1956,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1789,9 +2011,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1839,9 +2067,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1886,9 +2120,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1932,9 +2172,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1978,9 +2224,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2024,9 +2276,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2070,9 +2328,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2116,9 +2380,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2165,9 +2435,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2212,9 +2488,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2258,9 +2540,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2304,9 +2592,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2350,9 +2644,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2400,6 +2700,9 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Number of active access codes on the device when the warning was set.
+            /// </summary>
             [DataMember(
                 Name = "active_access_code_count",
                 IsRequired = false,
@@ -2407,9 +2710,15 @@ namespace Seam.Model
             )]
             public int ActiveAccessCodeCount { get; set; }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Maximum number of active access codes supported by the device.
+            /// </summary>
             [DataMember(
                 Name = "max_active_access_code_count",
                 IsRequired = false,
@@ -2417,6 +2726,9 @@ namespace Seam.Model
             )]
             public int MaxActiveAccessCodeCount { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2460,9 +2772,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2509,9 +2827,15 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -2535,18 +2859,33 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// Indicates whether the lock supports configuring automatic locking.
+        /// </summary>
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanConfigureAutoLock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports cooling.
+        /// </summary>
         [DataMember(Name = "can_hvac_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacCool { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports heating.
+        /// </summary>
         [DataMember(Name = "can_hvac_heat", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacHeat { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports simultaneous heating and cooling.
+        /// </summary>
         [DataMember(Name = "can_hvac_heat_cool", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanHvacHeatCool { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports programming offline access codes.
+        /// </summary>
         [DataMember(
             Name = "can_program_offline_access_codes",
             IsRequired = false,
@@ -2554,6 +2893,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramOfflineAccessCodes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports programming online access codes.
+        /// </summary>
         [DataMember(
             Name = "can_program_online_access_codes",
             IsRequired = false,
@@ -2561,6 +2903,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramOnlineAccessCodes { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports different climate programs for each day of the week.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_different_each_day",
             IsRequired = false,
@@ -2568,6 +2913,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsDifferentEachDay { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports a single climate program applied to every day.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_same_each_day",
             IsRequired = false,
@@ -2575,6 +2923,9 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsSameEachDay { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports weekday/weekend climate programs.
+        /// </summary>
         [DataMember(
             Name = "can_program_thermostat_programs_as_weekday_weekend",
             IsRequired = false,
@@ -2582,12 +2933,21 @@ namespace Seam.Model
         )]
         public bool? CanProgramThermostatProgramsAsWeekdayWeekend { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports remote locking.
+        /// </summary>
         [DataMember(Name = "can_remotely_lock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyLock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports remote unlocking.
+        /// </summary>
         [DataMember(Name = "can_remotely_unlock", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanRemotelyUnlock { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat supports running climate programs.
+        /// </summary>
         [DataMember(
             Name = "can_run_thermostat_programs",
             IsRequired = false,
@@ -2595,9 +2955,15 @@ namespace Seam.Model
         )]
         public bool? CanRunThermostatPrograms { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating connection in a sandbox.
+        /// </summary>
         [DataMember(Name = "can_simulate_connection", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateConnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating disconnection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_disconnection",
             IsRequired = false,
@@ -2605,6 +2971,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateDisconnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the hub supports simulating connection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_hub_connection",
             IsRequired = false,
@@ -2612,6 +2981,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateHubConnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the hub supports simulating disconnection in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_hub_disconnection",
             IsRequired = false,
@@ -2619,6 +2991,9 @@ namespace Seam.Model
         )]
         public bool? CanSimulateHubDisconnection { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating a paid subscription in a sandbox.
+        /// </summary>
         [DataMember(
             Name = "can_simulate_paid_subscription",
             IsRequired = false,
@@ -2626,48 +3001,93 @@ namespace Seam.Model
         )]
         public bool? CanSimulatePaidSubscription { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device supports simulating removal in a sandbox.
+        /// </summary>
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateRemoval { get; set; }
 
+        /// <summary>
+        /// Indicates whether the thermostat can be turned off.
+        /// </summary>
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanTurnOffHvac { get; set; }
 
+        /// <summary>
+        /// Indicates whether the lock supports unlocking with an access code.
+        /// </summary>
         [DataMember(Name = "can_unlock_with_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanUnlockWithCode { get; set; }
 
+        /// <summary>
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// </summary>
         [DataMember(Name = "capabilities_supported", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedDevice.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
 
+        /// <summary>
+        /// Unique identifier for the account associated with the device.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the device object was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application.
+        /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Type of the device.
+        /// </summary>
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevice.DeviceTypeEnum DeviceType { get; set; }
 
+        /// <summary>
+        /// Array of errors associated with the device. Each error object within the array contains two fields: `error_code` and `message`. `error_code` is a string that uniquely identifies the type of error, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the error, offering insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedDeviceErrors> Errors { get; set; }
 
+        /// <summary>
+        /// Indicates that Seam does not manage the device.
+        /// </summary>
         [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
+        /// <summary>
+        /// Location information for the device.
+        /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDeviceLocation? Location { get; set; }
 
+        /// <summary>
+        /// properties of the device.
+        /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDeviceProperties Properties { get; set; }
 
+        /// <summary>
+        /// Array of warnings associated with the device. Each warning object within the array contains two fields: `warning_code` and `message`. `warning_code` is a string that uniquely identifies the type of warning, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the warning, offering insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedDeviceWarnings> Warnings { get; set; }
 
+        /// <summary>
+        /// Unique identifier for the Seam workspace associated with the device.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
@@ -2708,12 +3128,22 @@ namespace Seam.Model
             Timezone = timezone;
         }
 
+        /// <summary>
+        /// Name of the device location.
+        /// </summary>
         [DataMember(Name = "location_name", IsRequired = false, EmitDefaultValue = false)]
         public string? LocationName { get; set; }
 
+        /// <summary>
+        /// Time zone of the device location.
+        /// </summary>
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
 
+        /// <summary>
+        /// Time zone of the device location.
+        /// </summary>
+        [Obsolete("Use `time_zone` instead.")]
         [DataMember(Name = "timezone", IsRequired = false, EmitDefaultValue = false)]
         public string? Timezone { get; set; }
 
@@ -2770,30 +3200,59 @@ namespace Seam.Model
             OnlineAccessCodesEnabled = onlineAccessCodesEnabled;
         }
 
+        /// <summary>
+        /// Accessory keypad properties and state.
+        /// </summary>
         [DataMember(Name = "accessory_keypad", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesAccessoryKeypad? AccessoryKeypad { get; set; }
 
+        /// <summary>
+        /// Represents the current status of the battery charge level.
+        /// </summary>
         [DataMember(Name = "battery", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesBattery? Battery { get; set; }
 
+        /// <summary>
+        /// Indicates the battery level of the device as a decimal value between 0 and 1, inclusive.
+        /// </summary>
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
         public float? BatteryLevel { get; set; }
 
+        /// <summary>
+        /// Alt text for the device image.
+        /// </summary>
         [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageAltText { get; set; }
 
+        /// <summary>
+        /// Image URL for the device.
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageUrl { get; set; }
 
+        /// <summary>
+        /// Manufacturer of the device. When a device, such as a smart lock, is connected through a smart hub, the manufacturer of the device might be different from that of the smart hub.
+        /// </summary>
         [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
         public string? Manufacturer { get; set; }
 
+        /// <summary>
+        /// Device model-related properties.
+        /// </summary>
         [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesModel Model { get; set; }
 
+        /// <summary>
+        /// Name of the device.
+        /// </summary>
+        [Obsolete("use device.display_name instead")]
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Indicates whether it is currently possible to use offline access codes for the device.
+        /// </summary>
+        [Obsolete("use device.can_program_offline_access_codes")]
         [DataMember(
             Name = "offline_access_codes_enabled",
             IsRequired = false,
@@ -2801,9 +3260,16 @@ namespace Seam.Model
         )]
         public bool? OfflineAccessCodesEnabled { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device is online.
+        /// </summary>
         [DataMember(Name = "online", IsRequired = false, EmitDefaultValue = false)]
         public bool Online { get; set; }
 
+        /// <summary>
+        /// Indicates whether it is currently possible to use online access codes for the device.
+        /// </summary>
+        [Obsolete("use device.can_program_online_access_codes")]
         [DataMember(
             Name = "online_access_codes_enabled",
             IsRequired = false,
@@ -2846,9 +3312,15 @@ namespace Seam.Model
             IsConnected = isConnected;
         }
 
+        /// <summary>
+        /// Keypad battery properties.
+        /// </summary>
         [DataMember(Name = "battery", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesAccessoryKeypadBattery? Battery { get; set; }
 
+        /// <summary>
+        /// Indicates if an accessory keypad is connected to the device.
+        /// </summary>
         [DataMember(Name = "is_connected", IsRequired = false, EmitDefaultValue = false)]
         public bool IsConnected { get; set; }
 
@@ -2921,6 +3393,9 @@ namespace Seam.Model
             Status = status;
         }
 
+        /// <summary>
+        /// Represents the current status of the battery charge level. Values are `critical`, which indicates an extremely low level, suggesting imminent shutdown or an urgent need for charging; `low`, which signifies that the battery is under the preferred threshold and should be charged soon; `good`, which denotes a satisfactory charge level, adequate for normal use without the immediate need for recharging; and `full`, which represents a battery that is fully charged, providing the maximum duration of usage.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
         {
@@ -2940,9 +3415,15 @@ namespace Seam.Model
             Full = 4,
         }
 
+        /// <summary>
+        /// Battery charge level as a value between 0 and 1, inclusive.
+        /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public float Level { get; set; }
 
+        /// <summary>
+        /// Represents the current status of the battery charge level. Values are `critical`, which indicates an extremely low level, suggesting imminent shutdown or an urgent need for charging; `low`, which signifies that the battery is under the preferred threshold and should be charged soon; `good`, which denotes a satisfactory charge level, adequate for normal use without the immediate need for recharging; and `full`, which represents a battery that is fully charged, providing the maximum duration of usage.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevicePropertiesBattery.StatusEnum Status { get; set; }
 
@@ -2991,6 +3472,7 @@ namespace Seam.Model
             OnlineAccessCodesSupported = onlineAccessCodesSupported;
         }
 
+        [Obsolete("use device.properties.model.can_connect_accessory_keypad")]
         [DataMember(
             Name = "accessory_keypad_supported",
             IsRequired = false,
@@ -2998,6 +3480,9 @@ namespace Seam.Model
         )]
         public bool? AccessoryKeypadSupported { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device can connect a accessory keypad.
+        /// </summary>
         [DataMember(
             Name = "can_connect_accessory_keypad",
             IsRequired = false,
@@ -3005,12 +3490,21 @@ namespace Seam.Model
         )]
         public bool? CanConnectAccessoryKeypad { get; set; }
 
+        /// <summary>
+        /// Display name of the device model.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Indicates whether the device has a built in accessory keypad.
+        /// </summary>
         [DataMember(Name = "has_built_in_keypad", IsRequired = false, EmitDefaultValue = false)]
         public bool? HasBuiltInKeypad { get; set; }
 
+        /// <summary>
+        /// Display name that corresponds to the manufacturer-specific terminology for the device.
+        /// </summary>
         [DataMember(
             Name = "manufacturer_display_name",
             IsRequired = false,
@@ -3018,6 +3512,7 @@ namespace Seam.Model
         )]
         public string ManufacturerDisplayName { get; set; }
 
+        [Obsolete("use device.can_program_offline_access_codes.")]
         [DataMember(
             Name = "offline_access_codes_supported",
             IsRequired = false,
@@ -3025,6 +3520,7 @@ namespace Seam.Model
         )]
         public bool? OfflineAccessCodesSupported { get; set; }
 
+        [Obsolete("use device.can_program_online_access_codes.")]
         [DataMember(
             Name = "online_access_codes_supported",
             IsRequired = false,

@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get a Device.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -30,9 +33,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// ID of the device that you want to get.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// Name of the device that you want to get.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -67,6 +76,9 @@ namespace Seam.Api
                 Device = device;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "device", IsRequired = false, EmitDefaultValue = false)]
             public Device Device { get; set; }
 
@@ -90,6 +102,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You must specify either `device_id` or `name`.
+        /// </summary>
         public Device Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -97,11 +114,21 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/devices/get", requestOptions).Data.Device;
         }
 
+        /// <summary>
+        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You must specify either `device_id` or `name`.
+        /// </summary>
         public Device Get(string? deviceId = default, string? name = default)
         {
             return Get(new GetRequest(deviceId: deviceId, name: name));
         }
 
+        /// <summary>
+        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You must specify either `device_id` or `name`.
+        /// </summary>
         public async Task<Device> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -109,11 +136,19 @@ namespace Seam.Api
             return (await _seam.PostAsync<GetResponse>("/devices/get", requestOptions)).Data.Device;
         }
 
+        /// <summary>
+        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You must specify either `device_id` or `name`.
+        /// </summary>
         public async Task<Device> GetAsync(string? deviceId = default, string? name = default)
         {
             return (await GetAsync(new GetRequest(deviceId: deviceId, name: name)));
         }
 
+        /// <summary>
+        /// Request parameters for List Devices.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -157,6 +192,9 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// Device type for which you want to list devices.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypeEnum
             {
@@ -287,6 +325,9 @@ namespace Seam.Api
                 RingCamera = 41,
             }
 
+            /// <summary>
+            /// Array of device types for which you want to list devices.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypesEnum
             {
@@ -417,6 +458,9 @@ namespace Seam.Api
                 RingCamera = 41,
             }
 
+            /// <summary>
+            /// Manufacturer for which you want to list devices.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ManufacturerEnum
             {
@@ -574,9 +618,15 @@ namespace Seam.Api
                 Slack = 50,
             }
 
+            /// <summary>
+            /// ID of the Connect Webview for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
 
+            /// <summary>
+            /// ID of the connected account for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -584,6 +634,9 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Array of IDs of the connected accounts for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
                 IsRequired = false,
@@ -591,39 +644,73 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
+            /// <summary>
+            /// Timestamp by which to limit returned devices. Returns devices created before this timestamp.
+            /// </summary>
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
 
+            /// <summary>
+            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// Array of device IDs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            /// <summary>
+            /// Device type for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
 
+            /// <summary>
+            /// Array of device types for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of devices to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Manufacturer for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned devices to include all records that satisfy a partial match using `device_id` (full or partial UUID prefix, minimum 4 characters), `connected_account_id`, `display_name`, `custom_metadata` or `location.location_name`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
+            [Obsolete("Use `space_id`.")]
             [DataMember(
                 Name = "unstable_location_id",
                 IsRequired = false,
@@ -631,6 +718,9 @@ namespace Seam.Api
             )]
             public string? UnstableLocationId { get; set; }
 
+            /// <summary>
+            /// Your own internal user ID for the user for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -665,6 +755,9 @@ namespace Seam.Api
                 Devices = devices;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
             public List<Device> Devices { get; set; }
 
@@ -688,6 +781,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// </summary>
         public List<Device> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -695,6 +791,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/devices/list", requestOptions).Data.Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -736,6 +835,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -745,6 +847,9 @@ namespace Seam.Api
                 .Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -788,6 +893,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Device Providers.
+        /// </summary>
         [DataContract(Name = "listDeviceProvidersRequest_request")]
         public class ListDeviceProvidersRequest
         {
@@ -801,6 +909,9 @@ namespace Seam.Api
                 ProviderCategory = providerCategory;
             }
 
+            /// <summary>
+            /// Category for which you want to list providers.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ProviderCategoryEnum
             {
@@ -832,6 +943,9 @@ namespace Seam.Api
                 Connectors = 8,
             }
 
+            /// <summary>
+            /// Category for which you want to list providers.
+            /// </summary>
             [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
             public ListDeviceProvidersRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
 
@@ -866,6 +980,9 @@ namespace Seam.Api
                 DeviceProviders = deviceProviders;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "device_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<DeviceProvider> DeviceProviders { get; set; }
 
@@ -889,6 +1006,13 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all device providers.
+        ///
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        ///
+        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// </summary>
         public List<DeviceProvider> ListDeviceProviders(ListDeviceProvidersRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -898,6 +1022,13 @@ namespace Seam.Api
                 .Data.DeviceProviders;
         }
 
+        /// <summary>
+        /// Returns a list of all device providers.
+        ///
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        ///
+        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// </summary>
         public List<DeviceProvider> ListDeviceProviders(
             ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
         )
@@ -907,6 +1038,13 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all device providers.
+        ///
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        ///
+        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// </summary>
         public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
             ListDeviceProvidersRequest request
         )
@@ -923,6 +1061,13 @@ namespace Seam.Api
                 .DeviceProviders;
         }
 
+        /// <summary>
+        /// Returns a list of all device providers.
+        ///
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        ///
+        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// </summary>
         public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
             ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
         )
@@ -934,6 +1079,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Report Provider Metadata.
+        /// </summary>
         [DataContract(Name = "reportProviderMetadataRequest_request")]
         public class ReportProviderMetadataRequest
         {
@@ -947,6 +1095,9 @@ namespace Seam.Api
                 Devices = devices;
             }
 
+            /// <summary>
+            /// Array of devices with provider metadata to update
+            /// </summary>
             [DataMember(Name = "devices", IsRequired = true, EmitDefaultValue = false)]
             public List<ReportProviderMetadataRequestDevices> Devices { get; set; }
 
@@ -989,15 +1140,27 @@ namespace Seam.Api
                 UltraloqMetadata = ultraloqMetadata;
             }
 
+            /// <summary>
+            /// ID of the device to update
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// Omnitec-specific metadata to update
+            /// </summary>
             [DataMember(Name = "omnitec_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesOmnitecMetadata? OmnitecMetadata { get; set; }
 
+            /// <summary>
+            /// Schlage-specific metadata to update
+            /// </summary>
             [DataMember(Name = "schlage_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesSchlageMetadata? SchlageMetadata { get; set; }
 
+            /// <summary>
+            /// Ultraloq-specific metadata to update
+            /// </summary>
             [DataMember(Name = "ultraloq_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesUltraloqMetadata? UltraloqMetadata { get; set; }
 
@@ -1034,6 +1197,9 @@ namespace Seam.Api
                 TimeZone = timeZone;
             }
 
+            /// <summary>
+            /// IANA timezone for the Omnitec device
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum TimeZoneEnum
             {
@@ -2328,6 +2494,9 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
+            /// <summary>
+            /// IANA timezone for the Omnitec device
+            /// </summary>
             [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesOmnitecMetadata.TimeZoneEnum? TimeZone { get; set; }
 
@@ -2364,6 +2533,9 @@ namespace Seam.Api
                 TimeZone = timeZone;
             }
 
+            /// <summary>
+            /// IANA timezone for the Schlage device
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum TimeZoneEnum
             {
@@ -3658,6 +3830,9 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
+            /// <summary>
+            /// IANA timezone for the Schlage device
+            /// </summary>
             [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesSchlageMetadata.TimeZoneEnum? TimeZone { get; set; }
 
@@ -3695,6 +3870,9 @@ namespace Seam.Api
                 TimeZone = timeZone;
             }
 
+            /// <summary>
+            /// IANA timezone for the Ultraloq device
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum TimeZoneEnum
             {
@@ -4989,6 +5167,9 @@ namespace Seam.Api
                 PacificWallis = 429,
             }
 
+            /// <summary>
+            /// IANA timezone for the Ultraloq device
+            /// </summary>
             [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
             public ReportProviderMetadataRequestDevicesUltraloqMetadata.TimeZoneEnum? TimeZone { get; set; }
 
@@ -5012,6 +5193,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates provider-specific metadata for devices.
+        /// </summary>
         public void ReportProviderMetadata(ReportProviderMetadataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -5019,6 +5203,9 @@ namespace Seam.Api
             _seam.Post<object>("/devices/report_provider_metadata", requestOptions);
         }
 
+        /// <summary>
+        /// Updates provider-specific metadata for devices.
+        /// </summary>
         public void ReportProviderMetadata(
             List<ReportProviderMetadataRequestDevices> devices = default
         )
@@ -5026,6 +5213,9 @@ namespace Seam.Api
             ReportProviderMetadata(new ReportProviderMetadataRequest(devices: devices));
         }
 
+        /// <summary>
+        /// Updates provider-specific metadata for devices.
+        /// </summary>
         public async Task ReportProviderMetadataAsync(ReportProviderMetadataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -5033,6 +5223,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/devices/report_provider_metadata", requestOptions);
         }
 
+        /// <summary>
+        /// Updates provider-specific metadata for devices.
+        /// </summary>
         public async Task ReportProviderMetadataAsync(
             List<ReportProviderMetadataRequestDevices> devices = default
         )
@@ -5040,6 +5233,9 @@ namespace Seam.Api
             await ReportProviderMetadataAsync(new ReportProviderMetadataRequest(devices: devices));
         }
 
+        /// <summary>
+        /// Request parameters for Update a Device.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -5063,6 +5259,9 @@ namespace Seam.Api
                 Properties = properties;
             }
 
+            /// <summary>
+            /// Indicates whether the device&apos;s [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) is enabled. Set to `false` to disable the pool: Seam stops refilling it and removes any backup codes that have not yet been pulled into active use.
+            /// </summary>
             [DataMember(
                 Name = "backup_access_code_pool_enabled",
                 IsRequired = false,
@@ -5070,15 +5269,27 @@ namespace Seam.Api
             )]
             public bool? BackupAccessCodePoolEnabled { get; set; }
 
+            /// <summary>
+            /// Custom metadata that you want to associate with the device. Supports up to 50 JSON key:value pairs. [Adding custom metadata to a device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter devices by the desired metadata](https://docs.seam.co/core-concepts/devices/filtering-devices-by-custom-metadata).
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// ID of the device that you want to update.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Indicates whether the device is managed. To unmanage a device, set `is_managed` to `false`.
+            /// </summary>
             [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsManaged { get; set; }
 
+            /// <summary>
+            /// Name for the device.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -5116,6 +5327,9 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Name for the device.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -5139,6 +5353,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// </summary>
         public void Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -5146,6 +5365,11 @@ namespace Seam.Api
             _seam.Post<object>("/devices/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// </summary>
         public void Update(
             bool? backupAccessCodePoolEnabled = default,
             object? customMetadata = default,
@@ -5167,6 +5391,11 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -5174,6 +5403,11 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/devices/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        ///
+        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// </summary>
         public async Task UpdateAsync(
             bool? backupAccessCodePoolEnabled = default,
             object? customMetadata = default,

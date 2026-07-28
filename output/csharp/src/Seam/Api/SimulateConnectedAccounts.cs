@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Simulate Connected Account Disconnection.
+        /// </summary>
         [DataContract(Name = "disconnectRequest_request")]
         public class DisconnectRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 ConnectedAccountId = connectedAccountId;
             }
 
+            /// <summary>
+            /// ID of the connected account you want to simulate as disconnected.
+            /// </summary>
             [DataMember(Name = "connected_account_id", IsRequired = true, EmitDefaultValue = false)]
             public string ConnectedAccountId { get; set; }
 
@@ -52,6 +58,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates a connected account becoming disconnected from Seam. Only applicable for [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public void Disconnect(DisconnectRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -59,11 +68,17 @@ namespace Seam.Api
             _seam.Post<object>("/connected_accounts/simulate/disconnect", requestOptions);
         }
 
+        /// <summary>
+        /// Simulates a connected account becoming disconnected from Seam. Only applicable for [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public void Disconnect(string connectedAccountId = default)
         {
             Disconnect(new DisconnectRequest(connectedAccountId: connectedAccountId));
         }
 
+        /// <summary>
+        /// Simulates a connected account becoming disconnected from Seam. Only applicable for [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task DisconnectAsync(DisconnectRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -74,6 +89,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates a connected account becoming disconnected from Seam. Only applicable for [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task DisconnectAsync(string connectedAccountId = default)
         {
             await DisconnectAsync(new DisconnectRequest(connectedAccountId: connectedAccountId));

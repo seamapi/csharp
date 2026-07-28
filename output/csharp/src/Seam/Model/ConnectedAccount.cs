@@ -8,6 +8,9 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents a [connected account](https://docs.seam.co/core-concepts/connected-accounts). A connected account is an external third-party account to which your user has authorized Seam to get access, for example, an August account with a list of door locks.
+    /// </summary>
     [DataContract(Name = "seamModel_connectedAccount_model")]
     public class ConnectedAccount
     {
@@ -55,6 +58,9 @@ namespace Seam.Model
             Warnings = warnings;
         }
 
+        /// <summary>
+        /// List of capabilities that were accepted during the account connection process.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum AcceptedCapabilitiesEnum
         {
@@ -131,15 +137,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "account_disconnected";
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -147,6 +162,9 @@ namespace Seam.Model
             )]
             public override bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -191,15 +209,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "bridge_disconnected";
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -207,6 +234,9 @@ namespace Seam.Model
             )]
             public override bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -256,15 +286,24 @@ namespace Seam.Model
                 SaltoKsMetadata = saltoKsMetadata;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -272,9 +311,15 @@ namespace Seam.Model
             )]
             public override bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// Salto KS metadata associated with the connected account that has an error.
+            /// </summary>
             [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadata SaltoKsMetadata { get; set; }
 
@@ -314,6 +359,9 @@ namespace Seam.Model
                 Sites = sites;
             }
 
+            /// <summary>
+            /// Salto sites associated with the connected account that has an error.
+            /// </summary>
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
             public List<ConnectedAccountErrorsSaltoKsSubscriptionLimitExceededSaltoKsMetadataSites>? Sites { get; set; }
 
@@ -359,12 +407,21 @@ namespace Seam.Model
                 SubscribedSiteUserCount = subscribedSiteUserCount;
             }
 
+            /// <summary>
+            /// ID of a Salto site associated with the connected account that has an error.
+            /// </summary>
             [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteId { get; set; }
 
+            /// <summary>
+            /// Name of a Salto site associated with the connected account that has an error.
+            /// </summary>
             [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteName { get; set; }
 
+            /// <summary>
+            /// Subscription limit of site users for a Salto site associated with the connected account that has an error.
+            /// </summary>
             [DataMember(
                 Name = "site_user_subscription_limit",
                 IsRequired = false,
@@ -372,6 +429,9 @@ namespace Seam.Model
             )]
             public int? SiteUserSubscriptionLimit { get; set; }
 
+            /// <summary>
+            /// Count of subscribed site users for a Salto site associated with the connected account that has an error.
+            /// </summary>
             [DataMember(
                 Name = "subscribed_site_user_count",
                 IsRequired = false,
@@ -420,15 +480,24 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -436,6 +505,9 @@ namespace Seam.Model
             )]
             public override bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -483,12 +555,21 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
 
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
                 IsRequired = false,
@@ -496,6 +577,9 @@ namespace Seam.Model
             )]
             public override bool? IsConnectedAccountError { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -575,9 +659,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -624,9 +714,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -676,12 +772,21 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// Salto KS metadata associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadata SaltoKsMetadata { get; set; }
 
@@ -726,6 +831,9 @@ namespace Seam.Model
                 Sites = sites;
             }
 
+            /// <summary>
+            /// Salto sites associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
             public List<ConnectedAccountWarningsSaltoKsSubscriptionLimitAlmostReachedSaltoKsMetadataSites>? Sites { get; set; }
 
@@ -771,12 +879,21 @@ namespace Seam.Model
                 SubscribedSiteUserCount = subscribedSiteUserCount;
             }
 
+            /// <summary>
+            /// ID of a Salto site associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteId { get; set; }
 
+            /// <summary>
+            /// Name of a Salto site associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteName { get; set; }
 
+            /// <summary>
+            /// Subscription limit of site users for a Salto site associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(
                 Name = "site_user_subscription_limit",
                 IsRequired = false,
@@ -784,6 +901,9 @@ namespace Seam.Model
             )]
             public int? SiteUserSubscriptionLimit { get; set; }
 
+            /// <summary>
+            /// Count of subscribed site users for a Salto site associated with the connected account that has a warning.
+            /// </summary>
             [DataMember(
                 Name = "subscribed_site_user_count",
                 IsRequired = false,
@@ -831,9 +951,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -877,9 +1003,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -923,9 +1055,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -969,9 +1107,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1015,9 +1159,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1064,9 +1214,15 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1090,12 +1246,21 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// List of capabilities that were accepted during the account connection process.
+        /// </summary>
         [DataMember(Name = "accepted_capabilities", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccount.AcceptedCapabilitiesEnum> AcceptedCapabilities { get; set; }
 
+        /// <summary>
+        /// Type of connected account.
+        /// </summary>
         [DataMember(Name = "account_type", IsRequired = false, EmitDefaultValue = false)]
         public string? AccountType { get; set; }
 
+        /// <summary>
+        /// Display name for the connected account type.
+        /// </summary>
         [DataMember(
             Name = "account_type_display_name",
             IsRequired = false,
@@ -1103,6 +1268,9 @@ namespace Seam.Model
         )]
         public string AccountTypeDisplayName { get; set; }
 
+        /// <summary>
+        /// Indicates whether Seam should [import all new devices](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#automatically_manage_new_devices) for the connected account to make these devices available for management by the Seam API.
+        /// </summary>
         [DataMember(
             Name = "automatically_manage_new_devices",
             IsRequired = false,
@@ -1110,45 +1278,88 @@ namespace Seam.Model
         )]
         public bool AutomaticallyManageNewDevices { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the connected account was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string? CreatedAt { get; set; }
 
+        /// <summary>
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application.
+        /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
 
+        /// <summary>
+        /// Your unique key for the customer associated with this connected account.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Default reservation check-in time for this connected account, as `HH:mm` (24-hour). Sourced from the connector configuration — set during the connect_webview for providers like Lodgify whose API does not expose check-in times.
+        /// </summary>
         [DataMember(Name = "default_checkin_time", IsRequired = false, EmitDefaultValue = false)]
         public string? DefaultCheckinTime { get; set; }
 
+        /// <summary>
+        /// Default reservation check-out time for this connected account, as `HH:mm` (24-hour). Sourced from the connector configuration.
+        /// </summary>
         [DataMember(Name = "default_checkout_time", IsRequired = false, EmitDefaultValue = false)]
         public string? DefaultCheckoutTime { get; set; }
 
+        /// <summary>
+        /// Display name for the connected account.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccountErrors> Errors { get; set; }
 
+        /// <summary>
+        /// For iCal connected accounts, the platform that produced the feed (for example, `airbnb`, `vrbo`, or `booking`), or `unknown` when it could not be determined. Intended for rendering the source platform&apos;s logo.
+        /// </summary>
         [DataMember(Name = "ical_feed_origin", IsRequired = false, EmitDefaultValue = false)]
         public string? IcalFeedOrigin { get; set; }
 
+        /// <summary>
+        /// For iCal connected accounts, the feed URL for the connection. Sourced from the connector configuration.
+        /// </summary>
         [DataMember(Name = "ical_url", IsRequired = false, EmitDefaultValue = false)]
         public string? IcalUrl { get; set; }
 
+        /// <summary>
+        /// Logo URL for the connected account provider.
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageUrl { get; set; }
 
+        /// <summary>
+        /// IANA time zone (e.g. America/Los_Angeles) for this connected account. Sourced from the connector configuration.
+        /// </summary>
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
 
+        /// <summary>
+        /// User identifier associated with the connected account.
+        /// </summary>
+        [Obsolete("Use `display_name` instead.")]
         [DataMember(Name = "user_identifier", IsRequired = false, EmitDefaultValue = false)]
         public ConnectedAccountUserIdentifier? UserIdentifier { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<ConnectedAccountWarnings> Warnings { get; set; }
 
@@ -1193,18 +1404,33 @@ namespace Seam.Model
             Username = username;
         }
 
+        /// <summary>
+        /// API URL for the user identifier associated with the connected account.
+        /// </summary>
         [DataMember(Name = "api_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ApiUrl { get; set; }
 
+        /// <summary>
+        /// Email address of the user identifier associated with the connected account.
+        /// </summary>
         [DataMember(Name = "email", IsRequired = false, EmitDefaultValue = false)]
         public string? Email { get; set; }
 
+        /// <summary>
+        /// Indicates whether the user identifier associated with the connected account is exclusive.
+        /// </summary>
         [DataMember(Name = "exclusive", IsRequired = false, EmitDefaultValue = false)]
         public bool? Exclusive { get; set; }
 
+        /// <summary>
+        /// Phone number of the user identifier associated with the connected account.
+        /// </summary>
         [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
         public string? Phone { get; set; }
 
+        /// <summary>
+        /// Username of the user identifier associated with the connected account.
+        /// </summary>
         [DataMember(Name = "username", IsRequired = false, EmitDefaultValue = false)]
         public string? Username { get; set; }
 

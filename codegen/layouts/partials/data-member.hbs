@@ -1,2 +1,3 @@
+{{> documentation}}
 [DataMember(Name = "{{snakeName}}", IsRequired = {{isRequired}}, EmitDefaultValue = false)]
 public {{#if isOverride}}override {{/if}}{{type}} {{pascalName}} {{#if getOnly}}{ get; }{{else}}{ get; set; }{{/if}}{{#if initializer}} = {{initializer}};{{/if}}

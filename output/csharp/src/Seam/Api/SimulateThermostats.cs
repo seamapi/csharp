@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for HVAC Mode Adjusted.
+        /// </summary>
         [DataContract(Name = "hvacModeAdjustedRequest_request")]
         public class HvacModeAdjustedRequest
         {
@@ -41,6 +44,9 @@ namespace Seam.Api
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
             }
 
+            /// <summary>
+            /// HVAC mode that you want to simulate.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum HvacModeEnum
             {
@@ -60,12 +66,21 @@ namespace Seam.Api
                 HeatCool = 4,
             }
 
+            /// <summary>
+            /// ID of the thermostat device for which you want to simulate having adjusted the HVAC mode.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// HVAC mode that you want to simulate.
+            /// </summary>
             [DataMember(Name = "hvac_mode", IsRequired = true, EmitDefaultValue = false)]
             public HvacModeAdjustedRequest.HvacModeEnum HvacMode { get; set; }
 
+            /// <summary>
+            /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `cooling_set_point_celsius` or `cooling_set_point_fahrenheit`.
+            /// </summary>
             [DataMember(
                 Name = "cooling_set_point_celsius",
                 IsRequired = false,
@@ -73,6 +88,9 @@ namespace Seam.Api
             )]
             public float? CoolingSetPointCelsius { get; set; }
 
+            /// <summary>
+            /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `cooling_set_point_fahrenheit` or `cooling_set_point_celsius`.
+            /// </summary>
             [DataMember(
                 Name = "cooling_set_point_fahrenheit",
                 IsRequired = false,
@@ -80,6 +98,9 @@ namespace Seam.Api
             )]
             public float? CoolingSetPointFahrenheit { get; set; }
 
+            /// <summary>
+            /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `heating_set_point_celsius` or `heating_set_point_fahrenheit`.
+            /// </summary>
             [DataMember(
                 Name = "heating_set_point_celsius",
                 IsRequired = false,
@@ -87,6 +108,9 @@ namespace Seam.Api
             )]
             public float? HeatingSetPointCelsius { get; set; }
 
+            /// <summary>
+            /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `heating_set_point_fahrenheit` or `heating_set_point_celsius`.
+            /// </summary>
             [DataMember(
                 Name = "heating_set_point_fahrenheit",
                 IsRequired = false,
@@ -114,6 +138,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public void HvacModeAdjusted(HvacModeAdjustedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -121,6 +148,9 @@ namespace Seam.Api
             _seam.Post<object>("/thermostats/simulate/hvac_mode_adjusted", requestOptions);
         }
 
+        /// <summary>
+        /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public void HvacModeAdjusted(
             string deviceId = default,
             HvacModeAdjustedRequest.HvacModeEnum hvacMode = default,
@@ -142,6 +172,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public async Task HvacModeAdjustedAsync(HvacModeAdjustedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -152,6 +185,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public async Task HvacModeAdjustedAsync(
             string deviceId = default,
             HvacModeAdjustedRequest.HvacModeEnum hvacMode = default,
@@ -173,6 +209,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Temperature Reached.
+        /// </summary>
         [DataContract(Name = "temperatureReachedRequest_request")]
         public class TemperatureReachedRequest
         {
@@ -190,12 +229,21 @@ namespace Seam.Api
                 TemperatureFahrenheit = temperatureFahrenheit;
             }
 
+            /// <summary>
+            /// ID of the thermostat device that you want to simulate reaching a specified temperature.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Temperature in °C that you want simulate the thermostat reaching. You must set `temperature_celsius` or `temperature_fahrenheit`.
+            /// </summary>
             [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
             public float? TemperatureCelsius { get; set; }
 
+            /// <summary>
+            /// Temperature in °F that you want simulate the thermostat reaching. You must set `temperature_fahrenheit` or `temperature_celsius`.
+            /// </summary>
             [DataMember(
                 Name = "temperature_fahrenheit",
                 IsRequired = false,
@@ -223,6 +271,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates a [thermostat](https://docs.seam.co/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public void TemperatureReached(TemperatureReachedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -230,6 +281,9 @@ namespace Seam.Api
             _seam.Post<object>("/thermostats/simulate/temperature_reached", requestOptions);
         }
 
+        /// <summary>
+        /// Simulates a [thermostat](https://docs.seam.co/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public void TemperatureReached(
             string deviceId = default,
             float? temperatureCelsius = default,
@@ -245,6 +299,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates a [thermostat](https://docs.seam.co/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public async Task TemperatureReachedAsync(TemperatureReachedRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -255,6 +312,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates a [thermostat](https://docs.seam.co/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// </summary>
         public async Task TemperatureReachedAsync(
             string deviceId = default,
             float? temperatureCelsius = default,

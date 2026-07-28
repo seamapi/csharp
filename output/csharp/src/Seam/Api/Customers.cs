@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Create Customer Portal.
+        /// </summary>
         [DataContract(Name = "createPortalRequest_request")]
         public class CreatePortalRequest
         {
@@ -48,6 +51,9 @@ namespace Seam.Api
                 CustomerData = customerData;
             }
 
+            /// <summary>
+            /// The locale to use for the portal.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum LocaleEnum
             {
@@ -85,6 +91,9 @@ namespace Seam.Api
                 RuRu = 10,
             }
 
+            /// <summary>
+            /// Navigation mode for the portal. &apos;restricted&apos; tells frontend to hide navigation UI, typically used for embedded deep links.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum NavigationModeEnum
             {
@@ -98,6 +107,9 @@ namespace Seam.Api
                 Restricted = 2,
             }
 
+            /// <summary>
+            /// Filter configuration for resources based on their custom_metadata. Each filter specifies a field, operation, and value to match against resource custom_metadata.
+            /// </summary>
             [DataMember(
                 Name = "customer_resources_filters",
                 IsRequired = false,
@@ -105,6 +117,9 @@ namespace Seam.Api
             )]
             public List<CreatePortalRequestCustomerResourcesFilters>? CustomerResourcesFilters { get; set; }
 
+            /// <summary>
+            /// The ID of the customization profile to use for the portal.
+            /// </summary>
             [DataMember(
                 Name = "customization_profile_id",
                 IsRequired = false,
@@ -112,6 +127,9 @@ namespace Seam.Api
             )]
             public string? CustomizationProfileId { get; set; }
 
+            /// <summary>
+            /// Whether to exclude the option to select a locale within the portal UI.
+            /// </summary>
             [DataMember(
                 Name = "exclude_locale_picker",
                 IsRequired = false,
@@ -122,15 +140,27 @@ namespace Seam.Api
             [DataMember(Name = "features", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeatures? Features { get; set; }
 
+            /// <summary>
+            /// Whether the portal is embedded in another application.
+            /// </summary>
             [DataMember(Name = "is_embedded", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsEmbedded { get; set; }
 
+            /// <summary>
+            /// Configuration for the landing page when the portal loads.
+            /// </summary>
             [DataMember(Name = "landing_page", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestLandingPage? LandingPage { get; set; }
 
+            /// <summary>
+            /// The locale to use for the portal.
+            /// </summary>
             [DataMember(Name = "locale", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequest.LocaleEnum? Locale { get; set; }
 
+            /// <summary>
+            /// Navigation mode for the portal. &apos;restricted&apos; tells frontend to hide navigation UI, typically used for embedded deep links.
+            /// </summary>
             [DataMember(Name = "navigation_mode", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequest.NavigationModeEnum? NavigationMode { get; set; }
 
@@ -174,6 +204,9 @@ namespace Seam.Api
                 Value = value;
             }
 
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum OperationEnum
             {
@@ -184,12 +217,21 @@ namespace Seam.Api
                 empty = 1,
             }
 
+            /// <summary>
+            /// The custom_metadata field name to filter on.
+            /// </summary>
             [DataMember(Name = "field", IsRequired = false, EmitDefaultValue = false)]
             public string? Field { get; set; }
 
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
             [DataMember(Name = "operation", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; set; }
 
+            /// <summary>
+            /// The value to compare against.
+            /// </summary>
             [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerResourcesFiltersValue? Value { get; set; }
 
@@ -260,18 +302,36 @@ namespace Seam.Api
                 Organize = organize;
             }
 
+            /// <summary>
+            /// Configuration for the configure feature.
+            /// </summary>
             [DataMember(Name = "configure", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesConfigure? Configure { get; set; }
 
+            /// <summary>
+            /// Configuration for the connect accounts feature.
+            /// </summary>
             [DataMember(Name = "connect", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesConnect? Connect { get; set; }
 
+            /// <summary>
+            /// Configuration for the manage feature.
+            /// </summary>
             [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesManage? Manage { get; set; }
 
+            /// <summary>
+            /// Configuration for the manage devices feature.
+            /// ---
+            /// deprecated: Use `manage` instead.
+            /// ---
+            /// </summary>
             [DataMember(Name = "manage_devices", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; set; }
 
+            /// <summary>
+            /// Configuration for the organize feature.
+            /// </summary>
             [DataMember(Name = "organize", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesOrganize? Organize { get; set; }
 
@@ -314,6 +374,9 @@ namespace Seam.Api
                 Exclude = exclude;
             }
 
+            /// <summary>
+            /// Indicates whether the customer can customize the access automation rules for their properties.
+            /// </summary>
             [DataMember(
                 Name = "allow_access_automation_rule_customization",
                 IsRequired = false,
@@ -321,6 +384,9 @@ namespace Seam.Api
             )]
             public bool? AllowAccessAutomationRuleCustomization { get; set; }
 
+            /// <summary>
+            /// Indicates whether the customer can customize the climate automation rules for their properties.
+            /// </summary>
             [DataMember(
                 Name = "allow_climate_automation_rule_customization",
                 IsRequired = false,
@@ -328,6 +394,9 @@ namespace Seam.Api
             )]
             public bool? AllowClimateAutomationRuleCustomization { get; set; }
 
+            /// <summary>
+            /// Indicates whether the customer can customize the Instant Key profile for their properties.
+            /// </summary>
             [DataMember(
                 Name = "allow_instant_key_customization",
                 IsRequired = false,
@@ -335,6 +404,9 @@ namespace Seam.Api
             )]
             public bool? AllowInstantKeyCustomization { get; set; }
 
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
 
@@ -375,12 +447,21 @@ namespace Seam.Api
                 ExcludedProviders = excludedProviders;
             }
 
+            /// <summary>
+            /// List of provider keys to allow for the connect feature. These providers will be shown when the customer tries to connect an account.
+            /// </summary>
             [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcceptedProviders { get; set; }
 
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
 
+            /// <summary>
+            /// List of provider keys to exclude from the connect feature. These providers will not be shown when the customer tries to connect an account.
+            /// </summary>
             [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ExcludedProviders { get; set; }
 
@@ -428,6 +509,9 @@ namespace Seam.Api
                 ExcludeStaffManagement = excludeStaffManagement;
             }
 
+            /// <summary>
+            /// Custom copy for the confirmation modal shown before unmanaged devices are added to a space and begin being managed (and billed). Only takes effect when the MANAGE_DEVICES_CONFIRMATION_MODAL feature flag is enabled for the workspace. Any omitted string falls back to a localized default.
+            /// </summary>
             [DataMember(
                 Name = "device_management_confirmation",
                 IsRequired = false,
@@ -435,12 +519,21 @@ namespace Seam.Api
             )]
             public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; set; }
 
+            /// <summary>
+            /// Configuration for event type filtering in the manage feature.
+            /// </summary>
             [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeaturesManageEvents? Events { get; set; }
 
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
 
+            /// <summary>
+            /// Indicates whether the customer can manage reservations for their properties.
+            /// </summary>
             [DataMember(
                 Name = "exclude_reservation_management",
                 IsRequired = false,
@@ -448,6 +541,9 @@ namespace Seam.Api
             )]
             public bool? ExcludeReservationManagement { get; set; }
 
+            /// <summary>
+            /// Indicates whether to exclude technical details from reservation views.
+            /// </summary>
             [DataMember(
                 Name = "exclude_reservation_technical_details",
                 IsRequired = false,
@@ -455,6 +551,9 @@ namespace Seam.Api
             )]
             public bool? ExcludeReservationTechnicalDetails { get; set; }
 
+            /// <summary>
+            /// Indicates whether the customer can manage staff for their properties.
+            /// </summary>
             [DataMember(
                 Name = "exclude_staff_management",
                 IsRequired = false,
@@ -501,12 +600,21 @@ namespace Seam.Api
                 Title = title;
             }
 
+            /// <summary>
+            /// Custom body text for the confirmation modal. May include the {count} token, which is replaced with the number of devices that will begin being managed.
+            /// </summary>
             [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
             public string? Body { get; set; }
 
+            /// <summary>
+            /// Custom label for the cancel button.
+            /// </summary>
             [DataMember(Name = "cancel_button_label", IsRequired = false, EmitDefaultValue = false)]
             public string? CancelButtonLabel { get; set; }
 
+            /// <summary>
+            /// Custom label for the confirm button.
+            /// </summary>
             [DataMember(
                 Name = "confirm_button_label",
                 IsRequired = false,
@@ -514,6 +622,9 @@ namespace Seam.Api
             )]
             public string? ConfirmButtonLabel { get; set; }
 
+            /// <summary>
+            /// Custom title for the confirmation modal.
+            /// </summary>
             [DataMember(Name = "title", IsRequired = false, EmitDefaultValue = false)]
             public string? Title { get; set; }
 
@@ -552,9 +663,15 @@ namespace Seam.Api
                 DefaultEvents = defaultEvents;
             }
 
+            /// <summary>
+            /// List of event types to show in the events filter. When set, only these event types will be available. Leave empty to show all events.
+            /// </summary>
             [DataMember(Name = "allowed_events", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AllowedEvents { get; set; }
 
+            /// <summary>
+            /// List of event types that are pre-selected in the events filter when the user first loads the events tab.
+            /// </summary>
             [DataMember(Name = "default_events", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DefaultEvents { get; set; }
 
@@ -589,6 +706,9 @@ namespace Seam.Api
                 Exclude = exclude;
             }
 
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
 
@@ -623,6 +743,9 @@ namespace Seam.Api
                 Exclude = exclude;
             }
 
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
 
@@ -833,63 +956,123 @@ namespace Seam.Api
                 Users = users;
             }
 
+            /// <summary>
+            /// List of access grants.
+            /// </summary>
             [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataAccessGrants>? AccessGrants { get; set; }
 
+            /// <summary>
+            /// List of bookings.
+            /// </summary>
             [DataMember(Name = "bookings", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataBookings>? Bookings { get; set; }
 
+            /// <summary>
+            /// List of buildings.
+            /// </summary>
             [DataMember(Name = "buildings", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataBuildings>? Buildings { get; set; }
 
+            /// <summary>
+            /// List of shared common areas.
+            /// </summary>
             [DataMember(Name = "common_areas", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataCommonAreas>? CommonAreas { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the customer.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// List of gym or fitness facilities.
+            /// </summary>
             [DataMember(Name = "facilities", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataFacilities>? Facilities { get; set; }
 
+            /// <summary>
+            /// List of guests.
+            /// </summary>
             [DataMember(Name = "guests", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataGuests>? Guests { get; set; }
 
+            /// <summary>
+            /// List of property listings.
+            /// </summary>
             [DataMember(Name = "listings", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataListings>? Listings { get; set; }
 
+            /// <summary>
+            /// List of short-term rental properties.
+            /// </summary>
             [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataProperties>? Properties { get; set; }
 
+            /// <summary>
+            /// List of property listings.
+            /// </summary>
             [DataMember(Name = "property_listings", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataPropertyListings>? PropertyListings { get; set; }
 
+            /// <summary>
+            /// List of reservations.
+            /// </summary>
             [DataMember(Name = "reservations", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataReservations>? Reservations { get; set; }
 
+            /// <summary>
+            /// List of residents.
+            /// </summary>
             [DataMember(Name = "residents", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataResidents>? Residents { get; set; }
 
+            /// <summary>
+            /// List of hotel or hospitality rooms.
+            /// </summary>
             [DataMember(Name = "rooms", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataRooms>? Rooms { get; set; }
 
+            /// <summary>
+            /// List of general sites or areas.
+            /// </summary>
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataSites>? Sites { get; set; }
 
+            /// <summary>
+            /// List of general spaces or areas.
+            /// </summary>
             [DataMember(Name = "spaces", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataSpaces>? Spaces { get; set; }
 
+            /// <summary>
+            /// List of staff members.
+            /// </summary>
             [DataMember(Name = "staff_members", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataStaffMembers>? StaffMembers { get; set; }
 
+            /// <summary>
+            /// List of tenants.
+            /// </summary>
             [DataMember(Name = "tenants", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataTenants>? Tenants { get; set; }
 
+            /// <summary>
+            /// List of multi-family residential units.
+            /// </summary>
             [DataMember(Name = "units", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataUnits>? Units { get; set; }
 
+            /// <summary>
+            /// List of user identities.
+            /// </summary>
             [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataUserIdentities>? UserIdentities { get; set; }
 
+            /// <summary>
+            /// List of users.
+            /// </summary>
             [DataMember(Name = "users", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataUsers>? Users { get; set; }
 
@@ -960,57 +1143,111 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the access grant.
+            /// </summary>
             [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantKey { get; set; }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -1081,57 +1318,111 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the booking.
+            /// </summary>
             [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
             public string? BookingKey { get; set; }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -1170,9 +1461,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the building.
+            /// </summary>
             [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
             public string? BuildingKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -1213,12 +1510,21 @@ namespace Seam.Api
                 ParentSiteKey = parentSiteKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the common area.
+            /// </summary>
             [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonAreaKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
@@ -1257,9 +1563,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the facility.
+            /// </summary>
             [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
             public string? FacilityKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -1302,15 +1614,27 @@ namespace Seam.Api
                 PhoneNumber = phoneNumber;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the guest.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
@@ -1349,9 +1673,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the listing.
+            /// </summary>
             [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ListingKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -1390,9 +1720,15 @@ namespace Seam.Api
                 PropertyKey = propertyKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the property.
+            /// </summary>
             [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
             public string? PropertyKey { get; set; }
 
@@ -1433,12 +1769,21 @@ namespace Seam.Api
                 PropertyListingKey = propertyListingKey;
             }
 
+            /// <summary>
+            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application.
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the property listing.
+            /// </summary>
             [DataMember(
                 Name = "property_listing_key",
                 IsRequired = false,
@@ -1515,60 +1860,117 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Set key:value pairs for filtering reservations by custom criteria.
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the reservation.
+            /// </summary>
             [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ReservationKey { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -1611,15 +2013,27 @@ namespace Seam.Api
                 ResidentKey = residentKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the resident.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
@@ -1660,12 +2074,21 @@ namespace Seam.Api
                 RoomKey = roomKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the room.
+            /// </summary>
             [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
             public string? RoomKey { get; set; }
 
@@ -1704,9 +2127,15 @@ namespace Seam.Api
                 SiteKey = siteKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteKey { get; set; }
 
@@ -1753,21 +2182,39 @@ namespace Seam.Api
                 SpaceKey = spaceKey;
             }
 
+            /// <summary>
+            /// Reservation/stay-related defaults for the space (time zone, default check-in/out times, address).
+            /// </summary>
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerDataSpacesCustomerData? CustomerData { get; set; }
 
+            /// <summary>
+            /// Default duration of this space in minutes, when the space represents a fixed-length bookable slot (e.g. an appointment type). Used to interpret reservations booked against this space.
+            /// </summary>
             [DataMember(Name = "duration_minutes", IsRequired = false, EmitDefaultValue = false)]
             public int? DurationMinutes { get; set; }
 
+            /// <summary>
+            /// Geographic coordinates (latitude and longitude) of the space.
+            /// </summary>
             [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerDataSpacesGeolocation? Geolocation { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the space.
+            /// </summary>
             [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceKey { get; set; }
 
@@ -1810,9 +2257,15 @@ namespace Seam.Api
                 TimeZone = timeZone;
             }
 
+            /// <summary>
+            /// Postal address for the space.
+            /// </summary>
             [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
             public string? Address { get; set; }
 
+            /// <summary>
+            /// Default check-in time for reservations at the space, as HH:mm or HH:mm:ss.
+            /// </summary>
             [DataMember(
                 Name = "default_checkin_time",
                 IsRequired = false,
@@ -1820,6 +2273,9 @@ namespace Seam.Api
             )]
             public string? DefaultCheckinTime { get; set; }
 
+            /// <summary>
+            /// Default check-out time for reservations at the space, as HH:mm or HH:mm:ss.
+            /// </summary>
             [DataMember(
                 Name = "default_checkout_time",
                 IsRequired = false,
@@ -1827,6 +2283,9 @@ namespace Seam.Api
             )]
             public string? DefaultCheckoutTime { get; set; }
 
+            /// <summary>
+            /// IANA time zone for the space, e.g. America/Los_Angeles.
+            /// </summary>
             [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
             public string? TimeZone { get; set; }
 
@@ -1865,9 +2324,15 @@ namespace Seam.Api
                 Longitude = longitude;
             }
 
+            /// <summary>
+            /// Latitude of the space, in decimal degrees.
+            /// </summary>
             [DataMember(Name = "latitude", IsRequired = false, EmitDefaultValue = false)]
             public float? Latitude { get; set; }
 
+            /// <summary>
+            /// Longitude of the space, in decimal degrees.
+            /// </summary>
             [DataMember(Name = "longitude", IsRequired = false, EmitDefaultValue = false)]
             public float? Longitude { get; set; }
 
@@ -1930,30 +2395,57 @@ namespace Seam.Api
                 UnitKeys = unitKeys;
             }
 
+            /// <summary>
+            /// List of unique identifiers for the buildings the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the common areas the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the facilities the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the listings the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the properties the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the property listings the staff member is associated with.
+            /// </summary>
             [DataMember(
                 Name = "property_listing_keys",
                 IsRequired = false,
@@ -1961,18 +2453,33 @@ namespace Seam.Api
             )]
             public List<string>? PropertyListingKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the rooms the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the sites the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "site_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SiteKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the spaces the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the staff.
+            /// </summary>
             [DataMember(Name = "staff_member_key", IsRequired = false, EmitDefaultValue = false)]
             public string? StaffMemberKey { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the units the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
@@ -2015,15 +2522,27 @@ namespace Seam.Api
                 TenantKey = tenantKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the tenant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
@@ -2064,12 +2583,21 @@ namespace Seam.Api
                 UnitKey = unitKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the unit.
+            /// </summary>
             [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UnitKey { get; set; }
 
@@ -2112,15 +2640,27 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the user identity.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
@@ -2163,15 +2703,27 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the user.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -2206,6 +2758,9 @@ namespace Seam.Api
                 CustomerPortal = customerPortal;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "customer_portal", IsRequired = false, EmitDefaultValue = false)]
             public CustomerPortal CustomerPortal { get; set; }
 
@@ -2229,6 +2784,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new customer portal magic link with configurable features.
+        /// </summary>
         public CustomerPortal CreatePortal(CreatePortalRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -2238,6 +2796,9 @@ namespace Seam.Api
                 .Data.CustomerPortal;
         }
 
+        /// <summary>
+        /// Creates a new customer portal magic link with configurable features.
+        /// </summary>
         public CustomerPortal CreatePortal(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
@@ -2265,6 +2826,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Creates a new customer portal magic link with configurable features.
+        /// </summary>
         public async Task<CustomerPortal> CreatePortalAsync(CreatePortalRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -2279,6 +2843,9 @@ namespace Seam.Api
                 .CustomerPortal;
         }
 
+        /// <summary>
+        /// Creates a new customer portal magic link with configurable features.
+        /// </summary>
         public async Task<CustomerPortal> CreatePortalAsync(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
@@ -2308,6 +2875,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete Customer Data.
+        /// </summary>
         [DataContract(Name = "deleteDataRequest_request")]
         public class DeleteDataRequest
         {
@@ -2357,33 +2927,63 @@ namespace Seam.Api
                 UserKeys = userKeys;
             }
 
+            /// <summary>
+            /// List of access grant keys to delete.
+            /// </summary>
             [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessGrantKeys { get; set; }
 
+            /// <summary>
+            /// List of booking keys to delete.
+            /// </summary>
             [DataMember(Name = "booking_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BookingKeys { get; set; }
 
+            /// <summary>
+            /// List of building keys to delete.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// List of common area keys to delete.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// List of customer keys to delete all data for.
+            /// </summary>
             [DataMember(Name = "customer_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CustomerKeys { get; set; }
 
+            /// <summary>
+            /// List of facility keys to delete.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// List of guest keys to delete.
+            /// </summary>
             [DataMember(Name = "guest_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? GuestKeys { get; set; }
 
+            /// <summary>
+            /// List of listing keys to delete.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// List of property keys to delete.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// List of property listing keys to delete.
+            /// </summary>
             [DataMember(
                 Name = "property_listing_keys",
                 IsRequired = false,
@@ -2391,30 +2991,57 @@ namespace Seam.Api
             )]
             public List<string>? PropertyListingKeys { get; set; }
 
+            /// <summary>
+            /// List of reservation keys to delete.
+            /// </summary>
             [DataMember(Name = "reservation_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ReservationKeys { get; set; }
 
+            /// <summary>
+            /// List of resident keys to delete.
+            /// </summary>
             [DataMember(Name = "resident_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ResidentKeys { get; set; }
 
+            /// <summary>
+            /// List of room keys to delete.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// List of space keys to delete.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// List of staff member keys to delete.
+            /// </summary>
             [DataMember(Name = "staff_member_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? StaffMemberKeys { get; set; }
 
+            /// <summary>
+            /// List of tenant keys to delete.
+            /// </summary>
             [DataMember(Name = "tenant_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? TenantKeys { get; set; }
 
+            /// <summary>
+            /// List of unit keys to delete.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// List of user identity keys to delete.
+            /// </summary>
             [DataMember(Name = "user_identity_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserIdentityKeys { get; set; }
 
+            /// <summary>
+            /// List of user keys to delete.
+            /// </summary>
             [DataMember(Name = "user_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserKeys { get; set; }
 
@@ -2438,6 +3065,10 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
+        /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// </summary>
         public void DeleteData(DeleteDataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -2445,6 +3076,10 @@ namespace Seam.Api
             _seam.Post<object>("/customers/delete_data", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
+        /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// </summary>
         public void DeleteData(
             List<string>? accessGrantKeys = default,
             List<string>? bookingKeys = default,
@@ -2492,6 +3127,10 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
+        /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// </summary>
         public async Task DeleteDataAsync(DeleteDataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -2499,6 +3138,10 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/customers/delete_data", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
+        /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// </summary>
         public async Task DeleteDataAsync(
             List<string>? accessGrantKeys = default,
             List<string>? bookingKeys = default,
@@ -2546,6 +3189,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Push Customer Data.
+        /// </summary>
         [DataContract(Name = "pushDataRequest_request")]
         public class PushDataRequest
         {
@@ -2597,63 +3243,123 @@ namespace Seam.Api
                 Users = users;
             }
 
+            /// <summary>
+            /// List of access grants.
+            /// </summary>
             [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestAccessGrants>? AccessGrants { get; set; }
 
+            /// <summary>
+            /// List of bookings.
+            /// </summary>
             [DataMember(Name = "bookings", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestBookings>? Bookings { get; set; }
 
+            /// <summary>
+            /// List of buildings.
+            /// </summary>
             [DataMember(Name = "buildings", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestBuildings>? Buildings { get; set; }
 
+            /// <summary>
+            /// List of shared common areas.
+            /// </summary>
             [DataMember(Name = "common_areas", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestCommonAreas>? CommonAreas { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the customer.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = true, EmitDefaultValue = false)]
             public string CustomerKey { get; set; }
 
+            /// <summary>
+            /// List of gym or fitness facilities.
+            /// </summary>
             [DataMember(Name = "facilities", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestFacilities>? Facilities { get; set; }
 
+            /// <summary>
+            /// List of guests.
+            /// </summary>
             [DataMember(Name = "guests", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestGuests>? Guests { get; set; }
 
+            /// <summary>
+            /// List of property listings.
+            /// </summary>
             [DataMember(Name = "listings", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestListings>? Listings { get; set; }
 
+            /// <summary>
+            /// List of short-term rental properties.
+            /// </summary>
             [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestProperties>? Properties { get; set; }
 
+            /// <summary>
+            /// List of property listings.
+            /// </summary>
             [DataMember(Name = "property_listings", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestPropertyListings>? PropertyListings { get; set; }
 
+            /// <summary>
+            /// List of reservations.
+            /// </summary>
             [DataMember(Name = "reservations", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestReservations>? Reservations { get; set; }
 
+            /// <summary>
+            /// List of residents.
+            /// </summary>
             [DataMember(Name = "residents", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestResidents>? Residents { get; set; }
 
+            /// <summary>
+            /// List of hotel or hospitality rooms.
+            /// </summary>
             [DataMember(Name = "rooms", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestRooms>? Rooms { get; set; }
 
+            /// <summary>
+            /// List of general sites or areas.
+            /// </summary>
             [DataMember(Name = "sites", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestSites>? Sites { get; set; }
 
+            /// <summary>
+            /// List of general spaces or areas.
+            /// </summary>
             [DataMember(Name = "spaces", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestSpaces>? Spaces { get; set; }
 
+            /// <summary>
+            /// List of staff members.
+            /// </summary>
             [DataMember(Name = "staff_members", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestStaffMembers>? StaffMembers { get; set; }
 
+            /// <summary>
+            /// List of tenants.
+            /// </summary>
             [DataMember(Name = "tenants", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestTenants>? Tenants { get; set; }
 
+            /// <summary>
+            /// List of multi-family residential units.
+            /// </summary>
             [DataMember(Name = "units", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestUnits>? Units { get; set; }
 
+            /// <summary>
+            /// List of user identities.
+            /// </summary>
             [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestUserIdentities>? UserIdentities { get; set; }
 
+            /// <summary>
+            /// List of users.
+            /// </summary>
             [DataMember(Name = "users", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestUsers>? Users { get; set; }
 
@@ -2724,57 +3430,111 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the access grant.
+            /// </summary>
             [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantKey { get; set; }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -2845,57 +3605,111 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the booking.
+            /// </summary>
             [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
             public string? BookingKey { get; set; }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -2931,9 +3745,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the building.
+            /// </summary>
             [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
             public string? BuildingKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -2974,12 +3794,21 @@ namespace Seam.Api
                 ParentSiteKey = parentSiteKey;
             }
 
+            /// <summary>
+            /// Your unique identifier for the common area.
+            /// </summary>
             [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonAreaKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
@@ -3015,9 +3844,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the facility.
+            /// </summary>
             [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
             public string? FacilityKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -3060,15 +3895,27 @@ namespace Seam.Api
                 PhoneNumber = phoneNumber;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the guest.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
@@ -3104,9 +3951,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Your unique identifier for the listing.
+            /// </summary>
             [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ListingKey { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -3142,9 +3995,15 @@ namespace Seam.Api
                 PropertyKey = propertyKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the property.
+            /// </summary>
             [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
             public string? PropertyKey { get; set; }
 
@@ -3185,12 +4044,21 @@ namespace Seam.Api
                 PropertyListingKey = propertyListingKey;
             }
 
+            /// <summary>
+            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application.
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the property listing.
+            /// </summary>
             [DataMember(
                 Name = "property_listing_key",
                 IsRequired = false,
@@ -3267,60 +4135,117 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Set key:value pairs for filtering reservations by custom criteria.
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
             public string? GuestKey { get; set; }
 
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation.
+            /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
 
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the reservation.
+            /// </summary>
             [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ReservationKey { get; set; }
 
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -3363,15 +4288,27 @@ namespace Seam.Api
                 ResidentKey = residentKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the resident.
+            /// </summary>
             [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ResidentKey { get; set; }
 
@@ -3412,12 +4349,21 @@ namespace Seam.Api
                 RoomKey = roomKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the room.
+            /// </summary>
             [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
             public string? RoomKey { get; set; }
 
@@ -3453,9 +4399,15 @@ namespace Seam.Api
                 SiteKey = siteKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SiteKey { get; set; }
 
@@ -3502,21 +4454,39 @@ namespace Seam.Api
                 SpaceKey = spaceKey;
             }
 
+            /// <summary>
+            /// Reservation/stay-related defaults for the space (time zone, default check-in/out times, address).
+            /// </summary>
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public PushDataRequestSpacesCustomerData? CustomerData { get; set; }
 
+            /// <summary>
+            /// Default duration of this space in minutes, when the space represents a fixed-length bookable slot (e.g. an appointment type). Used to interpret reservations booked against this space.
+            /// </summary>
             [DataMember(Name = "duration_minutes", IsRequired = false, EmitDefaultValue = false)]
             public int? DurationMinutes { get; set; }
 
+            /// <summary>
+            /// Geographic coordinates (latitude and longitude) of the space.
+            /// </summary>
             [DataMember(Name = "geolocation", IsRequired = false, EmitDefaultValue = false)]
             public PushDataRequestSpacesGeolocation? Geolocation { get; set; }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the space.
+            /// </summary>
             [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceKey { get; set; }
 
@@ -3559,9 +4529,15 @@ namespace Seam.Api
                 TimeZone = timeZone;
             }
 
+            /// <summary>
+            /// Postal address for the space.
+            /// </summary>
             [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
             public string? Address { get; set; }
 
+            /// <summary>
+            /// Default check-in time for reservations at the space, as HH:mm or HH:mm:ss.
+            /// </summary>
             [DataMember(
                 Name = "default_checkin_time",
                 IsRequired = false,
@@ -3569,6 +4545,9 @@ namespace Seam.Api
             )]
             public string? DefaultCheckinTime { get; set; }
 
+            /// <summary>
+            /// Default check-out time for reservations at the space, as HH:mm or HH:mm:ss.
+            /// </summary>
             [DataMember(
                 Name = "default_checkout_time",
                 IsRequired = false,
@@ -3576,6 +4555,9 @@ namespace Seam.Api
             )]
             public string? DefaultCheckoutTime { get; set; }
 
+            /// <summary>
+            /// IANA time zone for the space, e.g. America/Los_Angeles.
+            /// </summary>
             [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
             public string? TimeZone { get; set; }
 
@@ -3614,9 +4596,15 @@ namespace Seam.Api
                 Longitude = longitude;
             }
 
+            /// <summary>
+            /// Latitude of the space, in decimal degrees.
+            /// </summary>
             [DataMember(Name = "latitude", IsRequired = false, EmitDefaultValue = false)]
             public float? Latitude { get; set; }
 
+            /// <summary>
+            /// Longitude of the space, in decimal degrees.
+            /// </summary>
             [DataMember(Name = "longitude", IsRequired = false, EmitDefaultValue = false)]
             public float? Longitude { get; set; }
 
@@ -3679,30 +4667,57 @@ namespace Seam.Api
                 UnitKeys = unitKeys;
             }
 
+            /// <summary>
+            /// List of unique identifiers for the buildings the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? BuildingKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the common areas the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? CommonAreaKeys { get; set; }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the facilities the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? FacilityKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the listings the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ListingKeys { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the properties the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? PropertyKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the property listings the staff member is associated with.
+            /// </summary>
             [DataMember(
                 Name = "property_listing_keys",
                 IsRequired = false,
@@ -3710,18 +4725,33 @@ namespace Seam.Api
             )]
             public List<string>? PropertyListingKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the rooms the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? RoomKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the sites the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "site_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SiteKeys { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the spaces the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceKeys { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the staff.
+            /// </summary>
             [DataMember(Name = "staff_member_key", IsRequired = false, EmitDefaultValue = false)]
             public string? StaffMemberKey { get; set; }
 
+            /// <summary>
+            /// List of unique identifiers for the units the staff member is associated with.
+            /// </summary>
             [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UnitKeys { get; set; }
 
@@ -3764,15 +4794,27 @@ namespace Seam.Api
                 TenantKey = tenantKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the tenant.
+            /// </summary>
             [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? TenantKey { get; set; }
 
@@ -3813,12 +4855,21 @@ namespace Seam.Api
                 UnitKey = unitKey;
             }
 
+            /// <summary>
+            /// Your display name for this location resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the site.
+            /// </summary>
             [DataMember(Name = "parent_site_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ParentSiteKey { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the unit.
+            /// </summary>
             [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UnitKey { get; set; }
 
@@ -3861,15 +4912,27 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the user identity.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
@@ -3912,15 +4975,27 @@ namespace Seam.Api
                 UserKey = userKey;
             }
 
+            /// <summary>
+            /// Email address associated with the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Your display name for this user identity resource.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Phone number associated with the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Your unique identifier for the user.
+            /// </summary>
             [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserKey { get; set; }
 
@@ -3944,6 +5019,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Pushes customer data including resources like spaces, properties, rooms, users, etc.
+        /// </summary>
         public void PushData(PushDataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -3951,6 +5029,9 @@ namespace Seam.Api
             _seam.Post<object>("/customers/push_data", requestOptions);
         }
 
+        /// <summary>
+        /// Pushes customer data including resources like spaces, properties, rooms, users, etc.
+        /// </summary>
         public void PushData(
             List<PushDataRequestAccessGrants>? accessGrants = default,
             List<PushDataRequestBookings>? bookings = default,
@@ -4000,6 +5081,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Pushes customer data including resources like spaces, properties, rooms, users, etc.
+        /// </summary>
         public async Task PushDataAsync(PushDataRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -4007,6 +5091,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/customers/push_data", requestOptions);
         }
 
+        /// <summary>
+        /// Pushes customer data including resources like spaces, properties, rooms, users, etc.
+        /// </summary>
         public async Task PushDataAsync(
             List<PushDataRequestAccessGrants>? accessGrants = default,
             List<PushDataRequestBookings>? bookings = default,

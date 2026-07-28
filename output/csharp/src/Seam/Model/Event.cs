@@ -318,6 +318,9 @@ namespace Seam.Model
         public abstract override string ToString();
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeCreated_model")]
     public class EventAccessCodeCreated : Event
     {
@@ -351,9 +354,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -361,30 +370,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -408,6 +441,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeChanged_model")]
     public class EventAccessCodeChanged : Event
     {
@@ -445,15 +481,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Human-readable reason for the change (e.g. `ongoing code auto-renewed`).
+        /// </summary>
         [DataMember(Name = "change_reason", IsRequired = false, EmitDefaultValue = false)]
         public string? ChangeReason { get; set; }
 
+        /// <summary>
+        /// List of properties that changed on the access code.
+        /// </summary>
         [DataMember(Name = "changed_properties", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeChangedChangedProperties>? ChangedProperties { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -461,30 +509,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -525,12 +597,21 @@ namespace Seam.Model
             To = to;
         }
 
+        /// <summary>
+        /// Previous value of the property, or null if not set.
+        /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public string? From { get; set; }
 
+        /// <summary>
+        /// Name of the property that changed (e.g. `code`).
+        /// </summary>
         [DataMember(Name = "property", IsRequired = false, EmitDefaultValue = false)]
         public string Property { get; set; }
 
+        /// <summary>
+        /// New value of the property, or null if cleared.
+        /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public string? To { get; set; }
 
@@ -554,6 +635,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The name of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeNameChanged_model")]
     public class EventAccessCodeNameChanged : Event
     {
@@ -593,9 +677,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -603,39 +693,72 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the change and its source.
+        /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.name_changed";
 
+        /// <summary>
+        /// Previous access code name configuration.
+        /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeNameChangedFrom From { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// New access code name configuration.
+        /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeNameChangedTo To { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -670,6 +793,9 @@ namespace Seam.Model
             Name = name;
         }
 
+        /// <summary>
+        /// Previous name of the access code.
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
@@ -704,6 +830,9 @@ namespace Seam.Model
             Name = name;
         }
 
+        /// <summary>
+        /// New name of the access code.
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
@@ -727,6 +856,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The pin code of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeCodeChanged_model")]
     public class EventAccessCodeCodeChanged : Event
     {
@@ -766,9 +898,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -776,39 +914,72 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the change and its source.
+        /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.code_changed";
 
+        /// <summary>
+        /// Previous pin code configuration.
+        /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeCodeChangedFrom From { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// New pin code configuration.
+        /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeCodeChangedTo To { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -843,6 +1014,9 @@ namespace Seam.Model
             Code = code;
         }
 
+        /// <summary>
+        /// Previous pin code.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
@@ -877,6 +1051,9 @@ namespace Seam.Model
             Code = code;
         }
 
+        /// <summary>
+        /// New pin code.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
@@ -900,6 +1077,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The time frame of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeTimeFrameChanged_model")]
     public class EventAccessCodeTimeFrameChanged : Event
     {
@@ -939,9 +1119,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -949,39 +1135,72 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the change and its source.
+        /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.time_frame_changed";
 
+        /// <summary>
+        /// Previous time frame configuration.
+        /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeTimeFrameChangedFrom From { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// New time frame configuration.
+        /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeTimeFrameChangedTo To { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1020,9 +1239,15 @@ namespace Seam.Model
             StartsAt = startsAt;
         }
 
+        /// <summary>
+        /// Previous end time.
+        /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
+        /// <summary>
+        /// Previous start time.
+        /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
@@ -1061,9 +1286,15 @@ namespace Seam.Model
             StartsAt = startsAt;
         }
 
+        /// <summary>
+        /// New end time.
+        /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
+        /// <summary>
+        /// New start time.
+        /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
@@ -1087,6 +1318,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Mutations were requested on an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). This event fires at request time, before the change is confirmed on the device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeMutationsRequested_model")]
     public class EventAccessCodeMutationsRequested : Event
     {
@@ -1122,9 +1356,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -1132,33 +1372,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.mutations_requested";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Array of mutations requested on the access code, each containing the mutation type and from/to values.
+        /// </summary>
         [DataMember(Name = "requested_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeMutationsRequestedRequestedMutations> RequestedMutations { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1200,6 +1467,9 @@ namespace Seam.Model
             To = to;
         }
 
+        /// <summary>
+        /// Code identifying the type of mutation requested, such as `updating_name`, `updating_code`, `updating_time_frame`, or `deleting`.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MutationCodeEnum
         {
@@ -1225,12 +1495,21 @@ namespace Seam.Model
             DeferringCreation = 6,
         }
 
+        /// <summary>
+        /// Previous property values before the requested change. Keys depend on the mutation type. Absent for non-property mutations like `deleting`.
+        /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
         public object? From { get; set; }
 
+        /// <summary>
+        /// Code identifying the type of mutation requested, such as `updating_name`, `updating_code`, `updating_time_frame`, or `deleting`.
+        /// </summary>
         [DataMember(Name = "mutation_code", IsRequired = false, EmitDefaultValue = false)]
         public EventAccessCodeMutationsRequestedRequestedMutations.MutationCodeEnum MutationCode { get; set; }
 
+        /// <summary>
+        /// New property values after the requested change. Keys depend on the mutation type. Absent for non-property mutations like `deleting`.
+        /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
         public object? To { get; set; }
 
@@ -1254,6 +1533,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was [scheduled natively](https://docs.seam.co/low-level-apis/smart-locks/access-codes#native-scheduling) on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeScheduledOnDevice_model")]
     public class EventAccessCodeScheduledOnDevice : Event
     {
@@ -1289,12 +1571,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Code for the affected access code.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string Code { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -1302,30 +1593,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.scheduled_on_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1349,6 +1664,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was set on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeSetOnDevice_model")]
     public class EventAccessCodeSetOnDevice : Event
     {
@@ -1384,12 +1702,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Code for the affected access code.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string Code { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -1397,30 +1724,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.set_on_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1444,6 +1795,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was removed from a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeRemovedFromDevice_model")]
     public class EventAccessCodeRemovedFromDevice : Event
     {
@@ -1477,9 +1831,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -1487,30 +1847,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.removed_from_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1534,6 +1918,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// There was an unusually long delay in setting an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDevice_model")]
     public class EventAccessCodeDelayInSettingOnDevice : Event
     {
@@ -1582,15 +1969,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInSettingOnDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInSettingOnDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -1598,6 +1997,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -1605,9 +2007,15 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -1615,33 +2023,60 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeDelayInSettingOnDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInSettingOnDeviceDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInSettingOnDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.delay_in_setting_on_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -1682,12 +2117,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -1728,12 +2172,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -1776,12 +2229,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -1824,12 +2286,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -1870,12 +2341,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -1916,12 +2396,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -1945,6 +2434,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) failed to be set on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDevice_model")]
     public class EventAccessCodeFailedToSetOnDevice : Event
     {
@@ -1992,15 +2484,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToSetOnDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToSetOnDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -2008,6 +2512,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -2015,9 +2522,15 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeFailedToSetOnDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -2025,33 +2538,60 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeFailedToSetOnDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToSetOnDeviceDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToSetOnDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.failed_to_set_on_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -2092,12 +2632,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2138,12 +2687,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2186,12 +2744,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2234,12 +2801,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2280,12 +2856,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2326,12 +2911,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2355,6 +2949,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDeleted_model")]
     public class EventAccessCodeDeleted : Event
     {
@@ -2390,12 +2987,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Code for the affected access code.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -2403,30 +3009,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -2450,6 +3080,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// There was an unusually long delay in removing an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) from a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDelayInRemovingFromDevice_model")]
     public class EventAccessCodeDelayInRemovingFromDevice : Event
     {
@@ -2499,15 +3132,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInRemovingFromDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -2515,6 +3160,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -2522,9 +3170,15 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -2532,33 +3186,60 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeDelayInRemovingFromDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInRemovingFromDeviceDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeDelayInRemovingFromDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.delay_in_removing_from_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -2601,12 +3282,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2649,12 +3339,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2697,12 +3396,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2745,12 +3453,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2791,12 +3508,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -2837,12 +3563,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -2866,6 +3601,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) failed to be removed from a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDevice_model")]
     public class EventAccessCodeFailedToRemoveFromDevice : Event
     {
@@ -2915,15 +3653,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeErrors> AccessCodeErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToRemoveFromDeviceAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -2931,6 +3681,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -2938,9 +3691,15 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -2948,33 +3707,60 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeFailedToRemoveFromDeviceConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToRemoveFromDeviceDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeFailedToRemoveFromDeviceDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.failed_to_remove_from_device";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3015,12 +3801,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -3063,12 +3858,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -3111,12 +3915,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -3159,12 +3972,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -3205,12 +4027,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -3251,12 +4082,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -3280,6 +4120,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was modified outside of Seam.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeModifiedExternalToSeam_model")]
     public class EventAccessCodeModifiedExternalToSeam : Event
     {
@@ -3313,9 +4156,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -3323,30 +4172,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.modified_external_to_seam";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3370,6 +4243,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was deleted outside of Seam.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDeletedExternalToSeam_model")]
     public class EventAccessCodeDeletedExternalToSeam : Event
     {
@@ -3403,9 +4279,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -3413,30 +4295,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.deleted_external_to_seam";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3460,6 +4366,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [backup access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) was pulled from the backup access code pool and set on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeBackupAccessCodePulled_model")]
     public class EventAccessCodeBackupAccessCodePulled : Event
     {
@@ -3495,12 +4404,21 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// ID of the backup access code that was pulled from the pool.
+        /// </summary>
         [DataMember(Name = "backup_access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string BackupAccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -3508,30 +4426,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.backup_access_code_pulled";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3555,6 +4497,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was converted successfully to a managed access code.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedConvertedToManaged_model")]
     public class EventAccessCodeUnmanagedConvertedToManaged : Event
     {
@@ -3588,9 +4533,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -3598,30 +4549,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.converted_to_managed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3645,6 +4620,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) failed to be converted to a managed access code.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManaged_model")]
     public class EventAccessCodeUnmanagedFailedToConvertToManaged : Event
     {
@@ -3696,15 +4674,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeErrors> AccessCodeErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
         [DataMember(Name = "access_code_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedAccessCodeWarnings> AccessCodeWarnings { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -3712,6 +4702,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -3719,9 +4712,15 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -3729,24 +4728,45 @@ namespace Seam.Model
         )]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAccessCodeUnmanagedFailedToConvertToManagedDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -3754,9 +4774,15 @@ namespace Seam.Model
         public override string EventType { get; } =
             "access_code.unmanaged.failed_to_convert_to_managed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -3799,12 +4825,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -3847,12 +4882,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -3895,12 +4939,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -3943,12 +4996,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -3991,12 +5053,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -4039,12 +5110,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -4068,6 +5148,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was created on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedCreated_model")]
     public class EventAccessCodeUnmanagedCreated : Event
     {
@@ -4101,9 +5184,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -4111,30 +5200,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4158,6 +5271,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was removed from a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedRemoved_model")]
     public class EventAccessCodeUnmanagedRemoved : Event
     {
@@ -4191,9 +5307,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -4201,30 +5323,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_code.unmanaged.removed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4248,6 +5394,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An Access Grant was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantCreated_model")]
     public class EventAccessGrantCreated : Event
     {
@@ -4273,24 +5422,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4314,6 +5481,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An Access Grant was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantDeleted_model")]
     public class EventAccessGrantDeleted : Event
     {
@@ -4339,24 +5509,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4380,6 +5568,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// All access requested for an Access Grant was successfully granted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantAccessGrantedToAllDoors_model")]
     public class EventAccessGrantAccessGrantedToAllDoors : Event
     {
@@ -4405,24 +5596,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_granted_to_all_doors";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4446,6 +5655,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Access requested as part of an Access Grant to a particular door was successfully granted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantAccessGrantedToDoor_model")]
     public class EventAccessGrantAccessGrantedToDoor : Event
     {
@@ -4473,27 +5685,48 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// ID of the affected [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_granted_to_door";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4517,6 +5750,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Access to a particular door that was requested as part of an Access Grant was lost.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantAccessToDoorLost_model")]
     public class EventAccessGrantAccessToDoorLost : Event
     {
@@ -4544,27 +5780,48 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// ID of the affected [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_to_door_lost";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4588,6 +5845,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An Access Grant&apos;s start or end time was changed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantAccessTimesChanged_model")]
     public class EventAccessGrantAccessTimesChanged : Event
     {
@@ -4619,33 +5879,60 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Key of the affected Access Grant (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessGrantKey { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The new end time for the access grant.
+        /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_grant.access_times_changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// The new start time for the access grant.
+        /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4669,6 +5956,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// One or more requested access methods could not be created for an Access Grant.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessGrantCouldNotCreateRequestedAccessMethods_model")]
     public class EventAccessGrantCouldNotCreateRequestedAccessMethods : Event
     {
@@ -4698,18 +5988,33 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Description of why the access methods could not be created.
+        /// </summary>
         [DataMember(Name = "error_message", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorMessage { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -4717,12 +6022,21 @@ namespace Seam.Model
         public override string EventType { get; } =
             "access_grant.could_not_create_requested_access_methods";
 
+        /// <summary>
+        /// IDs of the devices that did not receive a requested access method. Use these to identify which specific devices failed without having to fetch the Access Grant.
+        /// </summary>
         [DataMember(Name = "missing_device_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? MissingDeviceIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4746,6 +6060,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method was issued.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodIssued_model")]
     public class EventAccessMethodIssued : Event
     {
@@ -4779,36 +6096,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// The actual PIN code for code access methods (only present when mode is &apos;code&apos;).
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.issued";
 
+        /// <summary>
+        /// Indicates whether the code is a backup code (only present when mode is &apos;code&apos; and a backup code was used).
+        /// </summary>
         [DataMember(Name = "is_backup_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsBackupCode { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4832,6 +6179,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method was revoked.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodRevoked_model")]
     public class EventAccessMethodRevoked : Event
     {
@@ -4861,30 +6211,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.revoked";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4908,6 +6282,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method representing a physical card requires encoding.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodCardEncodingRequired_model")]
     public class EventAccessMethodCardEncodingRequired : Event
     {
@@ -4937,30 +6314,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.card_encoding_required";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -4984,6 +6385,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodDeleted_model")]
     public class EventAccessMethodDeleted : Event
     {
@@ -5013,30 +6417,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5060,6 +6488,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method was reissued.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodReissued_model")]
     public class EventAccessMethodReissued : Event
     {
@@ -5093,36 +6524,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// The actual PIN code for code access methods (only present when mode is &apos;code&apos;).
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.reissued";
 
+        /// <summary>
+        /// Indicates whether the code is a backup code (only present when mode is &apos;code&apos; and a backup code was used).
+        /// </summary>
         [DataMember(Name = "is_backup_code", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsBackupCode { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5146,6 +6607,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An access method was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodCreated_model")]
     public class EventAccessMethodCreated : Event
     {
@@ -5175,30 +6639,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5222,6 +6710,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam has not yet issued this access method, even though its access grant is about to begin, so access may not be ready when the recipient arrives. Seam is still attempting to issue it, and the accompanying `delay_in_issuing` warning clears automatically once issuance succeeds.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodDelayInIssuing_model")]
     public class EventAccessMethodDelayInIssuing : Event
     {
@@ -5251,30 +6742,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.delay_in_issuing";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5298,6 +6813,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam was unable to issue this access method before its access grant started, so the recipient may be unable to access the space. This usually points to a problem that needs attention, such as an offline or disconnected device. Seam keeps retrying, and the accompanying `failed_to_issue` error clears automatically if the access method is eventually issued.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAccessMethodFailedToIssue_model")]
     public class EventAccessMethodFailedToIssue : Event
     {
@@ -5327,30 +6845,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of the access grants associated with this access method.
+        /// </summary>
         [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessGrantIds { get; set; }
 
+        /// <summary>
+        /// Keys of the access grants associated with this access method (if present).
+        /// </summary>
         [DataMember(Name = "access_grant_keys", IsRequired = false, EmitDefaultValue = false)]
         public List<string>? AccessGrantKeys { get; set; }
 
+        /// <summary>
+        /// ID of the affected access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "access_method.failed_to_issue";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5374,6 +6916,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was connected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemConnected_model")]
     public class EventAcsSystemConnected : Event
     {
@@ -5401,27 +6946,48 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.connected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5445,6 +7011,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was added.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemAdded_model")]
     public class EventAcsSystemAdded : Event
     {
@@ -5472,27 +7041,48 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.added";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5516,6 +7106,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was disconnected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemDisconnected_model")]
     public class EventAcsSystemDisconnected : Event
     {
@@ -5552,15 +7145,27 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Errors associated with the access control system.
+        /// </summary>
         [DataMember(Name = "acs_system_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAcsSystemDisconnectedAcsSystemErrors> AcsSystemErrors { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the access control system.
+        /// </summary>
         [DataMember(Name = "acs_system_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventAcsSystemDisconnectedAcsSystemWarnings> AcsSystemWarnings { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -5568,9 +7173,15 @@ namespace Seam.Model
         )]
         public List<EventAcsSystemDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -5578,21 +7189,36 @@ namespace Seam.Model
         )]
         public List<EventAcsSystemDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_system.disconnected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5633,12 +7259,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -5679,12 +7314,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -5725,12 +7369,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -5771,12 +7424,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -5800,6 +7462,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialDeleted_model")]
     public class EventAcsCredentialDeleted : Event
     {
@@ -5829,30 +7494,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected credential.
+        /// </summary>
         [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5876,6 +7565,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was issued.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialIssued_model")]
     public class EventAcsCredentialIssued : Event
     {
@@ -5905,30 +7597,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected credential.
+        /// </summary>
         [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.issued";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -5952,6 +7668,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was reissued.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialReissued_model")]
     public class EventAcsCredentialReissued : Event
     {
@@ -5981,30 +7700,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected credential.
+        /// </summary>
         [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.reissued";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6028,6 +7771,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was invalidated. That is, the credential cannot be used anymore.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialInvalidated_model")]
     public class EventAcsCredentialInvalidated : Event
     {
@@ -6057,30 +7803,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected credential.
+        /// </summary>
         [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_credential.invalidated";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6104,6 +7874,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsUserCreated_model")]
     public class EventAcsUserCreated : Event
     {
@@ -6133,30 +7906,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the affected access system user.
+        /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsUserId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_user.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6180,6 +7977,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsUserDeleted_model")]
     public class EventAcsUserDeleted : Event
     {
@@ -6209,30 +8009,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the affected access system user.
+        /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsUserId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_user.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6256,6 +8080,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was added.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsEncoderAdded_model")]
     public class EventAcsEncoderAdded : Event
     {
@@ -6285,30 +8112,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected encoder.
+        /// </summary>
         [DataMember(Name = "acs_encoder_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEncoderId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_encoder.added";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6332,6 +8183,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was removed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsEncoderRemoved_model")]
     public class EventAcsEncoderRemoved : Event
     {
@@ -6361,30 +8215,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected encoder.
+        /// </summary>
         [DataMember(Name = "acs_encoder_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEncoderId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_encoder.removed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6408,6 +8286,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An ACS access group was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsAccessGroupDeleted_model")]
     public class EventAcsAccessGroupDeleted : Event
     {
@@ -6437,30 +8318,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected access group.
+        /// </summary>
         [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsAccessGroupId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_access_group.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6484,6 +8389,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was added.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsEntranceAdded_model")]
     public class EventAcsEntranceAdded : Event
     {
@@ -6513,30 +8421,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected entrance.
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_entrance.added";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6560,6 +8492,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was removed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventAcsEntranceRemoved_model")]
     public class EventAcsEntranceRemoved : Event
     {
@@ -6589,30 +8524,54 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected entrance.
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// ID of the access system.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "acs_entrance.removed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6636,6 +8595,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A client session was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventClientSessionDeleted_model")]
     public class EventClientSessionDeleted : Event
     {
@@ -6661,24 +8623,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected client session.
+        /// </summary>
         [DataMember(Name = "client_session_id", IsRequired = false, EmitDefaultValue = false)]
         public string ClientSessionId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "client_session.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6702,6 +8682,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account was connected for the first time or was reconnected after being disconnected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountConnected_model")]
     public class EventConnectedAccountConnected : Event
     {
@@ -6733,9 +8716,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the Connect Webview associated with the event.
+        /// </summary>
         [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectWebviewId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -6743,27 +8732,48 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with this connected account, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.connected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6787,6 +8797,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountCreated_model")]
     public class EventConnectedAccountCreated : Event
     {
@@ -6816,9 +8829,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the Connect Webview associated with the event.
+        /// </summary>
         [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -6826,24 +8845,42 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6867,6 +8904,10 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account had a successful login using a Connect Webview.
+    /// </summary>
+    [Obsolete("Use `connect_webview.login_succeeded`.")]
     [DataContract(Name = "seamModel_eventConnectedAccountSuccessfulLogin_model")]
     public class EventConnectedAccountSuccessfulLogin : Event
     {
@@ -6896,9 +8937,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the Connect Webview associated with the event.
+        /// </summary>
         [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -6906,24 +8953,42 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.successful_login";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -6947,6 +9012,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account was disconnected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountDisconnected_model")]
     public class EventConnectedAccountDisconnected : Event
     {
@@ -6980,6 +9048,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -6987,6 +9058,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -6994,9 +9068,15 @@ namespace Seam.Model
         )]
         public List<EventConnectedAccountDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -7004,21 +9084,36 @@ namespace Seam.Model
         )]
         public List<EventConnectedAccountDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.disconnected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7059,12 +9154,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -7107,12 +9211,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -7136,6 +9249,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account completed the first sync with Seam, and the corresponding devices or systems are now available.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountCompletedFirstSync_model")]
     public class EventConnectedAccountCompletedFirstSync : Event
     {
@@ -7163,6 +9279,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -7170,24 +9289,42 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.completed_first_sync";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7211,6 +9348,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountDeleted_model")]
     public class EventConnectedAccountDeleted : Event
     {
@@ -7242,6 +9382,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -7249,30 +9392,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        /// </summary>
         [DataMember(Name = "connected_account_type", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountType { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with this connected account, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7296,6 +9463,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account completed the first sync after reconnection with Seam, and the corresponding devices or systems are now available.
+    /// </summary>
     [DataContract(
         Name = "seamModel_eventConnectedAccountCompletedFirstSyncAfterReconnection_model"
     )]
@@ -7325,6 +9495,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -7332,15 +9505,27 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -7348,9 +9533,15 @@ namespace Seam.Model
         public override string EventType { get; } =
             "connected_account.completed_first_sync_after_reconnection";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7374,6 +9565,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A connected account requires reauthorization using a new Connect Webview. The account is still connected, but cannot access new features. Delaying reauthorization too long will eventually cause the Connected Account to become disconnected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectedAccountReauthorizationRequested_model")]
     public class EventConnectedAccountReauthorizationRequested : Event
     {
@@ -7407,6 +9601,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -7414,6 +9611,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -7421,9 +9621,15 @@ namespace Seam.Model
         )]
         public List<EventConnectedAccountReauthorizationRequestedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected connected account.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -7431,21 +9637,36 @@ namespace Seam.Model
         )]
         public List<EventConnectedAccountReauthorizationRequestedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connected_account.reauthorization_requested";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7488,12 +9709,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -7536,12 +9766,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -7565,6 +9804,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A lock door action attempt succeeded.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptLockDoorSucceeded_model")]
     public class EventActionAttemptLockDoorSucceeded : Event
     {
@@ -7598,36 +9840,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.lock_door.succeeded";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7651,6 +9923,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A lock door action attempt failed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptLockDoorFailed_model")]
     public class EventActionAttemptLockDoorFailed : Event
     {
@@ -7684,36 +9959,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.lock_door.failed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7737,6 +10042,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An unlock door action attempt succeeded.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptUnlockDoorSucceeded_model")]
     public class EventActionAttemptUnlockDoorSucceeded : Event
     {
@@ -7770,36 +10078,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.unlock_door.succeeded";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7823,6 +10161,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An unlock door action attempt failed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptUnlockDoorFailed_model")]
     public class EventActionAttemptUnlockDoorFailed : Event
     {
@@ -7856,36 +10197,66 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "action_attempt.unlock_door.failed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7909,6 +10280,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A simulate keypad code entry action attempt succeeded.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptSimulateKeypadCodeEntrySucceeded_model")]
     public class EventActionAttemptSimulateKeypadCodeEntrySucceeded : Event
     {
@@ -7942,24 +10316,45 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -7967,12 +10362,21 @@ namespace Seam.Model
         public override string EventType { get; } =
             "action_attempt.simulate_keypad_code_entry.succeeded";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -7996,6 +10400,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A simulate keypad code entry action attempt failed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptSimulateKeypadCodeEntryFailed_model")]
     public class EventActionAttemptSimulateKeypadCodeEntryFailed : Event
     {
@@ -8029,24 +10436,45 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -8054,12 +10482,21 @@ namespace Seam.Model
         public override string EventType { get; } =
             "action_attempt.simulate_keypad_code_entry.failed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8083,6 +10520,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A simulate manual lock via keypad action attempt succeeded.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptSimulateManualLockViaKeypadSucceeded_model")]
     public class EventActionAttemptSimulateManualLockViaKeypadSucceeded : Event
     {
@@ -8116,24 +10556,45 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -8141,12 +10602,21 @@ namespace Seam.Model
         public override string EventType { get; } =
             "action_attempt.simulate_manual_lock_via_keypad.succeeded";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8170,6 +10640,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A simulate manual lock via keypad action attempt failed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventActionAttemptSimulateManualLockViaKeypadFailed_model")]
     public class EventActionAttemptSimulateManualLockViaKeypadFailed : Event
     {
@@ -8203,24 +10676,45 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected action attempt.
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Type of the action.
+        /// </summary>
         [DataMember(Name = "action_type", IsRequired = false, EmitDefaultValue = false)]
         public string ActionType { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the device associated with the action attempt, if applicable.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -8228,12 +10722,21 @@ namespace Seam.Model
         public override string EventType { get; } =
             "action_attempt.simulate_manual_lock_via_keypad.failed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Status of the action.
+        /// </summary>
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8257,6 +10760,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A Connect Webview login succeeded.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectWebviewLoginSucceeded_model")]
     public class EventConnectWebviewLoginSucceeded : Event
     {
@@ -8288,9 +10794,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Connect Webview.
+        /// </summary>
         [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account; present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8298,27 +10810,48 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with this connect webview, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connect_webview.login_succeeded";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8342,6 +10875,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A Connect Webview login failed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventConnectWebviewLoginFailed_model")]
     public class EventConnectWebviewLoginFailed : Event
     {
@@ -8367,24 +10903,42 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the affected Connect Webview.
+        /// </summary>
         [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectWebviewId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "connect_webview.login_failed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8408,6 +10962,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The status of a device changed from offline to online. That is, the `device.properties.online` property changed from `false` to `true`. Note that some devices operate entirely in offline mode, so Seam never emits a `device.connected` event for these devices.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceConnected_model")]
     public class EventDeviceConnected : Event
     {
@@ -8441,6 +10998,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8448,33 +11008,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8498,6 +11085,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device was added to Seam or was re-added to Seam after having been removed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceAdded_model")]
     public class EventDeviceAdded : Event
     {
@@ -8531,6 +11121,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8538,33 +11131,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.added";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8588,6 +11208,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A managed device was successfully converted to an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceConvertedToUnmanaged_model")]
     public class EventDeviceConvertedToUnmanaged : Event
     {
@@ -8621,6 +11244,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8628,33 +11254,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.converted_to_unmanaged";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8678,6 +11331,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) was successfully converted to a managed device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedConvertedToManaged_model")]
     public class EventDeviceUnmanagedConvertedToManaged : Event
     {
@@ -8711,6 +11367,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8718,33 +11377,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.converted_to_managed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8768,6 +11454,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The status of an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) changed from offline to online. That is, the `device.properties.online` property changed from `false` to `true`.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedConnected_model")]
     public class EventDeviceUnmanagedConnected : Event
     {
@@ -8801,6 +11490,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8808,33 +11500,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.connected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -8858,6 +11577,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The status of a device changed from online to offline. That is, the `device.properties.online` property changed from `true` to `false`.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceDisconnected_model")]
     public class EventDeviceDisconnected : Event
     {
@@ -8902,6 +11624,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Error code associated with the disconnection event, if any.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ErrorCodeEnum
         {
@@ -8918,6 +11643,9 @@ namespace Seam.Model
             DeviceDisconnected = 3,
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -8925,6 +11653,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -8932,9 +11663,15 @@ namespace Seam.Model
         )]
         public List<EventDeviceDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -8942,39 +11679,72 @@ namespace Seam.Model
         )]
         public List<EventDeviceDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceDisconnectedDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Error code associated with the disconnection event, if any.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public EventDeviceDisconnected.ErrorCodeEnum ErrorCode { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.disconnected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9015,12 +11785,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -9061,12 +11840,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -9107,12 +11895,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -9153,12 +11950,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -9182,6 +11988,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The status of an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) changed from online to offline. That is, the `device.properties.online` property changed from `true` to `false`.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnected_model")]
     public class EventDeviceUnmanagedDisconnected : Event
     {
@@ -9227,6 +12036,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Error code associated with the disconnection event, if any.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ErrorCodeEnum
         {
@@ -9243,6 +12055,9 @@ namespace Seam.Model
             DeviceDisconnected = 3,
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9250,6 +12065,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -9257,9 +12075,15 @@ namespace Seam.Model
         )]
         public List<EventDeviceUnmanagedDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -9267,39 +12091,72 @@ namespace Seam.Model
         )]
         public List<EventDeviceUnmanagedDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceUnmanagedDisconnectedDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceUnmanagedDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Error code associated with the disconnection event, if any.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public EventDeviceUnmanagedDisconnected.ErrorCodeEnum ErrorCode { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.unmanaged.disconnected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9340,12 +12197,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -9388,12 +12254,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -9434,12 +12309,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -9480,12 +12364,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -9509,6 +12402,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device detected that it was tampered with, for example, opened or moved.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceTampered_model")]
     public class EventDeviceTampered : Event
     {
@@ -9542,6 +12438,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9549,33 +12448,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.tampered";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9599,6 +12525,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device battery level dropped below the low threshold.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceLowBattery_model")]
     public class EventDeviceLowBattery : Event
     {
@@ -9634,9 +12563,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Number in the range 0 to 1.0 indicating the amount of battery in the affected device, as reported by the device.
+        /// </summary>
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
         public float BatteryLevel { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9644,33 +12579,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.low_battery";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9694,6 +12656,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device battery status changed since the last `battery_status_changed` event.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceBatteryStatusChanged_model")]
     public class EventDeviceBatteryStatusChanged : Event
     {
@@ -9731,6 +12696,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Battery status of the affected device, calculated from the numeric `battery_level` value.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum BatteryStatusEnum
         {
@@ -9750,12 +12718,21 @@ namespace Seam.Model
             Full = 4,
         }
 
+        /// <summary>
+        /// Number in the range 0 to 1.0 indicating the amount of battery in the affected device, as reported by the device.
+        /// </summary>
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
         public float BatteryLevel { get; set; }
 
+        /// <summary>
+        /// Battery status of the affected device, calculated from the numeric `battery_level` value.
+        /// </summary>
         [DataMember(Name = "battery_status", IsRequired = false, EmitDefaultValue = false)]
         public EventDeviceBatteryStatusChanged.BatteryStatusEnum BatteryStatus { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9763,33 +12740,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.battery_status_changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9813,6 +12817,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device was removed externally from the connected account.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceRemoved_model")]
     public class EventDeviceRemoved : Event
     {
@@ -9846,6 +12853,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9853,33 +12863,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.removed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9903,6 +12940,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceDeleted_model")]
     public class EventDeviceDeleted : Event
     {
@@ -9938,6 +12978,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -9945,36 +12988,66 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Name of the deleted device, captured at deletion time. The device record no longer exists when this event fires, so the name is preserved here. Null when the device had no resolvable name.
+        /// </summary>
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceName { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -9998,6 +13071,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam detected that a device is using a third-party integration that will interfere with Seam device management.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceThirdPartyIntegrationDetected_model")]
     public class EventDeviceThirdPartyIntegrationDetected : Event
     {
@@ -10031,6 +13107,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10038,33 +13117,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.third_party_integration_detected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10088,6 +13194,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam detected that a device is no longer using a third-party integration that was interfering with Seam device management.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceThirdPartyIntegrationNoLongerDetected_model")]
     public class EventDeviceThirdPartyIntegrationNoLongerDetected : Event
     {
@@ -10121,6 +13230,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10128,24 +13240,45 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -10153,9 +13286,15 @@ namespace Seam.Model
         public override string EventType { get; } =
             "device.third_party_integration_no_longer_detected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10179,6 +13318,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [Salto device](https://docs.seam.co/device-and-system-integration-guides/salto-locks) activated privacy mode.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceSaltoPrivacyModeActivated_model")]
     public class EventDeviceSaltoPrivacyModeActivated : Event
     {
@@ -10212,6 +13354,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10219,33 +13364,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.salto.privacy_mode_activated";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10269,6 +13441,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [Salto device](https://docs.seam.co/device-and-system-integration-guides/salto-locks) deactivated privacy mode.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceSaltoPrivacyModeDeactivated_model")]
     public class EventDeviceSaltoPrivacyModeDeactivated : Event
     {
@@ -10302,6 +13477,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10309,33 +13487,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.salto.privacy_mode_deactivated";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10359,6 +13564,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam detected a flaky device connection.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceConnectionBecameFlaky_model")]
     public class EventDeviceConnectionBecameFlaky : Event
     {
@@ -10402,6 +13610,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10409,6 +13620,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -10416,9 +13630,15 @@ namespace Seam.Model
         )]
         public List<EventDeviceConnectionBecameFlakyConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -10426,36 +13646,66 @@ namespace Seam.Model
         )]
         public List<EventDeviceConnectionBecameFlakyConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceConnectionBecameFlakyDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceConnectionBecameFlakyDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connection_became_flaky";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10496,12 +13746,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -10544,12 +13803,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -10590,12 +13858,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -10636,12 +13913,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -10665,6 +13951,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Seam detected that a previously-flaky device connection stabilized.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceConnectionStabilized_model")]
     public class EventDeviceConnectionStabilized : Event
     {
@@ -10698,6 +13987,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10705,33 +13997,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.connection_stabilized";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10755,6 +14074,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A third-party subscription is required to use all device features.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceErrorSubscriptionRequired_model")]
     public class EventDeviceErrorSubscriptionRequired : Event
     {
@@ -10798,6 +14120,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -10805,6 +14130,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -10812,9 +14140,15 @@ namespace Seam.Model
         )]
         public List<EventDeviceErrorSubscriptionRequiredConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -10822,36 +14156,66 @@ namespace Seam.Model
         )]
         public List<EventDeviceErrorSubscriptionRequiredConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceErrorSubscriptionRequiredDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceErrorSubscriptionRequiredDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.error.subscription_required";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -10894,12 +14258,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -10942,12 +14315,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -10988,12 +14370,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -11034,12 +14425,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -11063,6 +14463,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A third-party subscription is active or no longer required to use all device features.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceErrorSubscriptionRequiredResolved_model")]
     public class EventDeviceErrorSubscriptionRequiredResolved : Event
     {
@@ -11096,6 +14499,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11103,33 +14509,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.error.subscription_required.resolved";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -11153,6 +14586,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An accessory keypad was connected to a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceAccessoryKeypadConnected_model")]
     public class EventDeviceAccessoryKeypadConnected : Event
     {
@@ -11186,6 +14622,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11193,33 +14632,60 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.accessory_keypad_connected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -11243,6 +14709,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// An accessory keypad was disconnected from a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceAccessoryKeypadDisconnected_model")]
     public class EventDeviceAccessoryKeypadDisconnected : Event
     {
@@ -11286,6 +14755,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11293,6 +14765,9 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_errors",
             IsRequired = false,
@@ -11300,9 +14775,15 @@ namespace Seam.Model
         )]
         public List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountErrors> ConnectedAccountErrors { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
         [DataMember(
             Name = "connected_account_warnings",
             IsRequired = false,
@@ -11310,36 +14791,66 @@ namespace Seam.Model
         )]
         public List<EventDeviceAccessoryKeypadDisconnectedConnectedAccountWarnings> ConnectedAccountWarnings { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
         [DataMember(Name = "device_errors", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceAccessoryKeypadDisconnectedDeviceErrors> DeviceErrors { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
         [DataMember(Name = "device_warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<EventDeviceAccessoryKeypadDisconnectedDeviceWarnings> DeviceWarnings { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.accessory_keypad_disconnected";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -11382,12 +14893,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -11430,12 +14950,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -11476,12 +15005,21 @@ namespace Seam.Model
             Message = message;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
         public string ErrorCode { get; set; }
 
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
@@ -11522,12 +15060,21 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public string WarningCode { get; set; }
 
@@ -11551,6 +15098,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// Extended periods of noise or noise exceeding a [threshold](https://docs.seam.co/capability-guides/noise-sensors#what-is-a-threshold) were detected.
+    /// </summary>
     [DataContract(Name = "seamModel_eventNoiseSensorNoiseThresholdTriggered_model")]
     public class EventNoiseSensorNoiseThresholdTriggered : Event
     {
@@ -11596,6 +15146,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11603,51 +15156,96 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "noise_sensor.noise_threshold_triggered";
 
+        /// <summary>
+        /// Metadata from Minut.
+        /// </summary>
         [DataMember(Name = "minut_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? MinutMetadata { get; set; }
 
+        /// <summary>
+        /// Detected noise level in decibels.
+        /// </summary>
         [DataMember(Name = "noise_level_decibels", IsRequired = false, EmitDefaultValue = false)]
         public float? NoiseLevelDecibels { get; set; }
 
+        /// <summary>
+        /// Detected noise level in Noiseaware Noise Risk Score (NRS).
+        /// </summary>
         [DataMember(Name = "noise_level_nrs", IsRequired = false, EmitDefaultValue = false)]
         public float? NoiseLevelNrs { get; set; }
 
+        /// <summary>
+        /// ID of the noise threshold that was triggered.
+        /// </summary>
         [DataMember(Name = "noise_threshold_id", IsRequired = false, EmitDefaultValue = false)]
         public string? NoiseThresholdId { get; set; }
 
+        /// <summary>
+        /// Name of the noise threshold that was triggered.
+        /// </summary>
         [DataMember(Name = "noise_threshold_name", IsRequired = false, EmitDefaultValue = false)]
         public string? NoiseThresholdName { get; set; }
 
+        /// <summary>
+        /// Metadata from Noiseaware.
+        /// </summary>
         [DataMember(Name = "noiseaware_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? NoiseawareMetadata { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -11671,6 +15269,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [lock](https://docs.seam.co/low-level-apis/smart-locks) was locked.
+    /// </summary>
     [DataContract(Name = "seamModel_eventLockLocked_model")]
     public class EventLockLocked : Event
     {
@@ -11726,6 +15327,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Method by which the lock was locked. `keycode`: an access code was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or button press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by an auto-relock timer. `unknown`: could not be determined.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
@@ -11751,27 +15355,57 @@ namespace Seam.Model
             Card = 6,
         }
 
+        /// <summary>
+        /// ID of the access code that was used to lock the device.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Whether the access code is managed by Seam (true) or unmanaged (false). Only present when access_code_id is set.
+        /// </summary>
         [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool? AccessCodeIsManaged { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS entrance associated with the lock event.
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS system associated with the lock event.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsSystemId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS user associated with the lock event.
+        /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
 
+        /// <summary>
+        /// ID of the Seam action attempt that triggered this lock. Present only when the lock was initiated through Seam (via a `LOCK_DOOR` action attempt).
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Code (PIN) that was used to lock the device, if known. Taken from the matched managed or unmanaged access code, or from the code reported by the provider when no access code matched.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11779,45 +15413,86 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.locked";
 
+        /// <summary>
+        /// Whether the lock action was performed over Bluetooth by a remote client (such as the provider&apos;s mobile app), rather than a direct physical interaction or a Seam-initiated remote action.
+        /// </summary>
         [DataMember(Name = "is_via_bluetooth", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsViaBluetooth { get; set; }
 
+        /// <summary>
+        /// Whether the lock action was performed by an NFC credential tap (such as an Apple Home Key or an NFC key fob) presented to the lock, rather than a direct physical interaction or a Seam-initiated remote action.
+        /// </summary>
         [DataMember(Name = "is_via_nfc", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsViaNfc { get; set; }
 
+        /// <summary>
+        /// Method by which the lock was locked. `keycode`: an access code was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or button press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by an auto-relock timer. `unknown`: could not be determined.
+        /// </summary>
         [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
         public EventLockLocked.MethodEnum Method { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the user identity associated with the lock event.
+        /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -11841,6 +15516,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [lock](https://docs.seam.co/low-level-apis/smart-locks) was unlocked.
+    /// </summary>
     [DataContract(Name = "seamModel_eventLockUnlocked_model")]
     public class EventLockUnlocked : Event
     {
@@ -11896,6 +15574,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Method by which the lock was unlocked. `keycode`: an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
@@ -11921,27 +15602,57 @@ namespace Seam.Model
             Card = 6,
         }
 
+        /// <summary>
+        /// ID of the access code that was used to unlock the affected device.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        /// <summary>
+        /// Whether the access code is managed by Seam (true) or unmanaged (false). Only present when access_code_id is set.
+        /// </summary>
         [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool? AccessCodeIsManaged { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS entrance associated with the unlock event.
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS system associated with the unlock event.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsSystemId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS user associated with the unlock event.
+        /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
 
+        /// <summary>
+        /// ID of the Seam action attempt that triggered this unlock. Present only when the unlock was initiated through Seam (via an `UNLOCK_DOOR` action attempt).
+        /// </summary>
         [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ActionAttemptId { get; set; }
 
+        /// <summary>
+        /// Code (PIN) that was used to unlock the affected device, if known. Taken from the matched managed or unmanaged access code, or from the code reported by the provider when no access code matched.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -11949,45 +15660,86 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.unlocked";
 
+        /// <summary>
+        /// Whether the unlock action was performed over Bluetooth by a remote client (such as the provider&apos;s mobile app), rather than a direct physical interaction or a Seam-initiated remote action.
+        /// </summary>
         [DataMember(Name = "is_via_bluetooth", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsViaBluetooth { get; set; }
 
+        /// <summary>
+        /// Whether the unlock action was performed by an NFC credential tap (such as an Apple Home Key or an NFC key fob) presented to the lock, rather than a direct physical interaction or a Seam-initiated remote action.
+        /// </summary>
         [DataMember(Name = "is_via_nfc", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsViaNfc { get; set; }
 
+        /// <summary>
+        /// Method by which the lock was unlocked. `keycode`: an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
+        /// </summary>
         [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
         public EventLockUnlocked.MethodEnum Method { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the user identity associated with the unlock event.
+        /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12011,6 +15763,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The [lock](https://docs.seam.co/low-level-apis/smart-locks) denied access to a user after one or more consecutive invalid attempts to unlock the device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventLockAccessDenied_model")]
     public class EventLockAccessDenied : Event
     {
@@ -12056,18 +15811,39 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// ID of the access code that was used in the unlock attempts.
+        /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS entrance associated with the access-denied event.
+        /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsEntranceId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS system associated with the access-denied event.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsSystemId { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the ACS user associated with the access-denied event.
+        /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12075,39 +15851,74 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "lock.access_denied";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Why access was denied, when the provider reports a determinable cause. Omitted when unknown.
+        /// </summary>
         [DataMember(Name = "reason", IsRequired = false, EmitDefaultValue = false)]
         public EventLockAccessDeniedReason? Reason { get; set; }
 
+        /// <summary>
+        /// undocumented: Unreleased.
+        ///       ---
+        ///       ID of the user identity associated with the access-denied event.
+        /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12146,6 +15957,9 @@ namespace Seam.Model
             ReasonCode = reasonCode;
         }
 
+        /// <summary>
+        /// Normalized reason a lock denied access. Provider-agnostic; not all providers report every value.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ReasonCodeEnum
         {
@@ -12171,9 +15985,15 @@ namespace Seam.Model
             CredentialError = 6,
         }
 
+        /// <summary>
+        /// Human-readable explanation of why access was denied.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Normalized reason a lock denied access. Provider-agnostic; not all providers report every value.
+        /// </summary>
         [DataMember(Name = "reason_code", IsRequired = false, EmitDefaultValue = false)]
         public EventLockAccessDeniedReason.ReasonCodeEnum ReasonCode { get; set; }
 
@@ -12197,6 +16017,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A thermostat [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) was activated.
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatClimatePresetActivated_model")]
     public class EventThermostatClimatePresetActivated : Event
     {
@@ -12236,9 +16059,15 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Key of the climate preset that was activated.
+        /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12246,30 +16075,54 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.climate_preset_activated";
 
+        /// <summary>
+        /// Indicates whether the climate preset that was activated is the fallback climate preset for the thermostat.
+        /// </summary>
         [DataMember(
             Name = "is_fallback_climate_preset",
             IsRequired = false,
@@ -12277,12 +16130,21 @@ namespace Seam.Model
         )]
         public bool IsFallbackClimatePreset { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the thermostat schedule that prompted the affected climate preset to be activated.
+        /// </summary>
         [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string? ThermostatScheduleId { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12306,6 +16168,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [thermostat](https://docs.seam.co/capability-guides/thermostats) was adjusted manually.
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatManuallyAdjusted_model")]
     public class EventThermostatManuallyAdjusted : Event
     {
@@ -12353,6 +16218,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
         {
@@ -12369,6 +16237,9 @@ namespace Seam.Model
             Circulate = 3,
         }
 
+        /// <summary>
+        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
         {
@@ -12391,6 +16262,9 @@ namespace Seam.Model
             Eco = 5,
         }
 
+        /// <summary>
+        /// Method used to adjust the affected thermostat manually. `seam` indicates that the Seam API, Seam CLI, or Seam Console was used to adjust the thermostat.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
         {
@@ -12404,6 +16278,9 @@ namespace Seam.Model
             External = 2,
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12411,9 +16288,15 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// </summary>
         [DataMember(
             Name = "cooling_set_point_celsius",
             IsRequired = false,
@@ -12421,6 +16304,9 @@ namespace Seam.Model
         )]
         public float? CoolingSetPointCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// </summary>
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
             IsRequired = false,
@@ -12428,30 +16314,54 @@ namespace Seam.Model
         )]
         public float? CoolingSetPointFahrenheit { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.manually_adjusted";
 
+        /// <summary>
+        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// </summary>
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public EventThermostatManuallyAdjusted.FanModeSettingEnum? FanModeSetting { get; set; }
 
+        /// <summary>
+        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// </summary>
         [DataMember(
             Name = "heating_set_point_celsius",
             IsRequired = false,
@@ -12459,6 +16369,9 @@ namespace Seam.Model
         )]
         public float? HeatingSetPointCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// </summary>
         [DataMember(
             Name = "heating_set_point_fahrenheit",
             IsRequired = false,
@@ -12466,15 +16379,27 @@ namespace Seam.Model
         )]
         public float? HeatingSetPointFahrenheit { get; set; }
 
+        /// <summary>
+        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// </summary>
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public EventThermostatManuallyAdjusted.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
+        /// <summary>
+        /// Method used to adjust the affected thermostat manually. `seam` indicates that the Seam API, Seam CLI, or Seam Console was used to adjust the thermostat.
+        /// </summary>
         [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
         public EventThermostatManuallyAdjusted.MethodEnum Method { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12498,6 +16423,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading exceeded the set [threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureThresholdExceeded_model")]
     public class EventThermostatTemperatureThresholdExceeded : Event
     {
@@ -12543,6 +16471,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12550,51 +16481,96 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_threshold_exceeded";
 
+        /// <summary>
+        /// Lower temperature limit, in °C, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "lower_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitCelsius { get; set; }
 
+        /// <summary>
+        /// Lower temperature limit, in °F, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "lower_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitFahrenheit { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Temperature, in °C, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature, in °F, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureFahrenheit { get; set; }
 
+        /// <summary>
+        /// Upper temperature limit, in °C, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "upper_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitCelsius { get; set; }
 
+        /// <summary>
+        /// Upper temperature limit, in °F, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12618,6 +16594,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading no longer exceeds the set [threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureThresholdNoLongerExceeded_model")]
     public class EventThermostatTemperatureThresholdNoLongerExceeded : Event
     {
@@ -12663,6 +16642,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12670,24 +16652,45 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
@@ -12695,27 +16698,51 @@ namespace Seam.Model
         public override string EventType { get; } =
             "thermostat.temperature_threshold_no_longer_exceeded";
 
+        /// <summary>
+        /// Lower temperature limit, in °C, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "lower_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitCelsius { get; set; }
 
+        /// <summary>
+        /// Lower temperature limit, in °F, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "lower_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitFahrenheit { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Temperature, in °C, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature, in °F, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureFahrenheit { get; set; }
 
+        /// <summary>
+        /// Upper temperature limit, in °C, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "upper_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitCelsius { get; set; }
 
+        /// <summary>
+        /// Upper temperature limit, in °F, defined by the set threshold.
+        /// </summary>
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12739,6 +16766,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading is within 1 °C of the configured cooling or heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureReachedSetPoint_model")]
     public class EventThermostatTemperatureReachedSetPoint : Event
     {
@@ -12780,6 +16810,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12787,15 +16820,27 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Desired temperature, in °C, defined by the affected thermostat&apos;s cooling or heating set point.
+        /// </summary>
         [DataMember(
             Name = "desired_temperature_celsius",
             IsRequired = false,
@@ -12803,6 +16848,9 @@ namespace Seam.Model
         )]
         public float? DesiredTemperatureCelsius { get; set; }
 
+        /// <summary>
+        /// Desired temperature, in °F, defined by the affected thermostat&apos;s cooling or heating set point.
+        /// </summary>
         [DataMember(
             Name = "desired_temperature_fahrenheit",
             IsRequired = false,
@@ -12810,30 +16858,54 @@ namespace Seam.Model
         )]
         public float? DesiredTemperatureFahrenheit { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_reached_set_point";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Temperature, in °C, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature, in °F, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureFahrenheit { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12857,6 +16929,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) reported temperature changed by at least 1 °C.
+    /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureChanged_model")]
     public class EventThermostatTemperatureChanged : Event
     {
@@ -12894,6 +16969,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12901,39 +16979,72 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "thermostat.temperature_changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// Temperature, in °C, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureCelsius { get; set; }
 
+        /// <summary>
+        /// Temperature, in °F, reported by the affected thermostat.
+        /// </summary>
         [DataMember(Name = "temperature_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float TemperatureFahrenheit { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -12957,6 +17068,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// The name of a device was changed.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceNameChanged_model")]
     public class EventDeviceNameChanged : Event
     {
@@ -12992,6 +17106,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -12999,36 +17116,66 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// The new name of the affected device.
+        /// </summary>
         [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceName { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.name_changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13052,6 +17199,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A camera was activated, for example, by motion detection.
+    /// </summary>
     [DataContract(Name = "seamModel_eventCameraActivated_model")]
     public class EventCameraActivated : Event
     {
@@ -13093,6 +17243,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// The reason the camera was activated.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ActivationReasonEnum
         {
@@ -13103,6 +17256,9 @@ namespace Seam.Model
             MotionDetected = 1,
         }
 
+        /// <summary>
+        /// Sub-type of motion detected, if available.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MotionSubTypeEnum
         {
@@ -13122,9 +17278,15 @@ namespace Seam.Model
             Other = 4,
         }
 
+        /// <summary>
+        /// The reason the camera was activated.
+        /// </summary>
         [DataMember(Name = "activation_reason", IsRequired = false, EmitDefaultValue = false)]
         public EventCameraActivated.ActivationReasonEnum ActivationReason { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -13132,42 +17294,78 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "camera.activated";
 
+        /// <summary>
+        /// URL to a thumbnail image captured at the time of activation.
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageUrl { get; set; }
 
+        /// <summary>
+        /// Sub-type of motion detected, if available.
+        /// </summary>
         [DataMember(Name = "motion_sub_type", IsRequired = false, EmitDefaultValue = false)]
         public EventCameraActivated.MotionSubTypeEnum? MotionSubType { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// URL to a short video clip captured at the time of activation.
+        /// </summary>
         [DataMember(Name = "video_url", IsRequired = false, EmitDefaultValue = false)]
         public string? VideoUrl { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13191,6 +17389,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A doorbell button was pressed on a device.
+    /// </summary>
     [DataContract(Name = "seamModel_eventDeviceDoorbellRang_model")]
     public class EventDeviceDoorbellRang : Event
     {
@@ -13228,6 +17429,9 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
         [DataMember(
             Name = "connected_account_custom_metadata",
             IsRequired = false,
@@ -13235,39 +17439,72 @@ namespace Seam.Model
         )]
         public object? ConnectedAccountCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "device.doorbell_rang";
 
+        /// <summary>
+        /// URL to a thumbnail image captured at the time the doorbell was pressed.
+        /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageUrl { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// URL to a short video clip captured at the time the doorbell was pressed.
+        /// </summary>
         [DataMember(Name = "video_url", IsRequired = false, EmitDefaultValue = false)]
         public string? VideoUrl { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13291,6 +17528,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A phone device was deactivated.
+    /// </summary>
     [DataContract(Name = "seamModel_eventPhoneDeactivated_model")]
     public class EventPhoneDeactivated : Event
     {
@@ -13318,27 +17558,48 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Custom metadata of the device; present when device_id is provided.
+        /// </summary>
         [DataMember(Name = "device_custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object? DeviceCustomMetadata { get; set; }
 
+        /// <summary>
+        /// ID of the affected phone device.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "phone.deactivated";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13362,6 +17623,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A device was added or removed from a space.
+    /// </summary>
     [DataContract(Name = "seamModel_eventSpaceDeviceMembershipChanged_model")]
     public class EventSpaceDeviceMembershipChanged : Event
     {
@@ -13393,33 +17657,60 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of all ACS entrances currently attached to the space.
+        /// </summary>
         [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AcsEntranceIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// IDs of all devices currently attached to the space.
+        /// </summary>
         [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> DeviceIds { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "space.device_membership_changed";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the affected space.
+        /// </summary>
         [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
         public string SpaceId { get; set; }
 
+        /// <summary>
+        /// Unique key for the space within the workspace.
+        /// </summary>
         [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
         public string? SpaceKey { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13443,6 +17734,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A space was created.
+    /// </summary>
     [DataContract(Name = "seamModel_eventSpaceCreated_model")]
     public class EventSpaceCreated : Event
     {
@@ -13474,33 +17768,60 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of all ACS entrances attached to the space when it was created.
+        /// </summary>
         [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AcsEntranceIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// IDs of all devices attached to the space when it was created.
+        /// </summary>
         [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> DeviceIds { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "space.created";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the affected space.
+        /// </summary>
         [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
         public string SpaceId { get; set; }
 
+        /// <summary>
+        /// Unique key for the space within the workspace.
+        /// </summary>
         [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
         public string? SpaceKey { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13524,6 +17845,9 @@ namespace Seam.Model
         }
     }
 
+    /// <summary>
+    /// A space was deleted.
+    /// </summary>
     [DataContract(Name = "seamModel_eventSpaceDeleted_model")]
     public class EventSpaceDeleted : Event
     {
@@ -13555,33 +17879,60 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// IDs of all ACS entrances currently attached to the space when it was deleted.
+        /// </summary>
         [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AcsEntranceIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// IDs of all devices attached to the space when it was deleted.
+        /// </summary>
         [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> DeviceIds { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "space.deleted";
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the affected space.
+        /// </summary>
         [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
         public string SpaceId { get; set; }
 
+        /// <summary>
+        /// Unique key for the space within the workspace.
+        /// </summary>
         [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
         public string? SpaceKey { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 
@@ -13631,18 +17982,33 @@ namespace Seam.Model
         [DataMember(Name = "event_type", IsRequired = true, EmitDefaultValue = false)]
         public override string EventType { get; } = "unrecognized";
 
+        /// <summary>
+        /// Date and time at which the event was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public override string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
+        /// </summary>
         [DataMember(Name = "event_description", IsRequired = false, EmitDefaultValue = false)]
         public override string? EventDescription { get; set; }
 
+        /// <summary>
+        /// ID of the event.
+        /// </summary>
         [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
         public override string EventId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the event occurred.
+        /// </summary>
         [DataMember(Name = "occurred_at", IsRequired = false, EmitDefaultValue = false)]
         public override string OccurredAt { get; set; }
 
+        /// <summary>
+        /// ID of the workspace associated with the event.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public override string WorkspaceId { get; set; }
 

@@ -8,6 +8,13 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Group that defines the entrances to which a set of users has access and, in some cases, the access schedule for these entrances and users.
+    ///
+    /// Some access control systems use [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups), which are sets of users, combined with sets of permissions. These permissions include both the set of areas or assets that the users can access and the schedule during which the users can access these areas or assets. Instead of assigning access rights individually to each access control system user, which can be time-consuming and error-prone, administrators can assign users to an access group, thereby ensuring that the users inherit all the permissions associated with the access group. Using access groups streamlines the process of managing large numbers of access control system users, especially in bigger organizations or complexes.
+    ///
+    /// To learn whether your access control system supports access groups, see the corresponding [system integration guide](https://docs.seam.co/device-and-system-integration-guides#access-control-systems).
+    /// </summary>
     [DataContract(Name = "seamModel_acsAccessGroup_model")]
     public class AcsAccessGroup
     {
@@ -119,12 +126,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_create_on_acs_system";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -168,9 +181,15 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -194,6 +213,9 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// Brand-specific terminology for the access group type.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
         {
@@ -284,9 +306,15 @@ namespace Seam.Model
                 MutationCode = mutationCode;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -330,9 +358,15 @@ namespace Seam.Model
                 MutationCode = mutationCode;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -377,9 +411,15 @@ namespace Seam.Model
                 MutationCode = mutationCode;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -430,18 +470,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Old access group information.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_group_information";
 
+            /// <summary>
+            /// New access group information.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingGroupInformationTo To { get; set; }
 
@@ -480,6 +532,9 @@ namespace Seam.Model
                 Name = name;
             }
 
+            /// <summary>
+            /// Name of the access group.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -516,6 +571,9 @@ namespace Seam.Model
                 Name = name;
             }
 
+            /// <summary>
+            /// Name of the access group.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -563,18 +621,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Old access schedule information.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_schedule";
 
+            /// <summary>
+            /// New access schedule information.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo To { get; set; }
 
@@ -615,9 +685,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// Ending time for the access schedule.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Starting time for the access schedule.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -658,9 +734,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// Ending time for the access schedule.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Starting time for the access schedule.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -708,18 +790,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Old user membership.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_user_membership";
 
+            /// <summary>
+            /// New user membership.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingUserMembershipTo To { get; set; }
 
@@ -758,6 +852,9 @@ namespace Seam.Model
                 AcsUserId = acsUserId;
             }
 
+            /// <summary>
+            /// Old user ID.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
 
@@ -796,6 +893,9 @@ namespace Seam.Model
                 AcsUserId = acsUserId;
             }
 
+            /// <summary>
+            /// New user ID.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
 
@@ -843,18 +943,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Old entrance membership.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_entrance_membership";
 
+            /// <summary>
+            /// New entrance membership.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo To { get; set; }
 
@@ -893,6 +1005,9 @@ namespace Seam.Model
                 AcsEntranceId = acsEntranceId;
             }
 
+            /// <summary>
+            /// Old entrance ID.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
@@ -931,6 +1046,9 @@ namespace Seam.Model
                 AcsEntranceId = acsEntranceId;
             }
 
+            /// <summary>
+            /// New entrance ID.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
@@ -979,6 +1097,9 @@ namespace Seam.Model
                 Variant = variant;
             }
 
+            /// <summary>
+            /// Whether the user is scheduled to be added to or removed from this access group.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum VariantEnum
             {
@@ -992,18 +1113,30 @@ namespace Seam.Model
                 Removing = 2,
             }
 
+            /// <summary>
+            /// ID of the user involved in the scheduled change.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "deferring_user_membership_update";
 
+            /// <summary>
+            /// Whether the user is scheduled to be added to or removed from this access group.
+            /// </summary>
             [DataMember(Name = "variant", IsRequired = false, EmitDefaultValue = false)]
             public AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate.VariantEnum Variant { get; set; }
 
@@ -1047,9 +1180,15 @@ namespace Seam.Model
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1073,9 +1212,11 @@ namespace Seam.Model
             }
         }
 
+        [Obsolete("Use `external_type`.")]
         [DataMember(Name = "access_group_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsAccessGroup.AccessGroupTypeEnum AccessGroupType { get; set; }
 
+        [Obsolete("Use `external_type_display_name`.")]
         [DataMember(
             Name = "access_group_type_display_name",
             IsRequired = false,
@@ -1083,30 +1224,57 @@ namespace Seam.Model
         )]
         public string AccessGroupTypeDisplayName { get; set; }
 
+        /// <summary>
+        /// `starts_at` and `ends_at` timestamps for the access group&apos;s access.
+        /// </summary>
         [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
         public AcsAccessGroupAccessSchedule? AccessSchedule { get; set; }
 
+        /// <summary>
+        /// ID of the access group.
+        /// </summary>
         [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsAccessGroupId { get; set; }
 
+        /// <summary>
+        /// ID of the access control system that contains the access group.
+        /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        /// <summary>
+        /// ID of the connected account that contains the access group.
+        /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
+        /// <summary>
+        /// Date and time at which the access group was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Display name for the access group.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Errors associated with the `acs_access_group`.
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsAccessGroupErrors> Errors { get; set; }
 
+        /// <summary>
+        /// Brand-specific terminology for the access group type.
+        /// </summary>
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsAccessGroup.ExternalTypeEnum ExternalType { get; set; }
 
+        /// <summary>
+        /// Display name that corresponds to the brand-specific terminology for the access group type.
+        /// </summary>
         [DataMember(
             Name = "external_type_display_name",
             IsRequired = false,
@@ -1114,18 +1282,33 @@ namespace Seam.Model
         )]
         public string ExternalTypeDisplayName { get; set; }
 
+        /// <summary>
+        /// Indicates whether Seam manages the access group.
+        /// </summary>
         [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
 
+        /// <summary>
+        /// Name of the access group.
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Collection of pending mutations for the access group. Represents operations that have been requested but not yet completed on the integrated access system.
+        /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsAccessGroupPendingMutations> PendingMutations { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the `acs_access_group`.
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsAccessGroupWarnings> Warnings { get; set; }
 
+        /// <summary>
+        /// ID of the workspace that contains the access group.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
@@ -1161,9 +1344,15 @@ namespace Seam.Model
             StartsAt = startsAt;
         }
 
+        /// <summary>
+        /// Date and time at which the user&apos;s access ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
+        /// <summary>
+        /// Date and time at which the user&apos;s access starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
 
@@ -1204,6 +1393,9 @@ namespace Seam.Model
             WarningCode = warningCode;
         }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum WarningCodeEnum
         {
@@ -1217,12 +1409,21 @@ namespace Seam.Model
             BeingDeleted = 2,
         }
 
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public AcsAccessGroupWarnings.WarningCodeEnum WarningCode { get; set; }
 

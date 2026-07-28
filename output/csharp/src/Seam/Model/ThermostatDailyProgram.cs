@@ -8,6 +8,9 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents a thermostat daily program, consisting of a set of periods, each of which has a starting time and the key that identifies the climate preset to apply at the starting time.
+    /// </summary>
     [DataContract(Name = "seamModel_thermostatDailyProgram_model")]
     public class ThermostatDailyProgram
     {
@@ -31,18 +34,33 @@ namespace Seam.Model
             WorkspaceId = workspaceId;
         }
 
+        /// <summary>
+        /// Date and time at which the thermostat daily program was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the thermostat device on which the thermostat daily program is configured.
+        /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
+        /// <summary>
+        /// User-friendly name to identify the thermostat daily program.
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
+        /// <summary>
+        /// Array of thermostat daily program periods.
+        /// </summary>
         [DataMember(Name = "periods", IsRequired = false, EmitDefaultValue = false)]
         public List<ThermostatDailyProgramPeriods> Periods { get; set; }
 
+        /// <summary>
+        /// ID of the thermostat daily program.
+        /// </summary>
         [DataMember(
             Name = "thermostat_daily_program_id",
             IsRequired = false,
@@ -50,6 +68,9 @@ namespace Seam.Model
         )]
         public string ThermostatDailyProgramId { get; set; }
 
+        /// <summary>
+        /// ID of the workspace that contains the thermostat daily program.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
@@ -88,9 +109,15 @@ namespace Seam.Model
             StartsAtTime = startsAtTime;
         }
 
+        /// <summary>
+        /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+        /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
+        /// <summary>
+        /// Time at which the thermostat daily program period starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// </summary>
         [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAtTime { get; set; }
 

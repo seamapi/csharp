@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Simulate Triggering a Noise Threshold.
+        /// </summary>
         [DataContract(Name = "triggerNoiseThresholdRequest_request")]
         public class TriggerNoiseThresholdRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// ID of the device for which you want to simulate the triggering of a noise threshold.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -52,6 +58,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates the triggering of a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public void TriggerNoiseThreshold(TriggerNoiseThresholdRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -59,11 +68,17 @@ namespace Seam.Api
             _seam.Post<object>("/noise_sensors/simulate/trigger_noise_threshold", requestOptions);
         }
 
+        /// <summary>
+        /// Simulates the triggering of a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public void TriggerNoiseThreshold(string deviceId = default)
         {
             TriggerNoiseThreshold(new TriggerNoiseThresholdRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Simulates the triggering of a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task TriggerNoiseThresholdAsync(TriggerNoiseThresholdRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -74,6 +89,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates the triggering of a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task TriggerNoiseThresholdAsync(string deviceId = default)
         {
             await TriggerNoiseThresholdAsync(new TriggerNoiseThresholdRequest(deviceId: deviceId));

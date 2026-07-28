@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Create a Thermostat Daily Program.
+        /// </summary>
         [DataContract(Name = "createRequest_request")]
         public class CreateRequest
         {
@@ -35,12 +38,21 @@ namespace Seam.Api
                 Periods = periods;
             }
 
+            /// <summary>
+            /// ID of the thermostat device for which you want to create a daily program.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Name of the thermostat daily program.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
 
+            /// <summary>
+            /// Array of thermostat daily program periods.
+            /// </summary>
             [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
             public List<CreateRequestPeriods> Periods { get; set; }
 
@@ -79,9 +91,15 @@ namespace Seam.Api
                 StartsAtTime = startsAtTime;
             }
 
+            /// <summary>
+            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ClimatePresetKey { get; set; }
 
+            /// <summary>
+            /// Time at which the thermostat daily program period starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAtTime { get; set; }
 
@@ -116,6 +134,9 @@ namespace Seam.Api
                 ThermostatDailyProgram = thermostatDailyProgram;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(
                 Name = "thermostat_daily_program",
                 IsRequired = false,
@@ -143,6 +164,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new thermostat daily program. A daily program consists of a set of periods, where each period includes a start time and the key of a configured climate preset. Once you have defined a daily program, you can assign it to one or more days within a weekly program.
+        /// </summary>
         public ThermostatDailyProgram Create(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -152,6 +176,9 @@ namespace Seam.Api
                 .Data.ThermostatDailyProgram;
         }
 
+        /// <summary>
+        /// Creates a new thermostat daily program. A daily program consists of a set of periods, where each period includes a start time and the key of a configured climate preset. Once you have defined a daily program, you can assign it to one or more days within a weekly program.
+        /// </summary>
         public ThermostatDailyProgram Create(
             string deviceId = default,
             string name = default,
@@ -161,6 +188,9 @@ namespace Seam.Api
             return Create(new CreateRequest(deviceId: deviceId, name: name, periods: periods));
         }
 
+        /// <summary>
+        /// Creates a new thermostat daily program. A daily program consists of a set of periods, where each period includes a start time and the key of a configured climate preset. Once you have defined a daily program, you can assign it to one or more days within a weekly program.
+        /// </summary>
         public async Task<ThermostatDailyProgram> CreateAsync(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -175,6 +205,9 @@ namespace Seam.Api
                 .ThermostatDailyProgram;
         }
 
+        /// <summary>
+        /// Creates a new thermostat daily program. A daily program consists of a set of periods, where each period includes a start time and the key of a configured climate preset. Once you have defined a daily program, you can assign it to one or more days within a weekly program.
+        /// </summary>
         public async Task<ThermostatDailyProgram> CreateAsync(
             string deviceId = default,
             string name = default,
@@ -188,6 +221,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete a Thermostat Daily Program.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -199,6 +235,9 @@ namespace Seam.Api
                 ThermostatDailyProgramId = thermostatDailyProgramId;
             }
 
+            /// <summary>
+            /// ID of the thermostat daily program that you want to delete.
+            /// </summary>
             [DataMember(
                 Name = "thermostat_daily_program_id",
                 IsRequired = true,
@@ -226,6 +265,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes a thermostat daily program.
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -233,11 +275,17 @@ namespace Seam.Api
             _seam.Post<object>("/thermostats/daily_programs/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a thermostat daily program.
+        /// </summary>
         public void Delete(string thermostatDailyProgramId = default)
         {
             Delete(new DeleteRequest(thermostatDailyProgramId: thermostatDailyProgramId));
         }
 
+        /// <summary>
+        /// Deletes a thermostat daily program.
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -245,6 +293,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/thermostats/daily_programs/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a thermostat daily program.
+        /// </summary>
         public async Task DeleteAsync(string thermostatDailyProgramId = default)
         {
             await DeleteAsync(
@@ -252,6 +303,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Update a Thermostat Daily Program.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -269,12 +323,21 @@ namespace Seam.Api
                 ThermostatDailyProgramId = thermostatDailyProgramId;
             }
 
+            /// <summary>
+            /// Name of the thermostat daily program that you want to update.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
 
+            /// <summary>
+            /// Array of thermostat daily program periods. The periods that you specify overwrite any existing periods for the daily program.
+            /// </summary>
             [DataMember(Name = "periods", IsRequired = true, EmitDefaultValue = false)]
             public List<UpdateRequestPeriods> Periods { get; set; }
 
+            /// <summary>
+            /// ID of the thermostat daily program that you want to update.
+            /// </summary>
             [DataMember(
                 Name = "thermostat_daily_program_id",
                 IsRequired = true,
@@ -317,9 +380,15 @@ namespace Seam.Api
                 StartsAtTime = startsAtTime;
             }
 
+            /// <summary>
+            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ClimatePresetKey { get; set; }
 
+            /// <summary>
+            /// Time at which the thermostat daily program period starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "starts_at_time", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAtTime { get; set; }
 
@@ -354,6 +423,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -377,6 +449,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates a specified thermostat daily program. The periods that you specify overwrite any existing periods for the daily program.
+        /// </summary>
         public ActionAttempt Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -386,6 +461,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Updates a specified thermostat daily program. The periods that you specify overwrite any existing periods for the daily program.
+        /// </summary>
         public ActionAttempt Update(
             string name = default,
             List<UpdateRequestPeriods> periods = default,
@@ -401,6 +479,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates a specified thermostat daily program. The periods that you specify overwrite any existing periods for the daily program.
+        /// </summary>
         public async Task<ActionAttempt> UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -415,6 +496,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Updates a specified thermostat daily program. The periods that you specify overwrite any existing periods for the daily program.
+        /// </summary>
         public async Task<ActionAttempt> UpdateAsync(
             string name = default,
             List<UpdateRequestPeriods> periods = default,

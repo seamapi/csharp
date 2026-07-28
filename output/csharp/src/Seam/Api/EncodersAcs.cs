@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Encode a Credential.
+        /// </summary>
         [DataContract(Name = "encodeCredentialRequest_request")]
         public class EncodeCredentialRequest
         {
@@ -35,12 +38,21 @@ namespace Seam.Api
                 AcsEncoderId = acsEncoderId;
             }
 
+            /// <summary>
+            /// ID of the `access_method` to encode onto a card.
+            /// </summary>
             [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessMethodId { get; set; }
 
+            /// <summary>
+            /// ID of the `acs_credential` to encode onto a card.
+            /// </summary>
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
 
+            /// <summary>
+            /// ID of the `acs_encoder` to use to encode the `acs_credential`.
+            /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEncoderId { get; set; }
 
@@ -75,6 +87,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -98,6 +113,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// </summary>
         public ActionAttempt EncodeCredential(EncodeCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -107,6 +125,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// </summary>
         public ActionAttempt EncodeCredential(
             string? accessMethodId = default,
             string? acsCredentialId = default,
@@ -122,6 +143,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// </summary>
         public async Task<ActionAttempt> EncodeCredentialAsync(EncodeCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -136,6 +160,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// </summary>
         public async Task<ActionAttempt> EncodeCredentialAsync(
             string? accessMethodId = default,
             string? acsCredentialId = default,
@@ -153,6 +180,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Get an Encoder.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -164,6 +194,9 @@ namespace Seam.Api
                 AcsEncoderId = acsEncoderId;
             }
 
+            /// <summary>
+            /// ID of the encoder that you want to get.
+            /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEncoderId { get; set; }
 
@@ -198,6 +231,9 @@ namespace Seam.Api
                 AcsEncoder = acsEncoder;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_encoder", IsRequired = false, EmitDefaultValue = false)]
             public AcsEncoder AcsEncoder { get; set; }
 
@@ -221,6 +257,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public AcsEncoder Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -228,11 +267,17 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/acs/encoders/get", requestOptions).Data.AcsEncoder;
         }
 
+        /// <summary>
+        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public AcsEncoder Get(string acsEncoderId = default)
         {
             return Get(new GetRequest(acsEncoderId: acsEncoderId));
         }
 
+        /// <summary>
+        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<AcsEncoder> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -242,11 +287,17 @@ namespace Seam.Api
                 .AcsEncoder;
         }
 
+        /// <summary>
+        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<AcsEncoder> GetAsync(string acsEncoderId = default)
         {
             return (await GetAsync(new GetRequest(acsEncoderId: acsEncoderId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Encoders.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -268,18 +319,33 @@ namespace Seam.Api
                 PageCursor = pageCursor;
             }
 
+            /// <summary>
+            /// ID of the access system for which you want to retrieve all encoders.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
 
+            /// <summary>
+            /// IDs of the access systems for which you want to retrieve all encoders.
+            /// </summary>
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
 
+            /// <summary>
+            /// IDs of the encoders that you want to retrieve.
+            /// </summary>
             [DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEncoderIds { get; set; }
 
+            /// <summary>
+            /// Number of encoders to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
@@ -314,6 +380,9 @@ namespace Seam.Api
                 AcsEncoders = acsEncoders;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsEncoder> AcsEncoders { get; set; }
 
@@ -337,6 +406,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public List<AcsEncoder> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -344,6 +416,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/acs/encoders/list", requestOptions).Data.AcsEncoders;
         }
 
+        /// <summary>
+        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public List<AcsEncoder> List(
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
@@ -363,6 +438,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<List<AcsEncoder>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -372,6 +450,9 @@ namespace Seam.Api
                 .AcsEncoders;
         }
 
+        /// <summary>
+        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<List<AcsEncoder>> ListAsync(
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
@@ -393,6 +474,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Scan a Credential.
+        /// </summary>
         [DataContract(Name = "scanCredentialRequest_request")]
         public class ScanCredentialRequest
         {
@@ -408,9 +492,15 @@ namespace Seam.Api
                 SaltoKsMetadata = saltoKsMetadata;
             }
 
+            /// <summary>
+            /// ID of the encoder to use for the scan.
+            /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEncoderId { get; set; }
 
+            /// <summary>
+            /// Salto KS-specific metadata for the scan action.
+            /// </summary>
             [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ScanCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
 
@@ -445,6 +535,9 @@ namespace Seam.Api
                 DetectNewTags = detectNewTags;
             }
 
+            /// <summary>
+            /// When true, activates tag registration mode on the encoder to detect new, unregistered tags. When false, only detects existing tags already registered in the system. Defaults to false.
+            /// </summary>
             [DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
             public bool? DetectNewTags { get; set; }
 
@@ -479,6 +572,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -502,6 +598,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public ActionAttempt ScanCredential(ScanCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -511,6 +610,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public ActionAttempt ScanCredential(
             string acsEncoderId = default,
             ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default
@@ -524,6 +626,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -538,6 +643,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// </summary>
         public async Task<ActionAttempt> ScanCredentialAsync(
             string acsEncoderId = default,
             ScanCredentialRequestSaltoKsMetadata? saltoKsMetadata = default
@@ -553,6 +661,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Scan to Assign a Credential.
+        /// </summary>
         [DataContract(Name = "scanToAssignCredentialRequest_request")]
         public class ScanToAssignCredentialRequest
         {
@@ -572,15 +683,27 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the `acs_encoder` to use to scan the credential.
+            /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEncoderId { get; set; }
 
+            /// <summary>
+            /// ID of the `acs_user` to assign the scanned credential to.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
 
+            /// <summary>
+            /// Salto KS-specific metadata for the scan action.
+            /// </summary>
             [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ScanToAssignCredentialRequestSaltoKsMetadata? SaltoKsMetadata { get; set; }
 
+            /// <summary>
+            /// ID of the `user_identity` to assign the scanned credential to. If the ACS system contains an ACS user linked to this user identity, it is used. Otherwise, one is created.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -615,6 +738,9 @@ namespace Seam.Api
                 DetectNewTags = detectNewTags;
             }
 
+            /// <summary>
+            /// When true, activates tag registration mode on the encoder to detect new, unregistered tags. When false, only detects existing tags already registered in the system. Defaults to false.
+            /// </summary>
             [DataMember(Name = "detect_new_tags", IsRequired = false, EmitDefaultValue = false)]
             public bool? DetectNewTags { get; set; }
 
@@ -649,6 +775,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -672,6 +801,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// </summary>
         public ActionAttempt ScanToAssignCredential(ScanToAssignCredentialRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -684,6 +816,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// </summary>
         public ActionAttempt ScanToAssignCredential(
             string acsEncoderId = default,
             string? acsUserId = default,
@@ -701,6 +836,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// </summary>
         public async Task<ActionAttempt> ScanToAssignCredentialAsync(
             ScanToAssignCredentialRequest request
         )
@@ -717,6 +855,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// </summary>
         public async Task<ActionAttempt> ScanToAssignCredentialAsync(
             string acsEncoderId = default,
             string? acsUserId = default,

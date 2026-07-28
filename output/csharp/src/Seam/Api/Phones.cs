@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Deactivate a Phone.
+        /// </summary>
         [DataContract(Name = "deactivateRequest_request")]
         public class DeactivateRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// Device ID of the phone that you want to deactivate.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -52,6 +58,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deactivates a phone, which is useful, for example, if a user has lost their phone. For more information, see [App User Lost Phone Process](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity#app-user-lost-phone-process).
+        /// </summary>
         public void Deactivate(DeactivateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -59,11 +68,17 @@ namespace Seam.Api
             _seam.Post<object>("/phones/deactivate", requestOptions);
         }
 
+        /// <summary>
+        /// Deactivates a phone, which is useful, for example, if a user has lost their phone. For more information, see [App User Lost Phone Process](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity#app-user-lost-phone-process).
+        /// </summary>
         public void Deactivate(string deviceId = default)
         {
             Deactivate(new DeactivateRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Deactivates a phone, which is useful, for example, if a user has lost their phone. For more information, see [App User Lost Phone Process](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity#app-user-lost-phone-process).
+        /// </summary>
         public async Task DeactivateAsync(DeactivateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -71,11 +86,17 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/phones/deactivate", requestOptions);
         }
 
+        /// <summary>
+        /// Deactivates a phone, which is useful, for example, if a user has lost their phone. For more information, see [App User Lost Phone Process](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity#app-user-lost-phone-process).
+        /// </summary>
         public async Task DeactivateAsync(string deviceId = default)
         {
             await DeactivateAsync(new DeactivateRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Request parameters for Get a Phone.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -87,6 +108,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// Device ID of the phone that you want to get.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -121,6 +145,9 @@ namespace Seam.Api
                 Phone = phone;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "phone", IsRequired = false, EmitDefaultValue = false)]
             public Phone Phone { get; set; }
 
@@ -144,6 +171,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [phone](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity).
+        /// </summary>
         public Phone Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -151,11 +181,17 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/phones/get", requestOptions).Data.Phone;
         }
 
+        /// <summary>
+        /// Returns a specified [phone](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity).
+        /// </summary>
         public Phone Get(string deviceId = default)
         {
             return Get(new GetRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Returns a specified [phone](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity).
+        /// </summary>
         public async Task<Phone> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -163,11 +199,17 @@ namespace Seam.Api
             return (await _seam.PostAsync<GetResponse>("/phones/get", requestOptions)).Data.Phone;
         }
 
+        /// <summary>
+        /// Returns a specified [phone](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity).
+        /// </summary>
         public async Task<Phone> GetAsync(string deviceId = default)
         {
             return (await GetAsync(new GetRequest(deviceId: deviceId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Phones.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -183,9 +225,15 @@ namespace Seam.Api
                 OwnerUserIdentityId = ownerUserIdentityId;
             }
 
+            /// <summary>
+            /// ID of the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) by which you want to filter the list of returned phones.
+            /// </summary>
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity that represents the owner by which you want to filter the list of returned phones.
+            /// </summary>
             [DataMember(
                 Name = "owner_user_identity_id",
                 IsRequired = false,
@@ -224,6 +272,9 @@ namespace Seam.Api
                 Phones = phones;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "phones", IsRequired = false, EmitDefaultValue = false)]
             public List<Phone> Phones { get; set; }
 
@@ -247,6 +298,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [phones](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity). To filter the list of returned phones by a specific owner user identity or credential, include the `owner_user_identity_id` or `acs_credential_id`, respectively, in the request body.
+        /// </summary>
         public List<Phone> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -254,6 +308,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/phones/list", requestOptions).Data.Phones;
         }
 
+        /// <summary>
+        /// Returns a list of all [phones](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity). To filter the list of returned phones by a specific owner user identity or credential, include the `owner_user_identity_id` or `acs_credential_id`, respectively, in the request body.
+        /// </summary>
         public List<Phone> List(
             string? acsCredentialId = default,
             string? ownerUserIdentityId = default
@@ -267,6 +324,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [phones](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity). To filter the list of returned phones by a specific owner user identity or credential, include the `owner_user_identity_id` or `acs_credential_id`, respectively, in the request body.
+        /// </summary>
         public async Task<List<Phone>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -276,6 +336,9 @@ namespace Seam.Api
                 .Phones;
         }
 
+        /// <summary>
+        /// Returns a list of all [phones](https://docs.seam.co/capability-guides/mobile-access/managing-phones-for-a-user-identity). To filter the list of returned phones by a specific owner user identity or credential, include the `owner_user_identity_id` or `acs_credential_id`, respectively, in the request body.
+        /// </summary>
         public async Task<List<Phone>> ListAsync(
             string? acsCredentialId = default,
             string? ownerUserIdentityId = default
