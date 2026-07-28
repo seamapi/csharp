@@ -213,41 +213,44 @@ namespace Seam.Model
             [EnumMember(Value = "kisi_lock")]
             KisiLock = 29,
 
+            [EnumMember(Value = "aqara_lock")]
+            AqaraLock = 30,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 30,
+            KeynestKey = 31,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 31,
+            NoiseawareActivityZone = 32,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 32,
+            MinutSensor = 33,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 33,
+            EcobeeThermostat = 34,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 34,
+            NestThermostat = 35,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 35,
+            HoneywellResideoThermostat = 36,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 36,
+            TadoThermostat = 37,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 37,
+            SensiThermostat = 38,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 38,
+            SmartthingsThermostat = 39,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 39,
+            IosPhone = 40,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 40,
+            AndroidPhone = 41,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 41,
+            RingCamera = 42,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -2849,6 +2852,7 @@ namespace Seam.Model
             DevicePropertiesSaltoSpaceCredentialServiceMetadata? saltoSpaceCredentialServiceMetadata =
                 default,
             DevicePropertiesAkilesMetadata? akilesMetadata = default,
+            DevicePropertiesAqaraMetadata? aqaraMetadata = default,
             DevicePropertiesAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             DevicePropertiesAugustMetadata? augustMetadata = default,
             DevicePropertiesAvigilonAltaMetadata? avigilonAltaMetadata = default,
@@ -2956,6 +2960,7 @@ namespace Seam.Model
             AssaAbloyCredentialServiceMetadata = assaAbloyCredentialServiceMetadata;
             SaltoSpaceCredentialServiceMetadata = saltoSpaceCredentialServiceMetadata;
             AkilesMetadata = akilesMetadata;
+            AqaraMetadata = aqaraMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             AugustMetadata = augustMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
@@ -3211,6 +3216,9 @@ namespace Seam.Model
 
         [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAkilesMetadata? AkilesMetadata { get; set; }
+
+        [DataMember(Name = "aqara_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesAqaraMetadata? AqaraMetadata { get; set; }
 
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
@@ -4005,6 +4013,77 @@ namespace Seam.Model
 
         [DataMember(Name = "product_name", IsRequired = false, EmitDefaultValue = false)]
         public string? ProductName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesAqaraMetadata_model")]
+    public class DevicePropertiesAqaraMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesAqaraMetadata() { }
+
+        public DevicePropertiesAqaraMetadata(
+            string? deviceName = default,
+            string? did = default,
+            string? firmwareVersion = default,
+            string? model = default,
+            float? modelType = default,
+            string? parentDid = default,
+            string? positionId = default,
+            string? timeZone = default
+        )
+        {
+            DeviceName = deviceName;
+            Did = did;
+            FirmwareVersion = firmwareVersion;
+            Model = model;
+            ModelType = modelType;
+            ParentDid = parentDid;
+            PositionId = positionId;
+            TimeZone = timeZone;
+        }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "did", IsRequired = false, EmitDefaultValue = false)]
+        public string? Did { get; set; }
+
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
+
+        [DataMember(Name = "model_type", IsRequired = false, EmitDefaultValue = false)]
+        public float? ModelType { get; set; }
+
+        [DataMember(Name = "parent_did", IsRequired = false, EmitDefaultValue = false)]
+        public string? ParentDid { get; set; }
+
+        [DataMember(Name = "position_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? PositionId { get; set; }
+
+        [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
+        public string? TimeZone { get; set; }
 
         public override string ToString()
         {
@@ -5973,12 +6052,14 @@ namespace Seam.Model
             string? deviceId = default,
             string? deviceName = default,
             bool? dualSetpointsNotSupported = default,
+            List<float>? enforcedSetpointRangeCelsius = default,
             string? productType = default
         )
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
             DualSetpointsNotSupported = dualSetpointsNotSupported;
+            EnforcedSetpointRangeCelsius = enforcedSetpointRangeCelsius;
             ProductType = productType;
         }
 
@@ -5994,6 +6075,13 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? DualSetpointsNotSupported { get; set; }
+
+        [DataMember(
+            Name = "enforced_setpoint_range_celsius",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<float>? EnforcedSetpointRangeCelsius { get; set; }
 
         [DataMember(Name = "product_type", IsRequired = false, EmitDefaultValue = false)]
         public string? ProductType { get; set; }

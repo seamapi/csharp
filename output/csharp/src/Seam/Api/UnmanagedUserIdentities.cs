@@ -58,13 +58,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(UserIdentity userIdentity = default)
+            public GetResponse(UnmanagedUserIdentity userIdentity = default)
             {
                 UserIdentity = userIdentity;
             }
 
             [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
-            public UserIdentity UserIdentity { get; set; }
+            public UnmanagedUserIdentity UserIdentity { get; set; }
 
             public override string ToString()
             {
@@ -86,7 +86,7 @@ namespace Seam.Api
             }
         }
 
-        public UserIdentity Get(GetRequest request)
+        public UnmanagedUserIdentity Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -95,12 +95,12 @@ namespace Seam.Api
                 .Data.UserIdentity;
         }
 
-        public UserIdentity Get(string userIdentityId = default)
+        public UnmanagedUserIdentity Get(string userIdentityId = default)
         {
             return Get(new GetRequest(userIdentityId: userIdentityId));
         }
 
-        public async Task<UserIdentity> GetAsync(GetRequest request)
+        public async Task<UnmanagedUserIdentity> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -111,7 +111,7 @@ namespace Seam.Api
                 .UserIdentity;
         }
 
-        public async Task<UserIdentity> GetAsync(string userIdentityId = default)
+        public async Task<UnmanagedUserIdentity> GetAsync(string userIdentityId = default)
         {
             return (await GetAsync(new GetRequest(userIdentityId: userIdentityId)));
         }
@@ -173,13 +173,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<object> userIdentities = default)
+            public ListResponse(List<UnmanagedUserIdentity> userIdentities = default)
             {
                 UserIdentities = userIdentities;
             }
 
             [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
-            public List<object> UserIdentities { get; set; }
+            public List<UnmanagedUserIdentity> UserIdentities { get; set; }
 
             public override string ToString()
             {
@@ -201,7 +201,7 @@ namespace Seam.Api
             }
         }
 
-        public List<object> List(ListRequest request)
+        public List<UnmanagedUserIdentity> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -210,7 +210,7 @@ namespace Seam.Api
                 .Data.UserIdentities;
         }
 
-        public List<object> List(
+        public List<UnmanagedUserIdentity> List(
             string? createdBefore = default,
             int? limit = default,
             string? pageCursor = default,
@@ -227,7 +227,7 @@ namespace Seam.Api
             );
         }
 
-        public async Task<List<object>> ListAsync(ListRequest request)
+        public async Task<List<UnmanagedUserIdentity>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -241,7 +241,7 @@ namespace Seam.Api
                 .UserIdentities;
         }
 
-        public async Task<List<object>> ListAsync(
+        public async Task<List<UnmanagedUserIdentity>> ListAsync(
             string? createdBefore = default,
             int? limit = default,
             string? pageCursor = default,

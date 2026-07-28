@@ -8,93 +8,56 @@ using Seam.Model;
 
 namespace Seam.Model
 {
-    [DataContract(Name = "seamModel_acsAccessGroup_model")]
-    public class AcsAccessGroup
+    [DataContract(Name = "seamModel_unmanagedAccessGrant_model")]
+    public class UnmanagedAccessGrant
     {
         [JsonConstructorAttribute]
-        protected AcsAccessGroup() { }
+        protected UnmanagedAccessGrant() { }
 
-        public AcsAccessGroup(
-            AcsAccessGroup.AccessGroupTypeEnum accessGroupType = default,
-            string accessGroupTypeDisplayName = default,
-            AcsAccessGroupAccessSchedule? accessSchedule = default,
-            string acsAccessGroupId = default,
-            string acsSystemId = default,
-            string connectedAccountId = default,
+        public UnmanagedAccessGrant(
+            string accessGrantId = default,
+            List<string> accessMethodIds = default,
             string createdAt = default,
             string displayName = default,
-            List<AcsAccessGroupErrors> errors = default,
-            AcsAccessGroup.ExternalTypeEnum externalType = default,
-            string externalTypeDisplayName = default,
-            bool isManaged = default,
-            string name = default,
-            List<AcsAccessGroupPendingMutations> pendingMutations = default,
-            List<AcsAccessGroupWarnings> warnings = default,
+            string? endsAt = default,
+            List<UnmanagedAccessGrantErrors> errors = default,
+            List<string> locationIds = default,
+            string? name = default,
+            List<UnmanagedAccessGrantPendingMutations> pendingMutations = default,
+            List<UnmanagedAccessGrantRequestedAccessMethods> requestedAccessMethods = default,
+            string? reservationKey = default,
+            List<string> spaceIds = default,
+            string startsAt = default,
+            string? userIdentityId = default,
+            List<UnmanagedAccessGrantWarnings> warnings = default,
             string workspaceId = default
         )
         {
-            AccessGroupType = accessGroupType;
-            AccessGroupTypeDisplayName = accessGroupTypeDisplayName;
-            AccessSchedule = accessSchedule;
-            AcsAccessGroupId = acsAccessGroupId;
-            AcsSystemId = acsSystemId;
-            ConnectedAccountId = connectedAccountId;
+            AccessGrantId = accessGrantId;
+            AccessMethodIds = accessMethodIds;
             CreatedAt = createdAt;
             DisplayName = displayName;
+            EndsAt = endsAt;
             Errors = errors;
-            ExternalType = externalType;
-            ExternalTypeDisplayName = externalTypeDisplayName;
-            IsManaged = isManaged;
+            LocationIds = locationIds;
             Name = name;
             PendingMutations = pendingMutations;
+            RequestedAccessMethods = requestedAccessMethods;
+            ReservationKey = reservationKey;
+            SpaceIds = spaceIds;
+            StartsAt = startsAt;
+            UserIdentityId = userIdentityId;
             Warnings = warnings;
             WorkspaceId = workspaceId;
         }
 
-        [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum AccessGroupTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "pti_unit")]
-            PtiUnit = 1,
-
-            [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 2,
-
-            [EnumMember(Value = "salto_ks_access_group")]
-            SaltoKsAccessGroup = 3,
-
-            [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 4,
-
-            [EnumMember(Value = "salto_space_group")]
-            SaltoSpaceGroup = 5,
-
-            [EnumMember(Value = "dormakaba_community_access_group")]
-            DormakabaCommunityAccessGroup = 6,
-
-            [EnumMember(Value = "dormakaba_ambiance_access_group")]
-            DormakabaAmbianceAccessGroup = 7,
-
-            [EnumMember(Value = "avigilon_alta_group")]
-            AvigilonAltaGroup = 8,
-
-            [EnumMember(Value = "kisi_access_group")]
-            KisiAccessGroup = 9,
-
-            [EnumMember(Value = "akiles_member_group")]
-            AkilesMemberGroup = 10,
-        }
-
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AcsAccessGroupErrorsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupErrorsFailedToCreateOnAcsSystem),
-            "failed_to_create_on_acs_system"
+            typeof(UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods),
+            "cannot_create_requested_access_methods"
         )]
-        public abstract class AcsAccessGroupErrors
+        public abstract class UnmanagedAccessGrantErrors
         {
             public abstract string ErrorCode { get; }
 
@@ -105,31 +68,39 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_acsAccessGroupErrorsFailedToCreateOnAcsSystem_model")]
-        public class AcsAccessGroupErrorsFailedToCreateOnAcsSystem : AcsAccessGroupErrors
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods_model"
+        )]
+        public class UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods
+            : UnmanagedAccessGrantErrors
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupErrorsFailedToCreateOnAcsSystem() { }
+            protected UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods() { }
 
-            public AcsAccessGroupErrorsFailedToCreateOnAcsSystem(
+            public UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods(
                 string createdAt = default,
                 string errorCode = default,
-                string message = default
+                string message = default,
+                List<string>? missingDeviceIds = default
             )
             {
                 CreatedAt = createdAt;
                 ErrorCode = errorCode;
                 Message = message;
+                MissingDeviceIds = missingDeviceIds;
             }
 
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "failed_to_create_on_acs_system";
+            public override string ErrorCode { get; } = "cannot_create_requested_access_methods";
 
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
+
+            [DataMember(Name = "missing_device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? MissingDeviceIds { get; set; }
 
             public override string ToString()
             {
@@ -151,13 +122,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_acsAccessGroupErrorsUnrecognized_model")]
-        public class AcsAccessGroupErrorsUnrecognized : AcsAccessGroupErrors
+        [DataContract(Name = "seamModel_unmanagedAccessGrantErrorsUnrecognized_model")]
+        public class UnmanagedAccessGrantErrorsUnrecognized : UnmanagedAccessGrantErrors
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupErrorsUnrecognized() { }
+            protected UnmanagedAccessGrantErrorsUnrecognized() { }
 
-            public AcsAccessGroupErrorsUnrecognized(
+            public UnmanagedAccessGrantErrorsUnrecognized(
                 string errorCode = default,
                 string createdAt = default,
                 string message = default
@@ -197,72 +168,17 @@ namespace Seam.Model
             }
         }
 
-        [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum ExternalTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "pti_unit")]
-            PtiUnit = 1,
-
-            [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 2,
-
-            [EnumMember(Value = "salto_ks_access_group")]
-            SaltoKsAccessGroup = 3,
-
-            [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 4,
-
-            [EnumMember(Value = "salto_space_group")]
-            SaltoSpaceGroup = 5,
-
-            [EnumMember(Value = "dormakaba_community_access_group")]
-            DormakabaCommunityAccessGroup = 6,
-
-            [EnumMember(Value = "dormakaba_ambiance_access_group")]
-            DormakabaAmbianceAccessGroup = 7,
-
-            [EnumMember(Value = "avigilon_alta_group")]
-            AvigilonAltaGroup = 8,
-
-            [EnumMember(Value = "kisi_access_group")]
-            KisiAccessGroup = 9,
-
-            [EnumMember(Value = "akiles_member_group")]
-            AkilesMemberGroup = 10,
-        }
-
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AcsAccessGroupPendingMutationsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantPendingMutationsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate),
-            "deferring_user_membership_update"
+            typeof(UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes),
+            "updating_access_times"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsUpdatingEntranceMembership),
-            "updating_entrance_membership"
+            typeof(UnmanagedAccessGrantPendingMutationsUpdatingSpaces),
+            "updating_spaces"
         )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsUpdatingUserMembership),
-            "updating_user_membership"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsUpdatingAccessSchedule),
-            "updating_access_schedule"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsUpdatingGroupInformation),
-            "updating_group_information"
-        )]
-        [JsonSubtypes.KnownSubType(
-            typeof(AcsAccessGroupPendingMutationsDeferringDeletion),
-            "deferring_deletion"
-        )]
-        [JsonSubtypes.KnownSubType(typeof(AcsAccessGroupPendingMutationsDeleting), "deleting")]
-        [JsonSubtypes.KnownSubType(typeof(AcsAccessGroupPendingMutationsCreating), "creating")]
-        public abstract class AcsAccessGroupPendingMutations
+        public abstract class UnmanagedAccessGrantPendingMutations
         {
             public abstract string MutationCode { get; }
 
@@ -273,160 +189,19 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_acsAccessGroupPendingMutationsCreating_model")]
-        public class AcsAccessGroupPendingMutationsCreating : AcsAccessGroupPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpaces_model")]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpaces
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsCreating() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpaces() { }
 
-            public AcsAccessGroupPendingMutationsCreating(
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpaces(
                 string createdAt = default,
-                string message = default,
-                string mutationCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                MutationCode = mutationCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "creating";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_acsAccessGroupPendingMutationsDeleting_model")]
-        public class AcsAccessGroupPendingMutationsDeleting : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsDeleting() { }
-
-            public AcsAccessGroupPendingMutationsDeleting(
-                string createdAt = default,
-                string message = default,
-                string mutationCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                MutationCode = mutationCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "deleting";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_acsAccessGroupPendingMutationsDeferringDeletion_model")]
-        public class AcsAccessGroupPendingMutationsDeferringDeletion
-            : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsDeferringDeletion() { }
-
-            public AcsAccessGroupPendingMutationsDeferringDeletion(
-                string createdAt = default,
-                string message = default,
-                string mutationCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                MutationCode = mutationCode;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "deferring_deletion";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingGroupInformation_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingGroupInformation
-            : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingGroupInformation() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingGroupInformation(
-                string createdAt = default,
-                AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom from = default,
+                UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AcsAccessGroupPendingMutationsUpdatingGroupInformationTo to = default
+                UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo to = default
             )
             {
                 CreatedAt = createdAt;
@@ -440,16 +215,16 @@ namespace Seam.Model
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom From { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "updating_group_information";
+            public override string MutationCode { get; } = "updating_spaces";
 
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingGroupInformationTo To { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo To { get; set; }
 
             public override string ToString()
             {
@@ -472,22 +247,22 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingGroupInformationFrom_model"
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpacesFrom_model"
         )]
-        public class AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingGroupInformationFrom(
-                string? name = default
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom(
+                List<string> deviceIds = default
             )
             {
-                Name = name;
+                DeviceIds = deviceIds;
             }
 
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
+            [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string> DeviceIds { get; set; }
 
             public override string ToString()
             {
@@ -510,20 +285,27 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingGroupInformationTo_model"
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpacesTo_model"
         )]
-        public class AcsAccessGroupPendingMutationsUpdatingGroupInformationTo
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingGroupInformationTo() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingGroupInformationTo(string? name = default)
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo(
+                string? commonCodeKey = default,
+                List<string> deviceIds = default
+            )
             {
-                Name = name;
+                CommonCodeKey = commonCodeKey;
+                DeviceIds = deviceIds;
             }
 
-            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-            public string? Name { get; set; }
+            [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonCodeKey { get; set; }
+
+            [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string> DeviceIds { get; set; }
 
             public override string ToString()
             {
@@ -546,22 +328,24 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingAccessSchedule_model"
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimes_model"
         )]
-        public class AcsAccessGroupPendingMutationsUpdatingAccessSchedule
-            : AcsAccessGroupPendingMutations
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingAccessSchedule() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingAccessSchedule(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes(
+                List<string> accessMethodIds = default,
                 string createdAt = default,
-                AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom from = default,
+                UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo to = default
+                UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo to = default
             )
             {
+                AccessMethodIds = accessMethodIds;
                 CreatedAt = createdAt;
                 From = from;
                 Message = message;
@@ -569,20 +353,23 @@ namespace Seam.Model
                 To = to;
             }
 
+            [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string> AccessMethodIds { get; set; }
+
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom From { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "updating_access_schedule";
+            public override string MutationCode { get; } = "updating_access_times";
 
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo To { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo To { get; set; }
 
             public override string ToString()
             {
@@ -605,14 +392,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingAccessScheduleFrom_model"
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom_model"
         )]
-        public class AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingAccessScheduleFrom(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -648,14 +435,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingAccessScheduleTo_model"
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo_model"
         )]
-        public class AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingAccessScheduleTo(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -690,356 +477,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingUserMembership_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingUserMembership
-            : AcsAccessGroupPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessGrantPendingMutationsUnrecognized_model")]
+        public class UnmanagedAccessGrantPendingMutationsUnrecognized
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingUserMembership() { }
+            protected UnmanagedAccessGrantPendingMutationsUnrecognized() { }
 
-            public AcsAccessGroupPendingMutationsUpdatingUserMembership(
-                string createdAt = default,
-                AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom from = default,
-                string message = default,
-                string mutationCode = default,
-                AcsAccessGroupPendingMutationsUpdatingUserMembershipTo to = default
-            )
-            {
-                CreatedAt = createdAt;
-                From = from;
-                Message = message;
-                MutationCode = mutationCode;
-                To = to;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom From { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "updating_user_membership";
-
-            [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingUserMembershipTo To { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingUserMembershipFrom_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingUserMembershipFrom(
-                string? acsUserId = default
-            )
-            {
-                AcsUserId = acsUserId;
-            }
-
-            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsUserId { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingUserMembershipTo_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingUserMembershipTo
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingUserMembershipTo() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingUserMembershipTo(
-                string? acsUserId = default
-            )
-            {
-                AcsUserId = acsUserId;
-            }
-
-            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsUserId { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingEntranceMembership_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingEntranceMembership
-            : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingEntranceMembership() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingEntranceMembership(
-                string createdAt = default,
-                AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom from = default,
-                string message = default,
-                string mutationCode = default,
-                AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo to = default
-            )
-            {
-                CreatedAt = createdAt;
-                From = from;
-                Message = message;
-                MutationCode = mutationCode;
-                To = to;
-            }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom From { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "updating_entrance_membership";
-
-            [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo To { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipFrom(
-                string? acsEntranceId = default
-            )
-            {
-                AcsEntranceId = acsEntranceId;
-            }
-
-            [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsEntranceId { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsUpdatingEntranceMembershipTo_model"
-        )]
-        public class AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo() { }
-
-            public AcsAccessGroupPendingMutationsUpdatingEntranceMembershipTo(
-                string? acsEntranceId = default
-            )
-            {
-                AcsEntranceId = acsEntranceId;
-            }
-
-            [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsEntranceId { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(
-            Name = "seamModel_acsAccessGroupPendingMutationsDeferringUserMembershipUpdate_model"
-        )]
-        public class AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate
-            : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate() { }
-
-            public AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate(
-                string acsUserId = default,
-                string createdAt = default,
-                string message = default,
-                string mutationCode = default,
-                AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate.VariantEnum variant =
-                    default
-            )
-            {
-                AcsUserId = acsUserId;
-                CreatedAt = createdAt;
-                Message = message;
-                MutationCode = mutationCode;
-                Variant = variant;
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum VariantEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "adding")]
-                Adding = 1,
-
-                [EnumMember(Value = "removing")]
-                Removing = 2,
-            }
-
-            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-            public string AcsUserId { get; set; }
-
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string MutationCode { get; } = "deferring_user_membership_update";
-
-            [DataMember(Name = "variant", IsRequired = false, EmitDefaultValue = false)]
-            public AcsAccessGroupPendingMutationsDeferringUserMembershipUpdate.VariantEnum Variant { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_acsAccessGroupPendingMutationsUnrecognized_model")]
-        public class AcsAccessGroupPendingMutationsUnrecognized : AcsAccessGroupPendingMutations
-        {
-            [JsonConstructorAttribute]
-            protected AcsAccessGroupPendingMutationsUnrecognized() { }
-
-            public AcsAccessGroupPendingMutationsUnrecognized(
+            public UnmanagedAccessGrantPendingMutationsUnrecognized(
                 string mutationCode = default,
                 string createdAt = default,
                 string message = default
@@ -1079,27 +524,537 @@ namespace Seam.Model
             }
         }
 
-        [DataMember(Name = "access_group_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsAccessGroup.AccessGroupTypeEnum AccessGroupType { get; set; }
-
-        [DataMember(
-            Name = "access_group_type_display_name",
-            IsRequired = false,
-            EmitDefaultValue = false
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated),
+            "device_time_constraints_violated"
         )]
-        public string AccessGroupTypeDisplayName { get; set; }
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes),
+            "device_does_not_support_access_codes"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsRequestedCodeUnavailable),
+            "requested_code_unavailable"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsUpdatingAccessTimes),
+            "updating_access_times"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsOverprovisionedAccess),
+            "overprovisioned_access"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsUnderprovisionedAccess),
+            "underprovisioned_access"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        public abstract class UnmanagedAccessGrantWarnings
+        {
+            public abstract string WarningCode { get; }
 
-        [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
-        public AcsAccessGroupAccessSchedule? AccessSchedule { get; set; }
+            public abstract string CreatedAt { get; set; }
 
-        [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsAccessGroupId { get; set; }
+            public abstract string Message { get; set; }
 
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string AcsSystemId { get; set; }
+            public abstract override string ToString();
+        }
 
-        [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
-        public string ConnectedAccountId { get; set; }
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsBeingDeleted_model")]
+        public class UnmanagedAccessGrantWarningsBeingDeleted : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsBeingDeleted() { }
+
+            public UnmanagedAccessGrantWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUnderprovisionedAccess_model")]
+        public class UnmanagedAccessGrantWarningsUnderprovisionedAccess
+            : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsUnderprovisionedAccess() { }
+
+            public UnmanagedAccessGrantWarningsUnderprovisionedAccess(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "underprovisioned_access";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsOverprovisionedAccess_model")]
+        public class UnmanagedAccessGrantWarningsOverprovisionedAccess
+            : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsOverprovisionedAccess() { }
+
+            public UnmanagedAccessGrantWarningsOverprovisionedAccess(
+                string createdAt = default,
+                List<UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices>? failedDevices =
+                    default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                FailedDevices = failedDevices;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "failed_devices", IsRequired = false, EmitDefaultValue = false)]
+            public List<UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices>? FailedDevices { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "overprovisioned_access";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices_model"
+        )]
+        public class UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices() { }
+
+            public UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices(
+                string deviceId = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                DeviceId = deviceId;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
+            public string ErrorCode { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUpdatingAccessTimes_model")]
+        public class UnmanagedAccessGrantWarningsUpdatingAccessTimes : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsUpdatingAccessTimes() { }
+
+            public UnmanagedAccessGrantWarningsUpdatingAccessTimes(
+                List<string> accessMethodIds = default,
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                AccessMethodIds = accessMethodIds;
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string> AccessMethodIds { get; set; }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "updating_access_times";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsRequestedCodeUnavailable_model"
+        )]
+        public class UnmanagedAccessGrantWarningsRequestedCodeUnavailable
+            : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsRequestedCodeUnavailable() { }
+
+            public UnmanagedAccessGrantWarningsRequestedCodeUnavailable(
+                string createdAt = default,
+                string deviceId = default,
+                string message = default,
+                string newCode = default,
+                string originalCode = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                DeviceId = deviceId;
+                Message = message;
+                NewCode = newCode;
+                OriginalCode = originalCode;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+            public string NewCode { get; set; }
+
+            [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+            public string OriginalCode { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "requested_code_unavailable";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes_model"
+        )]
+        public class UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes
+            : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes() { }
+
+            public UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes(
+                string createdAt = default,
+                string deviceId = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                DeviceId = deviceId;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "device_does_not_support_access_codes";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsDeviceTimeConstraintsViolated_model"
+        )]
+        public class UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated
+            : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated() { }
+
+            public UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated(
+                string createdAt = default,
+                string deviceId = default,
+                string message = default,
+                UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum reason =
+                    default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                DeviceId = deviceId;
+                Message = message;
+                Reason = reason;
+                WarningCode = warningCode;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ReasonEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "duration_exceeds_max")]
+                DurationExceedsMax = 1,
+
+                [EnumMember(Value = "times_do_not_match_slots")]
+                TimesDoNotMatchSlots = 2,
+
+                [EnumMember(Value = "ongoing_not_supported")]
+                OngoingNotSupported = 3,
+            }
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "reason", IsRequired = false, EmitDefaultValue = false)]
+            public UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "device_time_constraints_violated";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUnrecognized_model")]
+        public class UnmanagedAccessGrantWarningsUnrecognized : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsUnrecognized() { }
+
+            public UnmanagedAccessGrantWarningsUnrecognized(
+                string warningCode = default,
+                string createdAt = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                CreatedAt = createdAt;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
+        public string AccessGrantId { get; set; }
+
+        [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string> AccessMethodIds { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
@@ -1107,30 +1062,42 @@ namespace Seam.Model
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<AcsAccessGroupErrors> Errors { get; set; }
+        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+        public string? EndsAt { get; set; }
 
-        [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
-        public AcsAccessGroup.ExternalTypeEnum ExternalType { get; set; }
+        [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
+        public List<UnmanagedAccessGrantErrors> Errors { get; set; }
+
+        [DataMember(Name = "location_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string> LocationIds { get; set; }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
+
+        [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
+        public List<UnmanagedAccessGrantPendingMutations> PendingMutations { get; set; }
 
         [DataMember(
-            Name = "external_type_display_name",
+            Name = "requested_access_methods",
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public string ExternalTypeDisplayName { get; set; }
+        public List<UnmanagedAccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
 
-        [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsManaged { get; set; }
+        [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+        public string? ReservationKey { get; set; }
 
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string Name { get; set; }
+        [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string> SpaceIds { get; set; }
 
-        [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
-        public List<AcsAccessGroupPendingMutations> PendingMutations { get; set; }
+        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+        public string StartsAt { get; set; }
+
+        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserIdentityId { get; set; }
 
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<AcsAccessGroupWarnings> Warnings { get; set; }
+        public List<UnmanagedAccessGrantWarnings> Warnings { get; set; }
 
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -1155,82 +1122,73 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_acsAccessGroupAccessSchedule_model")]
-    public class AcsAccessGroupAccessSchedule
+    [DataContract(Name = "seamModel_unmanagedAccessGrantRequestedAccessMethods_model")]
+    public class UnmanagedAccessGrantRequestedAccessMethods
     {
         [JsonConstructorAttribute]
-        protected AcsAccessGroupAccessSchedule() { }
+        protected UnmanagedAccessGrantRequestedAccessMethods() { }
 
-        public AcsAccessGroupAccessSchedule(string? endsAt = default, string startsAt = default)
-        {
-            EndsAt = endsAt;
-            StartsAt = startsAt;
-        }
-
-        [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
-        public string? EndsAt { get; set; }
-
-        [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
-        public string StartsAt { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_acsAccessGroupWarnings_model")]
-    public class AcsAccessGroupWarnings
-    {
-        [JsonConstructorAttribute]
-        protected AcsAccessGroupWarnings() { }
-
-        public AcsAccessGroupWarnings(
+        public UnmanagedAccessGrantRequestedAccessMethods(
+            string? code = default,
+            List<string> createdAccessMethodIds = default,
             string createdAt = default,
-            string message = default,
-            AcsAccessGroupWarnings.WarningCodeEnum warningCode = default
+            string displayName = default,
+            int? instantKeyMaxUseCount = default,
+            UnmanagedAccessGrantRequestedAccessMethods.ModeEnum mode = default
         )
         {
+            Code = code;
+            CreatedAccessMethodIds = createdAccessMethodIds;
             CreatedAt = createdAt;
-            Message = message;
-            WarningCode = warningCode;
+            DisplayName = displayName;
+            InstantKeyMaxUseCount = instantKeyMaxUseCount;
+            Mode = mode;
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
-        public enum WarningCodeEnum
+        public enum ModeEnum
         {
             [EnumMember(Value = "unrecognized")]
             Unrecognized = 0,
 
-            [EnumMember(Value = "unknown_issue_with_acs_access_group")]
-            UnknownIssueWithAcsAccessGroup = 1,
+            [EnumMember(Value = "code")]
+            Code = 1,
 
-            [EnumMember(Value = "being_deleted")]
-            BeingDeleted = 2,
+            [EnumMember(Value = "card")]
+            Card = 2,
+
+            [EnumMember(Value = "mobile_key")]
+            MobileKey = 3,
+
+            [EnumMember(Value = "cloud_key")]
+            CloudKey = 4,
         }
+
+        [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
+        public string? Code { get; set; }
+
+        [DataMember(
+            Name = "created_access_method_ids",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public List<string> CreatedAccessMethodIds { get; set; }
 
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
-        public AcsAccessGroupWarnings.WarningCodeEnum WarningCode { get; set; }
+        [DataMember(
+            Name = "instant_key_max_use_count",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public int? InstantKeyMaxUseCount { get; set; }
+
+        [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
+        public UnmanagedAccessGrantRequestedAccessMethods.ModeEnum Mode { get; set; }
 
         public override string ToString()
         {

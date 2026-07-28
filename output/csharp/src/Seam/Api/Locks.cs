@@ -388,6 +388,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "kisi_lock")]
                 KisiLock = 29,
+
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 30,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -482,6 +485,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "kisi_lock")]
                 KisiLock = 29,
+
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 30,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -568,20 +574,23 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles")]
                 Akiles = 26,
 
+                [EnumMember(Value = "aqara")]
+                Aqara = 27,
+
                 [EnumMember(Value = "korelock")]
-                Korelock = 27,
+                Korelock = 28,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 28,
+                Smartthings = 29,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 29,
+                Ultraloq = 30,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 30,
+                Omnitec = 31,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 31,
+                Kisi = 32,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

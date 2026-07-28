@@ -250,41 +250,44 @@ namespace Seam.Api
                 [EnumMember(Value = "kisi_lock")]
                 KisiLock = 29,
 
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 30,
+
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 30,
+                KeynestKey = 31,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 31,
+                NoiseawareActivityZone = 32,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 32,
+                MinutSensor = 33,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 33,
+                EcobeeThermostat = 34,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 34,
+                NestThermostat = 35,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 35,
+                HoneywellResideoThermostat = 36,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 36,
+                TadoThermostat = 37,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 37,
+                SensiThermostat = 38,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 38,
+                SmartthingsThermostat = 39,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 39,
+                IosPhone = 40,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 40,
+                AndroidPhone = 41,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 41,
+                RingCamera = 42,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -380,41 +383,44 @@ namespace Seam.Api
                 [EnumMember(Value = "kisi_lock")]
                 KisiLock = 29,
 
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 30,
+
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 30,
+                KeynestKey = 31,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 31,
+                NoiseawareActivityZone = 32,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 32,
+                MinutSensor = 33,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 33,
+                EcobeeThermostat = 34,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 34,
+                NestThermostat = 35,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 35,
+                HoneywellResideoThermostat = 36,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 36,
+                TadoThermostat = 37,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 37,
+                SensiThermostat = 38,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 38,
+                SmartthingsThermostat = 39,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 39,
+                IosPhone = 40,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 40,
+                AndroidPhone = 41,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 41,
+                RingCamera = 42,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -513,65 +519,68 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles")]
                 Akiles = 30,
 
+                [EnumMember(Value = "aqara")]
+                Aqara = 31,
+
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 31,
+                Ecobee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 32,
+                HoneywellResideo = 33,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 33,
+                Keynest = 34,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 34,
+                Korelock = 35,
 
                 [EnumMember(Value = "minut")]
-                Minut = 35,
+                Minut = 36,
 
                 [EnumMember(Value = "nest")]
-                Nest = 36,
+                Nest = 37,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 37,
+                Noiseaware = 38,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 38,
+                Sensi = 39,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 39,
+                Smartthings = 40,
 
                 [EnumMember(Value = "tado")]
-                Tado = 40,
+                Tado = 41,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 41,
+                Ultraloq = 42,
 
                 [EnumMember(Value = "ring")]
-                Ring = 42,
+                Ring = 43,
 
                 [EnumMember(Value = "ical")]
-                Ical = 43,
+                Ical = 44,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 44,
+                Lodgify = 45,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 45,
+                Hostaway = 46,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 46,
+                Guesty = 47,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 47,
+                AcuityScheduling = 48,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 48,
+                Omnitec = 49,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 49,
+                Kisi = 50,
 
                 [EnumMember(Value = "slack")]
-                Slack = 50,
+                Slack = 51,
             }
 
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]

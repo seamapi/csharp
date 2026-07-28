@@ -17,6 +17,7 @@ namespace Seam.Model
         public AcsEntrance(
             string acsEntranceId = default,
             string acsSystemId = default,
+            AcsEntranceAkilesMetadata? akilesMetadata = default,
             AcsEntranceAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             AcsEntranceAvigilonAltaMetadata? avigilonAltaMetadata = default,
             AcsEntranceBrivoMetadata? brivoMetadata = default,
@@ -43,6 +44,7 @@ namespace Seam.Model
         {
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
             BrivoMetadata = brivoMetadata;
@@ -383,6 +385,9 @@ namespace Seam.Model
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsEntranceAkilesMetadata? AkilesMetadata { get; set; }
+
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
@@ -472,6 +477,95 @@ namespace Seam.Model
 
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsEntranceWarnings> Warnings { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceAkilesMetadata_model")]
+    public class AcsEntranceAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceAkilesMetadata() { }
+
+        public AcsEntranceAkilesMetadata(
+            List<AcsEntranceAkilesMetadataActions>? actions = default,
+            string? gadgetId = default,
+            string? siteId = default,
+            string? siteName = default
+        )
+        {
+            Actions = actions;
+            GadgetId = gadgetId;
+            SiteId = siteId;
+            SiteName = siteName;
+        }
+
+        [DataMember(Name = "actions", IsRequired = false, EmitDefaultValue = false)]
+        public List<AcsEntranceAkilesMetadataActions>? Actions { get; set; }
+
+        [DataMember(Name = "gadget_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? GadgetId { get; set; }
+
+        [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? SiteId { get; set; }
+
+        [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? SiteName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceAkilesMetadataActions_model")]
+    public class AcsEntranceAkilesMetadataActions
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceAkilesMetadataActions() { }
+
+        public AcsEntranceAkilesMetadataActions(string? id = default, string? name = default)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string? Id { get; set; }
+
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
 
         public override string ToString()
         {

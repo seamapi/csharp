@@ -20,6 +20,7 @@ namespace Seam.Model
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
+            AcsCredentialAkilesMetadata? akilesMetadata = default,
             AcsCredentialAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? cardNumber = default,
             string? code = default,
@@ -50,6 +51,7 @@ namespace Seam.Model
             AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
@@ -138,6 +140,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_credential")]
             KisiCredential = 13,
+
+            [EnumMember(Value = "akiles_credential")]
+            AkilesCredential = 14,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
@@ -511,6 +516,9 @@ namespace Seam.Model
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
 
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsCredentialAkilesMetadata? AkilesMetadata { get; set; }
+
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
             IsRequired = false,
@@ -603,6 +611,40 @@ namespace Seam.Model
 
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsCredentialAkilesMetadata_model")]
+    public class AcsCredentialAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsCredentialAkilesMetadata() { }
+
+        public AcsCredentialAkilesMetadata(string? memberPinId = default)
+        {
+            MemberPinId = memberPinId;
+        }
+
+        [DataMember(Name = "member_pin_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MemberPinId { get; set; }
 
         public override string ToString()
         {

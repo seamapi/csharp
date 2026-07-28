@@ -637,6 +637,8 @@ namespace Seam.Api
                 string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? deviceId = default,
+                int? limit = default,
+                string? pageCursor = default,
                 string? spaceId = default
             )
             {
@@ -645,6 +647,8 @@ namespace Seam.Api
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 DeviceId = deviceId;
+                Limit = limit;
+                PageCursor = pageCursor;
                 SpaceId = spaceId;
             }
 
@@ -662,6 +666,12 @@ namespace Seam.Api
 
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
+
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -735,6 +745,8 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? spaceId = default
         )
         {
@@ -745,6 +757,8 @@ namespace Seam.Api
                     accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     deviceId: deviceId,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     spaceId: spaceId
                 )
             );
@@ -765,6 +779,8 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? spaceId = default
         )
         {
@@ -776,6 +792,8 @@ namespace Seam.Api
                         accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         deviceId: deviceId,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         spaceId: spaceId
                     )
                 )

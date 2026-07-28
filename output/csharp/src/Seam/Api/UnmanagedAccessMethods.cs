@@ -58,13 +58,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(AccessMethod accessMethod = default)
+            public GetResponse(UnmanagedAccessMethod accessMethod = default)
             {
                 AccessMethod = accessMethod;
             }
 
             [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethod AccessMethod { get; set; }
+            public UnmanagedAccessMethod AccessMethod { get; set; }
 
             public override string ToString()
             {
@@ -86,7 +86,7 @@ namespace Seam.Api
             }
         }
 
-        public AccessMethod Get(GetRequest request)
+        public UnmanagedAccessMethod Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -95,12 +95,12 @@ namespace Seam.Api
                 .Data.AccessMethod;
         }
 
-        public AccessMethod Get(string accessMethodId = default)
+        public UnmanagedAccessMethod Get(string accessMethodId = default)
         {
             return Get(new GetRequest(accessMethodId: accessMethodId));
         }
 
-        public async Task<AccessMethod> GetAsync(GetRequest request)
+        public async Task<UnmanagedAccessMethod> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -111,7 +111,7 @@ namespace Seam.Api
                 .AccessMethod;
         }
 
-        public async Task<AccessMethod> GetAsync(string accessMethodId = default)
+        public async Task<UnmanagedAccessMethod> GetAsync(string accessMethodId = default)
         {
             return (await GetAsync(new GetRequest(accessMethodId: accessMethodId)));
         }
@@ -173,13 +173,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<object> accessMethods = default)
+            public ListResponse(List<UnmanagedAccessMethod> accessMethods = default)
             {
                 AccessMethods = accessMethods;
             }
 
             [DataMember(Name = "access_methods", IsRequired = false, EmitDefaultValue = false)]
-            public List<object> AccessMethods { get; set; }
+            public List<UnmanagedAccessMethod> AccessMethods { get; set; }
 
             public override string ToString()
             {
@@ -201,7 +201,7 @@ namespace Seam.Api
             }
         }
 
-        public List<object> List(ListRequest request)
+        public List<UnmanagedAccessMethod> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -210,7 +210,7 @@ namespace Seam.Api
                 .Data.AccessMethods;
         }
 
-        public List<object> List(
+        public List<UnmanagedAccessMethod> List(
             string accessGrantId = default,
             string? acsEntranceId = default,
             string? deviceId = default,
@@ -227,7 +227,7 @@ namespace Seam.Api
             );
         }
 
-        public async Task<List<object>> ListAsync(ListRequest request)
+        public async Task<List<UnmanagedAccessMethod>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -241,7 +241,7 @@ namespace Seam.Api
                 .AccessMethods;
         }
 
-        public async Task<List<object>> ListAsync(
+        public async Task<List<UnmanagedAccessMethod>> ListAsync(
             string accessGrantId = default,
             string? acsEntranceId = default,
             string? deviceId = default,

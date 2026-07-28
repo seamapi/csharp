@@ -58,13 +58,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(AccessGrant accessGrant = default)
+            public GetResponse(UnmanagedAccessGrant accessGrant = default)
             {
                 AccessGrant = accessGrant;
             }
 
             [DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrant AccessGrant { get; set; }
+            public UnmanagedAccessGrant AccessGrant { get; set; }
 
             public override string ToString()
             {
@@ -86,7 +86,7 @@ namespace Seam.Api
             }
         }
 
-        public AccessGrant Get(GetRequest request)
+        public UnmanagedAccessGrant Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -95,12 +95,12 @@ namespace Seam.Api
                 .Data.AccessGrant;
         }
 
-        public AccessGrant Get(string accessGrantId = default)
+        public UnmanagedAccessGrant Get(string accessGrantId = default)
         {
             return Get(new GetRequest(accessGrantId: accessGrantId));
         }
 
-        public async Task<AccessGrant> GetAsync(GetRequest request)
+        public async Task<UnmanagedAccessGrant> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -111,7 +111,7 @@ namespace Seam.Api
                 .AccessGrant;
         }
 
-        public async Task<AccessGrant> GetAsync(string accessGrantId = default)
+        public async Task<UnmanagedAccessGrant> GetAsync(string accessGrantId = default)
         {
             return (await GetAsync(new GetRequest(accessGrantId: accessGrantId)));
         }
@@ -183,13 +183,13 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<object> accessGrants = default)
+            public ListResponse(List<UnmanagedAccessGrant> accessGrants = default)
             {
                 AccessGrants = accessGrants;
             }
 
             [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
-            public List<object> AccessGrants { get; set; }
+            public List<UnmanagedAccessGrant> AccessGrants { get; set; }
 
             public override string ToString()
             {
@@ -211,7 +211,7 @@ namespace Seam.Api
             }
         }
 
-        public List<object> List(ListRequest request)
+        public List<UnmanagedAccessGrant> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -220,7 +220,7 @@ namespace Seam.Api
                 .Data.AccessGrants;
         }
 
-        public List<object> List(
+        public List<UnmanagedAccessGrant> List(
             string? acsEntranceId = default,
             string? acsSystemId = default,
             float? limit = default,
@@ -241,7 +241,7 @@ namespace Seam.Api
             );
         }
 
-        public async Task<List<object>> ListAsync(ListRequest request)
+        public async Task<List<UnmanagedAccessGrant>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
@@ -252,7 +252,7 @@ namespace Seam.Api
                 .AccessGrants;
         }
 
-        public async Task<List<object>> ListAsync(
+        public async Task<List<UnmanagedAccessGrant>> ListAsync(
             string? acsEntranceId = default,
             string? acsSystemId = default,
             float? limit = default,

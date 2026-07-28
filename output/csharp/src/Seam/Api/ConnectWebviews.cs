@@ -263,17 +263,20 @@ namespace Seam.Api
                 [EnumMember(Value = "kisi")]
                 Kisi = 62,
 
+                [EnumMember(Value = "aqara")]
+                Aqara = 63,
+
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 63,
+                YaleAccess = 64,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 64,
+                HidCm = 65,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 65,
+                GoogleNest = 66,
 
                 [EnumMember(Value = "slack")]
-                Slack = 66,
+                Slack = 67,
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
