@@ -1,0 +1,10 @@
+# Code generated from the blueprint by the codegen.
+
+output/csharp/src/Seam/Api/** linguist-generated
+output/csharp/src/Seam/Model/** linguist-generated
+output/csharp/src/Seam/Seam.csproj linguist-generated
+
+# Static, schema-independent sources kept alongside the generated code.
+
+output/csharp/src/Seam/Model/AsbtractModelSchema.cs -linguist-generated
+output/csharp/src/Seam/Model/SafeStringEnumConverter.cs -linguist-generated
