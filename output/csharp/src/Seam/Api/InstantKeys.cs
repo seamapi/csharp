@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Delete an Instant Key.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 InstantKeyId = instantKeyId;
             }
 
+            /// <summary>
+            /// ID of the Instant Key that you want to delete.
+            /// </summary>
             [DataMember(Name = "instant_key_id", IsRequired = true, EmitDefaultValue = false)]
             public string InstantKeyId { get; set; }
 
@@ -52,6 +58,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -59,11 +68,17 @@ namespace Seam.Api
             _seam.Post<object>("/instant_keys/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public void Delete(string instantKeyId = default)
         {
             Delete(new DeleteRequest(instantKeyId: instantKeyId));
         }
 
+        /// <summary>
+        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -71,11 +86,17 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/instant_keys/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task DeleteAsync(string instantKeyId = default)
         {
             await DeleteAsync(new DeleteRequest(instantKeyId: instantKeyId));
         }
 
+        /// <summary>
+        /// Request parameters for Get an Instant Key.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -88,9 +109,15 @@ namespace Seam.Api
                 InstantKeyUrl = instantKeyUrl;
             }
 
+            /// <summary>
+            /// ID of the instant key to get.
+            /// </summary>
             [DataMember(Name = "instant_key_id", IsRequired = false, EmitDefaultValue = false)]
             public string? InstantKeyId { get; set; }
 
+            /// <summary>
+            /// URL of the instant key to get.
+            /// </summary>
             [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
             public string? InstantKeyUrl { get; set; }
 
@@ -125,6 +152,9 @@ namespace Seam.Api
                 InstantKey = instantKey;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "instant_key", IsRequired = false, EmitDefaultValue = false)]
             public InstantKey InstantKey { get; set; }
 
@@ -148,6 +178,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public InstantKey Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -155,11 +188,17 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/instant_keys/get", requestOptions).Data.InstantKey;
         }
 
+        /// <summary>
+        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public InstantKey Get(string? instantKeyId = default, string? instantKeyUrl = default)
         {
             return Get(new GetRequest(instantKeyId: instantKeyId, instantKeyUrl: instantKeyUrl));
         }
 
+        /// <summary>
+        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task<InstantKey> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -169,6 +208,9 @@ namespace Seam.Api
                 .InstantKey;
         }
 
+        /// <summary>
+        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task<InstantKey> GetAsync(
             string? instantKeyId = default,
             string? instantKeyUrl = default
@@ -181,6 +223,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Instant Keys.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -192,6 +237,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity by which you want to filter the list of Instant Keys.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -226,6 +274,9 @@ namespace Seam.Api
                 InstantKeys = instantKeys;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "instant_keys", IsRequired = false, EmitDefaultValue = false)]
             public List<InstantKey> InstantKeys { get; set; }
 
@@ -249,6 +300,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public List<InstantKey> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -256,11 +310,17 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/instant_keys/list", requestOptions).Data.InstantKeys;
         }
 
+        /// <summary>
+        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public List<InstantKey> List(string? userIdentityId = default)
         {
             return List(new ListRequest(userIdentityId: userIdentityId));
         }
 
+        /// <summary>
+        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task<List<InstantKey>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -270,6 +330,9 @@ namespace Seam.Api
                 .InstantKeys;
         }
 
+        /// <summary>
+        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// </summary>
         public async Task<List<InstantKey>> ListAsync(string? userIdentityId = default)
         {
             return (await ListAsync(new ListRequest(userIdentityId: userIdentityId)));

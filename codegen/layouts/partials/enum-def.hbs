@@ -1,9 +1,11 @@
+{{> documentation}}
 {{#if isString}}
 [JsonConverter(typeof(SafeStringEnumConverter))]
 {{/if}}
 public enum {{name}}
 {
 {{#each members}}
+{{> documentation}}
 [EnumMember(Value = {{#if ../isString}}"{{value}}"{{else}}{{value}}{{/if}})]
 {{identifier}} = {{assign}},
 {{#unless @last}}

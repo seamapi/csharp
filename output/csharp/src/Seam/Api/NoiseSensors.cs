@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for List Noise Sensors.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -61,6 +64,9 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// Device type of the noise sensors that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypeEnum
             {
@@ -74,6 +80,9 @@ namespace Seam.Api
                 MinutSensor = 2,
             }
 
+            /// <summary>
+            /// Device types of the noise sensors that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypesEnum
             {
@@ -87,6 +96,9 @@ namespace Seam.Api
                 MinutSensor = 2,
             }
 
+            /// <summary>
+            /// Manufacturers of the noise sensors that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ManufacturerEnum
             {
@@ -100,9 +112,15 @@ namespace Seam.Api
                 Noiseaware = 2,
             }
 
+            /// <summary>
+            /// ID of the Connect Webview for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
 
+            /// <summary>
+            /// ID of the connected account for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -110,6 +128,9 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Array of IDs of the connected accounts for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
                 IsRequired = false,
@@ -117,39 +138,73 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
+            /// <summary>
+            /// Timestamp by which to limit returned devices. Returns devices created before this timestamp.
+            /// </summary>
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
 
+            /// <summary>
+            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// Array of device IDs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            /// <summary>
+            /// Device type of the noise sensors that you want to list.
+            /// </summary>
             [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
 
+            /// <summary>
+            /// Device types of the noise sensors that you want to list.
+            /// </summary>
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of devices to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Manufacturers of the noise sensors that you want to list.
+            /// </summary>
             [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned devices to include all records that satisfy a partial match using `device_id` (full or partial UUID prefix, minimum 4 characters), `connected_account_id`, `display_name`, `custom_metadata` or `location.location_name`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
+            [Obsolete("Use `space_id`.")]
             [DataMember(
                 Name = "unstable_location_id",
                 IsRequired = false,
@@ -157,6 +212,9 @@ namespace Seam.Api
             )]
             public string? UnstableLocationId { get; set; }
 
+            /// <summary>
+            /// Your own internal user ID for the user for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -191,6 +249,9 @@ namespace Seam.Api
                 Devices = devices;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
             public List<Device> Devices { get; set; }
 
@@ -214,6 +275,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// </summary>
         public List<Device> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -221,6 +285,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/noise_sensors/list", requestOptions).Data.Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -262,6 +329,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -271,6 +341,9 @@ namespace Seam.Api
                 .Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
             string? connectedAccountId = default,

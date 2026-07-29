@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an Event.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -35,12 +38,21 @@ namespace Seam.Api
                 EventType = eventType;
             }
 
+            /// <summary>
+            /// Unique identifier for the device that triggered the event that you want to get.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// Unique identifier for the event that you want to get.
+            /// </summary>
             [DataMember(Name = "event_id", IsRequired = false, EmitDefaultValue = false)]
             public string? EventId { get; set; }
 
+            /// <summary>
+            /// Type of the event that you want to get.
+            /// </summary>
             [DataMember(Name = "event_type", IsRequired = false, EmitDefaultValue = false)]
             public string? EventType { get; set; }
 
@@ -75,6 +87,9 @@ namespace Seam.Api
                 Event = event_;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "event", IsRequired = false, EmitDefaultValue = false)]
             public Event Event { get; set; }
 
@@ -98,6 +113,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// </summary>
         public Event Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -105,6 +123,9 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/events/get", requestOptions).Data.Event;
         }
 
+        /// <summary>
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// </summary>
         public Event Get(
             string? deviceId = default,
             string? eventId = default,
@@ -114,6 +135,9 @@ namespace Seam.Api
             return Get(new GetRequest(deviceId: deviceId, eventId: eventId, eventType: eventType));
         }
 
+        /// <summary>
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// </summary>
         public async Task<Event> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -121,6 +145,9 @@ namespace Seam.Api
             return (await _seam.PostAsync<GetResponse>("/events/get", requestOptions)).Data.Event;
         }
 
+        /// <summary>
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// </summary>
         public async Task<Event> GetAsync(
             string? deviceId = default,
             string? eventId = default,
@@ -134,6 +161,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Events.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -201,6 +231,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// Type of the events that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum EventTypeEnum
             {
@@ -535,6 +568,9 @@ namespace Seam.Api
                 SpaceDeleted = 109,
             }
 
+            /// <summary>
+            /// Types of the events that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum EventTypesEnum
             {
@@ -869,51 +905,99 @@ namespace Seam.Api
                 SpaceDeleted = 109,
             }
 
+            /// <summary>
+            /// ID of the access code for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessCodeId { get; set; }
 
+            /// <summary>
+            /// IDs of the access codes for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_code_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessCodeIds { get; set; }
 
+            /// <summary>
+            /// ID of the access grant for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantId { get; set; }
 
+            /// <summary>
+            /// IDs of the access grants for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_grant_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessGrantIds { get; set; }
 
+            /// <summary>
+            /// ID of the access method for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessMethodId { get; set; }
 
+            /// <summary>
+            /// IDs of the access methods for which you want to list events.
+            /// </summary>
             [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AccessMethodIds { get; set; }
 
+            /// <summary>
+            /// ID of the ACS access group for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_access_group_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsAccessGroupId { get; set; }
 
+            /// <summary>
+            /// ID of the ACS credential for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
 
+            /// <summary>
+            /// ID of the ACS encoder for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEncoderId { get; set; }
 
+            /// <summary>
+            /// ID of the ACS entrance for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
+            /// <summary>
+            /// ID of the access system for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
 
+            /// <summary>
+            /// IDs of the access systems for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
 
+            /// <summary>
+            /// ID of the ACS user for which you want to list events.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
 
+            /// <summary>
+            /// Lower and upper timestamps to define an exclusive interval containing the events that you want to list. You must include `since` or `between`.
+            /// </summary>
             [DataMember(Name = "between", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequestBetween>? Between { get; set; }
 
+            /// <summary>
+            /// ID of the Connect Webview for which you want to list events.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
 
+            /// <summary>
+            /// ID of the connected account for which you want to list events.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -921,39 +1005,75 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list events.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// ID of the device for which you want to list events.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// IDs of the devices for which you want to list events.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            /// <summary>
+            /// IDs of the events that you want to list.
+            /// </summary>
             [DataMember(Name = "event_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? EventIds { get; set; }
 
+            /// <summary>
+            /// Type of the events that you want to list.
+            /// </summary>
             [DataMember(Name = "event_type", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.EventTypeEnum? EventType { get; set; }
 
+            /// <summary>
+            /// Types of the events that you want to list.
+            /// </summary>
             [DataMember(Name = "event_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.EventTypesEnum>? EventTypes { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of events to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Timestamp to indicate the beginning generation time for the events that you want to list. You must include `since` or `between`.
+            /// </summary>
             [DataMember(Name = "since", IsRequired = false, EmitDefaultValue = false)]
             public string? Since { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to list events.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
+            /// <summary>
+            /// IDs of the spaces for which you want to list events.
+            /// </summary>
             [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? SpaceIds { get; set; }
 
+            /// <summary>
+            /// Offset for the events that you want to list.
+            /// </summary>
             [DataMember(Name = "unstable_offset", IsRequired = false, EmitDefaultValue = false)]
             public float? UnstableOffset { get; set; }
 
+            /// <summary>
+            /// ID of the user identity for which you want to list events.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -1014,6 +1134,9 @@ namespace Seam.Api
                 Events = events;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
             public List<Event> Events { get; set; }
 
@@ -1037,6 +1160,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// </summary>
         public List<Event> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1044,6 +1170,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/events/list", requestOptions).Data.Events;
         }
 
+        /// <summary>
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// </summary>
         public List<Event> List(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,
@@ -1109,6 +1238,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// </summary>
         public async Task<List<Event>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1118,6 +1250,9 @@ namespace Seam.Api
                 .Events;
         }
 
+        /// <summary>
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// </summary>
         public async Task<List<Event>> ListAsync(
             string? accessCodeId = default,
             List<string>? accessCodeIds = default,

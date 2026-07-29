@@ -8,6 +8,9 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents an access method for an Access Grant. Access methods describe the modes of access, such as PIN codes, plastic cards, and mobile keys. For a mobile key, the access method also stores the URL for the associated Instant Key.
+    /// </summary>
     [DataContract(Name = "seamModel_accessMethod_model")]
     public class AccessMethod
     {
@@ -86,12 +89,18 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_issue";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -135,9 +144,15 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -161,6 +176,9 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ModeEnum
         {
@@ -226,18 +244,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Previous device configuration.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsProvisioningAccessFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "provisioning_access";
 
+            /// <summary>
+            /// New device configuration.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsProvisioningAccessTo To { get; set; }
 
@@ -274,6 +304,9 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// Previous device IDs where access was provisioned.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -310,6 +343,9 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// New device IDs where access is being provisioned.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -354,18 +390,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Previous device configuration.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsRevokingAccessFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "revoking_access";
 
+            /// <summary>
+            /// New device configuration.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsRevokingAccessTo To { get; set; }
 
@@ -400,6 +448,9 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// Previous device IDs where access existed.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -434,6 +485,9 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// New device IDs where access should remain.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -478,18 +532,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Previous access time configuration.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_times";
 
+            /// <summary>
+            /// New access time configuration.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AccessMethodPendingMutationsUpdatingAccessTimesTo To { get; set; }
 
@@ -528,9 +594,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// Previous end time for access.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Previous start time for access.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -569,9 +641,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// New end time for access.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// New start time for access.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -615,9 +693,15 @@ namespace Seam.Model
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -681,9 +765,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -727,9 +817,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -775,12 +871,21 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// ID of the original access method from which this backup access method was split, if applicable.
+            /// </summary>
             [DataMember(
                 Name = "original_access_method_id",
                 IsRequired = false,
@@ -828,9 +933,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -877,9 +988,15 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -903,18 +1020,33 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// ID of the access method.
+        /// </summary>
         [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessMethodId { get; set; }
 
+        /// <summary>
+        /// Token of the client session associated with the access method.
+        /// </summary>
         [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
         public string? ClientSessionToken { get; set; }
 
+        /// <summary>
+        /// The actual PIN code for code access methods.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// Date and time at which the access method was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the customization profile associated with the access method.
+        /// </summary>
         [DataMember(
             Name = "customization_profile_id",
             IsRequired = false,
@@ -922,42 +1054,81 @@ namespace Seam.Model
         )]
         public string? CustomizationProfileId { get; set; }
 
+        /// <summary>
+        /// Display name of the access method.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodErrors> Errors { get; set; }
 
+        /// <summary>
+        /// URL of the Instant Key for mobile key access methods.
+        /// </summary>
         [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string? InstantKeyUrl { get; set; }
 
+        /// <summary>
+        /// Indicates whether an existing card credential must be assigned to this access method before it can be issued. Only applies to card-mode access methods on systems that support credential assignment.
+        /// </summary>
         [DataMember(Name = "is_assignment_required", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsAssignmentRequired { get; set; }
 
+        /// <summary>
+        /// Indicates whether encoding with an card encoder is required to issue or reissue the plastic card associated with the access method.
+        /// </summary>
         [DataMember(Name = "is_encoding_required", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsEncodingRequired { get; set; }
 
+        /// <summary>
+        /// Indicates whether the access method has been issued.
+        /// </summary>
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
         public bool IsIssued { get; set; }
 
+        /// <summary>
+        /// Indicates whether the access method is ready for card assignment. This is true when the access method is in card mode, has not yet been issued, and the system supports credential assignment.
+        /// </summary>
         [DataMember(Name = "is_ready_for_assignment", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsReadyForAssignment { get; set; }
 
+        /// <summary>
+        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// </summary>
         [DataMember(Name = "is_ready_for_encoding", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsReadyForEncoding { get; set; }
 
+        /// <summary>
+        /// Date and time at which the access method was issued.
+        /// </summary>
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
 
+        /// <summary>
+        /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// </summary>
         [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
         public AccessMethod.ModeEnum Mode { get; set; }
 
+        /// <summary>
+        /// Pending mutations for the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
+        /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodPendingMutations> PendingMutations { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodWarnings> Warnings { get; set; }
 
+        /// <summary>
+        /// ID of the Seam workspace associated with the access method.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 

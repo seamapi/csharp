@@ -8,6 +8,9 @@ using Seam.Model;
 
 namespace Seam.Model
 {
+    /// <summary>
+    /// Represents an Access Grant. Access Grants enable you to grant a user identity access to spaces, entrances, and devices through one or more access methods, such as mobile keys, plastic cards, and PIN codes. You can create an Access Grant for an existing user identity, or you can create a new user identity *while* creating the new Access Grant.
+    /// </summary>
     [DataContract(Name = "seamModel_accessGrant_model")]
     public class AccessGrant
     {
@@ -95,15 +98,24 @@ namespace Seam.Model
                 MissingDeviceIds = missingDeviceIds;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "cannot_create_requested_access_methods";
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// IDs of the devices that did not receive an access code at grant creation. Use these to identify which specific devices failed when the message reports a partial failure.
+            /// </summary>
             [DataMember(Name = "missing_device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? MissingDeviceIds { get; set; }
 
@@ -147,9 +159,15 @@ namespace Seam.Model
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -215,18 +233,30 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Previous location configuration.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingSpacesFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_spaces";
 
+            /// <summary>
+            /// New location configuration.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingSpacesTo To { get; set; }
 
@@ -261,6 +291,9 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// Previous device IDs where access codes existed.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -299,9 +332,15 @@ namespace Seam.Model
                 DeviceIds = deviceIds;
             }
 
+            /// <summary>
+            /// Common code key to ensure PIN code reuse across devices.
+            /// </summary>
             [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonCodeKey { get; set; }
 
+            /// <summary>
+            /// New device IDs where access codes should be created.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> DeviceIds { get; set; }
 
@@ -348,21 +387,36 @@ namespace Seam.Model
                 To = to;
             }
 
+            /// <summary>
+            /// IDs of the access methods being updated.
+            /// </summary>
             [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> AccessMethodIds { get; set; }
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Previous access time configuration.
+            /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "updating_access_times";
 
+            /// <summary>
+            /// New access time configuration.
+            /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrantPendingMutationsUpdatingAccessTimesTo To { get; set; }
 
@@ -401,9 +455,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// Previous end time for access.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Previous start time for access.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -442,9 +502,15 @@ namespace Seam.Model
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// New end time for access.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// New start time for access.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
@@ -488,9 +554,15 @@ namespace Seam.Model
             [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
             public override string MutationCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -569,9 +641,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -615,9 +693,15 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -664,12 +748,21 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Devices whose access codes could not be revoked during reconciliation. Present when the provider does not support revoking an offline access code (e.g. Dormakaba oracode with exhausted override budget).
+            /// </summary>
             [DataMember(Name = "failed_devices", IsRequired = false, EmitDefaultValue = false)]
             public List<AccessGrantWarningsOverprovisionedAccessFailedDevices>? FailedDevices { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -715,12 +808,21 @@ namespace Seam.Model
                 Message = message;
             }
 
+            /// <summary>
+            /// Device whose access code could not be revoked.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Reason the access code could not be revoked (e.g. `offline_access_code_not_revocable`).
+            /// </summary>
             [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
             public string ErrorCode { get; set; }
 
+            /// <summary>
+            /// Human-readable description of why revocation failed.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public string Message { get; set; }
 
@@ -763,12 +865,21 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// IDs of the access methods being updated.
+            /// </summary>
             [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string> AccessMethodIds { get; set; }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -818,18 +929,33 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// ID of the device where the requested code was unavailable.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// The new PIN code that was assigned instead.
+            /// </summary>
             [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
             public string NewCode { get; set; }
 
+            /// <summary>
+            /// The originally requested PIN code that was unavailable.
+            /// </summary>
             [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
             public string OriginalCode { get; set; }
 
@@ -875,12 +1001,21 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// ID of the device that does not support access codes.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -928,6 +1063,9 @@ namespace Seam.Model
                 WarningCode = warningCode;
             }
 
+            /// <summary>
+            /// Specific reason why the grant&apos;s times are not programmable on the device.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ReasonEnum
             {
@@ -944,15 +1082,27 @@ namespace Seam.Model
                 OngoingNotSupported = 3,
             }
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// ID of the device whose time constraints the access grant violates.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
+            /// <summary>
+            /// Specific reason why the grant&apos;s times are not programmable on the device.
+            /// </summary>
             [DataMember(Name = "reason", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; set; }
 
@@ -999,9 +1149,15 @@ namespace Seam.Model
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "unrecognized";
 
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
             [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
             public override string Message { get; set; }
 
@@ -1025,21 +1181,39 @@ namespace Seam.Model
             }
         }
 
+        /// <summary>
+        /// ID of the Access Grant.
+        /// </summary>
         [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
         public string AccessGrantId { get; set; }
 
+        /// <summary>
+        /// Unique key for the access grant within the workspace.
+        /// </summary>
         [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessGrantKey { get; set; }
 
+        /// <summary>
+        /// IDs of the access methods created for the Access Grant.
+        /// </summary>
         [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessMethodIds { get; set; }
 
+        /// <summary>
+        /// Client Session Token. Only returned if the Access Grant has a mobile_key access method.
+        /// </summary>
         [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
         public string? ClientSessionToken { get; set; }
 
+        /// <summary>
+        /// Date and time at which the Access Grant was created.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// ID of the customization profile associated with the Access Grant.
+        /// </summary>
         [DataMember(
             Name = "customization_profile_id",
             IsRequired = false,
@@ -1047,27 +1221,49 @@ namespace Seam.Model
         )]
         public string? CustomizationProfileId { get; set; }
 
+        /// <summary>
+        /// Display name of the Access Grant.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Date and time at which the Access Grant ends.
+        /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
+        /// <summary>
+        /// Errors associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessGrantErrors> Errors { get; set; }
 
+        /// <summary>
+        /// Instant Key URL. Only returned if the Access Grant has a single mobile_key access_method.
+        /// </summary>
         [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
         public string? InstantKeyUrl { get; set; }
 
+        [Obsolete("Use `space_ids`.")]
         [DataMember(Name = "location_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> LocationIds { get; set; }
 
+        /// <summary>
+        /// Name of the Access Grant. If not provided, the display name will be computed.
+        /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
+        /// <summary>
+        /// List of pending mutations for the access grant. This shows updates that are in progress.
+        /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessGrantPendingMutations> PendingMutations { get; set; }
 
+        /// <summary>
+        /// Access methods that the user requested for the Access Grant.
+        /// </summary>
         [DataMember(
             Name = "requested_access_methods",
             IsRequired = false,
@@ -1075,21 +1271,39 @@ namespace Seam.Model
         )]
         public List<AccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
 
+        /// <summary>
+        /// Reservation key for the access grant.
+        /// </summary>
         [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ReservationKey { get; set; }
 
+        /// <summary>
+        /// IDs of the spaces to which the Access Grant gives access.
+        /// </summary>
         [DataMember(Name = "space_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> SpaceIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the Access Grant starts.
+        /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
 
+        /// <summary>
+        /// ID of user identity to which the Access Grant gives access.
+        /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string UserIdentityId { get; set; }
 
+        /// <summary>
+        /// Warnings associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessGrantWarnings> Warnings { get; set; }
 
+        /// <summary>
+        /// ID of the Seam workspace associated with the Access Grant.
+        /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
 
@@ -1136,6 +1350,9 @@ namespace Seam.Model
             Mode = mode;
         }
 
+        /// <summary>
+        /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ModeEnum
         {
@@ -1155,9 +1372,15 @@ namespace Seam.Model
             CloudKey = 4,
         }
 
+        /// <summary>
+        /// Specific PIN code to use for this access method. Only applicable when mode is &apos;code&apos;.
+        /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
+        /// <summary>
+        /// IDs of the access methods created for the requested access method.
+        /// </summary>
         [DataMember(
             Name = "created_access_method_ids",
             IsRequired = false,
@@ -1165,12 +1388,21 @@ namespace Seam.Model
         )]
         public List<string> CreatedAccessMethodIds { get; set; }
 
+        /// <summary>
+        /// Date and time at which the requested access method was added to the Access Grant.
+        /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
+        /// <summary>
+        /// Display name of the access method.
+        /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Maximum number of times the instant key can be used. Only applicable when mode is &apos;mobile_key&apos;. Defaults to 1 if not specified.
+        /// </summary>
         [DataMember(
             Name = "instant_key_max_use_count",
             IsRequired = false,
@@ -1178,6 +1410,9 @@ namespace Seam.Model
         )]
         public int? InstantKeyMaxUseCount { get; set; }
 
+        /// <summary>
+        /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// </summary>
         [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
         public AccessGrantRequestedAccessMethods.ModeEnum Mode { get; set; }
 

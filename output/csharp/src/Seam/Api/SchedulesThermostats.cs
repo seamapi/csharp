@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Create a Thermostat Schedule.
+        /// </summary>
         [DataContract(Name = "createRequest_request")]
         public class CreateRequest
         {
@@ -43,18 +46,33 @@ namespace Seam.Api
                 StartsAt = startsAt;
             }
 
+            /// <summary>
+            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the new thermostat schedule.
+            /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = true, EmitDefaultValue = false)]
             public string ClimatePresetKey { get; set; }
 
+            /// <summary>
+            /// ID of the thermostat device for which you want to create a schedule.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Date and time at which the new thermostat schedule ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = true, EmitDefaultValue = false)]
             public string EndsAt { get; set; }
 
+            /// <summary>
+            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the new schedule is active. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// </summary>
             [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsOverrideAllowed { get; set; }
 
+            /// <summary>
+            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// </summary>
             [DataMember(
                 Name = "max_override_period_minutes",
                 IsRequired = false,
@@ -62,9 +80,15 @@ namespace Seam.Api
             )]
             public int? MaxOverridePeriodMinutes { get; set; }
 
+            /// <summary>
+            /// Name of the thermostat schedule.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Date and time at which the new thermostat schedule starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = true, EmitDefaultValue = false)]
             public string StartsAt { get; set; }
 
@@ -99,6 +123,9 @@ namespace Seam.Api
                 ThermostatSchedule = thermostatSchedule;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "thermostat_schedule", IsRequired = false, EmitDefaultValue = false)]
             public ThermostatSchedule ThermostatSchedule { get; set; }
 
@@ -122,6 +149,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public ThermostatSchedule Create(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -131,6 +161,9 @@ namespace Seam.Api
                 .Data.ThermostatSchedule;
         }
 
+        /// <summary>
+        /// Creates a new [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public ThermostatSchedule Create(
             string climatePresetKey = default,
             string deviceId = default,
@@ -154,6 +187,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Creates a new [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task<ThermostatSchedule> CreateAsync(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -168,6 +204,9 @@ namespace Seam.Api
                 .ThermostatSchedule;
         }
 
+        /// <summary>
+        /// Creates a new [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task<ThermostatSchedule> CreateAsync(
             string climatePresetKey = default,
             string deviceId = default,
@@ -193,6 +232,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete a Thermostat Schedule.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -204,6 +246,9 @@ namespace Seam.Api
                 ThermostatScheduleId = thermostatScheduleId;
             }
 
+            /// <summary>
+            /// ID of the thermostat schedule that you want to delete.
+            /// </summary>
             [DataMember(
                 Name = "thermostat_schedule_id",
                 IsRequired = true,
@@ -231,6 +276,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes a [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -238,11 +286,17 @@ namespace Seam.Api
             _seam.Post<object>("/thermostats/schedules/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public void Delete(string thermostatScheduleId = default)
         {
             Delete(new DeleteRequest(thermostatScheduleId: thermostatScheduleId));
         }
 
+        /// <summary>
+        /// Deletes a [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -250,11 +304,17 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/thermostats/schedules/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task DeleteAsync(string thermostatScheduleId = default)
         {
             await DeleteAsync(new DeleteRequest(thermostatScheduleId: thermostatScheduleId));
         }
 
+        /// <summary>
+        /// Request parameters for Get a Thermostat Schedule.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -266,6 +326,9 @@ namespace Seam.Api
                 ThermostatScheduleId = thermostatScheduleId;
             }
 
+            /// <summary>
+            /// ID of the thermostat schedule that you want to get.
+            /// </summary>
             [DataMember(
                 Name = "thermostat_schedule_id",
                 IsRequired = true,
@@ -304,6 +367,9 @@ namespace Seam.Api
                 ThermostatSchedule = thermostatSchedule;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "thermostat_schedule", IsRequired = false, EmitDefaultValue = false)]
             public ThermostatSchedule ThermostatSchedule { get; set; }
 
@@ -327,6 +393,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public ThermostatSchedule Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -336,11 +405,17 @@ namespace Seam.Api
                 .Data.ThermostatSchedule;
         }
 
+        /// <summary>
+        /// Returns a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public ThermostatSchedule Get(string thermostatScheduleId = default)
         {
             return Get(new GetRequest(thermostatScheduleId: thermostatScheduleId));
         }
 
+        /// <summary>
+        /// Returns a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public async Task<ThermostatSchedule> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -352,11 +427,17 @@ namespace Seam.Api
                 .ThermostatSchedule;
         }
 
+        /// <summary>
+        /// Returns a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public async Task<ThermostatSchedule> GetAsync(string thermostatScheduleId = default)
         {
             return (await GetAsync(new GetRequest(thermostatScheduleId: thermostatScheduleId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Thermostat Schedules.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -369,9 +450,15 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// ID of the thermostat device for which you want to list schedules.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// User identifier key by which to filter the list of returned thermostat schedules.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -406,6 +493,9 @@ namespace Seam.Api
                 ThermostatSchedules = thermostatSchedules;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(
                 Name = "thermostat_schedules",
                 IsRequired = false,
@@ -433,6 +523,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [thermostat schedules](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public List<ThermostatSchedule> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -442,6 +535,9 @@ namespace Seam.Api
                 .Data.ThermostatSchedules;
         }
 
+        /// <summary>
+        /// Returns a list of all [thermostat schedules](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public List<ThermostatSchedule> List(
             string deviceId = default,
             string? userIdentifierKey = default
@@ -450,6 +546,9 @@ namespace Seam.Api
             return List(new ListRequest(deviceId: deviceId, userIdentifierKey: userIdentifierKey));
         }
 
+        /// <summary>
+        /// Returns a list of all [thermostat schedules](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task<List<ThermostatSchedule>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -461,6 +560,9 @@ namespace Seam.Api
                 .ThermostatSchedules;
         }
 
+        /// <summary>
+        /// Returns a list of all [thermostat schedules](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// </summary>
         public async Task<List<ThermostatSchedule>> ListAsync(
             string deviceId = default,
             string? userIdentifierKey = default
@@ -473,6 +575,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Update a Thermostat Schedule.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -498,15 +603,27 @@ namespace Seam.Api
                 ThermostatScheduleId = thermostatScheduleId;
             }
 
+            /// <summary>
+            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the thermostat schedule.
+            /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ClimatePresetKey { get; set; }
 
+            /// <summary>
+            /// Date and time at which the thermostat schedule ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
             public string? EndsAt { get; set; }
 
+            /// <summary>
+            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the schedule is active. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// </summary>
             [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsOverrideAllowed { get; set; }
 
+            /// <summary>
+            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// </summary>
             [DataMember(
                 Name = "max_override_period_minutes",
                 IsRequired = false,
@@ -514,12 +631,21 @@ namespace Seam.Api
             )]
             public int? MaxOverridePeriodMinutes { get; set; }
 
+            /// <summary>
+            /// Name of the thermostat schedule.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
+            /// <summary>
+            /// Date and time at which the thermostat schedule starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+            /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
+            /// <summary>
+            /// ID of the thermostat schedule that you want to update.
+            /// </summary>
             [DataMember(
                 Name = "thermostat_schedule_id",
                 IsRequired = true,
@@ -547,6 +673,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public void Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -554,6 +683,9 @@ namespace Seam.Api
             _seam.Post<object>("/thermostats/schedules/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public void Update(
             string? climatePresetKey = default,
             string? endsAt = default,
@@ -577,6 +709,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -584,6 +719,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/thermostats/schedules/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
         public async Task UpdateAsync(
             string? climatePresetKey = default,
             string? endsAt = default,

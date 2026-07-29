@@ -68,14 +68,24 @@ const safeWrapEnumValue = (value: string): string => {
   return isAlpha ? value : `_${value}`
 }
 
-const buildEnum = (propertyName: string, enumValues: string[]): CsEnum => {
+interface EnumValue {
+  name: string
+  description: string
+  deprecationMessage?: string
+}
+
+const buildEnum = (propertyName: string, enumValues: EnumValue[]): CsEnum => {
   const name = pascalCase(`${propertyName}Enum`)
   const members = [
     { identifier: 'Unrecognized', assign: 0, value: 'unrecognized' },
     ...enumValues.map((value, i) => ({
-      identifier: safeWrapEnumValue(pascalCase(value)),
+      identifier: safeWrapEnumValue(pascalCase(value.name)),
       assign: i + 1,
-      value,
+      value: value.name,
+      documentation: value.description,
+      ...(value.deprecationMessage != null
+        ? { obsoleteMessage: value.deprecationMessage }
+        : {}),
     })),
   ]
   return { name, isString: true, members }
@@ -86,6 +96,8 @@ const buildEnum = (propertyName: string, enumValues: string[]): CsEnum => {
 // into class-model properties, nested enums, sibling classes, and unions.
 interface Field {
   name: string
+  description: string
+  deprecationMessage?: string
   isRequired: boolean
   nullable: boolean
   kind: Kind
@@ -93,7 +105,7 @@ interface Field {
 
 type Kind =
   | { t: 'prim'; cs: string }
-  | { t: 'enum'; values: string[] }
+  | { t: 'enum'; values: EnumValue[] }
   | { t: 'object'; fields: Field[] }
   | { t: 'list'; item: Kind }
   | { t: 'union'; discriminator: string; variants: Variant[] }
@@ -104,10 +116,25 @@ type Kind =
 interface Variant {
   value: string
   fields: Field[]
+  description?: string
+  deprecationMessage?: string
 }
 
-const enumValueNames = (values: Array<{ name: string }>): string[] =>
-  values.map((v) => v.name)
+const normalizeEnumValues = (
+  values: Array<{
+    name: string
+    description: string
+    isDeprecated: boolean
+    deprecationMessage: string
+  }>,
+): EnumValue[] =>
+  values.map((value) => ({
+    name: value.name,
+    description: value.description,
+    ...(value.isDeprecated
+      ? { deprecationMessage: value.deprecationMessage || 'Deprecated.' }
+      : {}),
+  }))
 
 // Reads the single discriminator enum value carried by a union variant, e.g.
 // the one member of the variant's `error_code`/`action_type` enum.
@@ -116,7 +143,7 @@ const discriminatorValue = (
   discriminator: string,
 ): string | undefined => {
   const field = fields.find((f) => f.name === discriminator)
-  if (field?.kind.t === 'enum') return field.kind.values[0]
+  if (field?.kind.t === 'enum') return field.kind.values[0]?.name
   return undefined
 }
 
@@ -132,7 +159,7 @@ const normalizeItemKind = (property: Property): Kind => {
     case 'number':
       return { t: 'prim', cs: property.isItemInt ? 'int' : 'float' }
     case 'enum':
-      return { t: 'enum', values: enumValueNames(property.itemEnumValues) }
+      return { t: 'enum', values: normalizeEnumValues(property.itemEnumValues) }
     case 'record':
       return { t: 'prim', cs: 'object' }
     case 'object':
@@ -164,6 +191,10 @@ const normalizeProperty = (property: Property): Field => {
   // nullable, so a value that may be absent or null is representable.
   const base = {
     name: property.name,
+    description: property.description,
+    ...(property.isDeprecated
+      ? { deprecationMessage: property.deprecationMessage || 'Deprecated.' }
+      : {}),
     isRequired: false,
     nullable: property.isNullable || property.isOptional,
   }
@@ -184,7 +215,7 @@ const normalizeProperty = (property: Property): Field => {
     case 'enum':
       return {
         ...base,
-        kind: { t: 'enum', values: enumValueNames(property.values) },
+        kind: { t: 'enum', values: normalizeEnumValues(property.values) },
       }
     case 'object':
       return {
@@ -215,7 +246,10 @@ const normalizeParameterItemKind = (parameter: Parameter): Kind => {
     case 'boolean':
       return { t: 'prim', cs: 'bool' }
     case 'enum':
-      return { t: 'enum', values: enumValueNames(parameter.itemEnumValues) }
+      return {
+        t: 'enum',
+        values: normalizeEnumValues(parameter.itemEnumValues),
+      }
     case 'record':
       return { t: 'prim', cs: 'object' }
     case 'object':
@@ -244,6 +278,10 @@ const normalizeParameter = (parameter: Parameter): Field => {
   // Endpoint parameters carry `isRequired`; optional parameters become nullable.
   const base = {
     name: parameter.name,
+    description: parameter.description,
+    ...(parameter.isDeprecated
+      ? { deprecationMessage: parameter.deprecationMessage || 'Deprecated.' }
+      : {}),
     isRequired: parameter.isRequired,
     nullable: !parameter.isRequired,
   }
@@ -264,7 +302,7 @@ const normalizeParameter = (parameter: Parameter): Field => {
     case 'enum':
       return {
         ...base,
-        kind: { t: 'enum', values: enumValueNames(parameter.values) },
+        kind: { t: 'enum', values: normalizeEnumValues(parameter.values) },
       }
     case 'object':
       return {
@@ -292,6 +330,8 @@ interface BuildClassOptions {
   discriminator?: { name: string; value: string; base: string }
   // Property names lifted onto the union's abstract base; emitted as overrides.
   overrideNames?: Set<string> | undefined
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 interface BuiltClass {
@@ -306,7 +346,14 @@ const buildClass = (
   fields: Field[],
   options: BuildClassOptions,
 ): BuiltClass => {
-  const { resourceType, namespace, discriminator, overrideNames } = options
+  const {
+    resourceType,
+    namespace,
+    discriminator,
+    overrideNames,
+    documentation,
+    obsoleteMessage,
+  } = options
   const nested: CsNested[] = []
   const siblings: CsClass[] = []
   const nestedByKey = new Map<string, CsNested>()
@@ -316,14 +363,22 @@ const buildClass = (
     nestedByKey.set(key, value)
   }
 
-  const csType = (kind: Kind, fieldName: string, nullable: boolean): string => {
+  const csType = (
+    kind: Kind,
+    fieldName: string,
+    nullable: boolean,
+    documentation?: string,
+  ): string => {
     switch (kind.t) {
       case 'prim':
         return withNullable(kind.cs, nullable)
       case 'ref':
         return kind.cs
       case 'enum': {
-        const csEnum = buildEnum(fieldName, kind.values)
+        const csEnum = {
+          ...buildEnum(fieldName, kind.values),
+          ...(documentation != null ? { documentation } : {}),
+        }
         setNested(csEnum.name, { enum: csEnum })
         return withNullable(`${className}.${csEnum.name}`, nullable)
       }
@@ -338,7 +393,7 @@ const buildClass = (
       }
       case 'list':
         return withNullable(
-          `List<${csType(kind.item, fieldName, false)}>`,
+          `List<${csType(kind.item, fieldName, false, documentation)}>`,
           nullable,
         )
       case 'union': {
@@ -368,10 +423,14 @@ const buildClass = (
     pascalName: pascalCase(field.name),
     camelName: camelIdentifier(field.name),
     snakeName: snakeCase(field.name),
-    type: csType(field.kind, field.name, field.nullable),
+    type: csType(field.kind, field.name, field.nullable, field.description),
     isRequired: field.isRequired,
     isOverride: overrideNames?.has(field.name) ?? false,
     getOnly: false,
+    documentation: field.description,
+    ...(field.deprecationMessage != null
+      ? { obsoleteMessage: field.deprecationMessage }
+      : {}),
   })
 
   const properties: CsProperty[] = []
@@ -397,6 +456,8 @@ const buildClass = (
     ...(discriminator != null ? { baseClass: discriminator.base } : {}),
     nested,
     properties,
+    ...(documentation != null ? { documentation } : {}),
+    ...(obsoleteMessage != null ? { obsoleteMessage } : {}),
   }
 
   return { main, siblings, properties }
@@ -454,6 +515,12 @@ const buildUnion = (
         base: className,
       },
       overrideNames,
+      ...(variant.description != null
+        ? { documentation: variant.description }
+        : {}),
+      ...(variant.deprecationMessage != null
+        ? { obsoleteMessage: variant.deprecationMessage }
+        : {}),
     })
     subclasses.push(built.main, ...built.siblings)
     known.push([subName, variant.value])
@@ -508,6 +575,10 @@ export const buildModelFile = (
   const built = buildClass(name, resource.properties.map(normalizeProperty), {
     resourceType: 'model',
     namespace: MODEL_NAMESPACE,
+    documentation: resource.description,
+    ...(resource.isDeprecated
+      ? { obsoleteMessage: resource.deprecationMessage || 'Deprecated.' }
+      : {}),
   })
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
@@ -533,6 +604,13 @@ export const buildActionAttemptFile = (
     actionAttempts.map((actionAttempt) => ({
       value: actionAttempt.actionAttemptType,
       fields: actionAttempt.properties.map(normalizeProperty),
+      description: actionAttempt.description,
+      ...(actionAttempt.isDeprecated
+        ? {
+            deprecationMessage:
+              actionAttempt.deprecationMessage || 'Deprecated.',
+          }
+        : {}),
     })),
   )
 
@@ -545,6 +623,10 @@ export const buildEventFile = (
     events.map((event) => ({
       value: event.eventType,
       fields: event.properties.map(normalizeProperty),
+      description: event.description,
+      ...(event.isDeprecated
+        ? { deprecationMessage: event.deprecationMessage || 'Deprecated.' }
+        : {}),
     })),
   )
 
@@ -591,8 +673,21 @@ export const buildApiFile = (
     const request = buildClass(
       pascalCase(`${endpoint.name}_request`),
       endpoint.request.parameters.map(normalizeParameter),
-      { resourceType: 'request' },
+      {
+        resourceType: 'request',
+        documentation: `Request parameters for ${endpoint.title}.`,
+        ...(endpoint.isDeprecated
+          ? { obsoleteMessage: endpoint.deprecationMessage || 'Deprecated.' }
+          : {}),
+      },
     )
+
+    const routeDocumentation = {
+      documentation: endpoint.description,
+      ...(endpoint.isDeprecated
+        ? { obsoleteMessage: endpoint.deprecationMessage || 'Deprecated.' }
+        : {}),
+    }
 
     const returned = responseReturn(endpoint.response, modelTypes)
     const isVoid = returned == null
@@ -607,6 +702,7 @@ export const buildApiFile = (
         responseTypeArg: 'object',
         isVoid: true,
         params: request.properties,
+        ...routeDocumentation,
       }
     }
 
@@ -619,6 +715,7 @@ export const buildApiFile = (
       [
         {
           name: responseKey,
+          description: endpoint.response.description,
           isRequired: false,
           nullable: false,
           kind: { t: 'ref', cs: returnType },
@@ -639,6 +736,7 @@ export const buildApiFile = (
       returnType,
       isVoid: false,
       params: request.properties,
+      ...routeDocumentation,
     }
   })
 

@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an ACS System.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
             }
 
+            /// <summary>
+            /// ID of the access system that you want to get.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsSystemId { get; set; }
 
@@ -63,6 +69,9 @@ namespace Seam.Api
                 AcsSystem = acsSystem;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_system", IsRequired = false, EmitDefaultValue = false)]
             public AcsSystem AcsSystem { get; set; }
 
@@ -86,6 +95,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         public AcsSystem Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -93,11 +105,17 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/acs/systems/get", requestOptions).Data.AcsSystem;
         }
 
+        /// <summary>
+        /// Returns a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         public AcsSystem Get(string acsSystemId = default)
         {
             return Get(new GetRequest(acsSystemId: acsSystemId));
         }
 
+        /// <summary>
+        /// Returns a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         public async Task<AcsSystem> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -107,11 +125,17 @@ namespace Seam.Api
                 .AcsSystem;
         }
 
+        /// <summary>
+        /// Returns a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        /// </summary>
         public async Task<AcsSystem> GetAsync(string acsSystemId = default)
         {
             return (await GetAsync(new GetRequest(acsSystemId: acsSystemId)));
         }
 
+        /// <summary>
+        /// Request parameters for List ACS Systems.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -129,6 +153,9 @@ namespace Seam.Api
                 Search = search;
             }
 
+            /// <summary>
+            /// ID of the connected account by which you want to filter the list of access systems.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -136,9 +163,15 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list access systems.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned access systems to include all records that satisfy a partial match using `name` or `acs_system_id`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
@@ -173,6 +206,9 @@ namespace Seam.Api
                 AcsSystems = acsSystems;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_systems", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsSystem> AcsSystems { get; set; }
 
@@ -196,6 +232,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// To filter the list of returned access systems by a specific connected account ID, include the `connected_account_id` in the request body. If you omit the `connected_account_id` parameter, the response includes all access systems connected to your workspace.
+        /// </summary>
         public List<AcsSystem> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -203,6 +244,11 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/acs/systems/list", requestOptions).Data.AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// To filter the list of returned access systems by a specific connected account ID, include the `connected_account_id` in the request body. If you omit the `connected_account_id` parameter, the response includes all access systems connected to your workspace.
+        /// </summary>
         public List<AcsSystem> List(
             string? connectedAccountId = default,
             string? customerKey = default,
@@ -218,6 +264,11 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// To filter the list of returned access systems by a specific connected account ID, include the `connected_account_id` in the request body. If you omit the `connected_account_id` parameter, the response includes all access systems connected to your workspace.
+        /// </summary>
         public async Task<List<AcsSystem>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -227,6 +278,11 @@ namespace Seam.Api
                 .AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// To filter the list of returned access systems by a specific connected account ID, include the `connected_account_id` in the request body. If you omit the `connected_account_id` parameter, the response includes all access systems connected to your workspace.
+        /// </summary>
         public async Task<List<AcsSystem>> ListAsync(
             string? connectedAccountId = default,
             string? customerKey = default,
@@ -244,6 +300,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Compatible Credential Manager ACS Systems.
+        /// </summary>
         [DataContract(Name = "listCompatibleCredentialManagerAcsSystemsRequest_request")]
         public class ListCompatibleCredentialManagerAcsSystemsRequest
         {
@@ -255,6 +314,9 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
             }
 
+            /// <summary>
+            /// ID of the access system for which you want to retrieve all compatible credential manager systems.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsSystemId { get; set; }
 
@@ -291,6 +353,9 @@ namespace Seam.Api
                 AcsSystems = acsSystems;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_systems", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsSystem> AcsSystems { get; set; }
 
@@ -314,6 +379,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all credential manager systems that are compatible with a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// Specify the access system for which you want to retrieve all compatible credential manager systems by including the corresponding `acs_system_id` in the request body.
+        /// </summary>
         public List<AcsSystem> ListCompatibleCredentialManagerAcsSystems(
             ListCompatibleCredentialManagerAcsSystemsRequest request
         )
@@ -328,6 +398,11 @@ namespace Seam.Api
                 .Data.AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all credential manager systems that are compatible with a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// Specify the access system for which you want to retrieve all compatible credential manager systems by including the corresponding `acs_system_id` in the request body.
+        /// </summary>
         public List<AcsSystem> ListCompatibleCredentialManagerAcsSystems(
             string acsSystemId = default
         )
@@ -337,6 +412,11 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all credential manager systems that are compatible with a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// Specify the access system for which you want to retrieve all compatible credential manager systems by including the corresponding `acs_system_id` in the request body.
+        /// </summary>
         public async Task<List<AcsSystem>> ListCompatibleCredentialManagerAcsSystemsAsync(
             ListCompatibleCredentialManagerAcsSystemsRequest request
         )
@@ -353,6 +433,11 @@ namespace Seam.Api
                 .AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all credential manager systems that are compatible with a specified [access system](https://docs.seam.co/low-level-apis/access-systems).
+        ///
+        /// Specify the access system for which you want to retrieve all compatible credential manager systems by including the corresponding `acs_system_id` in the request body.
+        /// </summary>
         public async Task<List<AcsSystem>> ListCompatibleCredentialManagerAcsSystemsAsync(
             string acsSystemId = default
         )
@@ -364,6 +449,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Report Devices.
+        /// </summary>
         [DataContract(Name = "reportDevicesRequest_request")]
         public class ReportDevicesRequest
         {
@@ -381,12 +469,21 @@ namespace Seam.Api
                 AcsSystemId = acsSystemId;
             }
 
+            /// <summary>
+            /// Array of ACS encoders to report
+            /// </summary>
             [DataMember(Name = "acs_encoders", IsRequired = false, EmitDefaultValue = false)]
             public List<ReportDevicesRequestAcsEncoders>? AcsEncoders { get; set; }
 
+            /// <summary>
+            /// Array of ACS entrances to report
+            /// </summary>
             [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
             public List<ReportDevicesRequestAcsEntrances>? AcsEntrances { get; set; }
 
+            /// <summary>
+            /// ID of the ACS system to report resources for
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsSystemId { get; set; }
 
@@ -425,9 +522,15 @@ namespace Seam.Api
                 IsRemoved = isRemoved;
             }
 
+            /// <summary>
+            /// Hotek-specific metadata associated with the entrance.
+            /// </summary>
             [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportDevicesRequestAcsEncodersHotekMetadata? HotekMetadata { get; set; }
 
+            /// <summary>
+            /// Whether the encoder is removed
+            /// </summary>
             [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsRemoved { get; set; }
 
@@ -462,6 +565,9 @@ namespace Seam.Api
                 EncoderNumber = encoderNumber;
             }
 
+            /// <summary>
+            /// The encoder number determined by the USB port connection.
+            /// </summary>
             [DataMember(Name = "encoder_number", IsRequired = false, EmitDefaultValue = false)]
             public string? EncoderNumber { get; set; }
 
@@ -500,9 +606,15 @@ namespace Seam.Api
                 IsRemoved = isRemoved;
             }
 
+            /// <summary>
+            /// Hotek-specific metadata associated with the entrance.
+            /// </summary>
             [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
             public ReportDevicesRequestAcsEntrancesHotekMetadata? HotekMetadata { get; set; }
 
+            /// <summary>
+            /// Whether the entrance is removed
+            /// </summary>
             [DataMember(Name = "is_removed", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsRemoved { get; set; }
 
@@ -543,12 +655,21 @@ namespace Seam.Api
                 RoomNumber = roomNumber;
             }
 
+            /// <summary>
+            /// The common area name
+            /// </summary>
             [DataMember(Name = "common_area_name", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonAreaName { get; set; }
 
+            /// <summary>
+            /// The room number identifier
+            /// </summary>
             [DataMember(Name = "common_area_number", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonAreaNumber { get; set; }
 
+            /// <summary>
+            /// The room number identifier
+            /// </summary>
             [DataMember(Name = "room_number", IsRequired = false, EmitDefaultValue = false)]
             public string? RoomNumber { get; set; }
 
@@ -572,6 +693,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Reports ACS system device status including encoders and entrances.
+        /// </summary>
         public void ReportDevices(ReportDevicesRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -579,6 +703,9 @@ namespace Seam.Api
             _seam.Post<object>("/acs/systems/report_devices", requestOptions);
         }
 
+        /// <summary>
+        /// Reports ACS system device status including encoders and entrances.
+        /// </summary>
         public void ReportDevices(
             List<ReportDevicesRequestAcsEncoders>? acsEncoders = default,
             List<ReportDevicesRequestAcsEntrances>? acsEntrances = default,
@@ -594,6 +721,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Reports ACS system device status including encoders and entrances.
+        /// </summary>
         public async Task ReportDevicesAsync(ReportDevicesRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -601,6 +731,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/systems/report_devices", requestOptions);
         }
 
+        /// <summary>
+        /// Reports ACS system device status including encoders and entrances.
+        /// </summary>
         public async Task ReportDevicesAsync(
             List<ReportDevicesRequestAcsEncoders>? acsEncoders = default,
             List<ReportDevicesRequestAcsEntrances>? acsEntrances = default,

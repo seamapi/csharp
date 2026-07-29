@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Add an ACS User to a User Identity.
+        /// </summary>
         [DataContract(Name = "addAcsUserRequest_request")]
         public class AddAcsUserRequest
         {
@@ -35,12 +38,21 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// ID of the access system user that you want to add to the user identity.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity to which you want to add an access system user.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
+            /// <summary>
+            /// Key of the user identity to which you want to add an access system user.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
@@ -64,6 +76,13 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        ///
+        /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
+        ///
+        /// If `user_identity_key` is provided, but the user identity doesn&apos;t exist, a new user identity will be created automatically using information from the ACS user.
+        /// </summary>
         public void AddAcsUser(AddAcsUserRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -71,6 +90,13 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/add_acs_user", requestOptions);
         }
 
+        /// <summary>
+        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        ///
+        /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
+        ///
+        /// If `user_identity_key` is provided, but the user identity doesn&apos;t exist, a new user identity will be created automatically using information from the ACS user.
+        /// </summary>
         public void AddAcsUser(
             string acsUserId = default,
             string? userIdentityId = default,
@@ -86,6 +112,13 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        ///
+        /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
+        ///
+        /// If `user_identity_key` is provided, but the user identity doesn&apos;t exist, a new user identity will be created automatically using information from the ACS user.
+        /// </summary>
         public async Task AddAcsUserAsync(AddAcsUserRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -93,6 +126,13 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/user_identities/add_acs_user", requestOptions);
         }
 
+        /// <summary>
+        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        ///
+        /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
+        ///
+        /// If `user_identity_key` is provided, but the user identity doesn&apos;t exist, a new user identity will be created automatically using information from the ACS user.
+        /// </summary>
         public async Task AddAcsUserAsync(
             string acsUserId = default,
             string? userIdentityId = default,
@@ -108,6 +148,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Create a User Identity.
+        /// </summary>
         [DataContract(Name = "createRequest_request")]
         public class CreateRequest
         {
@@ -129,18 +172,33 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// List of access system IDs to associate with the new user identity through access system users. If there&apos;s no user with the same email address or phone number in the specified access systems, a new access system user is created. If there is an existing user with the same email or phone number in the specified access systems, the user is linked to the user identity.
+            /// </summary>
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
 
+            /// <summary>
+            /// Unique email address for the new user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Full name of the user associated with the new user identity.
+            /// </summary>
             [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
             public string? FullName { get; set; }
 
+            /// <summary>
+            /// Unique phone number for the new user identity in E.164 format (for example, +15555550100).
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// Unique key for the new user identity.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
@@ -175,6 +233,9 @@ namespace Seam.Api
                 UserIdentity = userIdentity;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
             public UserIdentity UserIdentity { get; set; }
 
@@ -198,6 +259,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public UserIdentity Create(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -207,6 +271,9 @@ namespace Seam.Api
                 .Data.UserIdentity;
         }
 
+        /// <summary>
+        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public UserIdentity Create(
             List<string>? acsSystemIds = default,
             string? emailAddress = default,
@@ -226,6 +293,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<UserIdentity> CreateAsync(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -237,6 +307,9 @@ namespace Seam.Api
                 .UserIdentity;
         }
 
+        /// <summary>
+        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<UserIdentity> CreateAsync(
             List<string>? acsSystemIds = default,
             string? emailAddress = default,
@@ -258,6 +331,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete a User Identity.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -269,6 +345,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity that you want to delete.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -292,6 +371,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -299,11 +381,17 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// </summary>
         public void Delete(string userIdentityId = default)
         {
             Delete(new DeleteRequest(userIdentityId: userIdentityId));
         }
 
+        /// <summary>
+        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -311,11 +399,17 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/user_identities/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// </summary>
         public async Task DeleteAsync(string userIdentityId = default)
         {
             await DeleteAsync(new DeleteRequest(userIdentityId: userIdentityId));
         }
 
+        /// <summary>
+        /// Request parameters for Generate an Instant Key.
+        /// </summary>
         [DataContract(Name = "generateInstantKeyRequest_request")]
         public class GenerateInstantKeyRequest
         {
@@ -340,9 +434,15 @@ namespace Seam.Api
             )]
             public string? CustomizationProfileId { get; set; }
 
+            /// <summary>
+            /// Maximum number of times the instant key can be used. Default: 1.
+            /// </summary>
             [DataMember(Name = "max_use_count", IsRequired = false, EmitDefaultValue = false)]
             public float? MaxUseCount { get; set; }
 
+            /// <summary>
+            /// ID of the user identity for which you want to generate an instant key.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -377,6 +477,9 @@ namespace Seam.Api
                 InstantKey = instantKey;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "instant_key", IsRequired = false, EmitDefaultValue = false)]
             public InstantKey InstantKey { get; set; }
 
@@ -400,6 +503,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public InstantKey GenerateInstantKey(GenerateInstantKeyRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -412,6 +518,9 @@ namespace Seam.Api
                 .Data.InstantKey;
         }
 
+        /// <summary>
+        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public InstantKey GenerateInstantKey(
             string? customizationProfileId = default,
             float? maxUseCount = default,
@@ -427,6 +536,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<InstantKey> GenerateInstantKeyAsync(GenerateInstantKeyRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -441,6 +553,9 @@ namespace Seam.Api
                 .InstantKey;
         }
 
+        /// <summary>
+        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<InstantKey> GenerateInstantKeyAsync(
             string? customizationProfileId = default,
             float? maxUseCount = default,
@@ -458,6 +573,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Get a User Identity.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -470,6 +588,9 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// ID of the user identity that you want to get.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -507,6 +628,9 @@ namespace Seam.Api
                 UserIdentity = userIdentity;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
             public UserIdentity UserIdentity { get; set; }
 
@@ -530,6 +654,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public UserIdentity Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -539,6 +666,9 @@ namespace Seam.Api
                 .Data.UserIdentity;
         }
 
+        /// <summary>
+        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public UserIdentity Get(string? userIdentityId = default, string? userIdentityKey = default)
         {
             return Get(
@@ -546,6 +676,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<UserIdentity> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -555,6 +688,9 @@ namespace Seam.Api
                 .UserIdentity;
         }
 
+        /// <summary>
+        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<UserIdentity> GetAsync(
             string? userIdentityId = default,
             string? userIdentityKey = default
@@ -567,6 +703,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Grant a User Identity Access to a Device.
+        /// </summary>
         [DataContract(Name = "grantAccessToDeviceRequest_request")]
         public class GrantAccessToDeviceRequest
         {
@@ -582,9 +721,15 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the managed device to which you want to grant access to the user identity.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity that you want to grant access to a device.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -608,6 +753,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// </summary>
         public void GrantAccessToDevice(GrantAccessToDeviceRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -615,6 +763,9 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/grant_access_to_device", requestOptions);
         }
 
+        /// <summary>
+        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// </summary>
         public void GrantAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
             GrantAccessToDevice(
@@ -622,6 +773,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// </summary>
         public async Task GrantAccessToDeviceAsync(GrantAccessToDeviceRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -632,6 +786,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// </summary>
         public async Task GrantAccessToDeviceAsync(
             string deviceId = default,
             string userIdentityId = default
@@ -642,6 +799,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List User Identities.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -665,9 +825,15 @@ namespace Seam.Api
                 UserIdentityIds = userIdentityIds;
             }
 
+            /// <summary>
+            /// Timestamp by which to limit returned user identities. Returns user identities created before this timestamp.
+            /// </summary>
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
 
+            /// <summary>
+            /// `acs_system_id` of the credential manager by which you want to filter the list of user identities.
+            /// </summary>
             [DataMember(
                 Name = "credential_manager_acs_system_id",
                 IsRequired = false,
@@ -675,15 +841,27 @@ namespace Seam.Api
             )]
             public string? CredentialManagerAcsSystemId { get; set; }
 
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public int? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned user identities to include all records that satisfy a partial match using `full_name`, `phone_number`, `email_address` or `user_identity_id`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// Array of user identity IDs by which to filter the list of user identities.
+            /// </summary>
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? UserIdentityIds { get; set; }
 
@@ -718,6 +896,9 @@ namespace Seam.Api
                 UserIdentities = userIdentities;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "user_identities", IsRequired = false, EmitDefaultValue = false)]
             public List<UserIdentity> UserIdentities { get; set; }
 
@@ -741,6 +922,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<UserIdentity> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -750,6 +934,9 @@ namespace Seam.Api
                 .Data.UserIdentities;
         }
 
+        /// <summary>
+        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<UserIdentity> List(
             string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
@@ -771,6 +958,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<UserIdentity>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -780,6 +970,9 @@ namespace Seam.Api
                 .UserIdentities;
         }
 
+        /// <summary>
+        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<UserIdentity>> ListAsync(
             string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
@@ -803,6 +996,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Accessible Devices for a User Identity.
+        /// </summary>
         [DataContract(Name = "listAccessibleDevicesRequest_request")]
         public class ListAccessibleDevicesRequest
         {
@@ -814,6 +1010,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity for which you want to retrieve all accessible devices.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -848,6 +1047,9 @@ namespace Seam.Api
                 Devices = devices;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
             public List<Device> Devices { get; set; }
 
@@ -871,6 +1073,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// </summary>
         public List<Device> ListAccessibleDevices(ListAccessibleDevicesRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -883,6 +1088,9 @@ namespace Seam.Api
                 .Data.Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// </summary>
         public List<Device> ListAccessibleDevices(string userIdentityId = default)
         {
             return ListAccessibleDevices(
@@ -890,6 +1098,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// </summary>
         public async Task<List<Device>> ListAccessibleDevicesAsync(
             ListAccessibleDevicesRequest request
         )
@@ -906,6 +1117,9 @@ namespace Seam.Api
                 .Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// </summary>
         public async Task<List<Device>> ListAccessibleDevicesAsync(string userIdentityId = default)
         {
             return (
@@ -915,6 +1129,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Accessible Entrances for a User Identity.
+        /// </summary>
         [DataContract(Name = "listAccessibleEntrancesRequest_request")]
         public class ListAccessibleEntrancesRequest
         {
@@ -926,6 +1143,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity for which you want to retrieve all accessible entrances.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -960,6 +1180,9 @@ namespace Seam.Api
                 AcsEntrances = acsEntrances;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsEntrance> AcsEntrances { get; set; }
 
@@ -983,6 +1206,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -995,6 +1221,9 @@ namespace Seam.Api
                 .Data.AcsEntrances;
         }
 
+        /// <summary>
+        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(string userIdentityId = default)
         {
             return ListAccessibleEntrances(
@@ -1002,6 +1231,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request
         )
@@ -1018,6 +1250,9 @@ namespace Seam.Api
                 .AcsEntrances;
         }
 
+        /// <summary>
+        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             string userIdentityId = default
         )
@@ -1029,6 +1264,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List ACS Systems Associated with a User Identity.
+        /// </summary>
         [DataContract(Name = "listAcsSystemsRequest_request")]
         public class ListAcsSystemsRequest
         {
@@ -1040,6 +1278,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity for which you want to retrieve all access systems.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -1074,6 +1315,9 @@ namespace Seam.Api
                 AcsSystems = acsSystems;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_systems", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsSystem> AcsSystems { get; set; }
 
@@ -1097,6 +1341,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<AcsSystem> ListAcsSystems(ListAcsSystemsRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1106,11 +1353,17 @@ namespace Seam.Api
                 .Data.AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<AcsSystem> ListAcsSystems(string userIdentityId = default)
         {
             return ListAcsSystems(new ListAcsSystemsRequest(userIdentityId: userIdentityId));
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<AcsSystem>> ListAcsSystemsAsync(ListAcsSystemsRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1125,6 +1378,9 @@ namespace Seam.Api
                 .AcsSystems;
         }
 
+        /// <summary>
+        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<AcsSystem>> ListAcsSystemsAsync(string userIdentityId = default)
         {
             return (
@@ -1132,6 +1388,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List ACS Users Associated with a User Identity.
+        /// </summary>
         [DataContract(Name = "listAcsUsersRequest_request")]
         public class ListAcsUsersRequest
         {
@@ -1143,6 +1402,9 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the user identity for which you want to retrieve all access system users.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -1177,6 +1439,9 @@ namespace Seam.Api
                 AcsUsers = acsUsers;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_users", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsUser> AcsUsers { get; set; }
 
@@ -1200,6 +1465,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<AcsUser> ListAcsUsers(ListAcsUsersRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1209,11 +1477,17 @@ namespace Seam.Api
                 .Data.AcsUsers;
         }
 
+        /// <summary>
+        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public List<AcsUser> ListAcsUsers(string userIdentityId = default)
         {
             return ListAcsUsers(new ListAcsUsersRequest(userIdentityId: userIdentityId));
         }
 
+        /// <summary>
+        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<AcsUser>> ListAcsUsersAsync(ListAcsUsersRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1228,6 +1502,9 @@ namespace Seam.Api
                 .AcsUsers;
         }
 
+        /// <summary>
+        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task<List<AcsUser>> ListAcsUsersAsync(string userIdentityId = default)
         {
             return (
@@ -1235,6 +1512,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Remove an ACS User from a User Identity.
+        /// </summary>
         [DataContract(Name = "removeAcsUserRequest_request")]
         public class RemoveAcsUserRequest
         {
@@ -1247,9 +1527,15 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the access system user that you want to remove from the user identity..
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsUserId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity from which you want to remove an access system user.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -1273,6 +1559,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void RemoveAcsUser(RemoveAcsUserRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1280,6 +1569,9 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/remove_acs_user", requestOptions);
         }
 
+        /// <summary>
+        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void RemoveAcsUser(string acsUserId = default, string userIdentityId = default)
         {
             RemoveAcsUser(
@@ -1287,6 +1579,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task RemoveAcsUserAsync(RemoveAcsUserRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1294,6 +1589,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/user_identities/remove_acs_user", requestOptions);
         }
 
+        /// <summary>
+        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task RemoveAcsUserAsync(
             string acsUserId = default,
             string userIdentityId = default
@@ -1304,6 +1602,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Revoke Access to a Device from a User Identity.
+        /// </summary>
         [DataContract(Name = "revokeAccessToDeviceRequest_request")]
         public class RevokeAccessToDeviceRequest
         {
@@ -1319,9 +1620,15 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the managed device to which you want to revoke access from the user identity.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity from which you want to revoke access to a device.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
@@ -1345,6 +1652,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void RevokeAccessToDevice(RevokeAccessToDeviceRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1352,6 +1662,9 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/revoke_access_to_device", requestOptions);
         }
 
+        /// <summary>
+        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void RevokeAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
             RevokeAccessToDevice(
@@ -1359,6 +1672,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task RevokeAccessToDeviceAsync(RevokeAccessToDeviceRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1369,6 +1685,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task RevokeAccessToDeviceAsync(
             string deviceId = default,
             string userIdentityId = default
@@ -1379,6 +1698,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Update a User Identity.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -1400,18 +1722,33 @@ namespace Seam.Api
                 UserIdentityKey = userIdentityKey;
             }
 
+            /// <summary>
+            /// Unique email address for the user identity.
+            /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
+            /// <summary>
+            /// Full name of the user associated with the user identity.
+            /// </summary>
             [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
             public string? FullName { get; set; }
 
+            /// <summary>
+            /// Unique phone number for the user identity.
+            /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
 
+            /// <summary>
+            /// ID of the user identity that you want to update.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = true, EmitDefaultValue = false)]
             public string UserIdentityId { get; set; }
 
+            /// <summary>
+            /// Unique key for the user identity.
+            /// </summary>
             [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityKey { get; set; }
 
@@ -1435,6 +1772,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1442,6 +1782,9 @@ namespace Seam.Api
             _seam.Post<object>("/user_identities/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public void Update(
             string? emailAddress = default,
             string? fullName = default,
@@ -1461,6 +1804,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -1468,6 +1814,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/user_identities/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// </summary>
         public async Task UpdateAsync(
             string? emailAddress = default,
             string? fullName = default,

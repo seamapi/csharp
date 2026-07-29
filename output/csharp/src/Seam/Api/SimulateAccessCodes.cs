@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Simulate Creating an Unmanaged Access Code.
+        /// </summary>
         [DataContract(Name = "createUnmanagedAccessCodeRequest_request")]
         public class CreateUnmanagedAccessCodeRequest
         {
@@ -35,12 +38,21 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// Code of the simulated unmanaged access code.
+            /// </summary>
             [DataMember(Name = "code", IsRequired = true, EmitDefaultValue = false)]
             public string Code { get; set; }
 
+            /// <summary>
+            /// ID of the device for which you want to simulate the creation of an unmanaged access code.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
+            /// <summary>
+            /// Name of the simulated unmanaged access code.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = false)]
             public string Name { get; set; }
 
@@ -75,6 +87,9 @@ namespace Seam.Api
                 AccessCode = accessCode;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
             public UnmanagedAccessCode AccessCode { get; set; }
 
@@ -98,6 +113,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates the creation of an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public UnmanagedAccessCode CreateUnmanagedAccessCode(
             CreateUnmanagedAccessCodeRequest request
         )
@@ -112,6 +130,9 @@ namespace Seam.Api
                 .Data.AccessCode;
         }
 
+        /// <summary>
+        /// Simulates the creation of an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public UnmanagedAccessCode CreateUnmanagedAccessCode(
             string code = default,
             string deviceId = default,
@@ -123,6 +144,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Simulates the creation of an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<UnmanagedAccessCode> CreateUnmanagedAccessCodeAsync(
             CreateUnmanagedAccessCodeRequest request
         )
@@ -139,6 +163,9 @@ namespace Seam.Api
                 .AccessCode;
         }
 
+        /// <summary>
+        /// Simulates the creation of an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<UnmanagedAccessCode> CreateUnmanagedAccessCodeAsync(
             string code = default,
             string deviceId = default,

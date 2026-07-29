@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an Unmanaged Access Grant.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 AccessGrantId = accessGrantId;
             }
 
+            /// <summary>
+            /// ID of unmanaged Access Grant to get.
+            /// </summary>
             [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessGrantId { get; set; }
 
@@ -63,6 +69,9 @@ namespace Seam.Api
                 AccessGrant = accessGrant;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_grant", IsRequired = false, EmitDefaultValue = false)]
             public AccessGrant AccessGrant { get; set; }
 
@@ -86,6 +95,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Get an unmanaged Access Grant (where is_managed = false).
+        /// </summary>
         public AccessGrant Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -95,11 +107,17 @@ namespace Seam.Api
                 .Data.AccessGrant;
         }
 
+        /// <summary>
+        /// Get an unmanaged Access Grant (where is_managed = false).
+        /// </summary>
         public AccessGrant Get(string accessGrantId = default)
         {
             return Get(new GetRequest(accessGrantId: accessGrantId));
         }
 
+        /// <summary>
+        /// Get an unmanaged Access Grant (where is_managed = false).
+        /// </summary>
         public async Task<AccessGrant> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -111,11 +129,17 @@ namespace Seam.Api
                 .AccessGrant;
         }
 
+        /// <summary>
+        /// Get an unmanaged Access Grant (where is_managed = false).
+        /// </summary>
         public async Task<AccessGrant> GetAsync(string accessGrantId = default)
         {
             return (await GetAsync(new GetRequest(accessGrantId: accessGrantId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Unmanaged Access Grants.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -139,21 +163,39 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the entrance by which you want to filter the list of unmanaged Access Grants.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
+            /// <summary>
+            /// ID of the access system by which you want to filter the list of unmanaged Access Grants.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of unmanaged access grants to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// Filter unmanaged Access Grants by reservation_key.
+            /// </summary>
             [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ReservationKey { get; set; }
 
+            /// <summary>
+            /// ID of user identity by which you want to filter the list of unmanaged Access Grants.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -188,6 +230,9 @@ namespace Seam.Api
                 AccessGrants = accessGrants;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "access_grants", IsRequired = false, EmitDefaultValue = false)]
             public List<object> AccessGrants { get; set; }
 
@@ -211,6 +256,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Gets unmanaged Access Grants (where is_managed = false).
+        /// </summary>
         public List<object> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -220,6 +268,9 @@ namespace Seam.Api
                 .Data.AccessGrants;
         }
 
+        /// <summary>
+        /// Gets unmanaged Access Grants (where is_managed = false).
+        /// </summary>
         public List<object> List(
             string? acsEntranceId = default,
             string? acsSystemId = default,
@@ -241,6 +292,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Gets unmanaged Access Grants (where is_managed = false).
+        /// </summary>
         public async Task<List<object>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -252,6 +306,9 @@ namespace Seam.Api
                 .AccessGrants;
         }
 
+        /// <summary>
+        /// Gets unmanaged Access Grants (where is_managed = false).
+        /// </summary>
         public async Task<List<object>> ListAsync(
             string? acsEntranceId = default,
             string? acsSystemId = default,
@@ -275,6 +332,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Update an Unmanaged Access Grant.
+        /// </summary>
         [DataContract(Name = "updateRequest_request")]
         public class UpdateRequest
         {
@@ -292,12 +352,21 @@ namespace Seam.Api
                 IsManaged = isManaged;
             }
 
+            /// <summary>
+            /// ID of the unmanaged Access Grant to update.
+            /// </summary>
             [DataMember(Name = "access_grant_id", IsRequired = true, EmitDefaultValue = false)]
             public string AccessGrantId { get; set; }
 
+            /// <summary>
+            /// Unique key for the access grant. If not provided, the existing key will be preserved.
+            /// </summary>
             [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantKey { get; set; }
 
+            /// <summary>
+            /// Must be set to true to convert the unmanaged access grant to managed.
+            /// </summary>
             [DataMember(Name = "is_managed", IsRequired = true, EmitDefaultValue = false)]
             public bool IsManaged { get; set; }
 
@@ -321,6 +390,13 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Updates an unmanaged Access Grant to make it managed.
+        ///
+        /// This endpoint can only be used to convert unmanaged access grants to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed access grants back to unmanaged.
+        ///
+        /// When converting an unmanaged access grant to managed, all associated access methods will also be converted to managed.
+        /// </summary>
         public void Update(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -328,6 +404,13 @@ namespace Seam.Api
             _seam.Post<object>("/access_grants/unmanaged/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates an unmanaged Access Grant to make it managed.
+        ///
+        /// This endpoint can only be used to convert unmanaged access grants to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed access grants back to unmanaged.
+        ///
+        /// When converting an unmanaged access grant to managed, all associated access methods will also be converted to managed.
+        /// </summary>
         public void Update(
             string accessGrantId = default,
             string? accessGrantKey = default,
@@ -343,6 +426,13 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Updates an unmanaged Access Grant to make it managed.
+        ///
+        /// This endpoint can only be used to convert unmanaged access grants to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed access grants back to unmanaged.
+        ///
+        /// When converting an unmanaged access grant to managed, all associated access methods will also be converted to managed.
+        /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -350,6 +440,13 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/access_grants/unmanaged/update", requestOptions);
         }
 
+        /// <summary>
+        /// Updates an unmanaged Access Grant to make it managed.
+        ///
+        /// This endpoint can only be used to convert unmanaged access grants to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed access grants back to unmanaged.
+        ///
+        /// When converting an unmanaged access grant to managed, all associated access methods will also be converted to managed.
+        /// </summary>
         public async Task UpdateAsync(
             string accessGrantId = default,
             string? accessGrantKey = default,

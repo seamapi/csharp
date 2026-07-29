@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Configure Auto-Lock.
+        /// </summary>
         [DataContract(Name = "configureAutoLockRequest_request")]
         public class ConfigureAutoLockRequest
         {
@@ -35,6 +38,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// Delay in seconds before the lock automatically locks. Required when enabling auto-lock. Must be between 1 and 60.
+            /// </summary>
             [DataMember(
                 Name = "auto_lock_delay_seconds",
                 IsRequired = false,
@@ -42,9 +48,15 @@ namespace Seam.Api
             )]
             public float? AutoLockDelaySeconds { get; set; }
 
+            /// <summary>
+            /// Whether to enable or disable auto-lock.
+            /// </summary>
             [DataMember(Name = "auto_lock_enabled", IsRequired = true, EmitDefaultValue = false)]
             public bool AutoLockEnabled { get; set; }
 
+            /// <summary>
+            /// ID of the lock for which you want to configure the auto-lock.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -79,6 +91,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -102,6 +117,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public ActionAttempt ConfigureAutoLock(ConfigureAutoLockRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -111,6 +129,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public ActionAttempt ConfigureAutoLock(
             float? autoLockDelaySeconds = default,
             bool autoLockEnabled = default,
@@ -126,6 +147,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public async Task<ActionAttempt> ConfigureAutoLockAsync(ConfigureAutoLockRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -140,6 +164,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public async Task<ActionAttempt> ConfigureAutoLockAsync(
             float? autoLockDelaySeconds = default,
             bool autoLockEnabled = default,
@@ -157,6 +184,10 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Get a Lock.
+        /// </summary>
+        [Obsolete("Use `/devices/get` instead.")]
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -169,9 +200,15 @@ namespace Seam.Api
                 Name = name;
             }
 
+            /// <summary>
+            /// ID of the lock that you want to get.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// Name of the lock that you want to get.
+            /// </summary>
             [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
             public string? Name { get; set; }
 
@@ -206,6 +243,9 @@ namespace Seam.Api
                 Device = device;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "device", IsRequired = false, EmitDefaultValue = false)]
             public Device Device { get; set; }
 
@@ -229,6 +269,10 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
+        [Obsolete("Use `/devices/get` instead.")]
         public Device Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -236,11 +280,19 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/locks/get", requestOptions).Data.Device;
         }
 
+        /// <summary>
+        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
+        [Obsolete("Use `/devices/get` instead.")]
         public Device Get(string? deviceId = default, string? name = default)
         {
             return Get(new GetRequest(deviceId: deviceId, name: name));
         }
 
+        /// <summary>
+        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
+        [Obsolete("Use `/devices/get` instead.")]
         public async Task<Device> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -248,11 +300,18 @@ namespace Seam.Api
             return (await _seam.PostAsync<GetResponse>("/locks/get", requestOptions)).Data.Device;
         }
 
+        /// <summary>
+        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
+        [Obsolete("Use `/devices/get` instead.")]
         public async Task<Device> GetAsync(string? deviceId = default, string? name = default)
         {
             return (await GetAsync(new GetRequest(deviceId: deviceId, name: name)));
         }
 
+        /// <summary>
+        /// Request parameters for List Locks.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -296,6 +355,9 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// Device type of the locks that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypeEnum
             {
@@ -390,6 +452,9 @@ namespace Seam.Api
                 KisiLock = 29,
             }
 
+            /// <summary>
+            /// Device types of the locks that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum DeviceTypesEnum
             {
@@ -484,6 +549,9 @@ namespace Seam.Api
                 KisiLock = 29,
             }
 
+            /// <summary>
+            /// Manufacturer of the locks that you want to list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ManufacturerEnum
             {
@@ -584,9 +652,15 @@ namespace Seam.Api
                 Kisi = 31,
             }
 
+            /// <summary>
+            /// ID of the Connect Webview for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
 
+            /// <summary>
+            /// ID of the connected account for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -594,6 +668,9 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Array of IDs of the connected accounts for which you want to list devices.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
                 IsRequired = false,
@@ -601,39 +678,73 @@ namespace Seam.Api
             )]
             public List<string>? ConnectedAccountIds { get; set; }
 
+            /// <summary>
+            /// Timestamp by which to limit returned devices. Returns devices created before this timestamp.
+            /// </summary>
             [DataMember(Name = "created_before", IsRequired = false, EmitDefaultValue = false)]
             public string? CreatedBefore { get; set; }
 
+            /// <summary>
+            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// Array of device IDs for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
 
+            /// <summary>
+            /// Device type of the locks that you want to list.
+            /// </summary>
             [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.DeviceTypeEnum? DeviceType { get; set; }
 
+            /// <summary>
+            /// Device types of the locks that you want to list.
+            /// </summary>
             [DataMember(Name = "device_types", IsRequired = false, EmitDefaultValue = false)]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; set; }
 
+            /// <summary>
+            /// Numerical limit on the number of devices to return.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Manufacturer of the locks that you want to list.
+            /// </summary>
             [DataMember(Name = "manufacturer", IsRequired = false, EmitDefaultValue = false)]
             public ListRequest.ManufacturerEnum? Manufacturer { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned devices to include all records that satisfy a partial match using `device_id` (full or partial UUID prefix, minimum 4 characters), `connected_account_id`, `display_name`, `custom_metadata` or `location.location_name`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
+            [Obsolete("Use `space_id`.")]
             [DataMember(
                 Name = "unstable_location_id",
                 IsRequired = false,
@@ -641,6 +752,9 @@ namespace Seam.Api
             )]
             public string? UnstableLocationId { get; set; }
 
+            /// <summary>
+            /// Your own internal user ID for the user for which you want to list devices.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -675,6 +789,9 @@ namespace Seam.Api
                 Devices = devices;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "devices", IsRequired = false, EmitDefaultValue = false)]
             public List<Device> Devices { get; set; }
 
@@ -698,6 +815,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public List<Device> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -705,6 +825,9 @@ namespace Seam.Api
             return _seam.Post<ListResponse>("/locks/list", requestOptions).Data.Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -746,6 +869,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -755,6 +881,9 @@ namespace Seam.Api
                 .Devices;
         }
 
+        /// <summary>
+        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
             string? connectedAccountId = default,
@@ -798,6 +927,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Lock a Lock.
+        /// </summary>
         [DataContract(Name = "lockDoorRequest_request")]
         public class LockDoorRequest
         {
@@ -809,6 +941,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// ID of the lock that you want to lock.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -843,6 +978,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -866,6 +1004,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public ActionAttempt LockDoor(LockDoorRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -875,11 +1016,17 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public ActionAttempt LockDoor(string deviceId = default)
         {
             return LockDoor(new LockDoorRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public async Task<ActionAttempt> LockDoorAsync(LockDoorRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -889,11 +1036,17 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public async Task<ActionAttempt> LockDoorAsync(string deviceId = default)
         {
             return (await LockDoorAsync(new LockDoorRequest(deviceId: deviceId)));
         }
 
+        /// <summary>
+        /// Request parameters for Unlock a Lock.
+        /// </summary>
         [DataContract(Name = "unlockDoorRequest_request")]
         public class UnlockDoorRequest
         {
@@ -905,6 +1058,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// ID of the lock that you want to unlock.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -939,6 +1095,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -962,6 +1121,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public ActionAttempt UnlockDoor(UnlockDoorRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -971,11 +1133,17 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public ActionAttempt UnlockDoor(string deviceId = default)
         {
             return UnlockDoor(new UnlockDoorRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public async Task<ActionAttempt> UnlockDoorAsync(UnlockDoorRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -985,6 +1153,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// </summary>
         public async Task<ActionAttempt> UnlockDoorAsync(string deviceId = default)
         {
             return (await UnlockDoorAsync(new UnlockDoorRequest(deviceId: deviceId)));

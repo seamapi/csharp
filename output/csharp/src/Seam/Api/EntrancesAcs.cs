@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an Entrance.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 AcsEntranceId = acsEntranceId;
             }
 
+            /// <summary>
+            /// ID of the entrance that you want to get.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEntranceId { get; set; }
 
@@ -63,6 +69,9 @@ namespace Seam.Api
                 AcsEntrance = acsEntrance;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_entrance", IsRequired = false, EmitDefaultValue = false)]
             public AcsEntrance AcsEntrance { get; set; }
 
@@ -86,6 +95,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public AcsEntrance Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -93,11 +105,17 @@ namespace Seam.Api
             return _seam.Post<GetResponse>("/acs/entrances/get", requestOptions).Data.AcsEntrance;
         }
 
+        /// <summary>
+        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public AcsEntrance Get(string acsEntranceId = default)
         {
             return Get(new GetRequest(acsEntranceId: acsEntranceId));
         }
 
+        /// <summary>
+        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<AcsEntrance> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -107,11 +125,17 @@ namespace Seam.Api
                 .AcsEntrance;
         }
 
+        /// <summary>
+        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<AcsEntrance> GetAsync(string acsEntranceId = default)
         {
             return (await GetAsync(new GetRequest(acsEntranceId: acsEntranceId)));
         }
 
+        /// <summary>
+        /// Request parameters for Grant an ACS User Access to an Entrance.
+        /// </summary>
         [DataContract(Name = "grantAccessRequest_request")]
         public class GrantAccessRequest
         {
@@ -129,12 +153,21 @@ namespace Seam.Api
                 UserIdentityId = userIdentityId;
             }
 
+            /// <summary>
+            /// ID of the entrance to which you want to grant an access system user access.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEntranceId { get; set; }
 
+            /// <summary>
+            /// ID of the access system user to whom you want to grant access to an entrance. You can only provide one of acs_user_id or user_identity_id.
+            /// </summary>
             [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsUserId { get; set; }
 
+            /// <summary>
+            /// ID of the user identity to whom you want to grant access to an entrance. You can only provide one of acs_user_id or user_identity_id. If the ACS system contains an ACS user with the same `email_address` or `phone_number` as the user identity that you specify, they are linked, and the access group membership belongs to the ACS user. If the ACS system does not have a corresponding ACS user, one is created.
+            /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
@@ -158,6 +191,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public void GrantAccess(GrantAccessRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -165,6 +201,9 @@ namespace Seam.Api
             _seam.Post<object>("/acs/entrances/grant_access", requestOptions);
         }
 
+        /// <summary>
+        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public void GrantAccess(
             string acsEntranceId = default,
             string? acsUserId = default,
@@ -180,6 +219,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task GrantAccessAsync(GrantAccessRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -187,6 +229,9 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/acs/entrances/grant_access", requestOptions);
         }
 
+        /// <summary>
+        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task GrantAccessAsync(
             string acsEntranceId = default,
             string? acsUserId = default,
@@ -202,6 +247,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Entrances.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -233,15 +281,27 @@ namespace Seam.Api
                 SpaceId = spaceId;
             }
 
+            /// <summary>
+            /// ID of the credential for which you want to retrieve all entrances.
+            /// </summary>
             [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsCredentialId { get; set; }
 
+            /// <summary>
+            /// IDs of the entrances for which you want to retrieve all entrances.
+            /// </summary>
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
 
+            /// <summary>
+            /// ID of the access system for which you want to retrieve all entrances.
+            /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
 
+            /// <summary>
+            /// ID of the connected account for which you want to retrieve all entrances.
+            /// </summary>
             [DataMember(
                 Name = "connected_account_id",
                 IsRequired = false,
@@ -249,21 +309,37 @@ namespace Seam.Api
             )]
             public string? ConnectedAccountId { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list entrances.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public int? Limit { get; set; }
 
+            [Obsolete("Use `space_id`.")]
             [DataMember(Name = "location_id", IsRequired = false, EmitDefaultValue = false)]
             public string? LocationId { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned entrances to include all records that satisfy a partial match using `display_name`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// ID of the space for which you want to list entrances.
+            /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
 
@@ -298,6 +374,9 @@ namespace Seam.Api
                 AcsEntrances = acsEntrances;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_entrances", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsEntrance> AcsEntrances { get; set; }
 
@@ -321,6 +400,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public List<AcsEntrance> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -330,6 +412,9 @@ namespace Seam.Api
                 .Data.AcsEntrances;
         }
 
+        /// <summary>
+        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public List<AcsEntrance> List(
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
@@ -359,6 +444,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -368,6 +456,9 @@ namespace Seam.Api
                 .AcsEntrances;
         }
 
+        /// <summary>
+        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
@@ -399,6 +490,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for List Credentials with Access to an Entrance.
+        /// </summary>
         [DataContract(Name = "listCredentialsWithAccessRequest_request")]
         public class ListCredentialsWithAccessRequest
         {
@@ -414,6 +508,9 @@ namespace Seam.Api
                 IncludeIf = includeIf;
             }
 
+            /// <summary>
+            /// Conditions that credentials must meet to be included in the returned list.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum IncludeIfEnum
             {
@@ -424,9 +521,15 @@ namespace Seam.Api
                 VisionlineMetadataIsValid = 1,
             }
 
+            /// <summary>
+            /// ID of the entrance for which you want to list all credentials that grant access.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEntranceId { get; set; }
 
+            /// <summary>
+            /// Conditions that credentials must meet to be included in the returned list.
+            /// </summary>
             [DataMember(Name = "include_if", IsRequired = false, EmitDefaultValue = false)]
             public List<ListCredentialsWithAccessRequest.IncludeIfEnum>? IncludeIf { get; set; }
 
@@ -461,6 +564,9 @@ namespace Seam.Api
                 AcsCredentials = acsCredentials;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "acs_credentials", IsRequired = false, EmitDefaultValue = false)]
             public List<AcsCredential> AcsCredentials { get; set; }
 
@@ -484,6 +590,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public List<AcsCredential> ListCredentialsWithAccess(
             ListCredentialsWithAccessRequest request
         )
@@ -498,6 +607,9 @@ namespace Seam.Api
                 .Data.AcsCredentials;
         }
 
+        /// <summary>
+        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public List<AcsCredential> ListCredentialsWithAccess(
             string acsEntranceId = default,
             List<ListCredentialsWithAccessRequest.IncludeIfEnum>? includeIf = default
@@ -511,6 +623,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<List<AcsCredential>> ListCredentialsWithAccessAsync(
             ListCredentialsWithAccessRequest request
         )
@@ -527,6 +642,9 @@ namespace Seam.Api
                 .AcsCredentials;
         }
 
+        /// <summary>
+        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
         public async Task<List<AcsCredential>> ListCredentialsWithAccessAsync(
             string acsEntranceId = default,
             List<ListCredentialsWithAccessRequest.IncludeIfEnum>? includeIf = default
@@ -542,6 +660,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Unlock an Entrance.
+        /// </summary>
         [DataContract(Name = "unlockRequest_request")]
         public class UnlockRequest
         {
@@ -554,9 +675,15 @@ namespace Seam.Api
                 AcsEntranceId = acsEntranceId;
             }
 
+            /// <summary>
+            /// ID of the cloud_key credential to use for the unlock operation.
+            /// </summary>
             [DataMember(Name = "acs_credential_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsCredentialId { get; set; }
 
+            /// <summary>
+            /// ID of the entrance to unlock.
+            /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = true, EmitDefaultValue = false)]
             public string AcsEntranceId { get; set; }
 
@@ -591,6 +718,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -614,6 +744,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// </summary>
         public ActionAttempt Unlock(UnlockRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -623,6 +756,9 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// </summary>
         public ActionAttempt Unlock(
             string acsCredentialId = default,
             string acsEntranceId = default
@@ -633,6 +769,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// </summary>
         public async Task<ActionAttempt> UnlockAsync(UnlockRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -642,6 +781,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// </summary>
         public async Task<ActionAttempt> UnlockAsync(
             string acsCredentialId = default,
             string acsEntranceId = default

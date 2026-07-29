@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Simulate a Keypad Code Entry.
+        /// </summary>
         [DataContract(Name = "keypadCodeEntryRequest_request")]
         public class KeypadCodeEntryRequest
         {
@@ -30,9 +33,15 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// Code that you want to simulate entering on a keypad.
+            /// </summary>
             [DataMember(Name = "code", IsRequired = true, EmitDefaultValue = false)]
             public string Code { get; set; }
 
+            /// <summary>
+            /// ID of the device for which you want to simulate a keypad code entry.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -67,6 +76,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -90,6 +102,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public ActionAttempt KeypadCodeEntry(KeypadCodeEntryRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -99,11 +114,17 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public ActionAttempt KeypadCodeEntry(string code = default, string deviceId = default)
         {
             return KeypadCodeEntry(new KeypadCodeEntryRequest(code: code, deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<ActionAttempt> KeypadCodeEntryAsync(KeypadCodeEntryRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -118,6 +139,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<ActionAttempt> KeypadCodeEntryAsync(
             string code = default,
             string deviceId = default
@@ -130,6 +154,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Simulate a Manual Lock Action Using a Keypad.
+        /// </summary>
         [DataContract(Name = "manualLockViaKeypadRequest_request")]
         public class ManualLockViaKeypadRequest
         {
@@ -141,6 +168,9 @@ namespace Seam.Api
                 DeviceId = deviceId;
             }
 
+            /// <summary>
+            /// ID of the device for which you want to simulate a manual lock action using a keypad.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
@@ -175,6 +205,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -198,6 +231,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public ActionAttempt ManualLockViaKeypad(ManualLockViaKeypadRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -210,11 +246,17 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public ActionAttempt ManualLockViaKeypad(string deviceId = default)
         {
             return ManualLockViaKeypad(new ManualLockViaKeypadRequest(deviceId: deviceId));
         }
 
+        /// <summary>
+        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<ActionAttempt> ManualLockViaKeypadAsync(
             ManualLockViaKeypadRequest request
         )
@@ -231,6 +273,9 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// </summary>
         public async Task<ActionAttempt> ManualLockViaKeypadAsync(string deviceId = default)
         {
             return (

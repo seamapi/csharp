@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Get an Action Attempt.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -29,6 +32,9 @@ namespace Seam.Api
                 ActionAttemptId = actionAttemptId;
             }
 
+            /// <summary>
+            /// ID of the action attempt that you want to get.
+            /// </summary>
             [DataMember(Name = "action_attempt_id", IsRequired = true, EmitDefaultValue = false)]
             public string ActionAttemptId { get; set; }
 
@@ -63,6 +69,9 @@ namespace Seam.Api
                 ActionAttempt = actionAttempt;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempt", IsRequired = false, EmitDefaultValue = false)]
             public ActionAttempt ActionAttempt { get; set; }
 
@@ -86,6 +95,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [action attempt](https://docs.seam.co/core-concepts/action-attempts).
+        /// </summary>
         public ActionAttempt Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -95,11 +107,17 @@ namespace Seam.Api
                 .Data.ActionAttempt;
         }
 
+        /// <summary>
+        /// Returns a specified [action attempt](https://docs.seam.co/core-concepts/action-attempts).
+        /// </summary>
         public ActionAttempt Get(string actionAttemptId = default)
         {
             return Get(new GetRequest(actionAttemptId: actionAttemptId));
         }
 
+        /// <summary>
+        /// Returns a specified [action attempt](https://docs.seam.co/core-concepts/action-attempts).
+        /// </summary>
         public async Task<ActionAttempt> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -109,11 +127,17 @@ namespace Seam.Api
                 .ActionAttempt;
         }
 
+        /// <summary>
+        /// Returns a specified [action attempt](https://docs.seam.co/core-concepts/action-attempts).
+        /// </summary>
         public async Task<ActionAttempt> GetAsync(string actionAttemptId = default)
         {
             return (await GetAsync(new GetRequest(actionAttemptId: actionAttemptId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Action Attempts.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -133,15 +157,27 @@ namespace Seam.Api
                 PageCursor = pageCursor;
             }
 
+            /// <summary>
+            /// IDs of the action attempts that you want to retrieve.
+            /// </summary>
             [DataMember(Name = "action_attempt_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ActionAttemptIds { get; set; }
 
+            /// <summary>
+            /// ID of the device to filter action attempts by.
+            /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public int? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
@@ -176,6 +212,9 @@ namespace Seam.Api
                 ActionAttempts = actionAttempts;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "action_attempts", IsRequired = false, EmitDefaultValue = false)]
             public List<ActionAttempt> ActionAttempts { get; set; }
 
@@ -199,6 +238,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of the [action attempts](https://docs.seam.co/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// </summary>
         public List<ActionAttempt> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -208,6 +250,9 @@ namespace Seam.Api
                 .Data.ActionAttempts;
         }
 
+        /// <summary>
+        /// Returns a list of the [action attempts](https://docs.seam.co/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// </summary>
         public List<ActionAttempt> List(
             List<string>? actionAttemptIds = default,
             string? deviceId = default,
@@ -225,6 +270,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of the [action attempts](https://docs.seam.co/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// </summary>
         public async Task<List<ActionAttempt>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -234,6 +282,9 @@ namespace Seam.Api
                 .ActionAttempts;
         }
 
+        /// <summary>
+        /// Returns a list of the [action attempts](https://docs.seam.co/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// </summary>
         public async Task<List<ActionAttempt>> ListAsync(
             List<string>? actionAttemptIds = default,
             string? deviceId = default,

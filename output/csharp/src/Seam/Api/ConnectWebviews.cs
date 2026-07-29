@@ -18,6 +18,9 @@ namespace Seam.Api
             _seam = seam;
         }
 
+        /// <summary>
+        /// Request parameters for Create a Connect Webview.
+        /// </summary>
         [DataContract(Name = "createRequest_request")]
         public class CreateRequest
         {
@@ -49,6 +52,9 @@ namespace Seam.Api
                 WaitForDeviceCreation = waitForDeviceCreation;
             }
 
+            /// <summary>
+            /// List of accepted device capabilities that restrict the types of devices that can be connected through the Connect Webview. If not provided, defaults will be determined based on the accepted providers.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum AcceptedCapabilitiesEnum
             {
@@ -71,6 +77,9 @@ namespace Seam.Api
                 Camera = 5,
             }
 
+            /// <summary>
+            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with no filters.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum AcceptedProvidersEnum
             {
@@ -276,6 +285,9 @@ namespace Seam.Api
                 Slack = 66,
             }
 
+            /// <summary>
+            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with the desired `provider_category` filter.
+            /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum ProviderCategoryEnum
             {
@@ -310,6 +322,9 @@ namespace Seam.Api
                 InternalBeta = 9,
             }
 
+            /// <summary>
+            /// List of accepted device capabilities that restrict the types of devices that can be connected through the Connect Webview. If not provided, defaults will be determined based on the accepted providers.
+            /// </summary>
             [DataMember(
                 Name = "accepted_capabilities",
                 IsRequired = false,
@@ -317,9 +332,15 @@ namespace Seam.Api
             )]
             public List<CreateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; set; }
 
+            /// <summary>
+            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with no filters.
+            /// </summary>
             [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<CreateRequest.AcceptedProvidersEnum>? AcceptedProviders { get; set; }
 
+            /// <summary>
+            /// Indicates whether newly-added devices should appear as [managed devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). See also: [Customize the Behavior Settings of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
+            /// </summary>
             [DataMember(
                 Name = "automatically_manage_new_devices",
                 IsRequired = false,
@@ -327,9 +348,15 @@ namespace Seam.Api
             )]
             public bool? AutomaticallyManageNewDevices { get; set; }
 
+            /// <summary>
+            /// Custom metadata that you want to associate with the Connect Webview. Supports up to 50 JSON key:value pairs. [Adding custom metadata to a Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview) enables you to store custom information, like customer details or internal IDs from your application. The custom metadata is then transferred to any [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) that were connected using the Connect Webview, making it easy to find and filter these resources in your [workspace](https://docs.seam.co/core-concepts/workspaces). You can also [filter Connect Webviews by custom metadata](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata).
+            /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
 
+            /// <summary>
+            /// Alternative URL that you want to redirect the user to on an error. If you do not set this parameter, the Connect Webview falls back to the `custom_redirect_url`.
+            /// </summary>
             [DataMember(
                 Name = "custom_redirect_failure_url",
                 IsRequired = false,
@@ -337,18 +364,33 @@ namespace Seam.Api
             )]
             public string? CustomRedirectFailureUrl { get; set; }
 
+            /// <summary>
+            /// URL that you want to redirect the user to after the provider login is complete.
+            /// </summary>
             [DataMember(Name = "custom_redirect_url", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomRedirectUrl { get; set; }
 
+            /// <summary>
+            /// Associate the Connect Webview, the connected account, and all resources under the connected account with a customer. If the connected account already exists, it will be associated with the customer. If the connected account already exists, but is already associated with a customer, the Connect Webview will show an error.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// List of provider keys to exclude from the Connect Webview. These providers will not be shown when the user tries to connect an account.
+            /// </summary>
             [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ExcludedProviders { get; set; }
 
+            /// <summary>
+            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with the desired `provider_category` filter.
+            /// </summary>
             [DataMember(Name = "provider_category", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequest.ProviderCategoryEnum? ProviderCategory { get; set; }
 
+            /// <summary>
+            /// Indicates whether Seam should finish syncing all devices in a newly-connected account before completing the associated Connect Webview. See also: [Customize the Behavior Settings of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
+            /// </summary>
             [DataMember(
                 Name = "wait_for_device_creation",
                 IsRequired = false,
@@ -387,6 +429,9 @@ namespace Seam.Api
                 ConnectWebview = connectWebview;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "connect_webview", IsRequired = false, EmitDefaultValue = false)]
             public ConnectWebview ConnectWebview { get; set; }
 
@@ -410,6 +455,15 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Creates a new [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
+        ///
+        /// You should make a new `connect_webview` for each unique login request. Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
+        ///
+        /// See also: [Connect Webview Process](https://docs.seam.co/core-concepts/connect-webviews/connect-webview-process).
+        /// </summary>
         public ConnectWebview Create(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -419,6 +473,15 @@ namespace Seam.Api
                 .Data.ConnectWebview;
         }
 
+        /// <summary>
+        /// Creates a new [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
+        ///
+        /// You should make a new `connect_webview` for each unique login request. Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
+        ///
+        /// See also: [Connect Webview Process](https://docs.seam.co/core-concepts/connect-webviews/connect-webview-process).
+        /// </summary>
         public ConnectWebview Create(
             List<CreateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
@@ -448,6 +511,15 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Creates a new [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
+        ///
+        /// You should make a new `connect_webview` for each unique login request. Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
+        ///
+        /// See also: [Connect Webview Process](https://docs.seam.co/core-concepts/connect-webviews/connect-webview-process).
+        /// </summary>
         public async Task<ConnectWebview> CreateAsync(CreateRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -459,6 +531,15 @@ namespace Seam.Api
                 .ConnectWebview;
         }
 
+        /// <summary>
+        /// Creates a new [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
+        ///
+        /// You should make a new `connect_webview` for each unique login request. Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
+        ///
+        /// See also: [Connect Webview Process](https://docs.seam.co/core-concepts/connect-webviews/connect-webview-process).
+        /// </summary>
         public async Task<ConnectWebview> CreateAsync(
             List<CreateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
             List<CreateRequest.AcceptedProvidersEnum>? acceptedProviders = default,
@@ -490,6 +571,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Request parameters for Delete a Connect Webview.
+        /// </summary>
         [DataContract(Name = "deleteRequest_request")]
         public class DeleteRequest
         {
@@ -501,6 +585,9 @@ namespace Seam.Api
                 ConnectWebviewId = connectWebviewId;
             }
 
+            /// <summary>
+            /// ID of the Connect Webview that you want to delete.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
             public string ConnectWebviewId { get; set; }
 
@@ -524,6 +611,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Deletes a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.
+        /// </summary>
         public void Delete(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -531,11 +623,21 @@ namespace Seam.Api
             _seam.Post<object>("/connect_webviews/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.
+        /// </summary>
         public void Delete(string connectWebviewId = default)
         {
             Delete(new DeleteRequest(connectWebviewId: connectWebviewId));
         }
 
+        /// <summary>
+        /// Deletes a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.
+        /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -543,11 +645,19 @@ namespace Seam.Api
             await _seam.PostAsync<object>("/connect_webviews/delete", requestOptions);
         }
 
+        /// <summary>
+        /// Deletes a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.
+        /// </summary>
         public async Task DeleteAsync(string connectWebviewId = default)
         {
             await DeleteAsync(new DeleteRequest(connectWebviewId: connectWebviewId));
         }
 
+        /// <summary>
+        /// Request parameters for Get a Connect Webview.
+        /// </summary>
         [DataContract(Name = "getRequest_request")]
         public class GetRequest
         {
@@ -559,6 +669,9 @@ namespace Seam.Api
                 ConnectWebviewId = connectWebviewId;
             }
 
+            /// <summary>
+            /// ID of the Connect Webview that you want to get.
+            /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = true, EmitDefaultValue = false)]
             public string ConnectWebviewId { get; set; }
 
@@ -593,6 +706,9 @@ namespace Seam.Api
                 ConnectWebview = connectWebview;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "connect_webview", IsRequired = false, EmitDefaultValue = false)]
             public ConnectWebview ConnectWebview { get; set; }
 
@@ -616,6 +732,11 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a specified [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// Unless you&apos;re using a `custom_redirect_url`, you should poll a newly-created `connect_webview` to find out if the user has signed in or to get details about what devices they&apos;ve connected.
+        /// </summary>
         public ConnectWebview Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -625,11 +746,21 @@ namespace Seam.Api
                 .Data.ConnectWebview;
         }
 
+        /// <summary>
+        /// Returns a specified [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// Unless you&apos;re using a `custom_redirect_url`, you should poll a newly-created `connect_webview` to find out if the user has signed in or to get details about what devices they&apos;ve connected.
+        /// </summary>
         public ConnectWebview Get(string connectWebviewId = default)
         {
             return Get(new GetRequest(connectWebviewId: connectWebviewId));
         }
 
+        /// <summary>
+        /// Returns a specified [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// Unless you&apos;re using a `custom_redirect_url`, you should poll a newly-created `connect_webview` to find out if the user has signed in or to get details about what devices they&apos;ve connected.
+        /// </summary>
         public async Task<ConnectWebview> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -639,11 +770,19 @@ namespace Seam.Api
                 .ConnectWebview;
         }
 
+        /// <summary>
+        /// Returns a specified [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        ///
+        /// Unless you&apos;re using a `custom_redirect_url`, you should poll a newly-created `connect_webview` to find out if the user has signed in or to get details about what devices they&apos;ve connected.
+        /// </summary>
         public async Task<ConnectWebview> GetAsync(string connectWebviewId = default)
         {
             return (await GetAsync(new GetRequest(connectWebviewId: connectWebviewId)));
         }
 
+        /// <summary>
+        /// Request parameters for List Connect Webviews.
+        /// </summary>
         [DataContract(Name = "listRequest_request")]
         public class ListRequest
         {
@@ -667,21 +806,39 @@ namespace Seam.Api
                 UserIdentifierKey = userIdentifierKey;
             }
 
+            /// <summary>
+            /// Custom metadata pairs by which you want to [filter Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Returns Connect Webviews with `custom_metadata` that contains all of the provided key:value pairs.
+            /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
 
+            /// <summary>
+            /// Customer key for which you want to list connect webviews.
+            /// </summary>
             [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CustomerKey { get; set; }
 
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
             [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
             public float? Limit { get; set; }
 
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
             [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
             public string? PageCursor { get; set; }
 
+            /// <summary>
+            /// String for which to search. Filters returned Connect Webviews to include all records that satisfy a partial match using `connect_webview_id`, `accepted_providers`, `custom_metadata`, or `customer_key`.
+            /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
 
+            /// <summary>
+            /// Your user ID for the user by which you want to filter Connect Webviews.
+            /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
@@ -716,6 +873,9 @@ namespace Seam.Api
                 ConnectWebviews = connectWebviews;
             }
 
+            /// <summary>
+            /// OK
+            /// </summary>
             [DataMember(Name = "connect_webviews", IsRequired = false, EmitDefaultValue = false)]
             public List<ConnectWebview> ConnectWebviews { get; set; }
 
@@ -739,6 +899,9 @@ namespace Seam.Api
             }
         }
 
+        /// <summary>
+        /// Returns a list of all [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews).
+        /// </summary>
         public List<ConnectWebview> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -748,6 +911,9 @@ namespace Seam.Api
                 .Data.ConnectWebviews;
         }
 
+        /// <summary>
+        /// Returns a list of all [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews).
+        /// </summary>
         public List<ConnectWebview> List(
             object? customMetadataHas = default,
             string? customerKey = default,
@@ -769,6 +935,9 @@ namespace Seam.Api
             );
         }
 
+        /// <summary>
+        /// Returns a list of all [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews).
+        /// </summary>
         public async Task<List<ConnectWebview>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
@@ -778,6 +947,9 @@ namespace Seam.Api
                 .ConnectWebviews;
         }
 
+        /// <summary>
+        /// Returns a list of all [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews).
+        /// </summary>
         public async Task<List<ConnectWebview>> ListAsync(
             object? customMetadataHas = default,
             string? customerKey = default,
