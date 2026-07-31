@@ -21,6 +21,8 @@ runs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ inputs.dotnet_version }}
+    - name: Setup just
+      uses: extractions/setup-just@v2
     - name: Cache NuGet packages
       if: inputs.install_dependencies == 'true'
       uses: actions/cache@v4

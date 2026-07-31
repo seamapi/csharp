@@ -30,29 +30,8 @@ jobs:
         uses: actions/checkout@v7
       - name: Setup
         uses: ./.github/actions/setup
-      - name: Setup Node.js
-        uses: ./.github/actions/setup-node
       - name: Test
-        run: npm test -- --framework ${{ matrix.framework }}
-  test-codegen:
-    name: Test codegen (Node.js v${{ matrix.node }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - '22'
-          - '24'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Setup Node.js
-        uses: ./.github/actions/setup-node
-        with:
-          node_version: ${{ matrix.node }}
-      - name: Test
-        run: npm run test:node
+        run: just test ${{ matrix.framework }}
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -65,7 +44,7 @@ jobs:
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
       - name: Lint
-        run: npm run lint:csharp
+        run: just lint
       - name: Lint with ESLint and Prettier
         run: npm run lint
   typecheck:

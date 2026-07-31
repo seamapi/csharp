@@ -26,8 +26,8 @@ var accessCode = seam.AccessCodes.Create(deviceId: myDevices[0].DeviceId, code: 
 
 ### Quickstart
 
-Install the [.NET SDK](https://dotnet.microsoft.com/download) 10.0 or later
-and [Node.js](https://nodejs.org/), then run
+Install the [.NET SDK](https://dotnet.microsoft.com/download) 10.0 or later,
+[just](https://just.systems/) and [Node.js](https://nodejs.org/), then run
 
 ```
 $ git clone git@github.com:seamapi/csharp.git
@@ -36,37 +36,39 @@ $ npm install
 $ dotnet tool restore
 ```
 
-Primary development tasks are defined as npm scripts in `package.json`
-and available via `npm run`.
+Primary development tasks are defined in the `justfile`
+and available via `just`.
 View them with
 
 ```
-$ npm run
+$ just --list
 ```
 
-| Task              | Command                                      |
-| ----------------- | -------------------------------------------- |
-| Run the tests     | `npm test`                                   |
-| Lint              | `npm run lint:csharp` and `npm run lint`     |
-| Format            | `npm run format:csharp` and `npm run format` |
-| Build the package | `npm run build`                              |
-| Generate the SDK  | `npm run generate`                           |
+| Task              | Command            |
+| ----------------- | ------------------ |
+| Run the tests     | `just test`        |
+| Lint              | `just lint`        |
+| Format            | `just format`      |
+| Build the package | `just build`       |
+| Generate the SDK  | `npm run generate` |
 
+The npm scripts only drive the codegen layer: `npm run generate`
+regenerates the SDK, and `npm run lint` and `npm run format` cover the
+TypeScript, JSON, YAML and Markdown sources with ESLint and
+[Prettier](https://prettier.io/).
 C# sources are formatted by [CSharpier](https://csharpier.com/),
 pinned as a local dotnet tool in `.config/dotnet-tools.json`.
-TypeScript, JSON, YAML and Markdown are formatted by
-[Prettier](https://prettier.io/) via `npm run format`.
 
 Run the full suite with
 
 ```
-$ npm test
+$ just test
 ```
 
 To run the tests for a single target framework, pass it as an argument
 
 ```
-$ npm test -- --framework net8.0
+$ just test net8.0
 ```
 
 ### Requirements

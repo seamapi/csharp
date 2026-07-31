@@ -28,10 +28,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           dotnet_version: ${{ inputs.dotnet_version }}
-      - name: Setup Node.js
-        uses: ./.github/actions/setup-node
       - name: Build
-        run: npm run build
+        run: just build
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
