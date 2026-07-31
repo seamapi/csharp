@@ -17,23 +17,33 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 
   <PackageId>Seam</PackageId>
 
-  <PackageVersion>${version}</PackageVersion>
+  <Version>${version}</Version>
 
-  <Authors>Seam</Authors>
+  <Authors>Seam Labs, Inc.</Authors>
 
   <Owners>Seam</Owners>
 
-  <PackageReadmeFile>README.md</PackageReadmeFile>
+  <Description>SDK for the Seam API written in C#.</Description>
 
-  <PackageProjectUrl>http://github.com/seamapi/seam-connect</PackageProjectUrl>
+  <Copyright>Copyright (c) 2021-2026 Seam Labs, Inc.</Copyright>
+
+  <PackageTags>seam;api;iot</PackageTags>
+
+  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+  <PackageReadmeFile>README.md</PackageReadmeFile>
 
   <PackageIcon>icon.png</PackageIcon>
 
-  <Description>Seam API for C#</Description>
+  <PackageProjectUrl>https://github.com/seamapi/csharp</PackageProjectUrl>
 
-  <Copyright>Copyright (c) 2021-2023 Seam Labs, Inc.</Copyright>
+  <RepositoryUrl>https://github.com/seamapi/csharp</RepositoryUrl>
 
-  <PackageTags>api iot</PackageTags>
+  <RepositoryType>git</RepositoryType>
+
+  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+  <NoWarn>$(NoWarn);CS1591</NoWarn>
 </PropertyGroup>
 
 <ItemGroup>
@@ -53,7 +63,7 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 const main = async () => {
   writeFileSync(
     './output/csharp/src/Seam/Seam.csproj',
-    csprojTemplate(version, ['6.0', '7.0']),
+    csprojTemplate(version, ['6.0', '8.0']),
   )
 }
 

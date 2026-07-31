@@ -8,6 +8,12 @@
 # Codegen
 CODEGEN.md
 
+# .NET build output
+bin/
+obj/
+pkg/
+*.nupkg
+
 # TypeScript build output
 *.d.ts
 *.js
@@ -220,5 +226,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-**/*.nupkg
