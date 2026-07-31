@@ -16,9 +16,6 @@ on:
       registry_token:
         description: The package registry token.
         required: true
-      node_auth_token:
-        description: The Node.js auth token.
-        required: true
 
 jobs:
   publish:
@@ -32,19 +29,13 @@ jobs:
         uses: ./.github/actions/setup
         with:
           install_dependencies: 'false'
-          node_auth_token: ${{ secrets.node_auth_token }}
       - name: Download artifact
         uses: actions/download-artifact@v8
         with:
           name: ${{ inputs.artifact_name }}
-          path: .
-      - name: Get meta
-        id: meta
-        run: echo "tgz=$(ls *.tgz | head -n1)" >> $GITHUB_OUTPUT
+          path: pkg/
       - name: Publish
-        uses: JS-DevTools/npm-publish@v4
-        with:
-          access: restricted
-          token: ${{ secrets.registry_token }}
-          registry: ${{ inputs.registry_url }}
-          package: ${{ steps.meta.outputs.tgz }}
+        run: dotnet nuget push "pkg/*.nupkg" --api-key "$REGISTRY_TOKEN" --source "$REGISTRY_URL"
+        env:
+          REGISTRY_TOKEN: ${{ secrets.registry_token }}
+          REGISTRY_URL: ${{ inputs.registry_url }}

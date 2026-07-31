@@ -4,15 +4,13 @@ name: _build
 on:
   workflow_call:
     inputs:
-      node_version:
-        description: The Node.js version.
+      dotnet_version:
+        description: The .NET SDK versions to install.
         type: string
         required: false
-        default: '24'
-    secrets:
-      node_auth_token:
-        description: The Node.js auth token.
-        required: true
+        default: |
+          8.0.x
+          10.0.x
     outputs:
       artifact_name:
         description: The artifact name.
@@ -29,15 +27,12 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          node_version: ${{ inputs.node_version }}
-          node_auth_token: ${{ secrets.node_auth_token }}
+          dotnet_version: ${{ inputs.dotnet_version }}
       - name: Build
-        run: npm run build
-      - name: Package
-        run: npm pack
+        run: just build
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: build-${{ github.sha }}
           if-no-files-found: error
-          path: '*.tgz'
+          path: pkg/

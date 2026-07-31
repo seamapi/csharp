@@ -1,19 +1,14 @@
 ---
 name: Setup
-description: Setup Node.js and install dependencies.
+description: Setup .NET and install dependencies.
 
 inputs:
-  node_auth_token:
-    description: The Node.js auth token.
-    required: true
-  node_version:
-    description: The Node.js version.
+  dotnet_version:
+    description: The .NET SDK versions to install.
     required: false
-    default: '24'
-  registry_url:
-    description: The Node.js package registry URL.
-    required: false
-    default: https://npm.pkg.github.com
+    default: |
+      8.0.x
+      10.0.x
   install_dependencies:
     description: Install dependencies.
     required: false
@@ -22,39 +17,24 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v7
-      if: inputs.install_dependencies == 'true'
-      with:
-        node-version: ${{ inputs.node_version }}
-        registry-url: ${{ inputs.registry_url }}
-    - name: Setup Node.js without cache
-      uses: actions/setup-node@v7
-      if: inputs.install_dependencies == 'false'
-      with:
-        node-version: ${{ inputs.node_version }}
-        registry-url: ${{ inputs.registry_url }}
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: |
-          7.0.x
-          6.0.x
-    - name: Setup CSharpier
-      shell: bash
-      run: dotnet tool install csharpier -g --version 0.29.2
-    - name: Install dependencies
+        dotnet-version: ${{ inputs.dotnet_version }}
+    - name: Setup just
+      uses: extractions/setup-just@v4
+    - name: Cache NuGet packages
+      if: inputs.install_dependencies == 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '.config/dotnet-tools.json') }}
+        restore-keys: nuget-${{ runner.os }}-
+    - name: Restore tools
       if: inputs.install_dependencies == 'true'
       shell: bash
-      run: npm ci --ignore-scripts
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.node_auth_token }}
-    - name: Rebuild Node.js modules
+      run: dotnet tool restore
+    - name: Restore dependencies
+      if: inputs.install_dependencies == 'true'
       shell: bash
-      run: npm rebuild
-    - name: Run postinstall script
-      shell: bash
-      run: npm run postinstall --if-present
-    - name: Run prepare script
-      shell: bash
-      run: npm run prepare --if-present
+      run: dotnet restore ./output/csharp

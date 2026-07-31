@@ -12,8 +12,6 @@ jobs:
   build:
     name: Build
     uses: ./.github/workflows/_build.yml
-    secrets:
-      node_auth_token: ${{ secrets.GH_TOKEN }}
   release:
     name: GitHub Releases
     runs-on: ubuntu-latest
@@ -24,12 +22,11 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Install Dependencies
-        shell: bash
-        run: npm i tsx -g
-      - name: Package .NET module
-        shell: bash
-        run: npm run pack
+      - name: Download artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: pkg/
       - name: Generate release notes
         id: changelog
         run: |
@@ -44,13 +41,17 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fail_on_unmatched_files: true
           prerelease: ${{ contains(github.ref_name, '-') }}
-          files: '*.nupkg'
+          files: pkg/*
           body_path: ${{ github.workspace }}/${{ steps.changelog.outputs.outfile }}
-      - name: Publish .NET module to nuget
-        shell: bash
-        run: dotnet nuget push *.nupkg --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+  nuget:
+    name: NuGet.org
+    uses: ./.github/workflows/_publish.yml
+    needs: build
+    with:
+      artifact_name: ${{ needs.build.outputs.artifact_name }}
+      registry_url: https://api.nuget.org/v3/index.json
+    secrets:
+      registry_token: ${{ secrets.NUGET_API_KEY }}
   github:
     name: GitHub Packages
     uses: ./.github/workflows/_publish.yml
@@ -60,7 +61,6 @@ jobs:
     needs: build
     with:
       artifact_name: ${{ needs.build.outputs.artifact_name }}
-      registry_url: https://npm.pkg.github.com
+      registry_url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
     secrets:
       registry_token: ${{ secrets.GITHUB_TOKEN }}
-      node_auth_token: ${{ secrets.GH_TOKEN }}

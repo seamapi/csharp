@@ -4,11 +4,14 @@ name: Check
 on:
   push:
     branches:
+      - main
+  pull_request:
+    branches:
       - '**'
 
 jobs:
   test:
-    name: Test (Node.js v${{ matrix.node }} on ${{ matrix.os_name }})
+    name: Test (.NET ${{ matrix.framework }} on ${{ matrix.os_name }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:
@@ -16,9 +19,9 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        node:
-          - '22'
-          - '24'
+        framework:
+          - net8.0
+          - net10.0
         include:
           - os: ubuntu-latest
             os_name: Linux
@@ -27,53 +30,97 @@ jobs:
         uses: actions/checkout@v7
       - name: Setup
         uses: ./.github/actions/setup
-        with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
       - name: Test
-        run: npm test
+        run: just test ${{ matrix.framework }}
   lint:
-    name: Lint (Node.js v${{ matrix.node }})
+    name: Lint
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - '22'
-          - '24'
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Setup
         uses: ./.github/actions/setup
-        with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
       - name: Lint
+        run: just lint
+      - name: Lint with ESLint and Prettier
         run: npm run lint
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+      - name: Typecheck
+        run: npm run typecheck
   build:
     name: Build
     uses: ./.github/workflows/_build.yml
-    secrets:
-      node_auth_token: ${{ secrets.GH_TOKEN }}
-  typecheck:
-    name: Typecheck (Node.js v${{ matrix.node }})
-    runs-on: ubuntu-latest
+  install:
+    name: Install (.NET ${{ matrix.framework }} on ${{ matrix.os_name }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    needs: build
     strategy:
       fail-fast: false
       matrix:
-        node:
-          - '22'
-          - '24'
+        os:
+          - ubuntu-latest
+        framework:
+          - net8.0
+          - net10.0
+        include:
+          - os: ubuntu-latest
+            os_name: Linux
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Setup
-        uses: ./.github/actions/setup
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
         with:
-          node_version: ${{ matrix.node }}
-          node_auth_token: ${{ secrets.GH_TOKEN }}
-      - name: Typecheck
-        run: npm run typecheck
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - name: Download artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: pkg/
+      - name: Get meta
+        id: meta
+        run: |
+          nupkg=$(basename pkg/Seam.*.nupkg .nupkg)
+          echo "version=${nupkg#Seam.}" >> $GITHUB_OUTPUT
+      - name: Create project
+        run: dotnet new console --framework ${{ matrix.framework }} --output smoke
+      - name: Create nuget.config
+        uses: DamianReeves/write-file-action@v1.3
+        with:
+          write-mode: overwrite
+          path: smoke/nuget.config
+          contents: |
+            <?xml version="1.0" encoding="utf-8"?>
+            <configuration>
+              <packageSources>
+                <add key="local" value="../pkg" />
+              </packageSources>
+            </configuration>
+      - name: Create Program.cs
+        uses: DamianReeves/write-file-action@v1.3
+        with:
+          write-mode: overwrite
+          path: smoke/Program.cs
+          contents: |
+            using Seam.Client;
+
+            var seam = new SeamClient(apiToken: "seam_apikey1_token");
+            Console.WriteLine($"Constructed {seam.GetType().FullName}");
+      - name: Install
+        run: dotnet add smoke package Seam --version "$VERSION"
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+      - name: Run
+        run: dotnet run --project smoke
