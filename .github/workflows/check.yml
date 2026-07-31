@@ -125,6 +125,18 @@ jobs:
           echo "version=${nupkg#Seam.}" >> $GITHUB_OUTPUT
       - name: Create project
         run: dotnet new console --framework ${{ matrix.framework }} --output smoke
+      - name: Create nuget.config
+        uses: DamianReeves/write-file-action@v1.3
+        with:
+          write-mode: overwrite
+          path: smoke/nuget.config
+          contents: |
+            <?xml version="1.0" encoding="utf-8"?>
+            <configuration>
+              <packageSources>
+                <add key="local" value="../pkg" />
+              </packageSources>
+            </configuration>
       - name: Create Program.cs
         uses: DamianReeves/write-file-action@v1.3
         with:
@@ -136,7 +148,7 @@ jobs:
             var seam = new SeamClient(apiToken: "seam_apikey1_token");
             Console.WriteLine($"Constructed {seam.GetType().FullName}");
       - name: Install
-        run: dotnet add smoke package Seam --version "$VERSION" --source "$GITHUB_WORKSPACE/pkg"
+        run: dotnet add smoke package Seam --version "$VERSION"
         env:
           VERSION: ${{ steps.meta.outputs.version }}
       - name: Run
