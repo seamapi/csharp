@@ -26,7 +26,7 @@ var accessCode = seam.AccessCodes.Create(deviceId: myDevices[0].DeviceId, code: 
 
 ### Quickstart
 
-Install the [.NET SDK](https://dotnet.microsoft.com/download) 8.0 or later
+Install the [.NET SDK](https://dotnet.microsoft.com/download) 10.0 or later
 and [Node.js](https://nodejs.org/), then run
 
 ```
@@ -71,7 +71,7 @@ $ npm test -- --framework net8.0
 
 ### Requirements
 
-The package targets .NET 6.0 and .NET 8.0.
+The package targets .NET 8.0 and .NET 10.0, the supported LTS releases.
 Continuous integration exercises both target frameworks.
 
 ### Publishing

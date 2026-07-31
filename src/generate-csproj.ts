@@ -63,7 +63,7 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 const main = async () => {
   writeFileSync(
     './output/csharp/src/Seam/Seam.csproj',
-    csprojTemplate(version, ['6.0', '8.0']),
+    csprojTemplate(version, ['8.0', '10.0']),
   )
 }
 

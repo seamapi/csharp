@@ -7,8 +7,8 @@ inputs:
     description: The .NET SDK versions to install.
     required: false
     default: |
-      6.0.x
       8.0.x
+      10.0.x
   install_dependencies:
     description: Install dependencies.
     required: false

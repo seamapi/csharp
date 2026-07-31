@@ -9,8 +9,8 @@ on:
         type: string
         required: false
         default: |
-          6.0.x
           8.0.x
+          10.0.x
     outputs:
       artifact_name:
         description: The artifact name.
