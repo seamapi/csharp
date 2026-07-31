@@ -48,22 +48,14 @@ jobs:
       - name: Lint with ESLint and Prettier
         run: npm run lint
   typecheck:
-    name: Typecheck (Node.js v${{ matrix.node }})
+    name: Typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - '22'
-          - '24'
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
-        with:
-          node_version: ${{ matrix.node }}
       - name: Typecheck
         run: npm run typecheck
   build:
