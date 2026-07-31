@@ -5,6 +5,7 @@ export default () => {
       ignoreChanges: ['tmp/**/*'],
     },
     extensions: ['ts'],
+    workerThreads: false,
     nodeArguments: ['--import=tsx'],
   }
 }
