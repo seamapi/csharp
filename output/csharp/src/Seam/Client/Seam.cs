@@ -178,6 +178,7 @@ namespace Seam.Client
     {
         private readonly string _baseUrl;
         private readonly string _apiToken;
+        private readonly int? _timeout;
 
         /// <summary>
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
@@ -210,19 +211,22 @@ namespace Seam.Client
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" />
         /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
         /// <param name="apiToken">The target service's API Token.</param>
+        /// <param name="timeout">The request timeout in milliseconds. Defaults to
+        /// <see cref="SeamRequestConfiguration.DefaultTimeout" />.</param>
         /// <exception cref="ArgumentException"></exception>
-        public SeamClient(string apiToken)
-            : this(GlobalSeamRequestConfiguration.Instance.BasePath, apiToken) { }
+        public SeamClient(string apiToken, int? timeout = null)
+            : this(GlobalSeamRequestConfiguration.Instance.BasePath, apiToken, timeout) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" />
         /// </summary>
         /// <param name="basePath">The target service's base path in URL format.</param>
         /// <param name="apiToken">The target service's API Token.</param>
+        /// <param name="timeout">The request timeout in milliseconds. Defaults to
+        /// <see cref="SeamRequestConfiguration.DefaultTimeout" />.</param>
         /// <exception cref="ArgumentException"></exception>
-        public SeamClient(string basePath, string apiToken)
+        public SeamClient(string basePath, string apiToken, int? timeout = null)
         {
             if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
@@ -232,6 +236,7 @@ namespace Seam.Client
 
             _baseUrl = basePath;
             _apiToken = apiToken;
+            _timeout = timeout;
         }
 
         /// <summary>
@@ -503,7 +508,7 @@ namespace Seam.Client
             {
                 ClientCertificates = configuration.ClientCertificates,
                 CookieContainer = cookies,
-                MaxTimeout = configuration.Timeout,
+                MaxTimeout = _timeout ?? configuration.Timeout,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 // UseDefaultCredentials = configuration.UseDefaultCredentials,
@@ -633,7 +638,7 @@ namespace Seam.Client
             var clientOptions = new RestClientOptions(baseUrl)
             {
                 ClientCertificates = configuration.ClientCertificates,
-                MaxTimeout = configuration.Timeout,
+                MaxTimeout = _timeout ?? configuration.Timeout,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 ThrowOnAnyError = false,
@@ -1061,10 +1066,10 @@ namespace Seam.Client
     [Obsolete("Please use Seam.Client.SeamClient instead")]
     public class Seam : SeamClient
     {
-        public Seam(string apiToken)
-            : base(apiToken) { }
+        public Seam(string apiToken, int? timeout = null)
+            : base(apiToken, timeout) { }
 
-        public Seam(string basePath, string apiToken)
-            : base(basePath, apiToken) { }
+        public Seam(string basePath, string apiToken, int? timeout = null)
+            : base(basePath, apiToken, timeout) { }
     }
 }
