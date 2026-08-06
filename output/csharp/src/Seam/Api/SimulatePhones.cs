@@ -300,7 +300,8 @@ namespace Seam.Api
                     "/phones/simulate/create_sandbox_phone",
                     requestOptions
                 )
-                .Data.Phone;
+                .EnsureData("/phones/simulate/create_sandbox_phone")
+                .Phone;
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/phones/simulate/create_sandbox_phone")
                 .Phone;
         }
 

@@ -282,7 +282,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/noise_sensors/list", requestOptions).Data.Devices;
+            return _seam
+                .Post<ListResponse>("/noise_sensors/list", requestOptions)
+                .EnsureData("/noise_sensors/list")
+                .Devices;
         }
 
         /// <summary>
@@ -337,7 +340,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/noise_sensors/list", requestOptions))
-                .Data
+                .EnsureData("/noise_sensors/list")
                 .Devices;
         }
 

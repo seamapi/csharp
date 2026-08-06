@@ -2793,7 +2793,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreatePortalResponse>("/customers/create_portal", requestOptions)
-                .Data.CustomerPortal;
+                .EnsureData("/customers/create_portal")
+                .CustomerPortal;
         }
 
         /// <summary>
@@ -2839,7 +2840,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/customers/create_portal")
                 .CustomerPortal;
         }
 

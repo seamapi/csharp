@@ -104,7 +104,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/access_methods/unmanaged/get", requestOptions)
-                .Data.AccessMethod;
+                .EnsureData("/access_methods/unmanaged/get")
+                .AccessMethod;
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<GetResponse>("/access_methods/unmanaged/get", requestOptions)
             )
-                .Data
+                .EnsureData("/access_methods/unmanaged/get")
                 .AccessMethod;
         }
 
@@ -249,7 +250,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/access_methods/unmanaged/list", requestOptions)
-                .Data.AccessMethods;
+                .EnsureData("/access_methods/unmanaged/list")
+                .AccessMethods;
         }
 
         /// <summary>
@@ -285,7 +287,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_methods/unmanaged/list")
                 .AccessMethods;
         }
 

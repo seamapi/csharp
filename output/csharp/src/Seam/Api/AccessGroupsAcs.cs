@@ -294,7 +294,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/acs/access_groups/get", requestOptions)
-                .Data.AcsAccessGroup;
+                .EnsureData("/acs/access_groups/get")
+                .AcsAccessGroup;
         }
 
         /// <summary>
@@ -313,7 +314,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/acs/access_groups/get", requestOptions))
-                .Data
+                .EnsureData("/acs/access_groups/get")
                 .AcsAccessGroup;
         }
 
@@ -437,7 +438,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/acs/access_groups/list", requestOptions)
-                .Data.AcsAccessGroups;
+                .EnsureData("/acs/access_groups/list")
+                .AcsAccessGroups;
         }
 
         /// <summary>
@@ -468,7 +470,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/acs/access_groups/list", requestOptions))
-                .Data
+                .EnsureData("/acs/access_groups/list")
                 .AcsAccessGroups;
         }
 
@@ -583,7 +585,8 @@ namespace Seam.Api
                     "/acs/access_groups/list_accessible_entrances",
                     requestOptions
                 )
-                .Data.AcsEntrances;
+                .EnsureData("/acs/access_groups/list_accessible_entrances")
+                .AcsEntrances;
         }
 
         /// <summary>
@@ -611,7 +614,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/access_groups/list_accessible_entrances")
                 .AcsEntrances;
         }
 
@@ -715,7 +718,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListUsersResponse>("/acs/access_groups/list_users", requestOptions)
-                .Data.AcsUsers;
+                .EnsureData("/acs/access_groups/list_users")
+                .AcsUsers;
         }
 
         /// <summary>
@@ -739,7 +743,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/access_groups/list_users")
                 .AcsUsers;
         }
 

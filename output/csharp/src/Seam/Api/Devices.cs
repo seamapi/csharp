@@ -111,7 +111,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/devices/get", requestOptions).Data.Device;
+            return _seam
+                .Post<GetResponse>("/devices/get", requestOptions)
+                .EnsureData("/devices/get")
+                .Device;
         }
 
         /// <summary>
@@ -133,7 +136,9 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/devices/get", requestOptions)).Data.Device;
+            return (await _seam.PostAsync<GetResponse>("/devices/get", requestOptions))
+                .EnsureData("/devices/get")
+                .Device;
         }
 
         /// <summary>
@@ -788,7 +793,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/devices/list", requestOptions).Data.Devices;
+            return _seam
+                .Post<ListResponse>("/devices/list", requestOptions)
+                .EnsureData("/devices/list")
+                .Devices;
         }
 
         /// <summary>
@@ -843,7 +851,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/devices/list", requestOptions))
-                .Data
+                .EnsureData("/devices/list")
                 .Devices;
         }
 
@@ -1019,7 +1027,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListDeviceProvidersResponse>("/devices/list_device_providers", requestOptions)
-                .Data.DeviceProviders;
+                .EnsureData("/devices/list_device_providers")
+                .DeviceProviders;
         }
 
         /// <summary>
@@ -1057,7 +1066,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/devices/list_device_providers")
                 .DeviceProviders;
         }
 

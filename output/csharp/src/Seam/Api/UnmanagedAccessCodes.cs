@@ -353,7 +353,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/access_codes/unmanaged/get", requestOptions)
-                .Data.AccessCode;
+                .EnsureData("/access_codes/unmanaged/get")
+                .AccessCode;
         }
 
         /// <summary>
@@ -382,7 +383,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<GetResponse>("/access_codes/unmanaged/get", requestOptions)
             )
-                .Data
+                .EnsureData("/access_codes/unmanaged/get")
                 .AccessCode;
         }
 
@@ -524,7 +525,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/access_codes/unmanaged/list", requestOptions)
-                .Data.AccessCodes;
+                .EnsureData("/access_codes/unmanaged/list")
+                .AccessCodes;
         }
 
         /// <summary>
@@ -559,7 +561,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<ListResponse>("/access_codes/unmanaged/list", requestOptions)
             )
-                .Data
+                .EnsureData("/access_codes/unmanaged/list")
                 .AccessCodes;
         }
 

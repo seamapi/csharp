@@ -104,7 +104,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/user_identities/unmanaged/get", requestOptions)
-                .Data.UserIdentity;
+                .EnsureData("/user_identities/unmanaged/get")
+                .UserIdentity;
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<GetResponse>("/user_identities/unmanaged/get", requestOptions)
             )
-                .Data
+                .EnsureData("/user_identities/unmanaged/get")
                 .UserIdentity;
         }
 
@@ -249,7 +250,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/user_identities/unmanaged/list", requestOptions)
-                .Data.UserIdentities;
+                .EnsureData("/user_identities/unmanaged/list")
+                .UserIdentities;
         }
 
         /// <summary>
@@ -285,7 +287,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/unmanaged/list")
                 .UserIdentities;
         }
 

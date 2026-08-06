@@ -544,7 +544,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/acs/credentials/create", requestOptions)
-                .Data.AcsCredential;
+                .EnsureData("/acs/credentials/create")
+                .AcsCredential;
         }
 
         /// <summary>
@@ -595,7 +596,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<CreateResponse>("/acs/credentials/create", requestOptions)
             )
-                .Data
+                .EnsureData("/acs/credentials/create")
                 .AcsCredential;
         }
 
@@ -801,7 +802,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/acs/credentials/get", requestOptions)
-                .Data.AcsCredential;
+                .EnsureData("/acs/credentials/get")
+                .AcsCredential;
         }
 
         /// <summary>
@@ -820,7 +822,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/acs/credentials/get", requestOptions))
-                .Data
+                .EnsureData("/acs/credentials/get")
                 .AcsCredential;
         }
 
@@ -980,7 +982,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/acs/credentials/list", requestOptions)
-                .Data.AcsCredentials;
+                .EnsureData("/acs/credentials/list")
+                .AcsCredentials;
         }
 
         /// <summary>
@@ -1019,7 +1022,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/acs/credentials/list", requestOptions))
-                .Data
+                .EnsureData("/acs/credentials/list")
                 .AcsCredentials;
         }
 
@@ -1142,7 +1145,8 @@ namespace Seam.Api
                     "/acs/credentials/list_accessible_entrances",
                     requestOptions
                 )
-                .Data.AcsEntrances;
+                .EnsureData("/acs/credentials/list_accessible_entrances")
+                .AcsEntrances;
         }
 
         /// <summary>
@@ -1170,7 +1174,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/credentials/list_accessible_entrances")
                 .AcsEntrances;
         }
 

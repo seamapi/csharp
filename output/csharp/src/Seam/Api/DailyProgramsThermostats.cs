@@ -173,7 +173,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/thermostats/daily_programs/create", requestOptions)
-                .Data.ThermostatDailyProgram;
+                .EnsureData("/thermostats/daily_programs/create")
+                .ThermostatDailyProgram;
         }
 
         /// <summary>
@@ -201,7 +202,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/daily_programs/create")
                 .ThermostatDailyProgram;
         }
 
@@ -458,7 +459,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<UpdateResponse>("/thermostats/daily_programs/update", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/daily_programs/update")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -492,7 +494,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/daily_programs/update")
                 .ActionAttempt;
         }
 

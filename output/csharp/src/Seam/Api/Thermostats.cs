@@ -117,7 +117,8 @@ namespace Seam.Api
                     "/thermostats/activate_climate_preset",
                     requestOptions
                 )
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/activate_climate_preset")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/activate_climate_preset")
                 .ActionAttempt;
         }
 
@@ -283,7 +284,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<CoolResponse>("/thermostats/cool", requestOptions).Data.ActionAttempt;
+            return _seam
+                .Post<CoolResponse>("/thermostats/cool", requestOptions)
+                .EnsureData("/thermostats/cool")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -312,7 +316,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<CoolResponse>("/thermostats/cool", requestOptions))
-                .Data
+                .EnsureData("/thermostats/cool")
                 .ActionAttempt;
         }
 
@@ -934,7 +938,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<HeatResponse>("/thermostats/heat", requestOptions).Data.ActionAttempt;
+            return _seam
+                .Post<HeatResponse>("/thermostats/heat", requestOptions)
+                .EnsureData("/thermostats/heat")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -963,7 +970,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<HeatResponse>("/thermostats/heat", requestOptions))
-                .Data
+                .EnsureData("/thermostats/heat")
                 .ActionAttempt;
         }
 
@@ -1123,7 +1130,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<HeatCoolResponse>("/thermostats/heat_cool", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/heat_cool")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1158,7 +1166,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<HeatCoolResponse>("/thermostats/heat_cool", requestOptions)
             )
-                .Data
+                .EnsureData("/thermostats/heat_cool")
                 .ActionAttempt;
         }
 
@@ -1486,7 +1494,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/thermostats/list", requestOptions).Data.Devices;
+            return _seam
+                .Post<ListResponse>("/thermostats/list", requestOptions)
+                .EnsureData("/thermostats/list")
+                .Devices;
         }
 
         /// <summary>
@@ -1541,7 +1552,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/thermostats/list", requestOptions))
-                .Data
+                .EnsureData("/thermostats/list")
                 .Devices;
         }
 
@@ -1675,7 +1686,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<OffResponse>("/thermostats/off", requestOptions).Data.ActionAttempt;
+            return _seam
+                .Post<OffResponse>("/thermostats/off", requestOptions)
+                .EnsureData("/thermostats/off")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1694,7 +1708,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<OffResponse>("/thermostats/off", requestOptions))
-                .Data
+                .EnsureData("/thermostats/off")
                 .ActionAttempt;
         }
 
@@ -1954,7 +1968,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<SetFanModeResponse>("/thermostats/set_fan_mode", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/set_fan_mode")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1988,7 +2003,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/set_fan_mode")
                 .ActionAttempt;
         }
 
@@ -2175,7 +2190,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<SetHvacModeResponse>("/thermostats/set_hvac_mode", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/set_hvac_mode")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -2215,7 +2231,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/set_hvac_mode")
                 .ActionAttempt;
         }
 
@@ -2928,7 +2944,8 @@ namespace Seam.Api
                     "/thermostats/update_weekly_program",
                     requestOptions
                 )
-                .Data.ActionAttempt;
+                .EnsureData("/thermostats/update_weekly_program")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -2974,7 +2991,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/thermostats/update_weekly_program")
                 .ActionAttempt;
         }
 

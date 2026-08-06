@@ -109,7 +109,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<CreateResponse>("/webhooks/create", requestOptions).Data.Webhook;
+            return _seam
+                .Post<CreateResponse>("/webhooks/create", requestOptions)
+                .EnsureData("/webhooks/create")
+                .Webhook;
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<CreateResponse>("/webhooks/create", requestOptions))
-                .Data
+                .EnsureData("/webhooks/create")
                 .Webhook;
         }
 
@@ -303,7 +306,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/webhooks/get", requestOptions).Data.Webhook;
+            return _seam
+                .Post<GetResponse>("/webhooks/get", requestOptions)
+                .EnsureData("/webhooks/get")
+                .Webhook;
         }
 
         /// <summary>
@@ -322,7 +328,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/webhooks/get", requestOptions))
-                .Data
+                .EnsureData("/webhooks/get")
                 .Webhook;
         }
 
@@ -407,7 +413,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/webhooks/list", requestOptions).Data.Webhooks;
+            return _seam
+                .Post<ListResponse>("/webhooks/list", requestOptions)
+                .EnsureData("/webhooks/list")
+                .Webhooks;
         }
 
         /// <summary>
@@ -426,7 +435,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/webhooks/list", requestOptions))
-                .Data
+                .EnsureData("/webhooks/list")
                 .Webhooks;
         }
 
