@@ -268,7 +268,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/user_identities/create", requestOptions)
-                .Data.UserIdentity;
+                .EnsureData("/user_identities/create")
+                .UserIdentity;
         }
 
         /// <summary>
@@ -303,7 +304,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<CreateResponse>("/user_identities/create", requestOptions)
             )
-                .Data
+                .EnsureData("/user_identities/create")
                 .UserIdentity;
         }
 
@@ -515,7 +516,8 @@ namespace Seam.Api
                     "/user_identities/generate_instant_key",
                     requestOptions
                 )
-                .Data.InstantKey;
+                .EnsureData("/user_identities/generate_instant_key")
+                .InstantKey;
         }
 
         /// <summary>
@@ -549,7 +551,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/generate_instant_key")
                 .InstantKey;
         }
 
@@ -663,7 +665,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/user_identities/get", requestOptions)
-                .Data.UserIdentity;
+                .EnsureData("/user_identities/get")
+                .UserIdentity;
         }
 
         /// <summary>
@@ -684,7 +687,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/user_identities/get", requestOptions))
-                .Data
+                .EnsureData("/user_identities/get")
                 .UserIdentity;
         }
 
@@ -931,7 +934,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/user_identities/list", requestOptions)
-                .Data.UserIdentities;
+                .EnsureData("/user_identities/list")
+                .UserIdentities;
         }
 
         /// <summary>
@@ -966,7 +970,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/user_identities/list", requestOptions))
-                .Data
+                .EnsureData("/user_identities/list")
                 .UserIdentities;
         }
 
@@ -1085,7 +1089,8 @@ namespace Seam.Api
                     "/user_identities/list_accessible_devices",
                     requestOptions
                 )
-                .Data.Devices;
+                .EnsureData("/user_identities/list_accessible_devices")
+                .Devices;
         }
 
         /// <summary>
@@ -1113,7 +1118,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/list_accessible_devices")
                 .Devices;
         }
 
@@ -1218,7 +1223,8 @@ namespace Seam.Api
                     "/user_identities/list_accessible_entrances",
                     requestOptions
                 )
-                .Data.AcsEntrances;
+                .EnsureData("/user_identities/list_accessible_entrances")
+                .AcsEntrances;
         }
 
         /// <summary>
@@ -1246,7 +1252,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/list_accessible_entrances")
                 .AcsEntrances;
         }
 
@@ -1350,7 +1356,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListAcsSystemsResponse>("/user_identities/list_acs_systems", requestOptions)
-                .Data.AcsSystems;
+                .EnsureData("/user_identities/list_acs_systems")
+                .AcsSystems;
         }
 
         /// <summary>
@@ -1374,7 +1381,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/list_acs_systems")
                 .AcsSystems;
         }
 
@@ -1474,7 +1481,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListAcsUsersResponse>("/user_identities/list_acs_users", requestOptions)
-                .Data.AcsUsers;
+                .EnsureData("/user_identities/list_acs_users")
+                .AcsUsers;
         }
 
         /// <summary>
@@ -1498,7 +1506,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/user_identities/list_acs_users")
                 .AcsUsers;
         }
 

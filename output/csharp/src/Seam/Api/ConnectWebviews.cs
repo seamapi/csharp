@@ -470,7 +470,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/connect_webviews/create", requestOptions)
-                .Data.ConnectWebview;
+                .EnsureData("/connect_webviews/create")
+                .ConnectWebview;
         }
 
         /// <summary>
@@ -527,7 +528,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<CreateResponse>("/connect_webviews/create", requestOptions)
             )
-                .Data
+                .EnsureData("/connect_webviews/create")
                 .ConnectWebview;
         }
 
@@ -743,7 +744,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/connect_webviews/get", requestOptions)
-                .Data.ConnectWebview;
+                .EnsureData("/connect_webviews/get")
+                .ConnectWebview;
         }
 
         /// <summary>
@@ -766,7 +768,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/connect_webviews/get", requestOptions))
-                .Data
+                .EnsureData("/connect_webviews/get")
                 .ConnectWebview;
         }
 
@@ -908,7 +910,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/connect_webviews/list", requestOptions)
-                .Data.ConnectWebviews;
+                .EnsureData("/connect_webviews/list")
+                .ConnectWebviews;
         }
 
         /// <summary>
@@ -943,7 +946,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/connect_webviews/list", requestOptions))
-                .Data
+                .EnsureData("/connect_webviews/list")
                 .ConnectWebviews;
         }
 

@@ -155,5 +155,35 @@ namespace Seam.Client
             : this(statusCode, data, null) { }
 
         #endregion Constructors
+
+        #region Methods
+
+        /// <summary>
+        /// Returns the deserialized response data, or throws a <see cref="SeamException"/>
+        /// carrying the HTTP status code, headers, and raw response body when the body is
+        /// missing or could not be deserialized into <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="path">The request path, used in the exception message.</param>
+        /// <returns>The deserialized response data.</returns>
+        /// <exception cref="SeamException">Thrown when the response data is null.</exception>
+        public T EnsureData(string path)
+        {
+            if (Data != null)
+            {
+                return Data;
+            }
+
+            var reason = string.IsNullOrEmpty(ErrorText)
+                ? "the response body is missing or could not be deserialized"
+                : ErrorText;
+            throw new SeamException(
+                (int)StatusCode,
+                string.Format("Error calling {0} (HTTP {1}): {2}", path, (int)StatusCode, reason),
+                RawContent,
+                Headers
+            );
+        }
+
+        #endregion Methods
     }
 }

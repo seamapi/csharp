@@ -150,7 +150,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/noise_sensors/noise_thresholds/create", requestOptions)
-                .Data.NoiseThreshold;
+                .EnsureData("/noise_sensors/noise_thresholds/create")
+                .NoiseThreshold;
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/noise_sensors/noise_thresholds/create")
                 .NoiseThreshold;
         }
 
@@ -391,7 +392,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/noise_sensors/noise_thresholds/get", requestOptions)
-                .Data.NoiseThreshold;
+                .EnsureData("/noise_sensors/noise_thresholds/get")
+                .NoiseThreshold;
         }
 
         /// <summary>
@@ -415,7 +417,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/noise_sensors/noise_thresholds/get")
                 .NoiseThreshold;
         }
 
@@ -513,7 +515,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/noise_sensors/noise_thresholds/list", requestOptions)
-                .Data.NoiseThresholds;
+                .EnsureData("/noise_sensors/noise_thresholds/list")
+                .NoiseThresholds;
         }
 
         /// <summary>
@@ -537,7 +540,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/noise_sensors/noise_thresholds/list")
                 .NoiseThresholds;
         }
 

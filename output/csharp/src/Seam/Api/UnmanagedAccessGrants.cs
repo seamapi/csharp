@@ -104,7 +104,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/access_grants/unmanaged/get", requestOptions)
-                .Data.AccessGrant;
+                .EnsureData("/access_grants/unmanaged/get")
+                .AccessGrant;
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<GetResponse>("/access_grants/unmanaged/get", requestOptions)
             )
-                .Data
+                .EnsureData("/access_grants/unmanaged/get")
                 .AccessGrant;
         }
 
@@ -265,7 +266,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/access_grants/unmanaged/list", requestOptions)
-                .Data.AccessGrants;
+                .EnsureData("/access_grants/unmanaged/list")
+                .AccessGrants;
         }
 
         /// <summary>
@@ -302,7 +304,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<ListResponse>("/access_grants/unmanaged/list", requestOptions)
             )
-                .Data
+                .EnsureData("/access_grants/unmanaged/list")
                 .AccessGrants;
         }
 

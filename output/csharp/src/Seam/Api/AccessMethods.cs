@@ -111,7 +111,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<AssignCardResponse>("/access_methods/assign_card", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/access_methods/assign_card")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_methods/assign_card")
                 .ActionAttempt;
         }
 
@@ -366,7 +367,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<EncodeResponse>("/access_methods/encode", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/access_methods/encode")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -387,7 +389,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<EncodeResponse>("/access_methods/encode", requestOptions))
-                .Data
+                .EnsureData("/access_methods/encode")
                 .ActionAttempt;
         }
 
@@ -490,7 +492,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/access_methods/get", requestOptions).Data.AccessMethod;
+            return _seam
+                .Post<GetResponse>("/access_methods/get", requestOptions)
+                .EnsureData("/access_methods/get")
+                .AccessMethod;
         }
 
         /// <summary>
@@ -509,7 +514,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/access_methods/get", requestOptions))
-                .Data
+                .EnsureData("/access_methods/get")
                 .AccessMethod;
         }
 
@@ -681,7 +686,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetRelatedResponse>("/access_methods/get_related", requestOptions)
-                .Data.Batch;
+                .EnsureData("/access_methods/get_related")
+                .Batch;
         }
 
         /// <summary>
@@ -715,7 +721,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_methods/get_related")
                 .Batch;
         }
 
@@ -867,7 +873,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/access_methods/list", requestOptions)
-                .Data.AccessMethods;
+                .EnsureData("/access_methods/list")
+                .AccessMethods;
         }
 
         /// <summary>
@@ -902,7 +909,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/access_methods/list", requestOptions))
-                .Data
+                .EnsureData("/access_methods/list")
                 .AccessMethods;
         }
 
@@ -1028,7 +1035,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<UnlockDoorResponse>("/access_methods/unlock_door", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/access_methods/unlock_door")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1057,7 +1065,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_methods/unlock_door")
                 .ActionAttempt;
         }
 

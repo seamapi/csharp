@@ -281,7 +281,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/access_codes/create", requestOptions)
-                .Data.AccessCode;
+                .EnsureData("/access_codes/create")
+                .AccessCode;
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<CreateResponse>("/access_codes/create", requestOptions))
-                .Data
+                .EnsureData("/access_codes/create")
                 .AccessCode;
         }
 
@@ -620,7 +621,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateMultipleResponse>("/access_codes/create_multiple", requestOptions)
-                .Data.AccessCodes;
+                .EnsureData("/access_codes/create_multiple")
+                .AccessCodes;
         }
 
         /// <summary>
@@ -693,7 +695,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_codes/create_multiple")
                 .AccessCodes;
         }
 
@@ -915,7 +917,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GenerateCodeResponse>("/access_codes/generate_code", requestOptions)
-                .Data.GeneratedCode;
+                .EnsureData("/access_codes/generate_code")
+                .GeneratedCode;
         }
 
         /// <summary>
@@ -939,7 +942,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_codes/generate_code")
                 .GeneratedCode;
         }
 
@@ -1055,7 +1058,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/access_codes/get", requestOptions).Data.AccessCode;
+            return _seam
+                .Post<GetResponse>("/access_codes/get", requestOptions)
+                .EnsureData("/access_codes/get")
+                .AccessCode;
         }
 
         /// <summary>
@@ -1082,7 +1088,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/access_codes/get", requestOptions))
-                .Data
+                .EnsureData("/access_codes/get")
                 .AccessCode;
         }
 
@@ -1264,7 +1270,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/access_codes/list", requestOptions).Data.AccessCodes;
+            return _seam
+                .Post<ListResponse>("/access_codes/list", requestOptions)
+                .EnsureData("/access_codes/list")
+                .AccessCodes;
         }
 
         /// <summary>
@@ -1311,7 +1320,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/access_codes/list", requestOptions))
-                .Data
+                .EnsureData("/access_codes/list")
                 .AccessCodes;
         }
 
@@ -1448,7 +1457,8 @@ namespace Seam.Api
                     "/access_codes/pull_backup_access_code",
                     requestOptions
                 )
-                .Data.AccessCode;
+                .EnsureData("/access_codes/pull_backup_access_code")
+                .AccessCode;
         }
 
         /// <summary>
@@ -1490,7 +1500,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_codes/pull_backup_access_code")
                 .AccessCode;
         }
 

@@ -207,7 +207,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/connected_accounts/get", requestOptions)
-                .Data.ConnectedAccount;
+                .EnsureData("/connected_accounts/get")
+                .ConnectedAccount;
         }
 
         /// <summary>
@@ -226,7 +227,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/connected_accounts/get", requestOptions))
-                .Data
+                .EnsureData("/connected_accounts/get")
                 .ConnectedAccount;
         }
 
@@ -379,7 +380,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/connected_accounts/list", requestOptions)
-                .Data.ConnectedAccounts;
+                .EnsureData("/connected_accounts/list")
+                .ConnectedAccounts;
         }
 
         /// <summary>
@@ -416,7 +418,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/connected_accounts/list", requestOptions))
-                .Data
+                .EnsureData("/connected_accounts/list")
                 .ConnectedAccounts;
         }
 

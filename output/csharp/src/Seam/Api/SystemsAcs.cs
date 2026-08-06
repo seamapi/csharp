@@ -102,7 +102,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/acs/systems/get", requestOptions).Data.AcsSystem;
+            return _seam
+                .Post<GetResponse>("/acs/systems/get", requestOptions)
+                .EnsureData("/acs/systems/get")
+                .AcsSystem;
         }
 
         /// <summary>
@@ -121,7 +124,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/acs/systems/get", requestOptions))
-                .Data
+                .EnsureData("/acs/systems/get")
                 .AcsSystem;
         }
 
@@ -241,7 +244,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/acs/systems/list", requestOptions).Data.AcsSystems;
+            return _seam
+                .Post<ListResponse>("/acs/systems/list", requestOptions)
+                .EnsureData("/acs/systems/list")
+                .AcsSystems;
         }
 
         /// <summary>
@@ -274,7 +280,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/acs/systems/list", requestOptions))
-                .Data
+                .EnsureData("/acs/systems/list")
                 .AcsSystems;
         }
 
@@ -395,7 +401,8 @@ namespace Seam.Api
                     "/acs/systems/list_compatible_credential_manager_acs_systems",
                     requestOptions
                 )
-                .Data.AcsSystems;
+                .EnsureData("/acs/systems/list_compatible_credential_manager_acs_systems")
+                .AcsSystems;
         }
 
         /// <summary>
@@ -429,7 +436,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/systems/list_compatible_credential_manager_acs_systems")
                 .AcsSystems;
         }
 

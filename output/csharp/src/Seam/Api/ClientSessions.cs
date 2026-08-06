@@ -167,7 +167,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/client_sessions/create", requestOptions)
-                .Data.ClientSession;
+                .EnsureData("/client_sessions/create")
+                .ClientSession;
         }
 
         /// <summary>
@@ -208,7 +209,7 @@ namespace Seam.Api
             return (
                 await _seam.PostAsync<CreateResponse>("/client_sessions/create", requestOptions)
             )
-                .Data
+                .EnsureData("/client_sessions/create")
                 .ClientSession;
         }
 
@@ -414,7 +415,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/client_sessions/get", requestOptions)
-                .Data.ClientSession;
+                .EnsureData("/client_sessions/get")
+                .ClientSession;
         }
 
         /// <summary>
@@ -441,7 +443,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/client_sessions/get", requestOptions))
-                .Data
+                .EnsureData("/client_sessions/get")
                 .ClientSession;
         }
 
@@ -596,7 +598,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetOrCreateResponse>("/client_sessions/get_or_create", requestOptions)
-                .Data.ClientSession;
+                .EnsureData("/client_sessions/get_or_create")
+                .ClientSession;
         }
 
         /// <summary>
@@ -636,7 +639,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/client_sessions/get_or_create")
                 .ClientSession;
         }
 
@@ -945,7 +948,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/client_sessions/list", requestOptions)
-                .Data.ClientSessions;
+                .EnsureData("/client_sessions/list")
+                .ClientSessions;
         }
 
         /// <summary>
@@ -978,7 +982,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/client_sessions/list", requestOptions))
-                .Data
+                .EnsureData("/client_sessions/list")
                 .ClientSessions;
         }
 

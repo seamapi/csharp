@@ -104,7 +104,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetResponse>("/action_attempts/get", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/action_attempts/get")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -123,7 +124,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/action_attempts/get", requestOptions))
-                .Data
+                .EnsureData("/action_attempts/get")
                 .ActionAttempt;
         }
 
@@ -247,7 +248,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/action_attempts/list", requestOptions)
-                .Data.ActionAttempts;
+                .EnsureData("/action_attempts/list")
+                .ActionAttempts;
         }
 
         /// <summary>
@@ -278,7 +280,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/action_attempts/list", requestOptions))
-                .Data
+                .EnsureData("/action_attempts/list")
                 .ActionAttempts;
         }
 

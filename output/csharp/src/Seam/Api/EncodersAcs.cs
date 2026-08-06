@@ -122,7 +122,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<EncodeCredentialResponse>("/acs/encoders/encode_credential", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/acs/encoders/encode_credential")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/encoders/encode_credential")
                 .ActionAttempt;
         }
 
@@ -264,7 +265,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/acs/encoders/get", requestOptions).Data.AcsEncoder;
+            return _seam
+                .Post<GetResponse>("/acs/encoders/get", requestOptions)
+                .EnsureData("/acs/encoders/get")
+                .AcsEncoder;
         }
 
         /// <summary>
@@ -283,7 +287,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/acs/encoders/get", requestOptions))
-                .Data
+                .EnsureData("/acs/encoders/get")
                 .AcsEncoder;
         }
 
@@ -413,7 +417,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/acs/encoders/list", requestOptions).Data.AcsEncoders;
+            return _seam
+                .Post<ListResponse>("/acs/encoders/list", requestOptions)
+                .EnsureData("/acs/encoders/list")
+                .AcsEncoders;
         }
 
         /// <summary>
@@ -446,7 +453,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/acs/encoders/list", requestOptions))
-                .Data
+                .EnsureData("/acs/encoders/list")
                 .AcsEncoders;
         }
 
@@ -607,7 +614,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ScanCredentialResponse>("/acs/encoders/scan_credential", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/acs/encoders/scan_credential")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -639,7 +647,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/encoders/scan_credential")
                 .ActionAttempt;
         }
 
@@ -813,7 +821,8 @@ namespace Seam.Api
                     "/acs/encoders/scan_to_assign_credential",
                     requestOptions
                 )
-                .Data.ActionAttempt;
+                .EnsureData("/acs/encoders/scan_to_assign_credential")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -851,7 +860,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/acs/encoders/scan_to_assign_credential")
                 .ActionAttempt;
         }
 

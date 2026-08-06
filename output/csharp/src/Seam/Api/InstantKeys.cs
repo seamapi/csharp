@@ -185,7 +185,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/instant_keys/get", requestOptions).Data.InstantKey;
+            return _seam
+                .Post<GetResponse>("/instant_keys/get", requestOptions)
+                .EnsureData("/instant_keys/get")
+                .InstantKey;
         }
 
         /// <summary>
@@ -204,7 +207,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/instant_keys/get", requestOptions))
-                .Data
+                .EnsureData("/instant_keys/get")
                 .InstantKey;
         }
 
@@ -307,7 +310,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/instant_keys/list", requestOptions).Data.InstantKeys;
+            return _seam
+                .Post<ListResponse>("/instant_keys/list", requestOptions)
+                .EnsureData("/instant_keys/list")
+                .InstantKeys;
         }
 
         /// <summary>
@@ -326,7 +332,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/instant_keys/list", requestOptions))
-                .Data
+                .EnsureData("/instant_keys/list")
                 .InstantKeys;
         }
 

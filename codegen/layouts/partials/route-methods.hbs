@@ -6,7 +6,7 @@ requestOptions.Data = request;
 {{#if isVoid}}
 _seam.Post<object>("{{path}}", requestOptions);
 {{else}}
-return _seam.Post<{{responseTypeArg}}>("{{path}}", requestOptions).Data.{{returnProp}};
+return _seam.Post<{{responseTypeArg}}>("{{path}}", requestOptions).EnsureData("{{path}}").{{returnProp}};
 {{/if}}
 }
 
@@ -28,7 +28,7 @@ requestOptions.Data = request;
 {{#if isVoid}}
 await _seam.PostAsync<object>("{{path}}", requestOptions);
 {{else}}
-return (await _seam.PostAsync<{{responseTypeArg}}>("{{path}}", requestOptions)).Data.{{returnProp}};
+return (await _seam.PostAsync<{{responseTypeArg}}>("{{path}}", requestOptions)).EnsureData("{{path}}").{{returnProp}};
 {{/if}}
 }
 

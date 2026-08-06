@@ -178,7 +178,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/phones/get", requestOptions).Data.Phone;
+            return _seam
+                .Post<GetResponse>("/phones/get", requestOptions)
+                .EnsureData("/phones/get")
+                .Phone;
         }
 
         /// <summary>
@@ -196,7 +199,9 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/phones/get", requestOptions)).Data.Phone;
+            return (await _seam.PostAsync<GetResponse>("/phones/get", requestOptions))
+                .EnsureData("/phones/get")
+                .Phone;
         }
 
         /// <summary>
@@ -305,7 +310,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/phones/list", requestOptions).Data.Phones;
+            return _seam
+                .Post<ListResponse>("/phones/list", requestOptions)
+                .EnsureData("/phones/list")
+                .Phones;
         }
 
         /// <summary>
@@ -332,7 +340,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/phones/list", requestOptions))
-                .Data
+                .EnsureData("/phones/list")
                 .Phones;
         }
 

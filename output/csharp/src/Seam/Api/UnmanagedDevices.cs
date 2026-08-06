@@ -113,7 +113,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/devices/unmanaged/get", requestOptions).Data.Device;
+            return _seam
+                .Post<GetResponse>("/devices/unmanaged/get", requestOptions)
+                .EnsureData("/devices/unmanaged/get")
+                .Device;
         }
 
         /// <summary>
@@ -140,7 +143,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/devices/unmanaged/get", requestOptions))
-                .Data
+                .EnsureData("/devices/unmanaged/get")
                 .Device;
         }
 
@@ -803,7 +806,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/devices/unmanaged/list", requestOptions).Data.Devices;
+            return _seam
+                .Post<ListResponse>("/devices/unmanaged/list", requestOptions)
+                .EnsureData("/devices/unmanaged/list")
+                .Devices;
         }
 
         /// <summary>
@@ -862,7 +868,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/devices/unmanaged/list", requestOptions))
-                .Data
+                .EnsureData("/devices/unmanaged/list")
                 .Devices;
         }
 

@@ -291,7 +291,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<CreateResponse>("/workspaces/create", requestOptions).Data.Workspace;
+            return _seam
+                .Post<CreateResponse>("/workspaces/create", requestOptions)
+                .EnsureData("/workspaces/create")
+                .Workspace;
         }
 
         /// <summary>
@@ -334,7 +337,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<CreateResponse>("/workspaces/create", requestOptions))
-                .Data
+                .EnsureData("/workspaces/create")
                 .Workspace;
         }
 
@@ -445,7 +448,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/workspaces/get", requestOptions).Data.Workspace;
+            return _seam
+                .Post<GetResponse>("/workspaces/get", requestOptions)
+                .EnsureData("/workspaces/get")
+                .Workspace;
         }
 
         /// <summary>
@@ -464,7 +470,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/workspaces/get", requestOptions))
-                .Data
+                .EnsureData("/workspaces/get")
                 .Workspace;
         }
 
@@ -549,7 +555,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/workspaces/list", requestOptions).Data.Workspaces;
+            return _seam
+                .Post<ListResponse>("/workspaces/list", requestOptions)
+                .EnsureData("/workspaces/list")
+                .Workspaces;
         }
 
         /// <summary>
@@ -568,7 +577,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/workspaces/list", requestOptions))
-                .Data
+                .EnsureData("/workspaces/list")
                 .Workspaces;
         }
 
@@ -655,7 +664,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ResetSandboxResponse>("/workspaces/reset_sandbox", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/workspaces/reset_sandbox")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -679,7 +689,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/workspaces/reset_sandbox")
                 .ActionAttempt;
         }
 

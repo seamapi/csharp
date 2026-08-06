@@ -414,7 +414,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<CreateResponse>("/access_grants/create", requestOptions)
-                .Data.AccessGrant;
+                .EnsureData("/access_grants/create")
+                .AccessGrant;
         }
 
         /// <summary>
@@ -467,7 +468,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<CreateResponse>("/access_grants/create", requestOptions))
-                .Data
+                .EnsureData("/access_grants/create")
                 .AccessGrant;
         }
 
@@ -682,7 +683,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/access_grants/get", requestOptions).Data.AccessGrant;
+            return _seam
+                .Post<GetResponse>("/access_grants/get", requestOptions)
+                .EnsureData("/access_grants/get")
+                .AccessGrant;
         }
 
         /// <summary>
@@ -703,7 +707,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<GetResponse>("/access_grants/get", requestOptions))
-                .Data
+                .EnsureData("/access_grants/get")
                 .AccessGrant;
         }
 
@@ -890,7 +894,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<GetRelatedResponse>("/access_grants/get_related", requestOptions)
-                .Data.Batch;
+                .EnsureData("/access_grants/get_related")
+                .Batch;
         }
 
         /// <summary>
@@ -926,7 +931,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_grants/get_related")
                 .Batch;
         }
 
@@ -1134,7 +1139,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ListResponse>("/access_grants/list", requestOptions)
-                .Data.AccessGrants;
+                .EnsureData("/access_grants/list")
+                .AccessGrants;
         }
 
         /// <summary>
@@ -1183,7 +1189,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/access_grants/list", requestOptions))
-                .Data
+                .EnsureData("/access_grants/list")
                 .AccessGrants;
         }
 
@@ -1412,7 +1418,8 @@ namespace Seam.Api
                     "/access_grants/request_access_methods",
                     requestOptions
                 )
-                .Data.AccessGrant;
+                .EnsureData("/access_grants/request_access_methods")
+                .AccessGrant;
         }
 
         /// <summary>
@@ -1446,7 +1453,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_grants/request_access_methods")
                 .AccessGrant;
         }
 

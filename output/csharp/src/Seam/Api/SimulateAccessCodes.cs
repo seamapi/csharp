@@ -127,7 +127,8 @@ namespace Seam.Api
                     "/access_codes/simulate/create_unmanaged_access_code",
                     requestOptions
                 )
-                .Data.AccessCode;
+                .EnsureData("/access_codes/simulate/create_unmanaged_access_code")
+                .AccessCode;
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/access_codes/simulate/create_unmanaged_access_code")
                 .AccessCode;
         }
 

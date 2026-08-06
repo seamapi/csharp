@@ -111,7 +111,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<KeypadCodeEntryResponse>("/locks/simulate/keypad_code_entry", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/locks/simulate/keypad_code_entry")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/locks/simulate/keypad_code_entry")
                 .ActionAttempt;
         }
 
@@ -243,7 +244,8 @@ namespace Seam.Api
                     "/locks/simulate/manual_lock_via_keypad",
                     requestOptions
                 )
-                .Data.ActionAttempt;
+                .EnsureData("/locks/simulate/manual_lock_via_keypad")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -269,7 +271,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/locks/simulate/manual_lock_via_keypad")
                 .ActionAttempt;
         }
 

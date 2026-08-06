@@ -126,7 +126,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<ConfigureAutoLockResponse>("/locks/configure_auto_lock", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/locks/configure_auto_lock")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -160,7 +161,7 @@ namespace Seam.Api
                     requestOptions
                 )
             )
-                .Data
+                .EnsureData("/locks/configure_auto_lock")
                 .ActionAttempt;
         }
 
@@ -277,7 +278,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<GetResponse>("/locks/get", requestOptions).Data.Device;
+            return _seam
+                .Post<GetResponse>("/locks/get", requestOptions)
+                .EnsureData("/locks/get")
+                .Device;
         }
 
         /// <summary>
@@ -297,7 +301,9 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/locks/get", requestOptions)).Data.Device;
+            return (await _seam.PostAsync<GetResponse>("/locks/get", requestOptions))
+                .EnsureData("/locks/get")
+                .Device;
         }
 
         /// <summary>
@@ -822,7 +828,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return _seam.Post<ListResponse>("/locks/list", requestOptions).Data.Devices;
+            return _seam
+                .Post<ListResponse>("/locks/list", requestOptions)
+                .EnsureData("/locks/list")
+                .Devices;
         }
 
         /// <summary>
@@ -877,7 +886,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<ListResponse>("/locks/list", requestOptions))
-                .Data
+                .EnsureData("/locks/list")
                 .Devices;
         }
 
@@ -1013,7 +1022,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<LockDoorResponse>("/locks/lock_door", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/locks/lock_door")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1032,7 +1042,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<LockDoorResponse>("/locks/lock_door", requestOptions))
-                .Data
+                .EnsureData("/locks/lock_door")
                 .ActionAttempt;
         }
 
@@ -1130,7 +1140,8 @@ namespace Seam.Api
             requestOptions.Data = request;
             return _seam
                 .Post<UnlockDoorResponse>("/locks/unlock_door", requestOptions)
-                .Data.ActionAttempt;
+                .EnsureData("/locks/unlock_door")
+                .ActionAttempt;
         }
 
         /// <summary>
@@ -1149,7 +1160,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (await _seam.PostAsync<UnlockDoorResponse>("/locks/unlock_door", requestOptions))
-                .Data
+                .EnsureData("/locks/unlock_door")
                 .ActionAttempt;
         }
 
