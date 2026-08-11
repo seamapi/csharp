@@ -26,6 +26,12 @@ namespace Seam.Client
         public const string Version = "1.0.0";
 
         /// <summary>
+        /// Default HTTP timeout (milliseconds) applied to every request.
+        /// </summary>
+        /// <value>Default HTTP timeout (milliseconds).</value>
+        public const int DefaultTimeout = 30000;
+
+        /// <summary>
         /// Identifier for ISO 8601 DateTime Format
         /// </summary>
         /// <remarks>See https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8 for more information.</remarks>
@@ -138,7 +144,7 @@ namespace Seam.Client
             { };
 
             // Setting Timeout has side effects (forces ApiClient creation).
-            Timeout = 100000;
+            Timeout = DefaultTimeout;
         }
 
         /// <summary>
@@ -221,7 +227,8 @@ namespace Seam.Client
         public virtual IDictionary<string, string> DefaultHeaders { get; set; }
 
         /// <summary>
-        /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 100000 milliseconds.
+        /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Defaults to
+        /// <see cref="DefaultTimeout" /> milliseconds.
         /// </summary>
         public virtual int Timeout { get; set; }
 
