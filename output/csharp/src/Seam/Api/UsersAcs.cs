@@ -75,7 +75,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/users/add_to_access_group", requestOptions);
+            _seam.Put<object>("/acs/users/add_to_access_group", requestOptions);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/users/add_to_access_group", requestOptions);
+            await _seam.PutAsync<object>("/acs/users/add_to_access_group", requestOptions);
         }
 
         /// <summary>
@@ -1661,7 +1661,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/users/update", requestOptions);
+            _seam.Patch<object>("/acs/users/update", requestOptions);
         }
 
         /// <summary>
@@ -1701,7 +1701,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/users/update", requestOptions);
+            await _seam.PatchAsync<object>("/acs/users/update", requestOptions);
         }
 
         /// <summary>

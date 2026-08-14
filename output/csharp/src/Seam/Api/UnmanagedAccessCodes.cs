@@ -103,7 +103,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_codes/unmanaged/convert_to_managed", requestOptions);
+            _seam.Patch<object>("/access_codes/unmanaged/convert_to_managed", requestOptions);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>(
+            await _seam.PatchAsync<object>(
                 "/access_codes/unmanaged/convert_to_managed",
                 requestOptions
             );
@@ -675,7 +675,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_codes/unmanaged/update", requestOptions);
+            _seam.Patch<object>("/access_codes/unmanaged/update", requestOptions);
         }
 
         /// <summary>
@@ -707,7 +707,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_codes/unmanaged/update", requestOptions);
+            await _seam.PatchAsync<object>("/access_codes/unmanaged/update", requestOptions);
         }
 
         /// <summary>

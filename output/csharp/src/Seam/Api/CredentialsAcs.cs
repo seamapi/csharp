@@ -83,7 +83,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/credentials/assign", requestOptions);
+            _seam.Patch<object>("/acs/credentials/assign", requestOptions);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/credentials/assign", requestOptions);
+            await _seam.PatchAsync<object>("/acs/credentials/assign", requestOptions);
         }
 
         /// <summary>
@@ -981,7 +981,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/acs/credentials/list", requestOptions)
+                .Get<ListResponse>("/acs/credentials/list", requestOptions)
                 .EnsureData("/acs/credentials/list")
                 .AcsCredentials;
         }
@@ -1021,7 +1021,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/acs/credentials/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/acs/credentials/list", requestOptions))
                 .EnsureData("/acs/credentials/list")
                 .AcsCredentials;
         }
@@ -1257,7 +1257,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/credentials/unassign", requestOptions);
+            _seam.Patch<object>("/acs/credentials/unassign", requestOptions);
         }
 
         /// <summary>
@@ -1285,7 +1285,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/credentials/unassign", requestOptions);
+            await _seam.PatchAsync<object>("/acs/credentials/unassign", requestOptions);
         }
 
         /// <summary>
@@ -1371,7 +1371,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/credentials/update", requestOptions);
+            _seam.Patch<object>("/acs/credentials/update", requestOptions);
         }
 
         /// <summary>
@@ -1393,7 +1393,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/credentials/update", requestOptions);
+            await _seam.PatchAsync<object>("/acs/credentials/update", requestOptions);
         }
 
         /// <summary>

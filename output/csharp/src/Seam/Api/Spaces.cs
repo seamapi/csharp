@@ -75,7 +75,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/add_acs_entrances", requestOptions);
+            _seam.Put<object>("/spaces/add_acs_entrances", requestOptions);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/add_acs_entrances", requestOptions);
+            await _seam.PutAsync<object>("/spaces/add_acs_entrances", requestOptions);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/add_connected_account", requestOptions);
+            _seam.Put<object>("/spaces/add_connected_account", requestOptions);
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/add_connected_account", requestOptions);
+            await _seam.PutAsync<object>("/spaces/add_connected_account", requestOptions);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/add_devices", requestOptions);
+            _seam.Put<object>("/spaces/add_devices", requestOptions);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/add_devices", requestOptions);
+            await _seam.PutAsync<object>("/spaces/add_devices", requestOptions);
         }
 
         /// <summary>
@@ -748,7 +748,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/spaces/get", requestOptions)
+                .Get<GetResponse>("/spaces/get", requestOptions)
                 .EnsureData("/spaces/get")
                 .Space;
         }
@@ -768,7 +768,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/spaces/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/spaces/get", requestOptions))
                 .EnsureData("/spaces/get")
                 .Space;
         }
@@ -1663,7 +1663,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<UpdateResponse>("/spaces/update", requestOptions)
+                .Patch<UpdateResponse>("/spaces/update", requestOptions)
                 .EnsureData("/spaces/update")
                 .Space;
         }
@@ -1699,7 +1699,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<UpdateResponse>("/spaces/update", requestOptions))
+            return (await _seam.PatchAsync<UpdateResponse>("/spaces/update", requestOptions))
                 .EnsureData("/spaces/update")
                 .Space;
         }

@@ -63,7 +63,9 @@ GlobalSeamRequestConfiguration.Instance.Timeout = 60000;
 ### Serializing URL search params
 
 The Seam API parses URL search params as complex types.
-If you call it with your own HTTP client,
+The SDK serializes the params of every endpoint
+the Seam API prefers to receive as a GET or DELETE this way.
+If you call the API with your own HTTP client,
 `StrictUrlSearchParamsSerializer` is exported for that purpose.
 The `_strict=true` parameter is added to any non-empty query
 so the Seam API uses strict, schema-aware parsing.

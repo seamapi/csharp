@@ -95,13 +95,18 @@ export interface CsModelFile {
 export interface CsRoute {
   methodName: string
   path: string
+  // The client method for the endpoint's preferred HTTP method, e.g. `Get` for
+  // `_seam.Get<T>(...)`. The client decides from the method whether the request
+  // parameters travel as a query string or as a JSON body.
+  httpMethod: string
   request: CsClass
   // Sibling classes spawned by inline-object request/response properties,
   // rendered (nested) inside the Api class after the request/response class.
   requestSiblings: CsClass[]
   responseSiblings: CsClass[]
   response?: CsClass
-  // The type argument to _seam.Post<T> (the response class, or `object` for void).
+  // The type argument to the client method (the response class, or `object` for
+  // void).
   responseTypeArg: string
   // The `.Data.<returnProp>` accessor tail (absent for void).
   returnProp?: string

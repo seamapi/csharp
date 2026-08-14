@@ -4,9 +4,9 @@ public {{#if isVoid}}void{{else}}{{returnType}}{{/if}} {{methodName}}({{methodNa
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
 {{#if isVoid}}
-_seam.Post<object>("{{path}}", requestOptions);
+_seam.{{httpMethod}}<object>("{{path}}", requestOptions);
 {{else}}
-return _seam.Post<{{responseTypeArg}}>("{{path}}", requestOptions).EnsureData("{{path}}").{{returnProp}};
+return _seam.{{httpMethod}}<{{responseTypeArg}}>("{{path}}", requestOptions).EnsureData("{{path}}").{{returnProp}};
 {{/if}}
 }
 
@@ -26,9 +26,9 @@ public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}
 var requestOptions = new RequestOptions();
 requestOptions.Data = request;
 {{#if isVoid}}
-await _seam.PostAsync<object>("{{path}}", requestOptions);
+await _seam.{{httpMethod}}Async<object>("{{path}}", requestOptions);
 {{else}}
-return (await _seam.PostAsync<{{responseTypeArg}}>("{{path}}", requestOptions)).EnsureData("{{path}}").{{returnProp}};
+return (await _seam.{{httpMethod}}Async<{{responseTypeArg}}>("{{path}}", requestOptions)).EnsureData("{{path}}").{{returnProp}};
 {{/if}}
 }
 

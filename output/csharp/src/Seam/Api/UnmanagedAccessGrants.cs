@@ -403,7 +403,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_grants/unmanaged/update", requestOptions);
+            _seam.Patch<object>("/access_grants/unmanaged/update", requestOptions);
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_grants/unmanaged/update", requestOptions);
+            await _seam.PatchAsync<object>("/access_grants/unmanaged/update", requestOptions);
         }
 
         /// <summary>

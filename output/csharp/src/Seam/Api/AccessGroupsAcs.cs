@@ -83,7 +83,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/access_groups/add_user", requestOptions);
+            _seam.Put<object>("/acs/access_groups/add_user", requestOptions);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/access_groups/add_user", requestOptions);
+            await _seam.PutAsync<object>("/acs/access_groups/add_user", requestOptions);
         }
 
         /// <summary>

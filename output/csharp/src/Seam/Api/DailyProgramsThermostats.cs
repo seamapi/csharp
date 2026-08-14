@@ -458,7 +458,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<UpdateResponse>("/thermostats/daily_programs/update", requestOptions)
+                .Patch<UpdateResponse>("/thermostats/daily_programs/update", requestOptions)
                 .EnsureData("/thermostats/daily_programs/update")
                 .ActionAttempt;
         }
@@ -489,7 +489,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<UpdateResponse>(
+                await _seam.PatchAsync<UpdateResponse>(
                     "/thermostats/daily_programs/update",
                     requestOptions
                 )

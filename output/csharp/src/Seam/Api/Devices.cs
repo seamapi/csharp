@@ -5371,7 +5371,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/devices/update", requestOptions);
+            _seam.Patch<object>("/devices/update", requestOptions);
         }
 
         /// <summary>
@@ -5409,7 +5409,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/devices/update", requestOptions);
+            await _seam.PatchAsync<object>("/devices/update", requestOptions);
         }
 
         /// <summary>

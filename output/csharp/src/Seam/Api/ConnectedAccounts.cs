@@ -206,7 +206,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/connected_accounts/get", requestOptions)
+                .Get<GetResponse>("/connected_accounts/get", requestOptions)
                 .EnsureData("/connected_accounts/get")
                 .ConnectedAccount;
         }
@@ -226,7 +226,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/connected_accounts/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/connected_accounts/get", requestOptions))
                 .EnsureData("/connected_accounts/get")
                 .ConnectedAccount;
         }
@@ -648,7 +648,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/connected_accounts/update", requestOptions);
+            _seam.Patch<object>("/connected_accounts/update", requestOptions);
         }
 
         /// <summary>
@@ -682,7 +682,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/connected_accounts/update", requestOptions);
+            await _seam.PatchAsync<object>("/connected_accounts/update", requestOptions);
         }
 
         /// <summary>

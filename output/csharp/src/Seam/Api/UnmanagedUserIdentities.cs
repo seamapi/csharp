@@ -380,7 +380,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/unmanaged/update", requestOptions);
+            _seam.Patch<object>("/user_identities/unmanaged/update", requestOptions);
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/user_identities/unmanaged/update", requestOptions);
+            await _seam.PatchAsync<object>("/user_identities/unmanaged/update", requestOptions);
         }
 
         /// <summary>
