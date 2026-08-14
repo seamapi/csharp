@@ -242,6 +242,15 @@ public class UrlSearchParamsSerializerTests
     public void KeepsArrayElementOrderWhenSorting()
     {
         Assert.Equal("a=1&a=2&a=3&b=4", Serialize(("b", 4), ("a", new[] { "1", "2", "3" })));
+
+        // Beyond 16 elements an unstable sort no longer degrades to an insertion sort, which
+        // would keep a short array in order whether or not the sort preserves it.
+        var values = Enumerable.Range(0, 32).Select(index => index.ToString()).ToList();
+
+        Assert.Equal(
+            string.Join("&", values.Select(value => $"a={value}")) + "&b=2&z=1",
+            Serialize(("z", 1), ("a", values), ("b", 2))
+        );
     }
 
     [Fact]
