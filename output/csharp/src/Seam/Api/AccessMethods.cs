@@ -225,7 +225,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_methods/delete", requestOptions);
+            _seam.Delete<object>("/access_methods/delete", requestOptions);
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_methods/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/access_methods/delete", requestOptions);
         }
 
         /// <summary>

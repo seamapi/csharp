@@ -24,6 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Polly;
 using RestSharp;
@@ -362,7 +363,21 @@ namespace Seam.Client
 
             if (options.Data != null)
             {
-                if (options.Data is Stream stream)
+                if (CarriesDataInQuery(method))
+                {
+                    // Uri normalizes a percent-encoded unreserved character back to its literal
+                    // form, so `~` reaches the wire as `~` rather than as `%7E`. Both decode to
+                    // the same param.
+                    var query = StrictUrlSearchParamsSerializer.Serialize(
+                        ToSearchParams(options.Data)
+                    );
+
+                    if (query.Length > 0)
+                    {
+                        request.Resource = $"{path}?{query}";
+                    }
+                }
+                else if (options.Data is Stream stream)
                 {
                     var contentType = "application/octet-stream";
                     if (options.HeaderParameters != null)
@@ -428,6 +443,58 @@ namespace Seam.Client
             }
 
             return request;
+        }
+
+        /// <summary>
+        /// Whether the request data travels as URL search params rather than as a body.
+        /// </summary>
+        private static bool CarriesDataInQuery(HttpMethod method)
+        {
+            return method == HttpMethod.Get || method == HttpMethod.Delete;
+        }
+
+        /// <summary>
+        /// Converts request data to search params through its JSON contract, so a parameter
+        /// carries the same name and the same value whether it travels in the query or the body.
+        /// </summary>
+        private IDictionary ToSearchParams(object data)
+        {
+            var token = JToken.FromObject(data, JsonSerializer.CreateDefault(SerializerSettings));
+
+            if (!(ToSearchParamValue(token) is IDictionary parameters))
+            {
+                throw new ArgumentException(
+                    $"Request data must serialize to an object, got {token.Type}",
+                    nameof(data)
+                );
+            }
+
+            return parameters;
+        }
+
+        /// <remarks>
+        /// An unset parameter is absent from the JSON contract, so a null can only be the
+        /// <see cref="Null"/> sentinel and is restored as one.
+        /// </remarks>
+        private static object ToSearchParamValue(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Object:
+                    var parameters = new Dictionary<string, object>();
+                    foreach (var property in ((JObject)token).Properties())
+                    {
+                        parameters[property.Name] = ToSearchParamValue(property.Value);
+                    }
+                    return parameters;
+                case JTokenType.Array:
+                    return ((JArray)token).Select(ToSearchParamValue).ToList();
+                case JTokenType.Null:
+                case JTokenType.Undefined:
+                    return Null.Value;
+                default:
+                    return ((JValue)token).Value;
+            }
         }
 
         private ApiResponse<T> ToApiResponse<T>(RestResponse<T> response)

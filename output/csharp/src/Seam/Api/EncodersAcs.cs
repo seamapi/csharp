@@ -418,7 +418,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/acs/encoders/list", requestOptions)
+                .Get<ListResponse>("/acs/encoders/list", requestOptions)
                 .EnsureData("/acs/encoders/list")
                 .AcsEncoders;
         }
@@ -452,7 +452,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/acs/encoders/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/acs/encoders/list", requestOptions))
                 .EnsureData("/acs/encoders/list")
                 .AcsEncoders;
         }

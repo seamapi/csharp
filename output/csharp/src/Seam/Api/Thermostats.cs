@@ -2350,7 +2350,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/set_temperature_threshold", requestOptions);
+            _seam.Patch<object>("/thermostats/set_temperature_threshold", requestOptions);
         }
 
         /// <summary>
@@ -2382,7 +2382,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/set_temperature_threshold", requestOptions);
+            await _seam.PatchAsync<object>(
+                "/thermostats/set_temperature_threshold",
+                requestOptions
+            );
         }
 
         /// <summary>
@@ -2708,7 +2711,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/update_climate_preset", requestOptions);
+            _seam.Patch<object>("/thermostats/update_climate_preset", requestOptions);
         }
 
         /// <summary>
@@ -2754,7 +2757,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/update_climate_preset", requestOptions);
+            await _seam.PatchAsync<object>("/thermostats/update_climate_preset", requestOptions);
         }
 
         /// <summary>

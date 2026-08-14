@@ -449,7 +449,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/workspaces/get", requestOptions)
+                .Get<GetResponse>("/workspaces/get", requestOptions)
                 .EnsureData("/workspaces/get")
                 .Workspace;
         }
@@ -469,7 +469,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/workspaces/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/workspaces/get", requestOptions))
                 .EnsureData("/workspaces/get")
                 .Workspace;
         }
@@ -556,7 +556,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/workspaces/list", requestOptions)
+                .Get<ListResponse>("/workspaces/list", requestOptions)
                 .EnsureData("/workspaces/list")
                 .Workspaces;
         }
@@ -576,7 +576,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/workspaces/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/workspaces/list", requestOptions))
                 .EnsureData("/workspaces/list")
                 .Workspaces;
         }
@@ -889,7 +889,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/workspaces/update", requestOptions);
+            _seam.Patch<object>("/workspaces/update", requestOptions);
         }
 
         /// <summary>
@@ -923,7 +923,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/workspaces/update", requestOptions);
+            await _seam.PatchAsync<object>("/workspaces/update", requestOptions);
         }
 
         /// <summary>

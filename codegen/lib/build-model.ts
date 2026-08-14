@@ -669,6 +669,7 @@ export const buildApiFile = (
 ): CsApiFile => {
   const routes: CsRoute[] = endpoints.map((endpoint) => {
     const methodName = pascalCase(endpoint.name)
+    const httpMethod = pascalCase(endpoint.request.preferredMethod)
 
     const request = buildClass(
       pascalCase(`${endpoint.name}_request`),
@@ -696,6 +697,7 @@ export const buildApiFile = (
       return {
         methodName,
         path: endpoint.path,
+        httpMethod,
         request: request.main,
         requestSiblings: request.siblings,
         responseSiblings: [],
@@ -727,6 +729,7 @@ export const buildApiFile = (
     return {
       methodName,
       path: endpoint.path,
+      httpMethod,
       request: request.main,
       requestSiblings: request.siblings,
       response: response.main,

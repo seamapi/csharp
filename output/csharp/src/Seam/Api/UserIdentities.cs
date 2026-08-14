@@ -87,7 +87,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/add_acs_user", requestOptions);
+            _seam.Put<object>("/user_identities/add_acs_user", requestOptions);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/user_identities/add_acs_user", requestOptions);
+            await _seam.PutAsync<object>("/user_identities/add_acs_user", requestOptions);
         }
 
         /// <summary>
@@ -664,7 +664,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/user_identities/get", requestOptions)
+                .Get<GetResponse>("/user_identities/get", requestOptions)
                 .EnsureData("/user_identities/get")
                 .UserIdentity;
         }
@@ -686,7 +686,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/user_identities/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/user_identities/get", requestOptions))
                 .EnsureData("/user_identities/get")
                 .UserIdentity;
         }
@@ -763,7 +763,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/grant_access_to_device", requestOptions);
+            _seam.Put<object>("/user_identities/grant_access_to_device", requestOptions);
         }
 
         /// <summary>
@@ -783,10 +783,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>(
-                "/user_identities/grant_access_to_device",
-                requestOptions
-            );
+            await _seam.PutAsync<object>("/user_identities/grant_access_to_device", requestOptions);
         }
 
         /// <summary>
@@ -1787,7 +1784,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/update", requestOptions);
+            _seam.Patch<object>("/user_identities/update", requestOptions);
         }
 
         /// <summary>
@@ -1819,7 +1816,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/user_identities/update", requestOptions);
+            await _seam.PatchAsync<object>("/user_identities/update", requestOptions);
         }
 
         /// <summary>

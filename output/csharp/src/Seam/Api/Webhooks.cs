@@ -414,7 +414,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/webhooks/list", requestOptions)
+                .Get<ListResponse>("/webhooks/list", requestOptions)
                 .EnsureData("/webhooks/list")
                 .Webhooks;
         }
@@ -434,7 +434,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/webhooks/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/webhooks/list", requestOptions))
                 .EnsureData("/webhooks/list")
                 .Webhooks;
         }
@@ -501,7 +501,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/webhooks/update", requestOptions);
+            _seam.Put<object>("/webhooks/update", requestOptions);
         }
 
         /// <summary>
@@ -519,7 +519,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/webhooks/update", requestOptions);
+            await _seam.PutAsync<object>("/webhooks/update", requestOptions);
         }
 
         /// <summary>

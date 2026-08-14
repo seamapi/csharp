@@ -620,7 +620,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<CreateMultipleResponse>("/access_codes/create_multiple", requestOptions)
+                .Put<CreateMultipleResponse>("/access_codes/create_multiple", requestOptions)
                 .EnsureData("/access_codes/create_multiple")
                 .AccessCodes;
         }
@@ -690,7 +690,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<CreateMultipleResponse>(
+                await _seam.PutAsync<CreateMultipleResponse>(
                     "/access_codes/create_multiple",
                     requestOptions
                 )
@@ -1923,7 +1923,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_codes/update", requestOptions);
+            _seam.Put<object>("/access_codes/update", requestOptions);
         }
 
         /// <summary>
@@ -1985,7 +1985,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_codes/update", requestOptions);
+            await _seam.PutAsync<object>("/access_codes/update", requestOptions);
         }
 
         /// <summary>
@@ -2121,7 +2121,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_codes/update_multiple", requestOptions);
+            _seam.Patch<object>("/access_codes/update_multiple", requestOptions);
         }
 
         /// <summary>
@@ -2159,7 +2159,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_codes/update_multiple", requestOptions);
+            await _seam.PatchAsync<object>("/access_codes/update_multiple", requestOptions);
         }
 
         /// <summary>

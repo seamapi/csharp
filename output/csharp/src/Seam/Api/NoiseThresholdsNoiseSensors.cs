@@ -653,7 +653,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/noise_sensors/noise_thresholds/update", requestOptions);
+            _seam.Put<object>("/noise_sensors/noise_thresholds/update", requestOptions);
         }
 
         /// <summary>
@@ -689,7 +689,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/noise_sensors/noise_thresholds/update", requestOptions);
+            await _seam.PutAsync<object>("/noise_sensors/noise_thresholds/update", requestOptions);
         }
 
         /// <summary>

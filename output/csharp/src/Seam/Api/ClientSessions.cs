@@ -166,7 +166,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<CreateResponse>("/client_sessions/create", requestOptions)
+                .Put<CreateResponse>("/client_sessions/create", requestOptions)
                 .EnsureData("/client_sessions/create")
                 .ClientSession;
         }
@@ -206,9 +206,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<CreateResponse>("/client_sessions/create", requestOptions)
-            )
+            return (await _seam.PutAsync<CreateResponse>("/client_sessions/create", requestOptions))
                 .EnsureData("/client_sessions/create")
                 .ClientSession;
         }
@@ -763,7 +761,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/client_sessions/grant_access", requestOptions);
+            _seam.Patch<object>("/client_sessions/grant_access", requestOptions);
         }
 
         /// <summary>
@@ -797,7 +795,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/client_sessions/grant_access", requestOptions);
+            await _seam.PatchAsync<object>("/client_sessions/grant_access", requestOptions);
         }
 
         /// <summary>

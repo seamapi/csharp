@@ -987,7 +987,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/devices/unmanaged/update", requestOptions);
+            _seam.Patch<object>("/devices/unmanaged/update", requestOptions);
         }
 
         /// <summary>
@@ -1019,7 +1019,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/devices/unmanaged/update", requestOptions);
+            await _seam.PatchAsync<object>("/devices/unmanaged/update", requestOptions);
         }
 
         /// <summary>

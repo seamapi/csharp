@@ -684,7 +684,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/access_grants/get", requestOptions)
+                .Get<GetResponse>("/access_grants/get", requestOptions)
                 .EnsureData("/access_grants/get")
                 .AccessGrant;
         }
@@ -706,7 +706,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/access_grants/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/access_grants/get", requestOptions))
                 .EnsureData("/access_grants/get")
                 .AccessGrant;
         }
@@ -1556,7 +1556,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_grants/update", requestOptions);
+            _seam.Patch<object>("/access_grants/update", requestOptions);
         }
 
         /// <summary>
@@ -1588,7 +1588,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_grants/update", requestOptions);
+            await _seam.PatchAsync<object>("/access_grants/update", requestOptions);
         }
 
         /// <summary>

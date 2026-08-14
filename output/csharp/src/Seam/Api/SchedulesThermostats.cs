@@ -683,7 +683,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/schedules/update", requestOptions);
+            _seam.Patch<object>("/thermostats/schedules/update", requestOptions);
         }
 
         /// <summary>
@@ -719,7 +719,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/schedules/update", requestOptions);
+            await _seam.PatchAsync<object>("/thermostats/schedules/update", requestOptions);
         }
 
         /// <summary>
