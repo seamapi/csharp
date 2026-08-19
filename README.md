@@ -208,8 +208,8 @@ Packages.
 
 > The version lives in `package.json`, the development manifest that
 > drives the codegen, and is injected into `Seam.csproj` by
-> `src/generate-csproj.ts`.
-> The injection runs from `src/version.ts`, wired to the `version`
+> `codegen/generate-csproj.ts`.
+> The injection runs from `codegen/version.ts`, wired to the `version`
 > lifecycle script, which npm runs after the bump but before the commit,
 > so the updated project file is part of the tagged commit and MSBuild
 > surfaces the version at runtime through

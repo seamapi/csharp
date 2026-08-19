@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 import { $ } from 'execa'
 
-const csprojFile = './output/csharp/src/Seam/Seam.csproj'
+const csprojFile = './src/Seam/Seam.csproj'
 
 const main = async (): Promise<void> => {
   const { version } = await readPackageJson()
@@ -12,7 +12,7 @@ const main = async (): Promise<void> => {
     throw new Error('Missing version in package.json')
   }
 
-  await $({ stdio: 'inherit' })`tsx src/generate-csproj.ts`
+  await $({ stdio: 'inherit' })`tsx codegen/generate-csproj.ts`
 
   const data = await readFile(
     fileURLToPath(new URL(`../${csprojFile}`, import.meta.url)),

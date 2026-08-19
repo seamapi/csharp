@@ -9,7 +9,7 @@ import {
   buildModelFile,
 } from './build-model.js'
 
-const outputRoot = 'output/csharp/src/Seam'
+const outputRoot = 'src/Seam'
 
 // Resource types that are emitted as discriminated unions rather than plain
 // model classes.
@@ -21,8 +21,8 @@ const apiClassName = (path: string): string =>
   pascalCase(path.split('/').filter(Boolean).reverse().join('_'))
 
 // Metalsmith plugin that generates the blueprint-derived C# SDK files: the Api
-// route classes (output/csharp/src/Seam/Api/*.cs) and the resource models
-// (output/csharp/src/Seam/Model/*.cs). Static, schema-independent files (the
+// route classes (src/Seam/Api/*.cs) and the resource models
+// (src/Seam/Model/*.cs). Static, schema-independent files (the
 // Client/* runtime, the static Model helpers, the .sln, the test project) are
 // normal committed package source and are intentionally NOT generated here.
 //

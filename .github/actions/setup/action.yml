@@ -37,4 +37,4 @@ runs:
     - name: Restore dependencies
       if: inputs.install_dependencies == 'true'
       shell: bash
-      run: dotnet restore ./output/csharp
+      run: dotnet restore ./Seam.sln

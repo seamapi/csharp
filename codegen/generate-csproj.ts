@@ -48,7 +48,7 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 
 <ItemGroup>
   <None Include="icon.png" Pack="true" PackagePath="icon.png" />
-  <None Include="README.md" Pack="true" PackagePath="README.md" />
+  <None Include="../../README.md" Pack="true" PackagePath="README.md" />
 
   <PackageReference Include="JsonSubTypes" Version="2.0.1" />
   <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -62,7 +62,7 @@ export const csprojTemplate = (version: string, dotNetVersions: string[]) =>
 
 const main = async () => {
   writeFileSync(
-    './output/csharp/src/Seam/Seam.csproj',
+    './src/Seam/Seam.csproj',
     csprojTemplate(version, ['8.0', '10.0']),
   )
 }

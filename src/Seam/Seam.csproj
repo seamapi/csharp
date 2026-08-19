@@ -38,7 +38,7 @@
 
 <ItemGroup>
   <None Include="icon.png" Pack="true" PackagePath="icon.png" />
-  <None Include="README.md" Pack="true" PackagePath="README.md" />
+  <None Include="../../README.md" Pack="true" PackagePath="README.md" />
 
   <PackageReference Include="JsonSubTypes" Version="2.0.1" />
   <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
