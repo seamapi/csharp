@@ -5,6 +5,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "start": "fake-seam-connect --seed",
     "version": "tsx ./version.ts",
     "postversion": "git push --follow-tags",
     "generate": "tsx codegen/smith.ts",
@@ -31,9 +32,11 @@
   },
   "devDependencies": {
     "@seamapi/blueprint": "^1.8.0",
+    "@seamapi/fake-seam-connect": "2.0.4",
     "@seamapi/smith": "^1.1.0",
-    "@seamapi/types": "^1.1026.0",
+    "@seamapi/types": "1.1026.0",
     "change-case": "^5.4.4",
+    "del": "^8.0.0",
     "execa": "^10.0.1",
     "prettier": "^3.0.0"
   }
