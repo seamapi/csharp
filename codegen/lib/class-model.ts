@@ -83,7 +83,7 @@ export interface CsUnion {
 
 export type CsDecl = CsClass | CsUnion
 
-// A generated model file (output/csharp/src/Seam/Model/<Name>.cs): one or more
+// A generated model file (src/Seam/Model/<Name>.cs): one or more
 // top-level declarations (the main type first, then sibling classes spawned by
 // inline-object properties).
 export interface CsModelFile {
@@ -119,7 +119,7 @@ export interface CsRoute {
   obsoleteMessage?: string
 }
 
-// A generated Api file (output/csharp/src/Seam/Api/<Name>.cs).
+// A generated Api file (src/Seam/Api/<Name>.cs).
 export interface CsApiFile {
   className: string
   routes: CsRoute[]

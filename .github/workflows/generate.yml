@@ -37,6 +37,8 @@ jobs:
           install_dependencies: 'false'
       - name: Normalize package-lock.json
         run: npm install
+      - name: Restore tools
+        run: dotnet tool restore
       - name: Generate code
         run: npm run generate
       - name: Commit

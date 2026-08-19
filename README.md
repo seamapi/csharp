@@ -199,7 +199,7 @@ and dispatches the [Version](.github/workflows/version.yml) workflow.
 Run the [Version](.github/workflows/version.yml) workflow with the
 version to cut.
 It runs `npm version`, which bumps the `version` field in `package.json`,
-regenerates `Seam.csproj` with that version, creates a signed `v*` git tag
+injects that version into `Seam.csproj`, creates a signed `v*` git tag
 and pushes it.
 Pushing the tag triggers the [Publish](.github/workflows/publish.yml)
 workflow, which packs the library with `dotnet pack` and pushes the
@@ -207,12 +207,11 @@ package to [NuGet](https://www.nuget.org/packages/Seam) and GitHub
 Packages.
 
 > The version lives in `package.json`, the development manifest that
-> drives the codegen, and is injected into `Seam.csproj` by
-> `src/generate-csproj.ts`.
-> The injection runs from `src/version.ts`, wired to the `version`
-> lifecycle script, which npm runs after the bump but before the commit,
-> so the updated project file is part of the tagged commit and MSBuild
-> surfaces the version at runtime through
+> drives the codegen.
+> `version.ts`, wired to the `version` lifecycle script, injects it
+> into the `<Version>` element of `Seam.csproj`, which npm runs after the
+> bump but before the commit, so the updated project file is part of the
+> tagged commit and MSBuild surfaces the version at runtime through
 > `AssemblyInformationalVersionAttribute`.
 > Never edit the version in `Seam.csproj` by hand.
 

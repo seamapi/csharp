@@ -1,15 +1,15 @@
 # Build the package
 build:
-    dotnet pack --configuration Release --output pkg ./output/csharp/src/Seam
+    dotnet pack --configuration Release --output pkg ./src/Seam
 
 # Run the tests
 test framework="":
-    dotnet test ./output/csharp {{ if framework == "" { "" } else { "--framework " + framework } }}
+    dotnet test ./Seam.sln {{ if framework == "" { "" } else { "--framework " + framework } }}
 
 # Lint
 lint:
-    dotnet csharpier --check ./output/csharp
+    dotnet csharpier --check ./src ./test
 
 # Format
 format:
-    dotnet csharpier ./output/csharp
+    dotnet csharpier ./src ./test

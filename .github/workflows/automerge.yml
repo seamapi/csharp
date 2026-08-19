@@ -30,8 +30,8 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           files: |
-            output/csharp/src/Seam/Api/**
-            output/csharp/src/Seam/Model/**
+            src/Seam/Api/**
+            src/Seam/Model/**
   merge:
     name: Merge
     runs-on: ubuntu-latest

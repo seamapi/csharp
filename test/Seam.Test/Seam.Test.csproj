@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Seam\Seam.csproj" />
+    <ProjectReference Include="..\..\src\Seam\Seam.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "version": "tsx src/version.ts",
+    "version": "tsx ./version.ts",
     "postversion": "git push --follow-tags",
     "generate": "tsx codegen/smith.ts",
-    "postgenerate": "tsx src/postgenerate.ts",
-    "generate:csproj": "tsx src/generate-csproj.ts",
+    "postgenerate": "just format",
     "typecheck": "tsc",
     "lint": "eslint .",
     "postlint": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
