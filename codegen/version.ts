@@ -1,33 +1,43 @@
-import { readFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
 import { $ } from 'execa'
 
-const csprojFile = './src/Seam/Seam.csproj'
+const versionFile = './src/Seam/Seam.csproj'
+
+const versionPattern = /<Version>[^<]*<\/Version>/
 
 const main = async (): Promise<void> => {
+  const version = await injectVersion(
+    fileURLToPath(new URL(`../${versionFile}`, import.meta.url)),
+  )
+  // eslint-disable-next-line no-console
+  console.log(`✓ Version ${version} injected into ${versionFile}`)
+
+  const { command } = await $`git add ${versionFile}`
+  // eslint-disable-next-line no-console
+  console.log(`✓ Staged with '${command}'`)
+}
+
+const injectVersion = async (path: string): Promise<string> => {
   const { version } = await readPackageJson()
 
   if (version == null) {
     throw new Error('Missing version in package.json')
   }
 
-  await $({ stdio: 'inherit' })`tsx codegen/generate-csproj.ts`
+  const data = (await readFile(path)).toString()
 
-  const data = await readFile(
-    fileURLToPath(new URL(`../${csprojFile}`, import.meta.url)),
-  )
-
-  if (!data.toString().includes(`<Version>${version}</Version>`)) {
-    throw new Error(`Could not find version ${version} in ${csprojFile}`)
+  if (!versionPattern.test(data)) {
+    throw new Error(`Could not find the version element in ${versionFile}`)
   }
 
-  // eslint-disable-next-line no-console
-  console.log(`✓ Version ${version} injected into ${csprojFile}`)
+  await writeFile(
+    path,
+    data.replace(versionPattern, `<Version>${version}</Version>`),
+  )
 
-  const { command } = await $`git add ${csprojFile}`
-  // eslint-disable-next-line no-console
-  console.log(`✓ Staged with '${command}'`)
+  return version
 }
 
 const readPackageJson = async (): Promise<{ version?: string }> => {

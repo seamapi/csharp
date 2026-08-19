@@ -2,7 +2,6 @@
 
 src/Seam/Api/** linguist-generated
 src/Seam/Model/** linguist-generated
-src/Seam/Seam.csproj linguist-generated
 
 # Static, schema-independent sources kept alongside the generated code.
 
