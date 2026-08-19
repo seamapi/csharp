@@ -203,50 +203,56 @@ namespace Seam.Model
             [EnumMember(Value = "ultraloq_lock")]
             UltraloqLock = 26,
 
+            [EnumMember(Value = "yacan_lock")]
+            YacanLock = 27,
+
             [EnumMember(Value = "keyincode_lock")]
-            KeyincodeLock = 27,
+            KeyincodeLock = 28,
 
             [EnumMember(Value = "omnitec_lock")]
-            OmnitecLock = 28,
+            OmnitecLock = 29,
 
             [EnumMember(Value = "kisi_lock")]
-            KisiLock = 29,
+            KisiLock = 30,
+
+            [EnumMember(Value = "aqara_lock")]
+            AqaraLock = 31,
 
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 30,
+            KeynestKey = 32,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 31,
+            NoiseawareActivityZone = 33,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 32,
+            MinutSensor = 34,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 33,
+            EcobeeThermostat = 35,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 34,
+            NestThermostat = 36,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 35,
+            HoneywellResideoThermostat = 37,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 36,
+            TadoThermostat = 38,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 37,
+            SensiThermostat = 39,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 38,
+            SmartthingsThermostat = 40,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 39,
+            IosPhone = 41,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 40,
+            AndroidPhone = 42,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 41,
+            RingCamera = 43,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -288,6 +294,10 @@ namespace Seam.Model
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsDormakabaSitesDisconnected),
             "dormakaba_sites_disconnected"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedDeviceErrorsInsufficientPermissions),
+            "insufficient_permissions"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceErrorsSaltoKsSubscriptionLimitExceeded),
@@ -411,6 +421,78 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// </summary>
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool IsConnectedAccountError { get; set; }
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedDeviceErrorsInsufficientPermissions_model")]
+        public class UnmanagedDeviceErrorsInsufficientPermissions : UnmanagedDeviceErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedDeviceErrorsInsufficientPermissions() { }
+
+            public UnmanagedDeviceErrorsInsufficientPermissions(
+                string createdAt = default,
+                string errorCode = default,
+                bool isConnectedAccountError = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsConnectedAccountError = isConnectedAccountError;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
             /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
@@ -1192,10 +1274,6 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedDeviceWarningsUnrecognized))]
-        [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedDeviceWarningsInsufficientPermissions),
-            "insufficient_permissions"
-        )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedDeviceWarningsMaxAccessCodesReached),
             "max_access_codes_reached"
@@ -2755,58 +2833,6 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedDeviceWarningsInsufficientPermissions_model")]
-        public class UnmanagedDeviceWarningsInsufficientPermissions : UnmanagedDeviceWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedDeviceWarningsInsufficientPermissions() { }
-
-            public UnmanagedDeviceWarningsInsufficientPermissions(
-                string createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            /// <summary>
-            /// Date and time at which Seam created the warning.
-            /// </summary>
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string CreatedAt { get; set; }
-
-            /// <summary>
-            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
-            /// </summary>
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "insufficient_permissions";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "seamModel_unmanagedDeviceWarningsUnrecognized_model")]
         public class UnmanagedDeviceWarningsUnrecognized : UnmanagedDeviceWarnings
         {
@@ -3038,7 +3064,7 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application.
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
         /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
@@ -3119,11 +3145,13 @@ namespace Seam.Model
 
         public UnmanagedDeviceLocation(
             string? locationName = default,
+            string? roomName = default,
             string? timeZone = default,
             string? timezone = default
         )
         {
             LocationName = locationName;
+            RoomName = roomName;
             TimeZone = timeZone;
             Timezone = timezone;
         }
@@ -3133,6 +3161,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "location_name", IsRequired = false, EmitDefaultValue = false)]
         public string? LocationName { get; set; }
+
+        /// <summary>
+        /// Name of the room within the device location, when the provider reports one.
+        /// </summary>
+        [DataMember(Name = "room_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? RoomName { get; set; }
 
         /// <summary>
         /// Time zone of the device location.

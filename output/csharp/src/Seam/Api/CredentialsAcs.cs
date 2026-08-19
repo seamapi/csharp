@@ -687,7 +687,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/credentials/delete", requestOptions);
+            _seam.Delete<object>("/acs/credentials/delete", requestOptions);
         }
 
         /// <summary>
@@ -705,7 +705,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/credentials/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/acs/credentials/delete", requestOptions);
         }
 
         /// <summary>
@@ -801,7 +801,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/acs/credentials/get", requestOptions)
+                .Get<GetResponse>("/acs/credentials/get", requestOptions)
                 .EnsureData("/acs/credentials/get")
                 .AcsCredential;
         }
@@ -821,7 +821,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/acs/credentials/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/acs/credentials/get", requestOptions))
                 .EnsureData("/acs/credentials/get")
                 .AcsCredential;
         }
@@ -844,31 +844,25 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
-                string? acsUserId = default,
                 string? acsSystemId = default,
-                string? userIdentityId = default,
+                string? acsUserId = default,
                 string? createdBefore = default,
                 bool? isMultiPhoneSyncCredential = default,
                 float? limit = default,
                 string? pageCursor = default,
-                string? search = default
+                string? search = default,
+                string? userIdentityId = default
             )
             {
-                AcsUserId = acsUserId;
                 AcsSystemId = acsSystemId;
-                UserIdentityId = userIdentityId;
+                AcsUserId = acsUserId;
                 CreatedBefore = createdBefore;
                 IsMultiPhoneSyncCredential = isMultiPhoneSyncCredential;
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
+                UserIdentityId = userIdentityId;
             }
-
-            /// <summary>
-            /// ID of the access system user for which you want to retrieve all credentials.
-            /// </summary>
-            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsUserId { get; set; }
 
             /// <summary>
             /// ID of the access system for which you want to retrieve all credentials.
@@ -877,10 +871,10 @@ namespace Seam.Api
             public string? AcsSystemId { get; set; }
 
             /// <summary>
-            /// ID of the user identity for which you want to retrieve all credentials.
+            /// ID of the access system user for which you want to retrieve all credentials.
             /// </summary>
-            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentityId { get; set; }
+            [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsUserId { get; set; }
 
             /// <summary>
             /// Date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, before which events to return were created.
@@ -915,6 +909,12 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
             public string? Search { get; set; }
+
+            /// <summary>
+            /// ID of the user identity for which you want to retrieve all credentials.
+            /// </summary>
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -990,26 +990,26 @@ namespace Seam.Api
         /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public List<AcsCredential> List(
-            string? acsUserId = default,
             string? acsSystemId = default,
-            string? userIdentityId = default,
+            string? acsUserId = default,
             string? createdBefore = default,
             bool? isMultiPhoneSyncCredential = default,
             float? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            string? userIdentityId = default
         )
         {
             return List(
                 new ListRequest(
-                    acsUserId: acsUserId,
                     acsSystemId: acsSystemId,
-                    userIdentityId: userIdentityId,
+                    acsUserId: acsUserId,
                     createdBefore: createdBefore,
                     isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                     limit: limit,
                     pageCursor: pageCursor,
-                    search: search
+                    search: search,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -1030,27 +1030,27 @@ namespace Seam.Api
         /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<List<AcsCredential>> ListAsync(
-            string? acsUserId = default,
             string? acsSystemId = default,
-            string? userIdentityId = default,
+            string? acsUserId = default,
             string? createdBefore = default,
             bool? isMultiPhoneSyncCredential = default,
             float? limit = default,
             string? pageCursor = default,
-            string? search = default
+            string? search = default,
+            string? userIdentityId = default
         )
         {
             return (
                 await ListAsync(
                     new ListRequest(
-                        acsUserId: acsUserId,
                         acsSystemId: acsSystemId,
-                        userIdentityId: userIdentityId,
+                        acsUserId: acsUserId,
                         createdBefore: createdBefore,
                         isMultiPhoneSyncCredential: isMultiPhoneSyncCredential,
                         limit: limit,
                         pageCursor: pageCursor,
-                        search: search
+                        search: search,
+                        userIdentityId: userIdentityId
                     )
                 )
             );
@@ -1141,7 +1141,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAccessibleEntrancesResponse>(
+                .Get<ListAccessibleEntrancesResponse>(
                     "/acs/credentials/list_accessible_entrances",
                     requestOptions
                 )
@@ -1169,7 +1169,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAccessibleEntrancesResponse>(
+                await _seam.GetAsync<ListAccessibleEntrancesResponse>(
                     "/acs/credentials/list_accessible_entrances",
                     requestOptions
                 )

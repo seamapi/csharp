@@ -493,7 +493,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/access_methods/get", requestOptions)
+                .Get<GetResponse>("/access_methods/get", requestOptions)
                 .EnsureData("/access_methods/get")
                 .AccessMethod;
         }
@@ -513,7 +513,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/access_methods/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/access_methods/get", requestOptions))
                 .EnsureData("/access_methods/get")
                 .AccessMethod;
         }
@@ -685,7 +685,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetRelatedResponse>("/access_methods/get_related", requestOptions)
+                .Get<GetRelatedResponse>("/access_methods/get_related", requestOptions)
                 .EnsureData("/access_methods/get_related")
                 .Batch;
         }
@@ -716,7 +716,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<GetRelatedResponse>(
+                await _seam.GetAsync<GetRelatedResponse>(
                     "/access_methods/get_related",
                     requestOptions
                 )
@@ -760,6 +760,8 @@ namespace Seam.Api
                 string? accessGrantKey = default,
                 string? acsEntranceId = default,
                 string? deviceId = default,
+                int? limit = default,
+                string? pageCursor = default,
                 string? spaceId = default
             )
             {
@@ -768,11 +770,13 @@ namespace Seam.Api
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
                 DeviceId = deviceId;
+                Limit = limit;
+                PageCursor = pageCursor;
                 SpaceId = spaceId;
             }
 
             /// <summary>
-            /// ID of the access code for which you want to retrieve all access methods.
+            /// ID of the access code by which to filter the returned access methods. Must be combined with `access_grant_id`, `access_grant_key`, or `acs_entrance_id`.
             /// </summary>
             [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessCodeId { get; set; }
@@ -790,19 +794,31 @@ namespace Seam.Api
             public string? AccessGrantKey { get; set; }
 
             /// <summary>
-            /// ID of the entrance for which you want to retrieve all access methods.
+            /// ID of the entrance for which you want to retrieve all access methods that grant access to it.
             /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
 
             /// <summary>
-            /// ID of the device for which you want to retrieve all access methods.
+            /// ID of the device by which to filter the returned access methods. Must be combined with `access_grant_id`, `access_grant_key`, or `acs_entrance_id`.
             /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string? DeviceId { get; set; }
 
             /// <summary>
-            /// ID of the space for which you want to retrieve all access methods.
+            /// Maximum number of records to return per page.
+            /// </summary>
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
+
+            /// <summary>
+            /// ID of the space by which to filter the returned access methods. Must be combined with `access_grant_id`, `access_grant_key`, or `acs_entrance_id`.
             /// </summary>
             [DataMember(Name = "space_id", IsRequired = false, EmitDefaultValue = false)]
             public string? SpaceId { get; set; }
@@ -872,7 +888,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/access_methods/list", requestOptions)
+                .Get<ListResponse>("/access_methods/list", requestOptions)
                 .EnsureData("/access_methods/list")
                 .AccessMethods;
         }
@@ -886,6 +902,8 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? spaceId = default
         )
         {
@@ -896,6 +914,8 @@ namespace Seam.Api
                     accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
                     deviceId: deviceId,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     spaceId: spaceId
                 )
             );
@@ -908,7 +928,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/access_methods/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/access_methods/list", requestOptions))
                 .EnsureData("/access_methods/list")
                 .AccessMethods;
         }
@@ -922,6 +942,8 @@ namespace Seam.Api
             string? accessGrantKey = default,
             string? acsEntranceId = default,
             string? deviceId = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? spaceId = default
         )
         {
@@ -933,6 +955,8 @@ namespace Seam.Api
                         accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
                         deviceId: deviceId,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         spaceId: spaceId
                     )
                 )

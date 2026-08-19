@@ -121,7 +121,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/events/get", requestOptions)
+                .Get<GetResponse>("/events/get", requestOptions)
                 .EnsureData("/events/get")
                 .Event;
         }
@@ -145,7 +145,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/events/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/events/get", requestOptions))
                 .EnsureData("/events/get")
                 .Event;
         }
@@ -189,7 +189,7 @@ namespace Seam.Api
                 string? acsSystemId = default,
                 List<string>? acsSystemIds = default,
                 string? acsUserId = default,
-                List<ListRequestBetween>? between = default,
+                List<string>? between = default,
                 string? connectWebviewId = default,
                 string? connectedAccountId = default,
                 string? customerKey = default,
@@ -992,7 +992,7 @@ namespace Seam.Api
             /// Lower and upper timestamps to define an exclusive interval containing the events that you want to list. You must include `since` or `between`.
             /// </summary>
             [DataMember(Name = "between", IsRequired = false, EmitDefaultValue = false)]
-            public List<ListRequestBetween>? Between { get; set; }
+            public List<string>? Between { get; set; }
 
             /// <summary>
             /// ID of the Connect Webview for which you want to list events.
@@ -1102,32 +1102,6 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "listRequestBetween_model")]
-        public class ListRequestBetween
-        {
-            [JsonConstructorAttribute]
-            public ListRequestBetween() { }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
         [DataContract(Name = "listResponse_response")]
         public class ListResponse
         {
@@ -1173,7 +1147,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/events/list", requestOptions)
+                .Get<ListResponse>("/events/list", requestOptions)
                 .EnsureData("/events/list")
                 .Events;
         }
@@ -1195,7 +1169,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
             string? acsUserId = default,
-            List<ListRequestBetween>? between = default,
+            List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             string? customerKey = default,
@@ -1253,7 +1227,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/events/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/events/list", requestOptions))
                 .EnsureData("/events/list")
                 .Events;
         }
@@ -1275,7 +1249,7 @@ namespace Seam.Api
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
             string? acsUserId = default,
-            List<ListRequestBetween>? between = default,
+            List<string>? between = default,
             string? connectWebviewId = default,
             string? connectedAccountId = default,
             string? customerKey = default,

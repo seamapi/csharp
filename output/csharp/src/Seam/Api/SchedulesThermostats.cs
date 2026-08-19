@@ -284,7 +284,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/schedules/delete", requestOptions);
+            _seam.Delete<object>("/thermostats/schedules/delete", requestOptions);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/schedules/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/thermostats/schedules/delete", requestOptions);
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/thermostats/schedules/get", requestOptions)
+                .Get<GetResponse>("/thermostats/schedules/get", requestOptions)
                 .EnsureData("/thermostats/schedules/get")
                 .ThermostatSchedule;
         }
@@ -422,9 +422,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<GetResponse>("/thermostats/schedules/get", requestOptions)
-            )
+            return (await _seam.GetAsync<GetResponse>("/thermostats/schedules/get", requestOptions))
                 .EnsureData("/thermostats/schedules/get")
                 .ThermostatSchedule;
         }
@@ -533,7 +531,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/thermostats/schedules/list", requestOptions)
+                .Get<ListResponse>("/thermostats/schedules/list", requestOptions)
                 .EnsureData("/thermostats/schedules/list")
                 .ThermostatSchedules;
         }
@@ -557,7 +555,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListResponse>("/thermostats/schedules/list", requestOptions)
+                await _seam.GetAsync<ListResponse>("/thermostats/schedules/list", requestOptions)
             )
                 .EnsureData("/thermostats/schedules/list")
                 .ThermostatSchedules;

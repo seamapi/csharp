@@ -3083,6 +3083,9 @@ namespace Seam.Model
     /// <summary>
     /// There was an unusually long delay in removing an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) from a device.
     /// </summary>
+    [Obsolete(
+        "Seam no longer emits this event. Use `access_code.failed_to_remove_from_device` instead."
+    )]
     [DataContract(Name = "seamModel_eventAccessCodeDelayInRemovingFromDevice_model")]
     public class EventAccessCodeDelayInRemovingFromDevice : Event
     {
@@ -9360,7 +9363,6 @@ namespace Seam.Model
         public EventConnectedAccountDeleted(
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
-            string? connectedAccountType = default,
             string createdAt = default,
             string? customerKey = default,
             string? eventDescription = default,
@@ -9372,7 +9374,6 @@ namespace Seam.Model
         {
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
-            ConnectedAccountType = connectedAccountType;
             CreatedAt = createdAt;
             CustomerKey = customerKey;
             EventDescription = eventDescription;
@@ -9397,12 +9398,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        /// </summary>
-        [DataMember(Name = "connected_account_type", IsRequired = false, EmitDefaultValue = false)]
-        public string? ConnectedAccountType { get; set; }
 
         /// <summary>
         /// Date and time at which the event was created.
@@ -15281,9 +15276,6 @@ namespace Seam.Model
         public EventLockLocked(
             string? accessCodeId = default,
             bool? accessCodeIsManaged = default,
-            string? acsEntranceId = default,
-            string? acsSystemId = default,
-            string? acsUserId = default,
             string? actionAttemptId = default,
             string? code = default,
             object? connectedAccountCustomMetadata = default,
@@ -15299,15 +15291,11 @@ namespace Seam.Model
             bool? isViaNfc = default,
             EventLockLocked.MethodEnum method = default,
             string occurredAt = default,
-            string? userIdentityId = default,
             string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
             AccessCodeIsManaged = accessCodeIsManaged;
-            AcsEntranceId = acsEntranceId;
-            AcsSystemId = acsSystemId;
-            AcsUserId = acsUserId;
             ActionAttemptId = actionAttemptId;
             Code = code;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
@@ -15323,7 +15311,6 @@ namespace Seam.Model
             IsViaNfc = isViaNfc;
             Method = method;
             OccurredAt = occurredAt;
-            UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
 
@@ -15366,30 +15353,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool? AccessCodeIsManaged { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS entrance associated with the lock event.
-        /// </summary>
-        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsEntranceId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS system associated with the lock event.
-        /// </summary>
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS user associated with the lock event.
-        /// </summary>
-        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsUserId { get; set; }
 
         /// <summary>
         /// ID of the Seam action attempt that triggered this lock. Present only when the lock was initiated through Seam (via a `LOCK_DOOR` action attempt).
@@ -15483,14 +15446,6 @@ namespace Seam.Model
         public override string OccurredAt { get; set; }
 
         /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the user identity associated with the lock event.
-        /// </summary>
-        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
-
-        /// <summary>
         /// ID of the workspace associated with the event.
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
@@ -15528,9 +15483,6 @@ namespace Seam.Model
         public EventLockUnlocked(
             string? accessCodeId = default,
             bool? accessCodeIsManaged = default,
-            string? acsEntranceId = default,
-            string? acsSystemId = default,
-            string? acsUserId = default,
             string? actionAttemptId = default,
             string? code = default,
             object? connectedAccountCustomMetadata = default,
@@ -15546,15 +15498,11 @@ namespace Seam.Model
             bool? isViaNfc = default,
             EventLockUnlocked.MethodEnum method = default,
             string occurredAt = default,
-            string? userIdentityId = default,
             string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
             AccessCodeIsManaged = accessCodeIsManaged;
-            AcsEntranceId = acsEntranceId;
-            AcsSystemId = acsSystemId;
-            AcsUserId = acsUserId;
             ActionAttemptId = actionAttemptId;
             Code = code;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
@@ -15570,7 +15518,6 @@ namespace Seam.Model
             IsViaNfc = isViaNfc;
             Method = method;
             OccurredAt = occurredAt;
-            UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
 
@@ -15613,30 +15560,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "access_code_is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool? AccessCodeIsManaged { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS entrance associated with the unlock event.
-        /// </summary>
-        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsEntranceId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS system associated with the unlock event.
-        /// </summary>
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS user associated with the unlock event.
-        /// </summary>
-        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsUserId { get; set; }
 
         /// <summary>
         /// ID of the Seam action attempt that triggered this unlock. Present only when the unlock was initiated through Seam (via an `UNLOCK_DOOR` action attempt).
@@ -15730,14 +15653,6 @@ namespace Seam.Model
         public override string OccurredAt { get; set; }
 
         /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the user identity associated with the unlock event.
-        /// </summary>
-        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
-
-        /// <summary>
         /// ID of the workspace associated with the event.
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
@@ -15774,9 +15689,6 @@ namespace Seam.Model
 
         public EventLockAccessDenied(
             string? accessCodeId = default,
-            string? acsEntranceId = default,
-            string? acsSystemId = default,
-            string? acsUserId = default,
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
@@ -15788,14 +15700,10 @@ namespace Seam.Model
             string eventType = default,
             string occurredAt = default,
             EventLockAccessDeniedReason? reason = default,
-            string? userIdentityId = default,
             string workspaceId = default
         )
         {
             AccessCodeId = accessCodeId;
-            AcsEntranceId = acsEntranceId;
-            AcsSystemId = acsSystemId;
-            AcsUserId = acsUserId;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
@@ -15807,7 +15715,6 @@ namespace Seam.Model
             EventType = eventType;
             OccurredAt = occurredAt;
             Reason = reason;
-            UserIdentityId = userIdentityId;
             WorkspaceId = workspaceId;
         }
 
@@ -15816,30 +15723,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "access_code_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessCodeId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS entrance associated with the access-denied event.
-        /// </summary>
-        [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsEntranceId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS system associated with the access-denied event.
-        /// </summary>
-        [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsSystemId { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the ACS user associated with the access-denied event.
-        /// </summary>
-        [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? AcsUserId { get; set; }
 
         /// <summary>
         /// Custom metadata of the connected account, present when connected_account_id is provided.
@@ -15907,14 +15790,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "reason", IsRequired = false, EmitDefaultValue = false)]
         public EventLockAccessDeniedReason? Reason { get; set; }
-
-        /// <summary>
-        /// undocumented: Unreleased.
-        ///       ---
-        ///       ID of the user identity associated with the access-denied event.
-        /// </summary>
-        [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityId { get; set; }
 
         /// <summary>
         /// ID of the workspace associated with the event.

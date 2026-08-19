@@ -9,27 +9,26 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with an application user account.
+    /// Represents an unmanaged user identity. Unmanaged user identities do not have keys.
     /// </summary>
-    [DataContract(Name = "seamModel_userIdentity_model")]
-    public class UserIdentity
+    [DataContract(Name = "seamModel_unmanagedUserIdentity_model")]
+    public class UnmanagedUserIdentity
     {
         [JsonConstructorAttribute]
-        protected UserIdentity() { }
+        protected UnmanagedUserIdentity() { }
 
-        public UserIdentity(
+        public UnmanagedUserIdentity(
             List<string> acsUserIds = default,
             string createdAt = default,
             string displayName = default,
             string? emailAddress = default,
-            List<UserIdentityErrors> errors = default,
+            List<UnmanagedUserIdentityErrors> errors = default,
             string? fullName = default,
             List<string> mergedUserIdentityIds = default,
             List<string> mergedUserIdentityKeys = default,
             string? phoneNumber = default,
             string userIdentityId = default,
-            string? userIdentityKey = default,
-            List<UserIdentityWarnings> warnings = default,
+            List<UnmanagedUserIdentityWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -43,18 +42,17 @@ namespace Seam.Model
             MergedUserIdentityKeys = mergedUserIdentityKeys;
             PhoneNumber = phoneNumber;
             UserIdentityId = userIdentityId;
-            UserIdentityKey = userIdentityKey;
             Warnings = warnings;
             WorkspaceId = workspaceId;
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(UserIdentityErrorsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedUserIdentityErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(UserIdentityErrorsIssueWithAcsUser),
+            typeof(UnmanagedUserIdentityErrorsIssueWithAcsUser),
             "issue_with_acs_user"
         )]
-        public abstract class UserIdentityErrors
+        public abstract class UnmanagedUserIdentityErrors
         {
             public abstract string ErrorCode { get; }
 
@@ -69,13 +67,13 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_userIdentityErrorsIssueWithAcsUser_model")]
-        public class UserIdentityErrorsIssueWithAcsUser : UserIdentityErrors
+        [DataContract(Name = "seamModel_unmanagedUserIdentityErrorsIssueWithAcsUser_model")]
+        public class UnmanagedUserIdentityErrorsIssueWithAcsUser : UnmanagedUserIdentityErrors
         {
             [JsonConstructorAttribute]
-            protected UserIdentityErrorsIssueWithAcsUser() { }
+            protected UnmanagedUserIdentityErrorsIssueWithAcsUser() { }
 
-            public UserIdentityErrorsIssueWithAcsUser(
+            public UnmanagedUserIdentityErrorsIssueWithAcsUser(
                 string acsSystemId = default,
                 string acsUserId = default,
                 string createdAt = default,
@@ -137,13 +135,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_userIdentityErrorsUnrecognized_model")]
-        public class UserIdentityErrorsUnrecognized : UserIdentityErrors
+        [DataContract(Name = "seamModel_unmanagedUserIdentityErrorsUnrecognized_model")]
+        public class UnmanagedUserIdentityErrorsUnrecognized : UnmanagedUserIdentityErrors
         {
             [JsonConstructorAttribute]
-            protected UserIdentityErrorsUnrecognized() { }
+            protected UnmanagedUserIdentityErrorsUnrecognized() { }
 
-            public UserIdentityErrorsUnrecognized(
+            public UnmanagedUserIdentityErrorsUnrecognized(
                 string errorCode = default,
                 string acsSystemId = default,
                 string acsUserId = default,
@@ -206,13 +204,16 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(UserIdentityWarningsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedUserIdentityWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity),
+            typeof(UnmanagedUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity),
             "acs_user_profile_does_not_match_user_identity"
         )]
-        [JsonSubtypes.KnownSubType(typeof(UserIdentityWarningsBeingDeleted), "being_deleted")]
-        public abstract class UserIdentityWarnings
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedUserIdentityWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        public abstract class UnmanagedUserIdentityWarnings
         {
             public abstract string WarningCode { get; }
 
@@ -223,13 +224,13 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_userIdentityWarningsBeingDeleted_model")]
-        public class UserIdentityWarningsBeingDeleted : UserIdentityWarnings
+        [DataContract(Name = "seamModel_unmanagedUserIdentityWarningsBeingDeleted_model")]
+        public class UnmanagedUserIdentityWarningsBeingDeleted : UnmanagedUserIdentityWarnings
         {
             [JsonConstructorAttribute]
-            protected UserIdentityWarningsBeingDeleted() { }
+            protected UnmanagedUserIdentityWarningsBeingDeleted() { }
 
-            public UserIdentityWarningsBeingDeleted(
+            public UnmanagedUserIdentityWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -276,15 +277,15 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_userIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity_model"
+            Name = "seamModel_unmanagedUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity_model"
         )]
-        public class UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity
-            : UserIdentityWarnings
+        public class UnmanagedUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity
+            : UnmanagedUserIdentityWarnings
         {
             [JsonConstructorAttribute]
-            protected UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity() { }
+            protected UnmanagedUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity() { }
 
-            public UserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity(
+            public UnmanagedUserIdentityWarningsAcsUserProfileDoesNotMatchUserIdentity(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -331,13 +332,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_userIdentityWarningsUnrecognized_model")]
-        public class UserIdentityWarningsUnrecognized : UserIdentityWarnings
+        [DataContract(Name = "seamModel_unmanagedUserIdentityWarningsUnrecognized_model")]
+        public class UnmanagedUserIdentityWarningsUnrecognized : UnmanagedUserIdentityWarnings
         {
             [JsonConstructorAttribute]
-            protected UserIdentityWarningsUnrecognized() { }
+            protected UnmanagedUserIdentityWarningsUnrecognized() { }
 
-            public UserIdentityWarningsUnrecognized(
+            public UnmanagedUserIdentityWarningsUnrecognized(
                 string warningCode = default,
                 string createdAt = default,
                 string message = default
@@ -411,7 +412,7 @@ namespace Seam.Model
         /// Array of errors associated with the user identity. Each error object within the array contains fields like &quot;error_code&quot; and &quot;message.&quot; &quot;error_code&quot; is a string that uniquely identifies the type of error, enabling quick recognition and categorization of the issue. &quot;message&quot; provides a more detailed description of the error, offering insights into the issue and potentially how to rectify it.
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<UserIdentityErrors> Errors { get; set; }
+        public List<UnmanagedUserIdentityErrors> Errors { get; set; }
 
         /// <summary>
         /// Full name of the user associated with the user identity.
@@ -452,16 +453,10 @@ namespace Seam.Model
         public string UserIdentityId { get; set; }
 
         /// <summary>
-        /// Unique key for the user identity.
-        /// </summary>
-        [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? UserIdentityKey { get; set; }
-
-        /// <summary>
         /// Array of warnings associated with the user identity. Each warning object within the array contains two fields: &quot;warning_code&quot; and &quot;message.&quot; &quot;warning_code&quot; is a string that uniquely identifies the type of warning, enabling quick recognition and categorization of the issue. &quot;message&quot; provides a more detailed description of the warning, offering insights into the issue and potentially how to rectify it.
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<UserIdentityWarnings> Warnings { get; set; }
+        public List<UnmanagedUserIdentityWarnings> Warnings { get; set; }
 
         /// <summary>
         /// ID of the workspace that contains the user identity.

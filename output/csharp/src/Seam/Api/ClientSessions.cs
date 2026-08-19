@@ -288,7 +288,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/client_sessions/delete", requestOptions);
+            _seam.Delete<object>("/client_sessions/delete", requestOptions);
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/client_sessions/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/client_sessions/delete", requestOptions);
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/client_sessions/get", requestOptions)
+                .Get<GetResponse>("/client_sessions/get", requestOptions)
                 .EnsureData("/client_sessions/get")
                 .ClientSession;
         }
@@ -440,7 +440,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/client_sessions/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/client_sessions/get", requestOptions))
                 .EnsureData("/client_sessions/get")
                 .ClientSession;
         }
@@ -853,7 +853,7 @@ namespace Seam.Api
             public string? ClientSessionId { get; set; }
 
             /// <summary>
-            /// ID of the [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) for which you want to retrieve client sessions.
+            /// ID of the [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a Connect Webview.
             /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
@@ -865,7 +865,7 @@ namespace Seam.Api
             public string? UserIdentifierKey { get; set; }
 
             /// <summary>
-            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to retrieve client sessions.
+            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a user identity.
             /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
@@ -945,7 +945,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/client_sessions/list", requestOptions)
+                .Get<ListResponse>("/client_sessions/list", requestOptions)
                 .EnsureData("/client_sessions/list")
                 .ClientSessions;
         }
@@ -979,7 +979,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/client_sessions/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/client_sessions/list", requestOptions))
                 .EnsureData("/client_sessions/list")
                 .ClientSessions;
         }

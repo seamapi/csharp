@@ -231,38 +231,44 @@ namespace Seam.Model
             [EnumMember(Value = "ultraloq")]
             Ultraloq = 51,
 
+            [EnumMember(Value = "yacan")]
+            Yacan = 52,
+
             [EnumMember(Value = "dusaw")]
-            Dusaw = 52,
+            Dusaw = 53,
 
             [EnumMember(Value = "sifely")]
-            Sifely = 53,
+            Sifely = 54,
 
             [EnumMember(Value = "thirty_three_lock")]
-            ThirtyThreeLock = 54,
+            ThirtyThreeLock = 55,
 
             [EnumMember(Value = "ring")]
-            Ring = 55,
+            Ring = 56,
 
             [EnumMember(Value = "ical")]
-            Ical = 56,
+            Ical = 57,
 
             [EnumMember(Value = "lodgify")]
-            Lodgify = 57,
+            Lodgify = 58,
 
             [EnumMember(Value = "hostaway")]
-            Hostaway = 58,
+            Hostaway = 59,
 
             [EnumMember(Value = "guesty")]
-            Guesty = 59,
+            Guesty = 60,
 
             [EnumMember(Value = "acuity_scheduling")]
-            AcuityScheduling = 60,
+            AcuityScheduling = 61,
 
             [EnumMember(Value = "omnitec")]
-            Omnitec = 61,
+            Omnitec = 62,
 
             [EnumMember(Value = "kisi")]
-            Kisi = 62,
+            Kisi = 63,
+
+            [EnumMember(Value = "aqara")]
+            Aqara = 64,
         }
 
         /// <summary>

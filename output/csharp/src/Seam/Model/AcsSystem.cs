@@ -85,6 +85,10 @@ namespace Seam.Model
             "acs_system_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(AcsSystemErrorsInsufficientPermissions),
+            "insufficient_permissions"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AcsSystemErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
         )]
@@ -300,6 +304,58 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsSystemErrorsInsufficientPermissions_model")]
+        public class AcsSystemErrorsInsufficientPermissions : AcsSystemErrors
+        {
+            [JsonConstructorAttribute]
+            protected AcsSystemErrorsInsufficientPermissions() { }
+
+            public AcsSystemErrorsInsufficientPermissions(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
             /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
@@ -643,6 +699,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_organization")]
             KisiOrganization = 16,
+
+            [EnumMember(Value = "akiles_organization")]
+            AkilesOrganization = 17,
         }
 
         [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -698,10 +757,17 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_organization")]
             KisiOrganization = 16,
+
+            [EnumMember(Value = "akiles_organization")]
+            AkilesOrganization = 17,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsSystemWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsSystemWarningsUnknownIssueWithAcsSystem),
+            "unknown_issue_with_acs_system"
+        )]
         [JsonSubtypes.KnownSubType(typeof(AcsSystemWarningsSetupRequired), "setup_required")]
         [JsonSubtypes.KnownSubType(
             typeof(AcsSystemWarningsTimeZoneDoesNotMatchLocation),
@@ -870,6 +936,58 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "setup_required";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsSystemWarningsUnknownIssueWithAcsSystem_model")]
+        public class AcsSystemWarningsUnknownIssueWithAcsSystem : AcsSystemWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsSystemWarningsUnknownIssueWithAcsSystem() { }
+
+            public AcsSystemWarningsUnknownIssueWithAcsSystem(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unknown_issue_with_acs_system";
 
             public override string ToString()
             {

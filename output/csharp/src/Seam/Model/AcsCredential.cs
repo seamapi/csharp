@@ -29,6 +29,7 @@ namespace Seam.Model
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
+            AcsCredentialAkilesMetadata? akilesMetadata = default,
             AcsCredentialAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             string? cardNumber = default,
             string? code = default,
@@ -59,6 +60,7 @@ namespace Seam.Model
             AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
@@ -153,10 +155,17 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_credential")]
             KisiCredential = 13,
+
+            [EnumMember(Value = "akiles_credential")]
+            AkilesCredential = 14,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsCredentialWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(AcsCredentialWarningsRequestedCodeUnavailable),
+            "requested_code_unavailable"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(AcsCredentialWarningsNeedsToBeReissued),
             "needs_to_be_reissued"
@@ -501,6 +510,74 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_acsCredentialWarningsRequestedCodeUnavailable_model")]
+        public class AcsCredentialWarningsRequestedCodeUnavailable : AcsCredentialWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsCredentialWarningsRequestedCodeUnavailable() { }
+
+            public AcsCredentialWarningsRequestedCodeUnavailable(
+                string createdAt = default,
+                string message = default,
+                string newCode = default,
+                string originalCode = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                NewCode = newCode;
+                OriginalCode = originalCode;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            /// <summary>
+            /// The PIN code that was assigned instead.
+            /// </summary>
+            [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+            public string NewCode { get; set; }
+
+            /// <summary>
+            /// The originally requested PIN code that could not be used.
+            /// </summary>
+            [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+            public string OriginalCode { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "requested_code_unavailable";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_acsCredentialWarningsUnrecognized_model")]
         public class AcsCredentialWarningsUnrecognized : AcsCredentialWarnings
         {
@@ -582,6 +659,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
+
+        /// <summary>
+        /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// </summary>
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsCredentialAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -744,6 +827,43 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsCredentialAkilesMetadata_model")]
+    public class AcsCredentialAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsCredentialAkilesMetadata() { }
+
+        public AcsCredentialAkilesMetadata(string? memberPinId = default)
+        {
+            MemberPinId = memberPinId;
+        }
+
+        /// <summary>
+        /// ID of the Akiles member PIN.
+        /// </summary>
+        [DataMember(Name = "member_pin_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MemberPinId { get; set; }
 
         public override string ToString()
         {

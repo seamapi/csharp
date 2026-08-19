@@ -553,7 +553,7 @@ namespace Seam.Model
         public ActionAttemptScanCredentialResult(
             ActionAttemptScanCredentialResultAcsCredentialOnEncoder? acsCredentialOnEncoder =
                 default,
-            ActionAttemptScanCredentialResultAcsCredentialOnSeam acsCredentialOnSeam = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnSeam? acsCredentialOnSeam = default,
             List<ActionAttemptScanCredentialResultWarnings> warnings = default
         )
         {
@@ -576,7 +576,7 @@ namespace Seam.Model
         /// Corresponding credential data as stored on Seam and the access system.
         /// </summary>
         [DataMember(Name = "acs_credential_on_seam", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeam AcsCredentialOnSeam { get; set; }
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeam? AcsCredentialOnSeam { get; set; }
 
         /// <summary>
         /// Warnings related to scanning the credential, such as mismatches between the credential data currently encoded on the card and the corresponding data stored on Seam and the access system.
@@ -843,6 +843,8 @@ namespace Seam.Model
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
+            ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata? akilesMetadata =
+                default,
             ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
@@ -876,6 +878,7 @@ namespace Seam.Model
             AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
@@ -970,6 +973,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_credential")]
             KisiCredential = 13,
+
+            [EnumMember(Value = "akiles_credential")]
+            AkilesCredential = 14,
         }
 
         /// <summary>
@@ -1001,6 +1007,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
+
+        /// <summary>
+        /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// </summary>
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -1160,6 +1172,47 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(
+        Name = "seamModel_actionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata_model"
+    )]
+    public class ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata() { }
+
+        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata(
+            string? memberPinId = default
+        )
+        {
+            MemberPinId = memberPinId;
+        }
+
+        /// <summary>
+        /// ID of the Akiles member PIN.
+        /// </summary>
+        [DataMember(Name = "member_pin_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MemberPinId { get; set; }
 
         public override string ToString()
         {
@@ -1447,12 +1500,16 @@ namespace Seam.Model
             string createdAt = default,
             string message = default,
             ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings.WarningCodeEnum warningCode =
-                default
+                default,
+            string? newCode = default,
+            string? originalCode = default
         )
         {
             CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
+            NewCode = newCode;
+            OriginalCode = originalCode;
         }
 
         /// <summary>
@@ -1481,6 +1538,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "needs_to_be_reissued")]
             NeedsToBeReissued = 6,
+
+            [EnumMember(Value = "requested_code_unavailable")]
+            RequestedCodeUnavailable = 7,
         }
 
         /// <summary>
@@ -1500,6 +1560,18 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings.WarningCodeEnum WarningCode { get; set; }
+
+        /// <summary>
+        /// The PIN code that was assigned instead.
+        /// </summary>
+        [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? NewCode { get; set; }
+
+        /// <summary>
+        /// The originally requested PIN code that could not be used.
+        /// </summary>
+        [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? OriginalCode { get; set; }
 
         public override string ToString()
         {
@@ -1764,6 +1836,7 @@ namespace Seam.Model
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
+            ActionAttemptEncodeCredentialResultAkilesMetadata? akilesMetadata = default,
             ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
@@ -1795,6 +1868,7 @@ namespace Seam.Model
             AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
@@ -1889,6 +1963,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_credential")]
             KisiCredential = 13,
+
+            [EnumMember(Value = "akiles_credential")]
+            AkilesCredential = 14,
         }
 
         /// <summary>
@@ -1920,6 +1997,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
+
+        /// <summary>
+        /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// </summary>
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptEncodeCredentialResultAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -2079,6 +2162,43 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptEncodeCredentialResultAkilesMetadata_model")]
+    public class ActionAttemptEncodeCredentialResultAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptEncodeCredentialResultAkilesMetadata() { }
+
+        public ActionAttemptEncodeCredentialResultAkilesMetadata(string? memberPinId = default)
+        {
+            MemberPinId = memberPinId;
+        }
+
+        /// <summary>
+        /// ID of the Akiles member PIN.
+        /// </summary>
+        [DataMember(Name = "member_pin_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MemberPinId { get; set; }
 
         public override string ToString()
         {
@@ -2359,12 +2479,16 @@ namespace Seam.Model
         public ActionAttemptEncodeCredentialResultWarnings(
             string createdAt = default,
             string message = default,
-            ActionAttemptEncodeCredentialResultWarnings.WarningCodeEnum warningCode = default
+            ActionAttemptEncodeCredentialResultWarnings.WarningCodeEnum warningCode = default,
+            string? newCode = default,
+            string? originalCode = default
         )
         {
             CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
+            NewCode = newCode;
+            OriginalCode = originalCode;
         }
 
         /// <summary>
@@ -2393,6 +2517,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "needs_to_be_reissued")]
             NeedsToBeReissued = 6,
+
+            [EnumMember(Value = "requested_code_unavailable")]
+            RequestedCodeUnavailable = 7,
         }
 
         /// <summary>
@@ -2412,6 +2539,18 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptEncodeCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
+
+        /// <summary>
+        /// The PIN code that was assigned instead.
+        /// </summary>
+        [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? NewCode { get; set; }
+
+        /// <summary>
+        /// The originally requested PIN code that could not be used.
+        /// </summary>
+        [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? OriginalCode { get; set; }
 
         public override string ToString()
         {
@@ -2592,6 +2731,7 @@ namespace Seam.Model
             string? acsCredentialPoolId = default,
             string acsSystemId = default,
             string? acsUserId = default,
+            ActionAttemptScanToAssignCredentialResultAkilesMetadata? akilesMetadata = default,
             ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata? assaAbloyVostioMetadata =
                 default,
             string? cardNumber = default,
@@ -2624,6 +2764,7 @@ namespace Seam.Model
             AcsCredentialPoolId = acsCredentialPoolId;
             AcsSystemId = acsSystemId;
             AcsUserId = acsUserId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             CardNumber = cardNumber;
             Code = code;
@@ -2718,6 +2859,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_credential")]
             KisiCredential = 13,
+
+            [EnumMember(Value = "akiles_credential")]
+            AkilesCredential = 14,
         }
 
         /// <summary>
@@ -2749,6 +2893,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
+
+        /// <summary>
+        /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// </summary>
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptScanToAssignCredentialResultAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -2911,6 +3061,45 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptScanToAssignCredentialResultAkilesMetadata_model")]
+    public class ActionAttemptScanToAssignCredentialResultAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptScanToAssignCredentialResultAkilesMetadata() { }
+
+        public ActionAttemptScanToAssignCredentialResultAkilesMetadata(
+            string? memberPinId = default
+        )
+        {
+            MemberPinId = memberPinId;
+        }
+
+        /// <summary>
+        /// ID of the Akiles member PIN.
+        /// </summary>
+        [DataMember(Name = "member_pin_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? MemberPinId { get; set; }
 
         public override string ToString()
         {
@@ -3193,12 +3382,16 @@ namespace Seam.Model
         public ActionAttemptScanToAssignCredentialResultWarnings(
             string createdAt = default,
             string message = default,
-            ActionAttemptScanToAssignCredentialResultWarnings.WarningCodeEnum warningCode = default
+            ActionAttemptScanToAssignCredentialResultWarnings.WarningCodeEnum warningCode = default,
+            string? newCode = default,
+            string? originalCode = default
         )
         {
             CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
+            NewCode = newCode;
+            OriginalCode = originalCode;
         }
 
         /// <summary>
@@ -3227,6 +3420,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "needs_to_be_reissued")]
             NeedsToBeReissued = 6,
+
+            [EnumMember(Value = "requested_code_unavailable")]
+            RequestedCodeUnavailable = 7,
         }
 
         /// <summary>
@@ -3246,6 +3442,18 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "warning_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptScanToAssignCredentialResultWarnings.WarningCodeEnum WarningCode { get; set; }
+
+        /// <summary>
+        /// The PIN code that was assigned instead.
+        /// </summary>
+        [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? NewCode { get; set; }
+
+        /// <summary>
+        /// The originally requested PIN code that could not be used.
+        /// </summary>
+        [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? OriginalCode { get; set; }
 
         public override string ToString()
         {
@@ -3427,6 +3635,7 @@ namespace Seam.Model
             string createdAt = default,
             string? customizationProfileId = default,
             string displayName = default,
+            string displayStatus = default,
             List<ActionAttemptAssignCredentialResultErrors> errors = default,
             string? instantKeyUrl = default,
             bool? isAssignmentRequired = default,
@@ -3447,6 +3656,7 @@ namespace Seam.Model
             CreatedAt = createdAt;
             CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
+            DisplayStatus = displayStatus;
             Errors = errors;
             InstantKeyUrl = instantKeyUrl;
             IsAssignmentRequired = isAssignmentRequired;
@@ -3522,6 +3732,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// Human-readable sentence describing where the access method sits in its relationship with the device or access system, for example `Awaiting encoding`. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `is_issued`, `errors`, and `pending_mutations`.
+        /// </summary>
+        [DataMember(Name = "display_status", IsRequired = false, EmitDefaultValue = false)]
+        public string DisplayStatus { get; set; }
 
         /// <summary>
         /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
@@ -5484,7 +5700,18 @@ namespace Seam.Model
     public class ActionAttemptCreateAccessCodeResult
     {
         [JsonConstructorAttribute]
-        public ActionAttemptCreateAccessCodeResult() { }
+        protected ActionAttemptCreateAccessCodeResult() { }
+
+        public ActionAttemptCreateAccessCodeResult(object accessCode = default)
+        {
+            AccessCode = accessCode;
+        }
+
+        /// <summary>
+        /// Created access code.
+        /// </summary>
+        [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
+        public object AccessCode { get; set; }
 
         public override string ToString()
         {
@@ -5786,7 +6013,18 @@ namespace Seam.Model
     public class ActionAttemptUpdateAccessCodeResult
     {
         [JsonConstructorAttribute]
-        public ActionAttemptUpdateAccessCodeResult() { }
+        protected ActionAttemptUpdateAccessCodeResult() { }
+
+        public ActionAttemptUpdateAccessCodeResult(object? accessCode = default)
+        {
+            AccessCode = accessCode;
+        }
+
+        /// <summary>
+        /// Updated access code.
+        /// </summary>
+        [DataMember(Name = "access_code", IsRequired = false, EmitDefaultValue = false)]
+        public object? AccessCode { get; set; }
 
         public override string ToString()
         {
@@ -5940,7 +6178,18 @@ namespace Seam.Model
     public class ActionAttemptCreateNoiseThresholdResult
     {
         [JsonConstructorAttribute]
-        public ActionAttemptCreateNoiseThresholdResult() { }
+        protected ActionAttemptCreateNoiseThresholdResult() { }
+
+        public ActionAttemptCreateNoiseThresholdResult(object noiseThreshold = default)
+        {
+            NoiseThreshold = noiseThreshold;
+        }
+
+        /// <summary>
+        /// Created noise threshold.
+        /// </summary>
+        [DataMember(Name = "noise_threshold", IsRequired = false, EmitDefaultValue = false)]
+        public object NoiseThreshold { get; set; }
 
         public override string ToString()
         {
@@ -6248,7 +6497,18 @@ namespace Seam.Model
     public class ActionAttemptUpdateNoiseThresholdResult
     {
         [JsonConstructorAttribute]
-        public ActionAttemptUpdateNoiseThresholdResult() { }
+        protected ActionAttemptUpdateNoiseThresholdResult() { }
+
+        public ActionAttemptUpdateNoiseThresholdResult(object noiseThreshold = default)
+        {
+            NoiseThreshold = noiseThreshold;
+        }
+
+        /// <summary>
+        /// Updated noise threshold.
+        /// </summary>
+        [DataMember(Name = "noise_threshold", IsRequired = false, EmitDefaultValue = false)]
+        public object NoiseThreshold { get; set; }
 
         public override string ToString()
         {

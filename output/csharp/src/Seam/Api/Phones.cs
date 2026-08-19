@@ -65,7 +65,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/phones/deactivate", requestOptions);
+            _seam.Delete<object>("/phones/deactivate", requestOptions);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/phones/deactivate", requestOptions);
+            await _seam.DeleteAsync<object>("/phones/deactivate", requestOptions);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/phones/get", requestOptions)
+                .Get<GetResponse>("/phones/get", requestOptions)
                 .EnsureData("/phones/get")
                 .Phone;
         }
@@ -199,7 +199,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/phones/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/phones/get", requestOptions))
                 .EnsureData("/phones/get")
                 .Phone;
         }
@@ -311,7 +311,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/phones/list", requestOptions)
+                .Get<ListResponse>("/phones/list", requestOptions)
                 .EnsureData("/phones/list")
                 .Phones;
         }
@@ -339,7 +339,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/phones/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/phones/list", requestOptions))
                 .EnsureData("/phones/list")
                 .Phones;
         }

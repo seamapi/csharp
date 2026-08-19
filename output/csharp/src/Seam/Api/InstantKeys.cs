@@ -65,7 +65,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/instant_keys/delete", requestOptions);
+            _seam.Delete<object>("/instant_keys/delete", requestOptions);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/instant_keys/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/instant_keys/delete", requestOptions);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/instant_keys/get", requestOptions)
+                .Get<GetResponse>("/instant_keys/get", requestOptions)
                 .EnsureData("/instant_keys/get")
                 .InstantKey;
         }
@@ -206,7 +206,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/instant_keys/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/instant_keys/get", requestOptions))
                 .EnsureData("/instant_keys/get")
                 .InstantKey;
         }
@@ -311,7 +311,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/instant_keys/list", requestOptions)
+                .Get<ListResponse>("/instant_keys/list", requestOptions)
                 .EnsureData("/instant_keys/list")
                 .InstantKeys;
         }
@@ -331,7 +331,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/instant_keys/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/instant_keys/list", requestOptions))
                 .EnsureData("/instant_keys/list")
                 .InstantKeys;
         }

@@ -9,49 +9,39 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an Access Grant. Access Grants enable you to grant a user identity access to spaces, entrances, and devices through one or more access methods, such as mobile keys, plastic cards, and PIN codes. You can create an Access Grant for an existing user identity, or you can create a new user identity *while* creating the new Access Grant.
+    /// Represents an unmanaged Access Grant. Unmanaged Access Grants do not have client sessions, instant keys, customization profiles, or keys.
     /// </summary>
-    [DataContract(Name = "seamModel_accessGrant_model")]
-    public class AccessGrant
+    [DataContract(Name = "seamModel_unmanagedAccessGrant_model")]
+    public class UnmanagedAccessGrant
     {
         [JsonConstructorAttribute]
-        protected AccessGrant() { }
+        protected UnmanagedAccessGrant() { }
 
-        public AccessGrant(
+        public UnmanagedAccessGrant(
             string accessGrantId = default,
-            string? accessGrantKey = default,
             List<string> accessMethodIds = default,
-            string? clientSessionToken = default,
             string createdAt = default,
-            string? customizationProfileId = default,
             string displayName = default,
-            string displayStatus = default,
             string? endsAt = default,
-            List<AccessGrantErrors> errors = default,
-            string? instantKeyUrl = default,
+            List<UnmanagedAccessGrantErrors> errors = default,
             List<string> locationIds = default,
             string? name = default,
-            List<AccessGrantPendingMutations> pendingMutations = default,
-            List<AccessGrantRequestedAccessMethods> requestedAccessMethods = default,
+            List<UnmanagedAccessGrantPendingMutations> pendingMutations = default,
+            List<UnmanagedAccessGrantRequestedAccessMethods> requestedAccessMethods = default,
             string? reservationKey = default,
             List<string> spaceIds = default,
             string startsAt = default,
-            string userIdentityId = default,
-            List<AccessGrantWarnings> warnings = default,
+            string? userIdentityId = default,
+            List<UnmanagedAccessGrantWarnings> warnings = default,
             string workspaceId = default
         )
         {
             AccessGrantId = accessGrantId;
-            AccessGrantKey = accessGrantKey;
             AccessMethodIds = accessMethodIds;
-            ClientSessionToken = clientSessionToken;
             CreatedAt = createdAt;
-            CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
-            DisplayStatus = displayStatus;
             EndsAt = endsAt;
             Errors = errors;
-            InstantKeyUrl = instantKeyUrl;
             LocationIds = locationIds;
             Name = name;
             PendingMutations = pendingMutations;
@@ -65,12 +55,12 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessGrantErrorsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantErrorsCannotCreateRequestedAccessMethods),
+            typeof(UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods),
             "cannot_create_requested_access_methods"
         )]
-        public abstract class AccessGrantErrors
+        public abstract class UnmanagedAccessGrantErrors
         {
             public abstract string ErrorCode { get; }
 
@@ -81,13 +71,16 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessGrantErrorsCannotCreateRequestedAccessMethods_model")]
-        public class AccessGrantErrorsCannotCreateRequestedAccessMethods : AccessGrantErrors
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods_model"
+        )]
+        public class UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods
+            : UnmanagedAccessGrantErrors
         {
             [JsonConstructorAttribute]
-            protected AccessGrantErrorsCannotCreateRequestedAccessMethods() { }
+            protected UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods() { }
 
-            public AccessGrantErrorsCannotCreateRequestedAccessMethods(
+            public UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default,
@@ -141,13 +134,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantErrorsUnrecognized_model")]
-        public class AccessGrantErrorsUnrecognized : AccessGrantErrors
+        [DataContract(Name = "seamModel_unmanagedAccessGrantErrorsUnrecognized_model")]
+        public class UnmanagedAccessGrantErrorsUnrecognized : UnmanagedAccessGrantErrors
         {
             [JsonConstructorAttribute]
-            protected AccessGrantErrorsUnrecognized() { }
+            protected UnmanagedAccessGrantErrorsUnrecognized() { }
 
-            public AccessGrantErrorsUnrecognized(
+            public UnmanagedAccessGrantErrorsUnrecognized(
                 string errorCode = default,
                 string createdAt = default,
                 string message = default
@@ -194,16 +187,16 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessGrantPendingMutationsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantPendingMutationsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantPendingMutationsUpdatingAccessTimes),
+            typeof(UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes),
             "updating_access_times"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantPendingMutationsUpdatingSpaces),
+            typeof(UnmanagedAccessGrantPendingMutationsUpdatingSpaces),
             "updating_spaces"
         )]
-        public abstract class AccessGrantPendingMutations
+        public abstract class UnmanagedAccessGrantPendingMutations
         {
             public abstract string MutationCode { get; }
 
@@ -214,18 +207,19 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingSpaces_model")]
-        public class AccessGrantPendingMutationsUpdatingSpaces : AccessGrantPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpaces_model")]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpaces
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingSpaces() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpaces() { }
 
-            public AccessGrantPendingMutationsUpdatingSpaces(
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpaces(
                 string createdAt = default,
-                AccessGrantPendingMutationsUpdatingSpacesFrom from = default,
+                UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AccessGrantPendingMutationsUpdatingSpacesTo to = default
+                UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo to = default
             )
             {
                 CreatedAt = createdAt;
@@ -245,7 +239,7 @@ namespace Seam.Model
             /// Previous location configuration.
             /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrantPendingMutationsUpdatingSpacesFrom From { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom From { get; set; }
 
             /// <summary>
             /// Detailed description of the mutation.
@@ -260,7 +254,7 @@ namespace Seam.Model
             /// New location configuration.
             /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrantPendingMutationsUpdatingSpacesTo To { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo To { get; set; }
 
             public override string ToString()
             {
@@ -282,13 +276,17 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingSpacesFrom_model")]
-        public class AccessGrantPendingMutationsUpdatingSpacesFrom
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpacesFrom_model"
+        )]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingSpacesFrom() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom() { }
 
-            public AccessGrantPendingMutationsUpdatingSpacesFrom(List<string> deviceIds = default)
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesFrom(
+                List<string> deviceIds = default
+            )
             {
                 DeviceIds = deviceIds;
             }
@@ -319,13 +317,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingSpacesTo_model")]
-        public class AccessGrantPendingMutationsUpdatingSpacesTo
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingSpacesTo_model"
+        )]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingSpacesTo() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo() { }
 
-            public AccessGrantPendingMutationsUpdatingSpacesTo(
+            public UnmanagedAccessGrantPendingMutationsUpdatingSpacesTo(
                 string? commonCodeKey = default,
                 List<string> deviceIds = default
             )
@@ -366,19 +366,22 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingAccessTimes_model")]
-        public class AccessGrantPendingMutationsUpdatingAccessTimes : AccessGrantPendingMutations
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimes_model"
+        )]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingAccessTimes() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes() { }
 
-            public AccessGrantPendingMutationsUpdatingAccessTimes(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimes(
                 List<string> accessMethodIds = default,
                 string createdAt = default,
-                AccessGrantPendingMutationsUpdatingAccessTimesFrom from = default,
+                UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AccessGrantPendingMutationsUpdatingAccessTimesTo to = default
+                UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo to = default
             )
             {
                 AccessMethodIds = accessMethodIds;
@@ -405,7 +408,7 @@ namespace Seam.Model
             /// Previous access time configuration.
             /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrantPendingMutationsUpdatingAccessTimesFrom From { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
             /// <summary>
             /// Detailed description of the mutation.
@@ -420,7 +423,7 @@ namespace Seam.Model
             /// New access time configuration.
             /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrantPendingMutationsUpdatingAccessTimesTo To { get; set; }
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo To { get; set; }
 
             public override string ToString()
             {
@@ -442,13 +445,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingAccessTimesFrom_model")]
-        public class AccessGrantPendingMutationsUpdatingAccessTimesFrom
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom_model"
+        )]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingAccessTimesFrom() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom() { }
 
-            public AccessGrantPendingMutationsUpdatingAccessTimesFrom(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesFrom(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -489,13 +494,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUpdatingAccessTimesTo_model")]
-        public class AccessGrantPendingMutationsUpdatingAccessTimesTo
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo_model"
+        )]
+        public class UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUpdatingAccessTimesTo() { }
+            protected UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo() { }
 
-            public AccessGrantPendingMutationsUpdatingAccessTimesTo(
+            public UnmanagedAccessGrantPendingMutationsUpdatingAccessTimesTo(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -536,13 +543,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantPendingMutationsUnrecognized_model")]
-        public class AccessGrantPendingMutationsUnrecognized : AccessGrantPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessGrantPendingMutationsUnrecognized_model")]
+        public class UnmanagedAccessGrantPendingMutationsUnrecognized
+            : UnmanagedAccessGrantPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessGrantPendingMutationsUnrecognized() { }
+            protected UnmanagedAccessGrantPendingMutationsUnrecognized() { }
 
-            public AccessGrantPendingMutationsUnrecognized(
+            public UnmanagedAccessGrantPendingMutationsUnrecognized(
                 string mutationCode = default,
                 string createdAt = default,
                 string message = default
@@ -589,33 +597,36 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessGrantWarningsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsDeviceTimeConstraintsViolated),
+            typeof(UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated),
             "device_time_constraints_violated"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsDeviceDoesNotSupportAccessCodes),
+            typeof(UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes),
             "device_does_not_support_access_codes"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsRequestedCodeUnavailable),
+            typeof(UnmanagedAccessGrantWarningsRequestedCodeUnavailable),
             "requested_code_unavailable"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsUpdatingAccessTimes),
+            typeof(UnmanagedAccessGrantWarningsUpdatingAccessTimes),
             "updating_access_times"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsOverprovisionedAccess),
+            typeof(UnmanagedAccessGrantWarningsOverprovisionedAccess),
             "overprovisioned_access"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessGrantWarningsUnderprovisionedAccess),
+            typeof(UnmanagedAccessGrantWarningsUnderprovisionedAccess),
             "underprovisioned_access"
         )]
-        [JsonSubtypes.KnownSubType(typeof(AccessGrantWarningsBeingDeleted), "being_deleted")]
-        public abstract class AccessGrantWarnings
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        public abstract class UnmanagedAccessGrantWarnings
         {
             public abstract string WarningCode { get; }
 
@@ -626,13 +637,13 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsBeingDeleted_model")]
-        public class AccessGrantWarningsBeingDeleted : AccessGrantWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsBeingDeleted_model")]
+        public class UnmanagedAccessGrantWarningsBeingDeleted : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsBeingDeleted() { }
+            protected UnmanagedAccessGrantWarningsBeingDeleted() { }
 
-            public AccessGrantWarningsBeingDeleted(
+            public UnmanagedAccessGrantWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -678,13 +689,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsUnderprovisionedAccess_model")]
-        public class AccessGrantWarningsUnderprovisionedAccess : AccessGrantWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUnderprovisionedAccess_model")]
+        public class UnmanagedAccessGrantWarningsUnderprovisionedAccess
+            : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsUnderprovisionedAccess() { }
+            protected UnmanagedAccessGrantWarningsUnderprovisionedAccess() { }
 
-            public AccessGrantWarningsUnderprovisionedAccess(
+            public UnmanagedAccessGrantWarningsUnderprovisionedAccess(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -730,15 +742,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsOverprovisionedAccess_model")]
-        public class AccessGrantWarningsOverprovisionedAccess : AccessGrantWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsOverprovisionedAccess_model")]
+        public class UnmanagedAccessGrantWarningsOverprovisionedAccess
+            : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsOverprovisionedAccess() { }
+            protected UnmanagedAccessGrantWarningsOverprovisionedAccess() { }
 
-            public AccessGrantWarningsOverprovisionedAccess(
+            public UnmanagedAccessGrantWarningsOverprovisionedAccess(
                 string createdAt = default,
-                List<AccessGrantWarningsOverprovisionedAccessFailedDevices>? failedDevices =
+                List<UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices>? failedDevices =
                     default,
                 string message = default,
                 string warningCode = default
@@ -760,7 +773,7 @@ namespace Seam.Model
             /// Devices whose access codes could not be revoked during reconciliation. Present when the provider does not support revoking an offline access code (e.g. Dormakaba oracode with exhausted override budget).
             /// </summary>
             [DataMember(Name = "failed_devices", IsRequired = false, EmitDefaultValue = false)]
-            public List<AccessGrantWarningsOverprovisionedAccessFailedDevices>? FailedDevices { get; set; }
+            public List<UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices>? FailedDevices { get; set; }
 
             /// <summary>
             /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
@@ -792,14 +805,14 @@ namespace Seam.Model
         }
 
         [DataContract(
-            Name = "seamModel_accessGrantWarningsOverprovisionedAccessFailedDevices_model"
+            Name = "seamModel_unmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices_model"
         )]
-        public class AccessGrantWarningsOverprovisionedAccessFailedDevices
+        public class UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsOverprovisionedAccessFailedDevices() { }
+            protected UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices() { }
 
-            public AccessGrantWarningsOverprovisionedAccessFailedDevices(
+            public UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices(
                 string deviceId = default,
                 string errorCode = default,
                 string message = default
@@ -848,13 +861,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsUpdatingAccessTimes_model")]
-        public class AccessGrantWarningsUpdatingAccessTimes : AccessGrantWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUpdatingAccessTimes_model")]
+        public class UnmanagedAccessGrantWarningsUpdatingAccessTimes : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsUpdatingAccessTimes() { }
+            protected UnmanagedAccessGrantWarningsUpdatingAccessTimes() { }
 
-            public AccessGrantWarningsUpdatingAccessTimes(
+            public UnmanagedAccessGrantWarningsUpdatingAccessTimes(
                 List<string> accessMethodIds = default,
                 string createdAt = default,
                 string message = default,
@@ -908,13 +921,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsRequestedCodeUnavailable_model")]
-        public class AccessGrantWarningsRequestedCodeUnavailable : AccessGrantWarnings
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsRequestedCodeUnavailable_model"
+        )]
+        public class UnmanagedAccessGrantWarningsRequestedCodeUnavailable
+            : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsRequestedCodeUnavailable() { }
+            protected UnmanagedAccessGrantWarningsRequestedCodeUnavailable() { }
 
-            public AccessGrantWarningsRequestedCodeUnavailable(
+            public UnmanagedAccessGrantWarningsRequestedCodeUnavailable(
                 string createdAt = default,
                 string deviceId = default,
                 string message = default,
@@ -984,13 +1000,16 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsDeviceDoesNotSupportAccessCodes_model")]
-        public class AccessGrantWarningsDeviceDoesNotSupportAccessCodes : AccessGrantWarnings
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes_model"
+        )]
+        public class UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes
+            : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsDeviceDoesNotSupportAccessCodes() { }
+            protected UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes() { }
 
-            public AccessGrantWarningsDeviceDoesNotSupportAccessCodes(
+            public UnmanagedAccessGrantWarningsDeviceDoesNotSupportAccessCodes(
                 string createdAt = default,
                 string deviceId = default,
                 string message = default,
@@ -1044,17 +1063,21 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsDeviceTimeConstraintsViolated_model")]
-        public class AccessGrantWarningsDeviceTimeConstraintsViolated : AccessGrantWarnings
+        [DataContract(
+            Name = "seamModel_unmanagedAccessGrantWarningsDeviceTimeConstraintsViolated_model"
+        )]
+        public class UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated
+            : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsDeviceTimeConstraintsViolated() { }
+            protected UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated() { }
 
-            public AccessGrantWarningsDeviceTimeConstraintsViolated(
+            public UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated(
                 string createdAt = default,
                 string deviceId = default,
                 string message = default,
-                AccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum reason = default,
+                UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum reason =
+                    default,
                 string warningCode = default
             )
             {
@@ -1106,7 +1129,7 @@ namespace Seam.Model
             /// Specific reason why the grant&apos;s times are not programmable on the device.
             /// </summary>
             [DataMember(Name = "reason", IsRequired = false, EmitDefaultValue = false)]
-            public AccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; set; }
+            public UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; set; }
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "device_time_constraints_violated";
@@ -1131,13 +1154,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessGrantWarningsUnrecognized_model")]
-        public class AccessGrantWarningsUnrecognized : AccessGrantWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsUnrecognized_model")]
+        public class UnmanagedAccessGrantWarningsUnrecognized : UnmanagedAccessGrantWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessGrantWarningsUnrecognized() { }
+            protected UnmanagedAccessGrantWarningsUnrecognized() { }
 
-            public AccessGrantWarningsUnrecognized(
+            public UnmanagedAccessGrantWarningsUnrecognized(
                 string warningCode = default,
                 string createdAt = default,
                 string message = default
@@ -1190,22 +1213,10 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         /// <summary>
-        /// Unique key for the access grant within the workspace.
-        /// </summary>
-        [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
-        public string? AccessGrantKey { get; set; }
-
-        /// <summary>
         /// IDs of the access methods created for the Access Grant.
         /// </summary>
         [DataMember(Name = "access_method_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> AccessMethodIds { get; set; }
-
-        /// <summary>
-        /// Client Session Token. Only returned if the Access Grant has a mobile_key access method.
-        /// </summary>
-        [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
-        public string? ClientSessionToken { get; set; }
 
         /// <summary>
         /// Date and time at which the Access Grant was created.
@@ -1214,26 +1225,10 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// ID of the customization profile associated with the Access Grant.
-        /// </summary>
-        [DataMember(
-            Name = "customization_profile_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? CustomizationProfileId { get; set; }
-
-        /// <summary>
         /// Display name of the Access Grant.
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Human-readable sentence answering whether the user can currently get in, for example `Awaiting encoding` on an access method or `Upcoming` here. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `starts_at`, `ends_at`, `errors`, and the access methods&apos; own fields.
-        /// </summary>
-        [DataMember(Name = "display_status", IsRequired = false, EmitDefaultValue = false)]
-        public string DisplayStatus { get; set; }
 
         /// <summary>
         /// Date and time at which the Access Grant ends.
@@ -1245,13 +1240,7 @@ namespace Seam.Model
         /// Errors associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessGrantErrors> Errors { get; set; }
-
-        /// <summary>
-        /// Instant Key URL. Only returned if the Access Grant has a single mobile_key access_method.
-        /// </summary>
-        [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
-        public string? InstantKeyUrl { get; set; }
+        public List<UnmanagedAccessGrantErrors> Errors { get; set; }
 
         [Obsolete("Use `space_ids`.")]
         [DataMember(Name = "location_ids", IsRequired = false, EmitDefaultValue = false)]
@@ -1267,7 +1256,7 @@ namespace Seam.Model
         /// List of pending mutations for the access grant. This shows updates that are in progress.
         /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessGrantPendingMutations> PendingMutations { get; set; }
+        public List<UnmanagedAccessGrantPendingMutations> PendingMutations { get; set; }
 
         /// <summary>
         /// Access methods that the user requested for the Access Grant.
@@ -1277,7 +1266,7 @@ namespace Seam.Model
             IsRequired = false,
             EmitDefaultValue = false
         )]
-        public List<AccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
+        public List<UnmanagedAccessGrantRequestedAccessMethods> RequestedAccessMethods { get; set; }
 
         /// <summary>
         /// Reservation key for the access grant.
@@ -1301,13 +1290,13 @@ namespace Seam.Model
         /// ID of user identity to which the Access Grant gives access.
         /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-        public string UserIdentityId { get; set; }
+        public string? UserIdentityId { get; set; }
 
         /// <summary>
         /// Warnings associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessGrantWarnings> Warnings { get; set; }
+        public List<UnmanagedAccessGrantWarnings> Warnings { get; set; }
 
         /// <summary>
         /// ID of the Seam workspace associated with the Access Grant.
@@ -1335,19 +1324,19 @@ namespace Seam.Model
         }
     }
 
-    [DataContract(Name = "seamModel_accessGrantRequestedAccessMethods_model")]
-    public class AccessGrantRequestedAccessMethods
+    [DataContract(Name = "seamModel_unmanagedAccessGrantRequestedAccessMethods_model")]
+    public class UnmanagedAccessGrantRequestedAccessMethods
     {
         [JsonConstructorAttribute]
-        protected AccessGrantRequestedAccessMethods() { }
+        protected UnmanagedAccessGrantRequestedAccessMethods() { }
 
-        public AccessGrantRequestedAccessMethods(
+        public UnmanagedAccessGrantRequestedAccessMethods(
             string? code = default,
             List<string> createdAccessMethodIds = default,
             string createdAt = default,
             string displayName = default,
             int? instantKeyMaxUseCount = default,
-            AccessGrantRequestedAccessMethods.ModeEnum mode = default
+            UnmanagedAccessGrantRequestedAccessMethods.ModeEnum mode = default
         )
         {
             Code = code;
@@ -1422,7 +1411,7 @@ namespace Seam.Model
         /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
-        public AccessGrantRequestedAccessMethods.ModeEnum Mode { get; set; }
+        public UnmanagedAccessGrantRequestedAccessMethods.ModeEnum Mode { get; set; }
 
         public override string ToString()
         {

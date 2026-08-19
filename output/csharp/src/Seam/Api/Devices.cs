@@ -112,7 +112,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/devices/get", requestOptions)
+                .Get<GetResponse>("/devices/get", requestOptions)
                 .EnsureData("/devices/get")
                 .Device;
         }
@@ -136,7 +136,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/devices/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/devices/get", requestOptions))
                 .EnsureData("/devices/get")
                 .Device;
         }
@@ -284,50 +284,56 @@ namespace Seam.Api
                 [EnumMember(Value = "ultraloq_lock")]
                 UltraloqLock = 26,
 
+                [EnumMember(Value = "yacan_lock")]
+                YacanLock = 27,
+
                 [EnumMember(Value = "keyincode_lock")]
-                KeyincodeLock = 27,
+                KeyincodeLock = 28,
 
                 [EnumMember(Value = "omnitec_lock")]
-                OmnitecLock = 28,
+                OmnitecLock = 29,
 
                 [EnumMember(Value = "kisi_lock")]
-                KisiLock = 29,
+                KisiLock = 30,
+
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 31,
 
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 30,
+                KeynestKey = 32,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 31,
+                NoiseawareActivityZone = 33,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 32,
+                MinutSensor = 34,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 33,
+                EcobeeThermostat = 35,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 34,
+                NestThermostat = 36,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 35,
+                HoneywellResideoThermostat = 37,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 36,
+                TadoThermostat = 38,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 37,
+                SensiThermostat = 39,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 38,
+                SmartthingsThermostat = 40,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 39,
+                IosPhone = 41,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 40,
+                AndroidPhone = 42,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 41,
+                RingCamera = 43,
             }
 
             /// <summary>
@@ -417,50 +423,56 @@ namespace Seam.Api
                 [EnumMember(Value = "ultraloq_lock")]
                 UltraloqLock = 26,
 
+                [EnumMember(Value = "yacan_lock")]
+                YacanLock = 27,
+
                 [EnumMember(Value = "keyincode_lock")]
-                KeyincodeLock = 27,
+                KeyincodeLock = 28,
 
                 [EnumMember(Value = "omnitec_lock")]
-                OmnitecLock = 28,
+                OmnitecLock = 29,
 
                 [EnumMember(Value = "kisi_lock")]
-                KisiLock = 29,
+                KisiLock = 30,
+
+                [EnumMember(Value = "aqara_lock")]
+                AqaraLock = 31,
 
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 30,
+                KeynestKey = 32,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 31,
+                NoiseawareActivityZone = 33,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 32,
+                MinutSensor = 34,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 33,
+                EcobeeThermostat = 35,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 34,
+                NestThermostat = 36,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 35,
+                HoneywellResideoThermostat = 37,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 36,
+                TadoThermostat = 38,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 37,
+                SensiThermostat = 39,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 38,
+                SmartthingsThermostat = 40,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 39,
+                IosPhone = 41,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 40,
+                AndroidPhone = 42,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 41,
+                RingCamera = 43,
             }
 
             /// <summary>
@@ -562,65 +574,71 @@ namespace Seam.Api
                 [EnumMember(Value = "akiles")]
                 Akiles = 30,
 
+                [EnumMember(Value = "aqara")]
+                Aqara = 31,
+
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 31,
+                Ecobee = 32,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 32,
+                HoneywellResideo = 33,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 33,
+                Keynest = 34,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 34,
+                Korelock = 35,
 
                 [EnumMember(Value = "minut")]
-                Minut = 35,
+                Minut = 36,
 
                 [EnumMember(Value = "nest")]
-                Nest = 36,
+                Nest = 37,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 37,
+                Noiseaware = 38,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 38,
+                Sensi = 39,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 39,
+                Smartthings = 40,
 
                 [EnumMember(Value = "tado")]
-                Tado = 40,
+                Tado = 41,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 41,
+                Ultraloq = 42,
 
                 [EnumMember(Value = "ring")]
-                Ring = 42,
+                Ring = 43,
 
                 [EnumMember(Value = "ical")]
-                Ical = 43,
+                Ical = 44,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 44,
+                Lodgify = 45,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 45,
+                Hostaway = 46,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 46,
+                Guesty = 47,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 47,
+                AcuityScheduling = 48,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 48,
+                Omnitec = 49,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 49,
+                Kisi = 50,
 
                 [EnumMember(Value = "slack")]
-                Slack = 50,
+                Slack = 51,
+
+                [EnumMember(Value = "yacan")]
+                Yacan = 52,
             }
 
             /// <summary>
@@ -656,7 +674,7 @@ namespace Seam.Api
             public string? CreatedBefore { get; set; }
 
             /// <summary>
-            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices.
+            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
             /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
@@ -794,7 +812,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/devices/list", requestOptions)
+                .Get<ListResponse>("/devices/list", requestOptions)
                 .EnsureData("/devices/list")
                 .Devices;
         }
@@ -850,7 +868,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/devices/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/devices/list", requestOptions))
                 .EnsureData("/devices/list")
                 .Devices;
         }
@@ -1026,7 +1044,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListDeviceProvidersResponse>("/devices/list_device_providers", requestOptions)
+                .Get<ListDeviceProvidersResponse>("/devices/list_device_providers", requestOptions)
                 .EnsureData("/devices/list_device_providers")
                 .DeviceProviders;
         }
@@ -1061,7 +1079,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListDeviceProvidersResponse>(
+                await _seam.GetAsync<ListDeviceProvidersResponse>(
                     "/devices/list_device_providers",
                     requestOptions
                 )
@@ -5279,7 +5297,7 @@ namespace Seam.Api
             public bool? BackupAccessCodePoolEnabled { get; set; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the device. Supports up to 50 JSON key:value pairs. [Adding custom metadata to a device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter devices by the desired metadata](https://docs.seam.co/core-concepts/devices/filtering-devices-by-custom-metadata).
+            /// Custom metadata that you want to associate with the device. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter devices by the desired metadata](https://docs.seam.co/core-concepts/devices/filtering-devices-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
