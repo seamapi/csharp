@@ -266,7 +266,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/acs/encoders/get", requestOptions)
+                .Get<GetResponse>("/acs/encoders/get", requestOptions)
                 .EnsureData("/acs/encoders/get")
                 .AcsEncoder;
         }
@@ -286,7 +286,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/acs/encoders/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/acs/encoders/get", requestOptions))
                 .EnsureData("/acs/encoders/get")
                 .AcsEncoder;
         }
@@ -309,19 +309,25 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                List<string>? acsEncoderIds = default,
                 string? acsSystemId = default,
                 List<string>? acsSystemIds = default,
-                List<string>? acsEncoderIds = default,
                 float? limit = default,
                 string? pageCursor = default
             )
             {
+                AcsEncoderIds = acsEncoderIds;
                 AcsSystemId = acsSystemId;
                 AcsSystemIds = acsSystemIds;
-                AcsEncoderIds = acsEncoderIds;
                 Limit = limit;
                 PageCursor = pageCursor;
             }
+
+            /// <summary>
+            /// IDs of the encoders that you want to retrieve.
+            /// </summary>
+            [DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcsEncoderIds { get; set; }
 
             /// <summary>
             /// ID of the access system for which you want to retrieve all encoders.
@@ -334,12 +340,6 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
-
-            /// <summary>
-            /// IDs of the encoders that you want to retrieve.
-            /// </summary>
-            [DataMember(Name = "acs_encoder_ids", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? AcsEncoderIds { get; set; }
 
             /// <summary>
             /// Number of encoders to return.
@@ -427,18 +427,18 @@ namespace Seam.Api
         /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public List<AcsEncoder> List(
+            List<string>? acsEncoderIds = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
-            List<string>? acsEncoderIds = default,
             float? limit = default,
             string? pageCursor = default
         )
         {
             return List(
                 new ListRequest(
+                    acsEncoderIds: acsEncoderIds,
                     acsSystemId: acsSystemId,
                     acsSystemIds: acsSystemIds,
-                    acsEncoderIds: acsEncoderIds,
                     limit: limit,
                     pageCursor: pageCursor
                 )
@@ -461,9 +461,9 @@ namespace Seam.Api
         /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<List<AcsEncoder>> ListAsync(
+            List<string>? acsEncoderIds = default,
             string? acsSystemId = default,
             List<string>? acsSystemIds = default,
-            List<string>? acsEncoderIds = default,
             float? limit = default,
             string? pageCursor = default
         )
@@ -471,9 +471,9 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        acsEncoderIds: acsEncoderIds,
                         acsSystemId: acsSystemId,
                         acsSystemIds: acsSystemIds,
-                        acsEncoderIds: acsEncoderIds,
                         limit: limit,
                         pageCursor: pageCursor
                     )

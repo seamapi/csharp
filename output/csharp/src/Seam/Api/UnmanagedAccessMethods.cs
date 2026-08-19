@@ -64,7 +64,7 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected GetResponse() { }
 
-            public GetResponse(AccessMethod accessMethod = default)
+            public GetResponse(UnmanagedAccessMethod accessMethod = default)
             {
                 AccessMethod = accessMethod;
             }
@@ -73,7 +73,7 @@ namespace Seam.Api
             /// OK
             /// </summary>
             [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethod AccessMethod { get; set; }
+            public UnmanagedAccessMethod AccessMethod { get; set; }
 
             public override string ToString()
             {
@@ -98,12 +98,12 @@ namespace Seam.Api
         /// <summary>
         /// Gets an unmanaged access method (where is_managed = false).
         /// </summary>
-        public AccessMethod Get(GetRequest request)
+        public UnmanagedAccessMethod Get(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/access_methods/unmanaged/get", requestOptions)
+                .Get<GetResponse>("/access_methods/unmanaged/get", requestOptions)
                 .EnsureData("/access_methods/unmanaged/get")
                 .AccessMethod;
         }
@@ -111,7 +111,7 @@ namespace Seam.Api
         /// <summary>
         /// Gets an unmanaged access method (where is_managed = false).
         /// </summary>
-        public AccessMethod Get(string accessMethodId = default)
+        public UnmanagedAccessMethod Get(string accessMethodId = default)
         {
             return Get(new GetRequest(accessMethodId: accessMethodId));
         }
@@ -119,12 +119,12 @@ namespace Seam.Api
         /// <summary>
         /// Gets an unmanaged access method (where is_managed = false).
         /// </summary>
-        public async Task<AccessMethod> GetAsync(GetRequest request)
+        public async Task<UnmanagedAccessMethod> GetAsync(GetRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<GetResponse>("/access_methods/unmanaged/get", requestOptions)
+                await _seam.GetAsync<GetResponse>("/access_methods/unmanaged/get", requestOptions)
             )
                 .EnsureData("/access_methods/unmanaged/get")
                 .AccessMethod;
@@ -133,7 +133,7 @@ namespace Seam.Api
         /// <summary>
         /// Gets an unmanaged access method (where is_managed = false).
         /// </summary>
-        public async Task<AccessMethod> GetAsync(string accessMethodId = default)
+        public async Task<UnmanagedAccessMethod> GetAsync(string accessMethodId = default)
         {
             return (await GetAsync(new GetRequest(accessMethodId: accessMethodId)));
         }
@@ -210,7 +210,7 @@ namespace Seam.Api
             [JsonConstructorAttribute]
             protected ListResponse() { }
 
-            public ListResponse(List<object> accessMethods = default)
+            public ListResponse(List<UnmanagedAccessMethod> accessMethods = default)
             {
                 AccessMethods = accessMethods;
             }
@@ -219,7 +219,7 @@ namespace Seam.Api
             /// OK
             /// </summary>
             [DataMember(Name = "access_methods", IsRequired = false, EmitDefaultValue = false)]
-            public List<object> AccessMethods { get; set; }
+            public List<UnmanagedAccessMethod> AccessMethods { get; set; }
 
             public override string ToString()
             {
@@ -244,12 +244,12 @@ namespace Seam.Api
         /// <summary>
         /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
         /// </summary>
-        public List<object> List(ListRequest request)
+        public List<UnmanagedAccessMethod> List(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/access_methods/unmanaged/list", requestOptions)
+                .Get<ListResponse>("/access_methods/unmanaged/list", requestOptions)
                 .EnsureData("/access_methods/unmanaged/list")
                 .AccessMethods;
         }
@@ -257,7 +257,7 @@ namespace Seam.Api
         /// <summary>
         /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
         /// </summary>
-        public List<object> List(
+        public List<UnmanagedAccessMethod> List(
             string accessGrantId = default,
             string? acsEntranceId = default,
             string? deviceId = default,
@@ -277,15 +277,12 @@ namespace Seam.Api
         /// <summary>
         /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
         /// </summary>
-        public async Task<List<object>> ListAsync(ListRequest request)
+        public async Task<List<UnmanagedAccessMethod>> ListAsync(ListRequest request)
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListResponse>(
-                    "/access_methods/unmanaged/list",
-                    requestOptions
-                )
+                await _seam.GetAsync<ListResponse>("/access_methods/unmanaged/list", requestOptions)
             )
                 .EnsureData("/access_methods/unmanaged/list")
                 .AccessMethods;
@@ -294,7 +291,7 @@ namespace Seam.Api
         /// <summary>
         /// Lists all unmanaged access methods (where is_managed = false), usually filtered by Access Grant.
         /// </summary>
-        public async Task<List<object>> ListAsync(
+        public async Task<List<UnmanagedAccessMethod>> ListAsync(
             string accessGrantId = default,
             string? acsEntranceId = default,
             string? deviceId = default,

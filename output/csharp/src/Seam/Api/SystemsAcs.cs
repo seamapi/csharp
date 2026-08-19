@@ -103,7 +103,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/acs/systems/get", requestOptions)
+                .Get<GetResponse>("/acs/systems/get", requestOptions)
                 .EnsureData("/acs/systems/get")
                 .AcsSystem;
         }
@@ -123,7 +123,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/acs/systems/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/acs/systems/get", requestOptions))
                 .EnsureData("/acs/systems/get")
                 .AcsSystem;
         }
@@ -245,7 +245,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/acs/systems/list", requestOptions)
+                .Get<ListResponse>("/acs/systems/list", requestOptions)
                 .EnsureData("/acs/systems/list")
                 .AcsSystems;
         }
@@ -279,7 +279,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/acs/systems/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/acs/systems/list", requestOptions))
                 .EnsureData("/acs/systems/list")
                 .AcsSystems;
         }
@@ -397,7 +397,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListCompatibleCredentialManagerAcsSystemsResponse>(
+                .Get<ListCompatibleCredentialManagerAcsSystemsResponse>(
                     "/acs/systems/list_compatible_credential_manager_acs_systems",
                     requestOptions
                 )
@@ -431,7 +431,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListCompatibleCredentialManagerAcsSystemsResponse>(
+                await _seam.GetAsync<ListCompatibleCredentialManagerAcsSystemsResponse>(
                     "/acs/systems/list_compatible_credential_manager_acs_systems",
                     requestOptions
                 )

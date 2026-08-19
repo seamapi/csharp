@@ -90,6 +90,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_access_group")]
             KisiAccessGroup = 9,
+
+            [EnumMember(Value = "akiles_member_group")]
+            AkilesMemberGroup = 10,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -248,6 +251,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "kisi_access_group")]
             KisiAccessGroup = 9,
+
+            [EnumMember(Value = "akiles_member_group")]
+            AkilesMemberGroup = 10,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]

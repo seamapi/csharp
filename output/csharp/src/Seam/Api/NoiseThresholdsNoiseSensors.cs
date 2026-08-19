@@ -275,7 +275,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/noise_sensors/noise_thresholds/delete", requestOptions);
+            _seam.Delete<object>("/noise_sensors/noise_thresholds/delete", requestOptions);
         }
 
         /// <summary>
@@ -293,7 +293,10 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/noise_sensors/noise_thresholds/delete", requestOptions);
+            await _seam.DeleteAsync<object>(
+                "/noise_sensors/noise_thresholds/delete",
+                requestOptions
+            );
         }
 
         /// <summary>
@@ -391,7 +394,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/noise_sensors/noise_thresholds/get", requestOptions)
+                .Get<GetResponse>("/noise_sensors/noise_thresholds/get", requestOptions)
                 .EnsureData("/noise_sensors/noise_thresholds/get")
                 .NoiseThreshold;
         }
@@ -412,7 +415,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<GetResponse>(
+                await _seam.GetAsync<GetResponse>(
                     "/noise_sensors/noise_thresholds/get",
                     requestOptions
                 )
@@ -514,7 +517,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/noise_sensors/noise_thresholds/list", requestOptions)
+                .Get<ListResponse>("/noise_sensors/noise_thresholds/list", requestOptions)
                 .EnsureData("/noise_sensors/noise_thresholds/list")
                 .NoiseThresholds;
         }
@@ -535,7 +538,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListResponse>(
+                await _seam.GetAsync<ListResponse>(
                     "/noise_sensors/noise_thresholds/list",
                     requestOptions
                 )

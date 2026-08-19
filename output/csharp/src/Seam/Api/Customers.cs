@@ -31,23 +31,27 @@ namespace Seam.Api
                 List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters =
                     default,
                 string? customizationProfileId = default,
+                CreatePortalRequestDeepLink? deepLink = default,
                 bool? excludeLocalePicker = default,
                 CreatePortalRequestFeatures? features = default,
                 bool? isEmbedded = default,
                 CreatePortalRequestLandingPage? landingPage = default,
                 CreatePortalRequest.LocaleEnum? locale = default,
                 CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+                bool? readOnly = default,
                 CreatePortalRequestCustomerData? customerData = default
             )
             {
                 CustomerResourcesFilters = customerResourcesFilters;
                 CustomizationProfileId = customizationProfileId;
+                DeepLink = deepLink;
                 ExcludeLocalePicker = excludeLocalePicker;
                 Features = features;
                 IsEmbedded = isEmbedded;
                 LandingPage = landingPage;
                 Locale = locale;
                 NavigationMode = navigationMode;
+                ReadOnly = readOnly;
                 CustomerData = customerData;
             }
 
@@ -128,6 +132,12 @@ namespace Seam.Api
             public string? CustomizationProfileId { get; set; }
 
             /// <summary>
+            /// Deep link target resource for initial redirect. When set, the portal will navigate directly to the specified resource.
+            /// </summary>
+            [DataMember(Name = "deep_link", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink? DeepLink { get; set; }
+
+            /// <summary>
             /// Whether to exclude the option to select a locale within the portal UI.
             /// </summary>
             [DataMember(
@@ -164,6 +174,12 @@ namespace Seam.Api
             [DataMember(Name = "navigation_mode", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequest.NavigationModeEnum? NavigationMode { get; set; }
 
+            /// <summary>
+            /// Whether the portal is read-only. When true, the customer can browse the portal but cannot perform any mutating action; write requests made with the portal&apos;s client session are rejected.
+            /// </summary>
+            [DataMember(Name = "read_only", IsRequired = false, EmitDefaultValue = false)]
+            public bool? ReadOnly { get; set; }
+
             [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestCustomerData? CustomerData { get; set; }
 
@@ -196,7 +212,7 @@ namespace Seam.Api
             public CreatePortalRequestCustomerResourcesFilters(
                 string? field = default,
                 CreatePortalRequestCustomerResourcesFilters.OperationEnum? operation = default,
-                CreatePortalRequestCustomerResourcesFiltersValue? value = default
+                string? value = default
             )
             {
                 Field = field;
@@ -233,7 +249,7 @@ namespace Seam.Api
             /// The value to compare against.
             /// </summary>
             [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestCustomerResourcesFiltersValue? Value { get; set; }
+            public string? Value { get; set; }
 
             public override string ToString()
             {
@@ -255,11 +271,47 @@ namespace Seam.Api
             }
         }
 
-        [DataContract(Name = "createPortalRequestCustomerResourcesFiltersValue_model")]
-        public class CreatePortalRequestCustomerResourcesFiltersValue
+        [DataContract(Name = "createPortalRequestDeepLink_model")]
+        public class CreatePortalRequestDeepLink
         {
             [JsonConstructorAttribute]
-            public CreatePortalRequestCustomerResourcesFiltersValue() { }
+            protected CreatePortalRequestDeepLink() { }
+
+            public CreatePortalRequestDeepLink(
+                string? resourceKey = default,
+                CreatePortalRequestDeepLink.ResourceTypeEnum? resourceType = default,
+                string? resourceId = default
+            )
+            {
+                ResourceKey = resourceKey;
+                ResourceType = resourceType;
+                ResourceId = resourceId;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ResourceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "reservation")]
+                Reservation = 1,
+
+                [EnumMember(Value = "space")]
+                Space = 2,
+
+                [EnumMember(Value = "device")]
+                Device = 3,
+            }
+
+            [DataMember(Name = "resource_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceKey { get; set; }
+
+            [DataMember(Name = "resource_type", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; set; }
+
+            [DataMember(Name = "resource_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceId { get; set; }
 
             public override string ToString()
             {
@@ -1770,7 +1822,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application.
+            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application. Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -1873,7 +1925,7 @@ namespace Seam.Api
             public List<string>? CommonAreaKeys { get; set; }
 
             /// <summary>
-            /// Set key:value pairs for filtering reservations by custom criteria.
+            /// Set key:value pairs for filtering reservations by custom criteria. Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -2803,12 +2855,14 @@ namespace Seam.Api
         public CustomerPortal CreatePortal(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+            bool? readOnly = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -2816,12 +2870,14 @@ namespace Seam.Api
                 new CreatePortalRequest(
                     customerResourcesFilters: customerResourcesFilters,
                     customizationProfileId: customizationProfileId,
+                    deepLink: deepLink,
                     excludeLocalePicker: excludeLocalePicker,
                     features: features,
                     isEmbedded: isEmbedded,
                     landingPage: landingPage,
                     locale: locale,
                     navigationMode: navigationMode,
+                    readOnly: readOnly,
                     customerData: customerData
                 )
             );
@@ -2850,12 +2906,14 @@ namespace Seam.Api
         public async Task<CustomerPortal> CreatePortalAsync(
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
+            CreatePortalRequestDeepLink? deepLink = default,
             bool? excludeLocalePicker = default,
             CreatePortalRequestFeatures? features = default,
             bool? isEmbedded = default,
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
+            bool? readOnly = default,
             CreatePortalRequestCustomerData? customerData = default
         )
         {
@@ -2864,12 +2922,14 @@ namespace Seam.Api
                     new CreatePortalRequest(
                         customerResourcesFilters: customerResourcesFilters,
                         customizationProfileId: customizationProfileId,
+                        deepLink: deepLink,
                         excludeLocalePicker: excludeLocalePicker,
                         features: features,
                         isEmbedded: isEmbedded,
                         landingPage: landingPage,
                         locale: locale,
                         navigationMode: navigationMode,
+                        readOnly: readOnly,
                         customerData: customerData
                     )
                 )
@@ -3074,7 +3134,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/customers/delete_data", requestOptions);
+            _seam.Delete<object>("/customers/delete_data", requestOptions);
         }
 
         /// <summary>
@@ -3136,7 +3196,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/customers/delete_data", requestOptions);
+            await _seam.DeleteAsync<object>("/customers/delete_data", requestOptions);
         }
 
         /// <summary>
@@ -4046,7 +4106,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application.
+            /// Set key:value pairs. Accepts string or Boolean values. Adding custom metadata to a property listing enables you to store custom information, like customer details or internal IDs from your application. Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -4149,7 +4209,7 @@ namespace Seam.Api
             public List<string>? CommonAreaKeys { get; set; }
 
             /// <summary>
-            /// Set key:value pairs for filtering reservations by custom criteria.
+            /// Set key:value pairs for filtering reservations by custom criteria. Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }

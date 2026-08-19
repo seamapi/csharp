@@ -379,7 +379,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/delete", requestOptions);
+            _seam.Delete<object>("/user_identities/delete", requestOptions);
         }
 
         /// <summary>
@@ -397,7 +397,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/user_identities/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/user_identities/delete", requestOptions);
         }
 
         /// <summary>
@@ -930,7 +930,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/user_identities/list", requestOptions)
+                .Get<ListResponse>("/user_identities/list", requestOptions)
                 .EnsureData("/user_identities/list")
                 .UserIdentities;
         }
@@ -966,7 +966,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/user_identities/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/user_identities/list", requestOptions))
                 .EnsureData("/user_identities/list")
                 .UserIdentities;
         }
@@ -1082,7 +1082,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAccessibleDevicesResponse>(
+                .Get<ListAccessibleDevicesResponse>(
                     "/user_identities/list_accessible_devices",
                     requestOptions
                 )
@@ -1110,7 +1110,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAccessibleDevicesResponse>(
+                await _seam.GetAsync<ListAccessibleDevicesResponse>(
                     "/user_identities/list_accessible_devices",
                     requestOptions
                 )
@@ -1216,7 +1216,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAccessibleEntrancesResponse>(
+                .Get<ListAccessibleEntrancesResponse>(
                     "/user_identities/list_accessible_entrances",
                     requestOptions
                 )
@@ -1244,7 +1244,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAccessibleEntrancesResponse>(
+                await _seam.GetAsync<ListAccessibleEntrancesResponse>(
                     "/user_identities/list_accessible_entrances",
                     requestOptions
                 )
@@ -1352,7 +1352,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAcsSystemsResponse>("/user_identities/list_acs_systems", requestOptions)
+                .Get<ListAcsSystemsResponse>("/user_identities/list_acs_systems", requestOptions)
                 .EnsureData("/user_identities/list_acs_systems")
                 .AcsSystems;
         }
@@ -1373,7 +1373,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAcsSystemsResponse>(
+                await _seam.GetAsync<ListAcsSystemsResponse>(
                     "/user_identities/list_acs_systems",
                     requestOptions
                 )
@@ -1477,7 +1477,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAcsUsersResponse>("/user_identities/list_acs_users", requestOptions)
+                .Get<ListAcsUsersResponse>("/user_identities/list_acs_users", requestOptions)
                 .EnsureData("/user_identities/list_acs_users")
                 .AcsUsers;
         }
@@ -1498,7 +1498,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAcsUsersResponse>(
+                await _seam.GetAsync<ListAcsUsersResponse>(
                     "/user_identities/list_acs_users",
                     requestOptions
                 )
@@ -1514,6 +1514,164 @@ namespace Seam.Api
         {
             return (
                 await ListAcsUsersAsync(new ListAcsUsersRequest(userIdentityId: userIdentityId))
+            );
+        }
+
+        /// <summary>
+        /// Request parameters for Merge User Identities.
+        /// </summary>
+        [DataContract(Name = "mergeRequest_request")]
+        public class MergeRequest
+        {
+            [JsonConstructorAttribute]
+            protected MergeRequest() { }
+
+            public MergeRequest(
+                List<string>? mergedUserIdentityIds = default,
+                string? userIdentityId = default,
+                List<string>? mergedUserIdentityKeys = default,
+                string? userIdentityKey = default
+            )
+            {
+                MergedUserIdentityIds = mergedUserIdentityIds;
+                UserIdentityId = userIdentityId;
+                MergedUserIdentityKeys = mergedUserIdentityKeys;
+                UserIdentityKey = userIdentityKey;
+            }
+
+            /// <summary>
+            /// IDs of the user identities to merge into the primary user identity. These user identities are deleted.
+            /// </summary>
+            [DataMember(
+                Name = "merged_user_identity_ids",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? MergedUserIdentityIds { get; set; }
+
+            /// <summary>
+            /// ID of the primary user identity to keep.
+            /// </summary>
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
+
+            /// <summary>
+            /// Keys of the user identities to merge into the primary user identity. These user identities are deleted.
+            /// </summary>
+            [DataMember(
+                Name = "merged_user_identity_keys",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public List<string>? MergedUserIdentityKeys { get; set; }
+
+            /// <summary>
+            /// Key of the primary user identity to keep.
+            /// </summary>
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        ///
+        /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
+        ///
+        /// Access grants, access system users, client sessions and other resources belonging to the merged user identities are moved to the primary user identity.
+        ///
+        /// Identify the user identities either by ID or by key, but not both in the same request. Repeating a merge that has already been applied makes no further changes.
+        /// </summary>
+        public void Merge(MergeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            _seam.Post<object>("/user_identities/merge", requestOptions);
+        }
+
+        /// <summary>
+        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        ///
+        /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
+        ///
+        /// Access grants, access system users, client sessions and other resources belonging to the merged user identities are moved to the primary user identity.
+        ///
+        /// Identify the user identities either by ID or by key, but not both in the same request. Repeating a merge that has already been applied makes no further changes.
+        /// </summary>
+        public void Merge(
+            List<string>? mergedUserIdentityIds = default,
+            string? userIdentityId = default,
+            List<string>? mergedUserIdentityKeys = default,
+            string? userIdentityKey = default
+        )
+        {
+            Merge(
+                new MergeRequest(
+                    mergedUserIdentityIds: mergedUserIdentityIds,
+                    userIdentityId: userIdentityId,
+                    mergedUserIdentityKeys: mergedUserIdentityKeys,
+                    userIdentityKey: userIdentityKey
+                )
+            );
+        }
+
+        /// <summary>
+        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        ///
+        /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
+        ///
+        /// Access grants, access system users, client sessions and other resources belonging to the merged user identities are moved to the primary user identity.
+        ///
+        /// Identify the user identities either by ID or by key, but not both in the same request. Repeating a merge that has already been applied makes no further changes.
+        /// </summary>
+        public async Task MergeAsync(MergeRequest request)
+        {
+            var requestOptions = new RequestOptions();
+            requestOptions.Data = request;
+            await _seam.PostAsync<object>("/user_identities/merge", requestOptions);
+        }
+
+        /// <summary>
+        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        ///
+        /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
+        ///
+        /// Access grants, access system users, client sessions and other resources belonging to the merged user identities are moved to the primary user identity.
+        ///
+        /// Identify the user identities either by ID or by key, but not both in the same request. Repeating a merge that has already been applied makes no further changes.
+        /// </summary>
+        public async Task MergeAsync(
+            List<string>? mergedUserIdentityIds = default,
+            string? userIdentityId = default,
+            List<string>? mergedUserIdentityKeys = default,
+            string? userIdentityKey = default
+        )
+        {
+            await MergeAsync(
+                new MergeRequest(
+                    mergedUserIdentityIds: mergedUserIdentityIds,
+                    userIdentityId: userIdentityId,
+                    mergedUserIdentityKeys: mergedUserIdentityKeys,
+                    userIdentityKey: userIdentityKey
+                )
             );
         }
 
@@ -1571,7 +1729,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/remove_acs_user", requestOptions);
+            _seam.Delete<object>("/user_identities/remove_acs_user", requestOptions);
         }
 
         /// <summary>
@@ -1591,7 +1749,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/user_identities/remove_acs_user", requestOptions);
+            await _seam.DeleteAsync<object>("/user_identities/remove_acs_user", requestOptions);
         }
 
         /// <summary>
@@ -1664,7 +1822,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/user_identities/revoke_access_to_device", requestOptions);
+            _seam.Delete<object>("/user_identities/revoke_access_to_device", requestOptions);
         }
 
         /// <summary>
@@ -1684,7 +1842,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>(
+            await _seam.DeleteAsync<object>(
                 "/user_identities/revoke_access_to_device",
                 requestOptions
             );

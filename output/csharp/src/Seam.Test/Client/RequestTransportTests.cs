@@ -146,13 +146,13 @@ public class RequestTransportTests : IDisposable
     [Fact]
     public void SendsPostParamsAsAJsonBody()
     {
-        var seam = CreateClient("{\"device\":{}}");
+        var seam = CreateClient("{}");
 
-        seam.Devices.Get(deviceId: "device1");
+        seam.ConnectedAccounts.Sync(connectedAccountId: "account1");
 
         Assert.Equal("POST", _method);
-        Assert.Equal("/devices/get", _url);
-        Assert.Equal("{\"device_id\":\"device1\"}", _body);
+        Assert.Equal("/connected_accounts/sync", _url);
+        Assert.Equal("{\"connected_account_id\":\"account1\"}", _body);
     }
 
     [Fact]

@@ -22,6 +22,7 @@ namespace Seam.Model
         public AcsEntrance(
             string acsEntranceId = default,
             string acsSystemId = default,
+            AcsEntranceAkilesMetadata? akilesMetadata = default,
             AcsEntranceAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             AcsEntranceAvigilonAltaMetadata? avigilonAltaMetadata = default,
             AcsEntranceBrivoMetadata? brivoMetadata = default,
@@ -48,6 +49,7 @@ namespace Seam.Model
         {
             AcsEntranceId = acsEntranceId;
             AcsSystemId = acsSystemId;
+            AkilesMetadata = akilesMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
             BrivoMetadata = brivoMetadata;
@@ -431,6 +433,12 @@ namespace Seam.Model
         public string AcsSystemId { get; set; }
 
         /// <summary>
+        /// Akiles-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// </summary>
+        [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public AcsEntranceAkilesMetadata? AkilesMetadata { get; set; }
+
+        /// <summary>
         /// ASSA ABLOY Vostio-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(
@@ -585,6 +593,113 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsEntranceWarnings> Warnings { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceAkilesMetadata_model")]
+    public class AcsEntranceAkilesMetadata
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceAkilesMetadata() { }
+
+        public AcsEntranceAkilesMetadata(
+            List<AcsEntranceAkilesMetadataActions>? actions = default,
+            string? gadgetId = default,
+            string? siteId = default,
+            string? siteName = default
+        )
+        {
+            Actions = actions;
+            GadgetId = gadgetId;
+            SiteId = siteId;
+            SiteName = siteName;
+        }
+
+        /// <summary>
+        /// Actions the gadget exposes (for example, open).
+        /// </summary>
+        [DataMember(Name = "actions", IsRequired = false, EmitDefaultValue = false)]
+        public List<AcsEntranceAkilesMetadataActions>? Actions { get; set; }
+
+        /// <summary>
+        /// ID of the Akiles gadget.
+        /// </summary>
+        [DataMember(Name = "gadget_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? GadgetId { get; set; }
+
+        /// <summary>
+        /// ID of the Akiles site the gadget belongs to.
+        /// </summary>
+        [DataMember(Name = "site_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? SiteId { get; set; }
+
+        /// <summary>
+        /// Name of the Akiles site the gadget belongs to.
+        /// </summary>
+        [DataMember(Name = "site_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? SiteName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_acsEntranceAkilesMetadataActions_model")]
+    public class AcsEntranceAkilesMetadataActions
+    {
+        [JsonConstructorAttribute]
+        protected AcsEntranceAkilesMetadataActions() { }
+
+        public AcsEntranceAkilesMetadataActions(string? id = default, string? name = default)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        /// <summary>
+        /// ID of the gadget action.
+        /// </summary>
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// Name of the gadget action.
+        /// </summary>
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+        public string? Name { get; set; }
 
         public override string ToString()
         {

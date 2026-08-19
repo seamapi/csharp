@@ -103,7 +103,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/acs/entrances/get", requestOptions)
+                .Get<GetResponse>("/acs/entrances/get", requestOptions)
                 .EnsureData("/acs/entrances/get")
                 .AcsEntrance;
         }
@@ -123,7 +123,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/acs/entrances/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/acs/entrances/get", requestOptions))
                 .EnsureData("/acs/entrances/get")
                 .AcsEntrance;
         }
@@ -260,6 +260,7 @@ namespace Seam.Api
             protected ListRequest() { }
 
             public ListRequest(
+                string? accessMethodId = default,
                 string? acsCredentialId = default,
                 List<string>? acsEntranceIds = default,
                 string? acsSystemId = default,
@@ -272,6 +273,7 @@ namespace Seam.Api
                 string? spaceId = default
             )
             {
+                AccessMethodId = accessMethodId;
                 AcsCredentialId = acsCredentialId;
                 AcsEntranceIds = acsEntranceIds;
                 AcsSystemId = acsSystemId;
@@ -283,6 +285,12 @@ namespace Seam.Api
                 Search = search;
                 SpaceId = spaceId;
             }
+
+            /// <summary>
+            /// ID of the access method for which you want to retrieve all entrances to which it grants access.
+            /// </summary>
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
 
             /// <summary>
             /// ID of the credential for which you want to retrieve all entrances.
@@ -411,7 +419,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/acs/entrances/list", requestOptions)
+                .Get<ListResponse>("/acs/entrances/list", requestOptions)
                 .EnsureData("/acs/entrances/list")
                 .AcsEntrances;
         }
@@ -420,6 +428,7 @@ namespace Seam.Api
         /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public List<AcsEntrance> List(
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
@@ -434,6 +443,7 @@ namespace Seam.Api
         {
             return List(
                 new ListRequest(
+                    accessMethodId: accessMethodId,
                     acsCredentialId: acsCredentialId,
                     acsEntranceIds: acsEntranceIds,
                     acsSystemId: acsSystemId,
@@ -455,7 +465,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/acs/entrances/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/acs/entrances/list", requestOptions))
                 .EnsureData("/acs/entrances/list")
                 .AcsEntrances;
         }
@@ -464,6 +474,7 @@ namespace Seam.Api
         /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(
+            string? accessMethodId = default,
             string? acsCredentialId = default,
             List<string>? acsEntranceIds = default,
             string? acsSystemId = default,
@@ -479,6 +490,7 @@ namespace Seam.Api
             return (
                 await ListAsync(
                     new ListRequest(
+                        accessMethodId: accessMethodId,
                         acsCredentialId: acsCredentialId,
                         acsEntranceIds: acsEntranceIds,
                         acsSystemId: acsSystemId,
@@ -604,7 +616,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListCredentialsWithAccessResponse>(
+                .Get<ListCredentialsWithAccessResponse>(
                     "/acs/entrances/list_credentials_with_access",
                     requestOptions
                 )
@@ -638,7 +650,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListCredentialsWithAccessResponse>(
+                await _seam.GetAsync<ListCredentialsWithAccessResponse>(
                     "/acs/entrances/list_credentials_with_access",
                     requestOptions
                 )

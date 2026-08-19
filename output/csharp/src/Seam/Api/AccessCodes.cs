@@ -802,7 +802,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_codes/delete", requestOptions);
+            _seam.Delete<object>("/access_codes/delete", requestOptions);
         }
 
         /// <summary>
@@ -820,7 +820,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_codes/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/access_codes/delete", requestOptions);
         }
 
         /// <summary>
@@ -916,7 +916,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GenerateCodeResponse>("/access_codes/generate_code", requestOptions)
+                .Get<GenerateCodeResponse>("/access_codes/generate_code", requestOptions)
                 .EnsureData("/access_codes/generate_code")
                 .GeneratedCode;
         }
@@ -937,7 +937,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<GenerateCodeResponse>(
+                await _seam.GetAsync<GenerateCodeResponse>(
                     "/access_codes/generate_code",
                     requestOptions
                 )
@@ -1059,7 +1059,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/access_codes/get", requestOptions)
+                .Get<GetResponse>("/access_codes/get", requestOptions)
                 .EnsureData("/access_codes/get")
                 .AccessCode;
         }
@@ -1087,7 +1087,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/access_codes/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/access_codes/get", requestOptions))
                 .EnsureData("/access_codes/get")
                 .AccessCode;
         }
@@ -1271,7 +1271,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/access_codes/list", requestOptions)
+                .Get<ListResponse>("/access_codes/list", requestOptions)
                 .EnsureData("/access_codes/list")
                 .AccessCodes;
         }
@@ -1319,7 +1319,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/access_codes/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/access_codes/list", requestOptions))
                 .EnsureData("/access_codes/list")
                 .AccessCodes;
         }
@@ -1683,16 +1683,9 @@ namespace Seam.Api
                 string? endsAt = default,
                 bool? isExternalModificationAllowed = default,
                 bool? isManaged = default,
-                bool? isOfflineAccessCode = default,
-                bool? isOneTimeUse = default,
-                UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
                 string? name = default,
-                bool? preferNativeScheduling = default,
-                float? preferredCodeLength = default,
                 string? startsAt = default,
-                UpdateRequest.TypeEnum? type = default,
-                bool? useBackupAccessCodePool = default,
-                bool? useOfflineAccessCode = default
+                UpdateRequest.TypeEnum? type = default
             )
             {
                 AccessCodeId = accessCodeId;
@@ -1703,38 +1696,9 @@ namespace Seam.Api
                 EndsAt = endsAt;
                 IsExternalModificationAllowed = isExternalModificationAllowed;
                 IsManaged = isManaged;
-                IsOfflineAccessCode = isOfflineAccessCode;
-                IsOneTimeUse = isOneTimeUse;
-                MaxTimeRounding = maxTimeRounding;
                 Name = name;
-                PreferNativeScheduling = preferNativeScheduling;
-                PreferredCodeLength = preferredCodeLength;
                 StartsAt = startsAt;
                 Type = type;
-                UseBackupAccessCodePool = useBackupAccessCodePool;
-                UseOfflineAccessCode = useOfflineAccessCode;
-            }
-
-            /// <summary>
-            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
-            /// </summary>
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum MaxTimeRoundingEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "1hour")]
-                _1hour = 1,
-
-                [EnumMember(Value = "1day")]
-                _1day = 2,
-
-                [EnumMember(Value = "1h")]
-                _1h = 3,
-
-                [EnumMember(Value = "1d")]
-                _1d = 4,
             }
 
             /// <summary>
@@ -1811,28 +1775,6 @@ namespace Seam.Api
             public bool? IsManaged { get; set; }
 
             /// <summary>
-            /// Indicates whether the access code is an [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes).
-            /// </summary>
-            [DataMember(
-                Name = "is_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? IsOfflineAccessCode { get; set; }
-
-            /// <summary>
-            /// Indicates whether the [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) is a single-use access code.
-            /// </summary>
-            [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
-            public bool? IsOneTimeUse { get; set; }
-
-            /// <summary>
-            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
-            /// </summary>
-            [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
-            public UpdateRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
-
-            /// <summary>
             /// Name of the new access code. Enables administrators and users to identify the access code easily, especially when there are numerous access codes.
             ///
             /// Note that the name provided on Seam is used to identify the code on Seam and is not necessarily the name that will appear in the lock provider&apos;s app or on the device. This is because lock providers may have constraints on names, such as length, uniqueness, or characters that can be used. In addition, some lock providers may break down names into components such as `first_name` and `last_name`.
@@ -1845,26 +1787,6 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Indicates whether [native scheduling](https://docs.seam.co/low-level-apis/smart-locks/access-codes#native-scheduling) should be used for time-bound codes when supported by the provider. Default: `true`.
-            /// </summary>
-            [DataMember(
-                Name = "prefer_native_scheduling",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? PreferNativeScheduling { get; set; }
-
-            /// <summary>
-            /// Preferred code length. Only applicable if you do not specify a `code`. If the affected device does not support the preferred code length, Seam reverts to using the shortest supported code length.
-            /// </summary>
-            [DataMember(
-                Name = "preferred_code_length",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public float? PreferredCodeLength { get; set; }
-
-            /// <summary>
             /// Date and time at which the validity of the new access code starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
             /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
@@ -1875,24 +1797,6 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
             public UpdateRequest.TypeEnum? Type { get; set; }
-
-            /// <summary>
-            /// Indicates whether to use a [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) provided by Seam. If `true`, you can use [`/access_codes/pull_backup_access_code`](https://docs.seam.co/api/access_codes/pull_backup_access_code).
-            /// </summary>
-            [DataMember(
-                Name = "use_backup_access_code_pool",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseBackupAccessCodePool { get; set; }
-
-            [Obsolete("Use `is_offline_access_code` instead.")]
-            [DataMember(
-                Name = "use_offline_access_code",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? UseOfflineAccessCode { get; set; }
 
             public override string ToString()
             {
@@ -1940,16 +1844,9 @@ namespace Seam.Api
             string? endsAt = default,
             bool? isExternalModificationAllowed = default,
             bool? isManaged = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
             string? name = default,
-            bool? preferNativeScheduling = default,
-            float? preferredCodeLength = default,
             string? startsAt = default,
-            UpdateRequest.TypeEnum? type = default,
-            bool? useBackupAccessCodePool = default,
-            bool? useOfflineAccessCode = default
+            UpdateRequest.TypeEnum? type = default
         )
         {
             Update(
@@ -1962,16 +1859,9 @@ namespace Seam.Api
                     endsAt: endsAt,
                     isExternalModificationAllowed: isExternalModificationAllowed,
                     isManaged: isManaged,
-                    isOfflineAccessCode: isOfflineAccessCode,
-                    isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding,
                     name: name,
-                    preferNativeScheduling: preferNativeScheduling,
-                    preferredCodeLength: preferredCodeLength,
                     startsAt: startsAt,
-                    type: type,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
-                    useOfflineAccessCode: useOfflineAccessCode
+                    type: type
                 )
             );
         }
@@ -2002,16 +1892,9 @@ namespace Seam.Api
             string? endsAt = default,
             bool? isExternalModificationAllowed = default,
             bool? isManaged = default,
-            bool? isOfflineAccessCode = default,
-            bool? isOneTimeUse = default,
-            UpdateRequest.MaxTimeRoundingEnum? maxTimeRounding = default,
             string? name = default,
-            bool? preferNativeScheduling = default,
-            float? preferredCodeLength = default,
             string? startsAt = default,
-            UpdateRequest.TypeEnum? type = default,
-            bool? useBackupAccessCodePool = default,
-            bool? useOfflineAccessCode = default
+            UpdateRequest.TypeEnum? type = default
         )
         {
             await UpdateAsync(
@@ -2024,16 +1907,9 @@ namespace Seam.Api
                     endsAt: endsAt,
                     isExternalModificationAllowed: isExternalModificationAllowed,
                     isManaged: isManaged,
-                    isOfflineAccessCode: isOfflineAccessCode,
-                    isOneTimeUse: isOneTimeUse,
-                    maxTimeRounding: maxTimeRounding,
                     name: name,
-                    preferNativeScheduling: preferNativeScheduling,
-                    preferredCodeLength: preferredCodeLength,
                     startsAt: startsAt,
-                    type: type,
-                    useBackupAccessCodePool: useBackupAccessCodePool,
-                    useOfflineAccessCode: useOfflineAccessCode
+                    type: type
                 )
             );
         }

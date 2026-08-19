@@ -9,45 +9,39 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an access method for an Access Grant. Access methods describe the modes of access, such as PIN codes, plastic cards, and mobile keys. For a mobile key, the access method also stores the URL for the associated Instant Key.
+    /// Represents an unmanaged access method. Unmanaged access methods do not have client sessions, instant keys, customization profiles, or keys.
     /// </summary>
-    [DataContract(Name = "seamModel_accessMethod_model")]
-    public class AccessMethod
+    [DataContract(Name = "seamModel_unmanagedAccessMethod_model")]
+    public class UnmanagedAccessMethod
     {
         [JsonConstructorAttribute]
-        protected AccessMethod() { }
+        protected UnmanagedAccessMethod() { }
 
-        public AccessMethod(
+        public UnmanagedAccessMethod(
             string accessMethodId = default,
-            string? clientSessionToken = default,
             string? code = default,
             string createdAt = default,
-            string? customizationProfileId = default,
             string displayName = default,
             string displayStatus = default,
-            List<AccessMethodErrors> errors = default,
-            string? instantKeyUrl = default,
+            List<UnmanagedAccessMethodErrors> errors = default,
             bool? isAssignmentRequired = default,
             bool? isEncodingRequired = default,
             bool isIssued = default,
             bool? isReadyForAssignment = default,
             bool? isReadyForEncoding = default,
             string? issuedAt = default,
-            AccessMethod.ModeEnum mode = default,
-            List<AccessMethodPendingMutations> pendingMutations = default,
-            List<AccessMethodWarnings> warnings = default,
+            UnmanagedAccessMethod.ModeEnum mode = default,
+            List<UnmanagedAccessMethodPendingMutations> pendingMutations = default,
+            List<UnmanagedAccessMethodWarnings> warnings = default,
             string workspaceId = default
         )
         {
             AccessMethodId = accessMethodId;
-            ClientSessionToken = clientSessionToken;
             Code = code;
             CreatedAt = createdAt;
-            CustomizationProfileId = customizationProfileId;
             DisplayName = displayName;
             DisplayStatus = displayStatus;
             Errors = errors;
-            InstantKeyUrl = instantKeyUrl;
             IsAssignmentRequired = isAssignmentRequired;
             IsEncodingRequired = isEncodingRequired;
             IsIssued = isIssued;
@@ -61,9 +55,12 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessMethodErrorsUnrecognized))]
-        [JsonSubtypes.KnownSubType(typeof(AccessMethodErrorsFailedToIssue), "failed_to_issue")]
-        public abstract class AccessMethodErrors
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodErrorsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodErrorsFailedToIssue),
+            "failed_to_issue"
+        )]
+        public abstract class UnmanagedAccessMethodErrors
         {
             public abstract string ErrorCode { get; }
 
@@ -74,13 +71,13 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessMethodErrorsFailedToIssue_model")]
-        public class AccessMethodErrorsFailedToIssue : AccessMethodErrors
+        [DataContract(Name = "seamModel_unmanagedAccessMethodErrorsFailedToIssue_model")]
+        public class UnmanagedAccessMethodErrorsFailedToIssue : UnmanagedAccessMethodErrors
         {
             [JsonConstructorAttribute]
-            protected AccessMethodErrorsFailedToIssue() { }
+            protected UnmanagedAccessMethodErrorsFailedToIssue() { }
 
-            public AccessMethodErrorsFailedToIssue(
+            public UnmanagedAccessMethodErrorsFailedToIssue(
                 string createdAt = default,
                 string errorCode = default,
                 string message = default
@@ -126,13 +123,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodErrorsUnrecognized_model")]
-        public class AccessMethodErrorsUnrecognized : AccessMethodErrors
+        [DataContract(Name = "seamModel_unmanagedAccessMethodErrorsUnrecognized_model")]
+        public class UnmanagedAccessMethodErrorsUnrecognized : UnmanagedAccessMethodErrors
         {
             [JsonConstructorAttribute]
-            protected AccessMethodErrorsUnrecognized() { }
+            protected UnmanagedAccessMethodErrorsUnrecognized() { }
 
-            public AccessMethodErrorsUnrecognized(
+            public UnmanagedAccessMethodErrorsUnrecognized(
                 string errorCode = default,
                 string createdAt = default,
                 string message = default
@@ -201,20 +198,20 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessMethodPendingMutationsUnrecognized))]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodPendingMutationsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessMethodPendingMutationsUpdatingAccessTimes),
+            typeof(UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes),
             "updating_access_times"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessMethodPendingMutationsRevokingAccess),
+            typeof(UnmanagedAccessMethodPendingMutationsRevokingAccess),
             "revoking_access"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessMethodPendingMutationsProvisioningAccess),
+            typeof(UnmanagedAccessMethodPendingMutationsProvisioningAccess),
             "provisioning_access"
         )]
-        public abstract class AccessMethodPendingMutations
+        public abstract class UnmanagedAccessMethodPendingMutations
         {
             public abstract string MutationCode { get; }
 
@@ -225,18 +222,21 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsProvisioningAccess_model")]
-        public class AccessMethodPendingMutationsProvisioningAccess : AccessMethodPendingMutations
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsProvisioningAccess_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsProvisioningAccess
+            : UnmanagedAccessMethodPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsProvisioningAccess() { }
+            protected UnmanagedAccessMethodPendingMutationsProvisioningAccess() { }
 
-            public AccessMethodPendingMutationsProvisioningAccess(
+            public UnmanagedAccessMethodPendingMutationsProvisioningAccess(
                 string createdAt = default,
-                AccessMethodPendingMutationsProvisioningAccessFrom from = default,
+                UnmanagedAccessMethodPendingMutationsProvisioningAccessFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AccessMethodPendingMutationsProvisioningAccessTo to = default
+                UnmanagedAccessMethodPendingMutationsProvisioningAccessTo to = default
             )
             {
                 CreatedAt = createdAt;
@@ -256,7 +256,7 @@ namespace Seam.Model
             /// Previous device configuration.
             /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsProvisioningAccessFrom From { get; set; }
+            public UnmanagedAccessMethodPendingMutationsProvisioningAccessFrom From { get; set; }
 
             /// <summary>
             /// Detailed description of the mutation.
@@ -271,7 +271,7 @@ namespace Seam.Model
             /// New device configuration.
             /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsProvisioningAccessTo To { get; set; }
+            public UnmanagedAccessMethodPendingMutationsProvisioningAccessTo To { get; set; }
 
             public override string ToString()
             {
@@ -293,13 +293,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsProvisioningAccessFrom_model")]
-        public class AccessMethodPendingMutationsProvisioningAccessFrom
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsProvisioningAccessFrom_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsProvisioningAccessFrom
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsProvisioningAccessFrom() { }
+            protected UnmanagedAccessMethodPendingMutationsProvisioningAccessFrom() { }
 
-            public AccessMethodPendingMutationsProvisioningAccessFrom(
+            public UnmanagedAccessMethodPendingMutationsProvisioningAccessFrom(
                 List<string> deviceIds = default
             )
             {
@@ -332,13 +334,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsProvisioningAccessTo_model")]
-        public class AccessMethodPendingMutationsProvisioningAccessTo
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsProvisioningAccessTo_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsProvisioningAccessTo
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsProvisioningAccessTo() { }
+            protected UnmanagedAccessMethodPendingMutationsProvisioningAccessTo() { }
 
-            public AccessMethodPendingMutationsProvisioningAccessTo(
+            public UnmanagedAccessMethodPendingMutationsProvisioningAccessTo(
                 List<string> deviceIds = default
             )
             {
@@ -371,18 +375,19 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsRevokingAccess_model")]
-        public class AccessMethodPendingMutationsRevokingAccess : AccessMethodPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessMethodPendingMutationsRevokingAccess_model")]
+        public class UnmanagedAccessMethodPendingMutationsRevokingAccess
+            : UnmanagedAccessMethodPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsRevokingAccess() { }
+            protected UnmanagedAccessMethodPendingMutationsRevokingAccess() { }
 
-            public AccessMethodPendingMutationsRevokingAccess(
+            public UnmanagedAccessMethodPendingMutationsRevokingAccess(
                 string createdAt = default,
-                AccessMethodPendingMutationsRevokingAccessFrom from = default,
+                UnmanagedAccessMethodPendingMutationsRevokingAccessFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AccessMethodPendingMutationsRevokingAccessTo to = default
+                UnmanagedAccessMethodPendingMutationsRevokingAccessTo to = default
             )
             {
                 CreatedAt = createdAt;
@@ -402,7 +407,7 @@ namespace Seam.Model
             /// Previous device configuration.
             /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsRevokingAccessFrom From { get; set; }
+            public UnmanagedAccessMethodPendingMutationsRevokingAccessFrom From { get; set; }
 
             /// <summary>
             /// Detailed description of the mutation.
@@ -417,7 +422,7 @@ namespace Seam.Model
             /// New device configuration.
             /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsRevokingAccessTo To { get; set; }
+            public UnmanagedAccessMethodPendingMutationsRevokingAccessTo To { get; set; }
 
             public override string ToString()
             {
@@ -439,13 +444,17 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsRevokingAccessFrom_model")]
-        public class AccessMethodPendingMutationsRevokingAccessFrom
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsRevokingAccessFrom_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsRevokingAccessFrom
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsRevokingAccessFrom() { }
+            protected UnmanagedAccessMethodPendingMutationsRevokingAccessFrom() { }
 
-            public AccessMethodPendingMutationsRevokingAccessFrom(List<string> deviceIds = default)
+            public UnmanagedAccessMethodPendingMutationsRevokingAccessFrom(
+                List<string> deviceIds = default
+            )
             {
                 DeviceIds = deviceIds;
             }
@@ -476,13 +485,17 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsRevokingAccessTo_model")]
-        public class AccessMethodPendingMutationsRevokingAccessTo
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsRevokingAccessTo_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsRevokingAccessTo
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsRevokingAccessTo() { }
+            protected UnmanagedAccessMethodPendingMutationsRevokingAccessTo() { }
 
-            public AccessMethodPendingMutationsRevokingAccessTo(List<string> deviceIds = default)
+            public UnmanagedAccessMethodPendingMutationsRevokingAccessTo(
+                List<string> deviceIds = default
+            )
             {
                 DeviceIds = deviceIds;
             }
@@ -513,18 +526,21 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsUpdatingAccessTimes_model")]
-        public class AccessMethodPendingMutationsUpdatingAccessTimes : AccessMethodPendingMutations
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsUpdatingAccessTimes_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes
+            : UnmanagedAccessMethodPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsUpdatingAccessTimes() { }
+            protected UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes() { }
 
-            public AccessMethodPendingMutationsUpdatingAccessTimes(
+            public UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes(
                 string createdAt = default,
-                AccessMethodPendingMutationsUpdatingAccessTimesFrom from = default,
+                UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom from = default,
                 string message = default,
                 string mutationCode = default,
-                AccessMethodPendingMutationsUpdatingAccessTimesTo to = default
+                UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo to = default
             )
             {
                 CreatedAt = createdAt;
@@ -544,7 +560,7 @@ namespace Seam.Model
             /// Previous access time configuration.
             /// </summary>
             [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsUpdatingAccessTimesFrom From { get; set; }
+            public UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom From { get; set; }
 
             /// <summary>
             /// Detailed description of the mutation.
@@ -559,7 +575,7 @@ namespace Seam.Model
             /// New access time configuration.
             /// </summary>
             [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-            public AccessMethodPendingMutationsUpdatingAccessTimesTo To { get; set; }
+            public UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo To { get; set; }
 
             public override string ToString()
             {
@@ -581,13 +597,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsUpdatingAccessTimesFrom_model")]
-        public class AccessMethodPendingMutationsUpdatingAccessTimesFrom
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsUpdatingAccessTimesFrom() { }
+            protected UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom() { }
 
-            public AccessMethodPendingMutationsUpdatingAccessTimesFrom(
+            public UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesFrom(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -628,13 +646,15 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsUpdatingAccessTimesTo_model")]
-        public class AccessMethodPendingMutationsUpdatingAccessTimesTo
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsUpdatingAccessTimesTo() { }
+            protected UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo() { }
 
-            public AccessMethodPendingMutationsUpdatingAccessTimesTo(
+            public UnmanagedAccessMethodPendingMutationsUpdatingAccessTimesTo(
                 string? endsAt = default,
                 string? startsAt = default
             )
@@ -675,13 +695,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodPendingMutationsUnrecognized_model")]
-        public class AccessMethodPendingMutationsUnrecognized : AccessMethodPendingMutations
+        [DataContract(Name = "seamModel_unmanagedAccessMethodPendingMutationsUnrecognized_model")]
+        public class UnmanagedAccessMethodPendingMutationsUnrecognized
+            : UnmanagedAccessMethodPendingMutations
         {
             [JsonConstructorAttribute]
-            protected AccessMethodPendingMutationsUnrecognized() { }
+            protected UnmanagedAccessMethodPendingMutationsUnrecognized() { }
 
-            public AccessMethodPendingMutationsUnrecognized(
+            public UnmanagedAccessMethodPendingMutationsUnrecognized(
                 string mutationCode = default,
                 string createdAt = default,
                 string message = default
@@ -728,18 +749,24 @@ namespace Seam.Model
         }
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
-        [JsonSubtypes.FallBackSubType(typeof(AccessMethodWarningsUnrecognized))]
-        [JsonSubtypes.KnownSubType(typeof(AccessMethodWarningsDelayInIssuing), "delay_in_issuing")]
+        [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessMethodWarningsPulledBackupAccessCode),
+            typeof(UnmanagedAccessMethodWarningsDelayInIssuing),
+            "delay_in_issuing"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodWarningsPulledBackupAccessCode),
             "pulled_backup_access_code"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(AccessMethodWarningsUpdatingAccessTimes),
+            typeof(UnmanagedAccessMethodWarningsUpdatingAccessTimes),
             "updating_access_times"
         )]
-        [JsonSubtypes.KnownSubType(typeof(AccessMethodWarningsBeingDeleted), "being_deleted")]
-        public abstract class AccessMethodWarnings
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodWarningsBeingDeleted),
+            "being_deleted"
+        )]
+        public abstract class UnmanagedAccessMethodWarnings
         {
             public abstract string WarningCode { get; }
 
@@ -750,13 +777,13 @@ namespace Seam.Model
             public abstract override string ToString();
         }
 
-        [DataContract(Name = "seamModel_accessMethodWarningsBeingDeleted_model")]
-        public class AccessMethodWarningsBeingDeleted : AccessMethodWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsBeingDeleted_model")]
+        public class UnmanagedAccessMethodWarningsBeingDeleted : UnmanagedAccessMethodWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessMethodWarningsBeingDeleted() { }
+            protected UnmanagedAccessMethodWarningsBeingDeleted() { }
 
-            public AccessMethodWarningsBeingDeleted(
+            public UnmanagedAccessMethodWarningsBeingDeleted(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -802,13 +829,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodWarningsUpdatingAccessTimes_model")]
-        public class AccessMethodWarningsUpdatingAccessTimes : AccessMethodWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsUpdatingAccessTimes_model")]
+        public class UnmanagedAccessMethodWarningsUpdatingAccessTimes
+            : UnmanagedAccessMethodWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessMethodWarningsUpdatingAccessTimes() { }
+            protected UnmanagedAccessMethodWarningsUpdatingAccessTimes() { }
 
-            public AccessMethodWarningsUpdatingAccessTimes(
+            public UnmanagedAccessMethodWarningsUpdatingAccessTimes(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -854,13 +882,14 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodWarningsPulledBackupAccessCode_model")]
-        public class AccessMethodWarningsPulledBackupAccessCode : AccessMethodWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsPulledBackupAccessCode_model")]
+        public class UnmanagedAccessMethodWarningsPulledBackupAccessCode
+            : UnmanagedAccessMethodWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessMethodWarningsPulledBackupAccessCode() { }
+            protected UnmanagedAccessMethodWarningsPulledBackupAccessCode() { }
 
-            public AccessMethodWarningsPulledBackupAccessCode(
+            public UnmanagedAccessMethodWarningsPulledBackupAccessCode(
                 string createdAt = default,
                 string message = default,
                 string? originalAccessMethodId = default,
@@ -918,13 +947,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodWarningsDelayInIssuing_model")]
-        public class AccessMethodWarningsDelayInIssuing : AccessMethodWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsDelayInIssuing_model")]
+        public class UnmanagedAccessMethodWarningsDelayInIssuing : UnmanagedAccessMethodWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessMethodWarningsDelayInIssuing() { }
+            protected UnmanagedAccessMethodWarningsDelayInIssuing() { }
 
-            public AccessMethodWarningsDelayInIssuing(
+            public UnmanagedAccessMethodWarningsDelayInIssuing(
                 string createdAt = default,
                 string message = default,
                 string warningCode = default
@@ -970,13 +999,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessMethodWarningsUnrecognized_model")]
-        public class AccessMethodWarningsUnrecognized : AccessMethodWarnings
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsUnrecognized_model")]
+        public class UnmanagedAccessMethodWarningsUnrecognized : UnmanagedAccessMethodWarnings
         {
             [JsonConstructorAttribute]
-            protected AccessMethodWarningsUnrecognized() { }
+            protected UnmanagedAccessMethodWarningsUnrecognized() { }
 
-            public AccessMethodWarningsUnrecognized(
+            public UnmanagedAccessMethodWarningsUnrecognized(
                 string warningCode = default,
                 string createdAt = default,
                 string message = default
@@ -1029,12 +1058,6 @@ namespace Seam.Model
         public string AccessMethodId { get; set; }
 
         /// <summary>
-        /// Token of the client session associated with the access method.
-        /// </summary>
-        [DataMember(Name = "client_session_token", IsRequired = false, EmitDefaultValue = false)]
-        public string? ClientSessionToken { get; set; }
-
-        /// <summary>
         /// The actual PIN code for code access methods.
         /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
@@ -1045,16 +1068,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
-
-        /// <summary>
-        /// ID of the customization profile associated with the access method.
-        /// </summary>
-        [DataMember(
-            Name = "customization_profile_id",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public string? CustomizationProfileId { get; set; }
 
         /// <summary>
         /// Display name of the access method.
@@ -1072,13 +1085,7 @@ namespace Seam.Model
         /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessMethodErrors> Errors { get; set; }
-
-        /// <summary>
-        /// URL of the Instant Key for mobile key access methods.
-        /// </summary>
-        [DataMember(Name = "instant_key_url", IsRequired = false, EmitDefaultValue = false)]
-        public string? InstantKeyUrl { get; set; }
+        public List<UnmanagedAccessMethodErrors> Errors { get; set; }
 
         /// <summary>
         /// Indicates whether an existing card credential must be assigned to this access method before it can be issued. Only applies to card-mode access methods on systems that support credential assignment.
@@ -1120,19 +1127,19 @@ namespace Seam.Model
         /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [DataMember(Name = "mode", IsRequired = false, EmitDefaultValue = false)]
-        public AccessMethod.ModeEnum Mode { get; set; }
+        public UnmanagedAccessMethod.ModeEnum Mode { get; set; }
 
         /// <summary>
         /// Pending mutations for the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
         /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessMethodPendingMutations> PendingMutations { get; set; }
+        public List<UnmanagedAccessMethodPendingMutations> PendingMutations { get; set; }
 
         /// <summary>
         /// Warnings associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
-        public List<AccessMethodWarnings> Warnings { get; set; }
+        public List<UnmanagedAccessMethodWarnings> Warnings { get; set; }
 
         /// <summary>
         /// ID of the Seam workspace associated with the access method.

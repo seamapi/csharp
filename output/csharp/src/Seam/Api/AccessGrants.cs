@@ -563,7 +563,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/access_grants/delete", requestOptions);
+            _seam.Delete<object>("/access_grants/delete", requestOptions);
         }
 
         /// <summary>
@@ -581,7 +581,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/access_grants/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/access_grants/delete", requestOptions);
         }
 
         /// <summary>
@@ -893,7 +893,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetRelatedResponse>("/access_grants/get_related", requestOptions)
+                .Get<GetRelatedResponse>("/access_grants/get_related", requestOptions)
                 .EnsureData("/access_grants/get_related")
                 .Batch;
         }
@@ -926,7 +926,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<GetRelatedResponse>(
+                await _seam.GetAsync<GetRelatedResponse>(
                     "/access_grants/get_related",
                     requestOptions
                 )
@@ -1138,7 +1138,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/access_grants/list", requestOptions)
+                .Get<ListResponse>("/access_grants/list", requestOptions)
                 .EnsureData("/access_grants/list")
                 .AccessGrants;
         }
@@ -1188,7 +1188,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/access_grants/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/access_grants/list", requestOptions))
                 .EnsureData("/access_grants/list")
                 .AccessGrants;
         }

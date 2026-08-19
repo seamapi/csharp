@@ -193,7 +193,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/webhooks/delete", requestOptions);
+            _seam.Delete<object>("/webhooks/delete", requestOptions);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/webhooks/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/webhooks/delete", requestOptions);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/webhooks/get", requestOptions)
+                .Get<GetResponse>("/webhooks/get", requestOptions)
                 .EnsureData("/webhooks/get")
                 .Webhook;
         }
@@ -327,7 +327,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/webhooks/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/webhooks/get", requestOptions))
                 .EnsureData("/webhooks/get")
                 .Webhook;
         }

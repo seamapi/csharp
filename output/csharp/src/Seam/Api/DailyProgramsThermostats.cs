@@ -273,7 +273,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/thermostats/daily_programs/delete", requestOptions);
+            _seam.Delete<object>("/thermostats/daily_programs/delete", requestOptions);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/thermostats/daily_programs/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/thermostats/daily_programs/delete", requestOptions);
         }
 
         /// <summary>

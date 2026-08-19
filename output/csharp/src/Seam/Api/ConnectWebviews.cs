@@ -239,50 +239,56 @@ namespace Seam.Api
                 [EnumMember(Value = "ultraloq")]
                 Ultraloq = 51,
 
+                [EnumMember(Value = "yacan")]
+                Yacan = 52,
+
                 [EnumMember(Value = "dusaw")]
-                Dusaw = 52,
+                Dusaw = 53,
 
                 [EnumMember(Value = "sifely")]
-                Sifely = 53,
+                Sifely = 54,
 
                 [EnumMember(Value = "thirty_three_lock")]
-                ThirtyThreeLock = 54,
+                ThirtyThreeLock = 55,
 
                 [EnumMember(Value = "ring")]
-                Ring = 55,
+                Ring = 56,
 
                 [EnumMember(Value = "ical")]
-                Ical = 56,
+                Ical = 57,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 57,
+                Lodgify = 58,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 58,
+                Hostaway = 59,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 59,
+                Guesty = 60,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 60,
+                AcuityScheduling = 61,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 61,
+                Omnitec = 62,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 62,
+                Kisi = 63,
+
+                [EnumMember(Value = "aqara")]
+                Aqara = 64,
 
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 63,
+                YaleAccess = 65,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 64,
+                HidCm = 66,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 65,
+                GoogleNest = 67,
 
                 [EnumMember(Value = "slack")]
-                Slack = 66,
+                Slack = 68,
             }
 
             /// <summary>
@@ -349,7 +355,7 @@ namespace Seam.Api
             public bool? AutomaticallyManageNewDevices { get; set; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the Connect Webview. Supports up to 50 JSON key:value pairs. [Adding custom metadata to a Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview) enables you to store custom information, like customer details or internal IDs from your application. The custom metadata is then transferred to any [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) that were connected using the Connect Webview, making it easy to find and filter these resources in your [workspace](https://docs.seam.co/core-concepts/workspaces). You can also [filter Connect Webviews by custom metadata](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata).
+            /// Custom metadata that you want to associate with the Connect Webview. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview) enables you to store custom information, like customer details or internal IDs from your application. The custom metadata is then transferred to any [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) that were connected using the Connect Webview, making it easy to find and filter these resources in your [workspace](https://docs.seam.co/core-concepts/workspaces). You can also [filter Connect Webviews by custom metadata](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -621,7 +627,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/connect_webviews/delete", requestOptions);
+            _seam.Delete<object>("/connect_webviews/delete", requestOptions);
         }
 
         /// <summary>
@@ -643,7 +649,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/connect_webviews/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/connect_webviews/delete", requestOptions);
         }
 
         /// <summary>
@@ -743,7 +749,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/connect_webviews/get", requestOptions)
+                .Get<GetResponse>("/connect_webviews/get", requestOptions)
                 .EnsureData("/connect_webviews/get")
                 .ConnectWebview;
         }
@@ -767,7 +773,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/connect_webviews/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/connect_webviews/get", requestOptions))
                 .EnsureData("/connect_webviews/get")
                 .ConnectWebview;
         }
@@ -809,7 +815,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Custom metadata pairs by which you want to [filter Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Returns Connect Webviews with `custom_metadata` that contains all of the provided key:value pairs.
+            /// Custom metadata pairs by which you want to [filter Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Returns Connect Webviews with `custom_metadata` that contains all of the provided key:value pairs. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
             /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
@@ -909,7 +915,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/connect_webviews/list", requestOptions)
+                .Get<ListResponse>("/connect_webviews/list", requestOptions)
                 .EnsureData("/connect_webviews/list")
                 .ConnectWebviews;
         }
@@ -945,7 +951,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/connect_webviews/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/connect_webviews/list", requestOptions))
                 .EnsureData("/connect_webviews/list")
                 .ConnectWebviews;
         }

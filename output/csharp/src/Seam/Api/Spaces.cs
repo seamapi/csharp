@@ -627,7 +627,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/delete", requestOptions);
+            _seam.Delete<object>("/spaces/delete", requestOptions);
         }
 
         /// <summary>
@@ -645,7 +645,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/spaces/delete", requestOptions);
         }
 
         /// <summary>
@@ -936,7 +936,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetRelatedResponse>("/spaces/get_related", requestOptions)
+                .Get<GetRelatedResponse>("/spaces/get_related", requestOptions)
                 .EnsureData("/spaces/get_related")
                 .Batch;
         }
@@ -968,9 +968,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (
-                await _seam.PostAsync<GetRelatedResponse>("/spaces/get_related", requestOptions)
-            )
+            return (await _seam.GetAsync<GetRelatedResponse>("/spaces/get_related", requestOptions))
                 .EnsureData("/spaces/get_related")
                 .Batch;
         }
@@ -1116,7 +1114,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/spaces/list", requestOptions)
+                .Get<ListResponse>("/spaces/list", requestOptions)
                 .EnsureData("/spaces/list")
                 .Spaces;
         }
@@ -1150,7 +1148,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/spaces/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/spaces/list", requestOptions))
                 .EnsureData("/spaces/list")
                 .Spaces;
         }
@@ -1236,7 +1234,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/remove_acs_entrances", requestOptions);
+            _seam.Delete<object>("/spaces/remove_acs_entrances", requestOptions);
         }
 
         /// <summary>
@@ -1259,7 +1257,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/remove_acs_entrances", requestOptions);
+            await _seam.DeleteAsync<object>("/spaces/remove_acs_entrances", requestOptions);
         }
 
         /// <summary>
@@ -1332,7 +1330,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/remove_connected_account", requestOptions);
+            _seam.Delete<object>("/spaces/remove_connected_account", requestOptions);
         }
 
         /// <summary>
@@ -1358,7 +1356,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/remove_connected_account", requestOptions);
+            await _seam.DeleteAsync<object>("/spaces/remove_connected_account", requestOptions);
         }
 
         /// <summary>
@@ -1431,7 +1429,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/spaces/remove_devices", requestOptions);
+            _seam.Delete<object>("/spaces/remove_devices", requestOptions);
         }
 
         /// <summary>
@@ -1449,7 +1447,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/spaces/remove_devices", requestOptions);
+            await _seam.DeleteAsync<object>("/spaces/remove_devices", requestOptions);
         }
 
         /// <summary>

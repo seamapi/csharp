@@ -446,7 +446,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/users/delete", requestOptions);
+            _seam.Delete<object>("/acs/users/delete", requestOptions);
         }
 
         /// <summary>
@@ -474,7 +474,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/users/delete", requestOptions);
+            await _seam.DeleteAsync<object>("/acs/users/delete", requestOptions);
         }
 
         /// <summary>
@@ -598,7 +598,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<GetResponse>("/acs/users/get", requestOptions)
+                .Get<GetResponse>("/acs/users/get", requestOptions)
                 .EnsureData("/acs/users/get")
                 .AcsUser;
         }
@@ -628,7 +628,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<GetResponse>("/acs/users/get", requestOptions))
+            return (await _seam.GetAsync<GetResponse>("/acs/users/get", requestOptions))
                 .EnsureData("/acs/users/get")
                 .AcsUser;
         }
@@ -714,7 +714,7 @@ namespace Seam.Api
             public string? Search { get; set; }
 
             /// <summary>
-            /// Email address of the user identity for which you want to retrieve all access system users.
+            /// Email address of the user identity for which you want to retrieve all access system users. Specify `null` to retrieve access system users whose user identity has no email address.
             /// </summary>
             [DataMember(
                 Name = "user_identity_email_address",
@@ -730,7 +730,7 @@ namespace Seam.Api
             public string? UserIdentityId { get; set; }
 
             /// <summary>
-            /// Phone number of the user identity for which you want to retrieve all access system users, in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, `+15555550100`).
+            /// Phone number of the user identity for which you want to retrieve all access system users, in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, `+15555550100`). Specify `null` to retrieve access system users whose user identity has no phone number.
             /// </summary>
             [DataMember(
                 Name = "user_identity_phone_number",
@@ -804,7 +804,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListResponse>("/acs/users/list", requestOptions)
+                .Get<ListResponse>("/acs/users/list", requestOptions)
                 .EnsureData("/acs/users/list")
                 .AcsUsers;
         }
@@ -844,7 +844,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            return (await _seam.PostAsync<ListResponse>("/acs/users/list", requestOptions))
+            return (await _seam.GetAsync<ListResponse>("/acs/users/list", requestOptions))
                 .EnsureData("/acs/users/list")
                 .AcsUsers;
         }
@@ -982,7 +982,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return _seam
-                .Post<ListAccessibleEntrancesResponse>(
+                .Get<ListAccessibleEntrancesResponse>(
                     "/acs/users/list_accessible_entrances",
                     requestOptions
                 )
@@ -1018,7 +1018,7 @@ namespace Seam.Api
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
             return (
-                await _seam.PostAsync<ListAccessibleEntrancesResponse>(
+                await _seam.GetAsync<ListAccessibleEntrancesResponse>(
                     "/acs/users/list_accessible_entrances",
                     requestOptions
                 )
@@ -1112,7 +1112,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Post<object>("/acs/users/remove_from_access_group", requestOptions);
+            _seam.Delete<object>("/acs/users/remove_from_access_group", requestOptions);
         }
 
         /// <summary>
@@ -1140,7 +1140,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PostAsync<object>("/acs/users/remove_from_access_group", requestOptions);
+            await _seam.DeleteAsync<object>("/acs/users/remove_from_access_group", requestOptions);
         }
 
         /// <summary>

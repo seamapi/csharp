@@ -111,6 +111,10 @@ namespace Seam.Model
             "dormakaba_sites_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeErrorsInsufficientPermissions),
+            "insufficient_permissions"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsSaltoKsSubscriptionLimitExceeded),
             "salto_ks_subscription_limit_exceeded"
         )]
@@ -119,8 +123,8 @@ namespace Seam.Model
             "account_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeErrorsInsufficientPermissions),
-            "insufficient_permissions"
+            typeof(UnmanagedAccessCodeErrorsCodeConstraintsViolated),
+            "code_constraints_violated"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsAccessCodeInactive),
@@ -728,13 +732,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsInsufficientPermissions_model")]
-        public class UnmanagedAccessCodeErrorsInsufficientPermissions : UnmanagedAccessCodeErrors
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsCodeConstraintsViolated_model")]
+        public class UnmanagedAccessCodeErrorsCodeConstraintsViolated : UnmanagedAccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeErrorsInsufficientPermissions() { }
+            protected UnmanagedAccessCodeErrorsCodeConstraintsViolated() { }
 
-            public UnmanagedAccessCodeErrorsInsufficientPermissions(
+            public UnmanagedAccessCodeErrorsCodeConstraintsViolated(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -754,7 +758,7 @@ namespace Seam.Model
             public string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "insufficient_permissions";
+            public override string ErrorCode { get; } = "code_constraints_violated";
 
             /// <summary>
             /// Indicates that this is an access code error.
@@ -896,6 +900,78 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// </summary>
+            [DataMember(
+                Name = "is_connected_account_error",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool IsConnectedAccountError { get; set; }
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [DataMember(Name = "is_device_error", IsRequired = false, EmitDefaultValue = false)]
+            public bool IsDeviceError { get; set; }
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsInsufficientPermissions_model")]
+        public class UnmanagedAccessCodeErrorsInsufficientPermissions : UnmanagedAccessCodeErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeErrorsInsufficientPermissions() { }
+
+            public UnmanagedAccessCodeErrorsInsufficientPermissions(
+                string createdAt = default,
+                string errorCode = default,
+                bool isConnectedAccountError = default,
+                bool isDeviceError = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                IsConnectedAccountError = isConnectedAccountError;
+                IsDeviceError = isDeviceError;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
             /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
