@@ -8,8 +8,8 @@ test framework="":
 
 # Lint
 lint:
-    dotnet csharpier --check ./src
+    dotnet csharpier --check ./src ./test
 
 # Format
 format:
-    dotnet csharpier ./src
+    dotnet csharpier ./src ./test
