@@ -120,6 +120,7 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
     {
         using var seam = new SeamWithoutWorkspaceClient(Seed("seam_at1_token"), endpoint: Endpoint);
 
+#pragma warning disable CS0618 // The fake server still requires connect_partner_name.
         var workspace = await seam.Workspaces.CreateAsync(
             new()
             {
@@ -128,6 +129,7 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
                 IsSandbox = true,
             }
         );
+#pragma warning restore CS0618
 
         Assert.NotNull(workspace.WorkspaceId);
     }

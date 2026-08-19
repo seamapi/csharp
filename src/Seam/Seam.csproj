@@ -45,4 +45,8 @@
   <InternalsVisibleTo Include="Seam.Test" />
 </ItemGroup>
 
+<ItemGroup>
+  <PackageReference Include="Svix" Version="1.99.1" />
+</ItemGroup>
+
 </Project>
