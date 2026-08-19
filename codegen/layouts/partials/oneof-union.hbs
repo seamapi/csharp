@@ -1,15 +1,17 @@
-[JsonConverter(typeof(JsonSubtypes), "{{discriminatorSnake}}")]
-[JsonSubtypes.FallBackSubType(typeof({{unrecognizedTypeName}}))]
+[JsonConverter(typeof(SeamUnionConverter))]
+[SeamUnion("{{discriminatorSnake}}")]
 {{#each knownSubTypes}}
-[JsonSubtypes.KnownSubType(typeof({{typeName}}), "{{value}}")]
+[SeamUnionVariant("{{value}}", typeof({{typeName}}))]
 {{/each}}
-public abstract class {{className}}
+[SeamUnionFallback(typeof({{unrecognizedTypeName}}))]
+public abstract record {{className}}
 {
-{{#each abstractProps}}
-public abstract {{type}} {{pascalName}} {{#if getOnly}}{ get; }{{else}}{ get; set; }{{/if}}
+/// <summary>The value of the <c>{{discriminatorSnake}}</c> discriminator.</summary>
+public abstract string {{discriminatorPascal}} { get; }
+{{#each baseProps}}
 
+{{> data-member this}}
 {{/each}}
-public abstract override string ToString();
 }
 {{#each subclasses}}
 

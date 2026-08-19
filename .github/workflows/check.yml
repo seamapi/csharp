@@ -116,9 +116,9 @@ jobs:
           write-mode: overwrite
           path: smoke/Program.cs
           contents: |
-            using Seam.Client;
+            using Seam;
 
-            var seam = new SeamClient(apiToken: "seam_apikey1_token");
+            var seam = new SeamClient(apiKey: "seam_apikey1_token");
             Console.WriteLine($"Constructed {seam.GetType().FullName}");
       - name: Install
         run: dotnet add smoke package Seam --version "$VERSION"

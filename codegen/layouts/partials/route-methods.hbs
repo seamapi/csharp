@@ -1,43 +1,50 @@
 {{> documentation}}
-public {{#if isVoid}}void{{else}}{{returnType}}{{/if}} {{methodName}}({{methodName}}Request request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-{{#if isVoid}}
-_seam.{{httpMethod}}<object>("{{path}}", requestOptions);
-{{else}}
-return _seam.{{httpMethod}}<{{responseTypeArg}}>("{{path}}", requestOptions).EnsureData("{{path}}").{{returnProp}};
+public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}}Async(
+{{request.className}}{{#if requestOptional}}? request = null{{else}} request{{/if}},
+{{#if usesActionAttempt}}
+ActionAttemptWait? waitForActionAttempt = null,
 {{/if}}
+CancellationToken cancellationToken = default
+)
+{
+{{#if request.requireAnyOf}}
+request.Validate();
+{{/if}}
+{{#if isVoid}}
+await _transport.SendAsync(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
+{{else}}
+var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
+{{#if usesActionAttempt}}
+var actionAttempt = response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
+return await ActionAttemptResolver.ResolveAsync(actionAttempt, _transport, waitForActionAttempt ?? _waitForActionAttemptDefault, cancellationToken).ConfigureAwait(false);
+{{else}}
+return response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
+{{/if}}
+{{/if}}
+}
+{{#if usesPagination}}
+
+/// <summary>Fetches one page of {{path}} with its pagination metadata.</summary>
+public async Task<SeamPage<{{pageItemType}}>> {{methodName}}PageAsync(
+{{request.className}}{{#if requestOptional}}? request = null{{else}} request{{/if}},
+CancellationToken cancellationToken = default
+)
+{
+var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
+var items = response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
+var pagination = response.Pagination ?? throw new HttpRequestException("Seam returned no pagination for {{path}}");
+return new SeamPage<{{pageItemType}}>(items, pagination);
 }
 
-{{> documentation}}
-public {{#if isVoid}}void{{else}}{{returnType}}{{/if}} {{methodName}}({{csParams params}})
+/// <summary>Creates a paginator over {{path}}.</summary>
+public SeamPaginator<{{pageItemType}}> {{methodName}}Pager({{request.className}}{{#if requestOptional}}? request = null{{else}} request{{/if}})
 {
-{{#if isVoid}}
-{{methodName}}(new {{methodName}}Request({{csNamedArgs params}}));
-{{else}}
-return {{methodName}}(new {{methodName}}Request({{csNamedArgs params}}));
-{{/if}}
+return new SeamPaginator<{{pageItemType}}>(
+(pageCursor, cancellationToken) =>
+{{methodName}}PageAsync(
+pageCursor == null ? request : {{#if requestOptional}}(request ?? new {{request.className}}()){{else}}request{{/if}} with { PageCursor = pageCursor },
+cancellationToken
+)
+);
 }
-
-{{> documentation}}
-public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}}Async({{methodName}}Request request)
-{
-var requestOptions = new RequestOptions();
-requestOptions.Data = request;
-{{#if isVoid}}
-await _seam.{{httpMethod}}Async<object>("{{path}}", requestOptions);
-{{else}}
-return (await _seam.{{httpMethod}}Async<{{responseTypeArg}}>("{{path}}", requestOptions)).EnsureData("{{path}}").{{returnProp}};
 {{/if}}
-}
-
-{{> documentation}}
-public async {{#if isVoid}}Task{{else}}Task<{{returnType}}>{{/if}} {{methodName}}Async({{csParams params}})
-{
-{{#if isVoid}}
-await {{methodName}}Async(new {{methodName}}Request({{csNamedArgs params}}));
-{{else}}
-return (await {{methodName}}Async(new {{methodName}}Request({{csNamedArgs params}})));
-{{/if}}
-}

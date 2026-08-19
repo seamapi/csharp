@@ -1,30 +1,36 @@
 {{> documentation}}
-[DataContract(Name = "{{dataContractName}}")]
-public class {{className}}{{#if baseClass}} : {{baseClass}}{{/if}}
+public sealed record {{className}}{{#if baseClass}} : {{baseClass}}{{#if isUnrecognizedFallback}}, ISeamUnrecognizedVariant{{/if}}{{/if}}
 {
-[JsonConstructorAttribute]
-{{#if properties.length}}protected{{else}}public{{/if}} {{className}}() { }
-{{#if properties.length}}
-
-public {{className}}({{csParams properties}})
-{
-{{#each properties}}
-{{pascalName}} = {{camelName}};
-{{/each}}
-}
-{{/if}}
 {{#each nested}}
-
 {{#if enum}}
 {{> enum-def enum}}
 {{else}}
 {{> oneof-union union}}
 {{/if}}
+
 {{/each}}
 {{#each properties}}
-
 {{> data-member this}}
-{{/each}}
+{{#unless @last}}
 
-{{> tostring}}
+{{/unless}}
+{{/each}}
+{{#if isUnrecognizedFallback}}
+
+/// <summary>The complete raw JSON of the unrecognized payload.</summary>
+[JsonIgnore]
+public JsonElement RawJson { get; set; }
+{{/if}}
+{{#if requireAnyOf}}
+
+internal void Validate()
+{
+if ({{#each requireAnyOf.conditions}}{{this}}{{#unless @last}} && {{/unless}}{{/each}})
+{
+throw new ArgumentException(
+"At least one parameter is required for {{requireAnyOf.path}}"
+);
+}
+}
+{{/if}}
 }
