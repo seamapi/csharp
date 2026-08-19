@@ -208,7 +208,7 @@ Packages.
 
 > The version lives in `package.json`, the development manifest that
 > drives the codegen.
-> `codegen/version.ts`, wired to the `version` lifecycle script, injects it
+> `version.ts`, wired to the `version` lifecycle script, injects it
 > into the `<Version>` element of `Seam.csproj`, which npm runs after the
 > bump but before the commit, so the updated project file is part of the
 > tagged commit and MSBuild surfaces the version at runtime through

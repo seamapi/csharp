@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "version": "tsx codegen/version.ts",
+    "version": "tsx ./version.ts",
     "postversion": "git push --follow-tags",
     "generate": "tsx codegen/smith.ts",
     "postgenerate": "tsx codegen/postgenerate.ts",

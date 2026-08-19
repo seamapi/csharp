@@ -9,7 +9,7 @@ const versionPattern = /<Version>[^<]*<\/Version>/
 
 const main = async (): Promise<void> => {
   const version = await injectVersion(
-    fileURLToPath(new URL(`../${versionFile}`, import.meta.url)),
+    fileURLToPath(new URL(versionFile, import.meta.url)),
   )
   // eslint-disable-next-line no-console
   console.log(`✓ Version ${version} injected into ${versionFile}`)
@@ -42,7 +42,7 @@ const injectVersion = async (path: string): Promise<string> => {
 
 const readPackageJson = async (): Promise<{ version?: string }> => {
   const pkgBuff = await readFile(
-    fileURLToPath(new URL('../package.json', import.meta.url)),
+    fileURLToPath(new URL('package.json', import.meta.url)),
   )
   return JSON.parse(pkgBuff.toString())
 }
