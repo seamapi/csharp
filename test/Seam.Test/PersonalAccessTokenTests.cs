@@ -2,8 +2,6 @@ namespace Seam.Test;
 
 using Seam.Test.Support;
 
-// UPSTREAM: The fake rejects a personal access token on /devices/list, so these tests use
-// /devices/get, which the fake does authorize.
 public class PersonalAccessTokenTests : FakeSeamConnectTest
 {
     [Fact]
@@ -15,9 +13,9 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
             new SeamClientOptions { Endpoint = Endpoint }
         );
 
-        var device = await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") });
+        var devices = await seam.Devices.ListAsync();
 
-        Assert.Equal(Seed("august_device_1"), device.DeviceId);
+        Assert.NotEmpty(devices);
     }
 
     [Fact]
@@ -32,9 +30,9 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
             }
         );
 
-        var device = await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") });
+        var devices = await seam.Devices.ListAsync();
 
-        Assert.Equal(Seed("august_device_1"), device.DeviceId);
+        Assert.NotEmpty(devices);
     }
 
     [Fact]
@@ -122,7 +120,8 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
     {
         using var seam = new SeamWithoutWorkspaceClient(Seed("seam_at1_token"), endpoint: Endpoint);
 
-        // UPSTREAM: The fake still requires the deprecated connect_partner_name.
+        // The pinned blueprint still marks connect_partner_name obsolete; its deprecation is
+        // being reversed upstream, so the pragma goes away on a future regeneration.
 #pragma warning disable CS0618
         var workspace = await seam.Workspaces.CreateAsync(
             new()

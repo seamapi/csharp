@@ -2,8 +2,6 @@ namespace Seam.Test;
 
 using Seam.Test.Support;
 
-// UPSTREAM: The fake rejects a personal access token on /devices/list, so the personal
-// access token cases use /devices/get, which the fake does authorize.
 public class EnvTests : FakeSeamConnectTest
 {
     [Fact]
@@ -62,10 +60,7 @@ public class EnvTests : FakeSeamConnectTest
 
         using var seam = new SeamClient();
 
-        Assert.Equal(
-            Seed("august_device_1"),
-            (await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") })).DeviceId
-        );
+        Assert.NotEmpty(await seam.Devices.ListAsync());
     }
 
     [Fact]
@@ -82,10 +77,7 @@ public class EnvTests : FakeSeamConnectTest
             }
         );
 
-        Assert.Equal(
-            Seed("august_device_1"),
-            (await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") })).DeviceId
-        );
+        Assert.NotEmpty(await seam.Devices.ListAsync());
     }
 
     [Fact]
@@ -103,10 +95,7 @@ public class EnvTests : FakeSeamConnectTest
             }
         );
 
-        Assert.Equal(
-            Seed("august_device_1"),
-            (await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") })).DeviceId
-        );
+        Assert.NotEmpty(await seam.Devices.ListAsync());
     }
 
     [Fact]
@@ -146,10 +135,7 @@ public class EnvTests : FakeSeamConnectTest
             }
         );
 
-        Assert.Equal(
-            Seed("august_device_1"),
-            (await seam.Devices.GetAsync(new() { DeviceId = Seed("august_device_1") })).DeviceId
-        );
+        Assert.NotEmpty(await seam.Devices.ListAsync());
     }
 
     [Fact]
