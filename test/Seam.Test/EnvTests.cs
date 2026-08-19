@@ -2,6 +2,8 @@ namespace Seam.Test;
 
 using Seam.Test.Support;
 
+// UPSTREAM: The fake rejects a personal access token on /devices/list, so the personal
+// access token cases use /devices/get, which the fake does authorize.
 public class EnvTests : FakeSeamConnectTest
 {
     [Fact]

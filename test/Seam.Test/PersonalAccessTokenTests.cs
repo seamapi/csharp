@@ -2,6 +2,8 @@ namespace Seam.Test;
 
 using Seam.Test.Support;
 
+// UPSTREAM: The fake rejects a personal access token on /devices/list, so these tests use
+// /devices/get, which the fake does authorize.
 public class PersonalAccessTokenTests : FakeSeamConnectTest
 {
     [Fact]
@@ -120,7 +122,8 @@ public class PersonalAccessTokenTests : FakeSeamConnectTest
     {
         using var seam = new SeamWithoutWorkspaceClient(Seed("seam_at1_token"), endpoint: Endpoint);
 
-#pragma warning disable CS0618 // The fake server still requires connect_partner_name.
+        // UPSTREAM: The fake still requires the deprecated connect_partner_name.
+#pragma warning disable CS0618
         var workspace = await seam.Workspaces.CreateAsync(
             new()
             {
