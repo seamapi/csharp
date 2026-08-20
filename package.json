@@ -1,10 +1,11 @@
 {
   "name": "@seamapi/csharp",
-  "version": "1.4.0",
+  "version": "2.0.0-beta.3",
   "type": "module",
   "private": true,
   "license": "MIT",
   "scripts": {
+    "start": "fake-seam-connect --seed",
     "version": "tsx ./version.ts",
     "postversion": "git push --follow-tags",
     "generate": "tsx codegen/smith.ts",
@@ -32,9 +33,11 @@
   "packageManager": "npm@11.19.0",
   "devDependencies": {
     "@seamapi/blueprint": "^1.8.0",
+    "@seamapi/fake-seam-connect": "2.0.5",
     "@seamapi/smith": "^1.1.0",
-    "@seamapi/types": "1.1033.0",
+    "@seamapi/types": "1.1034.0",
     "change-case": "^5.4.4",
+    "del": "^8.0.0",
     "execa": "^10.0.1",
     "prettier": "^3.0.0"
   }

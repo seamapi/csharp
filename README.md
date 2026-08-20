@@ -4,217 +4,257 @@
 
 SDK for the Seam API written in C#.
 
+Upgrading from v1? See [MIGRATION.md](./MIGRATION.md).
+
 ## Installation
 
 Use [NuGet](https://www.nuget.org/packages/Seam) to install.
 
+```
+dotnet add package Seam
+```
+
 ## Usage
 
 ```csharp
-using Seam.Client;
+using Seam;
 
-var seam = new SeamClient(apiToken: "YOUR_API_KEY");
+var seam = new SeamClient(apiKey: "YOUR_API_KEY");
 
-var myDevices = seam.Devices.List();
+var devices = await seam.Devices.ListAsync();
 
-Console.WriteLine("First Device Name: " + myDevices[0].Properties.Name);
+Console.WriteLine($"First device: {devices[0].DisplayName}");
 
-var accessCode = seam.AccessCodes.Create(deviceId: myDevices[0].DeviceId, code: "1234");
+var device = await seam.Locks.GetAsync(new() { DeviceId = devices[0].DeviceId });
+```
+
+Endpoint methods are async, take a single request object, and accept a
+`CancellationToken`. Required parameters are `required` members of the request
+object, so a missing one is a compile error rather than a server round trip.
+Request objects are always constructed with named properties (typically via a
+target-typed `new()`), so adding or reordering API parameters never breaks
+your code.
+
+### Authentication
+
+Authenticate with an API key, which is scoped to a single workspace:
+
+```csharp
+var seam = new SeamClient(apiKey: "YOUR_API_KEY");
+// or
+var seam = SeamClient.FromApiKey("YOUR_API_KEY");
+```
+
+Or with a personal access token and the workspace it acts on:
+
+```csharp
+var seam = SeamClient.FromPersonalAccessToken("YOUR_PAT", "YOUR_WORKSPACE_ID");
+```
+
+When no credential is passed, the client reads `SEAM_API_KEY` or
+`SEAM_PERSONAL_ACCESS_TOKEN` plus `SEAM_WORKSPACE_ID` from the environment,
+and the endpoint falls back to `SEAM_ENDPOINT`:
+
+```csharp
+var seam = new SeamClient();
+```
+
+To list and create workspaces before having one in scope, use the
+workspace-less client:
+
+```csharp
+var seam = new SeamWithoutWorkspaceClient(personalAccessToken: "YOUR_PAT");
+var workspaces = await seam.Workspaces.ListAsync();
+```
+
+### Action attempts
+
+Some endpoints, e.g. unlocking a door, return an action attempt tracking the
+requested action. By default, the SDK polls the action attempt until it
+succeeds and returns the finished attempt, raising
+`SeamActionAttemptFailedException` when it fails and
+`SeamActionAttemptTimeoutException` when it is still pending after 10 seconds:
+
+```csharp
+var actionAttempt = await seam.Locks.UnlockDoorAsync(new() { DeviceId = deviceId });
+```
+
+Configure or disable waiting per client or per call with `ActionAttemptWait`:
+
+```csharp
+// Do not wait: get the pending action attempt back immediately.
+var seam = new SeamClient(new SeamClientOptions
+{
+    ApiKey = "YOUR_API_KEY",
+    WaitForActionAttempt = false,
+});
+
+// Wait longer for this one call.
+var actionAttempt = await seam.Locks.UnlockDoorAsync(
+    new() { DeviceId = deviceId },
+    waitForActionAttempt: new ActionAttemptWait
+    {
+        Timeout = TimeSpan.FromSeconds(30),
+        PollingInterval = TimeSpan.FromSeconds(2),
+    }
+);
+```
+
+### Pagination
+
+Every paginated list endpoint offers a `ListPager` returning a
+`SeamPaginator`:
+
+```csharp
+var pages = seam.Devices.ListPager(new() { Limit = 20 });
+
+// Iterate every item lazily.
+await foreach (var device in pages.Flatten())
+{
+    Console.WriteLine(device.DeviceId);
+}
+
+// Or fetch pages by hand.
+var (devices, pagination) = await pages.FirstPageAsync();
+if (pagination.HasNextPage)
+{
+    var (moreDevices, _) = await pages.NextPageAsync(pagination.NextPageCursor!);
+}
+
+// Or collect everything into one list.
+var allDevices = await pages.FlattenToListAsync();
+```
+
+To resume pagination later, store `pagination.NextPageCursor` and pass it to
+`NextPageAsync` on a new pager with the same request parameters.
+
+### Errors
+
+Seam API errors raise a typed exception carrying the Seam error code, HTTP
+status code, and the `seam-request-id` to include in support requests:
+
+```csharp
+try
+{
+    await seam.Devices.GetAsync(new() { DeviceId = deviceId });
+}
+catch (SeamHttpInvalidInputException exception)
+{
+    foreach (var message in exception.GetValidationErrorMessages("device_id"))
+        Console.WriteLine(message);
+}
+catch (SeamHttpUnauthorizedException)
+{
+    // Invalid or expired credentials.
+}
+catch (SeamHttpApiException exception)
+{
+    Console.WriteLine($"{exception.Code} ({exception.RequestId})");
+}
+```
+
+Every SDK exception derives from `SeamException`. A response that is not a
+Seam error, e.g. from a gateway, surfaces as the standard
+`HttpRequestException`.
+
+### Retries and timeouts
+
+Idempotent requests are retried twice on transport errors, timeouts, 429, and
+5xx responses with exponential backoff, honoring `Retry-After`. POST and PATCH
+requests are never retried, so a retry can never duplicate a write. Each
+attempt times out after 30 seconds. Both are configurable:
+
+```csharp
+var seam = new SeamClient(new SeamClientOptions
+{
+    ApiKey = "YOUR_API_KEY",
+    MaxRetries = 0,
+    Timeout = TimeSpan.FromSeconds(60),
+});
 ```
 
 ### Setting a value to null
 
-The Seam API distinguishes three states for an updatable parameter:
-omitted (leave the stored value unchanged), null (unset the stored value),
-and a value (set it).
-
-C#'s `null` means omitted.
-The SDK removes `null` parameters from the request entirely,
-so passing `null` never unsets a value.
-To unset a value, pass the `Null.Value` sentinel,
-which the SDK sends as JSON `null` in request bodies
-and as an empty value in query strings:
+The Seam API distinguishes three states for an updatable parameter: omitted
+(leave the stored value unchanged), null (unset the stored value), and a value
+(set it). C#'s `null` means omitted; the SDK removes `null` parameters from
+the request entirely. Where the Seam API documents a parameter as nullable,
+the request property is an `Optional<T>` that also accepts the explicit
+`Null.Value` sentinel:
 
 ```csharp
-// Omits custom_metadata, leaving the stored metadata unchanged.
-seam.Devices.Update(deviceId: deviceId, customMetadata: null);
+// Omits every optional parameter, leaving stored values unchanged.
+await seam.Thermostats.UpdateAsync(new() { DeviceId = deviceId });
 
-// Unsets the sync key of the stored metadata.
-seam.Devices.Update(
-    deviceId: deviceId,
-    customMetadata: new Dictionary<string, object> { ["sync"] = Null.Value }
-);
+// Unsets the sync key of the stored custom metadata.
+await seam.Devices.UpdateAsync(new()
+{
+    DeviceId = deviceId,
+    CustomMetadata = new Dictionary<string, object?> { ["sync"] = Null.Value },
+});
 ```
 
-Only pass `Null.Value` where the Seam API documents a value as nullable.
-A parameter typed as a specific C# type, e.g. `string?`, does not accept the
-sentinel: pass it wherever a parameter is typed `object`, and to the URL search
-params serializer below.
+### Webhooks
 
-## Advanced Usage
-
-### Setting the request timeout
-
-Requests time out after 30 seconds by default.
-Pass the `timeout` option, in milliseconds, to override this:
+Verify and parse incoming Seam webhook events with `SeamWebhook`:
 
 ```csharp
-var seam = new SeamClient(apiToken: "YOUR_API_KEY", timeout: 60000);
+var webhook = new SeamWebhook(Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET")!);
+
+var seamEvent = webhook.Verify(requestBody, requestHeaders);
+
+if (seamEvent is Seam.Models.EventDeviceConnected connected)
+    Console.WriteLine(connected.DeviceId);
 ```
 
-The default may also be changed for every client at once:
+## Advanced usage
+
+### Calling the API directly
+
+The `HttpClient` the SDK sends requests with is exposed as `seam.Client`,
+fully configured with the endpoint, authorization, retries, and timeouts:
 
 ```csharp
-GlobalSeamRequestConfiguration.Instance.Timeout = 60000;
+var response = await seam.Client.GetAsync("/devices/list");
+```
+
+To supply your own fully configured client instead, use
+`SeamClient.FromHttpClient`, or pass an `HttpMessageHandler` to replace only
+the innermost transport while keeping the SDK's pipeline:
+
+```csharp
+var seam = new SeamClient(new SeamClientOptions
+{
+    ApiKey = "YOUR_API_KEY",
+    HttpMessageHandler = myHandler,
+});
 ```
 
 ### Serializing URL search params
 
-The Seam API parses URL search params as complex types.
-The SDK serializes the params of every endpoint
-the Seam API prefers to receive as a GET or DELETE this way.
-If you call the API with your own HTTP client,
-`StrictUrlSearchParamsSerializer` is exported for that purpose.
-The `_strict=true` parameter is added to any non-empty query
-so the Seam API uses strict, schema-aware parsing.
-A query with no serializable parameters remains empty.
+The Seam API parses URL search params as complex types. The SDK serializes
+the params of every endpoint the Seam API prefers to receive as a GET or
+DELETE this way. If you call the API with your own HTTP client,
+`StrictUrlSearchParamsSerializer` is exported for that purpose. The
+`_strict=true` parameter is added to any non-empty query so the Seam API uses
+strict, schema-aware parsing.
 
 ```csharp
-using Seam.Client;
-
 var query = StrictUrlSearchParamsSerializer.Serialize(
-    new Dictionary<string, object> { ["device_ids"] = new[] { "device1", "device2" } }
+    new Dictionary<string, object?> { ["device_ids"] = new[] { "a", "b" } }
 );
-
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", "Bearer your-api-key");
-
-var devices = await client.GetStringAsync($"https://connect.getseam.com/devices/list?{query}");
 ```
 
-The serialization defines the name and value of each search param,
-where every value is a string.
-`UrlSearchParams` holds those pairs and renders the query string,
-as [URLSearchParams] does for the [reference implementation]:
+## Development and testing
 
-```csharp
-using Seam.Client;
-
-var searchParams = new UrlSearchParams();
-
-StrictUrlSearchParamsSerializer.Update(
-    searchParams,
-    new Dictionary<string, object> { ["device_ids"] = new[] { "device1", "device2" } }
-);
-
-searchParams.Select(pair => (pair.Key, pair.Value)).ToList();
-// => [("device_ids", "device1"), ("device_ids", "device2"), ("_strict", "true")]
-
-searchParams.ToString();
-// => "device_ids=device1&device_ids=device2&_strict=true"
-```
-
-Pass either the query string or the pairs to your HTTP client.
-A client may percent-encode a few characters differently
-than `URLSearchParams` does,
-which the Seam API reads as the same params either way.
-
-A parameter set to `null` is omitted,
-while a parameter set to `Null.Value` is serialized to an empty value,
-which the Seam API reads as null,
-as described in [Setting a value to null](#setting-a-value-to-null).
-A parameter that cannot be represented throws an `UnserializableParamError`.
-
-The Seam API parses these params with the corresponding [parser].
-
-[URLSearchParams]: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
-[reference implementation]: https://github.com/seamapi/url-search-params-serializer
-[parser]: https://github.com/seamapi/url-search-params-parser
-
-## Development and Testing
-
-### Quickstart
-
-Install the [.NET SDK](https://dotnet.microsoft.com/download) 10.0 or later,
-[just](https://just.systems/) and [Node.js](https://nodejs.org/), then run
+Quickly run all tests with
 
 ```
-$ git clone git@github.com:seamapi/csharp.git
-$ cd csharp
-$ npm install
-$ dotnet tool restore
+just test
 ```
 
-Primary development tasks are defined in the `justfile`
-and available via `just`.
-View them with
-
-```
-$ just --list
-```
-
-| Task              | Command            |
-| ----------------- | ------------------ |
-| Run the tests     | `just test`        |
-| Lint              | `just lint`        |
-| Format            | `just format`      |
-| Build the package | `just build`       |
-| Generate the SDK  | `npm run generate` |
-
-The npm scripts only drive the codegen layer: `npm run generate`
-regenerates the SDK, and `npm run lint` and `npm run format` cover the
-TypeScript, JSON, YAML and Markdown sources with ESLint and
-[Prettier](https://prettier.io/).
-C# sources are formatted by [CSharpier](https://csharpier.com/),
-pinned as a local dotnet tool in `.config/dotnet-tools.json`.
-
-Run the full suite with
-
-```
-$ just test
-```
-
-To run the tests for a single target framework, pass it as an argument
-
-```
-$ just test net8.0
-```
-
-### Requirements
-
-The package targets .NET 8.0 and .NET 10.0, the supported LTS releases.
-Continuous integration exercises both target frameworks.
-
-### Publishing
-
-#### Automatic
-
-New versions are released automatically from `main` by the
-[Semantic Release](.github/workflows/semantic-release.yml) workflow,
-which reads [Conventional Commits](https://www.conventionalcommits.org/)
-and dispatches the [Version](.github/workflows/version.yml) workflow.
-
-#### Manual
-
-Run the [Version](.github/workflows/version.yml) workflow with the
-version to cut.
-It runs `npm version`, which bumps the `version` field in `package.json`,
-injects that version into `Seam.csproj`, creates a signed `v*` git tag
-and pushes it.
-Pushing the tag triggers the [Publish](.github/workflows/publish.yml)
-workflow, which packs the library with `dotnet pack` and pushes the
-package to [NuGet](https://www.nuget.org/packages/Seam) and GitHub
-Packages.
-
-> The version lives in `package.json`, the development manifest that
-> drives the codegen.
-> `version.ts`, wired to the `version` lifecycle script, injects it
-> into the `<Version>` element of `Seam.csproj`, which npm runs after the
-> bump but before the commit, so the updated project file is part of the
-> tagged commit and MSBuild surfaces the version at runtime through
-> `AssemblyInformationalVersionAttribute`.
-> Never edit the version in `Seam.csproj` by hand.
-
-## License
-
-This C# SDK is licensed under the [MIT license](LICENSE.txt).
+The tests run against [@seamapi/fake-seam-connect](https://github.com/seamapi/fake-seam-connect);
+run `npm install` first. Generated code under `src/Seam/Routes` and
+`src/Seam/Models` is produced by `npm run generate` from
+[@seamapi/types](https://github.com/seamapi/types) and must not be edited by
+hand.

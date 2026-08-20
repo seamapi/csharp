@@ -3,13 +3,13 @@
 <PropertyGroup>
   <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
   <ImplicitUsings>enable</ImplicitUsings>
-  <Nullable>annotations</Nullable>
+  <Nullable>enable</Nullable>
 
   <PackageId>Seam</PackageId>
 
   <!-- Injected from package.json when a version is cut, by the version
        lifecycle script in package.json. Do not edit by hand. -->
-  <Version>1.4.0</Version>
+  <Version>2.0.0-beta.3</Version>
 
   <Authors>Seam Labs, Inc.</Authors>
 
@@ -42,10 +42,11 @@
   <None Include="icon.png" Pack="true" PackagePath="icon.png" />
   <None Include="../../README.md" Pack="true" PackagePath="README.md" />
 
-  <PackageReference Include="JsonSubTypes" Version="2.0.1" />
-  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  <PackageReference Include="Polly" Version="7.2.4" />
-  <PackageReference Include="RestSharp" Version="112.1.0" />
+  <InternalsVisibleTo Include="Seam.Test" />
+</ItemGroup>
+
+<ItemGroup>
+  <PackageReference Include="Svix" Version="1.99.1" />
 </ItemGroup>
 
 </Project>
