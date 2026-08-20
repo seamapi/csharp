@@ -45,10 +45,13 @@ namespace Seam.Model
         /// <summary>
         /// Company name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
         /// </summary>
+        [Obsolete("Use `connect_partner_name` instead.")]
         [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]
         public string CompanyName { get; set; }
 
-        [Obsolete("Use `company_name` instead.")]
+        /// <summary>
+        /// Seam Connect partner name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// </summary>
         [DataMember(Name = "connect_partner_name", IsRequired = false, EmitDefaultValue = false)]
         public string? ConnectPartnerName { get; set; }
 

@@ -44,6 +44,7 @@ namespace Seam.Model
             object customMetadata = default,
             string deviceId = default,
             UnmanagedDevice.DeviceTypeEnum deviceType = default,
+            string displayName = default,
             List<UnmanagedDeviceErrors> errors = default,
             bool isManaged = default,
             UnmanagedDeviceLocation? location = default,
@@ -80,6 +81,7 @@ namespace Seam.Model
             CustomMetadata = customMetadata;
             DeviceId = deviceId;
             DeviceType = deviceType;
+            DisplayName = displayName;
             Errors = errors;
             IsManaged = isManaged;
             Location = location;
@@ -3080,6 +3082,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedDevice.DeviceTypeEnum DeviceType { get; set; }
+
+        /// <summary>
+        /// Display name of the device, defaults to nickname (if it is set) or `properties.appearance.name`, otherwise. Enables administrators and users to identify the device easily, especially when there are numerous devices.
+        /// </summary>
+        [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Array of errors associated with the device. Each error object within the array contains two fields: `error_code` and `message`. `error_code` is a string that uniquely identifies the type of error, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the error, offering insights into the issue and potentially how to rectify it.
