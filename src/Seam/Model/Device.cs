@@ -7430,18 +7430,12 @@ namespace Seam.Model
             string? deviceId = default,
             string? deviceName = default,
             bool? dualSetpointsNotSupported = default,
-            List<float>? enforcedCoolingSetpointRangeCelsius = default,
-            List<float>? enforcedHeatingSetpointRangeCelsius = default,
-            List<float>? enforcedSetpointRangeCelsius = default,
             string? productType = default
         )
         {
             DeviceId = deviceId;
             DeviceName = deviceName;
             DualSetpointsNotSupported = dualSetpointsNotSupported;
-            EnforcedCoolingSetpointRangeCelsius = enforcedCoolingSetpointRangeCelsius;
-            EnforcedHeatingSetpointRangeCelsius = enforcedHeatingSetpointRangeCelsius;
-            EnforcedSetpointRangeCelsius = enforcedSetpointRangeCelsius;
             ProductType = productType;
         }
 
@@ -7466,36 +7460,6 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public bool? DualSetpointsNotSupported { get; set; }
-
-        /// <summary>
-        /// Enforced cooling setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error.
-        /// </summary>
-        [DataMember(
-            Name = "enforced_cooling_setpoint_range_celsius",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public List<float>? EnforcedCoolingSetpointRangeCelsius { get; set; }
-
-        /// <summary>
-        /// Enforced heating setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error.
-        /// </summary>
-        [DataMember(
-            Name = "enforced_heating_setpoint_range_celsius",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public List<float>? EnforcedHeatingSetpointRangeCelsius { get; set; }
-
-        /// <summary>
-        /// Legacy combined enforced setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error. Read as a fallback for the per-mode ranges below; no longer written.
-        /// </summary>
-        [DataMember(
-            Name = "enforced_setpoint_range_celsius",
-            IsRequired = false,
-            EmitDefaultValue = false
-        )]
-        public List<float>? EnforcedSetpointRangeCelsius { get; set; }
 
         /// <summary>
         /// Product type for a Sensi device.

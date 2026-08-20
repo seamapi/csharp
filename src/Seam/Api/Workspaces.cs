@@ -68,13 +68,13 @@ namespace Seam.Api
             /// <summary>
             /// Company name for the new workspace.
             /// </summary>
+            [Obsolete("Use `connect_partner_name` instead.")]
             [DataMember(Name = "company_name", IsRequired = false, EmitDefaultValue = false)]
             public string? CompanyName { get; set; }
 
             /// <summary>
             /// Connect partner name for the new workspace.
             /// </summary>
-            [Obsolete("Use `company_name` instead.")]
             [DataMember(
                 Name = "connect_partner_name",
                 IsRequired = false,
