@@ -20,12 +20,8 @@ SDKs, and the strict typing is stronger throughout.
 | [Global configuration is removed](#global-configuration-is-removed)                                                     | You use `GlobalSeamRequestConfiguration` or `RetryConfiguration`. |
 | [Generated code moved and unknown values are preserved](#generated-code-moved-and-unknown-values-are-preserved)         | You reference `Seam.Api` or `Seam.Model` types directly.          |
 
-New in v2 (non-breaking): personal access token authentication and
-`SeamWithoutWorkspaceClient`, environment-based configuration (`SEAM_API_KEY`,
-`SEAM_PERSONAL_ACCESS_TOKEN`, `SEAM_WORKSPACE_ID`, `SEAM_ENDPOINT`), token
-format validation, `seam-sdk-name`/`seam-sdk-version` headers, pagination via
-`SeamPaginator`, `CancellationToken` support on every endpoint method, and
-`SeamWebhook` for verifying webhook events.
+v2 also adds features that require no migration; see
+[New in v2](#new-in-v2) at the end.
 
 ### `SeamClient` construction changed
 
@@ -181,3 +177,54 @@ discarding it.
    `SeamClientOptions`.
 7. Update references to `Seam.Model` types to `Seam.Models`.
 8. Recompile: the compiler will point out every remaining call site.
+
+### New in v2
+
+Nothing here requires migration, but v2 also adds:
+
+- **Personal access token authentication.** Authenticate as a Seam Console
+  user scoped to a workspace, and use `SeamWithoutWorkspaceClient` to list and
+  create workspaces before having one in scope:
+
+  ```csharp
+  var seam = SeamClient.FromPersonalAccessToken("YOUR_PAT", "YOUR_WORKSPACE_ID");
+
+  var console = new SeamWithoutWorkspaceClient(personalAccessToken: "YOUR_PAT");
+  var workspaces = await console.Workspaces.ListAsync();
+  ```
+
+- **Environment-based configuration.** With no options, the client reads
+  `SEAM_API_KEY` or `SEAM_PERSONAL_ACCESS_TOKEN` plus `SEAM_WORKSPACE_ID`, and
+  the endpoint from `SEAM_ENDPOINT`: `var seam = new SeamClient();`
+
+- **Token format validation.** Passing the wrong kind of token (a client
+  session token as an API key, an API key as a personal access token, ...)
+  raises a specific `SeamInvalidTokenException` at construction instead of an
+  opaque 401 from the server.
+
+- **Pagination.** Paginated endpoints offer a `ListPager` returning a
+  `SeamPaginator` with `FirstPageAsync`/`NextPageAsync`, `FlattenToListAsync`,
+  and lazy `IAsyncEnumerable` iteration:
+
+  ```csharp
+  await foreach (var device in seam.Devices.ListPager(new() { Limit = 20 }).Flatten())
+      Console.WriteLine(device.DeviceId);
+  ```
+
+- **Cancellation.** Every endpoint method takes a `CancellationToken`,
+  threaded through retries, timeouts, and action attempt polling.
+
+- **Automatic retries.** Idempotent requests retry transient failures with
+  exponential backoff (see
+  [the retry section](#requests-are-retried-and-time-out-per-attempt)).
+
+- **Webhook verification.** `SeamWebhook` verifies an incoming webhook
+  signature and parses the payload into the typed `Event` union:
+
+  ```csharp
+  var seamEvent = new SeamWebhook(secret).Verify(requestBody, requestHeaders);
+  ```
+
+- **SDK identification headers.** Every request carries `seam-sdk-name` and
+  `seam-sdk-version`, so Seam support can identify the SDK from the
+  `seam-request-id` of a failing request.
