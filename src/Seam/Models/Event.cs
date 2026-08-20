@@ -4310,6 +4310,22 @@ namespace Seam.Models
     /// </summary>
     public sealed record EventDeviceLowBattery : Event
     {
+        /// <summary>
+        /// Battery that dropped below the low threshold. `lock`: the lock&apos;s own battery. `accessory_keypad`: a paired accessory keypad&apos;s battery. Omitted for events emitted before this field existed, which always refer to the lock&apos;s own battery.
+        /// </summary>
+        [JsonConverter(typeof(SeamStringEnumConverter))]
+        public enum BatterySourceEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "lock")]
+            Lock = 1,
+
+            [EnumMember(Value = "accessory_keypad")]
+            AccessoryKeypad = 2,
+        }
+
         [JsonPropertyName("event_type")]
         public override string EventType { get; } = "device.low_battery";
 
@@ -4318,6 +4334,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("battery_level")]
         public float BatteryLevel { get; init; } = default!;
+
+        /// <summary>
+        /// Battery that dropped below the low threshold. `lock`: the lock&apos;s own battery. `accessory_keypad`: a paired accessory keypad&apos;s battery. Omitted for events emitted before this field existed, which always refer to the lock&apos;s own battery.
+        /// </summary>
+        [JsonPropertyName("battery_source")]
+        public EventDeviceLowBattery.BatterySourceEnum? BatterySource { get; init; }
 
         /// <summary>
         /// Custom metadata of the connected account, present when connected_account_id is provided.

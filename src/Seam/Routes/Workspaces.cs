@@ -46,13 +46,13 @@ namespace Seam.Routes
             /// <summary>
             /// Company name for the new workspace.
             /// </summary>
+            [Obsolete("Use `connect_partner_name` instead.")]
             [JsonPropertyName("company_name")]
             public string? CompanyName { get; init; }
 
             /// <summary>
             /// Connect partner name for the new workspace.
             /// </summary>
-            [Obsolete("Use `company_name` instead.")]
             [JsonPropertyName("connect_partner_name")]
             public Optional<string> ConnectPartnerName { get; init; }
 

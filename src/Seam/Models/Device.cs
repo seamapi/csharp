@@ -514,6 +514,10 @@ namespace Seam.Models
             "accessory_keypad_setup_required",
             typeof(DeviceWarningsAccessoryKeypadSetupRequired)
         )]
+        [SeamUnionVariant(
+            "accessory_keypad_low_battery",
+            typeof(DeviceWarningsAccessoryKeypadLowBattery)
+        )]
         [SeamUnionVariant("unreliable_online_status", typeof(DeviceWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(DeviceWarningsMaxAccessCodesReached))]
         [SeamUnionFallback(typeof(DeviceWarningsUnrecognized))]
@@ -687,6 +691,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "accessory_keypad_setup_required";
+        }
+
+        public sealed record DeviceWarningsAccessoryKeypadLowBattery : DeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "accessory_keypad_low_battery";
         }
 
         public sealed record DeviceWarningsUnreliableOnlineStatus : DeviceWarnings
@@ -3078,24 +3088,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("dual_setpoints_not_supported")]
         public bool? DualSetpointsNotSupported { get; init; }
-
-        /// <summary>
-        /// Enforced cooling setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error.
-        /// </summary>
-        [JsonPropertyName("enforced_cooling_setpoint_range_celsius")]
-        public List<float>? EnforcedCoolingSetpointRangeCelsius { get; init; }
-
-        /// <summary>
-        /// Enforced heating setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error.
-        /// </summary>
-        [JsonPropertyName("enforced_heating_setpoint_range_celsius")]
-        public List<float>? EnforcedHeatingSetpointRangeCelsius { get; init; }
-
-        /// <summary>
-        /// Legacy combined enforced setpoint range in Celsius for a Sensi device, derived from an OutOfRange API error. Read as a fallback for the per-mode ranges below; no longer written.
-        /// </summary>
-        [JsonPropertyName("enforced_setpoint_range_celsius")]
-        public List<float>? EnforcedSetpointRangeCelsius { get; init; }
 
         /// <summary>
         /// Product type for a Sensi device.

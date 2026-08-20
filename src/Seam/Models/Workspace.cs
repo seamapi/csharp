@@ -17,10 +17,13 @@ namespace Seam.Models
         /// <summary>
         /// Company name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
         /// </summary>
+        [Obsolete("Use `connect_partner_name` instead.")]
         [JsonPropertyName("company_name")]
         public string CompanyName { get; init; } = default!;
 
-        [Obsolete("Use `company_name` instead.")]
+        /// <summary>
+        /// Seam Connect partner name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// </summary>
         [JsonPropertyName("connect_partner_name")]
         public string? ConnectPartnerName { get; init; }
 

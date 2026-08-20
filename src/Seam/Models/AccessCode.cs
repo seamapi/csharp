@@ -47,6 +47,12 @@ namespace Seam.Models
             "code_constraints_violated",
             typeof(AccessCodeErrorsCodeConstraintsViolated)
         )]
+        [SeamUnionVariant("failed_to_issue", typeof(AccessCodeErrorsFailedToIssue))]
+        [SeamUnionVariant(
+            "failed_to_apply_mutations",
+            typeof(AccessCodeErrorsFailedToApplyMutations)
+        )]
+        [SeamUnionVariant("failed_to_expire", typeof(AccessCodeErrorsFailedToExpire))]
         [SeamUnionVariant("account_disconnected", typeof(AccessCodeErrorsAccountDisconnected))]
         [SeamUnionVariant(
             "salto_ks_subscription_limit_exceeded",
@@ -283,6 +289,60 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "code_constraints_violated";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string? CreatedAt { get; init; }
+
+            /// <summary>
+            /// Indicates that this is an access code error.
+            /// </summary>
+            [JsonPropertyName("is_access_code_error")]
+            public bool IsAccessCodeError { get; init; } = default!;
+        }
+
+        public sealed record AccessCodeErrorsFailedToIssue : AccessCodeErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "failed_to_issue";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string? CreatedAt { get; init; }
+
+            /// <summary>
+            /// Indicates that this is an access code error.
+            /// </summary>
+            [JsonPropertyName("is_access_code_error")]
+            public bool IsAccessCodeError { get; init; } = default!;
+        }
+
+        public sealed record AccessCodeErrorsFailedToApplyMutations : AccessCodeErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "failed_to_apply_mutations";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string? CreatedAt { get; init; }
+
+            /// <summary>
+            /// Indicates that this is an access code error.
+            /// </summary>
+            [JsonPropertyName("is_access_code_error")]
+            public bool IsAccessCodeError { get; init; } = default!;
+        }
+
+        public sealed record AccessCodeErrorsFailedToExpire : AccessCodeErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "failed_to_expire";
 
             /// <summary>
             /// Date and time at which Seam created the error.
@@ -845,6 +905,11 @@ namespace Seam.Models
             "delay_in_removing_from_device",
             typeof(AccessCodeWarningsDelayInRemovingFromDevice)
         )]
+        [SeamUnionVariant("delay_in_issuing", typeof(AccessCodeWarningsDelayInIssuing))]
+        [SeamUnionVariant(
+            "delay_in_applying_mutations",
+            typeof(AccessCodeWarningsDelayInApplyingMutations)
+        )]
         [SeamUnionVariant(
             "third_party_integration_detected",
             typeof(AccessCodeWarningsThirdPartyIntegrationDetected)
@@ -964,6 +1029,18 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "delay_in_removing_from_device";
+        }
+
+        public sealed record AccessCodeWarningsDelayInIssuing : AccessCodeWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "delay_in_issuing";
+        }
+
+        public sealed record AccessCodeWarningsDelayInApplyingMutations : AccessCodeWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "delay_in_applying_mutations";
         }
 
         public sealed record AccessCodeWarningsThirdPartyIntegrationDetected : AccessCodeWarnings

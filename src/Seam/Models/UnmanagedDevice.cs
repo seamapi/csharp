@@ -536,6 +536,10 @@ namespace Seam.Models
             typeof(UnmanagedDeviceWarningsAccessoryKeypadSetupRequired)
         )]
         [SeamUnionVariant(
+            "accessory_keypad_low_battery",
+            typeof(UnmanagedDeviceWarningsAccessoryKeypadLowBattery)
+        )]
+        [SeamUnionVariant(
             "unreliable_online_status",
             typeof(UnmanagedDeviceWarningsUnreliableOnlineStatus)
         )]
@@ -732,6 +736,13 @@ namespace Seam.Models
             public override string WarningCode { get; } = "accessory_keypad_setup_required";
         }
 
+        public sealed record UnmanagedDeviceWarningsAccessoryKeypadLowBattery
+            : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "accessory_keypad_low_battery";
+        }
+
         public sealed record UnmanagedDeviceWarningsUnreliableOnlineStatus : UnmanagedDeviceWarnings
         {
             [JsonPropertyName("warning_code")]
@@ -924,6 +935,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("device_type")]
         public UnmanagedDevice.DeviceTypeEnum DeviceType { get; init; } = default!;
+
+        /// <summary>
+        /// Display name of the device, defaults to nickname (if it is set) or `properties.appearance.name`, otherwise. Enables administrators and users to identify the device easily, especially when there are numerous devices.
+        /// </summary>
+        [JsonPropertyName("display_name")]
+        public string DisplayName { get; init; } = default!;
 
         /// <summary>
         /// Array of errors associated with the device. Each error object within the array contains two fields: `error_code` and `message`. `error_code` is a string that uniquely identifies the type of error, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the error, offering insights into the issue and potentially how to rectify it.
