@@ -64,6 +64,7 @@ public class InvalidInputTests
             "type": "invalid_input",
             "message": "Invalid input",
             "validation_errors": {
+              "_errors": ["Request is invalid"],
               "device_ids": { "_errors": ["Expected array, received number"] }
             },
             "request_id": "request1"
@@ -104,6 +105,9 @@ public class InvalidInputTests
             new[] { "Expected array, received number" },
             exception.GetValidationErrorMessages("device_ids")
         );
+        var validationError = Assert.Single(exception.ValidationErrors);
+        Assert.Equal("device_ids", validationError.ParameterName);
+        Assert.Equal(new[] { "Expected array, received number" }, validationError.ErrorMessages);
     }
 
     [Fact]
