@@ -127,8 +127,8 @@ namespace Seam.Model
             "failed_to_expire"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeErrorsFailedToApplyMutations),
-            "failed_to_apply_mutations"
+            typeof(UnmanagedAccessCodeErrorsFailedToUpdate),
+            "failed_to_update"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsFailedToIssue),
@@ -872,13 +872,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsFailedToApplyMutations_model")]
-        public class UnmanagedAccessCodeErrorsFailedToApplyMutations : UnmanagedAccessCodeErrors
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsFailedToUpdate_model")]
+        public class UnmanagedAccessCodeErrorsFailedToUpdate : UnmanagedAccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeErrorsFailedToApplyMutations() { }
+            protected UnmanagedAccessCodeErrorsFailedToUpdate() { }
 
-            public UnmanagedAccessCodeErrorsFailedToApplyMutations(
+            public UnmanagedAccessCodeErrorsFailedToUpdate(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -898,7 +898,7 @@ namespace Seam.Model
             public string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "failed_to_apply_mutations";
+            public override string ErrorCode { get; } = "failed_to_update";
 
             /// <summary>
             /// Indicates that this is an access code error.
@@ -2006,10 +2006,6 @@ namespace Seam.Model
             "third_party_integration_detected"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeWarningsDelayInApplyingMutations),
-            "delay_in_applying_mutations"
-        )]
-        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsDelayInIssuing),
             "delay_in_issuing"
         )]
@@ -2437,59 +2433,6 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "delay_in_issuing";
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "seamModel_unmanagedAccessCodeWarningsDelayInApplyingMutations_model")]
-        public class UnmanagedAccessCodeWarningsDelayInApplyingMutations
-            : UnmanagedAccessCodeWarnings
-        {
-            [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeWarningsDelayInApplyingMutations() { }
-
-            public UnmanagedAccessCodeWarningsDelayInApplyingMutations(
-                string? createdAt = default,
-                string message = default,
-                string warningCode = default
-            )
-            {
-                CreatedAt = createdAt;
-                Message = message;
-                WarningCode = warningCode;
-            }
-
-            /// <summary>
-            /// Date and time at which Seam created the warning.
-            /// </summary>
-            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-            public override string? CreatedAt { get; set; }
-
-            /// <summary>
-            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
-            /// </summary>
-            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-            public override string Message { get; set; }
-
-            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string WarningCode { get; } = "delay_in_applying_mutations";
 
             public override string ToString()
             {

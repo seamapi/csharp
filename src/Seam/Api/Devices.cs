@@ -520,74 +520,74 @@ namespace Seam.Api
                 [EnumMember(Value = "linear")]
                 Linear = 12,
 
-                [EnumMember(Value = "lockly")]
-                Lockly = 13,
-
                 [EnumMember(Value = "nuki")]
-                Nuki = 14,
+                Nuki = 13,
 
                 [EnumMember(Value = "philia")]
-                Philia = 15,
+                Philia = 14,
 
                 [EnumMember(Value = "salto")]
-                Salto = 16,
+                Salto = 15,
 
                 [EnumMember(Value = "samsung")]
-                Samsung = 17,
+                Samsung = 16,
 
                 [EnumMember(Value = "schlage")]
-                Schlage = 18,
+                Schlage = 17,
 
                 [EnumMember(Value = "seam")]
-                Seam = 19,
+                Seam = 18,
 
                 [EnumMember(Value = "unknown")]
-                Unknown = 20,
+                Unknown = 19,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 21,
+                Wyze = 20,
 
                 [EnumMember(Value = "yale")]
-                Yale = 22,
+                Yale = 21,
 
                 [EnumMember(Value = "two_n")]
-                TwoN = 23,
+                TwoN = 22,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 24,
+                Ttlock = 23,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 25,
+                Igloohome = 24,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 26,
+                Controlbyweb = 25,
 
                 [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 27,
+                DormakabaOracode = 26,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 28,
+                Tedee = 27,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 29,
+                Keyincode = 28,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 30,
+                Akiles = 29,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 31,
+                Aqara = 30,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 32,
+                Ecobee = 31,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 33,
+                HoneywellResideo = 32,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 34,
+                Keynest = 33,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 35,
+                Korelock = 34,
+
+                [EnumMember(Value = "lockly")]
+                Lockly = 35,
 
                 [EnumMember(Value = "minut")]
                 Minut = 36,

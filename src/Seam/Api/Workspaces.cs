@@ -105,7 +105,7 @@ namespace Seam.Api
             public string Name { get; set; }
 
             /// <summary>
-            /// ID of the organization to associate with the new workspace.
+            /// ID of the organization to associate with the new workspace. If omitted, the new workspace is associated with the organization that you administer, if you administer exactly one.
             /// </summary>
             [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
             public string? OrganizationId { get; set; }

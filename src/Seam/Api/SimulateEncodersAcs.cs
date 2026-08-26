@@ -28,14 +28,14 @@ namespace Seam.Api
             protected NextCredentialEncodeWillFailRequest() { }
 
             public NextCredentialEncodeWillFailRequest(
+                string? acsCredentialId = default,
                 string acsEncoderId = default,
-                NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-                string? acsCredentialId = default
+                NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default
             )
             {
+                AcsCredentialId = acsCredentialId;
                 AcsEncoderId = acsEncoderId;
                 ErrorCode = errorCode;
-                AcsCredentialId = acsCredentialId;
             }
 
             /// <summary>
@@ -61,6 +61,12 @@ namespace Seam.Api
             }
 
             /// <summary>
+            /// ID of the `acs_credential` that will fail to be encoded onto a card in the next request.
+            /// </summary>
+            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AcsCredentialId { get; set; }
+
+            /// <summary>
             /// ID of the `acs_encoder` that will be used in the next request to encode the `acs_credential`.
             /// </summary>
             [DataMember(Name = "acs_encoder_id", IsRequired = true, EmitDefaultValue = false)]
@@ -71,12 +77,6 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
             public NextCredentialEncodeWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
-
-            /// <summary>
-            /// ID of the `acs_credential` that will fail to be encoded onto a card in the next request.
-            /// </summary>
-            [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AcsCredentialId { get; set; }
 
             public override string ToString()
             {
@@ -115,16 +115,16 @@ namespace Seam.Api
         /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialEncodeWillFail(
+            string? acsCredentialId = default,
             string acsEncoderId = default,
-            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialId = default
+            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default
         )
         {
             NextCredentialEncodeWillFail(
                 new NextCredentialEncodeWillFailRequest(
+                    acsCredentialId: acsCredentialId,
                     acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialId: acsCredentialId
+                    errorCode: errorCode
                 )
             );
         }
@@ -148,16 +148,16 @@ namespace Seam.Api
         /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialEncodeWillFailAsync(
+            string? acsCredentialId = default,
             string acsEncoderId = default,
-            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialId = default
+            NextCredentialEncodeWillFailRequest.ErrorCodeEnum? errorCode = default
         )
         {
             await NextCredentialEncodeWillFailAsync(
                 new NextCredentialEncodeWillFailRequest(
+                    acsCredentialId: acsCredentialId,
                     acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialId: acsCredentialId
+                    errorCode: errorCode
                 )
             );
         }
@@ -295,14 +295,14 @@ namespace Seam.Api
             protected NextCredentialScanWillFailRequest() { }
 
             public NextCredentialScanWillFailRequest(
+                string? acsCredentialIdOnSeam = default,
                 string acsEncoderId = default,
-                NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-                string? acsCredentialIdOnSeam = default
+                NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default
             )
             {
+                AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
                 AcsEncoderId = acsEncoderId;
                 ErrorCode = errorCode;
-                AcsCredentialIdOnSeam = acsCredentialIdOnSeam;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -321,6 +321,13 @@ namespace Seam.Api
                 ActionAttemptExpired = 3,
             }
 
+            [DataMember(
+                Name = "acs_credential_id_on_seam",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? AcsCredentialIdOnSeam { get; set; }
+
             /// <summary>
             /// ID of the `acs_encoder` that will fail to scan the `acs_credential` in the next request.
             /// </summary>
@@ -329,13 +336,6 @@ namespace Seam.Api
 
             [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
             public NextCredentialScanWillFailRequest.ErrorCodeEnum? ErrorCode { get; set; }
-
-            [DataMember(
-                Name = "acs_credential_id_on_seam",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? AcsCredentialIdOnSeam { get; set; }
 
             public override string ToString()
             {
@@ -374,16 +374,16 @@ namespace Seam.Api
         /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialScanWillFail(
+            string? acsCredentialIdOnSeam = default,
             string acsEncoderId = default,
-            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialIdOnSeam = default
+            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default
         )
         {
             NextCredentialScanWillFail(
                 new NextCredentialScanWillFailRequest(
+                    acsCredentialIdOnSeam: acsCredentialIdOnSeam,
                     acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam
+                    errorCode: errorCode
                 )
             );
         }
@@ -405,16 +405,16 @@ namespace Seam.Api
         /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialScanWillFailAsync(
+            string? acsCredentialIdOnSeam = default,
             string acsEncoderId = default,
-            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default,
-            string? acsCredentialIdOnSeam = default
+            NextCredentialScanWillFailRequest.ErrorCodeEnum? errorCode = default
         )
         {
             await NextCredentialScanWillFailAsync(
                 new NextCredentialScanWillFailRequest(
+                    acsCredentialIdOnSeam: acsCredentialIdOnSeam,
                     acsEncoderId: acsEncoderId,
-                    errorCode: errorCode,
-                    acsCredentialIdOnSeam: acsCredentialIdOnSeam
+                    errorCode: errorCode
                 )
             );
         }

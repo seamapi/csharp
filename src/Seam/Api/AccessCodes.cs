@@ -1827,7 +1827,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            _seam.Put<object>("/access_codes/update", requestOptions);
+            _seam.Patch<object>("/access_codes/update", requestOptions);
         }
 
         /// <summary>
@@ -1875,7 +1875,7 @@ namespace Seam.Api
         {
             var requestOptions = new RequestOptions();
             requestOptions.Data = request;
-            await _seam.PutAsync<object>("/access_codes/update", requestOptions);
+            await _seam.PatchAsync<object>("/access_codes/update", requestOptions);
         }
 
         /// <summary>

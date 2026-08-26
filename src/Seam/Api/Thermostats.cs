@@ -1911,20 +1911,20 @@ namespace Seam.Api
             protected SetHvacModeRequest() { }
 
             public SetHvacModeRequest(
-                string deviceId = default,
-                SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
+                string deviceId = default,
                 float? heatingSetPointCelsius = default,
-                float? heatingSetPointFahrenheit = default
+                float? heatingSetPointFahrenheit = default,
+                SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default
             )
             {
-                DeviceId = deviceId;
-                HvacModeSetting = hvacModeSetting;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                DeviceId = deviceId;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                HvacModeSetting = hvacModeSetting;
             }
 
             [JsonConverter(typeof(SafeStringEnumConverter))]
@@ -1950,15 +1950,6 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// ID of the thermostat device for which you want to set the HVAC mode.
-            /// </summary>
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            [DataMember(Name = "hvac_mode_setting", IsRequired = true, EmitDefaultValue = false)]
-            public SetHvacModeRequest.HvacModeSettingEnum HvacModeSetting { get; set; }
-
-            /// <summary>
             /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [DataMember(
@@ -1979,6 +1970,12 @@ namespace Seam.Api
             public float? CoolingSetPointFahrenheit { get; set; }
 
             /// <summary>
+            /// ID of the thermostat device for which you want to set the HVAC mode.
+            /// </summary>
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            /// <summary>
             /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [DataMember(
@@ -1997,6 +1994,9 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
+
+            [DataMember(Name = "hvac_mode_setting", IsRequired = true, EmitDefaultValue = false)]
+            public SetHvacModeRequest.HvacModeSettingEnum HvacModeSetting { get; set; }
 
             public override string ToString()
             {
@@ -2072,22 +2072,22 @@ namespace Seam.Api
         /// Sets the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
         /// </summary>
         public ActionAttempt SetHvacMode(
-            string deviceId = default,
-            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default
+            float? heatingSetPointFahrenheit = default,
+            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default
         )
         {
             return SetHvacMode(
                 new SetHvacModeRequest(
-                    deviceId: deviceId,
-                    hvacModeSetting: hvacModeSetting,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
-                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacModeSetting: hvacModeSetting
                 )
             );
         }
@@ -2113,23 +2113,23 @@ namespace Seam.Api
         /// Sets the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
         /// </summary>
         public async Task<ActionAttempt> SetHvacModeAsync(
-            string deviceId = default,
-            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default
+            float? heatingSetPointFahrenheit = default,
+            SetHvacModeRequest.HvacModeSettingEnum hvacModeSetting = default
         )
         {
             return (
                 await SetHvacModeAsync(
                     new SetHvacModeRequest(
-                        deviceId: deviceId,
-                        hvacModeSetting: hvacModeSetting,
                         coolingSetPointCelsius: coolingSetPointCelsius,
                         coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                        deviceId: deviceId,
                         heatingSetPointCelsius: heatingSetPointCelsius,
-                        heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                        heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                        hvacModeSetting: hvacModeSetting
                     )
                 )
             );

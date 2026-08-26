@@ -28,6 +28,7 @@ namespace Seam.Api
             protected CreatePortalRequest() { }
 
             public CreatePortalRequest(
+                CreatePortalRequestCustomerData? customerData = default,
                 List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters =
                     default,
                 string? customizationProfileId = default,
@@ -38,10 +39,10 @@ namespace Seam.Api
                 CreatePortalRequestLandingPage? landingPage = default,
                 CreatePortalRequest.LocaleEnum? locale = default,
                 CreatePortalRequest.NavigationModeEnum? navigationMode = default,
-                bool? readOnly = default,
-                CreatePortalRequestCustomerData? customerData = default
+                bool? readOnly = default
             )
             {
+                CustomerData = customerData;
                 CustomerResourcesFilters = customerResourcesFilters;
                 CustomizationProfileId = customizationProfileId;
                 DeepLink = deepLink;
@@ -52,7 +53,6 @@ namespace Seam.Api
                 Locale = locale;
                 NavigationMode = navigationMode;
                 ReadOnly = readOnly;
-                CustomerData = customerData;
             }
 
             /// <summary>
@@ -110,6 +110,9 @@ namespace Seam.Api
                 [EnumMember(Value = "restricted")]
                 Restricted = 2,
             }
+
+            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerData? CustomerData { get; set; }
 
             /// <summary>
             /// Filter configuration for resources based on their custom_metadata. Each filter specifies a field, operation, and value to match against resource custom_metadata.
@@ -179,763 +182,6 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "read_only", IsRequired = false, EmitDefaultValue = false)]
             public bool? ReadOnly { get; set; }
-
-            [DataMember(Name = "customer_data", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestCustomerData? CustomerData { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestCustomerResourcesFilters_model")]
-        public class CreatePortalRequestCustomerResourcesFilters
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestCustomerResourcesFilters() { }
-
-            public CreatePortalRequestCustomerResourcesFilters(
-                string? field = default,
-                CreatePortalRequestCustomerResourcesFilters.OperationEnum? operation = default,
-                string? value = default
-            )
-            {
-                Field = field;
-                Operation = operation;
-                Value = value;
-            }
-
-            /// <summary>
-            /// The comparison operation. Currently only &apos;=&apos; is supported.
-            /// </summary>
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum OperationEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "=")]
-                empty = 1,
-            }
-
-            /// <summary>
-            /// The custom_metadata field name to filter on.
-            /// </summary>
-            [DataMember(Name = "field", IsRequired = false, EmitDefaultValue = false)]
-            public string? Field { get; set; }
-
-            /// <summary>
-            /// The comparison operation. Currently only &apos;=&apos; is supported.
-            /// </summary>
-            [DataMember(Name = "operation", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; set; }
-
-            /// <summary>
-            /// The value to compare against.
-            /// </summary>
-            [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
-            public string? Value { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestDeepLink_model")]
-        public class CreatePortalRequestDeepLink
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestDeepLink() { }
-
-            public CreatePortalRequestDeepLink(
-                string? resourceKey = default,
-                CreatePortalRequestDeepLink.ResourceTypeEnum? resourceType = default,
-                string? resourceId = default
-            )
-            {
-                ResourceKey = resourceKey;
-                ResourceType = resourceType;
-                ResourceId = resourceId;
-            }
-
-            [JsonConverter(typeof(SafeStringEnumConverter))]
-            public enum ResourceTypeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "reservation")]
-                Reservation = 1,
-
-                [EnumMember(Value = "space")]
-                Space = 2,
-
-                [EnumMember(Value = "device")]
-                Device = 3,
-            }
-
-            [DataMember(Name = "resource_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? ResourceKey { get; set; }
-
-            [DataMember(Name = "resource_type", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; set; }
-
-            [DataMember(Name = "resource_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? ResourceId { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeatures_model")]
-        public class CreatePortalRequestFeatures
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeatures() { }
-
-            public CreatePortalRequestFeatures(
-                CreatePortalRequestFeaturesConfigure? configure = default,
-                CreatePortalRequestFeaturesConnect? connect = default,
-                CreatePortalRequestFeaturesManage? manage = default,
-                CreatePortalRequestFeaturesManageDevices? manageDevices = default,
-                CreatePortalRequestFeaturesOrganize? organize = default
-            )
-            {
-                Configure = configure;
-                Connect = connect;
-                Manage = manage;
-                ManageDevices = manageDevices;
-                Organize = organize;
-            }
-
-            /// <summary>
-            /// Configuration for the configure feature.
-            /// </summary>
-            [DataMember(Name = "configure", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesConfigure? Configure { get; set; }
-
-            /// <summary>
-            /// Configuration for the connect accounts feature.
-            /// </summary>
-            [DataMember(Name = "connect", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesConnect? Connect { get; set; }
-
-            /// <summary>
-            /// Configuration for the manage feature.
-            /// </summary>
-            [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesManage? Manage { get; set; }
-
-            /// <summary>
-            /// Configuration for the manage devices feature.
-            /// ---
-            /// deprecated: Use `manage` instead.
-            /// ---
-            /// </summary>
-            [DataMember(Name = "manage_devices", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; set; }
-
-            /// <summary>
-            /// Configuration for the organize feature.
-            /// </summary>
-            [DataMember(Name = "organize", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesOrganize? Organize { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesConfigure_model")]
-        public class CreatePortalRequestFeaturesConfigure
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesConfigure() { }
-
-            public CreatePortalRequestFeaturesConfigure(
-                bool? allowAccessAutomationRuleCustomization = default,
-                bool? allowClimateAutomationRuleCustomization = default,
-                bool? allowInstantKeyCustomization = default,
-                bool? exclude = default
-            )
-            {
-                AllowAccessAutomationRuleCustomization = allowAccessAutomationRuleCustomization;
-                AllowClimateAutomationRuleCustomization = allowClimateAutomationRuleCustomization;
-                AllowInstantKeyCustomization = allowInstantKeyCustomization;
-                Exclude = exclude;
-            }
-
-            /// <summary>
-            /// Indicates whether the customer can customize the access automation rules for their properties.
-            /// </summary>
-            [DataMember(
-                Name = "allow_access_automation_rule_customization",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AllowAccessAutomationRuleCustomization { get; set; }
-
-            /// <summary>
-            /// Indicates whether the customer can customize the climate automation rules for their properties.
-            /// </summary>
-            [DataMember(
-                Name = "allow_climate_automation_rule_customization",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AllowClimateAutomationRuleCustomization { get; set; }
-
-            /// <summary>
-            /// Indicates whether the customer can customize the Instant Key profile for their properties.
-            /// </summary>
-            [DataMember(
-                Name = "allow_instant_key_customization",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? AllowInstantKeyCustomization { get; set; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Exclude { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesConnect_model")]
-        public class CreatePortalRequestFeaturesConnect
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesConnect() { }
-
-            public CreatePortalRequestFeaturesConnect(
-                List<string>? acceptedProviders = default,
-                bool? exclude = default,
-                List<string>? excludedProviders = default
-            )
-            {
-                AcceptedProviders = acceptedProviders;
-                Exclude = exclude;
-                ExcludedProviders = excludedProviders;
-            }
-
-            /// <summary>
-            /// List of provider keys to allow for the connect feature. These providers will be shown when the customer tries to connect an account.
-            /// </summary>
-            [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? AcceptedProviders { get; set; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Exclude { get; set; }
-
-            /// <summary>
-            /// List of provider keys to exclude from the connect feature. These providers will not be shown when the customer tries to connect an account.
-            /// </summary>
-            [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? ExcludedProviders { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesManage_model")]
-        public class CreatePortalRequestFeaturesManage
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesManage() { }
-
-            public CreatePortalRequestFeaturesManage(
-                CreatePortalRequestFeaturesManageDeviceManagementConfirmation? deviceManagementConfirmation =
-                    default,
-                CreatePortalRequestFeaturesManageEvents? events = default,
-                bool? exclude = default,
-                bool? excludeReservationManagement = default,
-                bool? excludeReservationTechnicalDetails = default,
-                bool? excludeStaffManagement = default
-            )
-            {
-                DeviceManagementConfirmation = deviceManagementConfirmation;
-                Events = events;
-                Exclude = exclude;
-                ExcludeReservationManagement = excludeReservationManagement;
-                ExcludeReservationTechnicalDetails = excludeReservationTechnicalDetails;
-                ExcludeStaffManagement = excludeStaffManagement;
-            }
-
-            /// <summary>
-            /// Custom copy for the confirmation modal shown before unmanaged devices are added to a space and begin being managed (and billed). Only takes effect when the MANAGE_DEVICES_CONFIRMATION_MODAL feature flag is enabled for the workspace. Any omitted string falls back to a localized default.
-            /// </summary>
-            [DataMember(
-                Name = "device_management_confirmation",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; set; }
-
-            /// <summary>
-            /// Configuration for event type filtering in the manage feature.
-            /// </summary>
-            [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestFeaturesManageEvents? Events { get; set; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Exclude { get; set; }
-
-            /// <summary>
-            /// Indicates whether the customer can manage reservations for their properties.
-            /// </summary>
-            [DataMember(
-                Name = "exclude_reservation_management",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? ExcludeReservationManagement { get; set; }
-
-            /// <summary>
-            /// Indicates whether to exclude technical details from reservation views.
-            /// </summary>
-            [DataMember(
-                Name = "exclude_reservation_technical_details",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? ExcludeReservationTechnicalDetails { get; set; }
-
-            /// <summary>
-            /// Indicates whether the customer can manage staff for their properties.
-            /// </summary>
-            [DataMember(
-                Name = "exclude_staff_management",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public bool? ExcludeStaffManagement { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesManageDeviceManagementConfirmation_model")]
-        public class CreatePortalRequestFeaturesManageDeviceManagementConfirmation
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesManageDeviceManagementConfirmation() { }
-
-            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation(
-                string? body = default,
-                string? cancelButtonLabel = default,
-                string? confirmButtonLabel = default,
-                string? title = default
-            )
-            {
-                Body = body;
-                CancelButtonLabel = cancelButtonLabel;
-                ConfirmButtonLabel = confirmButtonLabel;
-                Title = title;
-            }
-
-            /// <summary>
-            /// Custom body text for the confirmation modal. May include the {count} token, which is replaced with the number of devices that will begin being managed.
-            /// </summary>
-            [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
-            public string? Body { get; set; }
-
-            /// <summary>
-            /// Custom label for the cancel button.
-            /// </summary>
-            [DataMember(Name = "cancel_button_label", IsRequired = false, EmitDefaultValue = false)]
-            public string? CancelButtonLabel { get; set; }
-
-            /// <summary>
-            /// Custom label for the confirm button.
-            /// </summary>
-            [DataMember(
-                Name = "confirm_button_label",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? ConfirmButtonLabel { get; set; }
-
-            /// <summary>
-            /// Custom title for the confirmation modal.
-            /// </summary>
-            [DataMember(Name = "title", IsRequired = false, EmitDefaultValue = false)]
-            public string? Title { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesManageEvents_model")]
-        public class CreatePortalRequestFeaturesManageEvents
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesManageEvents() { }
-
-            public CreatePortalRequestFeaturesManageEvents(
-                List<string>? allowedEvents = default,
-                List<string>? defaultEvents = default
-            )
-            {
-                AllowedEvents = allowedEvents;
-                DefaultEvents = defaultEvents;
-            }
-
-            /// <summary>
-            /// List of event types to show in the events filter. When set, only these event types will be available. Leave empty to show all events.
-            /// </summary>
-            [DataMember(Name = "allowed_events", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? AllowedEvents { get; set; }
-
-            /// <summary>
-            /// List of event types that are pre-selected in the events filter when the user first loads the events tab.
-            /// </summary>
-            [DataMember(Name = "default_events", IsRequired = false, EmitDefaultValue = false)]
-            public List<string>? DefaultEvents { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesManageDevices_model")]
-        public class CreatePortalRequestFeaturesManageDevices
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesManageDevices() { }
-
-            public CreatePortalRequestFeaturesManageDevices(bool? exclude = default)
-            {
-                Exclude = exclude;
-            }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Exclude { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestFeaturesOrganize_model")]
-        public class CreatePortalRequestFeaturesOrganize
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestFeaturesOrganize() { }
-
-            public CreatePortalRequestFeaturesOrganize(bool? exclude = default)
-            {
-                Exclude = exclude;
-            }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
-            public bool? Exclude { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestLandingPage_model")]
-        public class CreatePortalRequestLandingPage
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestLandingPage() { }
-
-            public CreatePortalRequestLandingPage(
-                CreatePortalRequestLandingPageManage? manage = default
-            )
-            {
-                Manage = manage;
-            }
-
-            [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
-            public CreatePortalRequestLandingPageManage? Manage { get; set; }
-
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createPortalRequestLandingPageManage_model")]
-        public class CreatePortalRequestLandingPageManage
-        {
-            [JsonConstructorAttribute]
-            protected CreatePortalRequestLandingPageManage() { }
-
-            public CreatePortalRequestLandingPageManage(
-                string? spaceKey = default,
-                string? propertyKey = default,
-                string? roomKey = default,
-                string? commonAreaKey = default,
-                string? unitKey = default,
-                string? facilityKey = default,
-                string? buildingKey = default,
-                string? listingKey = default,
-                string? propertyListingKey = default,
-                string? siteKey = default,
-                string? reservationKey = default,
-                string? bookingKey = default,
-                string? accessGrantKey = default
-            )
-            {
-                SpaceKey = spaceKey;
-                PropertyKey = propertyKey;
-                RoomKey = roomKey;
-                CommonAreaKey = commonAreaKey;
-                UnitKey = unitKey;
-                FacilityKey = facilityKey;
-                BuildingKey = buildingKey;
-                ListingKey = listingKey;
-                PropertyListingKey = propertyListingKey;
-                SiteKey = siteKey;
-                ReservationKey = reservationKey;
-                BookingKey = bookingKey;
-                AccessGrantKey = accessGrantKey;
-            }
-
-            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? SpaceKey { get; set; }
-
-            [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? PropertyKey { get; set; }
-
-            [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? RoomKey { get; set; }
-
-            [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? CommonAreaKey { get; set; }
-
-            [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? UnitKey { get; set; }
-
-            [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? FacilityKey { get; set; }
-
-            [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? BuildingKey { get; set; }
-
-            [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? ListingKey { get; set; }
-
-            [DataMember(
-                Name = "property_listing_key",
-                IsRequired = false,
-                EmitDefaultValue = false
-            )]
-            public string? PropertyListingKey { get; set; }
-
-            [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? SiteKey { get; set; }
-
-            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? ReservationKey { get; set; }
-
-            [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? BookingKey { get; set; }
-
-            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessGrantKey { get; set; }
 
             public override string ToString()
             {
@@ -2799,6 +2045,760 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "createPortalRequestCustomerResourcesFilters_model")]
+        public class CreatePortalRequestCustomerResourcesFilters
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerResourcesFilters() { }
+
+            public CreatePortalRequestCustomerResourcesFilters(
+                string? field = default,
+                CreatePortalRequestCustomerResourcesFilters.OperationEnum? operation = default,
+                string? value = default
+            )
+            {
+                Field = field;
+                Operation = operation;
+                Value = value;
+            }
+
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum OperationEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "=")]
+                empty = 1,
+            }
+
+            /// <summary>
+            /// The custom_metadata field name to filter on.
+            /// </summary>
+            [DataMember(Name = "field", IsRequired = false, EmitDefaultValue = false)]
+            public string? Field { get; set; }
+
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
+            [DataMember(Name = "operation", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; set; }
+
+            /// <summary>
+            /// The value to compare against.
+            /// </summary>
+            [DataMember(Name = "value", IsRequired = false, EmitDefaultValue = false)]
+            public string? Value { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestDeepLink_model")]
+        public class CreatePortalRequestDeepLink
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestDeepLink() { }
+
+            public CreatePortalRequestDeepLink(
+                string? resourceId = default,
+                string? resourceKey = default,
+                CreatePortalRequestDeepLink.ResourceTypeEnum? resourceType = default
+            )
+            {
+                ResourceId = resourceId;
+                ResourceKey = resourceKey;
+                ResourceType = resourceType;
+            }
+
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ResourceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "reservation")]
+                Reservation = 1,
+
+                [EnumMember(Value = "space")]
+                Space = 2,
+
+                [EnumMember(Value = "device")]
+                Device = 3,
+            }
+
+            [DataMember(Name = "resource_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceId { get; set; }
+
+            [DataMember(Name = "resource_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResourceKey { get; set; }
+
+            [DataMember(Name = "resource_type", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeatures_model")]
+        public class CreatePortalRequestFeatures
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeatures() { }
+
+            public CreatePortalRequestFeatures(
+                CreatePortalRequestFeaturesConfigure? configure = default,
+                CreatePortalRequestFeaturesConnect? connect = default,
+                CreatePortalRequestFeaturesManage? manage = default,
+                CreatePortalRequestFeaturesManageDevices? manageDevices = default,
+                CreatePortalRequestFeaturesOrganize? organize = default
+            )
+            {
+                Configure = configure;
+                Connect = connect;
+                Manage = manage;
+                ManageDevices = manageDevices;
+                Organize = organize;
+            }
+
+            /// <summary>
+            /// Configuration for the configure feature.
+            /// </summary>
+            [DataMember(Name = "configure", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesConfigure? Configure { get; set; }
+
+            /// <summary>
+            /// Configuration for the connect accounts feature.
+            /// </summary>
+            [DataMember(Name = "connect", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesConnect? Connect { get; set; }
+
+            /// <summary>
+            /// Configuration for the manage feature.
+            /// </summary>
+            [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesManage? Manage { get; set; }
+
+            /// <summary>
+            /// Configuration for the manage devices feature.
+            /// ---
+            /// deprecated: Use `manage` instead.
+            /// ---
+            /// </summary>
+            [DataMember(Name = "manage_devices", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; set; }
+
+            /// <summary>
+            /// Configuration for the organize feature.
+            /// </summary>
+            [DataMember(Name = "organize", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesOrganize? Organize { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesConfigure_model")]
+        public class CreatePortalRequestFeaturesConfigure
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesConfigure() { }
+
+            public CreatePortalRequestFeaturesConfigure(
+                bool? allowAccessAutomationRuleCustomization = default,
+                bool? allowClimateAutomationRuleCustomization = default,
+                bool? allowInstantKeyCustomization = default,
+                bool? exclude = default
+            )
+            {
+                AllowAccessAutomationRuleCustomization = allowAccessAutomationRuleCustomization;
+                AllowClimateAutomationRuleCustomization = allowClimateAutomationRuleCustomization;
+                AllowInstantKeyCustomization = allowInstantKeyCustomization;
+                Exclude = exclude;
+            }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the access automation rules for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "allow_access_automation_rule_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowAccessAutomationRuleCustomization { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the climate automation rules for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "allow_climate_automation_rule_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowClimateAutomationRuleCustomization { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the Instant Key profile for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "allow_instant_key_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowInstantKeyCustomization { get; set; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesConnect_model")]
+        public class CreatePortalRequestFeaturesConnect
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesConnect() { }
+
+            public CreatePortalRequestFeaturesConnect(
+                List<string>? acceptedProviders = default,
+                bool? exclude = default,
+                List<string>? excludedProviders = default
+            )
+            {
+                AcceptedProviders = acceptedProviders;
+                Exclude = exclude;
+                ExcludedProviders = excludedProviders;
+            }
+
+            /// <summary>
+            /// List of provider keys to allow for the connect feature. These providers will be shown when the customer tries to connect an account.
+            /// </summary>
+            [DataMember(Name = "accepted_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AcceptedProviders { get; set; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
+
+            /// <summary>
+            /// List of provider keys to exclude from the connect feature. These providers will not be shown when the customer tries to connect an account.
+            /// </summary>
+            [DataMember(Name = "excluded_providers", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ExcludedProviders { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManage_model")]
+        public class CreatePortalRequestFeaturesManage
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManage() { }
+
+            public CreatePortalRequestFeaturesManage(
+                CreatePortalRequestFeaturesManageDeviceManagementConfirmation? deviceManagementConfirmation =
+                    default,
+                CreatePortalRequestFeaturesManageEvents? events = default,
+                bool? exclude = default,
+                bool? excludeReservationManagement = default,
+                bool? excludeReservationTechnicalDetails = default,
+                bool? excludeStaffManagement = default
+            )
+            {
+                DeviceManagementConfirmation = deviceManagementConfirmation;
+                Events = events;
+                Exclude = exclude;
+                ExcludeReservationManagement = excludeReservationManagement;
+                ExcludeReservationTechnicalDetails = excludeReservationTechnicalDetails;
+                ExcludeStaffManagement = excludeStaffManagement;
+            }
+
+            /// <summary>
+            /// Custom copy for the confirmation modal shown before unmanaged devices are added to a space and begin being managed (and billed). Only takes effect when the MANAGE_DEVICES_CONFIRMATION_MODAL feature flag is enabled for the workspace. Any omitted string falls back to a localized default.
+            /// </summary>
+            [DataMember(
+                Name = "device_management_confirmation",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; set; }
+
+            /// <summary>
+            /// Configuration for event type filtering in the manage feature.
+            /// </summary>
+            [DataMember(Name = "events", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestFeaturesManageEvents? Events { get; set; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can manage reservations for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "exclude_reservation_management",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeReservationManagement { get; set; }
+
+            /// <summary>
+            /// Indicates whether to exclude technical details from reservation views.
+            /// </summary>
+            [DataMember(
+                Name = "exclude_reservation_technical_details",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeReservationTechnicalDetails { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can manage staff for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "exclude_staff_management",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeStaffManagement { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManageDeviceManagementConfirmation_model")]
+        public class CreatePortalRequestFeaturesManageDeviceManagementConfirmation
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManageDeviceManagementConfirmation() { }
+
+            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation(
+                string? body = default,
+                string? cancelButtonLabel = default,
+                string? confirmButtonLabel = default,
+                string? title = default
+            )
+            {
+                Body = body;
+                CancelButtonLabel = cancelButtonLabel;
+                ConfirmButtonLabel = confirmButtonLabel;
+                Title = title;
+            }
+
+            /// <summary>
+            /// Custom body text for the confirmation modal. May include the {count} token, which is replaced with the number of devices that will begin being managed.
+            /// </summary>
+            [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
+            public string? Body { get; set; }
+
+            /// <summary>
+            /// Custom label for the cancel button.
+            /// </summary>
+            [DataMember(Name = "cancel_button_label", IsRequired = false, EmitDefaultValue = false)]
+            public string? CancelButtonLabel { get; set; }
+
+            /// <summary>
+            /// Custom label for the confirm button.
+            /// </summary>
+            [DataMember(
+                Name = "confirm_button_label",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? ConfirmButtonLabel { get; set; }
+
+            /// <summary>
+            /// Custom title for the confirmation modal.
+            /// </summary>
+            [DataMember(Name = "title", IsRequired = false, EmitDefaultValue = false)]
+            public string? Title { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManageEvents_model")]
+        public class CreatePortalRequestFeaturesManageEvents
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManageEvents() { }
+
+            public CreatePortalRequestFeaturesManageEvents(
+                List<string>? allowedEvents = default,
+                List<string>? defaultEvents = default
+            )
+            {
+                AllowedEvents = allowedEvents;
+                DefaultEvents = defaultEvents;
+            }
+
+            /// <summary>
+            /// List of event types to show in the events filter. When set, only these event types will be available. Leave empty to show all events.
+            /// </summary>
+            [DataMember(Name = "allowed_events", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? AllowedEvents { get; set; }
+
+            /// <summary>
+            /// List of event types that are pre-selected in the events filter when the user first loads the events tab.
+            /// </summary>
+            [DataMember(Name = "default_events", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? DefaultEvents { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesManageDevices_model")]
+        public class CreatePortalRequestFeaturesManageDevices
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesManageDevices() { }
+
+            public CreatePortalRequestFeaturesManageDevices(bool? exclude = default)
+            {
+                Exclude = exclude;
+            }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestFeaturesOrganize_model")]
+        public class CreatePortalRequestFeaturesOrganize
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestFeaturesOrganize() { }
+
+            public CreatePortalRequestFeaturesOrganize(bool? exclude = default)
+            {
+                Exclude = exclude;
+            }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
+            public bool? Exclude { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestLandingPage_model")]
+        public class CreatePortalRequestLandingPage
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestLandingPage() { }
+
+            public CreatePortalRequestLandingPage(
+                CreatePortalRequestLandingPageManage? manage = default
+            )
+            {
+                Manage = manage;
+            }
+
+            [DataMember(Name = "manage", IsRequired = false, EmitDefaultValue = false)]
+            public CreatePortalRequestLandingPageManage? Manage { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestLandingPageManage_model")]
+        public class CreatePortalRequestLandingPageManage
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestLandingPageManage() { }
+
+            public CreatePortalRequestLandingPageManage(
+                string? accessGrantKey = default,
+                string? bookingKey = default,
+                string? buildingKey = default,
+                string? commonAreaKey = default,
+                string? facilityKey = default,
+                string? listingKey = default,
+                string? propertyKey = default,
+                string? propertyListingKey = default,
+                string? reservationKey = default,
+                string? roomKey = default,
+                string? siteKey = default,
+                string? spaceKey = default,
+                string? unitKey = default
+            )
+            {
+                AccessGrantKey = accessGrantKey;
+                BookingKey = bookingKey;
+                BuildingKey = buildingKey;
+                CommonAreaKey = commonAreaKey;
+                FacilityKey = facilityKey;
+                ListingKey = listingKey;
+                PropertyKey = propertyKey;
+                PropertyListingKey = propertyListingKey;
+                ReservationKey = reservationKey;
+                RoomKey = roomKey;
+                SiteKey = siteKey;
+                SpaceKey = spaceKey;
+                UnitKey = unitKey;
+            }
+
+            [DataMember(Name = "access_grant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessGrantKey { get; set; }
+
+            [DataMember(Name = "booking_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BookingKey { get; set; }
+
+            [DataMember(Name = "building_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? BuildingKey { get; set; }
+
+            [DataMember(Name = "common_area_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CommonAreaKey { get; set; }
+
+            [DataMember(Name = "facility_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? FacilityKey { get; set; }
+
+            [DataMember(Name = "listing_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ListingKey { get; set; }
+
+            [DataMember(Name = "property_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? PropertyKey { get; set; }
+
+            [DataMember(
+                Name = "property_listing_key",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? PropertyListingKey { get; set; }
+
+            [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ReservationKey { get; set; }
+
+            [DataMember(Name = "room_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? RoomKey { get; set; }
+
+            [DataMember(Name = "site_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SiteKey { get; set; }
+
+            [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SpaceKey { get; set; }
+
+            [DataMember(Name = "unit_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UnitKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "createPortalResponse_response")]
         public class CreatePortalResponse
         {
@@ -2853,6 +2853,7 @@ namespace Seam.Api
         /// Creates a new customer portal magic link with configurable features.
         /// </summary>
         public CustomerPortal CreatePortal(
+            CreatePortalRequestCustomerData? customerData = default,
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
             CreatePortalRequestDeepLink? deepLink = default,
@@ -2862,12 +2863,12 @@ namespace Seam.Api
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
-            bool? readOnly = default,
-            CreatePortalRequestCustomerData? customerData = default
+            bool? readOnly = default
         )
         {
             return CreatePortal(
                 new CreatePortalRequest(
+                    customerData: customerData,
                     customerResourcesFilters: customerResourcesFilters,
                     customizationProfileId: customizationProfileId,
                     deepLink: deepLink,
@@ -2877,8 +2878,7 @@ namespace Seam.Api
                     landingPage: landingPage,
                     locale: locale,
                     navigationMode: navigationMode,
-                    readOnly: readOnly,
-                    customerData: customerData
+                    readOnly: readOnly
                 )
             );
         }
@@ -2904,6 +2904,7 @@ namespace Seam.Api
         /// Creates a new customer portal magic link with configurable features.
         /// </summary>
         public async Task<CustomerPortal> CreatePortalAsync(
+            CreatePortalRequestCustomerData? customerData = default,
             List<CreatePortalRequestCustomerResourcesFilters>? customerResourcesFilters = default,
             string? customizationProfileId = default,
             CreatePortalRequestDeepLink? deepLink = default,
@@ -2913,13 +2914,13 @@ namespace Seam.Api
             CreatePortalRequestLandingPage? landingPage = default,
             CreatePortalRequest.LocaleEnum? locale = default,
             CreatePortalRequest.NavigationModeEnum? navigationMode = default,
-            bool? readOnly = default,
-            CreatePortalRequestCustomerData? customerData = default
+            bool? readOnly = default
         )
         {
             return (
                 await CreatePortalAsync(
                     new CreatePortalRequest(
+                        customerData: customerData,
                         customerResourcesFilters: customerResourcesFilters,
                         customizationProfileId: customizationProfileId,
                         deepLink: deepLink,
@@ -2929,8 +2930,7 @@ namespace Seam.Api
                         landingPage: landingPage,
                         locale: locale,
                         navigationMode: navigationMode,
-                        readOnly: readOnly,
-                        customerData: customerData
+                        readOnly: readOnly
                     )
                 )
             );
