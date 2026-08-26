@@ -28,8 +28,6 @@ namespace Seam.Api
             protected CreateRequest() { }
 
             public CreateRequest(
-                string? userIdentityId = default,
-                CreateRequestUserIdentity? userIdentity = default,
                 string? accessGrantKey = default,
                 List<string>? acsEntranceIds = default,
                 string? customizationProfileId = default,
@@ -42,11 +40,11 @@ namespace Seam.Api
                 string? reservationKey = default,
                 List<string>? spaceIds = default,
                 List<string>? spaceKeys = default,
-                string? startsAt = default
+                string? startsAt = default,
+                CreateRequestUserIdentity? userIdentity = default,
+                string? userIdentityId = default
             )
             {
-                UserIdentityId = userIdentityId;
-                UserIdentity = userIdentity;
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceIds = acsEntranceIds;
                 CustomizationProfileId = customizationProfileId;
@@ -60,19 +58,9 @@ namespace Seam.Api
                 SpaceIds = spaceIds;
                 SpaceKeys = spaceKeys;
                 StartsAt = startsAt;
+                UserIdentity = userIdentity;
+                UserIdentityId = userIdentityId;
             }
-
-            /// <summary>
-            /// ID of user identity for whom access is being granted.
-            /// </summary>
-            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentityId { get; set; }
-
-            /// <summary>
-            /// When used, creates a new user identity with the given details, and grants them access.
-            /// </summary>
-            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
-            public CreateRequestUserIdentity? UserIdentity { get; set; }
 
             /// <summary>
             /// Unique key for the access grant within the workspace.
@@ -153,68 +141,17 @@ namespace Seam.Api
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
 
-            public override string ToString()
-            {
-                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-                StringWriter stringWriter = new StringWriter(
-                    new StringBuilder(256),
-                    System.Globalization.CultureInfo.InvariantCulture
-                );
-                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.IndentChar = ' ';
-                    jsonTextWriter.Indentation = 2;
-                    jsonTextWriter.Formatting = Formatting.Indented;
-                    jsonSerializer.Serialize(jsonTextWriter, this, null);
-                }
-
-                return stringWriter.ToString();
-            }
-        }
-
-        [DataContract(Name = "createRequestUserIdentity_model")]
-        public class CreateRequestUserIdentity
-        {
-            [JsonConstructorAttribute]
-            protected CreateRequestUserIdentity() { }
-
-            public CreateRequestUserIdentity(
-                string? emailAddress = default,
-                string? fullName = default,
-                string? phoneNumber = default,
-                string? userIdentityKey = default
-            )
-            {
-                EmailAddress = emailAddress;
-                FullName = fullName;
-                PhoneNumber = phoneNumber;
-                UserIdentityKey = userIdentityKey;
-            }
+            /// <summary>
+            /// When used, creates a new user identity with the given details, and grants them access.
+            /// </summary>
+            [DataMember(Name = "user_identity", IsRequired = false, EmitDefaultValue = false)]
+            public CreateRequestUserIdentity? UserIdentity { get; set; }
 
             /// <summary>
-            /// Unique email address for the user identity.
+            /// ID of user identity for whom access is being granted.
             /// </summary>
-            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
-            public string? EmailAddress { get; set; }
-
-            /// <summary>
-            /// Full name of the user associated with the user identity.
-            /// </summary>
-            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
-            public string? FullName { get; set; }
-
-            /// <summary>
-            /// Unique phone number for the user identity in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, +15555550100).
-            /// </summary>
-            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
-            public string? PhoneNumber { get; set; }
-
-            /// <summary>
-            /// Unique key for the user identity.
-            /// </summary>
-            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentityKey { get; set; }
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             public override string ToString()
             {
@@ -368,6 +305,69 @@ namespace Seam.Api
             }
         }
 
+        [DataContract(Name = "createRequestUserIdentity_model")]
+        public class CreateRequestUserIdentity
+        {
+            [JsonConstructorAttribute]
+            protected CreateRequestUserIdentity() { }
+
+            public CreateRequestUserIdentity(
+                string? emailAddress = default,
+                string? fullName = default,
+                string? phoneNumber = default,
+                string? userIdentityKey = default
+            )
+            {
+                EmailAddress = emailAddress;
+                FullName = fullName;
+                PhoneNumber = phoneNumber;
+                UserIdentityKey = userIdentityKey;
+            }
+
+            /// <summary>
+            /// Unique email address for the user identity.
+            /// </summary>
+            [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
+            public string? EmailAddress { get; set; }
+
+            /// <summary>
+            /// Full name of the user associated with the user identity.
+            /// </summary>
+            [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
+            public string? FullName { get; set; }
+
+            /// <summary>
+            /// Unique phone number for the user identity in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, +15555550100).
+            /// </summary>
+            [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
+            public string? PhoneNumber { get; set; }
+
+            /// <summary>
+            /// Unique key for the user identity.
+            /// </summary>
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "createResponse_response")]
         public class CreateResponse
         {
@@ -422,8 +422,6 @@ namespace Seam.Api
         /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public AccessGrant Create(
-            string? userIdentityId = default,
-            CreateRequestUserIdentity? userIdentity = default,
             string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
             string? customizationProfileId = default,
@@ -436,13 +434,13 @@ namespace Seam.Api
             string? reservationKey = default,
             List<string>? spaceIds = default,
             List<string>? spaceKeys = default,
-            string? startsAt = default
+            string? startsAt = default,
+            CreateRequestUserIdentity? userIdentity = default,
+            string? userIdentityId = default
         )
         {
             return Create(
                 new CreateRequest(
-                    userIdentityId: userIdentityId,
-                    userIdentity: userIdentity,
                     accessGrantKey: accessGrantKey,
                     acsEntranceIds: acsEntranceIds,
                     customizationProfileId: customizationProfileId,
@@ -455,7 +453,9 @@ namespace Seam.Api
                     reservationKey: reservationKey,
                     spaceIds: spaceIds,
                     spaceKeys: spaceKeys,
-                    startsAt: startsAt
+                    startsAt: startsAt,
+                    userIdentity: userIdentity,
+                    userIdentityId: userIdentityId
                 )
             );
         }
@@ -476,8 +476,6 @@ namespace Seam.Api
         /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public async Task<AccessGrant> CreateAsync(
-            string? userIdentityId = default,
-            CreateRequestUserIdentity? userIdentity = default,
             string? accessGrantKey = default,
             List<string>? acsEntranceIds = default,
             string? customizationProfileId = default,
@@ -490,14 +488,14 @@ namespace Seam.Api
             string? reservationKey = default,
             List<string>? spaceIds = default,
             List<string>? spaceKeys = default,
-            string? startsAt = default
+            string? startsAt = default,
+            CreateRequestUserIdentity? userIdentity = default,
+            string? userIdentityId = default
         )
         {
             return (
                 await CreateAsync(
                     new CreateRequest(
-                        userIdentityId: userIdentityId,
-                        userIdentity: userIdentity,
                         accessGrantKey: accessGrantKey,
                         acsEntranceIds: acsEntranceIds,
                         customizationProfileId: customizationProfileId,
@@ -510,7 +508,9 @@ namespace Seam.Api
                         reservationKey: reservationKey,
                         spaceIds: spaceIds,
                         spaceKeys: spaceKeys,
-                        startsAt: startsAt
+                        startsAt: startsAt,
+                        userIdentity: userIdentity,
+                        userIdentityId: userIdentityId
                     )
                 )
             );

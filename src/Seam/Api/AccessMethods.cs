@@ -170,27 +170,27 @@ namespace Seam.Api
             protected DeleteRequest() { }
 
             public DeleteRequest(
-                string? accessMethodId = default,
                 string? accessGrantId = default,
+                string? accessMethodId = default,
                 string? reservationKey = default
             )
             {
-                AccessMethodId = accessMethodId;
                 AccessGrantId = accessGrantId;
+                AccessMethodId = accessMethodId;
                 ReservationKey = reservationKey;
             }
-
-            /// <summary>
-            /// ID of access method to delete.
-            /// </summary>
-            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? AccessMethodId { get; set; }
 
             /// <summary>
             /// ID of access grant whose access methods should be deleted.
             /// </summary>
             [DataMember(Name = "access_grant_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AccessGrantId { get; set; }
+
+            /// <summary>
+            /// ID of access method to delete.
+            /// </summary>
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
 
             /// <summary>
             /// Reservation key of the access grant whose access methods should be deleted.
@@ -232,15 +232,15 @@ namespace Seam.Api
         /// Deletes an access method.
         /// </summary>
         public void Delete(
-            string? accessMethodId = default,
             string? accessGrantId = default,
+            string? accessMethodId = default,
             string? reservationKey = default
         )
         {
             Delete(
                 new DeleteRequest(
-                    accessMethodId: accessMethodId,
                     accessGrantId: accessGrantId,
+                    accessMethodId: accessMethodId,
                     reservationKey: reservationKey
                 )
             );
@@ -260,15 +260,15 @@ namespace Seam.Api
         /// Deletes an access method.
         /// </summary>
         public async Task DeleteAsync(
-            string? accessMethodId = default,
             string? accessGrantId = default,
+            string? accessMethodId = default,
             string? reservationKey = default
         )
         {
             await DeleteAsync(
                 new DeleteRequest(
-                    accessMethodId: accessMethodId,
                     accessGrantId: accessGrantId,
+                    accessMethodId: accessMethodId,
                     reservationKey: reservationKey
                 )
             );

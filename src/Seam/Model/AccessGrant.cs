@@ -1230,7 +1230,7 @@ namespace Seam.Model
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Human-readable sentence answering whether the user can currently get in, for example `Awaiting encoding` on an access method or `Upcoming` here. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `starts_at`, `ends_at`, `errors`, and the access methods&apos; own fields.
+        /// Human-readable sentence answering whether the user can currently get in, for example `Active`, `Awaiting issuance`, or `Upcoming`. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `starts_at`, `ends_at`, `errors`, and the access methods&apos; own fields.
         /// </summary>
         [DataMember(Name = "display_status", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayStatus { get; set; }

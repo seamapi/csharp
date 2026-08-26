@@ -28,20 +28,20 @@ namespace Seam.Api
             protected HvacModeAdjustedRequest() { }
 
             public HvacModeAdjustedRequest(
-                string deviceId = default,
-                HvacModeAdjustedRequest.HvacModeEnum hvacMode = default,
                 float? coolingSetPointCelsius = default,
                 float? coolingSetPointFahrenheit = default,
+                string deviceId = default,
                 float? heatingSetPointCelsius = default,
-                float? heatingSetPointFahrenheit = default
+                float? heatingSetPointFahrenheit = default,
+                HvacModeAdjustedRequest.HvacModeEnum hvacMode = default
             )
             {
-                DeviceId = deviceId;
-                HvacMode = hvacMode;
                 CoolingSetPointCelsius = coolingSetPointCelsius;
                 CoolingSetPointFahrenheit = coolingSetPointFahrenheit;
+                DeviceId = deviceId;
                 HeatingSetPointCelsius = heatingSetPointCelsius;
                 HeatingSetPointFahrenheit = heatingSetPointFahrenheit;
+                HvacMode = hvacMode;
             }
 
             /// <summary>
@@ -67,18 +67,6 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// ID of the thermostat device for which you want to simulate having adjusted the HVAC mode.
-            /// </summary>
-            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
-
-            /// <summary>
-            /// HVAC mode that you want to simulate.
-            /// </summary>
-            [DataMember(Name = "hvac_mode", IsRequired = true, EmitDefaultValue = false)]
-            public HvacModeAdjustedRequest.HvacModeEnum HvacMode { get; set; }
-
-            /// <summary>
             /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `cooling_set_point_celsius` or `cooling_set_point_fahrenheit`.
             /// </summary>
             [DataMember(
@@ -99,6 +87,12 @@ namespace Seam.Api
             public float? CoolingSetPointFahrenheit { get; set; }
 
             /// <summary>
+            /// ID of the thermostat device for which you want to simulate having adjusted the HVAC mode.
+            /// </summary>
+            [DataMember(Name = "device_id", IsRequired = true, EmitDefaultValue = false)]
+            public string DeviceId { get; set; }
+
+            /// <summary>
             /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `heating_set_point_celsius` or `heating_set_point_fahrenheit`.
             /// </summary>
             [DataMember(
@@ -117,6 +111,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public float? HeatingSetPointFahrenheit { get; set; }
+
+            /// <summary>
+            /// HVAC mode that you want to simulate.
+            /// </summary>
+            [DataMember(Name = "hvac_mode", IsRequired = true, EmitDefaultValue = false)]
+            public HvacModeAdjustedRequest.HvacModeEnum HvacMode { get; set; }
 
             public override string ToString()
             {
@@ -152,22 +152,22 @@ namespace Seam.Api
         /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
         /// </summary>
         public void HvacModeAdjusted(
-            string deviceId = default,
-            HvacModeAdjustedRequest.HvacModeEnum hvacMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default
+            float? heatingSetPointFahrenheit = default,
+            HvacModeAdjustedRequest.HvacModeEnum hvacMode = default
         )
         {
             HvacModeAdjusted(
                 new HvacModeAdjustedRequest(
-                    deviceId: deviceId,
-                    hvacMode: hvacMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
-                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacMode: hvacMode
                 )
             );
         }
@@ -189,22 +189,22 @@ namespace Seam.Api
         /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
         /// </summary>
         public async Task HvacModeAdjustedAsync(
-            string deviceId = default,
-            HvacModeAdjustedRequest.HvacModeEnum hvacMode = default,
             float? coolingSetPointCelsius = default,
             float? coolingSetPointFahrenheit = default,
+            string deviceId = default,
             float? heatingSetPointCelsius = default,
-            float? heatingSetPointFahrenheit = default
+            float? heatingSetPointFahrenheit = default,
+            HvacModeAdjustedRequest.HvacModeEnum hvacMode = default
         )
         {
             await HvacModeAdjustedAsync(
                 new HvacModeAdjustedRequest(
-                    deviceId: deviceId,
-                    hvacMode: hvacMode,
                     coolingSetPointCelsius: coolingSetPointCelsius,
                     coolingSetPointFahrenheit: coolingSetPointFahrenheit,
+                    deviceId: deviceId,
                     heatingSetPointCelsius: heatingSetPointCelsius,
-                    heatingSetPointFahrenheit: heatingSetPointFahrenheit
+                    heatingSetPointFahrenheit: heatingSetPointFahrenheit,
+                    hvacMode: hvacMode
                 )
             );
         }

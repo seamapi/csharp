@@ -1528,14 +1528,14 @@ namespace Seam.Api
 
             public MergeRequest(
                 List<string>? mergedUserIdentityIds = default,
-                string? userIdentityId = default,
                 List<string>? mergedUserIdentityKeys = default,
+                string? userIdentityId = default,
                 string? userIdentityKey = default
             )
             {
                 MergedUserIdentityIds = mergedUserIdentityIds;
-                UserIdentityId = userIdentityId;
                 MergedUserIdentityKeys = mergedUserIdentityKeys;
+                UserIdentityId = userIdentityId;
                 UserIdentityKey = userIdentityKey;
             }
 
@@ -1550,12 +1550,6 @@ namespace Seam.Api
             public List<string>? MergedUserIdentityIds { get; set; }
 
             /// <summary>
-            /// ID of the primary user identity to keep.
-            /// </summary>
-            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
-            public string? UserIdentityId { get; set; }
-
-            /// <summary>
             /// Keys of the user identities to merge into the primary user identity. These user identities are deleted.
             /// </summary>
             [DataMember(
@@ -1564,6 +1558,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public List<string>? MergedUserIdentityKeys { get; set; }
+
+            /// <summary>
+            /// ID of the primary user identity to keep.
+            /// </summary>
+            [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityId { get; set; }
 
             /// <summary>
             /// Key of the primary user identity to keep.
@@ -1618,16 +1618,16 @@ namespace Seam.Api
         /// </summary>
         public void Merge(
             List<string>? mergedUserIdentityIds = default,
-            string? userIdentityId = default,
             List<string>? mergedUserIdentityKeys = default,
+            string? userIdentityId = default,
             string? userIdentityKey = default
         )
         {
             Merge(
                 new MergeRequest(
                     mergedUserIdentityIds: mergedUserIdentityIds,
-                    userIdentityId: userIdentityId,
                     mergedUserIdentityKeys: mergedUserIdentityKeys,
+                    userIdentityId: userIdentityId,
                     userIdentityKey: userIdentityKey
                 )
             );
@@ -1660,16 +1660,16 @@ namespace Seam.Api
         /// </summary>
         public async Task MergeAsync(
             List<string>? mergedUserIdentityIds = default,
-            string? userIdentityId = default,
             List<string>? mergedUserIdentityKeys = default,
+            string? userIdentityId = default,
             string? userIdentityKey = default
         )
         {
             await MergeAsync(
                 new MergeRequest(
                     mergedUserIdentityIds: mergedUserIdentityIds,
-                    userIdentityId: userIdentityId,
                     mergedUserIdentityKeys: mergedUserIdentityKeys,
+                    userIdentityId: userIdentityId,
                     userIdentityKey: userIdentityKey
                 )
             );

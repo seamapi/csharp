@@ -12530,11 +12530,13 @@ namespace Seam.Model
         protected EventDeviceLowBattery() { }
 
         public EventDeviceLowBattery(
+            float? accessoryKeypadBatteryLevel = default,
             float batteryLevel = default,
             object? connectedAccountCustomMetadata = default,
             string connectedAccountId = default,
             string createdAt = default,
             string? customerKey = default,
+            float? deviceBatteryLevel = default,
             object? deviceCustomMetadata = default,
             string deviceId = default,
             string? eventDescription = default,
@@ -12544,11 +12546,13 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            AccessoryKeypadBatteryLevel = accessoryKeypadBatteryLevel;
             BatteryLevel = batteryLevel;
             ConnectedAccountCustomMetadata = connectedAccountCustomMetadata;
             ConnectedAccountId = connectedAccountId;
             CreatedAt = createdAt;
             CustomerKey = customerKey;
+            DeviceBatteryLevel = deviceBatteryLevel;
             DeviceCustomMetadata = deviceCustomMetadata;
             DeviceId = deviceId;
             EventDescription = eventDescription;
@@ -12559,8 +12563,21 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Number in the range 0 to 1.0 indicating the amount of battery in the affected device, as reported by the device.
+        /// Number in the range 0 to 1.0 indicating the battery level of the affected device&apos;s paired accessory keypad, when the device has one and its level is known.
         /// </summary>
+        [DataMember(
+            Name = "accessory_keypad_battery_level",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public float? AccessoryKeypadBatteryLevel { get; set; }
+
+        /// <summary>
+        /// Number in the range 0 to 1.0 indicating the level of the battery whose drop triggered this event.
+        /// </summary>
+        [Obsolete(
+            "Use device_battery_level and accessory_keypad_battery_level, which distinguish the device's own battery from a paired accessory keypad's battery."
+        )]
         [DataMember(Name = "battery_level", IsRequired = false, EmitDefaultValue = false)]
         public float BatteryLevel { get; set; }
 
@@ -12591,6 +12608,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
+
+        /// <summary>
+        /// Number in the range 0 to 1.0 indicating the affected device&apos;s own battery level, when known.
+        /// </summary>
+        [DataMember(Name = "device_battery_level", IsRequired = false, EmitDefaultValue = false)]
+        public float? DeviceBatteryLevel { get; set; }
 
         /// <summary>
         /// Custom metadata of the device, present when device_id is provided.
