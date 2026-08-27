@@ -34,18 +34,6 @@ namespace Seam.Routes
         public sealed record CreateRequest
         {
             /// <summary>
-            /// ID of user identity for whom access is being granted.
-            /// </summary>
-            [JsonPropertyName("user_identity_id")]
-            public string? UserIdentityId { get; init; }
-
-            /// <summary>
-            /// When used, creates a new user identity with the given details, and grants them access.
-            /// </summary>
-            [JsonPropertyName("user_identity")]
-            public CreateRequestUserIdentity? UserIdentity { get; init; }
-
-            /// <summary>
             /// Unique key for the access grant within the workspace.
             /// </summary>
             [JsonPropertyName("access_grant_key")]
@@ -115,33 +103,18 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("starts_at")]
             public string? StartsAt { get; init; }
-        }
-
-        public sealed record CreateRequestUserIdentity
-        {
-            /// <summary>
-            /// Unique email address for the user identity.
-            /// </summary>
-            [JsonPropertyName("email_address")]
-            public Optional<string> EmailAddress { get; init; }
 
             /// <summary>
-            /// Full name of the user associated with the user identity.
+            /// When used, creates a new user identity with the given details, and grants them access.
             /// </summary>
-            [JsonPropertyName("full_name")]
-            public Optional<string> FullName { get; init; }
+            [JsonPropertyName("user_identity")]
+            public CreateRequestUserIdentity? UserIdentity { get; init; }
 
             /// <summary>
-            /// Unique phone number for the user identity in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, +15555550100).
+            /// ID of user identity for whom access is being granted.
             /// </summary>
-            [JsonPropertyName("phone_number")]
-            public Optional<string> PhoneNumber { get; init; }
-
-            /// <summary>
-            /// Unique key for the user identity.
-            /// </summary>
-            [JsonPropertyName("user_identity_key")]
-            public Optional<string> UserIdentityKey { get; init; }
+            [JsonPropertyName("user_identity_id")]
+            public string? UserIdentityId { get; init; }
         }
 
         public sealed record CreateRequestLocation
@@ -202,6 +175,33 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("mode")]
             public CreateRequestRequestedAccessMethods.ModeEnum? Mode { get; init; }
+        }
+
+        public sealed record CreateRequestUserIdentity
+        {
+            /// <summary>
+            /// Unique email address for the user identity.
+            /// </summary>
+            [JsonPropertyName("email_address")]
+            public Optional<string> EmailAddress { get; init; }
+
+            /// <summary>
+            /// Full name of the user associated with the user identity.
+            /// </summary>
+            [JsonPropertyName("full_name")]
+            public Optional<string> FullName { get; init; }
+
+            /// <summary>
+            /// Unique phone number for the user identity in [E.164 format](https://www.itu.int/rec/T-REC-E.164/en) (for example, +15555550100).
+            /// </summary>
+            [JsonPropertyName("phone_number")]
+            public Optional<string> PhoneNumber { get; init; }
+
+            /// <summary>
+            /// Unique key for the user identity.
+            /// </summary>
+            [JsonPropertyName("user_identity_key")]
+            public Optional<string> UserIdentityKey { get; init; }
         }
 
         public sealed record CreateResponse

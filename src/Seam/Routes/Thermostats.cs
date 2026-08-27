@@ -918,15 +918,6 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// ID of the thermostat device for which you want to set the HVAC mode.
-            /// </summary>
-            [JsonPropertyName("device_id")]
-            public required string DeviceId { get; init; }
-
-            [JsonPropertyName("hvac_mode_setting")]
-            public required SetHvacModeRequest.HvacModeSettingEnum HvacModeSetting { get; init; }
-
-            /// <summary>
             /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
@@ -939,6 +930,12 @@ namespace Seam.Routes
             public float? CoolingSetPointFahrenheit { get; init; }
 
             /// <summary>
+            /// ID of the thermostat device for which you want to set the HVAC mode.
+            /// </summary>
+            [JsonPropertyName("device_id")]
+            public required string DeviceId { get; init; }
+
+            /// <summary>
             /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
@@ -949,6 +946,9 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
+
+            [JsonPropertyName("hvac_mode_setting")]
+            public required SetHvacModeRequest.HvacModeSettingEnum HvacModeSetting { get; init; }
         }
 
         public sealed record SetHvacModeResponse
