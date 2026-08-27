@@ -70,8 +70,16 @@ export interface CsClass {
 export interface CsUnion {
   kind: 'union'
   className: string
+  // Set when the union base is itself a variant of an outer union: the base
+  // extends the outer union's base class and declares the outer
+  // discriminator's get-only override in baseProps.
+  baseClass?: string
   discriminatorSnake: string
   discriminatorPascal: string
+  // The discriminator wire property is already declared by an ancestor class
+  // (e.g. status on the action attempt base), so the union base declares no
+  // abstract discriminator property and the subclasses declare no override.
+  inheritsDiscriminator?: boolean
   // [SeamUnionVariant] attributes, in variant definition order.
   knownSubTypes: Array<{ typeName: string; value: string }>
   unrecognizedTypeName: string
@@ -80,8 +88,11 @@ export interface CsUnion {
   // inherit them rather than redeclare them.
   baseProps: CsProperty[]
   // Concrete subclasses followed by the Unrecognized fallback, in definition
-  // order.
-  subclasses: CsClass[]
+  // order. A subclass may itself be a union discriminated on another
+  // property.
+  subclasses: Array<CsClass | CsUnion>
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 export type CsDecl = CsClass | CsUnion

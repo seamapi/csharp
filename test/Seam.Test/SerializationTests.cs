@@ -63,7 +63,7 @@ public class SerializationTests
             """
         );
 
-        Assert.IsType<ActionAttemptUnlockDoor>(actionAttempt);
+        Assert.IsType<ActionAttemptUnlockDoorSuccess>(actionAttempt);
         Assert.Equal(ActionAttemptStatus.Success, actionAttempt.Status);
         Assert.Equal("UNLOCK_DOOR", actionAttempt.ActionType);
     }
@@ -104,11 +104,13 @@ public class SerializationTests
             """
         );
 
+        var unrecognized = Assert.IsType<ActionAttemptUnlockDoorUnrecognized>(actionAttempt);
         Assert.Equal(ActionAttemptStatus.Unrecognized, actionAttempt.Status);
+        Assert.Equal("not_a_status", unrecognized.RawJson.GetProperty("status").GetString());
     }
 
     [Fact]
-    public void PendingActionAttemptDeserializesWithNullResultAndError()
+    public void PendingActionAttemptDeserializesToThePendingSubclass()
     {
         var actionAttempt = Deserialize<ActionAttempt>(
             """
@@ -116,10 +118,8 @@ public class SerializationTests
             """
         );
 
-        var lockDoor = Assert.IsType<ActionAttemptLockDoor>(actionAttempt);
+        var lockDoor = Assert.IsType<ActionAttemptLockDoorPending>(actionAttempt);
         Assert.Equal(ActionAttemptStatus.Pending, lockDoor.Status);
-        Assert.Null(lockDoor.Result);
-        Assert.Null(lockDoor.Error);
     }
 
     [Fact]
@@ -131,10 +131,38 @@ public class SerializationTests
             """
         );
 
-        var lockDoor = Assert.IsType<ActionAttemptLockDoor>(actionAttempt);
+        var lockDoor = Assert.IsType<ActionAttemptLockDoorSuccess>(actionAttempt);
         Assert.Equal(ActionAttemptStatus.Success, lockDoor.Status);
-        Assert.NotNull(lockDoor.Result);
         Assert.True(lockDoor.Result.WasConfirmedByDevice);
+    }
+
+    [Fact]
+    public void FailedActionAttemptDeserializesWithError()
+    {
+        var actionAttempt = Deserialize<ActionAttempt>(
+            """
+            {"action_type":"LOCK_DOOR","action_attempt_id":"attempt1","status":"error","result":null,"error":{"type":"foo","message":"Failed"}}
+            """
+        );
+
+        var lockDoor = Assert.IsType<ActionAttemptLockDoorError>(actionAttempt);
+        Assert.Equal(ActionAttemptStatus.Error, lockDoor.Status);
+        Assert.Equal("Failed", lockDoor.Error.Message);
+        Assert.Equal("foo", lockDoor.Error.Type);
+    }
+
+    [Fact]
+    public void FailedActionAttemptExceptionFallsBackWithoutAnErrorObject()
+    {
+        var actionAttempt = Deserialize<ActionAttempt>(
+            """
+            {"action_type":"FUTURE_ACTION","action_attempt_id":"attempt1","status":"error"}
+            """
+        );
+
+        var exception = new SeamActionAttemptFailedException(actionAttempt);
+        Assert.Equal("Action attempt failed", exception.Message);
+        Assert.Equal("unknown_error", exception.Code);
     }
 
     [Fact]
