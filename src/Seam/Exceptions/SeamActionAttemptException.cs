@@ -32,7 +32,7 @@ namespace Seam
 
         private static Models.ActionAttemptError? GetError(Models.ActionAttempt actionAttempt) =>
             actionAttempt.GetType().GetProperty("Error")?.GetValue(actionAttempt)
-                as Models.ActionAttemptError;
+            as Models.ActionAttemptError;
     }
 
     /// <summary>
