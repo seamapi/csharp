@@ -53,6 +53,12 @@ namespace Seam.Routes
             }
 
             /// <summary>
+            /// ID of the `acs_credential` that will fail to be encoded onto a card in the next request.
+            /// </summary>
+            [JsonPropertyName("acs_credential_id")]
+            public string? AcsCredentialId { get; init; }
+
+            /// <summary>
             /// ID of the `acs_encoder` that will be used in the next request to encode the `acs_credential`.
             /// </summary>
             [JsonPropertyName("acs_encoder_id")]
@@ -63,12 +69,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("error_code")]
             public NextCredentialEncodeWillFailRequest.ErrorCodeEnum? ErrorCode { get; init; }
-
-            /// <summary>
-            /// ID of the `acs_credential` that will fail to be encoded onto a card in the next request.
-            /// </summary>
-            [JsonPropertyName("acs_credential_id")]
-            public string? AcsCredentialId { get; init; }
         }
 
         /// <summary>
@@ -159,6 +159,9 @@ namespace Seam.Routes
                 ActionAttemptExpired = 3,
             }
 
+            [JsonPropertyName("acs_credential_id_on_seam")]
+            public string? AcsCredentialIdOnSeam { get; init; }
+
             /// <summary>
             /// ID of the `acs_encoder` that will fail to scan the `acs_credential` in the next request.
             /// </summary>
@@ -167,9 +170,6 @@ namespace Seam.Routes
 
             [JsonPropertyName("error_code")]
             public NextCredentialScanWillFailRequest.ErrorCodeEnum? ErrorCode { get; init; }
-
-            [JsonPropertyName("acs_credential_id_on_seam")]
-            public string? AcsCredentialIdOnSeam { get; init; }
         }
 
         /// <summary>

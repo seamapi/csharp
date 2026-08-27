@@ -70,9 +70,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptLockDoorResult Result { get; init; } = default!;
+        public ActionAttemptLockDoorResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptLockDoorResult
@@ -94,9 +96,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUnlockDoorResult Result { get; init; } = default!;
+        public ActionAttemptUnlockDoorResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptUnlockDoorResult
@@ -118,9 +122,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of scanning a card. If the attempt was successful, includes a snapshot of credential data read from the physical encoder, the corresponding data stored on Seam and the access system, and any associated warnings.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptScanCredentialResult Result { get; init; } = default!;
+        public ActionAttemptScanCredentialResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptScanCredentialResult
@@ -762,9 +768,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of an encoding attempt. If the attempt was successful, includes the credential data that was encoded onto the card.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptEncodeCredentialResult Result { get; init; } = default!;
+        public ActionAttemptEncodeCredentialResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptEncodeCredentialResult
@@ -1221,9 +1229,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of a scan to assign attempt. If the attempt was successful, includes the credential data that was scanned and assigned.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptScanToAssignCredentialResult Result { get; init; } = default!;
+        public ActionAttemptScanToAssignCredentialResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptScanToAssignCredentialResult
@@ -1685,9 +1695,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of assigning a credential. If successful, includes the updated access method with the assigned credential.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptAssignCredentialResult Result { get; init; } = default!;
+        public ActionAttemptAssignCredentialResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptAssignCredentialResult
@@ -2009,9 +2021,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptResetSandboxWorkspaceResult Result { get; init; } = default!;
+        public ActionAttemptResetSandboxWorkspaceResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptResetSandboxWorkspaceResult { }
@@ -2026,9 +2040,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSetFanModeResult Result { get; init; } = default!;
+        public ActionAttemptSetFanModeResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptSetFanModeResult { }
@@ -2043,9 +2059,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSetHvacModeResult Result { get; init; } = default!;
+        public ActionAttemptSetHvacModeResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptSetHvacModeResult { }
@@ -2060,9 +2078,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptActivateClimatePresetResult Result { get; init; } = default!;
+        public ActionAttemptActivateClimatePresetResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptActivateClimatePresetResult { }
@@ -2077,9 +2097,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSimulateKeypadCodeEntryResult Result { get; init; } = default!;
+        public ActionAttemptSimulateKeypadCodeEntryResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptSimulateKeypadCodeEntryResult { }
@@ -2094,9 +2116,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSimulateManualLockViaKeypadResult Result { get; init; } = default!;
+        public ActionAttemptSimulateManualLockViaKeypadResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptSimulateManualLockViaKeypadResult { }
@@ -2111,9 +2135,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptPushThermostatProgramsResult Result { get; init; } = default!;
+        public ActionAttemptPushThermostatProgramsResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptPushThermostatProgramsResult { }
@@ -2128,9 +2154,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptConfigureAutoLockResult Result { get; init; } = default!;
+        public ActionAttemptConfigureAutoLockResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptConfigureAutoLockResult { }
@@ -2142,9 +2170,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSyncAccessCodesResult Result { get; init; } = default!;
+        public ActionAttemptSyncAccessCodesResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptSyncAccessCodesResult { }
@@ -2156,9 +2186,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptCreateAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptCreateAccessCodeResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptCreateAccessCodeResult
@@ -2177,9 +2209,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptDeleteAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptDeleteAccessCodeResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptDeleteAccessCodeResult { }
@@ -2191,9 +2225,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUpdateAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptUpdateAccessCodeResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptUpdateAccessCodeResult
@@ -2212,9 +2248,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptCreateNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptCreateNoiseThresholdResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptCreateNoiseThresholdResult
@@ -2233,9 +2271,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptDeleteNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptDeleteNoiseThresholdResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptDeleteNoiseThresholdResult { }
@@ -2247,9 +2287,11 @@ namespace Seam.Models
 
         /// <summary>
         /// Result of the action.
+        ///
+        /// Null unless the action attempt `status` is `success`.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUpdateNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptUpdateNoiseThresholdResult? Result { get; init; }
     }
 
     public sealed record ActionAttemptUpdateNoiseThresholdResult
