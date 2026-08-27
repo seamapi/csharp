@@ -591,12 +591,6 @@ export const buildModelFile = (
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
 
-// An action attempt property annotated with actionAttemptStatuses is only
-// populated for the listed statuses and is null for every other status. The
-// C# model flattens the per-status variants into one class per action type,
-// so such a property widens to a nullable type with documentation naming the
-// statuses that populate it. An unannotated property is the same for every
-// status and normalizes unchanged.
 const normalizeActionAttemptProperty = (property: Property): Field => {
   const field = normalizeProperty(property)
   const statuses = property.actionAttemptStatuses
