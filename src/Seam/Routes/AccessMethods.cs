@@ -93,16 +93,16 @@ namespace Seam.Routes
         public sealed record DeleteRequest
         {
             /// <summary>
-            /// ID of access method to delete.
-            /// </summary>
-            [JsonPropertyName("access_method_id")]
-            public string? AccessMethodId { get; init; }
-
-            /// <summary>
             /// ID of access grant whose access methods should be deleted.
             /// </summary>
             [JsonPropertyName("access_grant_id")]
             public string? AccessGrantId { get; init; }
+
+            /// <summary>
+            /// ID of access method to delete.
+            /// </summary>
+            [JsonPropertyName("access_method_id")]
+            public string? AccessMethodId { get; init; }
 
             /// <summary>
             /// Reservation key of the access grant whose access methods should be deleted.
@@ -112,7 +112,7 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessMethodId == null && AccessGrantId == null && ReservationKey == null)
+                if (AccessGrantId == null && AccessMethodId == null && ReservationKey == null)
                 {
                     throw new ArgumentException(
                         "At least one parameter is required for /access_methods/delete"

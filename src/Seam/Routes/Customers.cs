@@ -86,6 +86,9 @@ namespace Seam.Routes
                 Restricted = 2,
             }
 
+            [JsonPropertyName("customer_data")]
+            public CreatePortalRequestCustomerData? CustomerData { get; init; }
+
             /// <summary>
             /// Filter configuration for resources based on their custom_metadata. Each filter specifies a field, operation, and value to match against resource custom_metadata.
             /// </summary>
@@ -142,302 +145,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("read_only")]
             public bool? ReadOnly { get; init; }
-
-            [JsonPropertyName("customer_data")]
-            public CreatePortalRequestCustomerData? CustomerData { get; init; }
-        }
-
-        public sealed record CreatePortalRequestCustomerResourcesFilters
-        {
-            /// <summary>
-            /// The comparison operation. Currently only &apos;=&apos; is supported.
-            /// </summary>
-            [JsonConverter(typeof(SeamStringEnumConverter))]
-            public enum OperationEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "=")]
-                empty = 1,
-            }
-
-            /// <summary>
-            /// The custom_metadata field name to filter on.
-            /// </summary>
-            [JsonPropertyName("field")]
-            public string? Field { get; init; }
-
-            /// <summary>
-            /// The comparison operation. Currently only &apos;=&apos; is supported.
-            /// </summary>
-            [JsonPropertyName("operation")]
-            public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; init; }
-
-            /// <summary>
-            /// The value to compare against.
-            /// </summary>
-            [JsonPropertyName("value")]
-            public string? Value { get; init; }
-        }
-
-        public sealed record CreatePortalRequestDeepLink
-        {
-            [JsonConverter(typeof(SeamStringEnumConverter))]
-            public enum ResourceTypeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "reservation")]
-                Reservation = 1,
-
-                [EnumMember(Value = "space")]
-                Space = 2,
-
-                [EnumMember(Value = "device")]
-                Device = 3,
-            }
-
-            [JsonPropertyName("resource_key")]
-            public string? ResourceKey { get; init; }
-
-            [JsonPropertyName("resource_type")]
-            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; init; }
-
-            [JsonPropertyName("resource_id")]
-            public string? ResourceId { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeatures
-        {
-            /// <summary>
-            /// Configuration for the configure feature.
-            /// </summary>
-            [JsonPropertyName("configure")]
-            public CreatePortalRequestFeaturesConfigure? Configure { get; init; }
-
-            /// <summary>
-            /// Configuration for the connect accounts feature.
-            /// </summary>
-            [JsonPropertyName("connect")]
-            public CreatePortalRequestFeaturesConnect? Connect { get; init; }
-
-            /// <summary>
-            /// Configuration for the manage feature.
-            /// </summary>
-            [JsonPropertyName("manage")]
-            public CreatePortalRequestFeaturesManage? Manage { get; init; }
-
-            /// <summary>
-            /// Configuration for the manage devices feature.
-            /// ---
-            /// deprecated: Use `manage` instead.
-            /// ---
-            /// </summary>
-            [JsonPropertyName("manage_devices")]
-            public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; init; }
-
-            /// <summary>
-            /// Configuration for the organize feature.
-            /// </summary>
-            [JsonPropertyName("organize")]
-            public CreatePortalRequestFeaturesOrganize? Organize { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesConfigure
-        {
-            /// <summary>
-            /// Indicates whether the customer can customize the access automation rules for their properties.
-            /// </summary>
-            [JsonPropertyName("allow_access_automation_rule_customization")]
-            public bool? AllowAccessAutomationRuleCustomization { get; init; }
-
-            /// <summary>
-            /// Indicates whether the customer can customize the climate automation rules for their properties.
-            /// </summary>
-            [JsonPropertyName("allow_climate_automation_rule_customization")]
-            public bool? AllowClimateAutomationRuleCustomization { get; init; }
-
-            /// <summary>
-            /// Indicates whether the customer can customize the Instant Key profile for their properties.
-            /// </summary>
-            [JsonPropertyName("allow_instant_key_customization")]
-            public bool? AllowInstantKeyCustomization { get; init; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesConnect
-        {
-            /// <summary>
-            /// List of provider keys to allow for the connect feature. These providers will be shown when the customer tries to connect an account.
-            /// </summary>
-            [JsonPropertyName("accepted_providers")]
-            public List<string>? AcceptedProviders { get; init; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
-
-            /// <summary>
-            /// List of provider keys to exclude from the connect feature. These providers will not be shown when the customer tries to connect an account.
-            /// </summary>
-            [JsonPropertyName("excluded_providers")]
-            public List<string>? ExcludedProviders { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesManage
-        {
-            /// <summary>
-            /// Custom copy for the confirmation modal shown before unmanaged devices are added to a space and begin being managed (and billed). Only takes effect when the MANAGE_DEVICES_CONFIRMATION_MODAL feature flag is enabled for the workspace. Any omitted string falls back to a localized default.
-            /// </summary>
-            [JsonPropertyName("device_management_confirmation")]
-            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; init; }
-
-            /// <summary>
-            /// Configuration for event type filtering in the manage feature.
-            /// </summary>
-            [JsonPropertyName("events")]
-            public CreatePortalRequestFeaturesManageEvents? Events { get; init; }
-
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
-
-            /// <summary>
-            /// Indicates whether the customer can manage reservations for their properties.
-            /// </summary>
-            [JsonPropertyName("exclude_reservation_management")]
-            public bool? ExcludeReservationManagement { get; init; }
-
-            /// <summary>
-            /// Indicates whether to exclude technical details from reservation views.
-            /// </summary>
-            [JsonPropertyName("exclude_reservation_technical_details")]
-            public bool? ExcludeReservationTechnicalDetails { get; init; }
-
-            /// <summary>
-            /// Indicates whether the customer can manage staff for their properties.
-            /// </summary>
-            [JsonPropertyName("exclude_staff_management")]
-            public bool? ExcludeStaffManagement { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesManageDeviceManagementConfirmation
-        {
-            /// <summary>
-            /// Custom body text for the confirmation modal. May include the {count} token, which is replaced with the number of devices that will begin being managed.
-            /// </summary>
-            [JsonPropertyName("body")]
-            public string? Body { get; init; }
-
-            /// <summary>
-            /// Custom label for the cancel button.
-            /// </summary>
-            [JsonPropertyName("cancel_button_label")]
-            public string? CancelButtonLabel { get; init; }
-
-            /// <summary>
-            /// Custom label for the confirm button.
-            /// </summary>
-            [JsonPropertyName("confirm_button_label")]
-            public string? ConfirmButtonLabel { get; init; }
-
-            /// <summary>
-            /// Custom title for the confirmation modal.
-            /// </summary>
-            [JsonPropertyName("title")]
-            public string? Title { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesManageEvents
-        {
-            /// <summary>
-            /// List of event types to show in the events filter. When set, only these event types will be available. Leave empty to show all events.
-            /// </summary>
-            [JsonPropertyName("allowed_events")]
-            public List<string>? AllowedEvents { get; init; }
-
-            /// <summary>
-            /// List of event types that are pre-selected in the events filter when the user first loads the events tab.
-            /// </summary>
-            [JsonPropertyName("default_events")]
-            public List<string>? DefaultEvents { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesManageDevices
-        {
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesOrganize
-        {
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
-        }
-
-        public sealed record CreatePortalRequestLandingPage
-        {
-            [JsonPropertyName("manage")]
-            public CreatePortalRequestLandingPageManage? Manage { get; init; }
-        }
-
-        public sealed record CreatePortalRequestLandingPageManage
-        {
-            [JsonPropertyName("space_key")]
-            public string? SpaceKey { get; init; }
-
-            [JsonPropertyName("property_key")]
-            public string? PropertyKey { get; init; }
-
-            [JsonPropertyName("room_key")]
-            public string? RoomKey { get; init; }
-
-            [JsonPropertyName("common_area_key")]
-            public string? CommonAreaKey { get; init; }
-
-            [JsonPropertyName("unit_key")]
-            public string? UnitKey { get; init; }
-
-            [JsonPropertyName("facility_key")]
-            public string? FacilityKey { get; init; }
-
-            [JsonPropertyName("building_key")]
-            public string? BuildingKey { get; init; }
-
-            [JsonPropertyName("listing_key")]
-            public string? ListingKey { get; init; }
-
-            [JsonPropertyName("property_listing_key")]
-            public string? PropertyListingKey { get; init; }
-
-            [JsonPropertyName("site_key")]
-            public string? SiteKey { get; init; }
-
-            [JsonPropertyName("reservation_key")]
-            public string? ReservationKey { get; init; }
-
-            [JsonPropertyName("booking_key")]
-            public string? BookingKey { get; init; }
-
-            [JsonPropertyName("access_grant_key")]
-            public string? AccessGrantKey { get; init; }
         }
 
         public sealed record CreatePortalRequestCustomerData
@@ -1362,6 +1069,299 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("user_key")]
             public string? UserKey { get; init; }
+        }
+
+        public sealed record CreatePortalRequestCustomerResourcesFilters
+        {
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
+            [JsonConverter(typeof(SeamStringEnumConverter))]
+            public enum OperationEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "=")]
+                empty = 1,
+            }
+
+            /// <summary>
+            /// The custom_metadata field name to filter on.
+            /// </summary>
+            [JsonPropertyName("field")]
+            public string? Field { get; init; }
+
+            /// <summary>
+            /// The comparison operation. Currently only &apos;=&apos; is supported.
+            /// </summary>
+            [JsonPropertyName("operation")]
+            public CreatePortalRequestCustomerResourcesFilters.OperationEnum? Operation { get; init; }
+
+            /// <summary>
+            /// The value to compare against.
+            /// </summary>
+            [JsonPropertyName("value")]
+            public string? Value { get; init; }
+        }
+
+        public sealed record CreatePortalRequestDeepLink
+        {
+            [JsonConverter(typeof(SeamStringEnumConverter))]
+            public enum ResourceTypeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "reservation")]
+                Reservation = 1,
+
+                [EnumMember(Value = "space")]
+                Space = 2,
+
+                [EnumMember(Value = "device")]
+                Device = 3,
+            }
+
+            [JsonPropertyName("resource_id")]
+            public string? ResourceId { get; init; }
+
+            [JsonPropertyName("resource_key")]
+            public string? ResourceKey { get; init; }
+
+            [JsonPropertyName("resource_type")]
+            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeatures
+        {
+            /// <summary>
+            /// Configuration for the configure feature.
+            /// </summary>
+            [JsonPropertyName("configure")]
+            public CreatePortalRequestFeaturesConfigure? Configure { get; init; }
+
+            /// <summary>
+            /// Configuration for the connect accounts feature.
+            /// </summary>
+            [JsonPropertyName("connect")]
+            public CreatePortalRequestFeaturesConnect? Connect { get; init; }
+
+            /// <summary>
+            /// Configuration for the manage feature.
+            /// </summary>
+            [JsonPropertyName("manage")]
+            public CreatePortalRequestFeaturesManage? Manage { get; init; }
+
+            /// <summary>
+            /// Configuration for the manage devices feature.
+            /// ---
+            /// deprecated: Use `manage` instead.
+            /// ---
+            /// </summary>
+            [JsonPropertyName("manage_devices")]
+            public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; init; }
+
+            /// <summary>
+            /// Configuration for the organize feature.
+            /// </summary>
+            [JsonPropertyName("organize")]
+            public CreatePortalRequestFeaturesOrganize? Organize { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesConfigure
+        {
+            /// <summary>
+            /// Indicates whether the customer can customize the access automation rules for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_access_automation_rule_customization")]
+            public bool? AllowAccessAutomationRuleCustomization { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the climate automation rules for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_climate_automation_rule_customization")]
+            public bool? AllowClimateAutomationRuleCustomization { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the Instant Key profile for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_instant_key_customization")]
+            public bool? AllowInstantKeyCustomization { get; init; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [JsonPropertyName("exclude")]
+            public bool? Exclude { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesConnect
+        {
+            /// <summary>
+            /// List of provider keys to allow for the connect feature. These providers will be shown when the customer tries to connect an account.
+            /// </summary>
+            [JsonPropertyName("accepted_providers")]
+            public List<string>? AcceptedProviders { get; init; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [JsonPropertyName("exclude")]
+            public bool? Exclude { get; init; }
+
+            /// <summary>
+            /// List of provider keys to exclude from the connect feature. These providers will not be shown when the customer tries to connect an account.
+            /// </summary>
+            [JsonPropertyName("excluded_providers")]
+            public List<string>? ExcludedProviders { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesManage
+        {
+            /// <summary>
+            /// Custom copy for the confirmation modal shown before unmanaged devices are added to a space and begin being managed (and billed). Only takes effect when the MANAGE_DEVICES_CONFIRMATION_MODAL feature flag is enabled for the workspace. Any omitted string falls back to a localized default.
+            /// </summary>
+            [JsonPropertyName("device_management_confirmation")]
+            public CreatePortalRequestFeaturesManageDeviceManagementConfirmation? DeviceManagementConfirmation { get; init; }
+
+            /// <summary>
+            /// Configuration for event type filtering in the manage feature.
+            /// </summary>
+            [JsonPropertyName("events")]
+            public CreatePortalRequestFeaturesManageEvents? Events { get; init; }
+
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [JsonPropertyName("exclude")]
+            public bool? Exclude { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can manage reservations for their properties.
+            /// </summary>
+            [JsonPropertyName("exclude_reservation_management")]
+            public bool? ExcludeReservationManagement { get; init; }
+
+            /// <summary>
+            /// Indicates whether to exclude technical details from reservation views.
+            /// </summary>
+            [JsonPropertyName("exclude_reservation_technical_details")]
+            public bool? ExcludeReservationTechnicalDetails { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can manage staff for their properties.
+            /// </summary>
+            [JsonPropertyName("exclude_staff_management")]
+            public bool? ExcludeStaffManagement { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesManageDeviceManagementConfirmation
+        {
+            /// <summary>
+            /// Custom body text for the confirmation modal. May include the {count} token, which is replaced with the number of devices that will begin being managed.
+            /// </summary>
+            [JsonPropertyName("body")]
+            public string? Body { get; init; }
+
+            /// <summary>
+            /// Custom label for the cancel button.
+            /// </summary>
+            [JsonPropertyName("cancel_button_label")]
+            public string? CancelButtonLabel { get; init; }
+
+            /// <summary>
+            /// Custom label for the confirm button.
+            /// </summary>
+            [JsonPropertyName("confirm_button_label")]
+            public string? ConfirmButtonLabel { get; init; }
+
+            /// <summary>
+            /// Custom title for the confirmation modal.
+            /// </summary>
+            [JsonPropertyName("title")]
+            public string? Title { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesManageEvents
+        {
+            /// <summary>
+            /// List of event types to show in the events filter. When set, only these event types will be available. Leave empty to show all events.
+            /// </summary>
+            [JsonPropertyName("allowed_events")]
+            public List<string>? AllowedEvents { get; init; }
+
+            /// <summary>
+            /// List of event types that are pre-selected in the events filter when the user first loads the events tab.
+            /// </summary>
+            [JsonPropertyName("default_events")]
+            public List<string>? DefaultEvents { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesManageDevices
+        {
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [JsonPropertyName("exclude")]
+            public bool? Exclude { get; init; }
+        }
+
+        public sealed record CreatePortalRequestFeaturesOrganize
+        {
+            /// <summary>
+            /// Whether to exclude this feature from the portal.
+            /// </summary>
+            [JsonPropertyName("exclude")]
+            public bool? Exclude { get; init; }
+        }
+
+        public sealed record CreatePortalRequestLandingPage
+        {
+            [JsonPropertyName("manage")]
+            public CreatePortalRequestLandingPageManage? Manage { get; init; }
+        }
+
+        public sealed record CreatePortalRequestLandingPageManage
+        {
+            [JsonPropertyName("access_grant_key")]
+            public string? AccessGrantKey { get; init; }
+
+            [JsonPropertyName("booking_key")]
+            public string? BookingKey { get; init; }
+
+            [JsonPropertyName("building_key")]
+            public string? BuildingKey { get; init; }
+
+            [JsonPropertyName("common_area_key")]
+            public string? CommonAreaKey { get; init; }
+
+            [JsonPropertyName("facility_key")]
+            public string? FacilityKey { get; init; }
+
+            [JsonPropertyName("listing_key")]
+            public string? ListingKey { get; init; }
+
+            [JsonPropertyName("property_key")]
+            public string? PropertyKey { get; init; }
+
+            [JsonPropertyName("property_listing_key")]
+            public string? PropertyListingKey { get; init; }
+
+            [JsonPropertyName("reservation_key")]
+            public string? ReservationKey { get; init; }
+
+            [JsonPropertyName("room_key")]
+            public string? RoomKey { get; init; }
+
+            [JsonPropertyName("site_key")]
+            public string? SiteKey { get; init; }
+
+            [JsonPropertyName("space_key")]
+            public string? SpaceKey { get; init; }
+
+            [JsonPropertyName("unit_key")]
+            public string? UnitKey { get; init; }
         }
 
         public sealed record CreatePortalResponse

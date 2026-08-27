@@ -21,7 +21,9 @@
 
 import type {
   ActionAttempt,
+  ActionAttemptStatus,
   Endpoint,
+  EnumProperty,
   EventResource,
   Parameter,
   Property,
@@ -99,6 +101,7 @@ interface Variant {
   fields: Field[]
   description?: string
   deprecationMessage?: string
+  buildAsUnion?: (subName: string, omitNames: Set<string>) => CsUnion
 }
 
 const normalizeEnumValues = (
@@ -306,7 +309,12 @@ interface BuildClassOptions {
   resourceType: 'response' | 'request' | 'model'
   // When set, the class is a discriminated-union subclass: the discriminator
   // property is emitted as a get-only override with a constant value.
-  discriminator?: { name: string; value: string; base: string }
+  discriminator?: {
+    name: string
+    value: string
+    base: string
+    declareProperty?: boolean
+  }
   // Field names declared concretely on the union base; omitted from subclasses.
   omitNames?: Set<string> | undefined
   documentation?: string
@@ -430,7 +438,7 @@ const buildClass = (
     if (omitNames?.has(field.name) ?? false) continue
     properties.push(mapField(field))
   }
-  if (discriminator != null) {
+  if (discriminator != null && (discriminator.declareProperty ?? true)) {
     properties.unshift({
       pascalName: pascalCase(discriminator.name),
       snakeName: snakeCase(discriminator.name),
@@ -459,9 +467,14 @@ interface BuildUnionOptions {
   resourceType: 'response' | 'request' | 'model'
   // Field names removed from every variant in favor of `extraBaseProps`
   // declared on the base with a shared type, e.g. the action attempt
-  // status/error contract the runtime resolver depends on.
+  // status contract the runtime resolver depends on.
   omitFieldNames?: string[]
   extraBaseProps?: CsProperty[]
+  baseClass?: string
+  inheritsDiscriminator?: boolean
+  leadingBaseProps?: CsProperty[]
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 const buildUnion = (
@@ -470,7 +483,16 @@ const buildUnion = (
   variants: Variant[],
   options: BuildUnionOptions,
 ): CsUnion => {
-  const { resourceType, omitFieldNames = [], extraBaseProps = [] } = options
+  const {
+    resourceType,
+    omitFieldNames = [],
+    extraBaseProps = [],
+    baseClass,
+    inheritsDiscriminator,
+    leadingBaseProps = [],
+    documentation,
+    obsoleteMessage,
+  } = options
   const omitted = new Set(omitFieldNames)
 
   // Lift properties shared by every variant onto the base so consumers can
@@ -507,6 +529,7 @@ const buildUnion = (
   ])
 
   const baseProps: CsProperty[] = [
+    ...leadingBaseProps,
     ...liftedFields.map((field): CsProperty => {
       const type = primType(field) as string
       return {
@@ -528,17 +551,25 @@ const buildUnion = (
     ...extraBaseProps,
   ]
 
-  const subclasses: CsClass[] = []
+  const subclasses: Array<CsClass | CsUnion> = []
   const known: Array<[string, string]> = []
 
   for (const variant of variants) {
     const subName = pascalCase(className + pascalCase(variant.value))
+    if (variant.buildAsUnion != null) {
+      subclasses.push(
+        variant.buildAsUnion(subName, new Set([...omitNames, discriminator])),
+      )
+      known.push([subName, variant.value])
+      continue
+    }
     const built = buildClass(subName, variant.fields, {
       resourceType,
       discriminator: {
         name: discriminator,
         value: variant.value,
         base: className,
+        ...(inheritsDiscriminator ? { declareProperty: false } : {}),
       },
       omitNames,
       ...(variant.description != null
@@ -559,6 +590,7 @@ const buildUnion = (
       name: discriminator,
       value: 'unrecognized',
       base: className,
+      ...(inheritsDiscriminator ? { declareProperty: false } : {}),
     },
   })
   subclasses.push({ ...fallback.main, isUnrecognizedFallback: true })
@@ -568,12 +600,16 @@ const buildUnion = (
   return {
     kind: 'union',
     className,
+    ...(baseClass != null ? { baseClass } : {}),
     discriminatorSnake: discriminator,
     discriminatorPascal: pascalCase(discriminator),
+    ...(inheritsDiscriminator ? { inheritsDiscriminator } : {}),
     knownSubTypes,
     unrecognizedTypeName,
     baseProps,
     subclasses,
+    ...(documentation != null ? { documentation } : {}),
+    ...(obsoleteMessage != null ? { obsoleteMessage } : {}),
   }
 }
 
@@ -591,29 +627,109 @@ export const buildModelFile = (
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
 
+const actionAttemptRuntimeTypes: Record<string, string> = {
+  error: 'ActionAttemptError',
+}
+
+const normalizeActionAttemptField = (property: Property): Field => {
+  const runtimeType = actionAttemptRuntimeTypes[property.name]
+  const field = normalizeProperty(property)
+  if (runtimeType == null) return field
+  return { ...field, kind: { t: 'ref', cs: runtimeType } }
+}
+
+const findActionAttemptStatusProperty = (
+  actionAttempt: ActionAttempt,
+): EnumProperty | undefined =>
+  actionAttempt.properties.find(
+    (property): property is EnumProperty =>
+      property.name === 'status' && property.format === 'enum',
+  )
+
+const buildActionAttemptStatusUnion = (
+  actionAttempt: ActionAttempt,
+  statusProperty: EnumProperty,
+  subName: string,
+  omitNames: Set<string>,
+): CsUnion =>
+  buildUnion(
+    subName,
+    statusProperty.name,
+    statusProperty.values.map(({ name }) => {
+      const status = name as ActionAttemptStatus
+      return {
+        value: status,
+        fields: actionAttempt.properties.flatMap((property) => {
+          if (property === statusProperty || omitNames.has(property.name)) {
+            return []
+          }
+          const statuses = property.actionAttemptStatuses
+          if (statuses != null && !statuses.includes(status)) return []
+          return [normalizeActionAttemptField(property)]
+        }),
+      }
+    }),
+    {
+      resourceType: 'model',
+      baseClass: 'ActionAttempt',
+      inheritsDiscriminator: true,
+      leadingBaseProps: [
+        {
+          pascalName: 'ActionType',
+          snakeName: 'action_type',
+          type: 'string',
+          isRequired: false,
+          isOverride: true,
+          getOnly: true,
+          initializer: `"${actionAttempt.actionAttemptType}"`,
+        },
+      ],
+      documentation: actionAttempt.description,
+      ...(actionAttempt.isDeprecated
+        ? {
+            obsoleteMessage: actionAttempt.deprecationMessage || 'Deprecated.',
+          }
+        : {}),
+    },
+  )
+
 export const buildActionAttemptFile = (
   actionAttempts: ActionAttempt[],
 ): { name: string; file: CsModelFile } => {
-  // The status and error of every action attempt share one wire shape, so they
-  // are declared once on the base with the runtime-owned ActionAttemptStatus
-  // and ActionAttemptError types the action attempt resolver depends on.
+  // The status of every action attempt shares one wire shape, so it is
+  // declared once on the base with the runtime-owned ActionAttemptStatus type
+  // the action attempt resolver depends on.
   const union = buildUnion(
     'ActionAttempt',
     'action_type',
-    actionAttempts.map((actionAttempt) => ({
-      value: actionAttempt.actionAttemptType,
-      fields: actionAttempt.properties.map(normalizeProperty),
-      description: actionAttempt.description,
-      ...(actionAttempt.isDeprecated
-        ? {
-            deprecationMessage:
-              actionAttempt.deprecationMessage || 'Deprecated.',
-          }
-        : {}),
-    })),
+    actionAttempts.map((actionAttempt) => {
+      const statusProperty = findActionAttemptStatusProperty(actionAttempt)
+      return {
+        value: actionAttempt.actionAttemptType,
+        fields: actionAttempt.properties.map(normalizeActionAttemptField),
+        description: actionAttempt.description,
+        ...(actionAttempt.isDeprecated
+          ? {
+              deprecationMessage:
+                actionAttempt.deprecationMessage || 'Deprecated.',
+            }
+          : {}),
+        ...(statusProperty == null
+          ? {}
+          : {
+              buildAsUnion: (subName: string, omitNames: Set<string>) =>
+                buildActionAttemptStatusUnion(
+                  actionAttempt,
+                  statusProperty,
+                  subName,
+                  omitNames,
+                ),
+            }),
+      }
+    }),
     {
       resourceType: 'model',
-      omitFieldNames: ['status', 'error'],
+      omitFieldNames: ['status'],
       extraBaseProps: [
         {
           pascalName: 'Status',
@@ -623,15 +739,6 @@ export const buildActionAttemptFile = (
           isOverride: false,
           getOnly: false,
           documentation: 'The status of the action attempt.',
-        },
-        {
-          pascalName: 'Error',
-          snakeName: 'error',
-          type: 'ActionAttemptError?',
-          isRequired: false,
-          isOverride: false,
-          getOnly: false,
-          documentation: 'The error of a failed action attempt, or null.',
         },
       ],
     },

@@ -52,30 +52,33 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("status")]
         public ActionAttemptStatus Status { get; init; }
-
-        /// <summary>
-        /// The error of a failed action attempt, or null.
-        /// </summary>
-        [JsonPropertyName("error")]
-        public ActionAttemptError? Error { get; init; }
     }
 
     /// <summary>
     /// Locking a door is pending.
     /// </summary>
-    public sealed record ActionAttemptLockDoor : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptLockDoorSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptLockDoorPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptLockDoorError))]
+    [SeamUnionFallback(typeof(ActionAttemptLockDoorUnrecognized))]
+    public abstract record ActionAttemptLockDoor : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "LOCK_DOOR";
+    }
 
+    public sealed record ActionAttemptLockDoorSuccess : ActionAttemptLockDoor
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptLockDoorResult Result { get; init; } = default!;
+        public ActionAttemptLockDoorSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptLockDoorResult
+    public sealed record ActionAttemptLockDoorSuccessResult
     {
         /// <summary>
         /// Indicates whether the device confirmed that the lock action occurred.
@@ -84,22 +87,51 @@ namespace Seam.Models
         public bool? WasConfirmedByDevice { get; init; }
     }
 
+    public sealed record ActionAttemptLockDoorPending : ActionAttemptLockDoor { }
+
+    public sealed record ActionAttemptLockDoorError : ActionAttemptLockDoor
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptLockDoorUnrecognized
+        : ActionAttemptLockDoor,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Unlocking a door is pending.
     /// </summary>
-    public sealed record ActionAttemptUnlockDoor : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptUnlockDoorSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptUnlockDoorPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptUnlockDoorError))]
+    [SeamUnionFallback(typeof(ActionAttemptUnlockDoorUnrecognized))]
+    public abstract record ActionAttemptUnlockDoor : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "UNLOCK_DOOR";
+    }
 
+    public sealed record ActionAttemptUnlockDoorSuccess : ActionAttemptUnlockDoor
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUnlockDoorResult Result { get; init; } = default!;
+        public ActionAttemptUnlockDoorSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptUnlockDoorResult
+    public sealed record ActionAttemptUnlockDoorSuccessResult
     {
         /// <summary>
         /// Indicates whether the device confirmed that the unlock action occurred.
@@ -108,43 +140,73 @@ namespace Seam.Models
         public bool? WasConfirmedByDevice { get; init; }
     }
 
+    public sealed record ActionAttemptUnlockDoorPending : ActionAttemptUnlockDoor { }
+
+    public sealed record ActionAttemptUnlockDoorError : ActionAttemptUnlockDoor
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptUnlockDoorUnrecognized
+        : ActionAttemptUnlockDoor,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Reading credential data from the physical encoder is pending.
     /// </summary>
-    public sealed record ActionAttemptScanCredential : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptScanCredentialSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptScanCredentialPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptScanCredentialError))]
+    [SeamUnionFallback(typeof(ActionAttemptScanCredentialUnrecognized))]
+    public abstract record ActionAttemptScanCredential : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SCAN_CREDENTIAL";
+    }
 
+    public sealed record ActionAttemptScanCredentialSuccess : ActionAttemptScanCredential
+    {
         /// <summary>
         /// Result of scanning a card. If the attempt was successful, includes a snapshot of credential data read from the physical encoder, the corresponding data stored on Seam and the access system, and any associated warnings.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptScanCredentialResult Result { get; init; } = default!;
+        public ActionAttemptScanCredentialSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanCredentialResult
+    public sealed record ActionAttemptScanCredentialSuccessResult
     {
         /// <summary>
         /// Snapshot of credential data read from the physical encoder.
         /// </summary>
         [JsonPropertyName("acs_credential_on_encoder")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnEncoder? AcsCredentialOnEncoder { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnEncoder? AcsCredentialOnEncoder { get; init; }
 
         /// <summary>
         /// Corresponding credential data as stored on Seam and the access system.
         /// </summary>
         [JsonPropertyName("acs_credential_on_seam")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeam? AcsCredentialOnSeam { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeam? AcsCredentialOnSeam { get; init; }
 
         /// <summary>
         /// Warnings related to scanning the credential, such as mismatches between the credential data currently encoded on the card and the corresponding data stored on Seam and the access system.
         /// </summary>
         [JsonPropertyName("warnings")]
-        public List<ActionAttemptScanCredentialResultWarnings> Warnings { get; init; } = default!;
+        public List<ActionAttemptScanCredentialSuccessResultWarnings> Warnings { get; init; } =
+            default!;
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnEncoder
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnEncoder
     {
         /// <summary>
         /// A number or string that physically identifies the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -180,10 +242,10 @@ namespace Seam.Models
         /// Visionline-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata? VisionlineMetadata { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnEncoderVisionlineMetadata? VisionlineMetadata { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnEncoderVisionlineMetadata
     {
         /// <summary>
         /// Format of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -211,7 +273,7 @@ namespace Seam.Models
         /// Format of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("card_format")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum? CardFormat { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnEncoderVisionlineMetadata.CardFormatEnum? CardFormat { get; init; }
 
         /// <summary>
         /// Holder of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -274,7 +336,7 @@ namespace Seam.Models
         public bool? PendingAutoUpdate { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeam
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeam
     {
         /// <summary>
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
@@ -354,7 +416,7 @@ namespace Seam.Models
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [JsonPropertyName("access_method")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeam.AccessMethodEnum AccessMethod { get; init; } =
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeam.AccessMethodEnum AccessMethod { get; init; } =
             default!;
 
         /// <summary>
@@ -385,13 +447,13 @@ namespace Seam.Models
         /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("akiles_metadata")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata? AkilesMetadata { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamAkilesMetadata? AkilesMetadata { get; init; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("assa_abloy_vostio_metadata")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
 
         /// <summary>
         /// Number of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -433,14 +495,14 @@ namespace Seam.Models
         /// Errors associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("errors")]
-        public List<ActionAttemptScanCredentialResultAcsCredentialOnSeamErrors> Errors { get; init; } =
+        public List<ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamErrors> Errors { get; init; } =
             default!;
 
         /// <summary>
         /// Brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
         /// </summary>
         [JsonPropertyName("external_type")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeam.ExternalTypeEnum? ExternalType { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeam.ExternalTypeEnum? ExternalType { get; init; }
 
         /// <summary>
         /// Display name that corresponds to the brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type.
@@ -509,13 +571,13 @@ namespace Seam.Models
         /// Visionline-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata? VisionlineMetadata { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamVisionlineMetadata? VisionlineMetadata { get; init; }
 
         /// <summary>
         /// Warnings associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("warnings")]
-        public List<ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings> Warnings { get; init; } =
+        public List<ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamWarnings> Warnings { get; init; } =
             default!;
 
         /// <summary>
@@ -525,7 +587,7 @@ namespace Seam.Models
         public string WorkspaceId { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeamAkilesMetadata
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamAkilesMetadata
     {
         /// <summary>
         /// ID of the Akiles member PIN.
@@ -534,7 +596,7 @@ namespace Seam.Models
         public string? MemberPinId { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeamAssaAbloyVostioMetadata
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamAssaAbloyVostioMetadata
     {
         /// <summary>
         /// Indicates whether the credential should auto-join. For an auto-join credential, Seam automatically issues an override card if there are no other cards and a joiner card if there are existing cards on the doors.
@@ -573,7 +635,7 @@ namespace Seam.Models
         public List<string>? OverrideGuestAcsEntranceIds { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeamErrors
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamErrors
     {
         /// <summary>
         /// Date and time at which Seam created the error.
@@ -588,7 +650,7 @@ namespace Seam.Models
         public string Message { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamVisionlineMetadata
     {
         /// <summary>
         /// Card function type in the Visionline access system.
@@ -616,7 +678,7 @@ namespace Seam.Models
         /// Card function type in the Visionline access system.
         /// </summary>
         [JsonPropertyName("card_function_type")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
 
         /// <summary>
         /// ID of the card in the Visionline access system.
@@ -655,7 +717,7 @@ namespace Seam.Models
         public List<string>? JoinerAcsCredentialIds { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings
+    public sealed record ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamWarnings
     {
         /// <summary>
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
@@ -704,7 +766,7 @@ namespace Seam.Models
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
         /// </summary>
         [JsonPropertyName("warning_code")]
-        public ActionAttemptScanCredentialResultAcsCredentialOnSeamWarnings.WarningCodeEnum WarningCode { get; init; } =
+        public ActionAttemptScanCredentialSuccessResultAcsCredentialOnSeamWarnings.WarningCodeEnum WarningCode { get; init; } =
             default!;
 
         /// <summary>
@@ -720,7 +782,7 @@ namespace Seam.Models
         public string? OriginalCode { get; init; }
     }
 
-    public sealed record ActionAttemptScanCredentialResultWarnings
+    public sealed record ActionAttemptScanCredentialSuccessResultWarnings
     {
         /// <summary>
         /// Indicates a warning related to scanning a credential.
@@ -742,7 +804,7 @@ namespace Seam.Models
         /// Indicates a warning related to scanning a credential.
         /// </summary>
         [JsonPropertyName("warning_code")]
-        public ActionAttemptScanCredentialResultWarnings.WarningCodeEnum WarningCode { get; init; } =
+        public ActionAttemptScanCredentialSuccessResultWarnings.WarningCodeEnum WarningCode { get; init; } =
             default!;
 
         /// <summary>
@@ -752,22 +814,48 @@ namespace Seam.Models
         public string WarningMessage { get; init; } = default!;
     }
 
+    public sealed record ActionAttemptScanCredentialPending : ActionAttemptScanCredential { }
+
+    public sealed record ActionAttemptScanCredentialError : ActionAttemptScanCredential
+    {
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptScanCredentialUnrecognized
+        : ActionAttemptScanCredential,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Encoding credential data from the physical encoder onto a card is pending.
     /// </summary>
-    public sealed record ActionAttemptEncodeCredential : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptEncodeCredentialSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptEncodeCredentialPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptEncodeCredentialError))]
+    [SeamUnionFallback(typeof(ActionAttemptEncodeCredentialUnrecognized))]
+    public abstract record ActionAttemptEncodeCredential : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "ENCODE_CREDENTIAL";
+    }
 
+    public sealed record ActionAttemptEncodeCredentialSuccess : ActionAttemptEncodeCredential
+    {
         /// <summary>
         /// Result of an encoding attempt. If the attempt was successful, includes the credential data that was encoded onto the card.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptEncodeCredentialResult Result { get; init; } = default!;
+        public ActionAttemptEncodeCredentialSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptEncodeCredentialResult
+    public sealed record ActionAttemptEncodeCredentialSuccessResult
     {
         /// <summary>
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
@@ -847,7 +935,7 @@ namespace Seam.Models
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [JsonPropertyName("access_method")]
-        public ActionAttemptEncodeCredentialResult.AccessMethodEnum AccessMethod { get; init; } =
+        public ActionAttemptEncodeCredentialSuccessResult.AccessMethodEnum AccessMethod { get; init; } =
             default!;
 
         /// <summary>
@@ -878,13 +966,13 @@ namespace Seam.Models
         /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("akiles_metadata")]
-        public ActionAttemptEncodeCredentialResultAkilesMetadata? AkilesMetadata { get; init; }
+        public ActionAttemptEncodeCredentialSuccessResultAkilesMetadata? AkilesMetadata { get; init; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("assa_abloy_vostio_metadata")]
-        public ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
+        public ActionAttemptEncodeCredentialSuccessResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
 
         /// <summary>
         /// Number of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -926,13 +1014,14 @@ namespace Seam.Models
         /// Errors associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("errors")]
-        public List<ActionAttemptEncodeCredentialResultErrors> Errors { get; init; } = default!;
+        public List<ActionAttemptEncodeCredentialSuccessResultErrors> Errors { get; init; } =
+            default!;
 
         /// <summary>
         /// Brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
         /// </summary>
         [JsonPropertyName("external_type")]
-        public ActionAttemptEncodeCredentialResult.ExternalTypeEnum? ExternalType { get; init; }
+        public ActionAttemptEncodeCredentialSuccessResult.ExternalTypeEnum? ExternalType { get; init; }
 
         /// <summary>
         /// Display name that corresponds to the brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type.
@@ -1001,13 +1090,14 @@ namespace Seam.Models
         /// Visionline-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
-        public ActionAttemptEncodeCredentialResultVisionlineMetadata? VisionlineMetadata { get; init; }
+        public ActionAttemptEncodeCredentialSuccessResultVisionlineMetadata? VisionlineMetadata { get; init; }
 
         /// <summary>
         /// Warnings associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("warnings")]
-        public List<ActionAttemptEncodeCredentialResultWarnings> Warnings { get; init; } = default!;
+        public List<ActionAttemptEncodeCredentialSuccessResultWarnings> Warnings { get; init; } =
+            default!;
 
         /// <summary>
         /// ID of the workspace that contains the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -1016,7 +1106,7 @@ namespace Seam.Models
         public string WorkspaceId { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptEncodeCredentialResultAkilesMetadata
+    public sealed record ActionAttemptEncodeCredentialSuccessResultAkilesMetadata
     {
         /// <summary>
         /// ID of the Akiles member PIN.
@@ -1025,7 +1115,7 @@ namespace Seam.Models
         public string? MemberPinId { get; init; }
     }
 
-    public sealed record ActionAttemptEncodeCredentialResultAssaAbloyVostioMetadata
+    public sealed record ActionAttemptEncodeCredentialSuccessResultAssaAbloyVostioMetadata
     {
         /// <summary>
         /// Indicates whether the credential should auto-join. For an auto-join credential, Seam automatically issues an override card if there are no other cards and a joiner card if there are existing cards on the doors.
@@ -1064,7 +1154,7 @@ namespace Seam.Models
         public List<string>? OverrideGuestAcsEntranceIds { get; init; }
     }
 
-    public sealed record ActionAttemptEncodeCredentialResultErrors
+    public sealed record ActionAttemptEncodeCredentialSuccessResultErrors
     {
         /// <summary>
         /// Date and time at which Seam created the error.
@@ -1079,7 +1169,7 @@ namespace Seam.Models
         public string Message { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptEncodeCredentialResultVisionlineMetadata
+    public sealed record ActionAttemptEncodeCredentialSuccessResultVisionlineMetadata
     {
         /// <summary>
         /// Card function type in the Visionline access system.
@@ -1107,7 +1197,7 @@ namespace Seam.Models
         /// Card function type in the Visionline access system.
         /// </summary>
         [JsonPropertyName("card_function_type")]
-        public ActionAttemptEncodeCredentialResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
+        public ActionAttemptEncodeCredentialSuccessResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
 
         /// <summary>
         /// ID of the card in the Visionline access system.
@@ -1146,7 +1236,7 @@ namespace Seam.Models
         public List<string>? JoinerAcsCredentialIds { get; init; }
     }
 
-    public sealed record ActionAttemptEncodeCredentialResultWarnings
+    public sealed record ActionAttemptEncodeCredentialSuccessResultWarnings
     {
         /// <summary>
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
@@ -1195,7 +1285,7 @@ namespace Seam.Models
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
         /// </summary>
         [JsonPropertyName("warning_code")]
-        public ActionAttemptEncodeCredentialResultWarnings.WarningCodeEnum WarningCode { get; init; } =
+        public ActionAttemptEncodeCredentialSuccessResultWarnings.WarningCodeEnum WarningCode { get; init; } =
             default!;
 
         /// <summary>
@@ -1211,22 +1301,49 @@ namespace Seam.Models
         public string? OriginalCode { get; init; }
     }
 
+    public sealed record ActionAttemptEncodeCredentialPending : ActionAttemptEncodeCredential { }
+
+    public sealed record ActionAttemptEncodeCredentialError : ActionAttemptEncodeCredential
+    {
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptEncodeCredentialUnrecognized
+        : ActionAttemptEncodeCredential,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Scanning a physical card and assigning the credential is pending.
     /// </summary>
-    public sealed record ActionAttemptScanToAssignCredential : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptScanToAssignCredentialSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptScanToAssignCredentialPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptScanToAssignCredentialError))]
+    [SeamUnionFallback(typeof(ActionAttemptScanToAssignCredentialUnrecognized))]
+    public abstract record ActionAttemptScanToAssignCredential : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SCAN_TO_ASSIGN_CREDENTIAL";
+    }
 
+    public sealed record ActionAttemptScanToAssignCredentialSuccess
+        : ActionAttemptScanToAssignCredential
+    {
         /// <summary>
         /// Result of a scan to assign attempt. If the attempt was successful, includes the credential data that was scanned and assigned.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptScanToAssignCredentialResult Result { get; init; } = default!;
+        public ActionAttemptScanToAssignCredentialSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResult
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResult
     {
         /// <summary>
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
@@ -1306,7 +1423,7 @@ namespace Seam.Models
         /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [JsonPropertyName("access_method")]
-        public ActionAttemptScanToAssignCredentialResult.AccessMethodEnum AccessMethod { get; init; } =
+        public ActionAttemptScanToAssignCredentialSuccessResult.AccessMethodEnum AccessMethod { get; init; } =
             default!;
 
         /// <summary>
@@ -1337,13 +1454,13 @@ namespace Seam.Models
         /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("akiles_metadata")]
-        public ActionAttemptScanToAssignCredentialResultAkilesMetadata? AkilesMetadata { get; init; }
+        public ActionAttemptScanToAssignCredentialSuccessResultAkilesMetadata? AkilesMetadata { get; init; }
 
         /// <summary>
         /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("assa_abloy_vostio_metadata")]
-        public ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
+        public ActionAttemptScanToAssignCredentialSuccessResultAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
 
         /// <summary>
         /// Number of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
@@ -1385,14 +1502,14 @@ namespace Seam.Models
         /// Errors associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("errors")]
-        public List<ActionAttemptScanToAssignCredentialResultErrors> Errors { get; init; } =
+        public List<ActionAttemptScanToAssignCredentialSuccessResultErrors> Errors { get; init; } =
             default!;
 
         /// <summary>
         /// Brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
         /// </summary>
         [JsonPropertyName("external_type")]
-        public ActionAttemptScanToAssignCredentialResult.ExternalTypeEnum? ExternalType { get; init; }
+        public ActionAttemptScanToAssignCredentialSuccessResult.ExternalTypeEnum? ExternalType { get; init; }
 
         /// <summary>
         /// Display name that corresponds to the brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type.
@@ -1464,13 +1581,13 @@ namespace Seam.Models
         /// Visionline-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
-        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata? VisionlineMetadata { get; init; }
+        public ActionAttemptScanToAssignCredentialSuccessResultVisionlineMetadata? VisionlineMetadata { get; init; }
 
         /// <summary>
         /// Warnings associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [JsonPropertyName("warnings")]
-        public List<ActionAttemptScanToAssignCredentialResultWarnings> Warnings { get; init; } =
+        public List<ActionAttemptScanToAssignCredentialSuccessResultWarnings> Warnings { get; init; } =
             default!;
 
         /// <summary>
@@ -1480,7 +1597,7 @@ namespace Seam.Models
         public string WorkspaceId { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResultAkilesMetadata
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResultAkilesMetadata
     {
         /// <summary>
         /// ID of the Akiles member PIN.
@@ -1489,7 +1606,7 @@ namespace Seam.Models
         public string? MemberPinId { get; init; }
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResultAssaAbloyVostioMetadata
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResultAssaAbloyVostioMetadata
     {
         /// <summary>
         /// Indicates whether the credential should auto-join. For an auto-join credential, Seam automatically issues an override card if there are no other cards and a joiner card if there are existing cards on the doors.
@@ -1528,7 +1645,7 @@ namespace Seam.Models
         public List<string>? OverrideGuestAcsEntranceIds { get; init; }
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResultErrors
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResultErrors
     {
         /// <summary>
         /// Date and time at which Seam created the error.
@@ -1543,7 +1660,7 @@ namespace Seam.Models
         public string Message { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResultVisionlineMetadata
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResultVisionlineMetadata
     {
         /// <summary>
         /// Card function type in the Visionline access system.
@@ -1571,7 +1688,7 @@ namespace Seam.Models
         /// Card function type in the Visionline access system.
         /// </summary>
         [JsonPropertyName("card_function_type")]
-        public ActionAttemptScanToAssignCredentialResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
+        public ActionAttemptScanToAssignCredentialSuccessResultVisionlineMetadata.CardFunctionTypeEnum? CardFunctionType { get; init; }
 
         /// <summary>
         /// ID of the card in the Visionline access system.
@@ -1610,7 +1727,7 @@ namespace Seam.Models
         public List<string>? JoinerAcsCredentialIds { get; init; }
     }
 
-    public sealed record ActionAttemptScanToAssignCredentialResultWarnings
+    public sealed record ActionAttemptScanToAssignCredentialSuccessResultWarnings
     {
         /// <summary>
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
@@ -1659,7 +1776,7 @@ namespace Seam.Models
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
         /// </summary>
         [JsonPropertyName("warning_code")]
-        public ActionAttemptScanToAssignCredentialResultWarnings.WarningCodeEnum WarningCode { get; init; } =
+        public ActionAttemptScanToAssignCredentialSuccessResultWarnings.WarningCodeEnum WarningCode { get; init; } =
             default!;
 
         /// <summary>
@@ -1675,22 +1792,50 @@ namespace Seam.Models
         public string? OriginalCode { get; init; }
     }
 
+    public sealed record ActionAttemptScanToAssignCredentialPending
+        : ActionAttemptScanToAssignCredential { }
+
+    public sealed record ActionAttemptScanToAssignCredentialError
+        : ActionAttemptScanToAssignCredential
+    {
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptScanToAssignCredentialUnrecognized
+        : ActionAttemptScanToAssignCredential,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Assigning a credential to an access method is pending.
     /// </summary>
-    public sealed record ActionAttemptAssignCredential : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptAssignCredentialSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptAssignCredentialPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptAssignCredentialError))]
+    [SeamUnionFallback(typeof(ActionAttemptAssignCredentialUnrecognized))]
+    public abstract record ActionAttemptAssignCredential : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "ASSIGN_CREDENTIAL";
+    }
 
+    public sealed record ActionAttemptAssignCredentialSuccess : ActionAttemptAssignCredential
+    {
         /// <summary>
         /// Result of assigning a credential. If successful, includes the updated access method with the assigned credential.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptAssignCredentialResult Result { get; init; } = default!;
+        public ActionAttemptAssignCredentialSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptAssignCredentialResult
+    public sealed record ActionAttemptAssignCredentialSuccessResult
     {
         /// <summary>
         /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
@@ -1760,7 +1905,8 @@ namespace Seam.Models
         /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [JsonPropertyName("errors")]
-        public List<ActionAttemptAssignCredentialResultErrors> Errors { get; init; } = default!;
+        public List<ActionAttemptAssignCredentialSuccessResultErrors> Errors { get; init; } =
+            default!;
 
         /// <summary>
         /// URL of the Instant Key for mobile key access methods.
@@ -1808,20 +1954,21 @@ namespace Seam.Models
         /// Access method mode. Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [JsonPropertyName("mode")]
-        public ActionAttemptAssignCredentialResult.ModeEnum Mode { get; init; } = default!;
+        public ActionAttemptAssignCredentialSuccessResult.ModeEnum Mode { get; init; } = default!;
 
         /// <summary>
         /// Pending mutations for the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
         /// </summary>
         [JsonPropertyName("pending_mutations")]
-        public List<ActionAttemptAssignCredentialResultPendingMutations> PendingMutations { get; init; } =
+        public List<ActionAttemptAssignCredentialSuccessResultPendingMutations> PendingMutations { get; init; } =
             default!;
 
         /// <summary>
         /// Warnings associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [JsonPropertyName("warnings")]
-        public List<ActionAttemptAssignCredentialResultWarnings> Warnings { get; init; } = default!;
+        public List<ActionAttemptAssignCredentialSuccessResultWarnings> Warnings { get; init; } =
+            default!;
 
         /// <summary>
         /// ID of the Seam workspace associated with the access method.
@@ -1830,7 +1977,7 @@ namespace Seam.Models
         public string WorkspaceId { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptAssignCredentialResultErrors
+    public sealed record ActionAttemptAssignCredentialSuccessResultErrors
     {
         /// <summary>
         /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
@@ -1855,7 +2002,7 @@ namespace Seam.Models
         /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
         /// </summary>
         [JsonPropertyName("error_code")]
-        public ActionAttemptAssignCredentialResultErrors.ErrorCodeEnum ErrorCode { get; init; } =
+        public ActionAttemptAssignCredentialSuccessResultErrors.ErrorCodeEnum ErrorCode { get; init; } =
             default!;
 
         /// <summary>
@@ -1865,7 +2012,7 @@ namespace Seam.Models
         public string Message { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptAssignCredentialResultPendingMutations
+    public sealed record ActionAttemptAssignCredentialSuccessResultPendingMutations
     {
         /// <summary>
         /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
@@ -1896,7 +2043,7 @@ namespace Seam.Models
         /// Previous access time configuration.
         /// </summary>
         [JsonPropertyName("from")]
-        public ActionAttemptAssignCredentialResultPendingMutationsFrom From { get; init; } =
+        public ActionAttemptAssignCredentialSuccessResultPendingMutationsFrom From { get; init; } =
             default!;
 
         /// <summary>
@@ -1909,17 +2056,18 @@ namespace Seam.Models
         /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
         /// </summary>
         [JsonPropertyName("mutation_code")]
-        public ActionAttemptAssignCredentialResultPendingMutations.MutationCodeEnum MutationCode { get; init; } =
+        public ActionAttemptAssignCredentialSuccessResultPendingMutations.MutationCodeEnum MutationCode { get; init; } =
             default!;
 
         /// <summary>
         /// New access time configuration.
         /// </summary>
         [JsonPropertyName("to")]
-        public ActionAttemptAssignCredentialResultPendingMutationsTo To { get; init; } = default!;
+        public ActionAttemptAssignCredentialSuccessResultPendingMutationsTo To { get; init; } =
+            default!;
     }
 
-    public sealed record ActionAttemptAssignCredentialResultPendingMutationsFrom
+    public sealed record ActionAttemptAssignCredentialSuccessResultPendingMutationsFrom
     {
         /// <summary>
         /// Previous end time for access.
@@ -1934,7 +2082,7 @@ namespace Seam.Models
         public string? StartsAt { get; init; }
     }
 
-    public sealed record ActionAttemptAssignCredentialResultPendingMutationsTo
+    public sealed record ActionAttemptAssignCredentialSuccessResultPendingMutationsTo
     {
         /// <summary>
         /// New end time for access.
@@ -1949,7 +2097,7 @@ namespace Seam.Models
         public string? StartsAt { get; init; }
     }
 
-    public sealed record ActionAttemptAssignCredentialResultWarnings
+    public sealed record ActionAttemptAssignCredentialSuccessResultWarnings
     {
         /// <summary>
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
@@ -1989,7 +2137,7 @@ namespace Seam.Models
         /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
         /// </summary>
         [JsonPropertyName("warning_code")]
-        public ActionAttemptAssignCredentialResultWarnings.WarningCodeEnum WarningCode { get; init; } =
+        public ActionAttemptAssignCredentialSuccessResultWarnings.WarningCodeEnum WarningCode { get; init; } =
             default!;
 
         /// <summary>
@@ -1999,169 +2147,472 @@ namespace Seam.Models
         public string? OriginalAccessMethodId { get; init; }
     }
 
+    public sealed record ActionAttemptAssignCredentialPending : ActionAttemptAssignCredential { }
+
+    public sealed record ActionAttemptAssignCredentialError : ActionAttemptAssignCredential
+    {
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptAssignCredentialUnrecognized
+        : ActionAttemptAssignCredential,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
     /// <summary>
     /// Resetting a sandbox workspace is pending.
     /// </summary>
-    public sealed record ActionAttemptResetSandboxWorkspace : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptResetSandboxWorkspaceSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptResetSandboxWorkspacePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptResetSandboxWorkspaceError))]
+    [SeamUnionFallback(typeof(ActionAttemptResetSandboxWorkspaceUnrecognized))]
+    public abstract record ActionAttemptResetSandboxWorkspace : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "RESET_SANDBOX_WORKSPACE";
+    }
 
+    public sealed record ActionAttemptResetSandboxWorkspaceSuccess
+        : ActionAttemptResetSandboxWorkspace
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptResetSandboxWorkspaceResult Result { get; init; } = default!;
+        public ActionAttemptResetSandboxWorkspaceSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptResetSandboxWorkspaceResult { }
+    public sealed record ActionAttemptResetSandboxWorkspaceSuccessResult { }
+
+    public sealed record ActionAttemptResetSandboxWorkspacePending
+        : ActionAttemptResetSandboxWorkspace { }
+
+    public sealed record ActionAttemptResetSandboxWorkspaceError
+        : ActionAttemptResetSandboxWorkspace
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptResetSandboxWorkspaceUnrecognized
+        : ActionAttemptResetSandboxWorkspace,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Setting the fan mode is pending.
     /// </summary>
-    public sealed record ActionAttemptSetFanMode : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptSetFanModeSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptSetFanModePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptSetFanModeError))]
+    [SeamUnionFallback(typeof(ActionAttemptSetFanModeUnrecognized))]
+    public abstract record ActionAttemptSetFanMode : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SET_FAN_MODE";
+    }
 
+    public sealed record ActionAttemptSetFanModeSuccess : ActionAttemptSetFanMode
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSetFanModeResult Result { get; init; } = default!;
+        public ActionAttemptSetFanModeSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptSetFanModeResult { }
+    public sealed record ActionAttemptSetFanModeSuccessResult { }
+
+    public sealed record ActionAttemptSetFanModePending : ActionAttemptSetFanMode { }
+
+    public sealed record ActionAttemptSetFanModeError : ActionAttemptSetFanMode
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptSetFanModeUnrecognized
+        : ActionAttemptSetFanMode,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Setting the HVAC mode is pending.
     /// </summary>
-    public sealed record ActionAttemptSetHvacMode : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptSetHvacModeSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptSetHvacModePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptSetHvacModeError))]
+    [SeamUnionFallback(typeof(ActionAttemptSetHvacModeUnrecognized))]
+    public abstract record ActionAttemptSetHvacMode : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SET_HVAC_MODE";
+    }
 
+    public sealed record ActionAttemptSetHvacModeSuccess : ActionAttemptSetHvacMode
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSetHvacModeResult Result { get; init; } = default!;
+        public ActionAttemptSetHvacModeSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptSetHvacModeResult { }
+    public sealed record ActionAttemptSetHvacModeSuccessResult { }
+
+    public sealed record ActionAttemptSetHvacModePending : ActionAttemptSetHvacMode { }
+
+    public sealed record ActionAttemptSetHvacModeError : ActionAttemptSetHvacMode
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptSetHvacModeUnrecognized
+        : ActionAttemptSetHvacMode,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Activating a climate preset is pending.
     /// </summary>
-    public sealed record ActionAttemptActivateClimatePreset : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptActivateClimatePresetSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptActivateClimatePresetPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptActivateClimatePresetError))]
+    [SeamUnionFallback(typeof(ActionAttemptActivateClimatePresetUnrecognized))]
+    public abstract record ActionAttemptActivateClimatePreset : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "ACTIVATE_CLIMATE_PRESET";
+    }
 
+    public sealed record ActionAttemptActivateClimatePresetSuccess
+        : ActionAttemptActivateClimatePreset
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptActivateClimatePresetResult Result { get; init; } = default!;
+        public ActionAttemptActivateClimatePresetSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptActivateClimatePresetResult { }
+    public sealed record ActionAttemptActivateClimatePresetSuccessResult { }
+
+    public sealed record ActionAttemptActivateClimatePresetPending
+        : ActionAttemptActivateClimatePreset { }
+
+    public sealed record ActionAttemptActivateClimatePresetError
+        : ActionAttemptActivateClimatePreset
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptActivateClimatePresetUnrecognized
+        : ActionAttemptActivateClimatePreset,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Simulating a keypad code entry is pending.
     /// </summary>
-    public sealed record ActionAttemptSimulateKeypadCodeEntry : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptSimulateKeypadCodeEntrySuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptSimulateKeypadCodeEntryPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptSimulateKeypadCodeEntryError))]
+    [SeamUnionFallback(typeof(ActionAttemptSimulateKeypadCodeEntryUnrecognized))]
+    public abstract record ActionAttemptSimulateKeypadCodeEntry : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SIMULATE_KEYPAD_CODE_ENTRY";
+    }
 
+    public sealed record ActionAttemptSimulateKeypadCodeEntrySuccess
+        : ActionAttemptSimulateKeypadCodeEntry
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSimulateKeypadCodeEntryResult Result { get; init; } = default!;
+        public ActionAttemptSimulateKeypadCodeEntrySuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptSimulateKeypadCodeEntryResult { }
+    public sealed record ActionAttemptSimulateKeypadCodeEntrySuccessResult { }
+
+    public sealed record ActionAttemptSimulateKeypadCodeEntryPending
+        : ActionAttemptSimulateKeypadCodeEntry { }
+
+    public sealed record ActionAttemptSimulateKeypadCodeEntryError
+        : ActionAttemptSimulateKeypadCodeEntry
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptSimulateKeypadCodeEntryUnrecognized
+        : ActionAttemptSimulateKeypadCodeEntry,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Simulating a manual lock action using a keypad is pending.
     /// </summary>
-    public sealed record ActionAttemptSimulateManualLockViaKeypad : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptSimulateManualLockViaKeypadSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptSimulateManualLockViaKeypadPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptSimulateManualLockViaKeypadError))]
+    [SeamUnionFallback(typeof(ActionAttemptSimulateManualLockViaKeypadUnrecognized))]
+    public abstract record ActionAttemptSimulateManualLockViaKeypad : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SIMULATE_MANUAL_LOCK_VIA_KEYPAD";
+    }
 
+    public sealed record ActionAttemptSimulateManualLockViaKeypadSuccess
+        : ActionAttemptSimulateManualLockViaKeypad
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSimulateManualLockViaKeypadResult Result { get; init; } = default!;
+        public ActionAttemptSimulateManualLockViaKeypadSuccessResult Result { get; init; } =
+            default!;
     }
 
-    public sealed record ActionAttemptSimulateManualLockViaKeypadResult { }
+    public sealed record ActionAttemptSimulateManualLockViaKeypadSuccessResult { }
+
+    public sealed record ActionAttemptSimulateManualLockViaKeypadPending
+        : ActionAttemptSimulateManualLockViaKeypad { }
+
+    public sealed record ActionAttemptSimulateManualLockViaKeypadError
+        : ActionAttemptSimulateManualLockViaKeypad
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptSimulateManualLockViaKeypadUnrecognized
+        : ActionAttemptSimulateManualLockViaKeypad,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Pushing thermostat weekly programs is pending.
     /// </summary>
-    public sealed record ActionAttemptPushThermostatPrograms : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptPushThermostatProgramsSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptPushThermostatProgramsPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptPushThermostatProgramsError))]
+    [SeamUnionFallback(typeof(ActionAttemptPushThermostatProgramsUnrecognized))]
+    public abstract record ActionAttemptPushThermostatPrograms : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "PUSH_THERMOSTAT_PROGRAMS";
+    }
 
+    public sealed record ActionAttemptPushThermostatProgramsSuccess
+        : ActionAttemptPushThermostatPrograms
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptPushThermostatProgramsResult Result { get; init; } = default!;
+        public ActionAttemptPushThermostatProgramsSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptPushThermostatProgramsResult { }
+    public sealed record ActionAttemptPushThermostatProgramsSuccessResult { }
+
+    public sealed record ActionAttemptPushThermostatProgramsPending
+        : ActionAttemptPushThermostatPrograms { }
+
+    public sealed record ActionAttemptPushThermostatProgramsError
+        : ActionAttemptPushThermostatPrograms
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptPushThermostatProgramsUnrecognized
+        : ActionAttemptPushThermostatPrograms,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
 
     /// <summary>
     /// Configuring the auto-lock is pending.
     /// </summary>
-    public sealed record ActionAttemptConfigureAutoLock : ActionAttempt
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptConfigureAutoLockSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptConfigureAutoLockPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptConfigureAutoLockError))]
+    [SeamUnionFallback(typeof(ActionAttemptConfigureAutoLockUnrecognized))]
+    public abstract record ActionAttemptConfigureAutoLock : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "CONFIGURE_AUTO_LOCK";
+    }
 
+    public sealed record ActionAttemptConfigureAutoLockSuccess : ActionAttemptConfigureAutoLock
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptConfigureAutoLockResult Result { get; init; } = default!;
+        public ActionAttemptConfigureAutoLockSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptConfigureAutoLockResult { }
+    public sealed record ActionAttemptConfigureAutoLockSuccessResult { }
 
-    public sealed record ActionAttemptSyncAccessCodes : ActionAttempt
+    public sealed record ActionAttemptConfigureAutoLockPending : ActionAttemptConfigureAutoLock { }
+
+    public sealed record ActionAttemptConfigureAutoLockError : ActionAttemptConfigureAutoLock
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptConfigureAutoLockUnrecognized
+        : ActionAttemptConfigureAutoLock,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptSyncAccessCodesSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptSyncAccessCodesPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptSyncAccessCodesError))]
+    [SeamUnionFallback(typeof(ActionAttemptSyncAccessCodesUnrecognized))]
+    public abstract record ActionAttemptSyncAccessCodes : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "SYNC_ACCESS_CODES";
+    }
 
+    public sealed record ActionAttemptSyncAccessCodesSuccess : ActionAttemptSyncAccessCodes
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptSyncAccessCodesResult Result { get; init; } = default!;
+        public ActionAttemptSyncAccessCodesSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptSyncAccessCodesResult { }
+    public sealed record ActionAttemptSyncAccessCodesSuccessResult { }
 
-    public sealed record ActionAttemptCreateAccessCode : ActionAttempt
+    public sealed record ActionAttemptSyncAccessCodesPending : ActionAttemptSyncAccessCodes { }
+
+    public sealed record ActionAttemptSyncAccessCodesError : ActionAttemptSyncAccessCodes
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptSyncAccessCodesUnrecognized
+        : ActionAttemptSyncAccessCodes,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptCreateAccessCodeSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptCreateAccessCodePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptCreateAccessCodeError))]
+    [SeamUnionFallback(typeof(ActionAttemptCreateAccessCodeUnrecognized))]
+    public abstract record ActionAttemptCreateAccessCode : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "CREATE_ACCESS_CODE";
+    }
 
+    public sealed record ActionAttemptCreateAccessCodeSuccess : ActionAttemptCreateAccessCode
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptCreateAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptCreateAccessCodeSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptCreateAccessCodeResult
+    public sealed record ActionAttemptCreateAccessCodeSuccessResult
     {
         /// <summary>
         /// Created access code.
@@ -2170,33 +2621,91 @@ namespace Seam.Models
         public object AccessCode { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptDeleteAccessCode : ActionAttempt
+    public sealed record ActionAttemptCreateAccessCodePending : ActionAttemptCreateAccessCode { }
+
+    public sealed record ActionAttemptCreateAccessCodeError : ActionAttemptCreateAccessCode
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptCreateAccessCodeUnrecognized
+        : ActionAttemptCreateAccessCode,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptDeleteAccessCodeSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptDeleteAccessCodePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptDeleteAccessCodeError))]
+    [SeamUnionFallback(typeof(ActionAttemptDeleteAccessCodeUnrecognized))]
+    public abstract record ActionAttemptDeleteAccessCode : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "DELETE_ACCESS_CODE";
+    }
 
+    public sealed record ActionAttemptDeleteAccessCodeSuccess : ActionAttemptDeleteAccessCode
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptDeleteAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptDeleteAccessCodeSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptDeleteAccessCodeResult { }
+    public sealed record ActionAttemptDeleteAccessCodeSuccessResult { }
 
-    public sealed record ActionAttemptUpdateAccessCode : ActionAttempt
+    public sealed record ActionAttemptDeleteAccessCodePending : ActionAttemptDeleteAccessCode { }
+
+    public sealed record ActionAttemptDeleteAccessCodeError : ActionAttemptDeleteAccessCode
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptDeleteAccessCodeUnrecognized
+        : ActionAttemptDeleteAccessCode,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptUpdateAccessCodeSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptUpdateAccessCodePending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptUpdateAccessCodeError))]
+    [SeamUnionFallback(typeof(ActionAttemptUpdateAccessCodeUnrecognized))]
+    public abstract record ActionAttemptUpdateAccessCode : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "UPDATE_ACCESS_CODE";
+    }
 
+    public sealed record ActionAttemptUpdateAccessCodeSuccess : ActionAttemptUpdateAccessCode
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUpdateAccessCodeResult Result { get; init; } = default!;
+        public ActionAttemptUpdateAccessCodeSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptUpdateAccessCodeResult
+    public sealed record ActionAttemptUpdateAccessCodeSuccessResult
     {
         /// <summary>
         /// Updated access code.
@@ -2205,19 +2714,49 @@ namespace Seam.Models
         public object? AccessCode { get; init; }
     }
 
-    public sealed record ActionAttemptCreateNoiseThreshold : ActionAttempt
+    public sealed record ActionAttemptUpdateAccessCodePending : ActionAttemptUpdateAccessCode { }
+
+    public sealed record ActionAttemptUpdateAccessCodeError : ActionAttemptUpdateAccessCode
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptUpdateAccessCodeUnrecognized
+        : ActionAttemptUpdateAccessCode,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptCreateNoiseThresholdSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptCreateNoiseThresholdPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptCreateNoiseThresholdError))]
+    [SeamUnionFallback(typeof(ActionAttemptCreateNoiseThresholdUnrecognized))]
+    public abstract record ActionAttemptCreateNoiseThreshold : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "CREATE_NOISE_THRESHOLD";
+    }
 
+    public sealed record ActionAttemptCreateNoiseThresholdSuccess
+        : ActionAttemptCreateNoiseThreshold
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptCreateNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptCreateNoiseThresholdSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptCreateNoiseThresholdResult
+    public sealed record ActionAttemptCreateNoiseThresholdSuccessResult
     {
         /// <summary>
         /// Created noise threshold.
@@ -2226,39 +2765,122 @@ namespace Seam.Models
         public object NoiseThreshold { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptDeleteNoiseThreshold : ActionAttempt
+    public sealed record ActionAttemptCreateNoiseThresholdPending
+        : ActionAttemptCreateNoiseThreshold { }
+
+    public sealed record ActionAttemptCreateNoiseThresholdError : ActionAttemptCreateNoiseThreshold
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptCreateNoiseThresholdUnrecognized
+        : ActionAttemptCreateNoiseThreshold,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptDeleteNoiseThresholdSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptDeleteNoiseThresholdPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptDeleteNoiseThresholdError))]
+    [SeamUnionFallback(typeof(ActionAttemptDeleteNoiseThresholdUnrecognized))]
+    public abstract record ActionAttemptDeleteNoiseThreshold : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "DELETE_NOISE_THRESHOLD";
+    }
 
+    public sealed record ActionAttemptDeleteNoiseThresholdSuccess
+        : ActionAttemptDeleteNoiseThreshold
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptDeleteNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptDeleteNoiseThresholdSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptDeleteNoiseThresholdResult { }
+    public sealed record ActionAttemptDeleteNoiseThresholdSuccessResult { }
 
-    public sealed record ActionAttemptUpdateNoiseThreshold : ActionAttempt
+    public sealed record ActionAttemptDeleteNoiseThresholdPending
+        : ActionAttemptDeleteNoiseThreshold { }
+
+    public sealed record ActionAttemptDeleteNoiseThresholdError : ActionAttemptDeleteNoiseThreshold
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptDeleteNoiseThresholdUnrecognized
+        : ActionAttemptDeleteNoiseThreshold,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptUpdateNoiseThresholdSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptUpdateNoiseThresholdPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptUpdateNoiseThresholdError))]
+    [SeamUnionFallback(typeof(ActionAttemptUpdateNoiseThresholdUnrecognized))]
+    public abstract record ActionAttemptUpdateNoiseThreshold : ActionAttempt
     {
         [JsonPropertyName("action_type")]
         public override string ActionType { get; } = "UPDATE_NOISE_THRESHOLD";
+    }
 
+    public sealed record ActionAttemptUpdateNoiseThresholdSuccess
+        : ActionAttemptUpdateNoiseThreshold
+    {
         /// <summary>
         /// Result of the action.
         /// </summary>
         [JsonPropertyName("result")]
-        public ActionAttemptUpdateNoiseThresholdResult Result { get; init; } = default!;
+        public ActionAttemptUpdateNoiseThresholdSuccessResult Result { get; init; } = default!;
     }
 
-    public sealed record ActionAttemptUpdateNoiseThresholdResult
+    public sealed record ActionAttemptUpdateNoiseThresholdSuccessResult
     {
         /// <summary>
         /// Updated noise threshold.
         /// </summary>
         [JsonPropertyName("noise_threshold")]
         public object NoiseThreshold { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptUpdateNoiseThresholdPending
+        : ActionAttemptUpdateNoiseThreshold { }
+
+    public sealed record ActionAttemptUpdateNoiseThresholdError : ActionAttemptUpdateNoiseThreshold
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptUpdateNoiseThresholdUnrecognized
+        : ActionAttemptUpdateNoiseThreshold,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
     }
 
     public sealed record ActionAttemptUnrecognized : ActionAttempt, ISeamUnrecognizedVariant

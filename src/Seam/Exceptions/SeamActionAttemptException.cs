@@ -22,13 +22,17 @@ namespace Seam
     public class SeamActionAttemptFailedException : SeamActionAttemptException
     {
         public SeamActionAttemptFailedException(Models.ActionAttempt actionAttempt)
-            : base(actionAttempt.Error?.Message ?? "Action attempt failed", actionAttempt)
+            : base(GetError(actionAttempt)?.Message ?? "Action attempt failed", actionAttempt)
         {
-            Code = actionAttempt.Error?.Type ?? "unknown_error";
+            Code = GetError(actionAttempt)?.Type ?? "unknown_error";
         }
 
         /// <summary>The action attempt error type.</summary>
         public string Code { get; }
+
+        private static Models.ActionAttemptError? GetError(Models.ActionAttempt actionAttempt) =>
+            actionAttempt.GetType().GetProperty("Error")?.GetValue(actionAttempt)
+            as Models.ActionAttemptError;
     }
 
     /// <summary>

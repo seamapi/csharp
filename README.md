@@ -79,6 +79,31 @@ succeeds and returns the finished attempt, raising
 var actionAttempt = await seam.Locks.UnlockDoorAsync(new() { DeviceId = deviceId });
 ```
 
+Each action attempt deserializes to a subclass for its `action_type` and
+`status` pair, e.g. `ActionAttemptUnlockDoorSuccess`. The `Error` and `Result`
+properties are declared only on the status subclass that populates them, so
+pattern match on the subclass to read them:
+
+```csharp
+var actionAttempt = await seam.Locks.UnlockDoorAsync(
+    new() { DeviceId = deviceId },
+    waitForActionAttempt: false
+);
+
+switch (actionAttempt)
+{
+    case ActionAttemptUnlockDoorSuccess success:
+        Console.WriteLine(success.Result.WasConfirmedByDevice);
+        break;
+    case ActionAttemptUnlockDoorError error:
+        Console.WriteLine(error.Error.Message);
+        break;
+    case ActionAttemptUnlockDoorPending:
+        Console.WriteLine("Still pending");
+        break;
+}
+```
+
 Configure or disable waiting per client or per call with `ActionAttemptWait`:
 
 ```csharp

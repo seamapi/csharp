@@ -1,13 +1,16 @@
+{{> documentation}}
 [JsonConverter(typeof(SeamUnionConverter))]
 [SeamUnion("{{discriminatorSnake}}")]
 {{#each knownSubTypes}}
 [SeamUnionVariant("{{value}}", typeof({{typeName}}))]
 {{/each}}
 [SeamUnionFallback(typeof({{unrecognizedTypeName}}))]
-public abstract record {{className}}
+public abstract record {{className}}{{#if baseClass}} : {{baseClass}}{{/if}}
 {
+{{#unless inheritsDiscriminator}}
 /// <summary>The value of the <c>{{discriminatorSnake}}</c> discriminator.</summary>
 public abstract string {{discriminatorPascal}} { get; }
+{{/unless}}
 {{#each baseProps}}
 
 {{> data-member this}}
@@ -15,5 +18,9 @@ public abstract string {{discriminatorPascal}} { get; }
 }
 {{#each subclasses}}
 
+{{#if (eq kind "union")}}
+{{> oneof-union this}}
+{{else}}
 {{> model-class this}}
+{{/if}}
 {{/each}}

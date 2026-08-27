@@ -53,18 +53,6 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// ID of the thermostat device for which you want to simulate having adjusted the HVAC mode.
-            /// </summary>
-            [JsonPropertyName("device_id")]
-            public required string DeviceId { get; init; }
-
-            /// <summary>
-            /// HVAC mode that you want to simulate.
-            /// </summary>
-            [JsonPropertyName("hvac_mode")]
-            public required HvacModeAdjustedRequest.HvacModeEnum HvacMode { get; init; }
-
-            /// <summary>
             /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `cooling_set_point_celsius` or `cooling_set_point_fahrenheit`.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
@@ -77,6 +65,12 @@ namespace Seam.Routes
             public float? CoolingSetPointFahrenheit { get; init; }
 
             /// <summary>
+            /// ID of the thermostat device for which you want to simulate having adjusted the HVAC mode.
+            /// </summary>
+            [JsonPropertyName("device_id")]
+            public required string DeviceId { get; init; }
+
+            /// <summary>
             /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `heating_set_point_celsius` or `heating_set_point_fahrenheit`.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
@@ -87,6 +81,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
+
+            /// <summary>
+            /// HVAC mode that you want to simulate.
+            /// </summary>
+            [JsonPropertyName("hvac_mode")]
+            public required HvacModeAdjustedRequest.HvacModeEnum HvacMode { get; init; }
         }
 
         /// <summary>

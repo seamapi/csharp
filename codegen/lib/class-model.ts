@@ -70,8 +70,10 @@ export interface CsClass {
 export interface CsUnion {
   kind: 'union'
   className: string
+  baseClass?: string
   discriminatorSnake: string
   discriminatorPascal: string
+  inheritsDiscriminator?: boolean
   // [SeamUnionVariant] attributes, in variant definition order.
   knownSubTypes: Array<{ typeName: string; value: string }>
   unrecognizedTypeName: string
@@ -81,7 +83,9 @@ export interface CsUnion {
   baseProps: CsProperty[]
   // Concrete subclasses followed by the Unrecognized fallback, in definition
   // order.
-  subclasses: CsClass[]
+  subclasses: Array<CsClass | CsUnion>
+  documentation?: string
+  obsoleteMessage?: string
 }
 
 export type CsDecl = CsClass | CsUnion

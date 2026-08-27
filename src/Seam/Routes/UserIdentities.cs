@@ -618,16 +618,16 @@ namespace Seam.Routes
             public List<string>? MergedUserIdentityIds { get; init; }
 
             /// <summary>
-            /// ID of the primary user identity to keep.
-            /// </summary>
-            [JsonPropertyName("user_identity_id")]
-            public string? UserIdentityId { get; init; }
-
-            /// <summary>
             /// Keys of the user identities to merge into the primary user identity. These user identities are deleted.
             /// </summary>
             [JsonPropertyName("merged_user_identity_keys")]
             public List<string>? MergedUserIdentityKeys { get; init; }
+
+            /// <summary>
+            /// ID of the primary user identity to keep.
+            /// </summary>
+            [JsonPropertyName("user_identity_id")]
+            public string? UserIdentityId { get; init; }
 
             /// <summary>
             /// Key of the primary user identity to keep.
@@ -639,8 +639,8 @@ namespace Seam.Routes
             {
                 if (
                     MergedUserIdentityIds == null
-                    && UserIdentityId == null
                     && MergedUserIdentityKeys == null
+                    && UserIdentityId == null
                     && UserIdentityKey == null
                 )
                 {
