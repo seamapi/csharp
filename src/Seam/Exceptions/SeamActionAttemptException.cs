@@ -30,11 +30,6 @@ namespace Seam
         /// <summary>The action attempt error type.</summary>
         public string Code { get; }
 
-        /// <summary>
-        /// The error property is declared on the status subclasses that carry it, not on
-        /// <see cref="Models.ActionAttempt"/>, and is absent entirely on an attempt with an
-        /// unrecognized action type or status.
-        /// </summary>
         private static Models.ActionAttemptError? GetError(Models.ActionAttempt actionAttempt) =>
             actionAttempt.GetType().GetProperty("Error")?.GetValue(actionAttempt)
                 as Models.ActionAttemptError;

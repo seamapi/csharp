@@ -46,7 +46,6 @@ public class SerializationTests
         Assert.Equal("attempt1", unrecognized.ActionAttemptId);
         Assert.Equal(ActionAttemptStatus.Pending, unrecognized.Status);
 
-        // The raw payload of an unrecognized variant is preserved, not discarded.
         Assert.Equal(
             "BRAND_NEW_ACTION",
             unrecognized.RawJson.GetProperty("action_type").GetString()

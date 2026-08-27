@@ -98,14 +98,9 @@ type Kind =
 
 interface Variant {
   value: string
-  // Used for the shared-property lifting computation, and to build the
-  // variant subclass unless buildAsUnion is set.
   fields: Field[]
   description?: string
   deprecationMessage?: string
-  // Builds the variant as a nested union discriminated on another property
-  // instead of a plain subclass. Receives the names declared on (or omitted
-  // by) the outer base, which the inner union must not redeclare.
   buildAsUnion?: (subName: string, omitNames: Set<string>) => CsUnion
 }
 
@@ -313,9 +308,7 @@ interface BuildClassOptions {
   // nullable parameters); models deserialize leniently.
   resourceType: 'response' | 'request' | 'model'
   // When set, the class is a discriminated-union subclass: the discriminator
-  // property is emitted as a get-only override with a constant value, unless
-  // declareProperty is false (the discriminator property is inherited from an
-  // ancestor class).
+  // property is emitted as a get-only override with a constant value.
   discriminator?: {
     name: string
     value: string
@@ -477,12 +470,8 @@ interface BuildUnionOptions {
   // status contract the runtime resolver depends on.
   omitFieldNames?: string[]
   extraBaseProps?: CsProperty[]
-  // See CsUnion for these.
   baseClass?: string
   inheritsDiscriminator?: boolean
-  // Properties declared on the base before the lifted and extra properties,
-  // e.g. the outer discriminator's get-only override when the union is itself
-  // a variant of an outer union.
   leadingBaseProps?: CsProperty[]
   documentation?: string
   obsoleteMessage?: string
@@ -638,9 +627,6 @@ export const buildModelFile = (
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
 
-// The types the action attempt runtime (resolver and exceptions) owns rather
-// than the generator: status everywhere, and the error wire shape wherever an
-// action attempt declares an error property.
 const actionAttemptRuntimeTypes: Record<string, string> = {
   error: 'ActionAttemptError',
 }
@@ -660,11 +646,6 @@ const findActionAttemptStatusProperty = (
       property.name === 'status' && property.format === 'enum',
   )
 
-// One variant per status from the status enum. A property whose
-// actionAttemptStatuses annotation lists the status keeps its normal
-// non-nullable type on that status subclass; one whose annotation does not
-// list it is absent there, so dereferencing it without narrowing to the
-// right status subclass does not compile.
 const buildActionAttemptStatusUnion = (
   actionAttempt: ActionAttempt,
   statusProperty: EnumProperty,
@@ -717,8 +698,7 @@ export const buildActionAttemptFile = (
 ): { name: string; file: CsModelFile } => {
   // The status of every action attempt shares one wire shape, so it is
   // declared once on the base with the runtime-owned ActionAttemptStatus type
-  // the action attempt resolver depends on. Each action type then nests a
-  // union discriminated on status.
+  // the action attempt resolver depends on.
   const union = buildUnion(
     'ActionAttempt',
     'action_type',
