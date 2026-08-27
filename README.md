@@ -128,28 +128,37 @@ var allDevices = await pages.FlattenToListAsync();
 To resume pagination later, store `pagination.NextPageCursor` and pass it to
 `NextPageAsync` on a new pager with the same request parameters.
 
-### Errors
+### Error Handling
 
 Seam API errors raise a typed exception carrying the Seam error code, HTTP
-status code, and the `seam-request-id` to include in support requests:
+status code, and the `seam-request-id` to include in support requests.
+
+#### Validation errors
+
+When the API rejects a request because a parameter is invalid, it throws a
+`SeamHttpInvalidInputException`. Look up messages for a parameter you are
+already rendering, for example a field in a form:
 
 ```csharp
 try
 {
-    await seam.Devices.GetAsync(new() { DeviceId = deviceId });
+    await seam.Devices.ListAsync(new() { DeviceIds = ["not-a-uuid"] });
 }
 catch (SeamHttpInvalidInputException exception)
 {
-    foreach (var message in exception.GetValidationErrorMessages("device_id"))
+    foreach (var message in exception.GetValidationErrorMessages("device_ids"))
         Console.WriteLine(message);
 }
-catch (SeamHttpUnauthorizedException)
+```
+
+Or read every parameter that failed validation to summarize the request:
+
+```csharp
+foreach (var validationError in exception.ValidationErrors)
 {
-    // Invalid or expired credentials.
-}
-catch (SeamHttpApiException exception)
-{
-    Console.WriteLine($"{exception.Code} ({exception.RequestId})");
+    Console.WriteLine(
+        $"{validationError.ParameterName}: {string.Join(", ", validationError.ErrorMessages)}"
+    );
 }
 ```
 
