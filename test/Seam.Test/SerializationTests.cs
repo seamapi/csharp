@@ -108,6 +108,36 @@ public class SerializationTests
     }
 
     [Fact]
+    public void PendingActionAttemptDeserializesWithNullResultAndError()
+    {
+        var actionAttempt = Deserialize<ActionAttempt>(
+            """
+            {"action_type":"LOCK_DOOR","action_attempt_id":"attempt1","status":"pending","result":null,"error":null}
+            """
+        );
+
+        var lockDoor = Assert.IsType<ActionAttemptLockDoor>(actionAttempt);
+        Assert.Equal(ActionAttemptStatus.Pending, lockDoor.Status);
+        Assert.Null(lockDoor.Result);
+        Assert.Null(lockDoor.Error);
+    }
+
+    [Fact]
+    public void SuccessfulActionAttemptDeserializesWithResult()
+    {
+        var actionAttempt = Deserialize<ActionAttempt>(
+            """
+            {"action_type":"LOCK_DOOR","action_attempt_id":"attempt1","status":"success","error":null,"result":{"was_confirmed_by_device":true}}
+            """
+        );
+
+        var lockDoor = Assert.IsType<ActionAttemptLockDoor>(actionAttempt);
+        Assert.Equal(ActionAttemptStatus.Success, lockDoor.Status);
+        Assert.NotNull(lockDoor.Result);
+        Assert.True(lockDoor.Result.WasConfirmedByDevice);
+    }
+
+    [Fact]
     public void UnsetOptionalParametersAreOmitted()
     {
         var json = JsonSerializer.Serialize(

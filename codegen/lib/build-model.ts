@@ -591,6 +591,27 @@ export const buildModelFile = (
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
 
+// An action attempt property annotated with actionAttemptStatuses is only
+// populated for the listed statuses and is null for every other status. The
+// C# model flattens the per-status variants into one class per action type,
+// so such a property widens to a nullable type with documentation naming the
+// statuses that populate it. An unannotated property is the same for every
+// status and normalizes unchanged.
+const normalizeActionAttemptProperty = (property: Property): Field => {
+  const field = normalizeProperty(property)
+  const statuses = property.actionAttemptStatuses
+  if (statuses == null) return field
+  const statusList = statuses.map((status) => `\`${status}\``).join(' or ')
+  const note =
+    statuses.length === 0
+      ? 'Always null.'
+      : `Null unless the action attempt \`status\` is ${statusList}.`
+  const description = [field.description, note]
+    .filter((part) => part !== '')
+    .join('\n\n')
+  return { ...field, isNullable: true, description }
+}
+
 export const buildActionAttemptFile = (
   actionAttempts: ActionAttempt[],
 ): { name: string; file: CsModelFile } => {
@@ -602,7 +623,7 @@ export const buildActionAttemptFile = (
     'action_type',
     actionAttempts.map((actionAttempt) => ({
       value: actionAttempt.actionAttemptType,
-      fields: actionAttempt.properties.map(normalizeProperty),
+      fields: actionAttempt.properties.map(normalizeActionAttemptProperty),
       description: actionAttempt.description,
       ...(actionAttempt.isDeprecated
         ? {
