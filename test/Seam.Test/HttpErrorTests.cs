@@ -142,3 +142,78 @@ public class InvalidInputTests
         Assert.Null(exception.RequestId);
     }
 }
+
+public class UnauthorizedTests
+{
+    private const string UnauthorizedBody = """
+        {
+          "error": {
+            "type": "unauthorized",
+            "message": "Invalid API key: this key was revoked",
+            "data": { "hint": "Create a new API key in the Seam Console" },
+            "request_id": "request1"
+          }
+        }
+        """;
+
+    private static SeamClient CreateSeam(RecordingHandler handler)
+    {
+        return new SeamClient(
+            new SeamClientOptions
+            {
+                ApiKey = "seam_apikey1_token",
+                Endpoint = "https://example.com",
+                HttpMessageHandler = handler,
+            }
+        );
+    }
+
+    [Fact]
+    public async Task KeepsTheServerMessageAndData()
+    {
+        var handler = new RecordingHandler().RespondWith(
+            HttpStatusCode.Unauthorized,
+            UnauthorizedBody,
+            headers: new Dictionary<string, string> { ["seam-request-id"] = "request1" }
+        );
+        using var seam = CreateSeam(handler);
+
+        var exception = await Assert.ThrowsAsync<SeamHttpUnauthorizedException>(
+            () => seam.Devices.ListAsync()
+        );
+
+        Assert.Equal("Invalid API key: this key was revoked", exception.Message);
+        Assert.Equal("unauthorized", exception.Code);
+        Assert.Equal(401, exception.StatusCode);
+        Assert.Equal("request1", exception.RequestId);
+        Assert.Equal(
+            "Create a new API key in the Seam Console",
+            exception.Data!.Value.GetProperty("hint").GetString()
+        );
+    }
+
+    [Theory]
+    [InlineData("", "application/json")]
+    [InlineData("{}", "application/json")]
+    [InlineData("<html>Unauthorized</html>", "text/html")]
+    public async Task FallsBackToAGenericMessageWithoutAnErrorEnvelope(
+        string body,
+        string contentType
+    )
+    {
+        var handler = new RecordingHandler().RespondWith(
+            HttpStatusCode.Unauthorized,
+            body,
+            contentType
+        );
+        using var seam = CreateSeam(handler);
+
+        var exception = await Assert.ThrowsAsync<SeamHttpUnauthorizedException>(
+            () => seam.Devices.ListAsync()
+        );
+
+        Assert.Equal("Unauthorized", exception.Message);
+        Assert.Equal("unauthorized", exception.Code);
+        Assert.Null(exception.Data);
+    }
+}
