@@ -264,6 +264,38 @@ var seam = new SeamClient(new SeamClientOptions
 });
 ```
 
+### Adding the Seam handlers to your own client
+
+`SeamClient.FromHttpClient` uses the client as is, so it retries nothing and
+has no per-attempt timeout unless its pipeline includes the SDK's handlers.
+`SeamRetryHandler` and `SeamTimeoutHandler` are public for that purpose:
+
+```csharp
+using System.Net.Http.Headers;
+using Seam.Http;
+
+var client = new HttpClient(
+    new SeamRetryHandler(
+        maxRetries: 2,
+        new SeamTimeoutHandler(TimeSpan.FromSeconds(30), new SocketsHttpHandler())
+    )
+)
+{
+    BaseAddress = new Uri("https://connect.getseam.com"),
+    Timeout = Timeout.InfiniteTimeSpan,
+};
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+    "Bearer",
+    "YOUR_API_KEY"
+);
+
+var seam = SeamClient.FromHttpClient(client);
+```
+
+Disable the client's own `Timeout` so the timeout applies to each attempt
+rather than the whole sequence of attempts, and add each handler once: two
+retry handlers in one pipeline multiply the retries.
+
 ### Serializing URL search params
 
 The Seam API parses URL search params as complex types. The SDK serializes
