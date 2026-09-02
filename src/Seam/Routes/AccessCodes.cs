@@ -533,8 +533,6 @@ namespace Seam.Routes
                     && AccessMethodId == null
                     && CustomerKey == null
                     && DeviceId == null
-                    && Limit == null
-                    && !PageCursor.IsSet
                     && Search == null
                     && UserIdentifierKey == null
                 )

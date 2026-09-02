@@ -994,7 +994,6 @@ namespace Seam.Routes
                     && EventIds == null
                     && EventType == null
                     && EventTypes == null
-                    && Limit == null
                     && Since == null
                     && SpaceId == null
                     && SpaceIds == null
