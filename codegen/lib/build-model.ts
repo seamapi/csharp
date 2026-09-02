@@ -803,6 +803,8 @@ const responseReturn = (
 
 // The C# condition under which a request property counts as not given, for
 // the require-any-of validation of "at least one parameter" endpoints.
+const paginationParameterNames = new Set(['limit', 'page_cursor'])
+
 const notGivenCondition = (property: CsProperty): string =>
   property.type.startsWith('Optional<')
     ? `!${property.pascalName}.IsSet`
@@ -833,10 +835,13 @@ export const buildRoute = (
   const requiresAnyParameter =
     endpoint.request.hasRequiredParameters &&
     endpoint.request.parameters.every((parameter) => !parameter.isRequired)
-  if (requiresAnyParameter) {
+  const atLeastOneProperties = request.properties.filter(
+    (property) => !paginationParameterNames.has(property.snakeName),
+  )
+  if (requiresAnyParameter && atLeastOneProperties.length > 0) {
     request.main.requireAnyOf = {
       path: endpoint.path,
-      conditions: request.properties.map(notGivenCondition),
+      conditions: atLeastOneProperties.map(notGivenCondition),
     }
   }
 
