@@ -80,13 +80,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/unmanaged/get",
                     request,
+                    "device",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Device
-                ?? throw new HttpRequestException(
-                    "Seam returned no device for /devices/unmanaged/get"
-                );
+            return response.Read(r => r.Device);
         }
 
         /// <summary>
@@ -641,13 +639,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/unmanaged/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException(
-                    "Seam returned no devices for /devices/unmanaged/list"
-                );
+            return response.Read(r => r.Devices);
         }
 
         /// <summary>Fetches one page of /devices/unmanaged/list with its pagination metadata.</summary>
@@ -661,20 +657,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/unmanaged/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.Devices
-                ?? throw new HttpRequestException(
-                    "Seam returned no devices for /devices/unmanaged/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /devices/unmanaged/list"
-                );
-            return new SeamPage<UnmanagedDevice>(items, pagination);
+            return new SeamPage<UnmanagedDevice>(
+                response.Read(r => r.Devices),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /devices/unmanaged/list.</summary>

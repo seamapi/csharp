@@ -59,13 +59,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/entrances/get",
                     request,
+                    "acs_entrance",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEntrance
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrance for /acs/entrances/get"
-                );
+            return response.Read(r => r.AcsEntrance);
         }
 
         /// <summary>
@@ -208,13 +206,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/entrances/list",
                     request,
+                    "acs_entrances",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEntrances
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrances for /acs/entrances/list"
-                );
+            return response.Read(r => r.AcsEntrances);
         }
 
         /// <summary>Fetches one page of /acs/entrances/list with its pagination metadata.</summary>
@@ -228,20 +224,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/entrances/list",
                     request,
+                    "acs_entrances",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AcsEntrances
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrances for /acs/entrances/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /acs/entrances/list"
-                );
-            return new SeamPage<AcsEntrance>(items, pagination);
+            return new SeamPage<AcsEntrance>(
+                response.Read(r => r.AcsEntrances),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /acs/entrances/list.</summary>
@@ -314,13 +304,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/entrances/list_credentials_with_access",
                     request,
+                    "acs_credentials",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsCredentials
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_credentials for /acs/entrances/list_credentials_with_access"
-                );
+            return response.Read(r => r.AcsCredentials);
         }
 
         /// <summary>
@@ -364,14 +352,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/acs/entrances/unlock",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /acs/entrances/unlock"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

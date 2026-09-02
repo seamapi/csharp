@@ -150,13 +150,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/acs/users/create",
                     request,
+                    "acs_user",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsUser
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_user for /acs/users/create"
-                );
+            return response.Read(r => r.AcsUser);
         }
 
         /// <summary>
@@ -264,11 +262,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/users/get",
                     request,
+                    "acs_user",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsUser
-                ?? throw new HttpRequestException("Seam returned no acs_user for /acs/users/get");
+            return response.Read(r => r.AcsUser);
         }
 
         /// <summary>
@@ -353,11 +351,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/users/list",
                     request,
+                    "acs_users",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsUsers
-                ?? throw new HttpRequestException("Seam returned no acs_users for /acs/users/list");
+            return response.Read(r => r.AcsUsers);
         }
 
         /// <summary>Fetches one page of /acs/users/list with its pagination metadata.</summary>
@@ -371,18 +369,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/users/list",
                     request,
+                    "acs_users",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AcsUsers
-                ?? throw new HttpRequestException("Seam returned no acs_users for /acs/users/list");
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /acs/users/list"
-                );
-            return new SeamPage<AcsUser>(items, pagination);
+            return new SeamPage<AcsUser>(
+                response.Read(r => r.AcsUsers),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /acs/users/list.</summary>
@@ -459,13 +453,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/users/list_accessible_entrances",
                     request,
+                    "acs_entrances",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEntrances
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrances for /acs/users/list_accessible_entrances"
-                );
+            return response.Read(r => r.AcsEntrances);
         }
 
         /// <summary>

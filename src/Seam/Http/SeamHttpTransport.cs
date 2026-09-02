@@ -34,26 +34,70 @@ namespace Seam.Http
 
         public HttpClient Client { get; }
 
-        public async Task<TResponse> SendAsync<TResponse>(
+        public async Task<SeamHttpResponse<TResponse>> SendAsync<TResponse>(
             HttpMethod method,
             string path,
             object? parameters,
+            string responseKey,
             CancellationToken cancellationToken
         )
         {
             using var response = await ExecuteAsync(method, path, parameters, cancellationToken)
                 .ConfigureAwait(false);
 
+            var statusCode = (int)response.StatusCode;
+            var requestId = GetRequestId(response);
+
             var body = await response
                 .Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            var result =
-                body.Length > 0
-                    ? JsonSerializer.Deserialize<TResponse>(body, SeamJson.Options)
-                    : default;
+            if (body.Length == 0)
+                throw new SeamHttpInvalidResponseException(
+                    path,
+                    responseKey,
+                    "got an empty body",
+                    statusCode,
+                    requestId,
+                    body
+                );
 
-            return result ?? throw new JsonException($"Seam returned an empty response for {path}");
+            TResponse? data;
+            try
+            {
+                data = JsonSerializer.Deserialize<TResponse>(body, SeamJson.Options);
+            }
+            catch (JsonException exception)
+            {
+                throw new SeamHttpInvalidResponseException(
+                    path,
+                    responseKey,
+                    "which could not be deserialized",
+                    statusCode,
+                    requestId,
+                    body,
+                    exception
+                );
+            }
+
+            if (data == null)
+                throw new SeamHttpInvalidResponseException(
+                    path,
+                    responseKey,
+                    "got null instead of a response object",
+                    statusCode,
+                    requestId,
+                    body
+                );
+
+            return new SeamHttpResponse<TResponse>(
+                data,
+                path,
+                responseKey,
+                statusCode,
+                requestId,
+                body
+            );
         }
 
         public async Task SendAsync(

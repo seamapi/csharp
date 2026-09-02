@@ -66,14 +66,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/locks/simulate/keypad_code_entry",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /locks/simulate/keypad_code_entry"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -119,14 +116,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/locks/simulate/manual_lock_via_keypad",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /locks/simulate/manual_lock_via_keypad"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

@@ -59,13 +59,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/unmanaged/get",
                     request,
+                    "access_grant",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrant
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grant for /access_grants/unmanaged/get"
-                );
+            return response.Read(r => r.AccessGrant);
         }
 
         /// <summary>
@@ -138,13 +136,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/unmanaged/list",
                     request,
+                    "access_grants",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrants
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grants for /access_grants/unmanaged/list"
-                );
+            return response.Read(r => r.AccessGrants);
         }
 
         /// <summary>Fetches one page of /access_grants/unmanaged/list with its pagination metadata.</summary>
@@ -158,20 +154,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/unmanaged/list",
                     request,
+                    "access_grants",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AccessGrants
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grants for /access_grants/unmanaged/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /access_grants/unmanaged/list"
-                );
-            return new SeamPage<UnmanagedAccessGrant>(items, pagination);
+            return new SeamPage<UnmanagedAccessGrant>(
+                response.Read(r => r.AccessGrants),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /access_grants/unmanaged/list.</summary>

@@ -71,13 +71,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_codes/simulate/create_unmanaged_access_code",
                     request,
+                    "access_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_code for /access_codes/simulate/create_unmanaged_access_code"
-                );
+            return response.Read(r => r.AccessCode);
         }
     }
 }

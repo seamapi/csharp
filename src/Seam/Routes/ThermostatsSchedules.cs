@@ -95,13 +95,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/schedules/create",
                     request,
+                    "thermostat_schedule",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ThermostatSchedule
-                ?? throw new HttpRequestException(
-                    "Seam returned no thermostat_schedule for /thermostats/schedules/create"
-                );
+            return response.Read(r => r.ThermostatSchedule);
         }
 
         /// <summary>
@@ -168,13 +166,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/thermostats/schedules/get",
                     request,
+                    "thermostat_schedule",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ThermostatSchedule
-                ?? throw new HttpRequestException(
-                    "Seam returned no thermostat_schedule for /thermostats/schedules/get"
-                );
+            return response.Read(r => r.ThermostatSchedule);
         }
 
         /// <summary>
@@ -217,13 +213,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/thermostats/schedules/list",
                     request,
+                    "thermostat_schedules",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ThermostatSchedules
-                ?? throw new HttpRequestException(
-                    "Seam returned no thermostat_schedules for /thermostats/schedules/list"
-                );
+            return response.Read(r => r.ThermostatSchedules);
         }
 
         /// <summary>
