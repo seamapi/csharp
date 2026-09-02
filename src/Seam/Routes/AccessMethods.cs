@@ -69,14 +69,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_methods/assign_card",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /access_methods/assign_card"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -176,14 +173,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_methods/encode",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /access_methods/encode"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -228,13 +222,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/get",
                     request,
+                    "access_method",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessMethod
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_method for /access_methods/get"
-                );
+            return response.Read(r => r.AccessMethod);
         }
 
         /// <summary>
@@ -339,13 +331,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/get_related",
                     request,
+                    "batch",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Batch
-                ?? throw new HttpRequestException(
-                    "Seam returned no batch for /access_methods/get_related"
-                );
+            return response.Read(r => r.Batch);
         }
 
         /// <summary>
@@ -450,13 +440,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/list",
                     request,
+                    "access_methods",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessMethods
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_methods for /access_methods/list"
-                );
+            return response.Read(r => r.AccessMethods);
         }
 
         /// <summary>Fetches one page of /access_methods/list with its pagination metadata.</summary>
@@ -470,20 +458,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/list",
                     request,
+                    "access_methods",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AccessMethods
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_methods for /access_methods/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /access_methods/list"
-                );
-            return new SeamPage<AccessMethod>(items, pagination);
+            return new SeamPage<AccessMethod>(
+                response.Read(r => r.AccessMethods),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /access_methods/list.</summary>
@@ -539,14 +521,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_methods/unlock_door",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /access_methods/unlock_door"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

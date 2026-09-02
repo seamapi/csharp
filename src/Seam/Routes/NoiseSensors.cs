@@ -146,13 +146,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/noise_sensors/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException(
-                    "Seam returned no devices for /noise_sensors/list"
-                );
+            return response.Read(r => r.Devices);
         }
     }
 }

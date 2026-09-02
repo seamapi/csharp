@@ -159,13 +159,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/phones/simulate/create_sandbox_phone",
                     request,
+                    "phone",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Phone
-                ?? throw new HttpRequestException(
-                    "Seam returned no phone for /phones/simulate/create_sandbox_phone"
-                );
+            return response.Read(r => r.Phone);
         }
     }
 }

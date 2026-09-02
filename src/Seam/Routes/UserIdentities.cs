@@ -132,13 +132,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/user_identities/create",
                     request,
+                    "user_identity",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.UserIdentity
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identity for /user_identities/create"
-                );
+            return response.Read(r => r.UserIdentity);
         }
 
         /// <summary>
@@ -209,13 +207,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/user_identities/generate_instant_key",
                     request,
+                    "instant_key",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.InstantKey
-                ?? throw new HttpRequestException(
-                    "Seam returned no instant_key for /user_identities/generate_instant_key"
-                );
+            return response.Read(r => r.InstantKey);
         }
 
         /// <summary>
@@ -266,13 +262,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/get",
                     request,
+                    "user_identity",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.UserIdentity
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identity for /user_identities/get"
-                );
+            return response.Read(r => r.UserIdentity);
         }
 
         /// <summary>
@@ -381,13 +375,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list",
                     request,
+                    "user_identities",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.UserIdentities
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identities for /user_identities/list"
-                );
+            return response.Read(r => r.UserIdentities);
         }
 
         /// <summary>Fetches one page of /user_identities/list with its pagination metadata.</summary>
@@ -401,20 +393,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list",
                     request,
+                    "user_identities",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.UserIdentities
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identities for /user_identities/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /user_identities/list"
-                );
-            return new SeamPage<UserIdentity>(items, pagination);
+            return new SeamPage<UserIdentity>(
+                response.Read(r => r.UserIdentities),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /user_identities/list.</summary>
@@ -468,13 +454,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list_accessible_devices",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException(
-                    "Seam returned no devices for /user_identities/list_accessible_devices"
-                );
+            return response.Read(r => r.Devices);
         }
 
         /// <summary>
@@ -511,13 +495,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list_accessible_entrances",
                     request,
+                    "acs_entrances",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEntrances
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrances for /user_identities/list_accessible_entrances"
-                );
+            return response.Read(r => r.AcsEntrances);
         }
 
         /// <summary>
@@ -554,13 +536,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list_acs_systems",
                     request,
+                    "acs_systems",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsSystems
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_systems for /user_identities/list_acs_systems"
-                );
+            return response.Read(r => r.AcsSystems);
         }
 
         /// <summary>
@@ -597,13 +577,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/list_acs_users",
                     request,
+                    "acs_users",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsUsers
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_users for /user_identities/list_acs_users"
-                );
+            return response.Read(r => r.AcsUsers);
         }
 
         /// <summary>

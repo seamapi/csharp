@@ -1386,13 +1386,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/customers/create_portal",
                     request,
+                    "customer_portal",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.CustomerPortal
-                ?? throw new HttpRequestException(
-                    "Seam returned no customer_portal for /customers/create_portal"
-                );
+            return response.Read(r => r.CustomerPortal);
         }
 
         /// <summary>

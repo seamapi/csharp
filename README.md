@@ -191,6 +191,12 @@ Every SDK exception derives from `SeamException`. A response that is not a
 Seam error, e.g. from a gateway, surfaces as the standard
 `HttpRequestException`.
 
+A success response the SDK cannot read, e.g. an empty body, a body that is
+not JSON, or a body missing the endpoint's response key, raises
+`SeamHttpInvalidResponseException`. It names the endpoint path and the
+expected response key, and carries the HTTP status code, the
+`seam-request-id`, and the raw response body.
+
 ### Retries and timeouts
 
 Idempotent requests are retried twice on transport errors, timeouts, 429, and

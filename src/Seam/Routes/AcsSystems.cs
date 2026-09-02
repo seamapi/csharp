@@ -59,13 +59,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/systems/get",
                     request,
+                    "acs_system",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsSystem
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_system for /acs/systems/get"
-                );
+            return response.Read(r => r.AcsSystem);
         }
 
         /// <summary>
@@ -116,13 +114,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/systems/list",
                     request,
+                    "acs_systems",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsSystems
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_systems for /acs/systems/list"
-                );
+            return response.Read(r => r.AcsSystems);
         }
 
         /// <summary>
@@ -161,13 +157,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/systems/list_compatible_credential_manager_acs_systems",
                     request,
+                    "acs_systems",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsSystems
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_systems for /acs/systems/list_compatible_credential_manager_acs_systems"
-                );
+            return response.Read(r => r.AcsSystems);
         }
 
         /// <summary>

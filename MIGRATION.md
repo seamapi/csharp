@@ -111,6 +111,9 @@ hierarchy rooted at an abstract `SeamException`:
   type), `StatusCode`, `RequestId` (the `seam-request-id` header), and `Data`.
   - `SeamHttpUnauthorizedException` — 401.
   - `SeamHttpInvalidInputException` — adds `GetValidationErrorMessages(paramName)`.
+- `SeamHttpInvalidResponseException` — a success response that is empty, not
+  JSON, or missing the endpoint's response key, with `Path`, `ResponseKey`,
+  `StatusCode`, `RequestId`, and `ResponseBody`.
 - `SeamActionAttemptFailedException` / `SeamActionAttemptTimeoutException` —
   carry the `ActionAttempt`.
 - `SeamInvalidOptionsException` / `SeamInvalidTokenException` — invalid client

@@ -217,11 +217,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/spaces/create",
                     request,
+                    "space",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Space
-                ?? throw new HttpRequestException("Seam returned no space for /spaces/create");
+            return response.Read(r => r.Space);
         }
 
         /// <summary>
@@ -296,10 +296,15 @@ namespace Seam.Routes
         {
             request.Validate();
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/spaces/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/spaces/get",
+                    request,
+                    "space",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Space
-                ?? throw new HttpRequestException("Seam returned no space for /spaces/get");
+            return response.Read(r => r.Space);
         }
 
         /// <summary>
@@ -409,11 +414,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/spaces/get_related",
                     request,
+                    "batch",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Batch
-                ?? throw new HttpRequestException("Seam returned no batch for /spaces/get_related");
+            return response.Read(r => r.Batch);
         }
 
         /// <summary>
@@ -476,10 +481,15 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<ListResponse>(HttpMethod.Get, "/spaces/list", request, cancellationToken)
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/spaces/list",
+                    request,
+                    "spaces",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Spaces
-                ?? throw new HttpRequestException("Seam returned no spaces for /spaces/list");
+            return response.Read(r => r.Spaces);
         }
 
         /// <summary>Fetches one page of /spaces/list with its pagination metadata.</summary>
@@ -489,15 +499,18 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<ListResponse>(HttpMethod.Get, "/spaces/list", request, cancellationToken)
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/spaces/list",
+                    request,
+                    "spaces",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            var items =
-                response.Spaces
-                ?? throw new HttpRequestException("Seam returned no spaces for /spaces/list");
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException("Seam returned no pagination for /spaces/list");
-            return new SeamPage<Space>(items, pagination);
+            return new SeamPage<Space>(
+                response.Read(r => r.Spaces),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /spaces/list.</summary>
@@ -711,11 +724,11 @@ namespace Seam.Routes
                     HttpMethod.Patch,
                     "/spaces/update",
                     request,
+                    "space",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Space
-                ?? throw new HttpRequestException("Seam returned no space for /spaces/update");
+            return response.Read(r => r.Space);
         }
     }
 }

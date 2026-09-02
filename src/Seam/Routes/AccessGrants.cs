@@ -226,13 +226,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_grants/create",
                     request,
+                    "access_grant",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrant
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grant for /access_grants/create"
-                );
+            return response.Read(r => r.AccessGrant);
         }
 
         /// <summary>
@@ -311,13 +309,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/get",
                     request,
+                    "access_grant",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrant
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grant for /access_grants/get"
-                );
+            return response.Read(r => r.AccessGrant);
         }
 
         /// <summary>
@@ -444,13 +440,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/get_related",
                     request,
+                    "batch",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Batch
-                ?? throw new HttpRequestException(
-                    "Seam returned no batch for /access_grants/get_related"
-                );
+            return response.Read(r => r.Batch);
         }
 
         /// <summary>
@@ -563,13 +557,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/list",
                     request,
+                    "access_grants",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrants
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grants for /access_grants/list"
-                );
+            return response.Read(r => r.AccessGrants);
         }
 
         /// <summary>Fetches one page of /access_grants/list with its pagination metadata.</summary>
@@ -583,20 +575,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_grants/list",
                     request,
+                    "access_grants",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AccessGrants
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grants for /access_grants/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /access_grants/list"
-                );
-            return new SeamPage<AccessGrant>(items, pagination);
+            return new SeamPage<AccessGrant>(
+                response.Read(r => r.AccessGrants),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /access_grants/list.</summary>
@@ -699,13 +685,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_grants/request_access_methods",
                     request,
+                    "access_grant",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessGrant
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_grant for /access_grants/request_access_methods"
-                );
+            return response.Read(r => r.AccessGrant);
         }
 
         /// <summary>
