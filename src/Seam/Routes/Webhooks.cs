@@ -65,11 +65,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/webhooks/create",
                     request,
+                    "webhook",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Webhook
-                ?? throw new HttpRequestException("Seam returned no webhook for /webhooks/create");
+            return response.Read(r => r.Webhook);
         }
 
         /// <summary>
@@ -127,10 +127,15 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/webhooks/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/webhooks/get",
+                    request,
+                    "webhook",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Webhook
-                ?? throw new HttpRequestException("Seam returned no webhook for /webhooks/get");
+            return response.Read(r => r.Webhook);
         }
 
         /// <summary>
@@ -160,11 +165,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/webhooks/list",
                     request,
+                    "webhooks",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Webhooks
-                ?? throw new HttpRequestException("Seam returned no webhooks for /webhooks/list");
+            return response.Read(r => r.Webhooks);
         }
 
         /// <summary>

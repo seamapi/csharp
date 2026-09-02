@@ -102,13 +102,11 @@ namespace Seam.Routes
                     HttpMethod.Put,
                     "/client_sessions/create",
                     request,
+                    "client_session",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ClientSession
-                ?? throw new HttpRequestException(
-                    "Seam returned no client_session for /client_sessions/create"
-                );
+            return response.Read(r => r.ClientSession);
         }
 
         /// <summary>
@@ -176,13 +174,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/client_sessions/get",
                     request,
+                    "client_session",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ClientSession
-                ?? throw new HttpRequestException(
-                    "Seam returned no client_session for /client_sessions/get"
-                );
+            return response.Read(r => r.ClientSession);
         }
 
         /// <summary>
@@ -250,13 +246,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/client_sessions/get_or_create",
                     request,
+                    "client_session",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ClientSession
-                ?? throw new HttpRequestException(
-                    "Seam returned no client_session for /client_sessions/get_or_create"
-                );
+            return response.Read(r => r.ClientSession);
         }
 
         /// <summary>
@@ -396,13 +390,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/client_sessions/list",
                     request,
+                    "client_sessions",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ClientSessions
-                ?? throw new HttpRequestException(
-                    "Seam returned no client_sessions for /client_sessions/list"
-                );
+            return response.Read(r => r.ClientSessions);
         }
 
         /// <summary>

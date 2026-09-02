@@ -166,13 +166,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/unmanaged/get",
                     request,
+                    "access_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_code for /access_codes/unmanaged/get"
-                );
+            return response.Read(r => r.AccessCode);
         }
 
         /// <summary>
@@ -239,13 +237,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/unmanaged/list",
                     request,
+                    "access_codes",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCodes
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_codes for /access_codes/unmanaged/list"
-                );
+            return response.Read(r => r.AccessCodes);
         }
 
         /// <summary>Fetches one page of /access_codes/unmanaged/list with its pagination metadata.</summary>
@@ -259,20 +255,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/unmanaged/list",
                     request,
+                    "access_codes",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AccessCodes
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_codes for /access_codes/unmanaged/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /access_codes/unmanaged/list"
-                );
-            return new SeamPage<UnmanagedAccessCode>(items, pagination);
+            return new SeamPage<UnmanagedAccessCode>(
+                response.Read(r => r.AccessCodes),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /access_codes/unmanaged/list.</summary>

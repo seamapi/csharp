@@ -59,13 +59,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/unmanaged/get",
                     request,
+                    "user_identity",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.UserIdentity
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identity for /user_identities/unmanaged/get"
-                );
+            return response.Read(r => r.UserIdentity);
         }
 
         /// <summary>
@@ -126,13 +124,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/unmanaged/list",
                     request,
+                    "user_identities",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.UserIdentities
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identities for /user_identities/unmanaged/list"
-                );
+            return response.Read(r => r.UserIdentities);
         }
 
         /// <summary>Fetches one page of /user_identities/unmanaged/list with its pagination metadata.</summary>
@@ -146,20 +142,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/user_identities/unmanaged/list",
                     request,
+                    "user_identities",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.UserIdentities
-                ?? throw new HttpRequestException(
-                    "Seam returned no user_identities for /user_identities/unmanaged/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /user_identities/unmanaged/list"
-                );
-            return new SeamPage<UnmanagedUserIdentity>(items, pagination);
+            return new SeamPage<UnmanagedUserIdentity>(
+                response.Read(r => r.UserIdentities),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /user_identities/unmanaged/list.</summary>

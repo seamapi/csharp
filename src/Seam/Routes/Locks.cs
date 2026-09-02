@@ -72,14 +72,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/locks/configure_auto_lock",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /locks/configure_auto_lock"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -139,10 +136,15 @@ namespace Seam.Routes
         {
             request.Validate();
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/locks/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/locks/get",
+                    request,
+                    "device",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Device
-                ?? throw new HttpRequestException("Seam returned no device for /locks/get");
+            return response.Read(r => r.Device);
         }
 
         /// <summary>
@@ -520,10 +522,15 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<ListResponse>(HttpMethod.Get, "/locks/list", request, cancellationToken)
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/locks/list",
+                    request,
+                    "devices",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException("Seam returned no devices for /locks/list");
+            return response.Read(r => r.Devices);
         }
 
         /// <summary>
@@ -561,14 +568,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/locks/lock_door",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /locks/lock_door"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -614,14 +618,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/locks/unlock_door",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /locks/unlock_door"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

@@ -75,10 +75,15 @@ namespace Seam.Routes
         {
             request.Validate();
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/events/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/events/get",
+                    request,
+                    "event",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Event
-                ?? throw new HttpRequestException("Seam returned no event for /events/get");
+            return response.Read(r => r.Event);
         }
 
         /// <summary>
@@ -1023,10 +1028,15 @@ namespace Seam.Routes
         {
             request.Validate();
             var response = await _transport
-                .SendAsync<ListResponse>(HttpMethod.Get, "/events/list", request, cancellationToken)
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/events/list",
+                    request,
+                    "events",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Events
-                ?? throw new HttpRequestException("Seam returned no events for /events/list");
+            return response.Read(r => r.Events);
         }
     }
 }

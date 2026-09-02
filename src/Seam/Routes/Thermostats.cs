@@ -75,14 +75,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/activate_climate_preset",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/activate_climate_preset"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -140,14 +137,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/cool",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/cool"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -447,14 +441,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/heat",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/heat"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -524,14 +515,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/heat_cool",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/heat_cool"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -690,11 +678,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/thermostats/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException("Seam returned no devices for /thermostats/list");
+            return response.Read(r => r.Devices);
         }
 
         /// <summary>
@@ -732,14 +720,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/off",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/off"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -872,14 +857,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/set_fan_mode",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/set_fan_mode"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -974,14 +956,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/set_hvac_mode",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/set_hvac_mode"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -1329,14 +1308,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/update_weekly_program",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/update_weekly_program"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

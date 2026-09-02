@@ -178,13 +178,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_codes/create",
                     request,
+                    "access_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_code for /access_codes/create"
-                );
+            return response.Read(r => r.AccessCode);
         }
 
         /// <summary>
@@ -316,13 +314,11 @@ namespace Seam.Routes
                     HttpMethod.Put,
                     "/access_codes/create_multiple",
                     request,
+                    "access_codes",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCodes
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_codes for /access_codes/create_multiple"
-                );
+            return response.Read(r => r.AccessCodes);
         }
 
         /// <summary>
@@ -390,13 +386,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/generate_code",
                     request,
+                    "generated_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.GeneratedCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no generated_code for /access_codes/generate_code"
-                );
+            return response.Read(r => r.GeneratedCode);
         }
 
         /// <summary>
@@ -458,13 +452,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/get",
                     request,
+                    "access_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_code for /access_codes/get"
-                );
+            return response.Read(r => r.AccessCode);
         }
 
         /// <summary>
@@ -585,13 +577,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/list",
                     request,
+                    "access_codes",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCodes
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_codes for /access_codes/list"
-                );
+            return response.Read(r => r.AccessCodes);
         }
 
         /// <summary>Fetches one page of /access_codes/list with its pagination metadata.</summary>
@@ -605,20 +595,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_codes/list",
                     request,
+                    "access_codes",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AccessCodes
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_codes for /access_codes/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /access_codes/list"
-                );
-            return new SeamPage<AccessCode>(items, pagination);
+            return new SeamPage<AccessCode>(
+                response.Read(r => r.AccessCodes),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /access_codes/list.</summary>
@@ -675,13 +659,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/access_codes/pull_backup_access_code",
                     request,
+                    "access_code",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessCode
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_code for /access_codes/pull_backup_access_code"
-                );
+            return response.Read(r => r.AccessCode);
         }
 
         /// <summary>
