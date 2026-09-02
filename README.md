@@ -241,6 +241,32 @@ if (seamEvent is Seam.Models.EventDeviceConnected connected)
     Console.WriteLine(connected.DeviceId);
 ```
 
+Verification failures raise Svix's `WebhookVerificationException`: treat the
+payload as forged and respond with an error status so Svix retries. A payload
+that is correctly signed but unreadable raises a
+`SeamInvalidWebhookPayloadException` instead: it is genuinely from Seam and
+will never become readable, so log it as a bug rather than reporting a
+verification failure and letting Svix retry it through its full backoff
+schedule.
+
+```csharp
+try
+{
+    var seamEvent = webhook.Verify(requestBody, requestHeaders);
+    await StoreEventAsync(seamEvent);
+}
+catch (Svix.Exceptions.WebhookVerificationException)
+{
+    return Results.StatusCode(401);
+}
+catch (SeamInvalidWebhookPayloadException exception)
+{
+    logger.LogError(exception, "Unreadable Seam webhook payload");
+}
+
+return Results.NoContent();
+```
+
 ## Advanced usage
 
 ### Calling the API directly
