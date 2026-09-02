@@ -44,10 +44,56 @@ namespace Seam
 
             _webhook.Verify(payload, normalizedHeaders);
 
-            return JsonSerializer.Deserialize<Models.Event>(payload, SeamJson.Options)
-                ?? throw new Svix.Exceptions.WebhookVerificationException(
-                    "The verified webhook payload did not contain an event"
+            return ReadEvent(payload);
+        }
+
+        private static Models.Event ReadEvent(string payload)
+        {
+            JsonDocument document;
+            try
+            {
+                document = JsonDocument.Parse(payload);
+            }
+            catch (JsonException exception)
+            {
+                throw new SeamInvalidWebhookPayloadException(
+                    "The verified webhook payload is not valid JSON",
+                    exception
                 );
+            }
+
+            using (document)
+            {
+                var root = document.RootElement;
+
+                if (
+                    root.ValueKind != JsonValueKind.Object
+                    || !root.TryGetProperty("event_id", out var eventId)
+                    || eventId.ValueKind != JsonValueKind.String
+                    || !root.TryGetProperty("event_type", out var eventType)
+                    || eventType.ValueKind != JsonValueKind.String
+                )
+                {
+                    throw new SeamInvalidWebhookPayloadException(
+                        "The verified webhook payload did not contain a Seam event"
+                    );
+                }
+
+                try
+                {
+                    return root.Deserialize<Models.Event>(SeamJson.Options)
+                        ?? throw new SeamInvalidWebhookPayloadException(
+                            "The verified webhook payload did not contain a Seam event"
+                        );
+                }
+                catch (JsonException exception)
+                {
+                    throw new SeamInvalidWebhookPayloadException(
+                        "The verified webhook payload could not be read as a Seam event",
+                        exception
+                    );
+                }
+            }
         }
     }
 }
