@@ -30,6 +30,9 @@ public async Task<SeamPage<{{pageItemType}}>> {{methodName}}PageAsync(
 CancellationToken cancellationToken = default
 )
 {
+{{#if request.requireAnyOf}}
+request.Validate();
+{{/if}}
 var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
 var items = response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
 var pagination = response.Pagination ?? throw new HttpRequestException("Seam returned no pagination for {{path}}");
