@@ -171,11 +171,19 @@ namespace Seam.Http
         {
             var statusCode = (int)response.StatusCode;
             var requestId = GetRequestId(response);
+            var error = await GetErrorAsync(response, cancellationToken).ConfigureAwait(false);
 
             if (statusCode == 401)
-                return new SeamHttpUnauthorizedException(requestId);
+            {
+                if (error is not { } unauthorizedError)
+                    return new SeamHttpUnauthorizedException(requestId);
 
-            var error = await GetErrorAsync(response, cancellationToken).ConfigureAwait(false);
+                return new SeamHttpUnauthorizedException(
+                    requestId,
+                    unauthorizedError.GetProperty("message").GetString()!,
+                    GetData(unauthorizedError)
+                );
+            }
 
             if (error is not { } seamError)
             {
@@ -192,9 +200,7 @@ namespace Seam.Http
             {
                 var type = seamError.GetProperty("type").GetString()!;
                 var message = seamError.GetProperty("message").GetString()!;
-                JsonElement? data = seamError.TryGetProperty("data", out var dataElement)
-                    ? dataElement
-                    : null;
+                var data = GetData(seamError);
 
                 if (type == "invalid_input")
                 {
@@ -265,6 +271,9 @@ namespace Seam.Http
 
             return error;
         }
+
+        private static JsonElement? GetData(JsonElement error) =>
+            error.TryGetProperty("data", out var data) ? data : null;
 
         private static string? GetRequestId(HttpResponseMessage response) =>
             response.Headers.TryGetValues("seam-request-id", out var values)
