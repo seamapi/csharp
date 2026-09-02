@@ -115,6 +115,9 @@ hierarchy rooted at an abstract `SeamException`:
   carry the `ActionAttempt`.
 - `SeamInvalidOptionsException` / `SeamInvalidTokenException` — invalid client
   construction.
+- `SeamInvalidWebhookPayloadException` — a webhook payload that passed
+  signature verification but is not a readable Seam event. A failed signature
+  still raises Svix's `WebhookVerificationException`.
 
 A response that is not a Seam error envelope (e.g. HTML from a gateway) now
 raises the standard `HttpRequestException` instead of a fabricated Seam error.
