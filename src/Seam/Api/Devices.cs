@@ -103,7 +103,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Returns a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -118,7 +118,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Returns a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -128,7 +128,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Returns a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -142,7 +142,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Returns a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -334,6 +334,15 @@ namespace Seam.Api
 
                 [EnumMember(Value = "ring_camera")]
                 RingCamera = 43,
+
+                [EnumMember(Value = "tapo_camera")]
+                TapoCamera = 44,
+
+                [EnumMember(Value = "arlo_camera")]
+                ArloCamera = 45,
+
+                [EnumMember(Value = "reolink_camera")]
+                ReolinkCamera = 46,
             }
 
             /// <summary>
@@ -473,6 +482,15 @@ namespace Seam.Api
 
                 [EnumMember(Value = "ring_camera")]
                 RingCamera = 43,
+
+                [EnumMember(Value = "tapo_camera")]
+                TapoCamera = 44,
+
+                [EnumMember(Value = "arlo_camera")]
+                ArloCamera = 45,
+
+                [EnumMember(Value = "reolink_camera")]
+                ReolinkCamera = 46,
             }
 
             /// <summary>
@@ -559,86 +577,101 @@ namespace Seam.Api
                 [EnumMember(Value = "controlbyweb")]
                 Controlbyweb = 25,
 
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 26,
-
                 [EnumMember(Value = "tedee")]
-                Tedee = 27,
+                Tedee = 26,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 28,
+                Keyincode = 27,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 29,
+                Akiles = 28,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 30,
+                Aqara = 29,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 31,
+                Ecobee = 30,
+
+                [EnumMember(Value = "eufy")]
+                Eufy = 31,
+
+                [EnumMember(Value = "dormakaba_oracode")]
+                DormakabaOracode = 32,
+
+                [EnumMember(Value = "dormakaba_oracode_iho")]
+                DormakabaOracodeIho = 33,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 32,
+                HoneywellResideo = 34,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 33,
+                Keynest = 35,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 34,
+                Korelock = 36,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 35,
+                Lockly = 37,
 
                 [EnumMember(Value = "minut")]
-                Minut = 36,
+                Minut = 38,
 
                 [EnumMember(Value = "nest")]
-                Nest = 37,
+                Nest = 39,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 38,
+                Noiseaware = 40,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 39,
+                Sensi = 41,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 40,
+                Smartthings = 42,
 
                 [EnumMember(Value = "tado")]
-                Tado = 41,
+                Tado = 43,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 42,
+                Ultraloq = 44,
 
                 [EnumMember(Value = "ring")]
-                Ring = 43,
+                Ring = 45,
+
+                [EnumMember(Value = "tapo")]
+                Tapo = 46,
+
+                [EnumMember(Value = "arlo")]
+                Arlo = 47,
+
+                [EnumMember(Value = "reolink")]
+                Reolink = 48,
 
                 [EnumMember(Value = "ical")]
-                Ical = 44,
+                Ical = 49,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 45,
+                Lodgify = 50,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 46,
+                Hostaway = 51,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 47,
+                Guesty = 52,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 48,
+                AcuityScheduling = 53,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 49,
+                Omnitec = 54,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 50,
+                Kisi = 55,
 
                 [EnumMember(Value = "slack")]
-                Slack = 51,
+                Slack = 56,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 52,
+                Yacan = 57,
             }
 
             /// <summary>
@@ -674,7 +707,7 @@ namespace Seam.Api
             public string? CreatedBefore { get; set; }
 
             /// <summary>
-            /// Set of key:value [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
+            /// Set of key:value [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) pairs for which you want to list devices. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
             /// </summary>
             [DataMember(Name = "custom_metadata_has", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadataHas { get; set; }
@@ -805,7 +838,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public List<Device> List(ListRequest request)
         {
@@ -818,7 +851,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
@@ -862,7 +895,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
@@ -874,7 +907,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices).
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
@@ -1035,9 +1068,9 @@ namespace Seam.Api
         /// <summary>
         /// Returns a list of all device providers.
         ///
-        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
         ///
-        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// When you create a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         public List<DeviceProvider> ListDeviceProviders(ListDeviceProvidersRequest request)
         {
@@ -1052,9 +1085,9 @@ namespace Seam.Api
         /// <summary>
         /// Returns a list of all device providers.
         ///
-        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
         ///
-        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// When you create a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         public List<DeviceProvider> ListDeviceProviders(
             ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
@@ -1068,9 +1101,9 @@ namespace Seam.Api
         /// <summary>
         /// Returns a list of all device providers.
         ///
-        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
         ///
-        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// When you create a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
             ListDeviceProvidersRequest request
@@ -1091,9 +1124,9 @@ namespace Seam.Api
         /// <summary>
         /// Returns a list of all device providers.
         ///
-        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
+        /// The information that this endpoint returns for each provider includes a set of [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags), such as `device_provider.can_remotely_unlock`. If at least one supported device from a provider has a specific capability, the corresponding capability flag is `true`.
         ///
-        /// When you create a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// When you create a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews), you can customize the providers—that is, the brands—that it displays. In the `/connect_webviews/create` request, include the desired set of device provider keys in the `accepted_providers` parameter. See also [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         public async Task<List<DeviceProvider>> ListDeviceProvidersAsync(
             ListDeviceProvidersRequest.ProviderCategoryEnum? providerCategory = default
@@ -5287,7 +5320,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Indicates whether the device&apos;s [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) is enabled. Set to `false` to disable the pool: Seam stops refilling it and removes any backup codes that have not yet been pulled into active use.
+            /// Indicates whether the device&apos;s [backup access code pool](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes) is enabled. Set to `false` to disable the pool: Seam stops refilling it and removes any backup codes that have not yet been pulled into active use.
             /// </summary>
             [DataMember(
                 Name = "backup_access_code_pool_enabled",
@@ -5297,7 +5330,7 @@ namespace Seam.Api
             public bool? BackupAccessCodePoolEnabled { get; set; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the device. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter devices by the desired metadata](https://docs.seam.co/core-concepts/devices/filtering-devices-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// Custom metadata that you want to associate with the device. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a device](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter devices by the desired metadata](https://www.seam.co/docs/core-concepts/devices/filtering-devices-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -5381,9 +5414,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Updates a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
-        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// You can add or change [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -5393,9 +5426,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Updates a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
-        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// You can add or change [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         public void Update(
             bool? backupAccessCodePoolEnabled = default,
@@ -5419,9 +5452,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Updates a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
-        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// You can add or change [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -5431,9 +5464,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [device](https://docs.seam.co/core-concepts/devices).
+        /// Updates a specified [device](https://www.seam.co/docs/core-concepts/devices).
         ///
-        /// You can add or change [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// You can add or change [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for a device, change the device&apos;s name, or [convert a managed device to unmanaged](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         public async Task UpdateAsync(
             bool? backupAccessCodePoolEnabled = default,

@@ -118,7 +118,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Configures the auto-lock setting for a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public ActionAttempt ConfigureAutoLock(ConfigureAutoLockRequest request)
         {
@@ -131,7 +131,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Configures the auto-lock setting for a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public ActionAttempt ConfigureAutoLock(
             float? autoLockDelaySeconds = default,
@@ -149,7 +149,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Configures the auto-lock setting for a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<ActionAttempt> ConfigureAutoLockAsync(ConfigureAutoLockRequest request)
         {
@@ -166,7 +166,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Configures the auto-lock setting for a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<ActionAttempt> ConfigureAutoLockAsync(
             float? autoLockDelaySeconds = default,
@@ -271,7 +271,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         [Obsolete("Use `/devices/get` instead.")]
         public Device Get(GetRequest request)
@@ -285,7 +285,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         [Obsolete("Use `/devices/get` instead.")]
         public Device Get(string? deviceId = default, string? name = default)
@@ -294,7 +294,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         [Obsolete("Use `/devices/get` instead.")]
         public async Task<Device> GetAsync(GetRequest request)
@@ -307,7 +307,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         [Obsolete("Use `/devices/get` instead.")]
         public async Task<Device> GetAsync(string? deviceId = default, string? name = default)
@@ -619,41 +619,47 @@ namespace Seam.Api
                 [EnumMember(Value = "four_suites")]
                 FourSuites = 21,
 
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 22,
-
                 [EnumMember(Value = "tedee")]
-                Tedee = 23,
+                Tedee = 22,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 24,
+                Keyincode = 23,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 25,
+                Akiles = 24,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 26,
+                Aqara = 25,
+
+                [EnumMember(Value = "eufy")]
+                Eufy = 26,
+
+                [EnumMember(Value = "dormakaba_oracode")]
+                DormakabaOracode = 27,
+
+                [EnumMember(Value = "dormakaba_oracode_iho")]
+                DormakabaOracodeIho = 28,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 27,
+                Korelock = 29,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 28,
+                Lockly = 30,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 29,
+                Smartthings = 31,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 30,
+                Ultraloq = 32,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 31,
+                Omnitec = 33,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 32,
+                Kisi = 34,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 33,
+                Yacan = 35,
             }
 
             /// <summary>
@@ -754,7 +760,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a list of all [locks](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public List<Device> List(ListRequest request)
         {
@@ -767,7 +773,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a list of all [locks](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
@@ -791,7 +797,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a list of all [locks](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
@@ -803,7 +809,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a list of all [locks](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,
@@ -906,7 +912,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Locks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public ActionAttempt LockDoor(LockDoorRequest request)
         {
@@ -919,7 +925,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Locks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public ActionAttempt LockDoor(string deviceId = default)
         {
@@ -927,7 +933,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Locks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> LockDoorAsync(LockDoorRequest request)
         {
@@ -939,7 +945,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Locks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> LockDoorAsync(string deviceId = default)
         {
@@ -1024,7 +1030,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Unlocks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public ActionAttempt UnlockDoor(UnlockDoorRequest request)
         {
@@ -1037,7 +1043,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Unlocks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public ActionAttempt UnlockDoor(string deviceId = default)
         {
@@ -1045,7 +1051,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Unlocks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> UnlockDoorAsync(UnlockDoorRequest request)
         {
@@ -1057,7 +1063,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Unlocks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> UnlockDoorAsync(string deviceId = default)
         {

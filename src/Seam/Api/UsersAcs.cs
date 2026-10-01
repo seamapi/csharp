@@ -69,7 +69,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void AddToAccessGroup(AddToAccessGroupRequest request)
         {
@@ -79,7 +79,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void AddToAccessGroup(string acsAccessGroupId = default, string acsUserId = default)
         {
@@ -92,7 +92,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task AddToAccessGroupAsync(AddToAccessGroupRequest request)
         {
@@ -102,7 +102,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task AddToAccessGroupAsync(
             string acsAccessGroupId = default,
@@ -174,7 +174,7 @@ namespace Seam.Api
             public string? Email { get; set; }
 
             /// <summary>
-            /// Email address of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+            /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
             /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
@@ -186,7 +186,7 @@ namespace Seam.Api
             public string FullName { get; set; }
 
             /// <summary>
-            /// Phone number of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+            /// Phone number of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
             /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -299,7 +299,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Creates a new [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public AcsUser Create(CreateRequest request)
         {
@@ -312,7 +312,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Creates a new [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public AcsUser Create(
             CreateRequestAccessSchedule? accessSchedule = default,
@@ -340,7 +340,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Creates a new [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<AcsUser> CreateAsync(CreateRequest request)
         {
@@ -352,7 +352,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Creates a new [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<AcsUser> CreateAsync(
             CreateRequestAccessSchedule? accessSchedule = default,
@@ -440,7 +440,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -450,7 +450,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Delete(
             string? acsSystemId = default,
@@ -468,7 +468,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -478,7 +478,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) and invalidates the access system user&apos;s [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task DeleteAsync(
             string? acsSystemId = default,
@@ -591,7 +591,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public AcsUser Get(GetRequest request)
         {
@@ -604,7 +604,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public AcsUser Get(
             string? acsSystemId = default,
@@ -622,7 +622,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<AcsUser> GetAsync(GetRequest request)
         {
@@ -634,7 +634,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<AcsUser> GetAsync(
             string? acsSystemId = default,
@@ -797,7 +797,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public List<AcsUser> List(ListRequest request)
         {
@@ -810,7 +810,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public List<AcsUser> List(
             string? acsSystemId = default,
@@ -838,7 +838,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<List<AcsUser>> ListAsync(ListRequest request)
         {
@@ -850,7 +850,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task<List<AcsUser>> ListAsync(
             string? acsSystemId = default,
@@ -975,7 +975,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Lists the [entrances](https://docs.seam.co/api/acs/entrances) to which a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) has access.
+        /// Lists the [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) has access.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
         {
@@ -991,7 +991,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Lists the [entrances](https://docs.seam.co/api/acs/entrances) to which a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) has access.
+        /// Lists the [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) has access.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(
             string? acsSystemId = default,
@@ -1009,7 +1009,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Lists the [entrances](https://docs.seam.co/api/acs/entrances) to which a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) has access.
+        /// Lists the [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) has access.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request
@@ -1028,7 +1028,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Lists the [entrances](https://docs.seam.co/api/acs/entrances) to which a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) has access.
+        /// Lists the [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) has access.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             string? acsSystemId = default,
@@ -1106,7 +1106,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void RemoveFromAccessGroup(RemoveFromAccessGroupRequest request)
         {
@@ -1116,7 +1116,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void RemoveFromAccessGroup(
             string acsAccessGroupId = default,
@@ -1134,7 +1134,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task RemoveFromAccessGroupAsync(RemoveFromAccessGroupRequest request)
         {
@@ -1144,7 +1144,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task RemoveFromAccessGroupAsync(
             string acsAccessGroupId = default,
@@ -1220,7 +1220,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to all [entrances](https://docs.seam.co/api/acs/entrances) for a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Revokes access to all [entrances](https://www.seam.co/docs/api/acs/entrances/object) for a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void RevokeAccessToAllEntrances(RevokeAccessToAllEntrancesRequest request)
         {
@@ -1230,7 +1230,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to all [entrances](https://docs.seam.co/api/acs/entrances) for a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Revokes access to all [entrances](https://www.seam.co/docs/api/acs/entrances/object) for a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void RevokeAccessToAllEntrances(
             string? acsSystemId = default,
@@ -1248,7 +1248,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to all [entrances](https://docs.seam.co/api/acs/entrances) for a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Revokes access to all [entrances](https://www.seam.co/docs/api/acs/entrances/object) for a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task RevokeAccessToAllEntrancesAsync(RevokeAccessToAllEntrancesRequest request)
         {
@@ -1261,7 +1261,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to all [entrances](https://docs.seam.co/api/acs/entrances) for a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Revokes access to all [entrances](https://www.seam.co/docs/api/acs/entrances/object) for a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task RevokeAccessToAllEntrancesAsync(
             string? acsSystemId = default,
@@ -1337,7 +1337,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Suspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://docs.seam.co/api/acs/users/unsuspend) them.
+        /// [Suspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://www.seam.co/docs/api/acs/users/unsuspend) them.
         /// </summary>
         public void Suspend(SuspendRequest request)
         {
@@ -1347,7 +1347,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Suspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://docs.seam.co/api/acs/users/unsuspend) them.
+        /// [Suspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://www.seam.co/docs/api/acs/users/unsuspend) them.
         /// </summary>
         public void Suspend(
             string? acsSystemId = default,
@@ -1365,7 +1365,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Suspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://docs.seam.co/api/acs/users/unsuspend) them.
+        /// [Suspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://www.seam.co/docs/api/acs/users/unsuspend) them.
         /// </summary>
         public async Task SuspendAsync(SuspendRequest request)
         {
@@ -1375,7 +1375,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Suspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://docs.seam.co/api/acs/users/unsuspend) them.
+        /// [Suspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#suspend-an-acs-user) a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Suspending an access system user revokes their access temporarily. To restore an access system user&apos;s access, you can [unsuspend](https://www.seam.co/docs/api/acs/users/unsuspend) them.
         /// </summary>
         public async Task SuspendAsync(
             string? acsSystemId = default,
@@ -1451,7 +1451,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Unsuspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). While [suspending an access system user](https://docs.seam.co/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
+        /// [Unsuspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). While [suspending an access system user](https://www.seam.co/docs/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
         /// </summary>
         public void Unsuspend(UnsuspendRequest request)
         {
@@ -1461,7 +1461,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Unsuspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). While [suspending an access system user](https://docs.seam.co/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
+        /// [Unsuspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). While [suspending an access system user](https://www.seam.co/docs/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
         /// </summary>
         public void Unsuspend(
             string? acsSystemId = default,
@@ -1479,7 +1479,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Unsuspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). While [suspending an access system user](https://docs.seam.co/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
+        /// [Unsuspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). While [suspending an access system user](https://www.seam.co/docs/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
         /// </summary>
         public async Task UnsuspendAsync(UnsuspendRequest request)
         {
@@ -1489,7 +1489,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// [Unsuspends](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). While [suspending an access system user](https://docs.seam.co/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
+        /// [Unsuspends](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users#unsuspend-an-acs-user) a specified suspended [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). While [suspending an access system user](https://www.seam.co/docs/api/acs/users/suspend) revokes their access temporarily, unsuspending the access system user restores their access.
         /// </summary>
         public async Task UnsuspendAsync(
             string? acsSystemId = default,
@@ -1561,13 +1561,13 @@ namespace Seam.Api
             public string? Email { get; set; }
 
             /// <summary>
-            /// Email address of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+            /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
             /// </summary>
             [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
             public string? EmailAddress { get; set; }
 
             /// <summary>
-            /// Full name of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+            /// Full name of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
             /// </summary>
             [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
             public string? FullName { get; set; }
@@ -1579,7 +1579,7 @@ namespace Seam.Api
             public string? HidAcsSystemId { get; set; }
 
             /// <summary>
-            /// Phone number of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+            /// Phone number of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
             /// </summary>
             [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
             public string? PhoneNumber { get; set; }
@@ -1655,7 +1655,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the properties of a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Updates the properties of a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -1665,7 +1665,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the properties of a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Updates the properties of a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Update(
             UpdateRequestAccessSchedule? accessSchedule = default,
@@ -1695,7 +1695,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the properties of a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Updates the properties of a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -1705,7 +1705,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the properties of a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Updates the properties of a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequestAccessSchedule? accessSchedule = default,

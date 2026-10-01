@@ -59,7 +59,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Deletes a specified [Instant Key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -69,7 +69,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Deletes a specified [Instant Key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public void Delete(string instantKeyId = default)
         {
@@ -77,7 +77,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Deletes a specified [Instant Key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -87,7 +87,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [Instant Key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Deletes a specified [Instant Key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task DeleteAsync(string instantKeyId = default)
         {
@@ -179,7 +179,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Gets an [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public InstantKey Get(GetRequest request)
         {
@@ -192,7 +192,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Gets an [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public InstantKey Get(string? instantKeyId = default, string? instantKeyUrl = default)
         {
@@ -200,7 +200,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Gets an [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task<InstantKey> GetAsync(GetRequest request)
         {
@@ -212,7 +212,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets an [instant key](https://docs.seam.co/capability-guides/instant-keys).
+        /// Gets an [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task<InstantKey> GetAsync(
             string? instantKeyId = default,
@@ -304,7 +304,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// Returns a list of all [instant keys](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public List<InstantKey> List(ListRequest request)
         {
@@ -317,7 +317,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// Returns a list of all [instant keys](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public List<InstantKey> List(string? userIdentityId = default)
         {
@@ -325,7 +325,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// Returns a list of all [instant keys](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task<List<InstantKey>> ListAsync(ListRequest request)
         {
@@ -337,7 +337,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [instant keys](https://docs.seam.co/capability-guides/instant-keys).
+        /// Returns a list of all [instant keys](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys).
         /// </summary>
         public async Task<List<InstantKey>> ListAsync(string? userIdentityId = default)
         {

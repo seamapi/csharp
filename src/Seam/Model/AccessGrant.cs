@@ -1242,7 +1242,7 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Errors associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessGrantErrors> Errors { get; set; }
@@ -1304,7 +1304,7 @@ namespace Seam.Model
         public string UserIdentityId { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Warnings associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessGrantWarnings> Warnings { get; set; }

@@ -96,7 +96,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a specified unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public UnmanagedUserIdentity Get(GetRequest request)
         {
@@ -109,7 +109,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a specified unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public UnmanagedUserIdentity Get(string userIdentityId = default)
         {
@@ -117,7 +117,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a specified unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public async Task<UnmanagedUserIdentity> GetAsync(GetRequest request)
         {
@@ -131,7 +131,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a specified unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public async Task<UnmanagedUserIdentity> GetAsync(string userIdentityId = default)
         {
@@ -242,7 +242,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all unmanaged [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a list of all unmanaged [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public List<UnmanagedUserIdentity> List(ListRequest request)
         {
@@ -255,7 +255,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all unmanaged [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a list of all unmanaged [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public List<UnmanagedUserIdentity> List(
             string? createdBefore = default,
@@ -275,7 +275,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all unmanaged [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a list of all unmanaged [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public async Task<List<UnmanagedUserIdentity>> ListAsync(ListRequest request)
         {
@@ -292,7 +292,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all unmanaged [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
+        /// Returns a list of all unmanaged [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) (where is_managed = false).
         /// </summary>
         public async Task<List<UnmanagedUserIdentity>> ListAsync(
             string? createdBefore = default,
@@ -372,7 +372,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates an unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
+        /// Updates an unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
         ///
         /// This endpoint can only be used to convert unmanaged user identities to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed user identities back to unmanaged.
         /// </summary>
@@ -384,7 +384,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates an unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
+        /// Updates an unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
         ///
         /// This endpoint can only be used to convert unmanaged user identities to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed user identities back to unmanaged.
         /// </summary>
@@ -404,7 +404,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates an unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
+        /// Updates an unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
         ///
         /// This endpoint can only be used to convert unmanaged user identities to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed user identities back to unmanaged.
         /// </summary>
@@ -416,7 +416,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates an unmanaged [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
+        /// Updates an unmanaged [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) to make it managed.
         ///
         /// This endpoint can only be used to convert unmanaged user identities to managed ones by setting `is_managed` to `true`. It cannot be used to convert managed user identities back to unmanaged.
         /// </summary>

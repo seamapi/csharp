@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+    /// Represents an [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
     /// </summary>
     [DataContract(Name = "seamModel_unmanagedDevice_model")]
     public class UnmanagedDevice
@@ -18,6 +18,7 @@ namespace Seam.Model
         protected UnmanagedDevice() { }
 
         public UnmanagedDevice(
+            bool? canActivateWeeklyProgram = default,
             bool? canConfigureAutoLock = default,
             bool? canHvacCool = default,
             bool? canHvacHeat = default,
@@ -36,6 +37,7 @@ namespace Seam.Model
             bool? canSimulateHubDisconnection = default,
             bool? canSimulatePaidSubscription = default,
             bool? canSimulateRemoval = default,
+            bool? canStreamLiveVideo = default,
             bool? canTurnOffHvac = default,
             bool? canUnlockWithCode = default,
             List<UnmanagedDevice.CapabilitiesSupportedEnum> capabilitiesSupported = default,
@@ -53,6 +55,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            CanActivateWeeklyProgram = canActivateWeeklyProgram;
             CanConfigureAutoLock = canConfigureAutoLock;
             CanHvacCool = canHvacCool;
             CanHvacHeat = canHvacHeat;
@@ -73,6 +76,7 @@ namespace Seam.Model
             CanSimulateHubDisconnection = canSimulateHubDisconnection;
             CanSimulatePaidSubscription = canSimulatePaidSubscription;
             CanSimulateRemoval = canSimulateRemoval;
+            CanStreamLiveVideo = canStreamLiveVideo;
             CanTurnOffHvac = canTurnOffHvac;
             CanUnlockWithCode = canUnlockWithCode;
             CapabilitiesSupported = capabilitiesSupported;
@@ -91,7 +95,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags).
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CapabilitiesSupportedEnum
@@ -255,6 +259,15 @@ namespace Seam.Model
 
             [EnumMember(Value = "ring_camera")]
             RingCamera = 43,
+
+            [EnumMember(Value = "tapo_camera")]
+            TapoCamera = 44,
+
+            [EnumMember(Value = "arlo_camera")]
+            ArloCamera = 45,
+
+            [EnumMember(Value = "reolink_camera")]
+            ReolinkCamera = 46,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -351,7 +364,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -425,7 +438,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -497,7 +510,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -569,7 +582,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1181,7 +1194,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -2944,6 +2957,16 @@ namespace Seam.Model
         }
 
         /// <summary>
+        /// Indicates whether the thermostat can be returned to its weekly program, the schedule that is configured on the device itself, releasing any hold that Seam has set.
+        /// </summary>
+        [DataMember(
+            Name = "can_activate_weekly_program",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanActivateWeeklyProgram { get; set; }
+
+        /// <summary>
         /// Indicates whether the lock supports configuring automatic locking.
         /// </summary>
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
@@ -3092,6 +3115,12 @@ namespace Seam.Model
         public bool? CanSimulateRemoval { get; set; }
 
         /// <summary>
+        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// </summary>
+        [DataMember(Name = "can_stream_live_video", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanStreamLiveVideo { get; set; }
+
+        /// <summary>
         /// Indicates whether the thermostat can be turned off.
         /// </summary>
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
@@ -3104,7 +3133,7 @@ namespace Seam.Model
         public bool? CanUnlockWithCode { get; set; }
 
         /// <summary>
-        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags).
         /// </summary>
         [DataMember(Name = "capabilities_supported", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedDevice.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
@@ -3122,7 +3151,7 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
         /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }

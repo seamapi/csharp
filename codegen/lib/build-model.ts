@@ -646,17 +646,24 @@ const resolveModel = (
 
 // The C# type for an endpoint's return value, and the resource property name it
 // is unwrapped from in the response body.
+// A model named like the API class that returns it (e.g. Media from the Media
+// API) is shadowed by that class inside Seam.Api, so it is fully qualified.
 const responseReturn = (
   response: Endpoint['response'],
   modelTypes: Set<string>,
+  apiClassName: string,
 ): { returnType: string; returnProp: string } | undefined => {
   if (response.responseType === 'void') return undefined
   const returnProp = pascalCase(response.responseKey)
-  const model = resolveModel(
+  const resolvedModel = resolveModel(
     response.resourceType,
     response.responseKey,
     modelTypes,
   )
+  const model =
+    resolvedModel === apiClassName
+      ? `Seam.Model.${resolvedModel}`
+      : resolvedModel
   const returnType =
     response.responseType === 'resource_list' ? `List<${model}>` : model
   return { returnType, returnProp }
@@ -690,7 +697,11 @@ export const buildApiFile = (
         : {}),
     }
 
-    const returned = responseReturn(endpoint.response, modelTypes)
+    const returned = responseReturn(
+      endpoint.response,
+      modelTypes,
+      pascalCase(className),
+    )
     const isVoid = returned == null
 
     if (isVoid) {

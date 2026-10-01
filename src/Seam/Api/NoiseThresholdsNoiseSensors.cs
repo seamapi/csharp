@@ -73,7 +73,7 @@ namespace Seam.Api
             public float? NoiseThresholdDecibels { get; set; }
 
             /// <summary>
-            /// Noise level in Noiseaware Noise Risk Score (NRS) for the new noise threshold. This parameter is only relevant for [Noiseaware sensors](https://docs.seam.co/device-and-system-integration-guides/noiseaware-sensors).
+            /// Noise level in Noiseaware Noise Risk Score (NRS) for the new noise threshold. This parameter is only relevant for [Noiseaware sensors](https://www.seam.co/docs/device-and-system-integration-guides/noiseaware-sensors).
             /// </summary>
             [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
             public float? NoiseThresholdNrs { get; set; }
@@ -142,7 +142,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
+        /// Creates a new [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
         /// </summary>
         public NoiseThreshold Create(CreateRequest request)
         {
@@ -155,7 +155,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
+        /// Creates a new [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
         /// </summary>
         public NoiseThreshold Create(
             string deviceId = default,
@@ -179,7 +179,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
+        /// Creates a new [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
         /// </summary>
         public async Task<NoiseThreshold> CreateAsync(CreateRequest request)
         {
@@ -196,7 +196,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
+        /// Creates a new [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
         /// </summary>
         public async Task<NoiseThreshold> CreateAsync(
             string deviceId = default,
@@ -269,7 +269,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Deletes a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -279,7 +279,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Deletes a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public void Delete(string deviceId = default, string noiseThresholdId = default)
         {
@@ -287,7 +287,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Deletes a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -300,7 +300,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Deletes a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task DeleteAsync(string deviceId = default, string noiseThresholdId = default)
         {
@@ -387,7 +387,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a specified [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public NoiseThreshold Get(GetRequest request)
         {
@@ -400,7 +400,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a specified [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public NoiseThreshold Get(string noiseThresholdId = default)
         {
@@ -408,7 +408,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a specified [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<NoiseThreshold> GetAsync(GetRequest request)
         {
@@ -425,7 +425,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a specified [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<NoiseThreshold> GetAsync(string noiseThresholdId = default)
         {
@@ -510,7 +510,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise thresholds](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise thresholds](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public List<NoiseThreshold> List(ListRequest request)
         {
@@ -523,7 +523,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise thresholds](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise thresholds](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public List<NoiseThreshold> List(string deviceId = default)
         {
@@ -531,7 +531,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise thresholds](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise thresholds](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<List<NoiseThreshold>> ListAsync(ListRequest request)
         {
@@ -548,7 +548,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise thresholds](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise thresholds](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<List<NoiseThreshold>> ListAsync(string deviceId = default)
         {
@@ -618,7 +618,7 @@ namespace Seam.Api
             public string NoiseThresholdId { get; set; }
 
             /// <summary>
-            /// Noise level in Noiseaware Noise Risk Score (NRS) for the noise threshold. This parameter is only relevant for [Noiseaware sensors](https://docs.seam.co/device-and-system-integration-guides/noiseaware-sensors).
+            /// Noise level in Noiseaware Noise Risk Score (NRS) for the noise threshold. This parameter is only relevant for [Noiseaware sensors](https://www.seam.co/docs/device-and-system-integration-guides/noiseaware-sensors).
             /// </summary>
             [DataMember(Name = "noise_threshold_nrs", IsRequired = false, EmitDefaultValue = false)]
             public float? NoiseThresholdNrs { get; set; }
@@ -650,7 +650,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Updates a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -660,7 +660,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Updates a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public void Update(
             string deviceId = default,
@@ -686,7 +686,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Updates a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -699,7 +699,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Updates a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task UpdateAsync(
             string deviceId = default,

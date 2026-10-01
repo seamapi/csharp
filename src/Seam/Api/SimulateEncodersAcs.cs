@@ -99,7 +99,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialEncodeWillFail(NextCredentialEncodeWillFailRequest request)
         {
@@ -112,7 +112,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialEncodeWillFail(
             string? acsCredentialId = default,
@@ -130,7 +130,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialEncodeWillFailAsync(
             NextCredentialEncodeWillFailRequest request
@@ -145,7 +145,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialEncodeWillFailAsync(
             string? acsCredentialId = default,
@@ -226,7 +226,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialEncodeWillSucceed(NextCredentialEncodeWillSucceedRequest request)
         {
@@ -239,7 +239,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialEncodeWillSucceed(
             string acsEncoderId = default,
@@ -255,7 +255,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialEncodeWillSucceedAsync(
             NextCredentialEncodeWillSucceedRequest request
@@ -270,7 +270,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to encode a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to encode a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialEncodeWillSucceedAsync(
             string acsEncoderId = default,
@@ -358,7 +358,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialScanWillFail(NextCredentialScanWillFailRequest request)
         {
@@ -371,7 +371,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialScanWillFail(
             string? acsCredentialIdOnSeam = default,
@@ -389,7 +389,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialScanWillFailAsync(NextCredentialScanWillFailRequest request)
         {
@@ -402,7 +402,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will fail. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialScanWillFailAsync(
             string? acsCredentialIdOnSeam = default,
@@ -504,7 +504,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialScanWillSucceed(NextCredentialScanWillSucceedRequest request)
         {
@@ -517,7 +517,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public void NextCredentialScanWillSucceed(
             string? acsCredentialIdOnSeam = default,
@@ -535,7 +535,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialScanWillSucceedAsync(
             NextCredentialScanWillSucceedRequest request
@@ -550,7 +550,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Simulates that the next attempt to scan a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates that the next attempt to scan a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) using the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) will succeed. You can only perform this action within a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task NextCredentialScanWillSucceedAsync(
             string? acsCredentialIdOnSeam = default,

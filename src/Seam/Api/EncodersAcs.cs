@@ -114,7 +114,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// Encodes an existing [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
         /// </summary>
         public ActionAttempt EncodeCredential(EncodeCredentialRequest request)
         {
@@ -127,7 +127,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// Encodes an existing [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
         /// </summary>
         public ActionAttempt EncodeCredential(
             string? accessMethodId = default,
@@ -145,7 +145,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// Encodes an existing [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
         /// </summary>
         public async Task<ActionAttempt> EncodeCredentialAsync(EncodeCredentialRequest request)
         {
@@ -162,7 +162,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Encodes an existing [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
+        /// Encodes an existing [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) onto a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners). Either provide an `acs_credential_id` or an `access_method_id`
         /// </summary>
         public async Task<ActionAttempt> EncodeCredentialAsync(
             string? accessMethodId = default,
@@ -259,7 +259,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public AcsEncoder Get(GetRequest request)
         {
@@ -272,7 +272,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public AcsEncoder Get(string acsEncoderId = default)
         {
@@ -280,7 +280,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<AcsEncoder> GetAsync(GetRequest request)
         {
@@ -292,7 +292,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<AcsEncoder> GetAsync(string acsEncoderId = default)
         {
@@ -411,7 +411,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a list of all [encoders](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public List<AcsEncoder> List(ListRequest request)
         {
@@ -424,7 +424,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a list of all [encoders](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public List<AcsEncoder> List(
             List<string>? acsEncoderIds = default,
@@ -446,7 +446,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a list of all [encoders](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<List<AcsEncoder>> ListAsync(ListRequest request)
         {
@@ -458,7 +458,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [encoders](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Returns a list of all [encoders](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<List<AcsEncoder>> ListAsync(
             List<string>? acsEncoderIds = default,
@@ -606,7 +606,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Scans an encoded [acs_credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public ActionAttempt ScanCredential(ScanCredentialRequest request)
         {
@@ -619,7 +619,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Scans an encoded [acs_credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public ActionAttempt ScanCredential(
             string acsEncoderId = default,
@@ -635,7 +635,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Scans an encoded [acs_credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<ActionAttempt> ScanCredentialAsync(ScanCredentialRequest request)
         {
@@ -652,7 +652,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans an encoded [acs_credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
+        /// Scans an encoded [acs_credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a plastic card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners).
         /// </summary>
         public async Task<ActionAttempt> ScanCredentialAsync(
             string acsEncoderId = default,
@@ -810,7 +810,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// Scans a physical card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
         /// </summary>
         public ActionAttempt ScanToAssignCredential(ScanToAssignCredentialRequest request)
         {
@@ -826,7 +826,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// Scans a physical card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
         /// </summary>
         public ActionAttempt ScanToAssignCredential(
             string acsEncoderId = default,
@@ -846,7 +846,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// Scans a physical card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
         /// </summary>
         public async Task<ActionAttempt> ScanToAssignCredentialAsync(
             ScanToAssignCredentialRequest request
@@ -865,7 +865,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Scans a physical card placed on the specified [encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
+        /// Scans a physical card placed on the specified [encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) and assigns the scanned credential to an ACS user. Provide either an `acs_user_id` or a `user_identity_id`.
         /// </summary>
         public async Task<ActionAttempt> ScanToAssignCredentialAsync(
             string acsEncoderId = default,

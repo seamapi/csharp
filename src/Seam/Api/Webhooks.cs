@@ -103,7 +103,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Creates a new [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public Webhook Create(CreateRequest request)
         {
@@ -116,7 +116,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Creates a new [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public Webhook Create(List<string>? eventTypes = default, string url = default)
         {
@@ -124,7 +124,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Creates a new [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> CreateAsync(CreateRequest request)
         {
@@ -136,7 +136,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Creates a new [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> CreateAsync(
             List<string>? eventTypes = default,
@@ -187,7 +187,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Deletes a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -197,7 +197,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Deletes a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public void Delete(string webhookId = default)
         {
@@ -205,7 +205,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Deletes a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -215,7 +215,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Deletes a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task DeleteAsync(string webhookId = default)
         {
@@ -300,7 +300,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Gets a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public Webhook Get(GetRequest request)
         {
@@ -313,7 +313,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Gets a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public Webhook Get(string webhookId = default)
         {
@@ -321,7 +321,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Gets a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> GetAsync(GetRequest request)
         {
@@ -333,7 +333,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Gets a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Gets a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> GetAsync(string webhookId = default)
         {
@@ -407,7 +407,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [webhooks](https://docs.seam.co/developer-tools/webhooks).
+        /// Returns a list of all [webhooks](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public List<Webhook> List(ListRequest request)
         {
@@ -420,7 +420,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [webhooks](https://docs.seam.co/developer-tools/webhooks).
+        /// Returns a list of all [webhooks](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public List<Webhook> List()
         {
@@ -428,7 +428,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [webhooks](https://docs.seam.co/developer-tools/webhooks).
+        /// Returns a list of all [webhooks](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<List<Webhook>> ListAsync(ListRequest request)
         {
@@ -440,7 +440,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [webhooks](https://docs.seam.co/developer-tools/webhooks).
+        /// Returns a list of all [webhooks](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<List<Webhook>> ListAsync()
         {
@@ -495,7 +495,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Updates a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -505,7 +505,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Updates a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public void Update(List<string> eventTypes = default, string webhookId = default)
         {
@@ -513,7 +513,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Updates a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -523,7 +523,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Updates a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task UpdateAsync(List<string> eventTypes = default, string webhookId = default)
         {

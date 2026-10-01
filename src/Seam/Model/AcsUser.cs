@@ -9,11 +9,11 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a [user](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents a [user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
     /// An access system user typically refers to an individual who requires access, like an employee or resident. Each user can possess multiple credentials that serve as their keys or identifiers for access. The type of credential can vary widely. For example, in the Salto system, a user can have a PIN code, a mobile app account, and a fob. In other platforms, it is not uncommon for a user to have more than one of the same credential type, such as multiple key cards. Additionally, these credentials can have a schedule or validity period.
     ///
-    /// For details about how to configure users in your access system, see the corresponding [system integration guide](https://docs.seam.co/device-and-system-integration-guides#access-control-systems).
+    /// For details about how to configure users in your access system, see the corresponding [system integration guide](https://www.seam.co/docs/device-and-system-integration-guides#access-control-systems).
     /// </summary>
     [DataContract(Name = "seamModel_acsUser_model")]
     public class AcsUser
@@ -475,7 +475,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
@@ -1965,37 +1965,37 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// `starts_at` and `ends_at` timestamps for the [access system user&apos;s](https://docs.seam.co/low-level-apis/access-systems/user-management) access.
+        /// `starts_at` and `ends_at` timestamps for the [access system user&apos;s](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access.
         /// </summary>
         [DataMember(Name = "access_schedule", IsRequired = false, EmitDefaultValue = false)]
         public AcsUserAccessSchedule? AccessSchedule { get; set; }
 
         /// <summary>
-        /// ID of the [access system](https://docs.seam.co/low-level-apis/access-systems) that contains the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the [access system](https://www.seam.co/docs/low-level-apis/access-systems) that contains the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         /// <summary>
-        /// ID of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsUserId { get; set; }
 
         /// <summary>
-        /// The ID of the connected account that is associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// The ID of the connected account that is associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         /// <summary>
-        /// Date and time at which the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was created.
+        /// Date and time at which the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Display name for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Display name for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
@@ -2005,25 +2005,25 @@ namespace Seam.Model
         public string? Email { get; set; }
 
         /// <summary>
-        /// Email address of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "email_address", IsRequired = false, EmitDefaultValue = false)]
         public string? EmailAddress { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Errors associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsUserErrors> Errors { get; set; }
 
         /// <summary>
-        /// Brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsUser.ExternalTypeEnum? ExternalType { get; set; }
 
         /// <summary>
-        /// Display name that corresponds to the brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Display name that corresponds to the brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [DataMember(
             Name = "external_type_display_name",
@@ -2033,7 +2033,7 @@ namespace Seam.Model
         public string? ExternalTypeDisplayName { get; set; }
 
         /// <summary>
-        /// Full name of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Full name of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? FullName { get; set; }
@@ -2051,37 +2051,37 @@ namespace Seam.Model
         public bool IsManaged { get; set; }
 
         /// <summary>
-        /// Indicates whether the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) is currently [suspended](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users).
+        /// Indicates whether the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) is currently [suspended](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users).
         /// </summary>
         [DataMember(Name = "is_suspended", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsSuspended { get; set; }
 
         /// <summary>
-        /// Pending mutations associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Seam is in the process of pushing these mutations to the integrated access system.
+        /// Pending mutations associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Seam is in the process of pushing these mutations to the integrated access system.
         /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsUserPendingMutations>? PendingMutations { get; set; }
 
         /// <summary>
-        /// Phone number of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+        /// Phone number of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
         /// </summary>
         [DataMember(Name = "phone_number", IsRequired = false, EmitDefaultValue = false)]
         public string? PhoneNumber { get; set; }
 
         /// <summary>
-        /// Salto KS-specific metadata associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Salto KS-specific metadata associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsUserSaltoKsMetadata? SaltoKsMetadata { get; set; }
 
         /// <summary>
-        /// Salto Space-specific metadata associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Salto Space-specific metadata associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsUserSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
 
         /// <summary>
-        /// Email address of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Email address of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(
             Name = "user_identity_email_address",
@@ -2091,19 +2091,19 @@ namespace Seam.Model
         public string? UserIdentityEmailAddress { get; set; }
 
         /// <summary>
-        /// Full name of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Full name of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "user_identity_full_name", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityFullName { get; set; }
 
         /// <summary>
-        /// ID of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
         /// <summary>
-        /// Phone number of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+        /// Phone number of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
         /// </summary>
         [DataMember(
             Name = "user_identity_phone_number",
@@ -2113,13 +2113,13 @@ namespace Seam.Model
         public string? UserIdentityPhoneNumber { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Warnings associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsUserWarnings> Warnings { get; set; }
 
         /// <summary>
-        /// ID of the workspace that contains the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the workspace that contains the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

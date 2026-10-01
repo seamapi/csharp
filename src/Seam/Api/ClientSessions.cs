@@ -49,13 +49,13 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// IDs of the [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) for which you want to create a client session.
+            /// IDs of the [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) for which you want to create a client session.
             /// </summary>
             [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ConnectWebviewIds { get; set; }
 
             /// <summary>
-            /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) for which you want to create a client session.
+            /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) for which you want to create a client session.
             /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
@@ -83,19 +83,19 @@ namespace Seam.Api
             public string? ExpiresAt { get; set; }
 
             /// <summary>
-            /// Your user ID for the user for whom you want to create a client session.
+            /// Your user ID for the user for whom you want to create a client session. When you authenticate with a publishable key, the `user_identifier_key` must be a high-entropy secret that only the user knows, such as a UUIDv4 or a salted hash. Do not use an email address, name, phone number, or other guessable value, because anyone who knows the `user_identifier_key` can retrieve the client session.
             /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
             /// <summary>
-            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to create a client session.
+            /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to create a client session.
             /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
             /// <summary>
-            /// IDs of the [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
+            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
             /// </summary>
             [Obsolete("Use `user_identity_id` instead.")]
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
@@ -159,7 +159,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Creates a new [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public ClientSession Create(CreateRequest request)
         {
@@ -172,7 +172,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Creates a new [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public ClientSession Create(
             List<string>? connectWebviewIds = default,
@@ -200,7 +200,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Creates a new [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<ClientSession> CreateAsync(CreateRequest request)
         {
@@ -212,7 +212,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Creates a new [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<ClientSession> CreateAsync(
             List<string>? connectWebviewIds = default,
@@ -282,7 +282,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Deletes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -292,7 +292,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Deletes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public void Delete(string clientSessionId = default)
         {
@@ -300,7 +300,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Deletes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -310,7 +310,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Deletes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task DeleteAsync(string clientSessionId = default)
         {
@@ -405,7 +405,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a specified [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public ClientSession Get(GetRequest request)
         {
@@ -418,7 +418,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a specified [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public ClientSession Get(
             string? clientSessionId = default,
@@ -434,7 +434,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a specified [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<ClientSession> GetAsync(GetRequest request)
         {
@@ -446,7 +446,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a specified [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<ClientSession> GetAsync(
             string? clientSessionId = default,
@@ -490,13 +490,13 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// IDs of the [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) that you want to associate with the client session (or that are already associated with the existing client session).
+            /// IDs of the [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) that you want to associate with the client session (or that are already associated with the existing client session).
             /// </summary>
             [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ConnectWebviewIds { get; set; }
 
             /// <summary>
-            /// IDs of the [connected accounts](https://docs.seam.co/api/connected_accounts) that you want to associate with the client session (or that are already associated with the existing client session).
+            /// IDs of the [connected accounts](https://www.seam.co/docs/api/connected_accounts/object) that you want to associate with the client session (or that are already associated with the existing client session).
             /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
@@ -512,19 +512,19 @@ namespace Seam.Api
             public string? ExpiresAt { get; set; }
 
             /// <summary>
-            /// Your user ID for the user that you want to associate with the client session (or that is already associated with the existing client session).
+            /// Your user ID for the user that you want to associate with the client session (or that is already associated with the existing client session). When you authenticate with a publishable key, the `user_identifier_key` must be a high-entropy secret that only the user knows, such as a UUIDv4 or a salted hash. Do not use an email address, name, phone number, or other guessable value, because anyone who knows the `user_identifier_key` can retrieve the client session.
             /// </summary>
             [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentifierKey { get; set; }
 
             /// <summary>
-            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session (or that are already associated with the existing client session).
+            /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session (or that are already associated with the existing client session).
             /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
             /// <summary>
-            /// IDs of the [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
+            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
             /// </summary>
             [Obsolete("Use `user_identity_id`.")]
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
@@ -588,7 +588,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
+        /// Returns a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
         /// </summary>
         public ClientSession GetOrCreate(GetOrCreateRequest request)
         {
@@ -601,7 +601,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
+        /// Returns a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
         /// </summary>
         public ClientSession GetOrCreate(
             List<string>? connectWebviewIds = default,
@@ -625,7 +625,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
+        /// Returns a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
         /// </summary>
         public async Task<ClientSession> GetOrCreateAsync(GetOrCreateRequest request)
         {
@@ -642,7 +642,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
+        /// Returns a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) with specific characteristics or creates a new client session with these characteristics if it does not yet exist.
         /// </summary>
         public async Task<ClientSession> GetOrCreateAsync(
             List<string>? connectWebviewIds = default,
@@ -700,13 +700,13 @@ namespace Seam.Api
             public string? ClientSessionId { get; set; }
 
             /// <summary>
-            /// IDs of the [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) that you want to associate with the client session.
+            /// IDs of the [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) that you want to associate with the client session.
             /// </summary>
             [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? ConnectWebviewIds { get; set; }
 
             /// <summary>
-            /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) that you want to associate with the client session.
+            /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) that you want to associate with the client session.
             /// </summary>
             [DataMember(
                 Name = "connected_account_ids",
@@ -722,13 +722,13 @@ namespace Seam.Api
             public string? UserIdentifierKey { get; set; }
 
             /// <summary>
-            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
+            /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
             /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
 
             /// <summary>
-            /// IDs of the [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
+            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
             /// </summary>
             [Obsolete("Use `user_identity_id`.")]
             [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]
@@ -755,7 +755,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews), [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
+        /// Grants a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews), [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
         /// </summary>
         public void GrantAccess(GrantAccessRequest request)
         {
@@ -765,7 +765,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews), [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
+        /// Grants a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews), [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
         /// </summary>
         public void GrantAccess(
             string? clientSessionId = default,
@@ -789,7 +789,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews), [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
+        /// Grants a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews), [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
         /// </summary>
         public async Task GrantAccessAsync(GrantAccessRequest request)
         {
@@ -799,7 +799,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews), [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
+        /// Grants a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) access to one or more resources, such as [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews), [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity), and so on.
         /// </summary>
         public async Task GrantAccessAsync(
             string? clientSessionId = default,
@@ -853,7 +853,7 @@ namespace Seam.Api
             public string? ClientSessionId { get; set; }
 
             /// <summary>
-            /// ID of the [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a Connect Webview.
+            /// ID of the [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a Connect Webview.
             /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
@@ -865,7 +865,7 @@ namespace Seam.Api
             public string? UserIdentifierKey { get; set; }
 
             /// <summary>
-            /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a user identity.
+            /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) for which you want to retrieve client sessions. Specify `null` to retrieve client sessions that are not associated with a user identity.
             /// </summary>
             [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
             public string? UserIdentityId { get; set; }
@@ -938,7 +938,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [client sessions](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a list of all [client sessions](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public List<ClientSession> List(ListRequest request)
         {
@@ -951,7 +951,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [client sessions](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a list of all [client sessions](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public List<ClientSession> List(
             string? clientSessionId = default,
@@ -973,7 +973,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [client sessions](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a list of all [client sessions](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<List<ClientSession>> ListAsync(ListRequest request)
         {
@@ -985,7 +985,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [client sessions](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Returns a list of all [client sessions](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         public async Task<List<ClientSession>> ListAsync(
             string? clientSessionId = default,
@@ -1049,9 +1049,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Revokes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         ///
-        /// Note that [deleting a client session](https://docs.seam.co/api/client_sessions/delete) is a separate action.
+        /// Note that [deleting a client session](https://www.seam.co/docs/api/client_sessions/delete) is a separate action.
         /// </summary>
         public void Revoke(RevokeRequest request)
         {
@@ -1061,9 +1061,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Revokes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         ///
-        /// Note that [deleting a client session](https://docs.seam.co/api/client_sessions/delete) is a separate action.
+        /// Note that [deleting a client session](https://www.seam.co/docs/api/client_sessions/delete) is a separate action.
         /// </summary>
         public void Revoke(string clientSessionId = default)
         {
@@ -1071,9 +1071,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Revokes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         ///
-        /// Note that [deleting a client session](https://docs.seam.co/api/client_sessions/delete) is a separate action.
+        /// Note that [deleting a client session](https://www.seam.co/docs/api/client_sessions/delete) is a separate action.
         /// </summary>
         public async Task RevokeAsync(RevokeRequest request)
         {
@@ -1083,9 +1083,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Revokes a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         ///
-        /// Note that [deleting a client session](https://docs.seam.co/api/client_sessions/delete) is a separate action.
+        /// Note that [deleting a client session](https://www.seam.co/docs/api/client_sessions/delete) is a separate action.
         /// </summary>
         public async Task RevokeAsync(string clientSessionId = default)
         {

@@ -77,7 +77,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Assigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Assigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Assign(AssignRequest request)
         {
@@ -87,7 +87,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Assigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Assigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Assign(
             string acsCredentialId = default,
@@ -105,7 +105,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Assigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Assigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task AssignAsync(AssignRequest request)
         {
@@ -115,7 +115,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Assigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Assigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task AssignAsync(
             string acsCredentialId = default,
@@ -213,7 +213,7 @@ namespace Seam.Api
             public string? AcsUserId { get; set; }
 
             /// <summary>
-            /// Set of IDs of the [entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) for which the new credential grants access.
+            /// Set of IDs of the [entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) for which the new credential grants access.
             /// </summary>
             [DataMember(
                 Name = "allowed_acs_entrance_ids",
@@ -233,7 +233,7 @@ namespace Seam.Api
             public CreateRequestAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
             /// <summary>
-            /// Access (PIN) code for the new credential. There may be manufacturer-specific code restrictions. For details, see the applicable [device or system integration guide](https://docs.seam.co/device-and-system-integration-guides).
+            /// Access (PIN) code for the new credential. There may be manufacturer-specific code restrictions. For details, see the applicable [device or system integration guide](https://www.seam.co/docs/device-and-system-integration-guides).
             /// </summary>
             [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
             public string? Code { get; set; }
@@ -255,7 +255,7 @@ namespace Seam.Api
             public string? EndsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether the new credential is a [multi-phone sync credential](https://docs.seam.co/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
+            /// Indicates whether the new credential is a [multi-phone sync credential](https://www.seam.co/docs/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
             /// </summary>
             [DataMember(
                 Name = "is_multi_phone_sync_credential",
@@ -387,7 +387,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Indicates whether to assign a first, new card to a user. See also [Programming Salto Space Card-based Credentials](https://docs.seam.co/device-and-system-integration-guides/salto-proaccess-space-access-system/programming-salto-space-card-based-credentials).
+            /// Indicates whether to assign a first, new card to a user. See also [Programming Salto Space Card-based Credentials](https://www.seam.co/docs/device-and-system-integration-guides/salto-proaccess-space-access-system/programming-salto-space-card-based-credentials).
             /// </summary>
             [DataMember(Name = "assign_new_key", IsRequired = false, EmitDefaultValue = false)]
             public bool? AssignNewKey { get; set; }
@@ -536,7 +536,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [credential](https://docs.seam.co/low-level-apis/managing-credentials) for a specified [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
+        /// Creates a new [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) for a specified [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
         /// </summary>
         public AcsCredential Create(CreateRequest request)
         {
@@ -549,7 +549,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [credential](https://docs.seam.co/low-level-apis/managing-credentials) for a specified [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
+        /// Creates a new [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) for a specified [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
         /// </summary>
         public AcsCredential Create(
             CreateRequest.AccessMethodEnum accessMethod = default,
@@ -587,7 +587,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [credential](https://docs.seam.co/low-level-apis/managing-credentials) for a specified [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
+        /// Creates a new [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) for a specified [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
         /// </summary>
         public async Task<AcsCredential> CreateAsync(CreateRequest request)
         {
@@ -601,7 +601,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [credential](https://docs.seam.co/low-level-apis/managing-credentials) for a specified [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
+        /// Creates a new [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) for a specified [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
         /// </summary>
         public async Task<AcsCredential> CreateAsync(
             CreateRequest.AccessMethodEnum accessMethod = default,
@@ -681,7 +681,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -691,7 +691,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Delete(string acsCredentialId = default)
         {
@@ -699,7 +699,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -709,7 +709,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task DeleteAsync(string acsCredentialId = default)
         {
@@ -794,7 +794,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public AcsCredential Get(GetRequest request)
         {
@@ -807,7 +807,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public AcsCredential Get(string acsCredentialId = default)
         {
@@ -815,7 +815,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<AcsCredential> GetAsync(GetRequest request)
         {
@@ -827,7 +827,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<AcsCredential> GetAsync(string acsCredentialId = default)
         {
@@ -974,7 +974,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public List<AcsCredential> List(ListRequest request)
         {
@@ -987,7 +987,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public List<AcsCredential> List(
             string? acsSystemId = default,
@@ -1015,7 +1015,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<List<AcsCredential>> ListAsync(ListRequest request)
         {
@@ -1027,7 +1027,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<List<AcsCredential>> ListAsync(
             string? acsSystemId = default,
@@ -1134,7 +1134,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [entrances](https://docs.seam.co/api/acs/entrances) to which a [credential](https://docs.seam.co/api/acs/credentials) grants access.
+        /// Returns a list of all [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a [credential](https://www.seam.co/docs/api/acs/credentials/object) grants access.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
         {
@@ -1150,7 +1150,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [entrances](https://docs.seam.co/api/acs/entrances) to which a [credential](https://docs.seam.co/api/acs/credentials) grants access.
+        /// Returns a list of all [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a [credential](https://www.seam.co/docs/api/acs/credentials/object) grants access.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(string acsCredentialId = default)
         {
@@ -1160,7 +1160,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [entrances](https://docs.seam.co/api/acs/entrances) to which a [credential](https://docs.seam.co/api/acs/credentials) grants access.
+        /// Returns a list of all [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a [credential](https://www.seam.co/docs/api/acs/credentials/object) grants access.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request
@@ -1179,7 +1179,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [entrances](https://docs.seam.co/api/acs/entrances) to which a [credential](https://docs.seam.co/api/acs/credentials) grants access.
+        /// Returns a list of all [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a [credential](https://www.seam.co/docs/api/acs/credentials/object) grants access.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             string acsCredentialId = default
@@ -1251,7 +1251,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unassigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Unassigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Unassign(UnassignRequest request)
         {
@@ -1261,7 +1261,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unassigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Unassigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public void Unassign(
             string acsCredentialId = default,
@@ -1279,7 +1279,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unassigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Unassigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task UnassignAsync(UnassignRequest request)
         {
@@ -1289,7 +1289,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Unassigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Unassigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task UnassignAsync(
             string acsCredentialId = default,
@@ -1365,7 +1365,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the code and ends at date and time for a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Updates the code and ends at date and time for a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -1375,7 +1375,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the code and ends at date and time for a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Updates the code and ends at date and time for a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public void Update(
             string acsCredentialId = default,
@@ -1387,7 +1387,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the code and ends at date and time for a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Updates the code and ends at date and time for a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -1397,7 +1397,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the code and ends at date and time for a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Updates the code and ends at date and time for a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task UpdateAsync(
             string acsCredentialId = default,

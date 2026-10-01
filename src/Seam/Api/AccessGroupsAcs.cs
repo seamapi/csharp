@@ -77,7 +77,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void AddUser(AddUserRequest request)
         {
@@ -87,7 +87,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void AddUser(
             string acsAccessGroupId = default,
@@ -105,7 +105,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task AddUserAsync(AddUserRequest request)
         {
@@ -115,7 +115,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task AddUserAsync(
             string acsAccessGroupId = default,
@@ -173,7 +173,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Deletes a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -183,7 +183,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Deletes a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void Delete(string acsAccessGroupId = default)
         {
@@ -191,7 +191,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Deletes a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -201,7 +201,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Deletes a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task DeleteAsync(string acsAccessGroupId = default)
         {
@@ -286,7 +286,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public AcsAccessGroup Get(GetRequest request)
         {
@@ -299,7 +299,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public AcsAccessGroup Get(string acsAccessGroupId = default)
         {
@@ -307,7 +307,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<AcsAccessGroup> GetAsync(GetRequest request)
         {
@@ -319,7 +319,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<AcsAccessGroup> GetAsync(string acsAccessGroupId = default)
         {
@@ -430,7 +430,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access groups](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access groups](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsAccessGroup> List(ListRequest request)
         {
@@ -443,7 +443,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access groups](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access groups](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsAccessGroup> List(
             string? acsSystemId = default,
@@ -463,7 +463,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access groups](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access groups](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsAccessGroup>> ListAsync(ListRequest request)
         {
@@ -475,7 +475,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access groups](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access groups](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsAccessGroup>> ListAsync(
             string? acsSystemId = default,
@@ -574,7 +574,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all accessible entrances for a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all accessible entrances for a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
         {
@@ -590,7 +590,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all accessible entrances for a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all accessible entrances for a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(string acsAccessGroupId = default)
         {
@@ -600,7 +600,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all accessible entrances for a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all accessible entrances for a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request
@@ -619,7 +619,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all accessible entrances for a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all accessible entrances for a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             string acsAccessGroupId = default
@@ -710,7 +710,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsUser> ListUsers(ListUsersRequest request)
         {
@@ -723,7 +723,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public List<AcsUser> ListUsers(string acsAccessGroupId = default)
         {
@@ -731,7 +731,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsUser>> ListUsersAsync(ListUsersRequest request)
         {
@@ -748,7 +748,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsUser>> ListUsersAsync(string acsAccessGroupId = default)
         {
@@ -814,7 +814,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void RemoveUser(RemoveUserRequest request)
         {
@@ -824,7 +824,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public void RemoveUser(
             string acsAccessGroupId = default,
@@ -842,7 +842,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task RemoveUserAsync(RemoveUserRequest request)
         {
@@ -852,7 +852,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task RemoveUserAsync(
             string acsAccessGroupId = default,

@@ -65,7 +65,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
+            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
             /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum MaxTimeRoundingEnum
@@ -87,7 +87,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "allow_external_modification",
@@ -110,7 +110,7 @@ namespace Seam.Api
             public string? Code { get; set; }
 
             /// <summary>
-            /// Key to identify access codes that should have the same code. Any two access codes with the same `common_code_key` are guaranteed to have the same `code`. See also [Creating and Updating Multiple Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
+            /// Key to identify access codes that should have the same code. Any two access codes with the same `common_code_key` are guaranteed to have the same `code`. See also [Creating and Updating Multiple Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
             /// </summary>
             [DataMember(Name = "common_code_key", IsRequired = false, EmitDefaultValue = false)]
             public string? CommonCodeKey { get; set; }
@@ -128,7 +128,7 @@ namespace Seam.Api
             public string? EndsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "is_external_modification_allowed",
@@ -138,7 +138,7 @@ namespace Seam.Api
             public bool? IsExternalModificationAllowed { get; set; }
 
             /// <summary>
-            /// Indicates whether the access code is an [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes).
+            /// Indicates whether the access code is an [offline access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/offline-access-codes).
             /// </summary>
             [DataMember(
                 Name = "is_offline_access_code",
@@ -148,13 +148,13 @@ namespace Seam.Api
             public bool? IsOfflineAccessCode { get; set; }
 
             /// <summary>
-            /// Indicates whether the [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) is a single-use access code.
+            /// Indicates whether the [offline access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/offline-access-codes) is a single-use access code.
             /// </summary>
             [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsOneTimeUse { get; set; }
 
             /// <summary>
-            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
+            /// Maximum rounding adjustment. To create a daily-bound [offline access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/offline-access-codes) for devices that support this feature, set this parameter to `1d`.
             /// </summary>
             [DataMember(Name = "max_time_rounding", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequest.MaxTimeRoundingEnum? MaxTimeRounding { get; set; }
@@ -172,7 +172,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Indicates whether [native scheduling](https://docs.seam.co/low-level-apis/smart-locks/access-codes#native-scheduling) should be used for time-bound codes when supported by the provider. Default: `true`.
+            /// Indicates whether [native scheduling](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#native-scheduling) should be used for time-bound codes when supported by the provider. Default: `true`.
             /// </summary>
             [DataMember(
                 Name = "prefer_native_scheduling",
@@ -198,7 +198,7 @@ namespace Seam.Api
             public string? StartsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether to use a [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) provided by Seam. If `true`, you can use [`/access_codes/pull_backup_access_code`](https://docs.seam.co/api/access_codes/pull_backup_access_code).
+            /// Indicates whether to use a [backup access code pool](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes) provided by Seam. If `true`, you can use [`/access_codes/pull_backup_access_code`](https://www.seam.co/docs/api/access_codes/pull_backup_access_code).
             /// </summary>
             [DataMember(
                 Name = "use_backup_access_code_pool",
@@ -273,7 +273,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access code](https://docs.seam.co/low-level-apis/access-codes). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
+        /// Creates a new [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
         /// </summary>
         public AccessCode Create(CreateRequest request)
         {
@@ -286,7 +286,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access code](https://docs.seam.co/low-level-apis/access-codes). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
+        /// Creates a new [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
         /// </summary>
         public AccessCode Create(
             bool? allowExternalModification = default,
@@ -330,7 +330,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access code](https://docs.seam.co/low-level-apis/access-codes). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
+        /// Creates a new [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
         /// </summary>
         public async Task<AccessCode> CreateAsync(CreateRequest request)
         {
@@ -342,7 +342,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [access code](https://docs.seam.co/low-level-apis/access-codes). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
+        /// Creates a new [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they work across both standalone smart locks and access control systems and manage the underlying codes for you. Use this low-level endpoint only when you need direct control over a code on a single device, such as setting a custom PIN value.
         /// </summary>
         public async Task<AccessCode> CreateAsync(
             bool? allowExternalModification = default,
@@ -443,7 +443,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "allow_external_modification",
@@ -488,7 +488,7 @@ namespace Seam.Api
             public string? EndsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "is_external_modification_allowed",
@@ -510,7 +510,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Indicates whether [native scheduling](https://docs.seam.co/low-level-apis/smart-locks/access-codes#native-scheduling) should be used for time-bound codes when supported by the provider. Default: `true`.
+            /// Indicates whether [native scheduling](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#native-scheduling) should be used for time-bound codes when supported by the provider. Default: `true`.
             /// </summary>
             [DataMember(
                 Name = "prefer_native_scheduling",
@@ -536,7 +536,7 @@ namespace Seam.Api
             public string? StartsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether to use a [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) provided by Seam. If `true`, you can use [`/access_codes/pull_backup_access_code`](https://docs.seam.co/api/access_codes/pull_backup_access_code).
+            /// Indicates whether to use a [backup access code pool](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes) provided by Seam. If `true`, you can use [`/access_codes/pull_backup_access_code`](https://www.seam.co/docs/api/access_codes/pull_backup_access_code).
             /// </summary>
             [DataMember(
                 Name = "use_backup_access_code_pool",
@@ -603,7 +603,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates new [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Creates new [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Users with more than one door lock in a property may want to create groups of linked access codes, all of which have the same code (PIN). For example, a short-term rental host may want to provide guests the same PIN for both a front door lock and a back door lock.
         ///
@@ -611,9 +611,9 @@ namespace Seam.Api
         ///
         /// If you want to change these access codes that are not linked by a `common_code_key`, you cannot use `/access_codes/update_multiple`. However, you can update each of these access codes individually, using `/access_codes/update`.
         ///
-        /// See also [Creating and Updating Multiple Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
+        /// See also [Creating and Updating Multiple Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
         ///
-        /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
+        /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
         /// </summary>
         public List<AccessCode> CreateMultiple(CreateMultipleRequest request)
         {
@@ -626,7 +626,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates new [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Creates new [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Users with more than one door lock in a property may want to create groups of linked access codes, all of which have the same code (PIN). For example, a short-term rental host may want to provide guests the same PIN for both a front door lock and a back door lock.
         ///
@@ -634,9 +634,9 @@ namespace Seam.Api
         ///
         /// If you want to change these access codes that are not linked by a `common_code_key`, you cannot use `/access_codes/update_multiple`. However, you can update each of these access codes individually, using `/access_codes/update`.
         ///
-        /// See also [Creating and Updating Multiple Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
+        /// See also [Creating and Updating Multiple Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
         ///
-        /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
+        /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
         /// </summary>
         public List<AccessCode> CreateMultiple(
             bool? allowExternalModification = default,
@@ -673,7 +673,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates new [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Creates new [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Users with more than one door lock in a property may want to create groups of linked access codes, all of which have the same code (PIN). For example, a short-term rental host may want to provide guests the same PIN for both a front door lock and a back door lock.
         ///
@@ -681,9 +681,9 @@ namespace Seam.Api
         ///
         /// If you want to change these access codes that are not linked by a `common_code_key`, you cannot use `/access_codes/update_multiple`. However, you can update each of these access codes individually, using `/access_codes/update`.
         ///
-        /// See also [Creating and Updating Multiple Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
+        /// See also [Creating and Updating Multiple Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
         ///
-        /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
+        /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
         /// </summary>
         public async Task<List<AccessCode>> CreateMultipleAsync(CreateMultipleRequest request)
         {
@@ -700,7 +700,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates new [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Creates new [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Users with more than one door lock in a property may want to create groups of linked access codes, all of which have the same code (PIN). For example, a short-term rental host may want to provide guests the same PIN for both a front door lock and a back door lock.
         ///
@@ -708,9 +708,9 @@ namespace Seam.Api
         ///
         /// If you want to change these access codes that are not linked by a `common_code_key`, you cannot use `/access_codes/update_multiple`. However, you can update each of these access codes individually, using `/access_codes/update`.
         ///
-        /// See also [Creating and Updating Multiple Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
+        /// See also [Creating and Updating Multiple Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes).
         ///
-        /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
+        /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
         /// </summary>
         public async Task<List<AccessCode>> CreateMultipleAsync(
             bool? allowExternalModification = default,
@@ -796,7 +796,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Deletes an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -806,7 +806,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Deletes an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         public void Delete(string accessCodeId = default, string? deviceId = default)
         {
@@ -814,7 +814,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Deletes an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -824,7 +824,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Deletes an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         public async Task DeleteAsync(string accessCodeId = default, string? deviceId = default)
         {
@@ -909,7 +909,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes), given a device ID.
+        /// Generates a code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes), given a device ID.
         /// </summary>
         public AccessCode GenerateCode(GenerateCodeRequest request)
         {
@@ -922,7 +922,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes), given a device ID.
+        /// Generates a code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes), given a device ID.
         /// </summary>
         public AccessCode GenerateCode(string deviceId = default)
         {
@@ -930,7 +930,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes), given a device ID.
+        /// Generates a code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes), given a device ID.
         /// </summary>
         public async Task<AccessCode> GenerateCodeAsync(GenerateCodeRequest request)
         {
@@ -947,7 +947,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes), given a device ID.
+        /// Generates a code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes), given a device ID.
         /// </summary>
         public async Task<AccessCode> GenerateCodeAsync(string deviceId = default)
         {
@@ -1050,7 +1050,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a specified [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// You must specify either `access_code_id` or both `device_id` and `code`.
         /// </summary>
@@ -1065,7 +1065,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a specified [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// You must specify either `access_code_id` or both `device_id` and `code`.
         /// </summary>
@@ -1079,7 +1079,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a specified [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// You must specify either `access_code_id` or both `device_id` and `code`.
         /// </summary>
@@ -1093,7 +1093,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a specified [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// You must specify either `access_code_id` or both `device_id` and `code`.
         /// </summary>
@@ -1262,7 +1262,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a list of all [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
         /// </summary>
@@ -1277,7 +1277,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a list of all [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
         /// </summary>
@@ -1311,7 +1311,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a list of all [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
         /// </summary>
@@ -1325,7 +1325,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Returns a list of all [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
         /// </summary>
@@ -1438,7 +1438,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Retrieves a backup access code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes).
+        /// Retrieves a backup access code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes).
         ///
         /// A backup access code pool is a collection of pre-programmed access codes stored on a device, ready for use. These codes are programmed in addition to the regular access codes on Seam, serving as a safety net for any issues with the primary codes. If there&apos;s ever a complication with a primary access code—be it due to intermittent connectivity, manual removal from a device, or provider outages—a backup code can be retrieved. Its end time can then be adjusted to align with the original code, facilitating seamless and uninterrupted access.
         ///
@@ -1462,7 +1462,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Retrieves a backup access code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes).
+        /// Retrieves a backup access code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes).
         ///
         /// A backup access code pool is a collection of pre-programmed access codes stored on a device, ready for use. These codes are programmed in addition to the regular access codes on Seam, serving as a safety net for any issues with the primary codes. If there&apos;s ever a complication with a primary access code—be it due to intermittent connectivity, manual removal from a device, or provider outages—a backup code can be retrieved. Its end time can then be adjusted to align with the original code, facilitating seamless and uninterrupted access.
         ///
@@ -1480,7 +1480,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Retrieves a backup access code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes).
+        /// Retrieves a backup access code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes).
         ///
         /// A backup access code pool is a collection of pre-programmed access codes stored on a device, ready for use. These codes are programmed in addition to the regular access codes on Seam, serving as a safety net for any issues with the primary codes. If there&apos;s ever a complication with a primary access code—be it due to intermittent connectivity, manual removal from a device, or provider outages—a backup code can be retrieved. Its end time can then be adjusted to align with the original code, facilitating seamless and uninterrupted access.
         ///
@@ -1505,7 +1505,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Retrieves a backup access code for an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes).
+        /// Retrieves a backup access code for an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). See also [Managing Backup Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes).
         ///
         /// A backup access code pool is a collection of pre-programmed access codes stored on a device, ready for use. These codes are programmed in addition to the regular access codes on Seam, serving as a safety net for any issues with the primary codes. If there&apos;s ever a complication with a primary access code—be it due to intermittent connectivity, manual removal from a device, or provider outages—a backup code can be retrieved. Its end time can then be adjusted to align with the original code, facilitating seamless and uninterrupted access.
         ///
@@ -1702,7 +1702,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Type to which you want to convert the access code. To convert a time-bound access code to an ongoing access code, set `type` to `ongoing`. See also [Changing a time-bound access code to permanent access](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes#special-case-2-changing-a-time-bound-access-code-to-permanent-access).
+            /// Type to which you want to convert the access code. To convert a time-bound access code to an ongoing access code, set `type` to `ongoing`. See also [Changing a time-bound access code to permanent access](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes#special-case-2-changing-a-time-bound-access-code-to-permanent-access).
             /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum TypeEnum
@@ -1724,7 +1724,7 @@ namespace Seam.Api
             public string AccessCodeId { get; set; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "allow_external_modification",
@@ -1759,7 +1759,7 @@ namespace Seam.Api
             public string? EndsAt { get; set; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed. Default: `false`.
             /// </summary>
             [DataMember(
                 Name = "is_external_modification_allowed",
@@ -1793,7 +1793,7 @@ namespace Seam.Api
             public string? StartsAt { get; set; }
 
             /// <summary>
-            /// Type to which you want to convert the access code. To convert a time-bound access code to an ongoing access code, set `type` to `ongoing`. See also [Changing a time-bound access code to permanent access](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes#special-case-2-changing-a-time-bound-access-code-to-permanent-access).
+            /// Type to which you want to convert the access code. To convert a time-bound access code to an ongoing access code, set `type` to `ongoing`. See also [Changing a time-bound access code to permanent access](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes#special-case-2-changing-a-time-bound-access-code-to-permanent-access).
             /// </summary>
             [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
             public UpdateRequest.TypeEnum? Type { get; set; }
@@ -1819,9 +1819,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified active or upcoming [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Updates a specified active or upcoming [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
-        /// See also [Modifying Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes).
+        /// See also [Modifying Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -1831,9 +1831,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified active or upcoming [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Updates a specified active or upcoming [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
-        /// See also [Modifying Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes).
+        /// See also [Modifying Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes).
         /// </summary>
         public void Update(
             string accessCodeId = default,
@@ -1867,9 +1867,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified active or upcoming [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Updates a specified active or upcoming [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
-        /// See also [Modifying Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes).
+        /// See also [Modifying Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -1879,9 +1879,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified active or upcoming [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Updates a specified active or upcoming [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
-        /// See also [Modifying Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/modifying-access-codes).
+        /// See also [Modifying Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/modifying-access-codes).
         /// </summary>
         public async Task UpdateAsync(
             string accessCodeId = default,
@@ -1987,11 +1987,11 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Updates [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Specify the `common_code_key` to identify the set of access codes that you want to update.
         ///
-        /// See also [Update Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
+        /// See also [Update Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
         /// </summary>
         public void UpdateMultiple(UpdateMultipleRequest request)
         {
@@ -2001,11 +2001,11 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Updates [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Specify the `common_code_key` to identify the set of access codes that you want to update.
         ///
-        /// See also [Update Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
+        /// See also [Update Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
         /// </summary>
         public void UpdateMultiple(
             string commonCodeKey = default,
@@ -2025,11 +2025,11 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Updates [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Specify the `common_code_key` to identify the set of access codes that you want to update.
         ///
-        /// See also [Update Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
+        /// See also [Update Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
         /// </summary>
         public async Task UpdateMultipleAsync(UpdateMultipleRequest request)
         {
@@ -2039,11 +2039,11 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
+        /// Updates [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) that share a common code across multiple devices.
         ///
         /// Specify the `common_code_key` to identify the set of access codes that you want to update.
         ///
-        /// See also [Update Linked Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
+        /// See also [Update Linked Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/creating-and-updating-multiple-linked-access-codes#update-linked-access-codes).
         /// </summary>
         public async Task UpdateMultipleAsync(
             string commonCodeKey = default,

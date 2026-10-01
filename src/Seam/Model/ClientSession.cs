@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens). If you want to restrict your users&apos; access to their own devices, use client sessions.
+    /// Represents a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens). If you want to restrict your users&apos; access to their own devices, use client sessions.
     ///
     /// You create each client session with a custom `user_identifier_key`. Normally, the `user_identifier_key` is a user ID that your application provides.
     ///
@@ -17,7 +17,7 @@ namespace Seam.Model
     ///
     /// A client session has a token that you can use with the Seam JavaScript SDK to make requests from the client (browser) directly to the Seam API. The token restricts the user&apos;s access to only the devices that they own.
     ///
-    /// See also [Get Started with React](https://docs.seam.co/ui-components/overview/getting-started-with-seam-components/get-started-with-react-components-and-client-session-tokens).
+    /// See also [Get Started with React](https://www.seam.co/docs/ui-components/overview/getting-started-with-seam-components/get-started-with-react-components-and-client-session-tokens).
     /// </summary>
     [DataContract(Name = "seamModel_clientSession_model")]
     public class ClientSession
@@ -61,61 +61,61 @@ namespace Seam.Model
         public string ClientSessionId { get; set; }
 
         /// <summary>
-        /// IDs of the [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// IDs of the [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "connect_webview_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> ConnectWebviewIds { get; set; }
 
         /// <summary>
-        /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "connected_account_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
 
         /// <summary>
-        /// Date and time at which the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) was created.
+        /// Date and time at which the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Customer key associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Customer key associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
         public string? CustomerKey { get; set; }
 
         /// <summary>
-        /// Number of devices associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Number of devices associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "device_count", IsRequired = false, EmitDefaultValue = false)]
         public float DeviceCount { get; set; }
 
         /// <summary>
-        /// Date and time at which the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) expires.
+        /// Date and time at which the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) expires.
         /// </summary>
         [DataMember(Name = "expires_at", IsRequired = false, EmitDefaultValue = false)]
         public string ExpiresAt { get; set; }
 
         /// <summary>
-        /// Client session token associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Client session token associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "token", IsRequired = false, EmitDefaultValue = false)]
         public string Token { get; set; }
 
         /// <summary>
-        /// Your user ID for the user associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Your user ID for the user associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [DataMember(Name = "user_identifier_key", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentifierKey { get; set; }
 
         /// <summary>
-        /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
+        /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
         /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
         /// <summary>
-        /// IDs of the [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
+        /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
         /// </summary>
         [Obsolete("Use `user_identity_id` instead.")]
         [DataMember(Name = "user_identity_ids", IsRequired = false, EmitDefaultValue = false)]

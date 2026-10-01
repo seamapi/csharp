@@ -65,7 +65,7 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Optional [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for the phone.
+        /// Optional [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for the phone.
         /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }

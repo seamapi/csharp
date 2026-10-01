@@ -69,7 +69,7 @@ namespace Seam.Api
             public string? AccessGrantKey { get; set; }
 
             /// <summary>
-            /// Set of IDs of the [entrances](https://docs.seam.co/api/acs/systems/list) to which access is being granted.
+            /// Set of IDs of the [entrances](https://www.seam.co/docs/api/acs/systems/list) to which access is being granted.
             /// </summary>
             [DataMember(Name = "acs_entrance_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsEntranceIds { get; set; }
@@ -85,7 +85,7 @@ namespace Seam.Api
             public string? CustomizationProfileId { get; set; }
 
             /// <summary>
-            /// Set of IDs of the [devices](https://docs.seam.co/api/devices/list) to which access is being granted.
+            /// Set of IDs of the [devices](https://www.seam.co/docs/api/devices/list) to which access is being granted.
             /// </summary>
             [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? DeviceIds { get; set; }
@@ -406,7 +406,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
+        /// Creates a new [Access Grant](https://www.seam.co/docs/use-cases/granting-access). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public AccessGrant Create(CreateRequest request)
         {
@@ -419,7 +419,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
+        /// Creates a new [Access Grant](https://www.seam.co/docs/use-cases/granting-access). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public AccessGrant Create(
             string? accessGrantKey = default,
@@ -461,7 +461,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
+        /// Creates a new [Access Grant](https://www.seam.co/docs/use-cases/granting-access). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public async Task<AccessGrant> CreateAsync(CreateRequest request)
         {
@@ -473,7 +473,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [Access Grant](https://docs.seam.co/use-cases/granting-access/access-grants). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
+        /// Creates a new [Access Grant](https://www.seam.co/docs/use-cases/granting-access). Access Grants are the default and recommended way to grant a user access to any physical space, irrespective of the locking hardware. They work with both standalone smart locks (using `device_ids`) and access control systems (using `acs_entrance_ids` or `space_ids`), and can issue PIN codes, key cards, and mobile keys through a single request.
         /// </summary>
         public async Task<AccessGrant> CreateAsync(
             string? accessGrantKey = default,
@@ -978,6 +978,7 @@ namespace Seam.Api
                 string? locationId = default,
                 string? pageCursor = default,
                 string? reservationKey = default,
+                string? search = default,
                 string? spaceId = default,
                 string? userIdentityId = default
             )
@@ -993,6 +994,7 @@ namespace Seam.Api
                 LocationId = locationId;
                 PageCursor = pageCursor;
                 ReservationKey = reservationKey;
+                Search = search;
                 SpaceId = spaceId;
                 UserIdentityId = userIdentityId;
             }
@@ -1060,6 +1062,12 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "reservation_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ReservationKey { get; set; }
+
+            /// <summary>
+            /// String for which to search. Filters returned Access Grants to include all records that satisfy a partial match using `name`, `access_grant_key`, `reservation_key`, `access_grant_id`, `user_identity_id`, `user_identity_full_name`, `user_identity_email_address` or `user_identity_phone_number`.
+            /// </summary>
+            [DataMember(Name = "search", IsRequired = false, EmitDefaultValue = false)]
+            public string? Search { get; set; }
 
             /// <summary>
             /// ID of the space by which you want to filter the list of Access Grants.
@@ -1158,6 +1166,7 @@ namespace Seam.Api
             string? locationId = default,
             string? pageCursor = default,
             string? reservationKey = default,
+            string? search = default,
             string? spaceId = default,
             string? userIdentityId = default
         )
@@ -1175,6 +1184,7 @@ namespace Seam.Api
                     locationId: locationId,
                     pageCursor: pageCursor,
                     reservationKey: reservationKey,
+                    search: search,
                     spaceId: spaceId,
                     userIdentityId: userIdentityId
                 )
@@ -1208,6 +1218,7 @@ namespace Seam.Api
             string? locationId = default,
             string? pageCursor = default,
             string? reservationKey = default,
+            string? search = default,
             string? spaceId = default,
             string? userIdentityId = default
         )
@@ -1226,6 +1237,7 @@ namespace Seam.Api
                         locationId: locationId,
                         pageCursor: pageCursor,
                         reservationKey: reservationKey,
+                        search: search,
                         spaceId: spaceId,
                         userIdentityId: userIdentityId
                     )

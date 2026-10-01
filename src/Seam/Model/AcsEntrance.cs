@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) within an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents an [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) within an [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
     /// In an access control system, an entrance is a secured door, gate, zone, or other method of entry. You can list details for all the `acs_entrance` resources in your workspace or get these details for a specific `acs_entrance`. You can also list all entrances associated with a specific credential, and you can list all credentials associated with a specific entrance.
     /// </summary>
@@ -421,25 +421,25 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// ID of the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
 
         /// <summary>
-        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems) that contains the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) that contains the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         /// <summary>
-        /// Akiles-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Akiles-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
-        /// ASSA ABLOY Vostio-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ASSA ABLOY Vostio-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
@@ -449,13 +449,13 @@ namespace Seam.Model
         public AcsEntranceAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         /// <summary>
-        /// Avigilon Alta-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Avigilon Alta-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "avigilon_alta_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceAvigilonAltaMetadata? AvigilonAltaMetadata { get; set; }
 
         /// <summary>
-        /// Brivo-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Brivo-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "brivo_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceBrivoMetadata? BrivoMetadata { get; set; }
@@ -503,25 +503,25 @@ namespace Seam.Model
         public bool? CanUnlockWithMobileKey { get; set; }
 
         /// <summary>
-        /// ID of the [connected account](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [connected account](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         /// <summary>
-        /// Date and time at which the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was created.
+        /// Date and time at which the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Display name for the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Display name for the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// dormakaba Ambiance-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// dormakaba Ambiance-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(
             Name = "dormakaba_ambiance_metadata",
@@ -531,7 +531,7 @@ namespace Seam.Model
         public AcsEntranceDormakabaAmbianceMetadata? DormakabaAmbianceMetadata { get; set; }
 
         /// <summary>
-        /// dormakaba Community-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// dormakaba Community-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(
             Name = "dormakaba_community_metadata",
@@ -541,37 +541,37 @@ namespace Seam.Model
         public AcsEntranceDormakabaCommunityMetadata? DormakabaCommunityMetadata { get; set; }
 
         /// <summary>
-        /// Errors associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Errors associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsEntranceErrors> Errors { get; set; }
 
         /// <summary>
-        /// Hotek-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Hotek-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "hotek_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceHotekMetadata? HotekMetadata { get; set; }
 
         /// <summary>
-        /// Indicates whether the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) is currently locked.
+        /// Indicates whether the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) is currently locked.
         /// </summary>
         [DataMember(Name = "is_locked", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsLocked { get; set; }
 
         /// <summary>
-        /// Latch-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Latch-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "latch_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceLatchMetadata? LatchMetadata { get; set; }
 
         /// <summary>
-        /// Salto KS-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Salto KS-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "salto_ks_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceSaltoKsMetadata? SaltoKsMetadata { get; set; }
 
         /// <summary>
-        /// Salto Space-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Salto Space-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "salto_space_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceSaltoSpaceMetadata? SaltoSpaceMetadata { get; set; }
@@ -583,13 +583,13 @@ namespace Seam.Model
         public List<string> SpaceIds { get; set; }
 
         /// <summary>
-        /// Visionline-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Visionline-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsEntranceVisionlineMetadata? VisionlineMetadata { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Warnings associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsEntranceWarnings> Warnings { get; set; }

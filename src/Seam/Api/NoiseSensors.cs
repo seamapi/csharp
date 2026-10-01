@@ -190,7 +190,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise sensors](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public List<Device> List(ListRequest request)
         {
@@ -203,7 +203,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise sensors](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public List<Device> List(
             string? connectWebviewId = default,
@@ -227,7 +227,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise sensors](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<List<Device>> ListAsync(ListRequest request)
         {
@@ -239,7 +239,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [noise sensors](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise sensors](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<List<Device>> ListAsync(
             string? connectWebviewId = default,

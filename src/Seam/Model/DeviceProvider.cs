@@ -15,6 +15,7 @@ namespace Seam.Model
         protected DeviceProvider() { }
 
         public DeviceProvider(
+            bool? canActivateWeeklyProgram = default,
             bool? canConfigureAutoLock = default,
             bool? canHvacCool = default,
             bool? canHvacHeat = default,
@@ -33,6 +34,7 @@ namespace Seam.Model
             bool? canSimulateHubDisconnection = default,
             bool? canSimulatePaidSubscription = default,
             bool? canSimulateRemoval = default,
+            bool? canStreamLiveVideo = default,
             bool? canTurnOffHvac = default,
             bool? canUnlockWithCode = default,
             DeviceProvider.DeviceProviderNameEnum deviceProviderName = default,
@@ -41,6 +43,7 @@ namespace Seam.Model
             List<DeviceProvider.ProviderCategoriesEnum> providerCategories = default
         )
         {
+            CanActivateWeeklyProgram = canActivateWeeklyProgram;
             CanConfigureAutoLock = canConfigureAutoLock;
             CanHvacCool = canHvacCool;
             CanHvacHeat = canHvacHeat;
@@ -61,6 +64,7 @@ namespace Seam.Model
             CanSimulateHubDisconnection = canSimulateHubDisconnection;
             CanSimulatePaidSubscription = canSimulatePaidSubscription;
             CanSimulateRemoval = canSimulateRemoval;
+            CanStreamLiveVideo = canStreamLiveVideo;
             CanTurnOffHvac = canTurnOffHvac;
             CanUnlockWithCode = canUnlockWithCode;
             DeviceProviderName = deviceProviderName;
@@ -171,104 +175,116 @@ namespace Seam.Model
             [EnumMember(Value = "dormakaba_oracode")]
             DormakabaOracode = 31,
 
+            [EnumMember(Value = "dormakaba_oracode_iho")]
+            DormakabaOracodeIho = 32,
+
             [EnumMember(Value = "pti")]
-            Pti = 32,
+            Pti = 33,
 
             [EnumMember(Value = "wyze")]
-            Wyze = 33,
+            Wyze = 34,
 
             [EnumMember(Value = "seam_passport")]
-            SeamPassport = 34,
+            SeamPassport = 35,
 
             [EnumMember(Value = "visionline")]
-            Visionline = 35,
+            Visionline = 36,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 36,
+            AssaAbloyCredentialService = 37,
 
             [EnumMember(Value = "tedee")]
-            Tedee = 37,
+            Tedee = 38,
 
             [EnumMember(Value = "honeywell_resideo")]
-            HoneywellResideo = 38,
+            HoneywellResideo = 39,
 
             [EnumMember(Value = "first_alert")]
-            FirstAlert = 39,
+            FirstAlert = 40,
 
             [EnumMember(Value = "latch")]
-            Latch = 40,
+            Latch = 41,
 
             [EnumMember(Value = "akiles")]
-            Akiles = 41,
+            Akiles = 42,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 42,
+            AssaAbloyVostio = 43,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 43,
+            AssaAbloyVostioCredentialService = 44,
 
             [EnumMember(Value = "tado")]
-            Tado = 44,
+            Tado = 45,
 
             [EnumMember(Value = "salto_space")]
-            SaltoSpace = 45,
+            SaltoSpace = 46,
 
             [EnumMember(Value = "sensi")]
-            Sensi = 46,
+            Sensi = 47,
 
             [EnumMember(Value = "keynest")]
-            Keynest = 47,
+            Keynest = 48,
 
             [EnumMember(Value = "korelock")]
-            Korelock = 48,
+            Korelock = 49,
 
             [EnumMember(Value = "keyincode")]
-            Keyincode = 49,
+            Keyincode = 50,
 
             [EnumMember(Value = "dormakaba_ambiance")]
-            DormakabaAmbiance = 50,
+            DormakabaAmbiance = 51,
 
             [EnumMember(Value = "ultraloq")]
-            Ultraloq = 51,
+            Ultraloq = 52,
 
             [EnumMember(Value = "yacan")]
-            Yacan = 52,
+            Yacan = 53,
 
             [EnumMember(Value = "dusaw")]
-            Dusaw = 53,
+            Dusaw = 54,
 
             [EnumMember(Value = "sifely")]
-            Sifely = 54,
+            Sifely = 55,
 
             [EnumMember(Value = "thirty_three_lock")]
-            ThirtyThreeLock = 55,
+            ThirtyThreeLock = 56,
 
             [EnumMember(Value = "ring")]
-            Ring = 56,
+            Ring = 57,
+
+            [EnumMember(Value = "tapo")]
+            Tapo = 58,
+
+            [EnumMember(Value = "arlo")]
+            Arlo = 59,
+
+            [EnumMember(Value = "reolink")]
+            Reolink = 60,
 
             [EnumMember(Value = "ical")]
-            Ical = 57,
+            Ical = 61,
 
             [EnumMember(Value = "lodgify")]
-            Lodgify = 58,
+            Lodgify = 62,
 
             [EnumMember(Value = "hostaway")]
-            Hostaway = 59,
+            Hostaway = 63,
 
             [EnumMember(Value = "guesty")]
-            Guesty = 60,
+            Guesty = 64,
 
             [EnumMember(Value = "acuity_scheduling")]
-            AcuityScheduling = 61,
+            AcuityScheduling = 65,
 
             [EnumMember(Value = "omnitec")]
-            Omnitec = 62,
+            Omnitec = 66,
 
             [EnumMember(Value = "kisi")]
-            Kisi = 63,
+            Kisi = 67,
 
             [EnumMember(Value = "aqara")]
-            Aqara = 64,
+            Aqara = 68,
         }
 
         /// <summary>
@@ -304,6 +320,16 @@ namespace Seam.Model
             [EnumMember(Value = "connectors")]
             Connectors = 8,
         }
+
+        /// <summary>
+        /// Indicates whether the thermostat can be returned to its weekly program, the schedule that is configured on the device itself, releasing any hold that Seam has set.
+        /// </summary>
+        [DataMember(
+            Name = "can_activate_weekly_program",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanActivateWeeklyProgram { get; set; }
 
         /// <summary>
         /// Indicates whether the lock supports configuring automatic locking.
@@ -452,6 +478,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "can_simulate_removal", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanSimulateRemoval { get; set; }
+
+        /// <summary>
+        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// </summary>
+        [DataMember(Name = "can_stream_live_video", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanStreamLiveVideo { get; set; }
 
         /// <summary>
         /// Indicates whether the thermostat can be turned off.

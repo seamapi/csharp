@@ -729,6 +729,14 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AccessMethodWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessMethodWarningsUserIdentityMissingPhoneNumber),
+            "user_identity_missing_phone_number"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(AccessMethodWarningsUserIdentityMissingEmailAddress),
+            "user_identity_missing_email_address"
+        )]
         [JsonSubtypes.KnownSubType(typeof(AccessMethodWarningsDelayInIssuing), "delay_in_issuing")]
         [JsonSubtypes.KnownSubType(
             typeof(AccessMethodWarningsPulledBackupAccessCode),
@@ -970,6 +978,110 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_accessMethodWarningsUserIdentityMissingEmailAddress_model")]
+        public class AccessMethodWarningsUserIdentityMissingEmailAddress : AccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessMethodWarningsUserIdentityMissingEmailAddress() { }
+
+            public AccessMethodWarningsUserIdentityMissingEmailAddress(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "user_identity_missing_email_address";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_accessMethodWarningsUserIdentityMissingPhoneNumber_model")]
+        public class AccessMethodWarningsUserIdentityMissingPhoneNumber : AccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AccessMethodWarningsUserIdentityMissingPhoneNumber() { }
+
+            public AccessMethodWarningsUserIdentityMissingPhoneNumber(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "user_identity_missing_phone_number";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_accessMethodWarningsUnrecognized_model")]
         public class AccessMethodWarningsUnrecognized : AccessMethodWarnings
         {
@@ -1069,7 +1181,7 @@ namespace Seam.Model
         public string DisplayStatus { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// Errors associated with the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodErrors> Errors { get; set; }
@@ -1123,13 +1235,13 @@ namespace Seam.Model
         public AccessMethod.ModeEnum Mode { get; set; }
 
         /// <summary>
-        /// Pending mutations for the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
+        /// Pending mutations for the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
         /// </summary>
         [DataMember(Name = "pending_mutations", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodPendingMutations> PendingMutations { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// Warnings associated with the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessMethodWarnings> Warnings { get; set; }

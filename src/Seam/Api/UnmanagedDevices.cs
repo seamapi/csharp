@@ -103,9 +103,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -120,9 +120,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -132,9 +132,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -148,9 +148,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         ///
         /// You must specify either `device_id` or `name`.
         /// </summary>
@@ -337,6 +337,15 @@ namespace Seam.Api
 
                 [EnumMember(Value = "ring_camera")]
                 RingCamera = 43,
+
+                [EnumMember(Value = "tapo_camera")]
+                TapoCamera = 44,
+
+                [EnumMember(Value = "arlo_camera")]
+                ArloCamera = 45,
+
+                [EnumMember(Value = "reolink_camera")]
+                ReolinkCamera = 46,
             }
 
             /// <summary>
@@ -476,6 +485,15 @@ namespace Seam.Api
 
                 [EnumMember(Value = "ring_camera")]
                 RingCamera = 43,
+
+                [EnumMember(Value = "tapo_camera")]
+                TapoCamera = 44,
+
+                [EnumMember(Value = "arlo_camera")]
+                ArloCamera = 45,
+
+                [EnumMember(Value = "reolink_camera")]
+                ReolinkCamera = 46,
             }
 
             /// <summary>
@@ -562,86 +580,101 @@ namespace Seam.Api
                 [EnumMember(Value = "controlbyweb")]
                 Controlbyweb = 25,
 
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 26,
-
                 [EnumMember(Value = "tedee")]
-                Tedee = 27,
+                Tedee = 26,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 28,
+                Keyincode = 27,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 29,
+                Akiles = 28,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 30,
+                Aqara = 29,
 
                 [EnumMember(Value = "ecobee")]
-                Ecobee = 31,
+                Ecobee = 30,
+
+                [EnumMember(Value = "eufy")]
+                Eufy = 31,
+
+                [EnumMember(Value = "dormakaba_oracode")]
+                DormakabaOracode = 32,
+
+                [EnumMember(Value = "dormakaba_oracode_iho")]
+                DormakabaOracodeIho = 33,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 32,
+                HoneywellResideo = 34,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 33,
+                Keynest = 35,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 34,
+                Korelock = 36,
 
                 [EnumMember(Value = "lockly")]
-                Lockly = 35,
+                Lockly = 37,
 
                 [EnumMember(Value = "minut")]
-                Minut = 36,
+                Minut = 38,
 
                 [EnumMember(Value = "nest")]
-                Nest = 37,
+                Nest = 39,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 38,
+                Noiseaware = 40,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 39,
+                Sensi = 41,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 40,
+                Smartthings = 42,
 
                 [EnumMember(Value = "tado")]
-                Tado = 41,
+                Tado = 43,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 42,
+                Ultraloq = 44,
 
                 [EnumMember(Value = "ring")]
-                Ring = 43,
+                Ring = 45,
+
+                [EnumMember(Value = "tapo")]
+                Tapo = 46,
+
+                [EnumMember(Value = "arlo")]
+                Arlo = 47,
+
+                [EnumMember(Value = "reolink")]
+                Reolink = 48,
 
                 [EnumMember(Value = "ical")]
-                Ical = 44,
+                Ical = 49,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 45,
+                Lodgify = 50,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 46,
+                Hostaway = 51,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 47,
+                Guesty = 52,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 48,
+                AcuityScheduling = 53,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 49,
+                Omnitec = 54,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 50,
+                Kisi = 55,
 
                 [EnumMember(Value = "slack")]
-                Slack = 51,
+                Slack = 56,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 52,
+                Yacan = 57,
             }
 
             /// <summary>
@@ -782,9 +815,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [unmanaged devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a list of all [unmanaged devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public List<UnmanagedDevice> List(ListRequest request)
         {
@@ -797,9 +830,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [unmanaged devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a list of all [unmanaged devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public List<UnmanagedDevice> List(
             string? connectWebviewId = default,
@@ -835,9 +868,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [unmanaged devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a list of all [unmanaged devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public async Task<List<UnmanagedDevice>> ListAsync(ListRequest request)
         {
@@ -849,9 +882,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [unmanaged devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Returns a list of all [unmanaged devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public async Task<List<UnmanagedDevice>> ListAsync(
             string? connectWebviewId = default,
@@ -947,9 +980,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
+        /// Updates a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -959,9 +992,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
+        /// Updates a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public void Update(
             object? customMetadata = default,
@@ -979,9 +1012,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
+        /// Updates a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -991,9 +1024,9 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
+        /// Updates a specified [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). To convert an unmanaged device to managed, set `is_managed` to `true`.
         ///
-        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
+        /// An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices#convert-an-unmanaged-device-to-managed).
         /// </summary>
         public async Task UpdateAsync(
             object? customMetadata = default,

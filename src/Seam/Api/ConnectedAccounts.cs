@@ -59,7 +59,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Deletes a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         ///
         /// Deleting a connected account triggers a `connected_account.deleted` event and removes the connected account and all data associated with the connected account from Seam, including devices, events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
         ///
@@ -73,7 +73,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Deletes a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         ///
         /// Deleting a connected account triggers a `connected_account.deleted` event and removes the connected account and all data associated with the connected account from Seam, including devices, events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
         ///
@@ -85,7 +85,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Deletes a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         ///
         /// Deleting a connected account triggers a `connected_account.deleted` event and removes the connected account and all data associated with the connected account from Seam, including devices, events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
         ///
@@ -99,7 +99,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Deletes a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         ///
         /// Deleting a connected account triggers a `connected_account.deleted` event and removes the connected account and all data associated with the connected account from Seam, including devices, events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
         ///
@@ -199,7 +199,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public ConnectedAccount Get(GetRequest request)
         {
@@ -212,7 +212,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public ConnectedAccount Get(string? connectedAccountId = default, string? email = default)
         {
@@ -220,7 +220,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<ConnectedAccount> GetAsync(GetRequest request)
         {
@@ -232,7 +232,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<ConnectedAccount> GetAsync(
             string? connectedAccountId = default,
@@ -372,7 +372,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [connected accounts](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a list of all [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public List<ConnectedAccount> List(ListRequest request)
         {
@@ -385,7 +385,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [connected accounts](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a list of all [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public List<ConnectedAccount> List(
             object? customMetadataHas = default,
@@ -411,7 +411,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [connected accounts](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a list of all [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<List<ConnectedAccount>> ListAsync(ListRequest request)
         {
@@ -423,7 +423,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [connected accounts](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a list of all [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<List<ConnectedAccount>> ListAsync(
             object? customMetadataHas = default,
@@ -491,7 +491,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Request a [connected account](https://docs.seam.co/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
+        /// Request a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
         /// </summary>
         public void Sync(SyncRequest request)
         {
@@ -501,7 +501,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Request a [connected account](https://docs.seam.co/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
+        /// Request a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
         /// </summary>
         public void Sync(string connectedAccountId = default)
         {
@@ -509,7 +509,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Request a [connected account](https://docs.seam.co/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
+        /// Request a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
         /// </summary>
         public async Task SyncAsync(SyncRequest request)
         {
@@ -519,7 +519,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Request a [connected account](https://docs.seam.co/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
+        /// Request a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
         /// </summary>
         public async Task SyncAsync(string connectedAccountId = default)
         {
@@ -588,7 +588,7 @@ namespace Seam.Api
             public List<UpdateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; set; }
 
             /// <summary>
-            /// Indicates whether newly-added devices should appear as [managed devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+            /// Indicates whether newly-added devices should appear as [managed devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
             /// </summary>
             [DataMember(
                 Name = "automatically_manage_new_devices",
@@ -604,7 +604,7 @@ namespace Seam.Api
             public string ConnectedAccountId { get; set; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the connected account. Entirely replaces the existing custom metadata object. If a new Connect Webview contains custom metadata and is used to reconnect a connected account, the custom metadata from the Connect Webview will entirely replace the entire custom metadata object on the connected account. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter connected accounts by the desired metadata](https://docs.seam.co/core-concepts/connected-accounts/filtering-connected-accounts-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// Custom metadata that you want to associate with the connected account. Entirely replaces the existing custom metadata object. If a new Connect Webview contains custom metadata and is used to reconnect a connected account, the custom metadata from the Connect Webview will entirely replace the entire custom metadata object on the connected account. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter connected accounts by the desired metadata](https://www.seam.co/docs/core-concepts/connected-accounts/filtering-connected-accounts-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
             public object? CustomMetadata { get; set; }
@@ -642,7 +642,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Updates a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -652,7 +652,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Updates a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public void Update(
             List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,
@@ -676,7 +676,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Updates a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -686,7 +686,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Updates a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task UpdateAsync(
             List<UpdateRequest.AcceptedCapabilitiesEnum>? acceptedCapabilities = default,

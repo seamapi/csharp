@@ -319,7 +319,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was created.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was created.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeCreated_model")]
     public class EventAccessCodeCreated : Event
@@ -442,7 +442,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was changed.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeChanged_model")]
     public class EventAccessCodeChanged : Event
@@ -636,7 +636,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The name of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// The name of an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was changed on the device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeNameChanged_model")]
     public class EventAccessCodeNameChanged : Event
@@ -857,7 +857,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The pin code of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// The pin code of an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was changed on the device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeCodeChanged_model")]
     public class EventAccessCodeCodeChanged : Event
@@ -1078,7 +1078,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The time frame of an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was changed on the device.
+    /// The time frame of an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was changed on the device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeTimeFrameChanged_model")]
     public class EventAccessCodeTimeFrameChanged : Event
@@ -1319,7 +1319,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// Mutations were requested on an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes). This event fires at request time, before the change is confirmed on the device.
+    /// Mutations were requested on an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes). This event fires at request time, before the change is confirmed on the device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeMutationsRequested_model")]
     public class EventAccessCodeMutationsRequested : Event
@@ -1534,7 +1534,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was [scheduled natively](https://docs.seam.co/low-level-apis/smart-locks/access-codes#native-scheduling) on a device.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was [scheduled natively](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#native-scheduling) on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeScheduledOnDevice_model")]
     public class EventAccessCodeScheduledOnDevice : Event
@@ -1665,7 +1665,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was set on a device.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was set on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeSetOnDevice_model")]
     public class EventAccessCodeSetOnDevice : Event
@@ -1796,7 +1796,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was removed from a device.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was removed from a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeRemovedFromDevice_model")]
     public class EventAccessCodeRemovedFromDevice : Event
@@ -1919,7 +1919,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// There was an unusually long delay in setting an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) on a device.
+    /// There was an unusually long delay in setting an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDelayInSettingOnDevice_model")]
     public class EventAccessCodeDelayInSettingOnDevice : Event
@@ -2435,7 +2435,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) failed to be set on a device.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) failed to be set on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeFailedToSetOnDevice_model")]
     public class EventAccessCodeFailedToSetOnDevice : Event
@@ -2950,7 +2950,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was deleted.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was deleted.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDeleted_model")]
     public class EventAccessCodeDeleted : Event
@@ -3081,7 +3081,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// There was an unusually long delay in removing an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) from a device.
+    /// There was an unusually long delay in removing an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) from a device.
     /// </summary>
     [Obsolete(
         "Seam no longer emits this event. Use `access_code.failed_to_remove_from_device` instead."
@@ -3605,7 +3605,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) failed to be removed from a device.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) failed to be removed from a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeFailedToRemoveFromDevice_model")]
     public class EventAccessCodeFailedToRemoveFromDevice : Event
@@ -4124,7 +4124,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was modified outside of Seam.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was modified outside of Seam.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeModifiedExternalToSeam_model")]
     public class EventAccessCodeModifiedExternalToSeam : Event
@@ -4247,7 +4247,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was deleted outside of Seam.
+    /// An [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was deleted outside of Seam.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeDeletedExternalToSeam_model")]
     public class EventAccessCodeDeletedExternalToSeam : Event
@@ -4370,7 +4370,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [backup access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) was pulled from the backup access code pool and set on a device.
+    /// A [backup access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes) was pulled from the backup access code pool and set on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeBackupAccessCodePulled_model")]
     public class EventAccessCodeBackupAccessCodePulled : Event
@@ -4501,7 +4501,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was converted successfully to a managed access code.
+    /// An [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was converted successfully to a managed access code.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedConvertedToManaged_model")]
     public class EventAccessCodeUnmanagedConvertedToManaged : Event
@@ -4624,7 +4624,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) failed to be converted to a managed access code.
+    /// An [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) failed to be converted to a managed access code.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedFailedToConvertToManaged_model")]
     public class EventAccessCodeUnmanagedFailedToConvertToManaged : Event
@@ -5152,7 +5152,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was created on a device.
+    /// An [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was created on a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedCreated_model")]
     public class EventAccessCodeUnmanagedCreated : Event
@@ -5275,7 +5275,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was removed from a device.
+    /// An [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) was removed from a device.
     /// </summary>
     [DataContract(Name = "seamModel_eventAccessCodeUnmanagedRemoved_model")]
     public class EventAccessCodeUnmanagedRemoved : Event
@@ -5695,7 +5695,7 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         /// <summary>
-        /// ID of the affected [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the affected [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
@@ -5790,7 +5790,7 @@ namespace Seam.Model
         public string AccessGrantId { get; set; }
 
         /// <summary>
-        /// ID of the affected [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the affected [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsEntranceId { get; set; }
@@ -6920,7 +6920,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was connected.
+    /// An [access system](https://www.seam.co/docs/low-level-apis/access-systems) was connected.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemConnected_model")]
     public class EventAcsSystemConnected : Event
@@ -7015,7 +7015,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was added.
+    /// An [access system](https://www.seam.co/docs/low-level-apis/access-systems) was added.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemAdded_model")]
     public class EventAcsSystemAdded : Event
@@ -7110,7 +7110,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system](https://docs.seam.co/low-level-apis/access-systems) was disconnected.
+    /// An [access system](https://www.seam.co/docs/low-level-apis/access-systems) was disconnected.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsSystemDisconnected_model")]
     public class EventAcsSystemDisconnected : Event
@@ -7466,7 +7466,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was deleted.
+    /// An [access system credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was deleted.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialDeleted_model")]
     public class EventAcsCredentialDeleted : Event
@@ -7569,7 +7569,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was issued.
+    /// An [access system credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was issued.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialIssued_model")]
     public class EventAcsCredentialIssued : Event
@@ -7672,7 +7672,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was reissued.
+    /// An [access system credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was reissued.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialReissued_model")]
     public class EventAcsCredentialReissued : Event
@@ -7775,7 +7775,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was invalidated. That is, the credential cannot be used anymore.
+    /// An [access system credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was invalidated. That is, the credential cannot be used anymore.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsCredentialInvalidated_model")]
     public class EventAcsCredentialInvalidated : Event
@@ -7878,7 +7878,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was created.
+    /// An [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) was created.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsUserCreated_model")]
     public class EventAcsUserCreated : Event
@@ -7981,7 +7981,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was deleted.
+    /// An [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) was deleted.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsUserDeleted_model")]
     public class EventAcsUserDeleted : Event
@@ -8084,7 +8084,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was added.
+    /// An [access system encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was added.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsEncoderAdded_model")]
     public class EventAcsEncoderAdded : Event
@@ -8187,7 +8187,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system encoder](https://docs.seam.co/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was removed.
+    /// An [access system encoder](https://www.seam.co/docs/low-level-apis/access-systems/working-with-card-encoders-and-scanners) was removed.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsEncoderRemoved_model")]
     public class EventAcsEncoderRemoved : Event
@@ -8393,7 +8393,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was added.
+    /// An [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) was added.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsEntranceAdded_model")]
     public class EventAcsEntranceAdded : Event
@@ -8496,7 +8496,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was removed.
+    /// An [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) was removed.
     /// </summary>
     [DataContract(Name = "seamModel_eventAcsEntranceRemoved_model")]
     public class EventAcsEntranceRemoved : Event
@@ -11204,7 +11204,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A managed device was successfully converted to an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+    /// A managed device was successfully converted to an [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceConvertedToUnmanaged_model")]
     public class EventDeviceConvertedToUnmanaged : Event
@@ -11327,7 +11327,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// An [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) was successfully converted to a managed device.
+    /// An [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices) was successfully converted to a managed device.
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedConvertedToManaged_model")]
     public class EventDeviceUnmanagedConvertedToManaged : Event
@@ -11450,7 +11450,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The status of an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) changed from offline to online. That is, the `device.properties.online` property changed from `false` to `true`.
+    /// The status of an [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices) changed from offline to online. That is, the `device.properties.online` property changed from `false` to `true`.
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedConnected_model")]
     public class EventDeviceUnmanagedConnected : Event
@@ -11984,7 +11984,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The status of an [unmanaged device](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices) changed from online to offline. That is, the `device.properties.online` property changed from `true` to `false`.
+    /// The status of an [unmanaged device](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices) changed from online to offline. That is, the `device.properties.online` property changed from `true` to `false`.
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceUnmanagedDisconnected_model")]
     public class EventDeviceUnmanagedDisconnected : Event
@@ -13337,7 +13337,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [Salto device](https://docs.seam.co/device-and-system-integration-guides/salto-locks) activated privacy mode.
+    /// A [Salto device](https://www.seam.co/docs/device-and-system-integration-guides/salto-locks) activated privacy mode.
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceSaltoPrivacyModeActivated_model")]
     public class EventDeviceSaltoPrivacyModeActivated : Event
@@ -13460,7 +13460,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [Salto device](https://docs.seam.co/device-and-system-integration-guides/salto-locks) deactivated privacy mode.
+    /// A [Salto device](https://www.seam.co/docs/device-and-system-integration-guides/salto-locks) deactivated privacy mode.
     /// </summary>
     [DataContract(Name = "seamModel_eventDeviceSaltoPrivacyModeDeactivated_model")]
     public class EventDeviceSaltoPrivacyModeDeactivated : Event
@@ -15117,7 +15117,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// Extended periods of noise or noise exceeding a [threshold](https://docs.seam.co/capability-guides/noise-sensors#what-is-a-threshold) were detected.
+    /// Extended periods of noise or noise exceeding a [threshold](https://www.seam.co/docs/capability-guides/noise-sensors#what-is-a-threshold) were detected.
     /// </summary>
     [DataContract(Name = "seamModel_eventNoiseSensorNoiseThresholdTriggered_model")]
     public class EventNoiseSensorNoiseThresholdTriggered : Event
@@ -15288,7 +15288,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [lock](https://docs.seam.co/low-level-apis/smart-locks) was locked.
+    /// A [lock](https://www.seam.co/docs/low-level-apis/smart-locks) was locked.
     /// </summary>
     [DataContract(Name = "seamModel_eventLockLocked_model")]
     public class EventLockLocked : Event
@@ -15363,6 +15363,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "card")]
             Card = 6,
+
+            [EnumMember(Value = "mobile_key")]
+            MobileKey = 7,
         }
 
         /// <summary>
@@ -15495,7 +15498,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [lock](https://docs.seam.co/low-level-apis/smart-locks) was unlocked.
+    /// A [lock](https://www.seam.co/docs/low-level-apis/smart-locks) was unlocked.
     /// </summary>
     [DataContract(Name = "seamModel_eventLockUnlocked_model")]
     public class EventLockUnlocked : Event
@@ -15545,7 +15548,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Method by which the lock was unlocked. `keycode`: an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
+        /// Method by which the lock was unlocked. `keycode`: an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MethodEnum
@@ -15570,6 +15573,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "card")]
             Card = 6,
+
+            [EnumMember(Value = "mobile_key")]
+            MobileKey = 7,
         }
 
         /// <summary>
@@ -15664,7 +15670,7 @@ namespace Seam.Model
         public bool? IsViaNfc { get; set; }
 
         /// <summary>
-        /// Method by which the lock was unlocked. `keycode`: an [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
+        /// Method by which the lock was unlocked. `keycode`: an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) was used (see `access_code_id`). `manual`: a physical action such as a thumbturn or handle press. `remote`: a remote action via an app, Bluetooth, or the Seam API (see `action_attempt_id` if Seam-initiated; see `is_via_bluetooth` or `is_via_nfc` for the transport). `automatic`: triggered automatically, for example by a time-based schedule. `unknown`: could not be determined.
         /// </summary>
         [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
         public EventLockUnlocked.MethodEnum Method { get; set; }
@@ -15702,7 +15708,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// The [lock](https://docs.seam.co/low-level-apis/smart-locks) denied access to a user after one or more consecutive invalid attempts to unlock the device.
+    /// The [lock](https://www.seam.co/docs/low-level-apis/smart-locks) denied access to a user after one or more consecutive invalid attempts to unlock the device.
     /// </summary>
     [DataContract(Name = "seamModel_eventLockAccessDenied_model")]
     public class EventLockAccessDenied : Event
@@ -15916,7 +15922,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A thermostat [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) was activated.
+    /// A thermostat [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) was activated.
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatClimatePresetActivated_model")]
     public class EventThermostatClimatePresetActivated : Event
@@ -16067,7 +16073,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [thermostat](https://docs.seam.co/capability-guides/thermostats) was adjusted manually.
+    /// A [thermostat](https://www.seam.co/docs/capability-guides/thermostats) was adjusted manually.
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatManuallyAdjusted_model")]
     public class EventThermostatManuallyAdjusted : Event
@@ -16117,7 +16123,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
@@ -16136,7 +16142,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
@@ -16193,7 +16199,7 @@ namespace Seam.Model
         public string ConnectedAccountId { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -16203,7 +16209,7 @@ namespace Seam.Model
         public float? CoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
@@ -16252,13 +16258,13 @@ namespace Seam.Model
         public override string EventType { get; } = "thermostat.manually_adjusted";
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public EventThermostatManuallyAdjusted.FanModeSettingEnum? FanModeSetting { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_celsius",
@@ -16268,7 +16274,7 @@ namespace Seam.Model
         public float? HeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_fahrenheit",
@@ -16278,7 +16284,7 @@ namespace Seam.Model
         public float? HeatingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public EventThermostatManuallyAdjusted.HvacModeSettingEnum? HvacModeSetting { get; set; }
@@ -16322,7 +16328,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading exceeded the set [threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
+    /// A [thermostat&apos;s](https://www.seam.co/docs/capability-guides/thermostats) temperature reading exceeded the set [threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureThresholdExceeded_model")]
     public class EventThermostatTemperatureThresholdExceeded : Event
@@ -16493,7 +16499,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading no longer exceeds the set [threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
+    /// A [thermostat&apos;s](https://www.seam.co/docs/capability-guides/thermostats) temperature reading no longer exceeds the set [threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds).
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureThresholdNoLongerExceeded_model")]
     public class EventThermostatTemperatureThresholdNoLongerExceeded : Event
@@ -16665,7 +16671,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) temperature reading is within 1 °C of the configured cooling or heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+    /// A [thermostat&apos;s](https://www.seam.co/docs/capability-guides/thermostats) temperature reading is within 1 °C of the configured cooling or heating [set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureReachedSetPoint_model")]
     public class EventThermostatTemperatureReachedSetPoint : Event
@@ -16828,7 +16834,7 @@ namespace Seam.Model
     }
 
     /// <summary>
-    /// A [thermostat&apos;s](https://docs.seam.co/capability-guides/thermostats) reported temperature changed by at least 1 °C.
+    /// A [thermostat&apos;s](https://www.seam.co/docs/capability-guides/thermostats) reported temperature changed by at least 1 °C.
     /// </summary>
     [DataContract(Name = "seamModel_eventThermostatTemperatureChanged_model")]
     public class EventThermostatTemperatureChanged : Event
@@ -17118,6 +17124,7 @@ namespace Seam.Model
             string eventId = default,
             string eventType = default,
             string? imageUrl = default,
+            List<string>? mediaIds = default,
             EventCameraActivated.MotionSubTypeEnum? motionSubType = default,
             string occurredAt = default,
             string? videoUrl = default,
@@ -17135,6 +17142,7 @@ namespace Seam.Model
             EventId = eventId;
             EventType = eventType;
             ImageUrl = imageUrl;
+            MediaIds = mediaIds;
             MotionSubType = motionSubType;
             OccurredAt = occurredAt;
             VideoUrl = videoUrl;
@@ -17244,6 +17252,12 @@ namespace Seam.Model
         public string? ImageUrl { get; set; }
 
         /// <summary>
+        /// IDs of the media, such as a video clip and a thumbnail image, captured for this activation. Use `/media/get` to retrieve each one.
+        /// </summary>
+        [DataMember(Name = "media_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? MediaIds { get; set; }
+
+        /// <summary>
         /// Sub-type of motion detected, if available.
         /// </summary>
         [DataMember(Name = "motion_sub_type", IsRequired = false, EmitDefaultValue = false)]
@@ -17307,6 +17321,7 @@ namespace Seam.Model
             string eventId = default,
             string eventType = default,
             string? imageUrl = default,
+            List<string>? mediaIds = default,
             string occurredAt = default,
             string? videoUrl = default,
             string workspaceId = default
@@ -17322,6 +17337,7 @@ namespace Seam.Model
             EventId = eventId;
             EventType = eventType;
             ImageUrl = imageUrl;
+            MediaIds = mediaIds;
             OccurredAt = occurredAt;
             VideoUrl = videoUrl;
             WorkspaceId = workspaceId;
@@ -17387,6 +17403,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string? ImageUrl { get; set; }
+
+        /// <summary>
+        /// IDs of the media, such as a video clip and a thumbnail image, captured when the doorbell was pressed. Use `/media/get` to retrieve each one.
+        /// </summary>
+        [DataMember(Name = "media_ids", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? MediaIds { get; set; }
 
         /// <summary>
         /// Date and time at which the event occurred.

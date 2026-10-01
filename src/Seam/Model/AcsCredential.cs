@@ -9,13 +9,13 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Means by which an [access control system user](https://docs.seam.co/low-level-apis/access-systems/user-management) gains access at an [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details). The `acs_credential` object represents a [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) that provides an ACS user access within an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Means by which an [access control system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) gains access at an [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details). The `acs_credential` object represents a [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) that provides an ACS user access within an [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
     /// An access control system generally uses digital means of access to authorize a user trying to get through a specific entrance. Examples of credentials include plastic key cards, mobile keys, biometric identifiers, and PIN codes. The electronic nature of these credentials, as well as the fact that access is centralized, enables both the rapid provisioning and rescinding of access and the ability to compile access audit logs.
     ///
     /// For each `acs_credential`, you define the access method. You can also specify additional properties, such as a PIN code, depending on the credential type.
     ///
-    /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach. Use the lower-level ACS credential API directly only when you specifically need to manage individual credentials.
+    /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach. Use the lower-level ACS credential API directly only when you specifically need to manage individual credentials.
     /// </summary>
     [DataContract(Name = "seamModel_acsCredential_model")]
     public class AcsCredential
@@ -87,7 +87,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// Access method for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum AccessMethodEnum
@@ -109,7 +109,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
+        /// Brand-specific terminology for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
@@ -631,13 +631,13 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Access method for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
+        /// Access method for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials). Supported values: `code`, `card`, `mobile_key`, `cloud_key`.
         /// </summary>
         [DataMember(Name = "access_method", IsRequired = false, EmitDefaultValue = false)]
         public AcsCredential.AccessMethodEnum AccessMethod { get; set; }
 
         /// <summary>
-        /// ID of the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// ID of the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "acs_credential_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsCredentialId { get; set; }
@@ -649,25 +649,25 @@ namespace Seam.Model
         public string? AcsCredentialPoolId { get; set; }
 
         /// <summary>
-        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems) that contains the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// ID of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) that contains the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         /// <summary>
-        /// ID of the [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management) to whom the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) belongs.
+        /// ID of the [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to whom the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) belongs.
         /// </summary>
         [DataMember(Name = "acs_user_id", IsRequired = false, EmitDefaultValue = false)]
         public string? AcsUserId { get; set; }
 
         /// <summary>
-        /// Akiles-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Akiles-specific metadata for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "akiles_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsCredentialAkilesMetadata? AkilesMetadata { get; set; }
 
         /// <summary>
-        /// Vostio-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Vostio-specific metadata for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(
             Name = "assa_abloy_vostio_metadata",
@@ -677,55 +677,55 @@ namespace Seam.Model
         public AcsCredentialAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; set; }
 
         /// <summary>
-        /// Number of the card associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Number of the card associated with the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "card_number", IsRequired = false, EmitDefaultValue = false)]
         public string? CardNumber { get; set; }
 
         /// <summary>
-        /// Access (PIN) code for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Access (PIN) code for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "code", IsRequired = false, EmitDefaultValue = false)]
         public string? Code { get; set; }
 
         /// <summary>
-        /// ID of the [connected account](https://docs.seam.co/core-concepts/connected-accounts) to which the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) belongs.
+        /// ID of the [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) to which the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) belongs.
         /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         /// <summary>
-        /// Date and time at which the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was created.
+        /// Date and time at which the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Display name that corresponds to the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type.
+        /// Display name that corresponds to the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) type.
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Date and time at which the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) validity ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Must be a time in the future and after `starts_at`.
+        /// Date and time at which the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) validity ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Must be a time in the future and after `starts_at`.
         /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string? EndsAt { get; set; }
 
         /// <summary>
-        /// Errors associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Errors associated with the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsCredentialErrors> Errors { get; set; }
 
         /// <summary>
-        /// Brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
+        /// Brand-specific terminology for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) type. Supported values: `pti_card`, `brivo_credential`, `hid_credential`, `visionline_card`.
         /// </summary>
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsCredential.ExternalTypeEnum? ExternalType { get; set; }
 
         /// <summary>
-        /// Display name that corresponds to the brand-specific terminology for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) type.
+        /// Display name that corresponds to the brand-specific terminology for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) type.
         /// </summary>
         [DataMember(
             Name = "external_type_display_name",
@@ -735,13 +735,13 @@ namespace Seam.Model
         public string? ExternalTypeDisplayName { get; set; }
 
         /// <summary>
-        /// Indicates whether the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) has been encoded onto a card.
+        /// Indicates whether the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) has been encoded onto a card.
         /// </summary>
         [DataMember(Name = "is_issued", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsIssued { get; set; }
 
         /// <summary>
-        /// Indicates whether the latest state of the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) has been synced from Seam to the provider.
+        /// Indicates whether the latest state of the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) has been synced from Seam to the provider.
         /// </summary>
         [DataMember(
             Name = "is_latest_desired_state_synced_with_provider",
@@ -757,7 +757,7 @@ namespace Seam.Model
         public bool IsManaged { get; set; }
 
         /// <summary>
-        /// Indicates whether the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) is a [multi-phone sync credential](https://docs.seam.co/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
+        /// Indicates whether the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) is a [multi-phone sync credential](https://www.seam.co/docs/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
         /// </summary>
         [DataMember(
             Name = "is_multi_phone_sync_credential",
@@ -767,19 +767,19 @@ namespace Seam.Model
         public bool? IsMultiPhoneSyncCredential { get; set; }
 
         /// <summary>
-        /// Indicates whether the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) can only be used once. If `true`, the code becomes invalid after the first use.
+        /// Indicates whether the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) can only be used once. If `true`, the code becomes invalid after the first use.
         /// </summary>
         [DataMember(Name = "is_one_time_use", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsOneTimeUse { get; set; }
 
         /// <summary>
-        /// Date and time at which the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was encoded onto a card.
+        /// Date and time at which the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was encoded onto a card.
         /// </summary>
         [DataMember(Name = "issued_at", IsRequired = false, EmitDefaultValue = false)]
         public string? IssuedAt { get; set; }
 
         /// <summary>
-        /// Date and time at which the state of the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) was most recently synced from Seam to the provider.
+        /// Date and time at which the state of the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) was most recently synced from Seam to the provider.
         /// </summary>
         [DataMember(
             Name = "latest_desired_state_synced_with_provider_at",
@@ -789,7 +789,7 @@ namespace Seam.Model
         public string? LatestDesiredStateSyncedWithProviderAt { get; set; }
 
         /// <summary>
-        /// ID of the parent [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// ID of the parent [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(
             Name = "parent_acs_credential_id",
@@ -799,31 +799,31 @@ namespace Seam.Model
         public string? ParentAcsCredentialId { get; set; }
 
         /// <summary>
-        /// Date and time at which the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) validity starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// Date and time at which the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) validity starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string? StartsAt { get; set; }
 
         /// <summary>
-        /// ID of the [user identity](https://docs.seam.co/api/user_identities) to whom the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) belongs.
+        /// ID of the [user identity](https://www.seam.co/docs/api/user_identities/object) to whom the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) belongs.
         /// </summary>
         [DataMember(Name = "user_identity_id", IsRequired = false, EmitDefaultValue = false)]
         public string? UserIdentityId { get; set; }
 
         /// <summary>
-        /// Visionline-specific metadata for the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Visionline-specific metadata for the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsCredentialVisionlineMetadata? VisionlineMetadata { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Warnings associated with the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsCredentialWarnings> Warnings { get; set; }
 
         /// <summary>
-        /// ID of the workspace that contains the [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// ID of the workspace that contains the [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }

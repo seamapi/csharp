@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a [device](https://docs.seam.co/core-concepts/devices) that has been connected to Seam.
+    /// Represents a [device](https://www.seam.co/docs/core-concepts/devices) that has been connected to Seam.
     /// </summary>
     [DataContract(Name = "seamModel_device_model")]
     public class Device
@@ -18,6 +18,7 @@ namespace Seam.Model
         protected Device() { }
 
         public Device(
+            bool? canActivateWeeklyProgram = default,
             bool? canConfigureAutoLock = default,
             bool? canHvacCool = default,
             bool? canHvacHeat = default,
@@ -36,6 +37,7 @@ namespace Seam.Model
             bool? canSimulateHubDisconnection = default,
             bool? canSimulatePaidSubscription = default,
             bool? canSimulateRemoval = default,
+            bool? canStreamLiveVideo = default,
             bool? canTurnOffHvac = default,
             bool? canUnlockWithCode = default,
             List<Device.CapabilitiesSupportedEnum> capabilitiesSupported = default,
@@ -57,6 +59,7 @@ namespace Seam.Model
             string workspaceId = default
         )
         {
+            CanActivateWeeklyProgram = canActivateWeeklyProgram;
             CanConfigureAutoLock = canConfigureAutoLock;
             CanHvacCool = canHvacCool;
             CanHvacHeat = canHvacHeat;
@@ -77,6 +80,7 @@ namespace Seam.Model
             CanSimulateHubDisconnection = canSimulateHubDisconnection;
             CanSimulatePaidSubscription = canSimulatePaidSubscription;
             CanSimulateRemoval = canSimulateRemoval;
+            CanStreamLiveVideo = canStreamLiveVideo;
             CanTurnOffHvac = canTurnOffHvac;
             CanUnlockWithCode = canUnlockWithCode;
             CapabilitiesSupported = capabilitiesSupported;
@@ -99,7 +103,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags).
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum CapabilitiesSupportedEnum
@@ -263,6 +267,15 @@ namespace Seam.Model
 
             [EnumMember(Value = "ring_camera")]
             RingCamera = 43,
+
+            [EnumMember(Value = "tapo_camera")]
+            TapoCamera = 44,
+
+            [EnumMember(Value = "arlo_camera")]
+            ArloCamera = 45,
+
+            [EnumMember(Value = "reolink_camera")]
+            ReolinkCamera = 46,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -347,7 +360,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -419,7 +432,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -491,7 +504,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -563,7 +576,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1175,7 +1188,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -2912,6 +2925,16 @@ namespace Seam.Model
         }
 
         /// <summary>
+        /// Indicates whether the thermostat can be returned to its weekly program, the schedule that is configured on the device itself, releasing any hold that Seam has set.
+        /// </summary>
+        [DataMember(
+            Name = "can_activate_weekly_program",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public bool? CanActivateWeeklyProgram { get; set; }
+
+        /// <summary>
         /// Indicates whether the lock supports configuring automatic locking.
         /// </summary>
         [DataMember(Name = "can_configure_auto_lock", IsRequired = false, EmitDefaultValue = false)]
@@ -3060,6 +3083,12 @@ namespace Seam.Model
         public bool? CanSimulateRemoval { get; set; }
 
         /// <summary>
+        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// </summary>
+        [DataMember(Name = "can_stream_live_video", IsRequired = false, EmitDefaultValue = false)]
+        public bool? CanStreamLiveVideo { get; set; }
+
+        /// <summary>
         /// Indicates whether the thermostat can be turned off.
         /// </summary>
         [DataMember(Name = "can_turn_off_hvac", IsRequired = false, EmitDefaultValue = false)]
@@ -3072,7 +3101,7 @@ namespace Seam.Model
         public bool? CanUnlockWithCode { get; set; }
 
         /// <summary>
-        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://docs.seam.co/capability-guides/device-and-system-capabilities#capability-flags).
+        /// Collection of capabilities that the device supports when connected to Seam. Values are `access_code`, which indicates that the device can manage and utilize digital PIN codes for secure access; `lock`, which indicates that the device controls a door locking mechanism, enabling the remote opening and closing of doors and other entry points; `noise_detection`, which indicates that the device supports monitoring and responding to ambient noise levels; `thermostat`, which indicates that the device can regulate and adjust indoor temperatures; `battery`, which indicates that the device can manage battery life and health; and `phone`, which indicates that the device is a mobile device, such as a smartphone. **Important:** Superseded by [capability flags](https://www.seam.co/docs/capability-guides/device-and-system-capabilities#capability-flags).
         /// </summary>
         [DataMember(Name = "capabilities_supported", IsRequired = false, EmitDefaultValue = false)]
         public List<Device.CapabilitiesSupportedEnum> CapabilitiesSupported { get; set; }
@@ -3090,7 +3119,7 @@ namespace Seam.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
         /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }
@@ -3132,7 +3161,7 @@ namespace Seam.Model
         public List<DeviceErrors> Errors { get; set; }
 
         /// <summary>
-        /// Indicates whether Seam manages the device. See also [Managed and Unmanaged Devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+        /// Indicates whether Seam manages the device. See also [Managed and Unmanaged Devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         [DataMember(Name = "is_managed", IsRequired = false, EmitDefaultValue = false)]
         public bool IsManaged { get; set; }
@@ -3406,11 +3435,13 @@ namespace Seam.Model
                 default,
             DevicePropertiesAkilesMetadata? akilesMetadata = default,
             DevicePropertiesAqaraMetadata? aqaraMetadata = default,
+            DevicePropertiesArloMetadata? arloMetadata = default,
             DevicePropertiesAssaAbloyVostioMetadata? assaAbloyVostioMetadata = default,
             DevicePropertiesAugustMetadata? augustMetadata = default,
             DevicePropertiesAvigilonAltaMetadata? avigilonAltaMetadata = default,
             DevicePropertiesBrivoMetadata? brivoMetadata = default,
             DevicePropertiesControlbywebMetadata? controlbywebMetadata = default,
+            DevicePropertiesDormakabaOracodeIhoMetadata? dormakabaOracodeIhoMetadata = default,
             DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             DevicePropertiesEcobeeMetadata? ecobeeMetadata = default,
             DevicePropertiesFourSuitesMetadata? fourSuitesMetadata = default,
@@ -3428,6 +3459,7 @@ namespace Seam.Model
             DevicePropertiesNoiseawareMetadata? noiseawareMetadata = default,
             DevicePropertiesNukiMetadata? nukiMetadata = default,
             DevicePropertiesOmnitecMetadata? omnitecMetadata = default,
+            DevicePropertiesReolinkMetadata? reolinkMetadata = default,
             DevicePropertiesRingMetadata? ringMetadata = default,
             DevicePropertiesSaltoKsMetadata? saltoKsMetadata = default,
             DevicePropertiesSaltoMetadata? saltoMetadata = default,
@@ -3436,6 +3468,7 @@ namespace Seam.Model
             DevicePropertiesSensiMetadata? sensiMetadata = default,
             DevicePropertiesSmartthingsMetadata? smartthingsMetadata = default,
             DevicePropertiesTadoMetadata? tadoMetadata = default,
+            DevicePropertiesTapoMetadata? tapoMetadata = default,
             DevicePropertiesTedeeMetadata? tedeeMetadata = default,
             DevicePropertiesTtlockMetadata? ttlockMetadata = default,
             DevicePropertiesTwoNMetadata? twoNMetadata = default,
@@ -3515,11 +3548,13 @@ namespace Seam.Model
             SaltoSpaceCredentialServiceMetadata = saltoSpaceCredentialServiceMetadata;
             AkilesMetadata = akilesMetadata;
             AqaraMetadata = aqaraMetadata;
+            ArloMetadata = arloMetadata;
             AssaAbloyVostioMetadata = assaAbloyVostioMetadata;
             AugustMetadata = augustMetadata;
             AvigilonAltaMetadata = avigilonAltaMetadata;
             BrivoMetadata = brivoMetadata;
             ControlbywebMetadata = controlbywebMetadata;
+            DormakabaOracodeIhoMetadata = dormakabaOracodeIhoMetadata;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             EcobeeMetadata = ecobeeMetadata;
             FourSuitesMetadata = fourSuitesMetadata;
@@ -3537,6 +3572,7 @@ namespace Seam.Model
             NoiseawareMetadata = noiseawareMetadata;
             NukiMetadata = nukiMetadata;
             OmnitecMetadata = omnitecMetadata;
+            ReolinkMetadata = reolinkMetadata;
             RingMetadata = ringMetadata;
             SaltoKsMetadata = saltoKsMetadata;
             SaltoMetadata = saltoMetadata;
@@ -3545,6 +3581,7 @@ namespace Seam.Model
             SensiMetadata = sensiMetadata;
             SmartthingsMetadata = smartthingsMetadata;
             TadoMetadata = tadoMetadata;
+            TapoMetadata = tapoMetadata;
             TedeeMetadata = tedeeMetadata;
             TtlockMetadata = ttlockMetadata;
             TwoNMetadata = twoNMetadata;
@@ -3850,6 +3887,12 @@ namespace Seam.Model
         public DevicePropertiesAqaraMetadata? AqaraMetadata { get; set; }
 
         /// <summary>
+        /// Metadata for an Arlo camera.
+        /// </summary>
+        [DataMember(Name = "arlo_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesArloMetadata? ArloMetadata { get; set; }
+
+        /// <summary>
         /// Metadata for an ASSA ABLOY Vostio system.
         /// </summary>
         [DataMember(
@@ -3882,6 +3925,16 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "controlbyweb_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesControlbywebMetadata? ControlbywebMetadata { get; set; }
+
+        /// <summary>
+        /// Metadata for a dormakaba Oracode Homeowner&apos;s Portal device.
+        /// </summary>
+        [DataMember(
+            Name = "dormakaba_oracode_iho_metadata",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public DevicePropertiesDormakabaOracodeIhoMetadata? DormakabaOracodeIhoMetadata { get; set; }
 
         /// <summary>
         /// Metadata for a dormakaba Oracode device.
@@ -3994,6 +4047,12 @@ namespace Seam.Model
         public DevicePropertiesOmnitecMetadata? OmnitecMetadata { get; set; }
 
         /// <summary>
+        /// Metadata for a Reolink camera.
+        /// </summary>
+        [DataMember(Name = "reolink_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesReolinkMetadata? ReolinkMetadata { get; set; }
+
+        /// <summary>
         /// Metadata for a Ring device.
         /// </summary>
         [DataMember(Name = "ring_metadata", IsRequired = false, EmitDefaultValue = false)]
@@ -4041,6 +4100,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "tado_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTadoMetadata? TadoMetadata { get; set; }
+
+        /// <summary>
+        /// Metadata for a Tapo camera.
+        /// </summary>
+        [DataMember(Name = "tapo_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesTapoMetadata? TapoMetadata { get; set; }
 
         /// <summary>
         /// Metadata for a Tedee device.
@@ -4097,7 +4162,7 @@ namespace Seam.Model
         public bool? AutoLockEnabled { get; set; }
 
         /// <summary>
-        /// Indicates whether the [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes) is currently enabled for the device. To disable it, set this to `false` using [/devices/update](https://docs.seam.co/api/devices/update).
+        /// Indicates whether the [backup access code pool](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes) is currently enabled for the device. To disable it, set this to `false` using [/devices/update](https://www.seam.co/docs/api/devices/update).
         /// </summary>
         [DataMember(
             Name = "backup_access_code_pool_enabled",
@@ -4173,7 +4238,7 @@ namespace Seam.Model
         public List<float>? SupportedCodeLengths { get; set; }
 
         /// <summary>
-        /// Indicates whether the device supports a [backup access code pool](https://docs.seam.co/low-level-apis/smart-locks/access-codes/backup-access-codes).
+        /// Indicates whether the device supports a [backup access code pool](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/backup-access-codes).
         /// </summary>
         [DataMember(
             Name = "supports_backup_access_code_pool",
@@ -4183,7 +4248,7 @@ namespace Seam.Model
         public bool? SupportsBackupAccessCodePool { get; set; }
 
         /// <summary>
-        /// Active [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// Active [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [Obsolete("Use `active_thermostat_schedule_id` with `/thermostats/schedules/get` instead.")]
         [DataMember(
@@ -4194,7 +4259,7 @@ namespace Seam.Model
         public DevicePropertiesActiveThermostatSchedule? ActiveThermostatSchedule { get; set; }
 
         /// <summary>
-        /// ID of the active [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// ID of the active [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [DataMember(
             Name = "active_thermostat_schedule_id",
@@ -4214,7 +4279,7 @@ namespace Seam.Model
         public List<DeviceProperties.AvailableClimatePresetModesEnum>? AvailableClimatePresetModes { get; set; }
 
         /// <summary>
-        /// Available [climate presets](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) for the thermostat.
+        /// Available [climate presets](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) for the thermostat.
         /// </summary>
         [DataMember(
             Name = "available_climate_presets",
@@ -4254,7 +4319,7 @@ namespace Seam.Model
         public DevicePropertiesDefaultClimateSetting? DefaultClimateSetting { get; set; }
 
         /// <summary>
-        /// Key of the [fallback climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets/setting-the-fallback-climate-preset) for the thermostat.
+        /// Key of the [fallback climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets/setting-the-fallback-climate-preset) for the thermostat.
         /// </summary>
         [DataMember(
             Name = "fallback_climate_preset_key",
@@ -4296,7 +4361,7 @@ namespace Seam.Model
         public bool? IsTemporaryManualOverrideActive { get; set; }
 
         /// <summary>
-        /// Maximum [cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °C.
+        /// Maximum [cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °C.
         /// </summary>
         [DataMember(
             Name = "max_cooling_set_point_celsius",
@@ -4306,7 +4371,7 @@ namespace Seam.Model
         public float? MaxCoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Maximum [cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °F.
+        /// Maximum [cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °F.
         /// </summary>
         [DataMember(
             Name = "max_cooling_set_point_fahrenheit",
@@ -4316,7 +4381,7 @@ namespace Seam.Model
         public float? MaxCoolingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Maximum [heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °C.
+        /// Maximum [heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °C.
         /// </summary>
         [DataMember(
             Name = "max_heating_set_point_celsius",
@@ -4326,7 +4391,7 @@ namespace Seam.Model
         public float? MaxHeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Maximum [heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °F.
+        /// Maximum [heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °F.
         /// </summary>
         [DataMember(
             Name = "max_heating_set_point_fahrenheit",
@@ -4356,7 +4421,7 @@ namespace Seam.Model
         public float? MaxUniqueClimatePresetsPerThermostatWeeklyProgram { get; set; }
 
         /// <summary>
-        /// Minimum [cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °C.
+        /// Minimum [cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °C.
         /// </summary>
         [DataMember(
             Name = "min_cooling_set_point_celsius",
@@ -4366,7 +4431,7 @@ namespace Seam.Model
         public float? MinCoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Minimum [cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °F.
+        /// Minimum [cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#cooling-set-point) in °F.
         /// </summary>
         [DataMember(
             Name = "min_cooling_set_point_fahrenheit",
@@ -4376,7 +4441,7 @@ namespace Seam.Model
         public float? MinCoolingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Minimum [temperature difference](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#minimum-heating-cooling-temperature-delta) in °C between the cooling and heating set points when in heat-cool (auto) mode.
+        /// Minimum [temperature difference](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#minimum-heating-cooling-temperature-delta) in °C between the cooling and heating set points when in heat-cool (auto) mode.
         /// </summary>
         [DataMember(
             Name = "min_heating_cooling_delta_celsius",
@@ -4386,7 +4451,7 @@ namespace Seam.Model
         public float? MinHeatingCoolingDeltaCelsius { get; set; }
 
         /// <summary>
-        /// Minimum [temperature difference](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#minimum-heating-cooling-temperature-delta) in °F between the cooling and heating set points when in heat-cool (auto) mode.
+        /// Minimum [temperature difference](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#minimum-heating-cooling-temperature-delta) in °F between the cooling and heating set points when in heat-cool (auto) mode.
         /// </summary>
         [DataMember(
             Name = "min_heating_cooling_delta_fahrenheit",
@@ -4396,7 +4461,7 @@ namespace Seam.Model
         public float? MinHeatingCoolingDeltaFahrenheit { get; set; }
 
         /// <summary>
-        /// Minimum [heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °C.
+        /// Minimum [heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °C.
         /// </summary>
         [DataMember(
             Name = "min_heating_set_point_celsius",
@@ -4406,7 +4471,7 @@ namespace Seam.Model
         public float? MinHeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Minimum [heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °F.
+        /// Minimum [heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points#heating-set-point) in °F.
         /// </summary>
         [DataMember(
             Name = "min_heating_set_point_fahrenheit",
@@ -4434,7 +4499,7 @@ namespace Seam.Model
         public float? TemperatureFahrenheit { get; set; }
 
         /// <summary>
-        /// Current [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
+        /// Current [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
         /// </summary>
         [DataMember(Name = "temperature_threshold", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesTemperatureThreshold? TemperatureThreshold { get; set; }
@@ -4450,7 +4515,7 @@ namespace Seam.Model
         public float? ThermostatDailyProgramPeriodPrecisionMinutes { get; set; }
 
         /// <summary>
-        /// Configured [daily programs](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-programs) for the thermostat.
+        /// Configured [daily programs](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-programs) for the thermostat.
         /// </summary>
         [DataMember(
             Name = "thermostat_daily_programs",
@@ -4460,7 +4525,7 @@ namespace Seam.Model
         public List<DevicePropertiesThermostatDailyPrograms>? ThermostatDailyPrograms { get; set; }
 
         /// <summary>
-        /// Current [weekly program](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-programs) for the thermostat.
+        /// Current [weekly program](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-programs) for the thermostat.
         /// </summary>
         [DataMember(
             Name = "thermostat_weekly_program",
@@ -4917,23 +4982,15 @@ namespace Seam.Model
         protected DevicePropertiesAkilesMetadata() { }
 
         public DevicePropertiesAkilesMetadata(
-            string? memberGroupId = default,
             string? gadgetId = default,
             string? gadgetName = default,
             string? productName = default
         )
         {
-            MemberGroupId = memberGroupId;
             GadgetId = gadgetId;
             GadgetName = gadgetName;
             ProductName = productName;
         }
-
-        /// <summary>
-        /// Group ID to which to add users for an Akiles device.
-        /// </summary>
-        [DataMember(Name = "member_group_id", IsRequired = false, EmitDefaultValue = false)]
-        public string? MemberGroupId { get; set; }
 
         /// <summary>
         /// Gadget ID for an Akiles device.
@@ -5047,6 +5104,77 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesArloMetadata_model")]
+    public class DevicePropertiesArloMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesArloMetadata() { }
+
+        public DevicePropertiesArloMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? firmwareVersion = default,
+            string? hardwareVersion = default,
+            string? modelId = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            FirmwareVersion = firmwareVersion;
+            HardwareVersion = hardwareVersion;
+            ModelId = modelId;
+        }
+
+        /// <summary>
+        /// Device ID reported by Arlo.
+        /// </summary>
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        /// <summary>
+        /// Device name reported by Arlo.
+        /// </summary>
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        /// <summary>
+        /// Firmware version reported by Arlo.
+        /// </summary>
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        /// <summary>
+        /// Hardware version reported by Arlo.
+        /// </summary>
+        [DataMember(Name = "hardware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? HardwareVersion { get; set; }
+
+        /// <summary>
+        /// Model ID reported by Arlo.
+        /// </summary>
+        [DataMember(Name = "model_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ModelId { get; set; }
 
         public override string ToString()
         {
@@ -5364,6 +5492,133 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "relay_name", IsRequired = false, EmitDefaultValue = false)]
         public string? RelayName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesDormakabaOracodeIhoMetadata_model")]
+    public class DevicePropertiesDormakabaOracodeIhoMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesDormakabaOracodeIhoMetadata() { }
+
+        public DevicePropertiesDormakabaOracodeIhoMetadata(
+            float? doorId = default,
+            string? doorName = default,
+            string? ianaTimezone = default,
+            List<DevicePropertiesDormakabaOracodeIhoMetadataUserLevels>? userLevels = default
+        )
+        {
+            DoorId = doorId;
+            DoorName = doorName;
+            IanaTimezone = ianaTimezone;
+            UserLevels = userLevels;
+        }
+
+        /// <summary>
+        /// Door ID for a dormakaba Oracode Homeowner&apos;s Portal device.
+        /// </summary>
+        [DataMember(Name = "door_id", IsRequired = false, EmitDefaultValue = false)]
+        public float? DoorId { get; set; }
+
+        /// <summary>
+        /// Name of the door for a dormakaba Oracode Homeowner&apos;s Portal device.
+        /// </summary>
+        [DataMember(Name = "door_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DoorName { get; set; }
+
+        /// <summary>
+        /// IANA time zone for a dormakaba Oracode Homeowner&apos;s Portal device.
+        /// </summary>
+        [DataMember(Name = "iana_timezone", IsRequired = false, EmitDefaultValue = false)]
+        public string? IanaTimezone { get; set; }
+
+        /// <summary>
+        /// User levels for a dormakaba Oracode Homeowner&apos;s Portal device.
+        /// </summary>
+        [DataMember(Name = "user_levels", IsRequired = false, EmitDefaultValue = false)]
+        public List<DevicePropertiesDormakabaOracodeIhoMetadataUserLevels>? UserLevels { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesDormakabaOracodeIhoMetadataUserLevels_model")]
+    public class DevicePropertiesDormakabaOracodeIhoMetadataUserLevels
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesDormakabaOracodeIhoMetadataUserLevels() { }
+
+        public DevicePropertiesDormakabaOracodeIhoMetadataUserLevels(
+            float? userLevel = default,
+            string? userLevelCheckInTime = default,
+            string? userLevelCheckOutTime = default,
+            string? userLevelName = default,
+            string? userLevelType = default
+        )
+        {
+            UserLevel = userLevel;
+            UserLevelCheckInTime = userLevelCheckInTime;
+            UserLevelCheckOutTime = userLevelCheckOutTime;
+            UserLevelName = userLevelName;
+            UserLevelType = userLevelType;
+        }
+
+        [DataMember(Name = "user_level", IsRequired = false, EmitDefaultValue = false)]
+        public float? UserLevel { get; set; }
+
+        [DataMember(
+            Name = "user_level_check_in_time",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserLevelCheckInTime { get; set; }
+
+        [DataMember(
+            Name = "user_level_check_out_time",
+            IsRequired = false,
+            EmitDefaultValue = false
+        )]
+        public string? UserLevelCheckOutTime { get; set; }
+
+        [DataMember(Name = "user_level_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserLevelName { get; set; }
+
+        [DataMember(Name = "user_level_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? UserLevelType { get; set; }
 
         public override string ToString()
         {
@@ -6813,7 +7068,7 @@ namespace Seam.Model
         public string? DeviceName { get; set; }
 
         /// <summary>
-        /// Display name for a Google Nest device.
+        /// Name of the Google Home room containing the device. The device owner sets this value.
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
@@ -7080,6 +7335,61 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "timezone_raw_offset_ms", IsRequired = false, EmitDefaultValue = false)]
         public float? TimezoneRawOffsetMs { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesReolinkMetadata_model")]
+    public class DevicePropertiesReolinkMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesReolinkMetadata() { }
+
+        public DevicePropertiesReolinkMetadata(
+            string? firmwareVersion = default,
+            string? hardwareVersion = default,
+            string? model = default
+        )
+        {
+            FirmwareVersion = firmwareVersion;
+            HardwareVersion = hardwareVersion;
+            Model = model;
+        }
+
+        /// <summary>
+        /// Firmware version reported by the camera.
+        /// </summary>
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        /// <summary>
+        /// Hardware version reported by the camera.
+        /// </summary>
+        [DataMember(Name = "hardware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? HardwareVersion { get; set; }
+
+        /// <summary>
+        /// Model reported by the Reolink camera.
+        /// </summary>
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -7632,6 +7942,61 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "serial_no", IsRequired = false, EmitDefaultValue = false)]
         public string? SerialNo { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesTapoMetadata_model")]
+    public class DevicePropertiesTapoMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesTapoMetadata() { }
+
+        public DevicePropertiesTapoMetadata(
+            string? firmwareVersion = default,
+            string? hardwareVersion = default,
+            string? model = default
+        )
+        {
+            FirmwareVersion = firmwareVersion;
+            HardwareVersion = hardwareVersion;
+            Model = model;
+        }
+
+        /// <summary>
+        /// Firmware version reported by the camera.
+        /// </summary>
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        /// <summary>
+        /// Hardware version reported by the camera.
+        /// </summary>
+        [DataMember(Name = "hardware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? HardwareVersion { get; set; }
+
+        /// <summary>
+        /// Model reported by the Tapo camera.
+        /// </summary>
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -8755,43 +9120,43 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
 
         /// <summary>
-        /// Date and time at which the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) was created.
+        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// ID of the desired [thermostat](https://docs.seam.co/capability-guides/thermostats) device.
+        /// ID of the desired [thermostat](https://www.seam.co/docs/capability-guides/thermostats) device.
         /// </summary>
         [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
         public string DeviceId { get; set; }
 
         /// <summary>
-        /// Date and time at which the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         /// </summary>
         [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
         public string EndsAt { get; set; }
 
         /// <summary>
-        /// Errors associated with the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// Errors associated with the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<DevicePropertiesActiveThermostatScheduleErrors> Errors { get; set; }
 
         /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings after the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts.
+        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings after the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts.
         /// </summary>
         [DataMember(Name = "is_override_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsOverrideAllowed { get; set; }
 
         /// <summary>
-        /// Number of minutes for which a person at the thermostat can change the thermostat&apos;s settings after the activation of the scheduled [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets). See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+        /// Number of minutes for which a person at the thermostat can change the thermostat&apos;s settings after the activation of the scheduled [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets). See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
         /// </summary>
         [DataMember(
             Name = "max_override_period_minutes",
@@ -8801,19 +9166,19 @@ namespace Seam.Model
         public int? MaxOverridePeriodMinutes { get; set; }
 
         /// <summary>
-        /// User-friendly name to identify the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// User-friendly name to identify the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
 
         /// <summary>
-        /// Date and time at which the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         /// </summary>
         [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
         public string StartsAt { get; set; }
 
         /// <summary>
-        /// ID of the [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// ID of the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [DataMember(Name = "thermostat_schedule_id", IsRequired = false, EmitDefaultValue = false)]
         public string ThermostatScheduleId { get; set; }
@@ -8970,7 +9335,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
@@ -8989,7 +9354,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
@@ -9014,19 +9379,19 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
         /// </summary>
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
         public bool CanDelete { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
         /// </summary>
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool CanEdit { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
         /// </summary>
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
@@ -9036,7 +9401,7 @@ namespace Seam.Model
         public bool CanUseWithThermostatDailyPrograms { get; set; }
 
         /// <summary>
-        /// Unique key to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }
@@ -9048,7 +9413,7 @@ namespace Seam.Model
         public DevicePropertiesAvailableClimatePresets.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -9058,7 +9423,7 @@ namespace Seam.Model
         public float? CoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
@@ -9068,7 +9433,7 @@ namespace Seam.Model
         public float? CoolingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Display name for the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Display name for the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string DisplayName { get; set; }
@@ -9080,13 +9445,13 @@ namespace Seam.Model
         public DevicePropertiesAvailableClimatePresetsEcobeeMetadata? EcobeeMetadata { get; set; }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAvailableClimatePresets.FanModeSettingEnum? FanModeSetting { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_celsius",
@@ -9096,7 +9461,7 @@ namespace Seam.Model
         public float? HeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_fahrenheit",
@@ -9106,20 +9471,20 @@ namespace Seam.Model
         public float? HeatingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
         /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
         /// </summary>
         [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
         [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool ManualOverrideAllowed { get; set; }
 
         /// <summary>
-        /// User-friendly name to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -9286,7 +9651,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
@@ -9305,7 +9670,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
@@ -9330,19 +9695,19 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
         /// </summary>
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanDelete { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
         /// </summary>
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
         /// </summary>
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
@@ -9352,7 +9717,7 @@ namespace Seam.Model
         public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         /// <summary>
-        /// Unique key to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -9364,7 +9729,7 @@ namespace Seam.Model
         public DevicePropertiesCurrentClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -9374,7 +9739,7 @@ namespace Seam.Model
         public float? CoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
@@ -9384,7 +9749,7 @@ namespace Seam.Model
         public float? CoolingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Display name for the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Display name for the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
@@ -9396,13 +9761,13 @@ namespace Seam.Model
         public DevicePropertiesCurrentClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesCurrentClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_celsius",
@@ -9412,7 +9777,7 @@ namespace Seam.Model
         public float? HeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_fahrenheit",
@@ -9422,20 +9787,20 @@ namespace Seam.Model
         public float? HeatingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
         /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
         /// </summary>
         [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
         [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool? ManualOverrideAllowed { get; set; }
 
         /// <summary>
-        /// User-friendly name to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -9602,7 +9967,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum FanModeSettingEnum
@@ -9621,7 +9986,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum HvacModeSettingEnum
@@ -9646,19 +10011,19 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
         /// </summary>
         [DataMember(Name = "can_delete", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanDelete { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
         /// </summary>
         [DataMember(Name = "can_edit", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanEdit { get; set; }
 
         /// <summary>
-        /// Indicates whether the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
+        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
         /// </summary>
         [DataMember(
             Name = "can_use_with_thermostat_daily_programs",
@@ -9668,7 +10033,7 @@ namespace Seam.Model
         public bool? CanUseWithThermostatDailyPrograms { get; set; }
 
         /// <summary>
-        /// Unique key to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string? ClimatePresetKey { get; set; }
@@ -9680,7 +10045,7 @@ namespace Seam.Model
         public DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_celsius",
@@ -9690,7 +10055,7 @@ namespace Seam.Model
         public float? CoolingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "cooling_set_point_fahrenheit",
@@ -9700,7 +10065,7 @@ namespace Seam.Model
         public float? CoolingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Display name for the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// Display name for the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "display_name", IsRequired = false, EmitDefaultValue = false)]
         public string? DisplayName { get; set; }
@@ -9712,13 +10077,13 @@ namespace Seam.Model
         public DevicePropertiesDefaultClimateSettingEcobeeMetadata? EcobeeMetadata { get; set; }
 
         /// <summary>
-        /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
         /// </summary>
         [DataMember(Name = "fan_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? FanModeSetting { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_celsius",
@@ -9728,7 +10093,7 @@ namespace Seam.Model
         public float? HeatingSetPointCelsius { get; set; }
 
         /// <summary>
-        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
         /// </summary>
         [DataMember(
             Name = "heating_set_point_fahrenheit",
@@ -9738,20 +10103,20 @@ namespace Seam.Model
         public float? HeatingSetPointFahrenheit { get; set; }
 
         /// <summary>
-        /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
         /// </summary>
         [DataMember(Name = "hvac_mode_setting", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; set; }
 
         /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
         /// </summary>
         [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
         [DataMember(Name = "manual_override_allowed", IsRequired = false, EmitDefaultValue = false)]
         public bool? ManualOverrideAllowed { get; set; }
 
         /// <summary>
-        /// User-friendly name to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+        /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string? Name { get; set; }
@@ -9867,25 +10232,25 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Lower limit in °C within the current [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
+        /// Lower limit in °C within the current [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
         /// </summary>
         [DataMember(Name = "lower_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitCelsius { get; set; }
 
         /// <summary>
-        /// Lower limit in °F within the current [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
+        /// Lower limit in °F within the current [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
         /// </summary>
         [DataMember(Name = "lower_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? LowerLimitFahrenheit { get; set; }
 
         /// <summary>
-        /// Upper limit in °C within the current [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
+        /// Upper limit in °C within the current [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
         /// </summary>
         [DataMember(Name = "upper_limit_celsius", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitCelsius { get; set; }
 
         /// <summary>
-        /// Upper limit in °F within the current [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
+        /// Upper limit in °F within the current [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) set for the thermostat.
         /// </summary>
         [DataMember(Name = "upper_limit_fahrenheit", IsRequired = false, EmitDefaultValue = false)]
         public float? UpperLimitFahrenheit { get; set; }
@@ -10009,7 +10374,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+        /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
         /// </summary>
         [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
         public string ClimatePresetKey { get; set; }

@@ -96,7 +96,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public AcsEntrance Get(GetRequest request)
         {
@@ -109,7 +109,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public AcsEntrance Get(string acsEntranceId = default)
         {
@@ -117,7 +117,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<AcsEntrance> GetAsync(GetRequest request)
         {
@@ -129,7 +129,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<AcsEntrance> GetAsync(string acsEntranceId = default)
         {
@@ -195,7 +195,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Grants a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public void GrantAccess(GrantAccessRequest request)
         {
@@ -205,7 +205,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Grants a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public void GrantAccess(
             string acsEntranceId = default,
@@ -223,7 +223,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Grants a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task GrantAccessAsync(GrantAccessRequest request)
         {
@@ -233,7 +233,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Grants a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task GrantAccessAsync(
             string acsEntranceId = default,
@@ -412,7 +412,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [access system entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public List<AcsEntrance> List(ListRequest request)
         {
@@ -425,7 +425,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [access system entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public List<AcsEntrance> List(
             string? accessMethodId = default,
@@ -459,7 +459,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [access system entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(ListRequest request)
         {
@@ -471,7 +471,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [access system entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(
             string? accessMethodId = default,
@@ -607,7 +607,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public List<AcsCredential> ListCredentialsWithAccess(
             ListCredentialsWithAccessRequest request
@@ -625,7 +625,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public List<AcsCredential> ListCredentialsWithAccess(
             string acsEntranceId = default,
@@ -641,7 +641,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsCredential>> ListCredentialsWithAccessAsync(
             ListCredentialsWithAccessRequest request
@@ -660,7 +660,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsCredential>> ListCredentialsWithAccessAsync(
             string acsEntranceId = default,
@@ -762,7 +762,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// Remotely unlocks a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
         /// </summary>
         public ActionAttempt Unlock(UnlockRequest request)
         {
@@ -775,7 +775,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// Remotely unlocks a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
         /// </summary>
         public ActionAttempt Unlock(
             string acsCredentialId = default,
@@ -788,7 +788,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// Remotely unlocks a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
         /// </summary>
         public async Task<ActionAttempt> UnlockAsync(UnlockRequest request)
         {
@@ -800,7 +800,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// Remotely unlocks a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
         /// </summary>
         public async Task<ActionAttempt> UnlockAsync(
             string acsCredentialId = default,

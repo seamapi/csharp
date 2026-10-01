@@ -114,7 +114,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
         /// </summary>
         public Event Get(GetRequest request)
         {
@@ -127,7 +127,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
         /// </summary>
         public Event Get(
             string? deviceId = default,
@@ -139,7 +139,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
         /// </summary>
         public async Task<Event> GetAsync(GetRequest request)
         {
@@ -151,7 +151,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
         /// </summary>
         public async Task<Event> GetAsync(
             string? deviceId = default,
@@ -290,8 +290,8 @@ namespace Seam.Api
                 [EnumMember(Value = "access_code.failed_to_update")]
                 AccessCodeFailedToUpdate = 15,
 
-                [EnumMember(Value = "access_code.failed_to_expire")]
-                AccessCodeFailedToExpire = 16,
+                [EnumMember(Value = "access_code.failed_to_delete")]
+                AccessCodeFailedToDelete = 16,
 
                 [EnumMember(Value = "access_code.deleted")]
                 AccessCodeDeleted = 17,
@@ -642,8 +642,8 @@ namespace Seam.Api
                 [EnumMember(Value = "access_code.failed_to_update")]
                 AccessCodeFailedToUpdate = 15,
 
-                [EnumMember(Value = "access_code.failed_to_expire")]
-                AccessCodeFailedToExpire = 16,
+                [EnumMember(Value = "access_code.failed_to_delete")]
+                AccessCodeFailedToDelete = 16,
 
                 [EnumMember(Value = "access_code.deleted")]
                 AccessCodeDeleted = 17,
@@ -1170,7 +1170,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place.
         /// </summary>
         public List<Event> List(ListRequest request)
         {
@@ -1183,7 +1183,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place.
         /// </summary>
         public List<Event> List(
             string? accessCodeId = default,
@@ -1251,7 +1251,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place.
         /// </summary>
         public async Task<List<Event>> ListAsync(ListRequest request)
         {
@@ -1263,7 +1263,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://docs.seam.co/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place.
         /// </summary>
         public async Task<List<Event>> ListAsync(
             string? accessCodeId = default,

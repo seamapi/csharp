@@ -9,11 +9,11 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents an [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
-    /// Within an `acs_system`, create [`acs_user`s](https://docs.seam.co/api/acs/users/object) and [`acs_credential`s](https://docs.seam.co/api/acs/credentials/object) to grant access to the `acs_user`s.
+    /// Within an `acs_system`, create [`acs_user`s](https://www.seam.co/docs/api/acs/users/object) and [`acs_credential`s](https://www.seam.co/docs/api/acs/credentials/object) to grant access to the `acs_user`s.
     ///
-    /// For details about the resources associated with an access control system, see the [access control systems namespace](https://docs.seam.co/api/acs).
+    /// For details about the resources associated with an access control system, see the [access control systems namespace](https://www.seam.co/docs/api/acs/object).
     /// </summary>
     [DataContract(Name = "seamModel_acsSystem_model")]
     public class AcsSystem
@@ -196,7 +196,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to the [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to the [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -644,7 +644,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum ExternalTypeEnum
@@ -1062,44 +1062,44 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Number of access groups in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Number of access groups in the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "acs_access_group_count", IsRequired = false, EmitDefaultValue = false)]
         public float? AcsAccessGroupCount { get; set; }
 
         /// <summary>
-        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
         public string AcsSystemId { get; set; }
 
         /// <summary>
-        /// Number of users in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Number of users in the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "acs_user_count", IsRequired = false, EmitDefaultValue = false)]
         public float? AcsUserCount { get; set; }
 
         /// <summary>
-        /// ID of the connected account associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the connected account associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "connected_account_id", IsRequired = false, EmitDefaultValue = false)]
         public string ConnectedAccountId { get; set; }
 
         /// <summary>
-        /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [Obsolete("Use `connected_account_id`.")]
         [DataMember(Name = "connected_account_ids", IsRequired = false, EmitDefaultValue = false)]
         public List<string> ConnectedAccountIds { get; set; }
 
         /// <summary>
-        /// Date and time at which the [access control system](https://docs.seam.co/low-level-apis/access-systems) was created.
+        /// Date and time at which the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) was created.
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
-        /// ID of the default credential manager `acs_system` for this [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the default credential manager `acs_system` for this [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(
             Name = "default_credential_manager_acs_system_id",
@@ -1109,19 +1109,19 @@ namespace Seam.Model
         public string? DefaultCredentialManagerAcsSystemId { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Errors associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemErrors> Errors { get; set; }
 
         /// <summary>
-        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [DataMember(Name = "external_type", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystem.ExternalTypeEnum? ExternalType { get; set; }
 
         /// <summary>
-        /// Display name that corresponds to the brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Display name that corresponds to the brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [DataMember(
             Name = "external_type_display_name",
@@ -1131,13 +1131,13 @@ namespace Seam.Model
         public string? ExternalTypeDisplayName { get; set; }
 
         /// <summary>
-        /// Alternative text for the [access control system](https://docs.seam.co/low-level-apis/access-systems) image.
+        /// Alternative text for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) image.
         /// </summary>
         [DataMember(Name = "image_alt_text", IsRequired = false, EmitDefaultValue = false)]
         public string ImageAltText { get; set; }
 
         /// <summary>
-        /// URL for the image that represents the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// URL for the image that represents the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "image_url", IsRequired = false, EmitDefaultValue = false)]
         public string ImageUrl { get; set; }
@@ -1149,13 +1149,13 @@ namespace Seam.Model
         public bool IsCredentialManager { get; set; }
 
         /// <summary>
-        /// Location information for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Location information for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystemLocation Location { get; set; }
 
         /// <summary>
-        /// Name of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Name of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
@@ -1173,19 +1173,19 @@ namespace Seam.Model
         public string? SystemTypeDisplayName { get; set; }
 
         /// <summary>
-        /// Visionline-specific metadata for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Visionline-specific metadata for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
         public AcsSystemVisionlineMetadata? VisionlineMetadata { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Warnings associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AcsSystemWarnings> Warnings { get; set; }
 
         /// <summary>
-        /// ID of the workspace that contains the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the workspace that contains the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [DataMember(Name = "workspace_id", IsRequired = false, EmitDefaultValue = false)]
         public string WorkspaceId { get; set; }
@@ -1222,7 +1222,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Time zone in which the [access control system](https://docs.seam.co/low-level-apis/access-systems) is located.
+        /// Time zone in which the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) is located.
         /// </summary>
         [DataMember(Name = "time_zone", IsRequired = false, EmitDefaultValue = false)]
         public string? TimeZone { get; set; }
@@ -1265,7 +1265,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// IP address or hostname of the main Visionline server relative to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge) on the local network.
+        /// IP address or hostname of the main Visionline server relative to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge) on the local network.
         /// </summary>
         [DataMember(Name = "lan_address", IsRequired = false, EmitDefaultValue = false)]
         public string? LanAddress { get; set; }

@@ -77,7 +77,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         ///
         /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
         ///
@@ -91,7 +91,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         ///
         /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
         ///
@@ -113,7 +113,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         ///
         /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
         ///
@@ -127,7 +127,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         ///
         /// You must specify either `user_identity_id` or `user_identity_key` to identify the user identity.
         ///
@@ -260,7 +260,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Creates a new [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public UserIdentity Create(CreateRequest request)
         {
@@ -273,7 +273,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Creates a new [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public UserIdentity Create(
             List<string>? acsSystemIds = default,
@@ -295,7 +295,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Creates a new [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<UserIdentity> CreateAsync(CreateRequest request)
         {
@@ -309,7 +309,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Creates a new [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<UserIdentity> CreateAsync(
             List<string>? acsSystemIds = default,
@@ -373,7 +373,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// Deletes a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://www.seam.co/docs/api/acs/credentials/object), [acs users](https://www.seam.co/docs/api/acs/users/object) and [client sessions](https://www.seam.co/docs/api/client_sessions/object).
         /// </summary>
         public void Delete(DeleteRequest request)
         {
@@ -383,7 +383,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// Deletes a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://www.seam.co/docs/api/acs/credentials/object), [acs users](https://www.seam.co/docs/api/acs/users/object) and [client sessions](https://www.seam.co/docs/api/client_sessions/object).
         /// </summary>
         public void Delete(string userIdentityId = default)
         {
@@ -391,7 +391,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// Deletes a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://www.seam.co/docs/api/acs/credentials/object), [acs users](https://www.seam.co/docs/api/acs/users/object) and [client sessions](https://www.seam.co/docs/api/client_sessions/object).
         /// </summary>
         public async Task DeleteAsync(DeleteRequest request)
         {
@@ -401,7 +401,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Deletes a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://docs.seam.co/api/acs/credentials), [acs users](https://docs.seam.co/api/acs/users) and [client sessions](https://docs.seam.co/api/client_sessions).
+        /// Deletes a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This deletes the user identity and all associated resources, including any [credentials](https://www.seam.co/docs/api/acs/credentials/object), [acs users](https://www.seam.co/docs/api/acs/users/object) and [client sessions](https://www.seam.co/docs/api/client_sessions/object).
         /// </summary>
         public async Task DeleteAsync(string userIdentityId = default)
         {
@@ -505,7 +505,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Generates a new [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys) for a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public InstantKey GenerateInstantKey(GenerateInstantKeyRequest request)
         {
@@ -521,7 +521,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Generates a new [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys) for a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public InstantKey GenerateInstantKey(
             string? customizationProfileId = default,
@@ -539,7 +539,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Generates a new [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys) for a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<InstantKey> GenerateInstantKeyAsync(GenerateInstantKeyRequest request)
         {
@@ -556,7 +556,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Generates a new [instant key](https://docs.seam.co/capability-guides/instant-keys) for a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Generates a new [instant key](https://www.seam.co/docs/use-cases/granting-access/using-instant-keys) for a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<InstantKey> GenerateInstantKeyAsync(
             string? customizationProfileId = default,
@@ -657,7 +657,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public UserIdentity Get(GetRequest request)
         {
@@ -670,7 +670,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public UserIdentity Get(string? userIdentityId = default, string? userIdentityKey = default)
         {
@@ -680,7 +680,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<UserIdentity> GetAsync(GetRequest request)
         {
@@ -692,7 +692,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<UserIdentity> GetAsync(
             string? userIdentityId = default,
@@ -757,7 +757,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// Grants a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public void GrantAccessToDevice(GrantAccessToDeviceRequest request)
         {
@@ -767,7 +767,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// Grants a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public void GrantAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
@@ -777,7 +777,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// Grants a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public async Task GrantAccessToDeviceAsync(GrantAccessToDeviceRequest request)
         {
@@ -787,7 +787,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Grants a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://docs.seam.co/core-concepts/devices/).
+        /// Grants a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) access to a specified [device](https://www.seam.co/docs/core-concepts/devices).
         /// </summary>
         public async Task GrantAccessToDeviceAsync(
             string deviceId = default,
@@ -923,7 +923,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<UserIdentity> List(ListRequest request)
         {
@@ -936,7 +936,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<UserIdentity> List(
             string? createdBefore = default,
@@ -960,7 +960,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<UserIdentity>> ListAsync(ListRequest request)
         {
@@ -972,7 +972,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<UserIdentity>> ListAsync(
             string? createdBefore = default,
@@ -1075,7 +1075,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
         /// </summary>
         public List<Device> ListAccessibleDevices(ListAccessibleDevicesRequest request)
         {
@@ -1091,7 +1091,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
         /// </summary>
         public List<Device> ListAccessibleDevices(string userIdentityId = default)
         {
@@ -1101,7 +1101,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
         /// </summary>
         public async Task<List<Device>> ListAccessibleDevicesAsync(
             ListAccessibleDevicesRequest request
@@ -1120,7 +1120,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [devices](https://docs.seam.co/core-concepts/devices) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
+        /// Returns a list of all [devices](https://www.seam.co/docs/core-concepts/devices) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes devices derived from the access grants assigned to the user identity and devices directly linked to the user identity.
         /// </summary>
         public async Task<List<Device>> ListAccessibleDevicesAsync(string userIdentityId = default)
         {
@@ -1209,7 +1209,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// Returns a list of all [ACS entrances](https://www.seam.co/docs/api/acs/entrances/object) accessible to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(ListAccessibleEntrancesRequest request)
         {
@@ -1225,7 +1225,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// Returns a list of all [ACS entrances](https://www.seam.co/docs/api/acs/entrances/object) accessible to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
         /// </summary>
         public List<AcsEntrance> ListAccessibleEntrances(string userIdentityId = default)
         {
@@ -1235,7 +1235,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// Returns a list of all [ACS entrances](https://www.seam.co/docs/api/acs/entrances/object) accessible to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request
@@ -1254,7 +1254,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [ACS entrances](https://docs.seam.co/api/acs/entrances) accessible to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
+        /// Returns a list of all [ACS entrances](https://www.seam.co/docs/api/acs/entrances/object) accessible to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity). This includes entrances derived from the access grants assigned to the user identity and entrances accessible through ACS users linked to the user identity.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             string userIdentityId = default
@@ -1345,7 +1345,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access systems](https://www.seam.co/docs/low-level-apis/access-systems) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<AcsSystem> ListAcsSystems(ListAcsSystemsRequest request)
         {
@@ -1358,7 +1358,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access systems](https://www.seam.co/docs/low-level-apis/access-systems) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<AcsSystem> ListAcsSystems(string userIdentityId = default)
         {
@@ -1366,7 +1366,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access systems](https://www.seam.co/docs/low-level-apis/access-systems) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<AcsSystem>> ListAcsSystemsAsync(ListAcsSystemsRequest request)
         {
@@ -1383,7 +1383,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access systems](https://docs.seam.co/low-level-apis/access-systems) associated with a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access systems](https://www.seam.co/docs/low-level-apis/access-systems) associated with a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<AcsSystem>> ListAcsSystemsAsync(string userIdentityId = default)
         {
@@ -1470,7 +1470,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<AcsUser> ListAcsUsers(ListAcsUsersRequest request)
         {
@@ -1483,7 +1483,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public List<AcsUser> ListAcsUsers(string userIdentityId = default)
         {
@@ -1491,7 +1491,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<AcsUser>> ListAcsUsersAsync(ListAcsUsersRequest request)
         {
@@ -1508,7 +1508,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) assigned to a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task<List<AcsUser>> ListAcsUsersAsync(string userIdentityId = default)
         {
@@ -1592,7 +1592,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        /// Merges one or more [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
         ///
         /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
         ///
@@ -1608,7 +1608,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        /// Merges one or more [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
         ///
         /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
         ///
@@ -1634,7 +1634,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        /// Merges one or more [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
         ///
         /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
         ///
@@ -1650,7 +1650,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Merges one or more [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
+        /// Merges one or more [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) into a primary user identity, for when the same person ended up with more than one user identity.
         ///
         /// The primary user identity takes on any email address or phone number it was missing from the user identities merged into it, and the merged user identities are then deleted. Their IDs and keys keep working: looking one up returns the primary user identity, and they are listed on it as `merged_user_identity_ids` and `merged_user_identity_keys`.
         ///
@@ -1723,7 +1723,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void RemoveAcsUser(RemoveAcsUserRequest request)
         {
@@ -1733,7 +1733,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void RemoveAcsUser(string acsUserId = default, string userIdentityId = default)
         {
@@ -1743,7 +1743,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task RemoveAcsUserAsync(RemoveAcsUserRequest request)
         {
@@ -1753,7 +1753,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task RemoveAcsUserAsync(
             string acsUserId = default,
@@ -1816,7 +1816,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Revokes access to a specified [device](https://www.seam.co/docs/core-concepts/devices) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void RevokeAccessToDevice(RevokeAccessToDeviceRequest request)
         {
@@ -1826,7 +1826,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Revokes access to a specified [device](https://www.seam.co/docs/core-concepts/devices) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void RevokeAccessToDevice(string deviceId = default, string userIdentityId = default)
         {
@@ -1836,7 +1836,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Revokes access to a specified [device](https://www.seam.co/docs/core-concepts/devices) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task RevokeAccessToDeviceAsync(RevokeAccessToDeviceRequest request)
         {
@@ -1849,7 +1849,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Revokes access to a specified [device](https://docs.seam.co/core-concepts/devices/) from a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Revokes access to a specified [device](https://www.seam.co/docs/core-concepts/devices) from a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task RevokeAccessToDeviceAsync(
             string deviceId = default,
@@ -1936,7 +1936,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Updates a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -1946,7 +1946,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Updates a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public void Update(
             string? emailAddress = default,
@@ -1968,7 +1968,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Updates a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -1978,7 +1978,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates a specified [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
+        /// Updates a specified [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity).
         /// </summary>
         public async Task UpdateAsync(
             string? emailAddress = default,

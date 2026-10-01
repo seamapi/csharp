@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a [connected account](https://docs.seam.co/core-concepts/connected-accounts). A connected account is an external third-party account to which your user has authorized Seam to get access, for example, an August account with a list of door locks.
+    /// Represents a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts). A connected account is an external third-party account to which your user has authorized Seam to get access, for example, an August account with a list of door locks.
     /// </summary>
     [DataContract(Name = "seamModel_connectedAccount_model")]
     public class ConnectedAccount
@@ -147,7 +147,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
@@ -219,7 +219,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
@@ -296,7 +296,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
@@ -490,7 +490,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
@@ -562,7 +562,7 @@ namespace Seam.Model
             public override string CreatedAt { get; set; }
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public override bool? IsBridgeError { get; set; }
@@ -1269,7 +1269,7 @@ namespace Seam.Model
         public string AccountTypeDisplayName { get; set; }
 
         /// <summary>
-        /// Indicates whether Seam should [import all new devices](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#automatically_manage_new_devices) for the connected account to make these devices available for management by the Seam API.
+        /// Indicates whether Seam should [import all new devices](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#automatically_manage_new_devices) for the connected account to make these devices available for management by the Seam API.
         /// </summary>
         [DataMember(
             Name = "automatically_manage_new_devices",
@@ -1291,7 +1291,7 @@ namespace Seam.Model
         public string? CreatedAt { get; set; }
 
         /// <summary>
-        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
         /// </summary>
         [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
         public object CustomMetadata { get; set; }

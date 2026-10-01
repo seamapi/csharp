@@ -92,7 +92,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
             /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ClimatePresetKey { get; set; }
@@ -382,7 +382,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
             /// </summary>
             [DataMember(Name = "climate_preset_key", IsRequired = false, EmitDefaultValue = false)]
             public string? ClimatePresetKey { get; set; }

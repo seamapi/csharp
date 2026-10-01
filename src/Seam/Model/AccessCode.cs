@@ -9,15 +9,15 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents a smart lock [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+    /// Represents a smart lock [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
     ///
     /// An access code is a code used for a keypad or pinpad device. Unlike physical keys, which can easily be lost or duplicated, PIN codes can be customized, tracked, and altered on the fly. Using the Seam Access Code API, you can easily generate access codes on the hundreds of door lock models with which we integrate.
     ///
-    /// Seam supports programming two types of access codes: [ongoing](https://docs.seam.co/low-level-apis/smart-locks/access-codes#ongoing-access-codes) and [time-bound](https://docs.seam.co/low-level-apis/smart-locks/access-codes#time-bound-access-codes). To differentiate between the two, refer to the `type` property of the access code. Ongoing codes display as `ongoing`, whereas time-bound codes are labeled `time_bound`. An ongoing access code is active, until it has been removed from the device. To specify an ongoing access code, leave both `starts_at` and `ends_at` empty. A time-bound access code will be programmed at the `starts_at` time and removed at the `ends_at` time.
+    /// Seam supports programming two types of access codes: [ongoing](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#ongoing-access-codes) and [time-bound](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#time-bound-access-codes). To differentiate between the two, refer to the `type` property of the access code. Ongoing codes display as `ongoing`, whereas time-bound codes are labeled `time_bound`. An ongoing access code is active, until it has been removed from the device. To specify an ongoing access code, leave both `starts_at` and `ends_at` empty. A time-bound access code will be programmed at the `starts_at` time and removed at the `ends_at` time.
     ///
-    /// In addition, for certain devices, Seam also supports [offline access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes#offline-access-codes). Offline access (PIN) codes are designed for door locks that might not always maintain an internet connection. For this type of access code, the device manufacturer uses encryption keys (tokens) to create server-based registries of algorithmically-generated offline PIN codes. Because the tokens remain synchronized with the managed devices, the locks do not require an active internet connection—and you do not need to be near the locks—to create an offline access code. Then, owners or managers can share these offline codes with users through a variety of mechanisms, such as messaging applications. That is, lock users do not need to install a smartphone application to receive an offline access code.
+    /// In addition, for certain devices, Seam also supports [offline access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#offline-access-codes). Offline access (PIN) codes are designed for door locks that might not always maintain an internet connection. For this type of access code, the device manufacturer uses encryption keys (tokens) to create server-based registries of algorithmically-generated offline PIN codes. Because the tokens remain synchronized with the managed devices, the locks do not require an active internet connection—and you do not need to be near the locks—to create an offline access code. Then, owners or managers can share these offline codes with users through a variety of mechanisms, such as messaging applications. That is, lock users do not need to install a smartphone application to receive an offline access code.
     ///
-    /// For granting a person access to a space, [Access Grants](https://docs.seam.co/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
+    /// For granting a person access to a space, [Access Grants](https://www.seam.co/docs/use-cases/granting-access) are the default and recommended approach and work across both standalone smart locks and access systems. Use the lower-level Access Codes API directly only when you specifically need to manage individual PIN codes.
     /// </summary>
     [DataContract(Name = "seamModel_accessCode_model")]
     public class AccessCode
@@ -31,6 +31,7 @@ namespace Seam.Model
             string? commonCodeKey = default,
             string createdAt = default,
             string deviceId = default,
+            string displayStatus = default,
             AccessCodeDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             string? endsAt = default,
             List<AccessCodeErrors> errors = default,
@@ -57,6 +58,7 @@ namespace Seam.Model
             CommonCodeKey = commonCodeKey;
             CreatedAt = createdAt;
             DeviceId = deviceId;
+            DisplayStatus = displayStatus;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             EndsAt = endsAt;
             Errors = errors;
@@ -127,7 +129,7 @@ namespace Seam.Model
             typeof(AccessCodeErrorsAccountDisconnected),
             "account_disconnected"
         )]
-        [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsFailedToExpire), "failed_to_expire")]
+        [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsFailedToDelete), "failed_to_delete")]
         [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsFailedToUpdate), "failed_to_update")]
         [JsonSubtypes.KnownSubType(typeof(AccessCodeErrorsFailedToIssue), "failed_to_issue")]
         [JsonSubtypes.KnownSubType(
@@ -923,13 +925,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_accessCodeErrorsFailedToExpire_model")]
-        public class AccessCodeErrorsFailedToExpire : AccessCodeErrors
+        [DataContract(Name = "seamModel_accessCodeErrorsFailedToDelete_model")]
+        public class AccessCodeErrorsFailedToDelete : AccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected AccessCodeErrorsFailedToExpire() { }
+            protected AccessCodeErrorsFailedToDelete() { }
 
-            public AccessCodeErrorsFailedToExpire(
+            public AccessCodeErrorsFailedToDelete(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -949,7 +951,7 @@ namespace Seam.Model
             public string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "failed_to_expire";
+            public override string ErrorCode { get; } = "failed_to_delete";
 
             /// <summary>
             /// Indicates that this is an access code error.
@@ -1018,7 +1020,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1090,7 +1092,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1162,7 +1164,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1234,7 +1236,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1846,7 +1848,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -2619,7 +2621,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Current status of the access code within the operational lifecycle. Values are `setting`, a transitional phase that indicates that the code is being configured or activated; `set`, which indicates that the code is active and operational; `unset`, which indicates a deactivated or unused state, either before activation or after deliberate deactivation; `removing`, which indicates a transitional period in which the code is being deleted or made inactive; and `unknown`, which indicates an indeterminate state, due to reasons such as system errors or incomplete data, that highlights a potential need for system review or troubleshooting. See also [Lifecycle of Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/lifecycle-of-access-codes).
+        /// Current status of the access code within the operational lifecycle. Values are `setting`, a transitional phase that indicates that the code is being configured or activated; `set`, which indicates that the code is active and operational; `unset`, which indicates a deactivated or unused state, either before activation or after deliberate deactivation; `removing`, which indicates a transitional period in which the code is being deleted or made inactive; and `unknown`, which indicates an indeterminate state, due to reasons such as system errors or incomplete data, that highlights a potential need for system review or troubleshooting. See also [Lifecycle of Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/lifecycle-of-access-codes).
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum StatusEnum
@@ -3517,6 +3519,12 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         /// <summary>
+        /// Human-readable label for where this access code sits in its lifecycle, for example `Active`, `Issuing`, or `Expired`. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `pending_mutations`, `errors`, `warnings`, `starts_at`, and `ends_at`.
+        /// </summary>
+        [DataMember(Name = "display_status", IsRequired = false, EmitDefaultValue = false)]
+        public string DisplayStatus { get; set; }
+
+        /// <summary>
         /// Metadata for a dormakaba Oracode managed access code. Only present for access codes from dormakaba Oracode devices.
         /// </summary>
         [DataMember(
@@ -3533,7 +3541,7 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Errors associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessCodeErrors> Errors { get; set; }
@@ -3627,8 +3635,11 @@ namespace Seam.Model
         public string? StartsAt { get; set; }
 
         /// <summary>
-        /// Current status of the access code within the operational lifecycle. Values are `setting`, a transitional phase that indicates that the code is being configured or activated; `set`, which indicates that the code is active and operational; `unset`, which indicates a deactivated or unused state, either before activation or after deliberate deactivation; `removing`, which indicates a transitional period in which the code is being deleted or made inactive; and `unknown`, which indicates an indeterminate state, due to reasons such as system errors or incomplete data, that highlights a potential need for system review or troubleshooting. See also [Lifecycle of Access Codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/lifecycle-of-access-codes).
+        /// Current status of the access code within the operational lifecycle. Values are `setting`, a transitional phase that indicates that the code is being configured or activated; `set`, which indicates that the code is active and operational; `unset`, which indicates a deactivated or unused state, either before activation or after deliberate deactivation; `removing`, which indicates a transitional period in which the code is being deleted or made inactive; and `unknown`, which indicates an indeterminate state, due to reasons such as system errors or incomplete data, that highlights a potential need for system review or troubleshooting. See also [Lifecycle of Access Codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/lifecycle-of-access-codes).
         /// </summary>
+        [Obsolete(
+            "Use `display_status` to show a person the code's state. To make decisions, read `pending_mutations`, `errors`, `warnings`, `starts_at`, and `ends_at`."
+        )]
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public AccessCode.StatusEnum Status { get; set; }
 
@@ -3639,7 +3650,7 @@ namespace Seam.Model
         public AccessCode.TypeEnum Type { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Warnings associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<AccessCodeWarnings> Warnings { get; set; }

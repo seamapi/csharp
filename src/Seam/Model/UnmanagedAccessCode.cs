@@ -9,7 +9,7 @@ using Seam.Model;
 namespace Seam.Model
 {
     /// <summary>
-    /// Represents an [unmanaged smart lock access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+    /// Represents an [unmanaged smart lock access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
     ///
     /// An access code is a code used for a keypad or pinpad device. Unlike physical keys, which can easily be lost or duplicated, PIN codes can be customized, tracked, and altered on the fly.
     ///
@@ -19,7 +19,7 @@ namespace Seam.Model
     ///
     /// Not all providers support unmanaged access codes. The following providers do not support unmanaged access codes:
     ///
-    /// - [Kwikset](https://docs.seam.co/device-and-system-integration-guides/kwikset-locks)
+    /// - [Kwikset](https://www.seam.co/docs/device-and-system-integration-guides/kwikset-locks)
     /// </summary>
     [DataContract(Name = "seamModel_unmanagedAccessCode_model")]
     public class UnmanagedAccessCode
@@ -34,6 +34,7 @@ namespace Seam.Model
             string? code = default,
             string createdAt = default,
             string deviceId = default,
+            string displayStatus = default,
             UnmanagedAccessCodeDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             string? endsAt = default,
             List<UnmanagedAccessCodeErrors> errors = default,
@@ -52,6 +53,7 @@ namespace Seam.Model
             Code = code;
             CreatedAt = createdAt;
             DeviceId = deviceId;
+            DisplayStatus = displayStatus;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             EndsAt = endsAt;
             Errors = errors;
@@ -123,8 +125,8 @@ namespace Seam.Model
             "account_disconnected"
         )]
         [JsonSubtypes.KnownSubType(
-            typeof(UnmanagedAccessCodeErrorsFailedToExpire),
-            "failed_to_expire"
+            typeof(UnmanagedAccessCodeErrorsFailedToDelete),
+            "failed_to_delete"
         )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeErrorsFailedToUpdate),
@@ -936,13 +938,13 @@ namespace Seam.Model
             }
         }
 
-        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsFailedToExpire_model")]
-        public class UnmanagedAccessCodeErrorsFailedToExpire : UnmanagedAccessCodeErrors
+        [DataContract(Name = "seamModel_unmanagedAccessCodeErrorsFailedToDelete_model")]
+        public class UnmanagedAccessCodeErrorsFailedToDelete : UnmanagedAccessCodeErrors
         {
             [JsonConstructorAttribute]
-            protected UnmanagedAccessCodeErrorsFailedToExpire() { }
+            protected UnmanagedAccessCodeErrorsFailedToDelete() { }
 
-            public UnmanagedAccessCodeErrorsFailedToExpire(
+            public UnmanagedAccessCodeErrorsFailedToDelete(
                 string? createdAt = default,
                 string errorCode = default,
                 bool isAccessCodeError = default,
@@ -962,7 +964,7 @@ namespace Seam.Model
             public string? CreatedAt { get; set; }
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
-            public override string ErrorCode { get; } = "failed_to_expire";
+            public override string ErrorCode { get; } = "failed_to_delete";
 
             /// <summary>
             /// Indicates that this is an access code error.
@@ -1031,7 +1033,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "account_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1106,7 +1108,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1178,7 +1180,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "insufficient_permissions";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1250,7 +1252,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [DataMember(
                 Name = "is_connected_account_error",
@@ -1862,7 +1864,7 @@ namespace Seam.Model
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [DataMember(Name = "is_bridge_error", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsBridgeError { get; set; }
@@ -2869,6 +2871,12 @@ namespace Seam.Model
         public string DeviceId { get; set; }
 
         /// <summary>
+        /// Human-readable label for the code&apos;s state: `Active` or `Not active`, based on whether the code is set on the device. For display only. The wording is not stable and is not an enumeration — never compare against or branch on it.
+        /// </summary>
+        [DataMember(Name = "display_status", IsRequired = false, EmitDefaultValue = false)]
+        public string DisplayStatus { get; set; }
+
+        /// <summary>
         /// Metadata for a dormakaba Oracode unmanaged access code. Only present for unmanaged access codes from dormakaba Oracode devices.
         /// </summary>
         [DataMember(
@@ -2885,7 +2893,7 @@ namespace Seam.Model
         public string? EndsAt { get; set; }
 
         /// <summary>
-        /// Errors associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Errors associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [DataMember(Name = "errors", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedAccessCodeErrors> Errors { get; set; }
@@ -2911,6 +2919,7 @@ namespace Seam.Model
         /// <summary>
         /// Current status of the access code within the operational lifecycle. `set` indicates that the code is active and operational. `unset` indicates that the code exists on the provider but is not usable on the device.
         /// </summary>
+        [Obsolete("Use `display_status` to show a person the code's state.")]
         [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
         public UnmanagedAccessCode.StatusEnum Status { get; set; }
 
@@ -2921,7 +2930,7 @@ namespace Seam.Model
         public UnmanagedAccessCode.TypeEnum Type { get; set; }
 
         /// <summary>
-        /// Warnings associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Warnings associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
         public List<UnmanagedAccessCodeWarnings> Warnings { get; set; }

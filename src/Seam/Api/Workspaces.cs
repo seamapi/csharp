@@ -83,7 +83,7 @@ namespace Seam.Api
             public string? ConnectPartnerName { get; set; }
 
             /// <summary>
-            /// [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) customizations for the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews) customizations for the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "connect_webview_customization",
@@ -93,7 +93,7 @@ namespace Seam.Api
             public CreateRequestConnectWebviewCustomization? ConnectWebviewCustomization { get; set; }
 
             /// <summary>
-            /// Indicates whether the new workspace is a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+            /// Indicates whether the new workspace is a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
             /// </summary>
             [DataMember(Name = "is_sandbox", IsRequired = false, EmitDefaultValue = false)]
             public bool? IsSandbox { get; set; }
@@ -105,7 +105,7 @@ namespace Seam.Api
             public string Name { get; set; }
 
             /// <summary>
-            /// ID of the organization to associate with the new workspace. If omitted, the new workspace is associated with the organization that you administer, if you administer exactly one.
+            /// ID of the organization to associate with the new workspace. If omitted, the new workspace is associated with the organization that you administer, if you administer exactly one. If you administer no organization, Seam creates one for you and associates the new workspace with it.
             /// </summary>
             [DataMember(Name = "organization_id", IsRequired = false, EmitDefaultValue = false)]
             public string? OrganizationId { get; set; }
@@ -180,7 +180,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum LogoShapeEnum
@@ -196,13 +196,13 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]
             public CreateRequestConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; set; }
 
             /// <summary>
-            /// Primary button color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "primary_button_color",
@@ -212,7 +212,7 @@ namespace Seam.Api
             public string? PrimaryButtonColor { get; set; }
 
             /// <summary>
-            /// Primary button text color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button text color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "primary_button_text_color",
@@ -222,7 +222,7 @@ namespace Seam.Api
             public string? PrimaryButtonTextColor { get; set; }
 
             /// <summary>
-            /// Success message for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Success message for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(Name = "success_message", IsRequired = false, EmitDefaultValue = false)]
             public string? SuccessMessage { get; set; }
@@ -285,7 +285,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Creates a new [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         public Workspace Create(CreateRequest request)
         {
@@ -298,7 +298,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Creates a new [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         public Workspace Create(
             string? companyName = default,
@@ -330,7 +330,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Creates a new [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         public async Task<Workspace> CreateAsync(CreateRequest request)
         {
@@ -342,7 +342,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Creates a new [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Creates a new [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         public async Task<Workspace> CreateAsync(
             string? companyName = default,
@@ -442,7 +442,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public Workspace Get(GetRequest request)
         {
@@ -455,7 +455,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public Workspace Get()
         {
@@ -463,7 +463,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<Workspace> GetAsync(GetRequest request)
         {
@@ -475,7 +475,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<Workspace> GetAsync()
         {
@@ -549,7 +549,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of [workspaces](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns a list of [workspaces](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public List<Workspace> List(ListRequest request)
         {
@@ -562,7 +562,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of [workspaces](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns a list of [workspaces](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public List<Workspace> List()
         {
@@ -570,7 +570,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of [workspaces](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns a list of [workspaces](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<List<Workspace>> ListAsync(ListRequest request)
         {
@@ -582,7 +582,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Returns a list of [workspaces](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns a list of [workspaces](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<List<Workspace>> ListAsync()
         {
@@ -656,7 +656,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Resets the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
+        /// Resets the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
         /// </summary>
         public ActionAttempt ResetSandbox(ResetSandboxRequest request)
         {
@@ -669,7 +669,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Resets the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
+        /// Resets the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
         /// </summary>
         public ActionAttempt ResetSandbox()
         {
@@ -677,7 +677,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Resets the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
+        /// Resets the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
         /// </summary>
         public async Task<ActionAttempt> ResetSandboxAsync(ResetSandboxRequest request)
         {
@@ -694,7 +694,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Resets the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
+        /// Resets the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
         /// </summary>
         public async Task<ActionAttempt> ResetSandboxAsync()
         {
@@ -738,7 +738,7 @@ namespace Seam.Api
             public string? ConnectPartnerName { get; set; }
 
             /// <summary>
-            /// [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) customizations for the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews) customizations for the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "connect_webview_customization",
@@ -815,7 +815,7 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonConverter(typeof(SafeStringEnumConverter))]
             public enum LogoShapeEnum
@@ -831,13 +831,13 @@ namespace Seam.Api
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(Name = "logo_shape", IsRequired = false, EmitDefaultValue = false)]
             public UpdateRequestConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; set; }
 
             /// <summary>
-            /// Primary button color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "primary_button_color",
@@ -847,7 +847,7 @@ namespace Seam.Api
             public string? PrimaryButtonColor { get; set; }
 
             /// <summary>
-            /// Primary button text color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button text color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(
                 Name = "primary_button_text_color",
@@ -857,7 +857,7 @@ namespace Seam.Api
             public string? PrimaryButtonTextColor { get; set; }
 
             /// <summary>
-            /// Success message for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Success message for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [DataMember(Name = "success_message", IsRequired = false, EmitDefaultValue = false)]
             public string? SuccessMessage { get; set; }
@@ -883,7 +883,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Updates the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public void Update(UpdateRequest request)
         {
@@ -893,7 +893,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Updates the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public void Update(
             string? connectPartnerName = default,
@@ -917,7 +917,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Updates the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task UpdateAsync(UpdateRequest request)
         {
@@ -927,7 +927,7 @@ namespace Seam.Api
         }
 
         /// <summary>
-        /// Updates the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Updates the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task UpdateAsync(
             string? connectPartnerName = default,
