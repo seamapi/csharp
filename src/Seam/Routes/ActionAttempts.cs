@@ -60,14 +60,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/action_attempts/get",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /action_attempts/get"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -136,13 +133,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/action_attempts/list",
                     request,
+                    "action_attempts",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ActionAttempts
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempts for /action_attempts/list"
-                );
+            return response.Read(r => r.ActionAttempts);
         }
 
         /// <summary>Fetches one page of /action_attempts/list with its pagination metadata.</summary>
@@ -156,20 +151,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/action_attempts/list",
                     request,
+                    "action_attempts",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.ActionAttempts
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempts for /action_attempts/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /action_attempts/list"
-                );
-            return new SeamPage<ActionAttempt>(items, pagination);
+            return new SeamPage<ActionAttempt>(
+                response.Read(r => r.ActionAttempts),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /action_attempts/list.</summary>

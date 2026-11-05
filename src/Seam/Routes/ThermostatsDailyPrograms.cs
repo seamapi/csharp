@@ -86,13 +86,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/thermostats/daily_programs/create",
                     request,
+                    "thermostat_daily_program",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ThermostatDailyProgram
-                ?? throw new HttpRequestException(
-                    "Seam returned no thermostat_daily_program for /thermostats/daily_programs/create"
-                );
+            return response.Read(r => r.ThermostatDailyProgram);
         }
 
         /// <summary>
@@ -187,14 +185,11 @@ namespace Seam.Routes
                     HttpMethod.Patch,
                     "/thermostats/daily_programs/update",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /thermostats/daily_programs/update"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

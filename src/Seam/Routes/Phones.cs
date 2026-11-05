@@ -80,10 +80,15 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/phones/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/phones/get",
+                    request,
+                    "phone",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Phone
-                ?? throw new HttpRequestException("Seam returned no phone for /phones/get");
+            return response.Read(r => r.Phone);
         }
 
         /// <summary>
@@ -122,10 +127,15 @@ namespace Seam.Routes
         )
         {
             var response = await _transport
-                .SendAsync<ListResponse>(HttpMethod.Get, "/phones/list", request, cancellationToken)
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/phones/list",
+                    request,
+                    "phones",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Phones
-                ?? throw new HttpRequestException("Seam returned no phones for /phones/list");
+            return response.Read(r => r.Phones);
         }
     }
 }

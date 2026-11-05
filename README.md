@@ -191,6 +191,12 @@ Every SDK exception derives from `SeamException`. A response that is not a
 Seam error, e.g. from a gateway, surfaces as the standard
 `HttpRequestException`.
 
+A success response the SDK cannot read, e.g. an empty body, a body that is
+not JSON, or a body missing the endpoint's response key, raises
+`SeamHttpInvalidResponseException`. It names the endpoint path and the
+expected response key, and carries the HTTP status code, the
+`seam-request-id`, and the raw response body.
+
 ### Retries and timeouts
 
 Idempotent requests are retried twice on transport errors, timeouts, 429, and
@@ -241,6 +247,32 @@ if (seamEvent is Seam.Models.EventDeviceConnected connected)
     Console.WriteLine(connected.DeviceId);
 ```
 
+Verification failures raise Svix's `WebhookVerificationException`: treat the
+payload as forged and respond with an error status so Svix retries. A payload
+that is correctly signed but unreadable raises a
+`SeamInvalidWebhookPayloadException` instead: it is genuinely from Seam and
+will never become readable, so log it as a bug rather than reporting a
+verification failure and letting Svix retry it through its full backoff
+schedule.
+
+```csharp
+try
+{
+    var seamEvent = webhook.Verify(requestBody, requestHeaders);
+    await StoreEventAsync(seamEvent);
+}
+catch (Svix.Exceptions.WebhookVerificationException)
+{
+    return Results.StatusCode(401);
+}
+catch (SeamInvalidWebhookPayloadException exception)
+{
+    logger.LogError(exception, "Unreadable Seam webhook payload");
+}
+
+return Results.NoContent();
+```
+
 ## Advanced usage
 
 ### Calling the API directly
@@ -263,6 +295,38 @@ var seam = new SeamClient(new SeamClientOptions
     HttpMessageHandler = myHandler,
 });
 ```
+
+### Adding the Seam handlers to your own client
+
+`SeamClient.FromHttpClient` uses the client as is, so it retries nothing and
+has no per-attempt timeout unless its pipeline includes the SDK's handlers.
+`SeamRetryHandler` and `SeamTimeoutHandler` are public for that purpose:
+
+```csharp
+using System.Net.Http.Headers;
+using Seam.Http;
+
+var client = new HttpClient(
+    new SeamRetryHandler(
+        maxRetries: 2,
+        new SeamTimeoutHandler(TimeSpan.FromSeconds(30), new SocketsHttpHandler())
+    )
+)
+{
+    BaseAddress = new Uri("https://connect.getseam.com"),
+    Timeout = Timeout.InfiniteTimeSpan,
+};
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+    "Bearer",
+    "YOUR_API_KEY"
+);
+
+var seam = SeamClient.FromHttpClient(client);
+```
+
+Disable the client's own `Timeout` so the timeout applies to each attempt
+rather than the whole sequence of attempts, and add each handler once: two
+retry handlers in one pipeline multiply the retries.
 
 ### Serializing URL search params
 

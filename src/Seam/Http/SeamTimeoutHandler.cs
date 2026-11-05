@@ -15,7 +15,7 @@ namespace Seam.Http
     /// throws <see cref="TimeoutException"/>, distinct from the
     /// <see cref="OperationCanceledException"/> of a caller's own cancellation.
     /// </remarks>
-    internal sealed class SeamTimeoutHandler : DelegatingHandler
+    public sealed class SeamTimeoutHandler : DelegatingHandler
     {
         private readonly TimeSpan _timeout;
 

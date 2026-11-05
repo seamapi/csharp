@@ -90,13 +90,18 @@ namespace Seam
             [EnumeratorCancellation] CancellationToken cancellationToken = default
         )
         {
+            var seenCursors = new HashSet<string>();
             var page = await FirstPageAsync(cancellationToken).ConfigureAwait(false);
             yield return page;
 
             while (page.Pagination.HasNextPage)
             {
-                page = await NextPageAsync(page.Pagination.NextPageCursor!, cancellationToken)
-                    .ConfigureAwait(false);
+                var cursor = page.Pagination.NextPageCursor;
+
+                if (string.IsNullOrEmpty(cursor) || !seenCursors.Add(cursor))
+                    yield break;
+
+                page = await NextPageAsync(cursor, cancellationToken).ConfigureAwait(false);
                 yield return page;
             }
         }

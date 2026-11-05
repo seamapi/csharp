@@ -13,12 +13,12 @@ request.Validate();
 {{#if isVoid}}
 await _transport.SendAsync(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
 {{else}}
-var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
+var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, "{{returnKey}}", cancellationToken).ConfigureAwait(false);
 {{#if usesActionAttempt}}
-var actionAttempt = response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
+var actionAttempt = response.Read(r => r.{{returnProp}});
 return await ActionAttemptResolver.ResolveAsync(actionAttempt, _transport, waitForActionAttempt ?? _waitForActionAttemptDefault, cancellationToken).ConfigureAwait(false);
 {{else}}
-return response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
+return response.Read(r => r.{{returnProp}});
 {{/if}}
 {{/if}}
 }
@@ -33,10 +33,8 @@ CancellationToken cancellationToken = default
 {{#if request.requireAnyOf}}
 request.Validate();
 {{/if}}
-var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, cancellationToken).ConfigureAwait(false);
-var items = response.{{returnProp}} ?? throw new HttpRequestException("Seam returned no {{returnKey}} for {{path}}");
-var pagination = response.Pagination ?? throw new HttpRequestException("Seam returned no pagination for {{path}}");
-return new SeamPage<{{pageItemType}}>(items, pagination);
+var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, "{{returnKey}}", cancellationToken).ConfigureAwait(false);
+return new SeamPage<{{pageItemType}}>(response.Read(r => r.{{returnProp}}), response.Read("pagination", r => r.Pagination));
 }
 
 /// <summary>Creates a paginator over {{path}}.</summary>

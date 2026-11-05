@@ -75,14 +75,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/acs/encoders/encode_credential",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /acs/encoders/encode_credential"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -127,13 +124,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/encoders/get",
                     request,
+                    "acs_encoder",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEncoder
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_encoder for /acs/encoders/get"
-                );
+            return response.Read(r => r.AcsEncoder);
         }
 
         /// <summary>
@@ -200,13 +195,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/encoders/list",
                     request,
+                    "acs_encoders",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEncoders
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_encoders for /acs/encoders/list"
-                );
+            return response.Read(r => r.AcsEncoders);
         }
 
         /// <summary>Fetches one page of /acs/encoders/list with its pagination metadata.</summary>
@@ -220,20 +213,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/encoders/list",
                     request,
+                    "acs_encoders",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.AcsEncoders
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_encoders for /acs/encoders/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /acs/encoders/list"
-                );
-            return new SeamPage<AcsEncoder>(items, pagination);
+            return new SeamPage<AcsEncoder>(
+                response.Read(r => r.AcsEncoders),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /acs/encoders/list.</summary>
@@ -303,14 +290,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/acs/encoders/scan_credential",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /acs/encoders/scan_credential"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,
@@ -383,14 +367,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/acs/encoders/scan_to_assign_credential",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /acs/encoders/scan_to_assign_credential"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

@@ -77,10 +77,15 @@ namespace Seam.Routes
         {
             request.Validate();
             var response = await _transport
-                .SendAsync<GetResponse>(HttpMethod.Get, "/devices/get", request, cancellationToken)
+                .SendAsync<GetResponse>(
+                    HttpMethod.Get,
+                    "/devices/get",
+                    request,
+                    "device",
+                    cancellationToken
+                )
                 .ConfigureAwait(false);
-            return response.Device
-                ?? throw new HttpRequestException("Seam returned no device for /devices/get");
+            return response.Read(r => r.Device);
         }
 
         /// <summary>
@@ -655,11 +660,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Devices
-                ?? throw new HttpRequestException("Seam returned no devices for /devices/list");
+            return response.Read(r => r.Devices);
         }
 
         /// <summary>Fetches one page of /devices/list with its pagination metadata.</summary>
@@ -673,16 +678,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/list",
                     request,
+                    "devices",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.Devices
-                ?? throw new HttpRequestException("Seam returned no devices for /devices/list");
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException("Seam returned no pagination for /devices/list");
-            return new SeamPage<Device>(items, pagination);
+            return new SeamPage<Device>(
+                response.Read(r => r.Devices),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /devices/list.</summary>
@@ -774,13 +777,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/devices/list_device_providers",
                     request,
+                    "device_providers",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.DeviceProviders
-                ?? throw new HttpRequestException(
-                    "Seam returned no device_providers for /devices/list_device_providers"
-                );
+            return response.Read(r => r.DeviceProviders);
         }
 
         /// <summary>

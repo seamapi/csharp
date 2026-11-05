@@ -101,13 +101,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/instant_keys/get",
                     request,
+                    "instant_key",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.InstantKey
-                ?? throw new HttpRequestException(
-                    "Seam returned no instant_key for /instant_keys/get"
-                );
+            return response.Read(r => r.InstantKey);
         }
 
         /// <summary>
@@ -144,13 +142,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/instant_keys/list",
                     request,
+                    "instant_keys",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.InstantKeys
-                ?? throw new HttpRequestException(
-                    "Seam returned no instant_keys for /instant_keys/list"
-                );
+            return response.Read(r => r.InstantKeys);
         }
     }
 }

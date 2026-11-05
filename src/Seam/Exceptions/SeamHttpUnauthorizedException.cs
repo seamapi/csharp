@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace Seam
 {
     /// <summary>
@@ -6,6 +8,13 @@ namespace Seam
     public class SeamHttpUnauthorizedException : SeamHttpApiException
     {
         public SeamHttpUnauthorizedException(string? requestId)
-            : base("unauthorized", "Unauthorized", 401, requestId) { }
+            : this(requestId, "Unauthorized") { }
+
+        public SeamHttpUnauthorizedException(
+            string? requestId,
+            string message,
+            JsonElement? data = null
+        )
+            : base("unauthorized", message, 401, requestId, data) { }
     }
 }
