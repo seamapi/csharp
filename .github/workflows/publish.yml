@@ -46,12 +46,14 @@ jobs:
   nuget:
     name: NuGet.org
     uses: ./.github/workflows/_publish.yml
+    permissions:
+      contents: read
+      id-token: write
     needs: build
     with:
       artifact_name: ${{ needs.build.outputs.artifact_name }}
       registry_url: https://api.nuget.org/v3/index.json
-    secrets:
-      registry_token: ${{ secrets.NUGET_API_KEY }}
+      registry_user: Seam
   github:
     name: GitHub Packages
     uses: ./.github/workflows/_publish.yml
