@@ -30,6 +30,9 @@ public async Task<SeamPage<{{pageItemType}}>> {{methodName}}PageAsync(
 CancellationToken cancellationToken = default
 )
 {
+{{#if request.requireAnyOf}}
+request.Validate();
+{{/if}}
 var response = await _transport.SendAsync<{{responseTypeArg}}>(HttpMethod.{{httpMethod}}, "{{path}}", request, "{{returnKey}}", cancellationToken).ConfigureAwait(false);
 return new SeamPage<{{pageItemType}}>(response.Read(r => r.{{returnProp}}), response.Read("pagination", r => r.Pagination));
 }

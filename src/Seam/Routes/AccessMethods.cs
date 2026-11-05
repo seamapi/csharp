@@ -451,6 +451,7 @@ namespace Seam.Routes
             CancellationToken cancellationToken = default
         )
         {
+            request.Validate();
             var response = await _transport
                 .SendAsync<ListResponse>(
                     HttpMethod.Get,
