@@ -12,10 +12,15 @@ on:
         description: The package registry url.
         type: string
         required: true
+      registry_user:
+        description: The registry user for trusted publishing.
+        type: string
+        required: false
+        default: ''
     secrets:
       registry_token:
         description: The package registry token.
-        required: true
+        required: false
 
 jobs:
   publish:
@@ -34,8 +39,14 @@ jobs:
         with:
           name: ${{ inputs.artifact_name }}
           path: pkg/
+      - name: Log in with trusted publishing
+        if: inputs.registry_user != ''
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ inputs.registry_user }}
       - name: Publish
         run: dotnet nuget push "pkg/*.nupkg" --api-key "$REGISTRY_TOKEN" --source "$REGISTRY_URL"
         env:
-          REGISTRY_TOKEN: ${{ secrets.registry_token }}
+          REGISTRY_TOKEN: ${{ steps.login.outputs.NUGET_API_KEY || secrets.registry_token }}
           REGISTRY_URL: ${{ inputs.registry_url }}
