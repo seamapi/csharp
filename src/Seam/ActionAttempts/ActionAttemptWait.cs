@@ -22,11 +22,35 @@ namespace Seam
         /// <summary>Return the pending action attempt immediately without waiting.</summary>
         public static ActionAttemptWait DoNotWait { get; } = new() { Enabled = false };
 
+        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(10);
+
+        private readonly TimeSpan _pollingInterval = TimeSpan.FromSeconds(1);
+
         public bool Enabled { get; init; } = true;
 
-        public TimeSpan Timeout { get; init; } = TimeSpan.FromSeconds(10);
+        public TimeSpan Timeout
+        {
+            get => _timeout;
+            init =>
+                _timeout =
+                    value >= TimeSpan.Zero
+                        ? value
+                        : throw new SeamInvalidOptionsException(
+                            $"The Timeout option must not be negative, got {value}"
+                        );
+        }
 
-        public TimeSpan PollingInterval { get; init; } = TimeSpan.FromSeconds(1);
+        public TimeSpan PollingInterval
+        {
+            get => _pollingInterval;
+            init =>
+                _pollingInterval =
+                    value > TimeSpan.Zero
+                        ? value
+                        : throw new SeamInvalidOptionsException(
+                            $"The PollingInterval option must be greater than zero, got {value}"
+                        );
+        }
 
         public static implicit operator ActionAttemptWait(bool wait) => wait ? Default : DoNotWait;
     }

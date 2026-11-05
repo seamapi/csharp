@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json.Serialization;
@@ -29,6 +30,7 @@ namespace Seam
                 return actionAttempt;
 
             var elapsed = Stopwatch.StartNew();
+            var deadlineReached = false;
 
             while (true)
             {
@@ -38,10 +40,18 @@ namespace Seam
                 if (actionAttempt.Status == Models.ActionAttemptStatus.Error)
                     throw new SeamActionAttemptFailedException(actionAttempt);
 
-                if (elapsed.Elapsed + wait.PollingInterval > wait.Timeout)
+                var remaining = wait.Timeout - elapsed.Elapsed;
+
+                if (deadlineReached || remaining <= TimeSpan.Zero)
                     throw new SeamActionAttemptTimeoutException(actionAttempt, wait.Timeout);
 
-                await Task.Delay(wait.PollingInterval, cancellationToken).ConfigureAwait(false);
+                deadlineReached = wait.PollingInterval >= remaining;
+
+                await Task.Delay(
+                        deadlineReached ? remaining : wait.PollingInterval,
+                        cancellationToken
+                    )
+                    .ConfigureAwait(false);
 
                 actionAttempt = await GetActionAttemptAsync(
                         transport,
