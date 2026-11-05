@@ -21,7 +21,7 @@ namespace Seam.Http
     /// honored.
     /// </para>
     /// </remarks>
-    internal sealed class SeamRetryHandler : DelegatingHandler
+    public sealed class SeamRetryHandler : DelegatingHandler
     {
         public const int DefaultMaxRetries = 2;
 

@@ -107,3 +107,67 @@ public class ClientTests : FakeSeamConnectTest
         await Assert.ThrowsAsync<ObjectDisposedException>(() => seam.Devices.ListAsync());
     }
 }
+
+public class CallerBuiltClientTests
+{
+    private static SeamClient CreateSeam(
+        RecordingHandler handler,
+        TimeSpan? timeout = null,
+        int maxRetries = 2
+    )
+    {
+        var client = new HttpClient(
+            new SeamRetryHandler(
+                maxRetries,
+                new SeamTimeoutHandler(timeout ?? TimeSpan.FromSeconds(30), handler)
+            )
+        )
+        {
+            BaseAddress = new Uri("https://example.com"),
+            Timeout = Timeout.InfiniteTimeSpan,
+        };
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            "seam_apikey1_token"
+        );
+
+        return SeamClient.FromHttpClient(client);
+    }
+
+    [Fact]
+    public async Task RetriesThroughTheSeamRetryHandler()
+    {
+        var handler = new RecordingHandler()
+            .RespondWith(HttpStatusCode.ServiceUnavailable, "unavailable", "text/plain")
+            .RespondWith(HttpStatusCode.OK, "{\"devices\":[]}");
+        using var seam = CreateSeam(handler);
+
+        Assert.Empty(await seam.Devices.ListAsync());
+        Assert.Equal(2, handler.AttemptCount);
+    }
+
+    [Fact]
+    public async Task TimesOutEachAttemptThroughTheSeamTimeoutHandler()
+    {
+        var handler = new RecordingHandler().RespondAfter(
+            TimeSpan.FromSeconds(10),
+            HttpStatusCode.OK
+        );
+        using var seam = CreateSeam(
+            handler,
+            timeout: TimeSpan.FromMilliseconds(200),
+            maxRetries: 0
+        );
+
+        await Assert.ThrowsAsync<TimeoutException>(() => seam.Devices.ListAsync());
+    }
+
+    [Fact]
+    public async Task StillMapsSeamErrors()
+    {
+        var handler = new RecordingHandler().RespondWith(HttpStatusCode.Unauthorized);
+        using var seam = CreateSeam(handler);
+
+        await Assert.ThrowsAsync<SeamHttpUnauthorizedException>(() => seam.Devices.ListAsync());
+    }
+}
