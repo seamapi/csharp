@@ -213,6 +213,20 @@ var seam = new SeamClient(new SeamClientOptions
 });
 ```
 
+Retries are configured per client. If your application has its own retry
+behavior for some calls, create a second client with `MaxRetries = 0` and send
+those calls through it, while other calls keep the default retries:
+
+```csharp
+var seam = new SeamClient(new SeamClientOptions { ApiKey = "YOUR_API_KEY" });
+
+var seamWithoutRetries = new SeamClient(new SeamClientOptions
+{
+    ApiKey = "YOUR_API_KEY",
+    MaxRetries = 0,
+});
+```
+
 ### Setting a value to null
 
 The Seam API distinguishes three states for an updatable parameter: omitted
