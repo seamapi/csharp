@@ -399,8 +399,6 @@ namespace Seam.Routes
                     && AccessGrantKey == null
                     && AcsEntranceId == null
                     && DeviceId == null
-                    && Limit == null
-                    && !PageCursor.IsSet
                     && SpaceId == null
                 )
                 {
