@@ -5628,6 +5628,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "credential_error")]
             CredentialError = 6,
+
+            [EnumMember(Value = "connection_error")]
+            ConnectionError = 7,
         }
 
         /// <summary>
@@ -6152,7 +6155,7 @@ namespace Seam.Models
     }
 
     /// <summary>
-    /// A camera was activated, for example, by motion detection.
+    /// A camera was activated, for example, by motion detection. For Ring cameras, this event is available only in the Seam Console, not through the API or webhooks.
     /// </summary>
     public sealed record EventCameraActivated : Event
     {
@@ -6256,7 +6259,7 @@ namespace Seam.Models
     }
 
     /// <summary>
-    /// A doorbell button was pressed on a device.
+    /// A doorbell button was pressed on a device. For Ring cameras, this event is available only in the Seam Console, not through the API or webhooks.
     /// </summary>
     public sealed record EventDeviceDoorbellRang : Event
     {

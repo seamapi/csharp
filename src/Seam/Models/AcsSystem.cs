@@ -34,6 +34,10 @@ namespace Seam.Models
             typeof(AcsSystemErrorsSaltoKsSubscriptionLimitExceeded)
         )]
         [SeamUnionVariant(
+            "user_license_limit_reached",
+            typeof(AcsSystemErrorsUserLicenseLimitReached)
+        )]
+        [SeamUnionVariant(
             "insufficient_permissions",
             typeof(AcsSystemErrorsInsufficientPermissions)
         )]
@@ -94,6 +98,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+        }
+
+        public sealed record AcsSystemErrorsUserLicenseLimitReached : AcsSystemErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "user_license_limit_reached";
         }
 
         public sealed record AcsSystemErrorsInsufficientPermissions : AcsSystemErrors
