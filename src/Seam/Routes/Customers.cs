@@ -852,7 +852,7 @@ namespace Seam.Routes
             public string? StartsAt { get; init; }
 
             /// <summary>
-            /// Your identifier for the sub-reservation. Must be unique within its reservation.
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
             /// </summary>
             [JsonPropertyName("sub_reservation_key")]
             public string? SubReservationKey { get; init; }
@@ -2404,7 +2404,7 @@ namespace Seam.Routes
             public string? StartsAt { get; init; }
 
             /// <summary>
-            /// Your identifier for the sub-reservation. Must be unique within its reservation.
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
             /// </summary>
             [JsonPropertyName("sub_reservation_key")]
             public string? SubReservationKey { get; init; }
