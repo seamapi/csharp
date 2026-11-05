@@ -1,5 +1,6 @@
 namespace Seam.Test;
 
+using System.Net;
 using Seam.Test.Support;
 
 public class PaginatorTests : FakeSeamConnectTest
@@ -138,5 +139,88 @@ public class PaginatorTests : FakeSeamConnectTest
     {
         Assert.Null(typeof(Routes.Workspaces).GetMethod("ListPager"));
         Assert.NotNull(typeof(Routes.ConnectedAccounts).GetMethod("ListPager"));
+    }
+}
+
+public class PaginatorLoopGuardTests
+{
+    private const string PinnedCursorPage = """
+        {"connected_accounts":[{}],"pagination":{"has_next_page":true,"next_page_cursor":"c1"}}
+        """;
+
+    private const string NullCursorPage = """
+        {"connected_accounts":[{}],"pagination":{"has_next_page":true,"next_page_cursor":null}}
+        """;
+
+    private const string FirstDevicesPage = """
+        {"devices":[{}],"pagination":{"has_next_page":true,"next_page_cursor":"c1"}}
+        """;
+
+    private const string LastDevicesPage = """
+        {"devices":[{}],"pagination":{"has_next_page":false,"next_page_cursor":null}}
+        """;
+
+    private static SeamClient CreateSeam(RecordingHandler handler)
+    {
+        return new SeamClient(
+            new SeamClientOptions
+            {
+                ApiKey = "seam_apikey1_token",
+                Endpoint = "https://example.com",
+                HttpMessageHandler = handler,
+                MaxRetries = 0,
+            }
+        );
+    }
+
+    [Fact]
+    public async Task StopsWhenTheCursorRepeats()
+    {
+        var handler = new RecordingHandler().RespondWith(HttpStatusCode.OK, PinnedCursorPage);
+        using var seam = CreateSeam(handler);
+        using var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+
+        var accounts = await seam
+            .ConnectedAccounts.ListPager()
+            .FlattenToListAsync(cancellation.Token);
+
+        Assert.Equal(2, accounts.Count);
+        Assert.Equal(2, handler.AttemptCount);
+        Assert.DoesNotContain("page_cursor", handler.Requests[0].Uri.Query);
+        Assert.Contains("page_cursor=c1", handler.Requests[1].Uri.Query);
+    }
+
+    [Fact]
+    public async Task StopsWhenTheCursorIsNull()
+    {
+        var handler = new RecordingHandler().RespondWith(HttpStatusCode.OK, NullCursorPage);
+        using var seam = CreateSeam(handler);
+
+        var pages = new List<SeamPage<Models.ConnectedAccount>>();
+        await foreach (var page in seam.ConnectedAccounts.ListPager().Pages())
+        {
+            pages.Add(page);
+        }
+
+        Assert.Single(pages);
+        Assert.Equal(1, handler.AttemptCount);
+    }
+
+    [Fact]
+    public async Task SendsThePageCursorWhenTheRequestHasNoParameters()
+    {
+        var handler = new RecordingHandler()
+            .RespondWith(HttpStatusCode.OK, FirstDevicesPage)
+            .RespondWith(HttpStatusCode.OK, LastDevicesPage);
+        using var seam = CreateSeam(handler);
+
+        var devices = await seam.Devices.ListPager().FlattenToListAsync();
+
+        Assert.Equal(2, devices.Count);
+        Assert.Equal(2, handler.AttemptCount);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal("", handler.Requests[1].Body);
+        Assert.Contains("page_cursor=c1", handler.Requests[1].Uri.Query);
+        Assert.Contains("_strict=true", handler.Requests[1].Uri.Query);
     }
 }
