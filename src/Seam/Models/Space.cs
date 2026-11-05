@@ -14,6 +14,60 @@ namespace Seam.Models
     /// </summary>
     public sealed record Space
     {
+        [JsonConverter(typeof(SeamUnionConverter))]
+        [SeamUnion("warning_code")]
+        [SeamUnionVariant("being_deleted", typeof(SpaceWarningsBeingDeleted))]
+        [SeamUnionVariant(
+            "noise_sensor_configuration_mismatch",
+            typeof(SpaceWarningsNoiseSensorConfigurationMismatch)
+        )]
+        [SeamUnionFallback(typeof(SpaceWarningsUnrecognized))]
+        public abstract record SpaceWarnings
+        {
+            /// <summary>The value of the <c>warning_code</c> discriminator.</summary>
+            public abstract string WarningCode { get; }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [JsonPropertyName("message")]
+            public string Message { get; init; } = default!;
+        }
+
+        public sealed record SpaceWarningsBeingDeleted : SpaceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "being_deleted";
+        }
+
+        public sealed record SpaceWarningsNoiseSensorConfigurationMismatch : SpaceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "noise_sensor_configuration_mismatch";
+
+            /// <summary>
+            /// IDs of the noise sensors in the space that Seam could not bring in line with the noise sensor automation.
+            /// </summary>
+            [JsonPropertyName("device_ids")]
+            public List<string> DeviceIds { get; init; } = default!;
+        }
+
+        public sealed record SpaceWarningsUnrecognized : SpaceWarnings, ISeamUnrecognizedVariant
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "unrecognized";
+
+            /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+            [JsonIgnore]
+            public JsonElement RawJson { get; set; }
+        }
+
         /// <summary>
         /// Number of entrances in the space.
         /// </summary>
@@ -73,6 +127,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("space_key")]
         public string? SpaceKey { get; init; }
+
+        /// <summary>
+        /// Warnings associated with the space.
+        /// </summary>
+        [JsonPropertyName("warnings")]
+        public List<SpaceWarnings> Warnings { get; init; } = default!;
 
         /// <summary>
         /// ID of the workspace associated with the space.

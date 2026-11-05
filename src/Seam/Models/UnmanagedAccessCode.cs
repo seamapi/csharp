@@ -759,6 +759,10 @@ namespace Seam.Models
         )]
         [SeamUnionVariant("being_deleted", typeof(UnmanagedAccessCodeWarningsBeingDeleted))]
         [SeamUnionVariant(
+            "device_unreachable_for_extended_period",
+            typeof(UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod)
+        )]
+        [SeamUnionVariant(
             "unknown_issue_with_access_code",
             typeof(UnmanagedAccessCodeWarningsUnknownIssueWithAccessCode)
         )]
@@ -905,6 +909,19 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "being_deleted";
+        }
+
+        public sealed record UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod
+            : UnmanagedAccessCodeWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "device_unreachable_for_extended_period";
+
+            /// <summary>
+            /// Date and time since which Seam has been unable to reach the device.
+            /// </summary>
+            [JsonPropertyName("device_unreachable_since")]
+            public string DeviceUnreachableSince { get; init; } = default!;
         }
 
         public sealed record UnmanagedAccessCodeWarningsUnknownIssueWithAccessCode

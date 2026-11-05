@@ -368,6 +368,12 @@ namespace Seam.Routes
             public string? AcsEntranceId { get; init; }
 
             /// <summary>
+            /// Customer key for which you want to list access methods.
+            /// </summary>
+            [JsonPropertyName("customer_key")]
+            public string? CustomerKey { get; init; }
+
+            /// <summary>
             /// ID of the device by which to filter the returned access methods. Must be combined with `access_grant_id`, `access_grant_key`, or `acs_entrance_id`.
             /// </summary>
             [JsonPropertyName("device_id")]
@@ -398,6 +404,7 @@ namespace Seam.Routes
                     && AccessGrantId == null
                     && AccessGrantKey == null
                     && AcsEntranceId == null
+                    && CustomerKey == null
                     && DeviceId == null
                     && SpaceId == null
                 )

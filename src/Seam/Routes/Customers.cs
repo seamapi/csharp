@@ -113,6 +113,9 @@ namespace Seam.Routes
             [JsonPropertyName("exclude_locale_picker")]
             public bool? ExcludeLocalePicker { get; init; }
 
+            /// <summary>
+            /// Features to include in the portal. Settings you omit use the portal&apos;s customization profile, then the Seam default. Settings you pass take precedence over the customization profile&apos;s, so changing the profile doesn&apos;t change them.
+            /// </summary>
             [JsonPropertyName("features")]
             public CreatePortalRequestFeatures? Features { get; init; }
 
@@ -180,6 +183,12 @@ namespace Seam.Routes
             public string? CustomerKey { get; init; }
 
             /// <summary>
+            /// ID of the customization profile to use for this customer. Access grants that automations create for this customer use this profile. Pass `null` to remove the customer&apos;s customization profile.
+            /// </summary>
+            [JsonPropertyName("customization_profile_id")]
+            public Optional<string> CustomizationProfileId { get; init; }
+
+            /// <summary>
             /// List of gym or fitness facilities.
             /// </summary>
             [JsonPropertyName("facilities")]
@@ -196,6 +205,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("listings")]
             public List<CreatePortalRequestCustomerDataListings>? Listings { get; init; }
+
+            /// <summary>
+            /// Battery level, from 0 to 1, at or below which `device.low_battery` events fire for this customer&apos;s devices. Overrides the workspace and device defaults. Pass `null` to remove the customer&apos;s override.
+            /// </summary>
+            [JsonPropertyName("low_battery_alert_threshold")]
+            public Optional<float> LowBatteryAlertThreshold { get; init; }
 
             /// <summary>
             /// List of short-term rental properties.
@@ -321,10 +336,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -432,10 +447,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -672,10 +687,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -712,6 +727,135 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("starts_at")]
             public string? StartsAt { get; init; }
+
+            /// <summary>
+            /// Parts of the reservation that each get their own access, for example one per room. Each sub-reservation inherits the reservation&apos;s name, times, preferred code, guest and custom metadata unless it sets its own, and must set its own location keys. A reservation with sub-reservations must not set location keys itself. Sending this list replaces the reservation&apos;s sub-reservations: any not included are removed, and an empty list removes all of them. Omitting it leaves existing sub-reservations unchanged.
+            /// </summary>
+            [JsonPropertyName("sub_reservations")]
+            public List<CreatePortalRequestCustomerDataReservationsSubReservations>? SubReservations { get; init; }
+
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("tenant_key")]
+            public string? TenantKey { get; init; }
+
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("unit_keys")]
+            public List<string>? UnitKeys { get; init; }
+
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("user_identity_key")]
+            public string? UserIdentityKey { get; init; }
+
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("user_key")]
+            public string? UserKey { get; init; }
+        }
+
+        public sealed record CreatePortalRequestCustomerDataReservationsSubReservations
+        {
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("building_keys")]
+            public List<string>? BuildingKeys { get; init; }
+
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("common_area_keys")]
+            public List<string>? CommonAreaKeys { get; init; }
+
+            /// <summary>
+            /// Set key:value pairs for filtering sub-reservations by custom criteria. Merged over the reservation&apos;s custom metadata. Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// </summary>
+            [JsonPropertyName("custom_metadata")]
+            public object? CustomMetadata { get; init; }
+
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
+            [JsonPropertyName("ends_at")]
+            public string? EndsAt { get; init; }
+
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("facility_keys")]
+            public List<string>? FacilityKeys { get; init; }
+
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("guest_key")]
+            public string? GuestKey { get; init; }
+
+            /// <summary>
+            /// Whether this is the reservation&apos;s primary sub-reservation, for example the room the guest stays in. Only the primary sub-reservation passes the guest&apos;s phone number to access systems that require a phone number to be unique per user. At most one sub-reservation of a reservation can be primary. If none is, the first sub-reservation in the list is primary.
+            /// </summary>
+            [JsonPropertyName("is_primary")]
+            public bool? IsPrimary { get; init; }
+
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("listing_keys")]
+            public List<string>? ListingKeys { get; init; }
+
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
+            [JsonPropertyName("name")]
+            public string? Name { get; init; }
+
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
+            /// </summary>
+            [JsonPropertyName("preferred_code")]
+            public Optional<string> PreferredCode { get; init; }
+
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("property_keys")]
+            public List<string>? PropertyKeys { get; init; }
+
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("resident_key")]
+            public string? ResidentKey { get; init; }
+
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("room_keys")]
+            public List<string>? RoomKeys { get; init; }
+
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("space_keys")]
+            public List<string>? SpaceKeys { get; init; }
+
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
+            [JsonPropertyName("starts_at")]
+            public string? StartsAt { get; init; }
+
+            /// <summary>
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
+            /// </summary>
+            [JsonPropertyName("sub_reservation_key")]
+            public string? SubReservationKey { get; init; }
 
             /// <summary>
             /// Tenant key associated with the access grant.
@@ -1193,6 +1337,24 @@ namespace Seam.Routes
             public bool? AllowInstantKeyCustomization { get; init; }
 
             /// <summary>
+            /// Indicates whether the customer can customize their notification settings, such as the low-battery alert threshold.
+            /// </summary>
+            [JsonPropertyName("allow_notification_customization")]
+            public bool? AllowNotificationCustomization { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the sensor automation rules for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_sensor_automation_rule_customization")]
+            public bool? AllowSensorAutomationRuleCustomization { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the sound automation rules for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_sound_automation_rule_customization")]
+            public bool? AllowSoundAutomationRuleCustomization { get; init; }
+
+            /// <summary>
             /// Whether to exclude this feature from the portal.
             /// </summary>
             [JsonPropertyName("exclude")]
@@ -1239,6 +1401,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("exclude")]
             public bool? Exclude { get; init; }
+
+            /// <summary>
+            /// Indicates whether to prevent the customer from converting their devices between managed and unmanaged. Managed devices are billed.
+            /// </summary>
+            [JsonPropertyName("exclude_device_management")]
+            public bool? ExcludeDeviceManagement { get; init; }
 
             /// <summary>
             /// Indicates whether the customer can manage reservations for their properties.
@@ -1519,6 +1687,7 @@ namespace Seam.Routes
         /// <summary>
         /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
         /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// Space keys also match spaces created directly with a `space_key` (for example, through `/spaces/create`).
         /// </summary>
         public async Task DeleteDataAsync(
             DeleteDataRequest? request = null,
@@ -1566,6 +1735,12 @@ namespace Seam.Routes
             public required string CustomerKey { get; init; }
 
             /// <summary>
+            /// ID of the customization profile to use for this customer. Access grants that automations create for this customer use this profile. Pass `null` to remove the customer&apos;s customization profile.
+            /// </summary>
+            [JsonPropertyName("customization_profile_id")]
+            public Optional<string> CustomizationProfileId { get; init; }
+
+            /// <summary>
             /// List of gym or fitness facilities.
             /// </summary>
             [JsonPropertyName("facilities")]
@@ -1582,6 +1757,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("listings")]
             public List<PushDataRequestListings>? Listings { get; init; }
+
+            /// <summary>
+            /// Battery level, from 0 to 1, at or below which `device.low_battery` events fire for this customer&apos;s devices. Overrides the workspace and device defaults. Pass `null` to remove the customer&apos;s override.
+            /// </summary>
+            [JsonPropertyName("low_battery_alert_threshold")]
+            public Optional<float> LowBatteryAlertThreshold { get; init; }
 
             /// <summary>
             /// List of short-term rental properties.
@@ -1707,10 +1888,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -1818,10 +1999,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -2058,10 +2239,10 @@ namespace Seam.Routes
             public string? Name { get; init; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [JsonPropertyName("preferred_code")]
-            public string? PreferredCode { get; init; }
+            public Optional<string> PreferredCode { get; init; }
 
             /// <summary>
             /// Property keys associated with the access grant.
@@ -2098,6 +2279,135 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("starts_at")]
             public string? StartsAt { get; init; }
+
+            /// <summary>
+            /// Parts of the reservation that each get their own access, for example one per room. Each sub-reservation inherits the reservation&apos;s name, times, preferred code, guest and custom metadata unless it sets its own, and must set its own location keys. A reservation with sub-reservations must not set location keys itself. Sending this list replaces the reservation&apos;s sub-reservations: any not included are removed, and an empty list removes all of them. Omitting it leaves existing sub-reservations unchanged.
+            /// </summary>
+            [JsonPropertyName("sub_reservations")]
+            public List<PushDataRequestReservationsSubReservations>? SubReservations { get; init; }
+
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("tenant_key")]
+            public string? TenantKey { get; init; }
+
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("unit_keys")]
+            public List<string>? UnitKeys { get; init; }
+
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("user_identity_key")]
+            public string? UserIdentityKey { get; init; }
+
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("user_key")]
+            public string? UserKey { get; init; }
+        }
+
+        public sealed record PushDataRequestReservationsSubReservations
+        {
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("building_keys")]
+            public List<string>? BuildingKeys { get; init; }
+
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("common_area_keys")]
+            public List<string>? CommonAreaKeys { get; init; }
+
+            /// <summary>
+            /// Set key:value pairs for filtering sub-reservations by custom criteria. Merged over the reservation&apos;s custom metadata. Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// </summary>
+            [JsonPropertyName("custom_metadata")]
+            public object? CustomMetadata { get; init; }
+
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
+            [JsonPropertyName("ends_at")]
+            public string? EndsAt { get; init; }
+
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("facility_keys")]
+            public List<string>? FacilityKeys { get; init; }
+
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("guest_key")]
+            public string? GuestKey { get; init; }
+
+            /// <summary>
+            /// Whether this is the reservation&apos;s primary sub-reservation, for example the room the guest stays in. Only the primary sub-reservation passes the guest&apos;s phone number to access systems that require a phone number to be unique per user. At most one sub-reservation of a reservation can be primary. If none is, the first sub-reservation in the list is primary.
+            /// </summary>
+            [JsonPropertyName("is_primary")]
+            public bool? IsPrimary { get; init; }
+
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("listing_keys")]
+            public List<string>? ListingKeys { get; init; }
+
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
+            [JsonPropertyName("name")]
+            public string? Name { get; init; }
+
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
+            /// </summary>
+            [JsonPropertyName("preferred_code")]
+            public Optional<string> PreferredCode { get; init; }
+
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("property_keys")]
+            public List<string>? PropertyKeys { get; init; }
+
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("resident_key")]
+            public string? ResidentKey { get; init; }
+
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("room_keys")]
+            public List<string>? RoomKeys { get; init; }
+
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
+            [JsonPropertyName("space_keys")]
+            public List<string>? SpaceKeys { get; init; }
+
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
+            [JsonPropertyName("starts_at")]
+            public string? StartsAt { get; init; }
+
+            /// <summary>
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
+            /// </summary>
+            [JsonPropertyName("sub_reservation_key")]
+            public string? SubReservationKey { get; init; }
 
             /// <summary>
             /// Tenant key associated with the access grant.

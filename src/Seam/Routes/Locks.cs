@@ -212,47 +212,56 @@ namespace Seam.Routes
                 [EnumMember(Value = "yale_lock")]
                 YaleLock = 17,
 
+                [EnumMember(Value = "yale_access_lock")]
+                YaleAccessLock = 18,
+
+                [EnumMember(Value = "yale_home_lock")]
+                YaleHomeLock = 19,
+
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 18,
+                TwoNIntercom = 20,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 19,
+                ControlbywebDevice = 21,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 20,
+                TtlockLock = 22,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 21,
+                IgloohomeLock = 23,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 22,
+                FourSuitesDoor = 24,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 23,
+                DormakabaOracodeDoor = 25,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 24,
+                TedeeLock = 26,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 25,
+                AkilesLock = 27,
 
                 [EnumMember(Value = "ultraloq_lock")]
-                UltraloqLock = 26,
+                UltraloqLock = 28,
 
                 [EnumMember(Value = "yacan_lock")]
-                YacanLock = 27,
+                YacanLock = 29,
 
                 [EnumMember(Value = "keyincode_lock")]
-                KeyincodeLock = 28,
+                KeyincodeLock = 30,
 
                 [EnumMember(Value = "omnitec_lock")]
-                OmnitecLock = 29,
+                OmnitecLock = 31,
 
                 [EnumMember(Value = "kisi_lock")]
-                KisiLock = 30,
+                KisiLock = 32,
 
                 [EnumMember(Value = "aqara_lock")]
-                AqaraLock = 31,
+                AqaraLock = 33,
+
+                [EnumMember(Value = "eufy_lock")]
+                EufyLock = 34,
             }
 
             /// <summary>
@@ -315,47 +324,56 @@ namespace Seam.Routes
                 [EnumMember(Value = "yale_lock")]
                 YaleLock = 17,
 
+                [EnumMember(Value = "yale_access_lock")]
+                YaleAccessLock = 18,
+
+                [EnumMember(Value = "yale_home_lock")]
+                YaleHomeLock = 19,
+
                 [EnumMember(Value = "two_n_intercom")]
-                TwoNIntercom = 18,
+                TwoNIntercom = 20,
 
                 [EnumMember(Value = "controlbyweb_device")]
-                ControlbywebDevice = 19,
+                ControlbywebDevice = 21,
 
                 [EnumMember(Value = "ttlock_lock")]
-                TtlockLock = 20,
+                TtlockLock = 22,
 
                 [EnumMember(Value = "igloohome_lock")]
-                IgloohomeLock = 21,
+                IgloohomeLock = 23,
 
                 [EnumMember(Value = "four_suites_door")]
-                FourSuitesDoor = 22,
+                FourSuitesDoor = 24,
 
                 [EnumMember(Value = "dormakaba_oracode_door")]
-                DormakabaOracodeDoor = 23,
+                DormakabaOracodeDoor = 25,
 
                 [EnumMember(Value = "tedee_lock")]
-                TedeeLock = 24,
+                TedeeLock = 26,
 
                 [EnumMember(Value = "akiles_lock")]
-                AkilesLock = 25,
+                AkilesLock = 27,
 
                 [EnumMember(Value = "ultraloq_lock")]
-                UltraloqLock = 26,
+                UltraloqLock = 28,
 
                 [EnumMember(Value = "yacan_lock")]
-                YacanLock = 27,
+                YacanLock = 29,
 
                 [EnumMember(Value = "keyincode_lock")]
-                KeyincodeLock = 28,
+                KeyincodeLock = 30,
 
                 [EnumMember(Value = "omnitec_lock")]
-                OmnitecLock = 29,
+                OmnitecLock = 31,
 
                 [EnumMember(Value = "kisi_lock")]
-                KisiLock = 30,
+                KisiLock = 32,
 
                 [EnumMember(Value = "aqara_lock")]
-                AqaraLock = 31,
+                AqaraLock = 33,
+
+                [EnumMember(Value = "eufy_lock")]
+                EufyLock = 34,
             }
 
             /// <summary>
