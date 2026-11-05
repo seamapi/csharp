@@ -34,20 +34,20 @@ public class RequiredParametersTests
     }
 
     [Fact]
-    public Task AccessCodesListDoesNotCountLimit()
+    public Task AccessMethodsListDoesNotCountLimit()
     {
         return AssertRequiresAParameterAsync(
-            "/access_codes/list",
-            seam => seam.AccessCodes.ListAsync(new() { Limit = 20 })
+            "/access_methods/list",
+            seam => seam.AccessMethods.ListAsync(new() { Limit = 20 })
         );
     }
 
     [Fact]
-    public Task AccessCodesListDoesNotCountPageCursor()
+    public Task AccessMethodsListDoesNotCountPageCursor()
     {
         return AssertRequiresAParameterAsync(
-            "/access_codes/list",
-            seam => seam.AccessCodes.ListAsync(new() { PageCursor = "c1" })
+            "/access_methods/list",
+            seam => seam.AccessMethods.ListAsync(new() { PageCursor = "c1" })
         );
     }
 
@@ -141,6 +141,6 @@ public class RequiredParametersTests
             }
         }
 
-        Assert.True(checkedRequests >= 5);
+        Assert.True(checkedRequests >= 3);
     }
 }

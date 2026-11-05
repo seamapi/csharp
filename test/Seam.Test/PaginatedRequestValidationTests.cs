@@ -25,7 +25,7 @@ public class PaginatedRequestValidationTests
         var exception = await Assert.ThrowsAsync<ArgumentException>(() => request(seam));
 
         Assert.Equal(
-            "At least one parameter is required for /access_codes/list",
+            "At least one parameter is required for /access_methods/list",
             exception.Message
         );
         Assert.Equal(0, handler.AttemptCount);
@@ -34,14 +34,14 @@ public class PaginatedRequestValidationTests
     [Fact]
     public Task PageMethodValidatesTheRequest()
     {
-        return AssertValidatesBeforeSendingAsync(seam => seam.AccessCodes.ListPageAsync(new()));
+        return AssertValidatesBeforeSendingAsync(seam => seam.AccessMethods.ListPageAsync(new()));
     }
 
     [Fact]
     public Task FirstPageValidatesTheRequest()
     {
         return AssertValidatesBeforeSendingAsync(seam =>
-            seam.AccessCodes.ListPager(new()).FirstPageAsync()
+            seam.AccessMethods.ListPager(new()).FirstPageAsync()
         );
     }
 
@@ -49,7 +49,7 @@ public class PaginatedRequestValidationTests
     public Task FlattenToListValidatesTheRequest()
     {
         return AssertValidatesBeforeSendingAsync(seam =>
-            seam.AccessCodes.ListPager(new()).FlattenToListAsync()
+            seam.AccessMethods.ListPager(new()).FlattenToListAsync()
         );
     }
 }
