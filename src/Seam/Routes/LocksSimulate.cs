@@ -53,7 +53,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates the entry of a code on a keypad. You can only perform this action for [August](https://www.seam.co/docs/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task<ActionAttempt> KeypadCodeEntryAsync(
             KeypadCodeEntryRequest request,
@@ -103,7 +103,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://docs.seam.co/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Simulates a manual lock action using a keypad. You can only perform this action for [August](https://www.seam.co/docs/device-and-system-integration-guides/august-locks) devices within [sandbox workspaces](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         public async Task<ActionAttempt> ManualLockViaKeypadAsync(
             ManualLockViaKeypadRequest request,

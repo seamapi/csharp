@@ -10,11 +10,11 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents a [user](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents a [user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
     /// An access system user typically refers to an individual who requires access, like an employee or resident. Each user can possess multiple credentials that serve as their keys or identifiers for access. The type of credential can vary widely. For example, in the Salto system, a user can have a PIN code, a mobile app account, and a fob. In other platforms, it is not uncommon for a user to have more than one of the same credential type, such as multiple key cards. Additionally, these credentials can have a schedule or validity period.
     ///
-    /// For details about how to configure users in your access system, see the corresponding [system integration guide](https://docs.seam.co/device-and-system-integration-guides#access-control-systems).
+    /// For details about how to configure users in your access system, see the corresponding [system integration guide](https://www.seam.co/docs/device-and-system-integration-guides#access-control-systems).
     /// </summary>
     public sealed record AcsUser
     {
@@ -107,7 +107,7 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// Brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [JsonConverter(typeof(SeamStringEnumConverter))]
         public enum ExternalTypeEnum
@@ -555,37 +555,37 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// `starts_at` and `ends_at` timestamps for the [access system user&apos;s](https://docs.seam.co/low-level-apis/access-systems/user-management) access.
+        /// `starts_at` and `ends_at` timestamps for the [access system user&apos;s](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access.
         /// </summary>
         [JsonPropertyName("access_schedule")]
         public AcsUserAccessSchedule? AccessSchedule { get; init; }
 
         /// <summary>
-        /// ID of the [access system](https://docs.seam.co/low-level-apis/access-systems) that contains the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the [access system](https://www.seam.co/docs/low-level-apis/access-systems) that contains the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("acs_system_id")]
         public string AcsSystemId { get; init; } = default!;
 
         /// <summary>
-        /// ID of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("acs_user_id")]
         public string AcsUserId { get; init; } = default!;
 
         /// <summary>
-        /// The ID of the connected account that is associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// The ID of the connected account that is associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("connected_account_id")]
         public string ConnectedAccountId { get; init; } = default!;
 
         /// <summary>
-        /// Date and time at which the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) was created.
+        /// Date and time at which the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) was created.
         /// </summary>
         [JsonPropertyName("created_at")]
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// Display name for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Display name for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("display_name")]
         public string DisplayName { get; init; } = default!;
@@ -595,31 +595,31 @@ namespace Seam.Models
         public string? Email { get; init; }
 
         /// <summary>
-        /// Email address of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("email_address")]
         public string? EmailAddress { get; init; }
 
         /// <summary>
-        /// Errors associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Errors associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<AcsUserErrors> Errors { get; init; } = default!;
 
         /// <summary>
-        /// Brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [JsonPropertyName("external_type")]
         public AcsUser.ExternalTypeEnum? ExternalType { get; init; }
 
         /// <summary>
-        /// Display name that corresponds to the brand-specific terminology for the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) type.
+        /// Display name that corresponds to the brand-specific terminology for the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) type.
         /// </summary>
         [JsonPropertyName("external_type_display_name")]
         public string? ExternalTypeDisplayName { get; init; }
 
         /// <summary>
-        /// Full name of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Full name of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("full_name")]
         public string? FullName { get; init; }
@@ -637,67 +637,67 @@ namespace Seam.Models
         public bool IsManaged { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) is currently [suspended](https://docs.seam.co/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users).
+        /// Indicates whether the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) is currently [suspended](https://www.seam.co/docs/low-level-apis/access-systems/user-management/suspending-and-unsuspending-users).
         /// </summary>
         [JsonPropertyName("is_suspended")]
         public bool? IsSuspended { get; init; }
 
         /// <summary>
-        /// Pending mutations associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management). Seam is in the process of pushing these mutations to the integrated access system.
+        /// Pending mutations associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). Seam is in the process of pushing these mutations to the integrated access system.
         /// </summary>
         [JsonPropertyName("pending_mutations")]
         public List<AcsUserPendingMutations>? PendingMutations { get; init; }
 
         /// <summary>
-        /// Phone number of the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+        /// Phone number of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
         /// </summary>
         [JsonPropertyName("phone_number")]
         public string? PhoneNumber { get; init; }
 
         /// <summary>
-        /// Salto KS-specific metadata associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Salto KS-specific metadata associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("salto_ks_metadata")]
         public AcsUserSaltoKsMetadata? SaltoKsMetadata { get; init; }
 
         /// <summary>
-        /// Salto Space-specific metadata associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Salto Space-specific metadata associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("salto_space_metadata")]
         public AcsUserSaltoSpaceMetadata? SaltoSpaceMetadata { get; init; }
 
         /// <summary>
-        /// Email address of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Email address of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("user_identity_email_address")]
         public string? UserIdentityEmailAddress { get; init; }
 
         /// <summary>
-        /// Full name of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Full name of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("user_identity_full_name")]
         public string? UserIdentityFullName { get; init; }
 
         /// <summary>
-        /// ID of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("user_identity_id")]
         public string? UserIdentityId { get; init; }
 
         /// <summary>
-        /// Phone number of the user identity associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
+        /// Phone number of the user identity associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in E.164 format (for example, `+15555550100`).
         /// </summary>
         [JsonPropertyName("user_identity_phone_number")]
         public string? UserIdentityPhoneNumber { get; init; }
 
         /// <summary>
-        /// Warnings associated with the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Warnings associated with the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<AcsUserWarnings> Warnings { get; init; } = default!;
 
         /// <summary>
-        /// ID of the workspace that contains the [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// ID of the workspace that contains the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         [JsonPropertyName("workspace_id")]
         public string WorkspaceId { get; init; } = default!;

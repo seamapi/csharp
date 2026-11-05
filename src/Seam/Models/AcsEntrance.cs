@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents an [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) within an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents an [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) within an [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
     /// In an access control system, an entrance is a secured door, gate, zone, or other method of entry. You can list details for all the `acs_entrance` resources in your workspace or get these details for a specific `acs_entrance`. You can also list all entrances associated with a specific credential, and you can list all credentials associated with a specific entrance.
     /// </summary>
@@ -93,37 +93,37 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// ID of the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("acs_entrance_id")]
         public string AcsEntranceId { get; init; } = default!;
 
         /// <summary>
-        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems) that contains the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) that contains the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("acs_system_id")]
         public string AcsSystemId { get; init; } = default!;
 
         /// <summary>
-        /// Akiles-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Akiles-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("akiles_metadata")]
         public AcsEntranceAkilesMetadata? AkilesMetadata { get; init; }
 
         /// <summary>
-        /// ASSA ABLOY Vostio-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ASSA ABLOY Vostio-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("assa_abloy_vostio_metadata")]
         public AcsEntranceAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
 
         /// <summary>
-        /// Avigilon Alta-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Avigilon Alta-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("avigilon_alta_metadata")]
         public AcsEntranceAvigilonAltaMetadata? AvigilonAltaMetadata { get; init; }
 
         /// <summary>
-        /// Brivo-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Brivo-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("brivo_metadata")]
         public AcsEntranceBrivoMetadata? BrivoMetadata { get; init; }
@@ -159,67 +159,67 @@ namespace Seam.Models
         public bool? CanUnlockWithMobileKey { get; init; }
 
         /// <summary>
-        /// ID of the [connected account](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// ID of the [connected account](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("connected_account_id")]
         public string ConnectedAccountId { get; init; } = default!;
 
         /// <summary>
-        /// Date and time at which the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) was created.
+        /// Date and time at which the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) was created.
         /// </summary>
         [JsonPropertyName("created_at")]
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// Display name for the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Display name for the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("display_name")]
         public string DisplayName { get; init; } = default!;
 
         /// <summary>
-        /// dormakaba Ambiance-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// dormakaba Ambiance-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("dormakaba_ambiance_metadata")]
         public AcsEntranceDormakabaAmbianceMetadata? DormakabaAmbianceMetadata { get; init; }
 
         /// <summary>
-        /// dormakaba Community-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// dormakaba Community-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("dormakaba_community_metadata")]
         public AcsEntranceDormakabaCommunityMetadata? DormakabaCommunityMetadata { get; init; }
 
         /// <summary>
-        /// Errors associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Errors associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<AcsEntranceErrors> Errors { get; init; } = default!;
 
         /// <summary>
-        /// Hotek-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Hotek-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("hotek_metadata")]
         public AcsEntranceHotekMetadata? HotekMetadata { get; init; }
 
         /// <summary>
-        /// Indicates whether the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) is currently locked.
+        /// Indicates whether the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) is currently locked.
         /// </summary>
         [JsonPropertyName("is_locked")]
         public bool? IsLocked { get; init; }
 
         /// <summary>
-        /// Latch-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Latch-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("latch_metadata")]
         public AcsEntranceLatchMetadata? LatchMetadata { get; init; }
 
         /// <summary>
-        /// Salto KS-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Salto KS-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("salto_ks_metadata")]
         public AcsEntranceSaltoKsMetadata? SaltoKsMetadata { get; init; }
 
         /// <summary>
-        /// Salto Space-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Salto Space-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("salto_space_metadata")]
         public AcsEntranceSaltoSpaceMetadata? SaltoSpaceMetadata { get; init; }
@@ -231,13 +231,13 @@ namespace Seam.Models
         public List<string> SpaceIds { get; init; } = default!;
 
         /// <summary>
-        /// Visionline-specific metadata associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Visionline-specific metadata associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
         public AcsEntranceVisionlineMetadata? VisionlineMetadata { get; init; }
 
         /// <summary>
-        /// Warnings associated with the [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Warnings associated with the [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<AcsEntranceWarnings> Warnings { get; init; } = default!;

@@ -1121,6 +1121,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "device")]
                 Device = 3,
+
+                [EnumMember(Value = "acs_entrance")]
+                AcsEntrance = 4,
             }
 
             [JsonPropertyName("resource_id")]

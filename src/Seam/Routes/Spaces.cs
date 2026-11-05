@@ -41,7 +41,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Adds [entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) to a specific space.
+        /// Adds [entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) to a specific space.
         /// </summary>
         public async Task AddAcsEntrancesAsync(
             AddAcsEntrancesRequest request,
@@ -72,7 +72,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Adds a [connected account](https://docs.seam.co/core-concepts/connected-accounts) to a specific space.
+        /// Adds a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) to a specific space.
         /// </summary>
         public async Task AddConnectedAccountAsync(
             AddConnectedAccountRequest request,
@@ -549,7 +549,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Removes [entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) from a specific space.
+        /// Removes [entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) from a specific space.
         /// </summary>
         public async Task RemoveAcsEntrancesAsync(
             RemoveAcsEntrancesRequest request,
@@ -585,7 +585,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Removes a [connected account](https://docs.seam.co/core-concepts/connected-accounts) from a specific space.
+        /// Removes a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) from a specific space.
         /// </summary>
         public async Task RemoveConnectedAccountAsync(
             RemoveConnectedAccountRequest request,

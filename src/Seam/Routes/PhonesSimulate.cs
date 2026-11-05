@@ -147,7 +147,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new simulated phone in a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://docs.seam.co/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
+        /// Creates a new simulated phone in a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces). See also [Creating a Simulated Phone for a User Identity](https://www.seam.co/docs/capability-guides/mobile-access/developing-in-a-sandbox-workspace#creating-a-simulated-phone-for-a-user-identity).
         /// </summary>
         public async Task<Phone> CreateSandboxPhoneAsync(
             CreateSandboxPhoneRequest request,

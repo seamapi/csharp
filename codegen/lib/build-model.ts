@@ -785,17 +785,22 @@ const resolveModel = (
 const responseReturn = (
   response: Endpoint['response'],
   modelTypes: Set<string>,
+  routeClassName: string,
 ):
   | { returnType: string; returnProp: string; model: string; isList: boolean }
   | undefined => {
   if (response.responseType === 'void') return undefined
   const returnProp = pascalCase(response.responseKey)
-  const model = resolveModel(
+  const resolvedModel = resolveModel(
     response.resourceType,
     response.responseKey,
     modelTypes,
   )
-  if (model == null) return undefined
+  if (resolvedModel == null) return undefined
+  const model =
+    resolvedModel === routeClassName
+      ? `Seam.Models.${resolvedModel}`
+      : resolvedModel
   const isList = response.responseType === 'resource_list'
   const returnType = isList ? `List<${model}>` : model
   return { returnType, returnProp, model, isList }
@@ -813,6 +818,7 @@ const notGivenCondition = (property: CsProperty): string =>
 export const buildRoute = (
   endpoint: Endpoint,
   modelTypes: Set<string>,
+  routeClassName: string,
 ): CsRoute => {
   const methodName = pascalCase(endpoint.name)
   const httpMethod = pascalCase(endpoint.request.preferredMethod)
@@ -855,7 +861,7 @@ export const buildRoute = (
       : {}),
   }
 
-  const returned = responseReturn(endpoint.response, modelTypes)
+  const returned = responseReturn(endpoint.response, modelTypes, routeClassName)
 
   if (returned == null) {
     return {

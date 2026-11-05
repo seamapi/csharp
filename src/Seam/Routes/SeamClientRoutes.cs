@@ -30,6 +30,10 @@ namespace Seam
         /// <summary>The ActionAttempts route client.</summary>
         public Routes.ActionAttempts ActionAttempts =>
             _actionAttempts ??= new(Transport, WaitForActionAttemptDefault);
+        private Routes.Cameras? _cameras;
+
+        /// <summary>The Cameras route client.</summary>
+        public Routes.Cameras Cameras => _cameras ??= new(Transport, WaitForActionAttemptDefault);
         private Routes.ClientSessions? _clientSessions;
 
         /// <summary>The ClientSessions route client.</summary>
@@ -67,6 +71,10 @@ namespace Seam
 
         /// <summary>The Locks route client.</summary>
         public Routes.Locks Locks => _locks ??= new(Transport, WaitForActionAttemptDefault);
+        private Routes.Media? _media;
+
+        /// <summary>The Media route client.</summary>
+        public Routes.Media Media => _media ??= new(Transport, WaitForActionAttemptDefault);
         private Routes.NoiseSensors? _noiseSensors;
 
         /// <summary>The NoiseSensors route client.</summary>

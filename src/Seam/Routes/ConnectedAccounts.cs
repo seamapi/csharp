@@ -41,7 +41,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Deletes a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         ///
         /// Deleting a connected account triggers a `connected_account.deleted` event and removes the connected account and all data associated with the connected account from Seam, including devices, events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
         ///
@@ -100,7 +100,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a specified [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<ConnectedAccount> GetAsync(
             GetRequest request,
@@ -184,7 +184,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [connected accounts](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Returns a list of all [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task<List<ConnectedAccount>> ListAsync(
             ListRequest? request = null,
@@ -254,7 +254,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Request a [connected account](https://docs.seam.co/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
+        /// Request a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts) sync attempt for the specified `connected_account_id`.
         /// </summary>
         public async Task SyncAsync(
             SyncRequest request,
@@ -303,7 +303,7 @@ namespace Seam.Routes
             public List<UpdateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; init; }
 
             /// <summary>
-            /// Indicates whether newly-added devices should appear as [managed devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices).
+            /// Indicates whether newly-added devices should appear as [managed devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
             /// </summary>
             [JsonPropertyName("automatically_manage_new_devices")]
             public bool? AutomaticallyManageNewDevices { get; init; }
@@ -315,7 +315,7 @@ namespace Seam.Routes
             public required string ConnectedAccountId { get; init; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the connected account. Entirely replaces the existing custom metadata object. If a new Connect Webview contains custom metadata and is used to reconnect a connected account, the custom metadata from the Connect Webview will entirely replace the entire custom metadata object on the connected account. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter connected accounts by the desired metadata](https://docs.seam.co/core-concepts/connected-accounts/filtering-connected-accounts-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// Custom metadata that you want to associate with the connected account. Entirely replaces the existing custom metadata object. If a new Connect Webview contains custom metadata and is used to reconnect a connected account, the custom metadata from the Connect Webview will entirely replace the entire custom metadata object on the connected account. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account) enables you to store custom information, like customer details or internal IDs from your application. Then, you can [filter connected accounts by the desired metadata](https://www.seam.co/docs/core-concepts/connected-accounts/filtering-connected-accounts-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [JsonPropertyName("custom_metadata")]
             public object? CustomMetadata { get; init; }
@@ -334,7 +334,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a [connected account](https://docs.seam.co/core-concepts/connected-accounts).
+        /// Updates a [connected account](https://www.seam.co/docs/core-concepts/connected-accounts).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,

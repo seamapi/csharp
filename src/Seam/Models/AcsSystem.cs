@@ -10,11 +10,11 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents an [access control system](https://docs.seam.co/low-level-apis/access-systems).
+    /// Represents an [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
     ///
-    /// Within an `acs_system`, create [`acs_user`s](https://docs.seam.co/api/acs/users/object) and [`acs_credential`s](https://docs.seam.co/api/acs/credentials/object) to grant access to the `acs_user`s.
+    /// Within an `acs_system`, create [`acs_user`s](https://www.seam.co/docs/api/acs/users/object) and [`acs_credential`s](https://www.seam.co/docs/api/acs/credentials/object) to grant access to the `acs_user`s.
     ///
-    /// For details about the resources associated with an access control system, see the [access control systems namespace](https://docs.seam.co/api/acs).
+    /// For details about the resources associated with an access control system, see the [access control systems namespace](https://www.seam.co/docs/api/acs/object).
     /// </summary>
     public sealed record AcsSystem
     {
@@ -78,7 +78,7 @@ namespace Seam.Models
             public override string ErrorCode { get; } = "bridge_disconnected";
 
             /// <summary>
-            /// Indicates whether the error is related to the [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to the [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [JsonPropertyName("is_bridge_error")]
             public bool? IsBridgeError { get; init; }
@@ -137,7 +137,7 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [JsonConverter(typeof(SeamStringEnumConverter))]
         public enum ExternalTypeEnum
@@ -332,74 +332,74 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// Number of access groups in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Number of access groups in the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("acs_access_group_count")]
         public float? AcsAccessGroupCount { get; init; }
 
         /// <summary>
-        /// ID of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("acs_system_id")]
         public string AcsSystemId { get; init; } = default!;
 
         /// <summary>
-        /// Number of users in the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Number of users in the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("acs_user_count")]
         public float? AcsUserCount { get; init; }
 
         /// <summary>
-        /// ID of the connected account associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the connected account associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("connected_account_id")]
         public string ConnectedAccountId { get; init; } = default!;
 
         /// <summary>
-        /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [Obsolete("Use `connected_account_id`.")]
         [JsonPropertyName("connected_account_ids")]
         public List<string> ConnectedAccountIds { get; init; } = default!;
 
         /// <summary>
-        /// Date and time at which the [access control system](https://docs.seam.co/low-level-apis/access-systems) was created.
+        /// Date and time at which the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) was created.
         /// </summary>
         [JsonPropertyName("created_at")]
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// ID of the default credential manager `acs_system` for this [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the default credential manager `acs_system` for this [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("default_credential_manager_acs_system_id")]
         public string? DefaultCredentialManagerAcsSystemId { get; init; }
 
         /// <summary>
-        /// Errors associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Errors associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<AcsSystemErrors> Errors { get; init; } = default!;
 
         /// <summary>
-        /// Brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [JsonPropertyName("external_type")]
         public AcsSystem.ExternalTypeEnum? ExternalType { get; init; }
 
         /// <summary>
-        /// Display name that corresponds to the brand-specific terminology for the [access control system](https://docs.seam.co/low-level-apis/access-systems) type.
+        /// Display name that corresponds to the brand-specific terminology for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) type.
         /// </summary>
         [JsonPropertyName("external_type_display_name")]
         public string? ExternalTypeDisplayName { get; init; }
 
         /// <summary>
-        /// Alternative text for the [access control system](https://docs.seam.co/low-level-apis/access-systems) image.
+        /// Alternative text for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) image.
         /// </summary>
         [JsonPropertyName("image_alt_text")]
         public string ImageAltText { get; init; } = default!;
 
         /// <summary>
-        /// URL for the image that represents the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// URL for the image that represents the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("image_url")]
         public string ImageUrl { get; init; } = default!;
@@ -411,13 +411,13 @@ namespace Seam.Models
         public bool IsCredentialManager { get; init; } = default!;
 
         /// <summary>
-        /// Location information for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Location information for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("location")]
         public AcsSystemLocation Location { get; init; } = default!;
 
         /// <summary>
-        /// Name of the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Name of the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; init; } = default!;
@@ -431,19 +431,19 @@ namespace Seam.Models
         public string? SystemTypeDisplayName { get; init; }
 
         /// <summary>
-        /// Visionline-specific metadata for the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Visionline-specific metadata for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("visionline_metadata")]
         public AcsSystemVisionlineMetadata? VisionlineMetadata { get; init; }
 
         /// <summary>
-        /// Warnings associated with the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// Warnings associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<AcsSystemWarnings> Warnings { get; init; } = default!;
 
         /// <summary>
-        /// ID of the workspace that contains the [access control system](https://docs.seam.co/low-level-apis/access-systems).
+        /// ID of the workspace that contains the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
         /// </summary>
         [JsonPropertyName("workspace_id")]
         public string WorkspaceId { get; init; } = default!;
@@ -452,7 +452,7 @@ namespace Seam.Models
     public sealed record AcsSystemLocation
     {
         /// <summary>
-        /// Time zone in which the [access control system](https://docs.seam.co/low-level-apis/access-systems) is located.
+        /// Time zone in which the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) is located.
         /// </summary>
         [JsonPropertyName("time_zone")]
         public string? TimeZone { get; init; }
@@ -461,7 +461,7 @@ namespace Seam.Models
     public sealed record AcsSystemVisionlineMetadata
     {
         /// <summary>
-        /// IP address or hostname of the main Visionline server relative to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge) on the local network.
+        /// IP address or hostname of the main Visionline server relative to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge) on the local network.
         /// </summary>
         [JsonPropertyName("lan_address")]
         public string? LanAddress { get; init; }

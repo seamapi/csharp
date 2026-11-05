@@ -56,7 +56,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with no filters.
+            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://www.seam.co/docs/api/devices/list_device_providers) with no filters.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum AcceptedProvidersEnum
@@ -157,120 +157,132 @@ namespace Seam.Routes
                 [EnumMember(Value = "dormakaba_oracode")]
                 DormakabaOracode = 31,
 
+                [EnumMember(Value = "dormakaba_oracode_iho")]
+                DormakabaOracodeIho = 32,
+
                 [EnumMember(Value = "pti")]
-                Pti = 32,
+                Pti = 33,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 33,
+                Wyze = 34,
 
                 [EnumMember(Value = "seam_passport")]
-                SeamPassport = 34,
+                SeamPassport = 35,
 
                 [EnumMember(Value = "visionline")]
-                Visionline = 35,
+                Visionline = 36,
 
                 [EnumMember(Value = "assa_abloy_credential_service")]
-                AssaAbloyCredentialService = 36,
+                AssaAbloyCredentialService = 37,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 37,
+                Tedee = 38,
 
                 [EnumMember(Value = "honeywell_resideo")]
-                HoneywellResideo = 38,
+                HoneywellResideo = 39,
 
                 [EnumMember(Value = "first_alert")]
-                FirstAlert = 39,
+                FirstAlert = 40,
 
                 [EnumMember(Value = "latch")]
-                Latch = 40,
+                Latch = 41,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 41,
+                Akiles = 42,
 
                 [EnumMember(Value = "assa_abloy_vostio")]
-                AssaAbloyVostio = 42,
+                AssaAbloyVostio = 43,
 
                 [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-                AssaAbloyVostioCredentialService = 43,
+                AssaAbloyVostioCredentialService = 44,
 
                 [EnumMember(Value = "tado")]
-                Tado = 44,
+                Tado = 45,
 
                 [EnumMember(Value = "salto_space")]
-                SaltoSpace = 45,
+                SaltoSpace = 46,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 46,
+                Sensi = 47,
 
                 [EnumMember(Value = "keynest")]
-                Keynest = 47,
+                Keynest = 48,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 48,
+                Korelock = 49,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 49,
+                Keyincode = 50,
 
                 [EnumMember(Value = "dormakaba_ambiance")]
-                DormakabaAmbiance = 50,
+                DormakabaAmbiance = 51,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 51,
+                Ultraloq = 52,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 52,
+                Yacan = 53,
 
                 [EnumMember(Value = "dusaw")]
-                Dusaw = 53,
+                Dusaw = 54,
 
                 [EnumMember(Value = "sifely")]
-                Sifely = 54,
+                Sifely = 55,
 
                 [EnumMember(Value = "thirty_three_lock")]
-                ThirtyThreeLock = 55,
+                ThirtyThreeLock = 56,
 
                 [EnumMember(Value = "ring")]
-                Ring = 56,
+                Ring = 57,
+
+                [EnumMember(Value = "tapo")]
+                Tapo = 58,
+
+                [EnumMember(Value = "arlo")]
+                Arlo = 59,
+
+                [EnumMember(Value = "reolink")]
+                Reolink = 60,
 
                 [EnumMember(Value = "ical")]
-                Ical = 57,
+                Ical = 61,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 58,
+                Lodgify = 62,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 59,
+                Hostaway = 63,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 60,
+                Guesty = 64,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 61,
+                AcuityScheduling = 65,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 62,
+                Omnitec = 66,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 63,
+                Kisi = 67,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 64,
+                Aqara = 68,
 
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 65,
+                YaleAccess = 69,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 66,
+                HidCm = 70,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 67,
+                GoogleNest = 71,
 
                 [EnumMember(Value = "slack")]
-                Slack = 68,
+                Slack = 72,
             }
 
             /// <summary>
-            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with the desired `provider_category` filter.
+            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://www.seam.co/docs/api/devices/list_device_providers) with the desired `provider_category` filter.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum ProviderCategoryEnum
@@ -313,19 +325,19 @@ namespace Seam.Routes
             public List<CreateRequest.AcceptedCapabilitiesEnum>? AcceptedCapabilities { get; init; }
 
             /// <summary>
-            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with no filters.
+            /// Accepted device provider keys as an alternative to `provider_category`. Use this parameter to specify accepted providers explicitly. See [Customize the Brands to Display in Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews). To list all provider keys, use [`/devices/list_device_providers`](https://www.seam.co/docs/api/devices/list_device_providers) with no filters.
             /// </summary>
             [JsonPropertyName("accepted_providers")]
             public List<CreateRequest.AcceptedProvidersEnum>? AcceptedProviders { get; init; }
 
             /// <summary>
-            /// Indicates whether newly-added devices should appear as [managed devices](https://docs.seam.co/core-concepts/devices/managed-and-unmanaged-devices). See also: [Customize the Behavior Settings of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
+            /// Indicates whether newly-added devices should appear as [managed devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices). See also: [Customize the Behavior Settings of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("automatically_manage_new_devices")]
             public bool? AutomaticallyManageNewDevices { get; init; }
 
             /// <summary>
-            /// Custom metadata that you want to associate with the Connect Webview. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview) enables you to store custom information, like customer details or internal IDs from your application. The custom metadata is then transferred to any [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) that were connected using the Connect Webview, making it easy to find and filter these resources in your [workspace](https://docs.seam.co/core-concepts/workspaces). You can also [filter Connect Webviews by custom metadata](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// Custom metadata that you want to associate with the Connect Webview. Supports up to 50 JSON key:value pairs, with key names up to 40 characters long that cannot contain a period (.). [Adding custom metadata to a Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview) enables you to store custom information, like customer details or internal IDs from your application. The custom metadata is then transferred to any [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) that were connected using the Connect Webview, making it easy to find and filter these resources in your [workspace](https://www.seam.co/docs/core-concepts/workspaces). You can also [filter Connect Webviews by custom metadata](https://www.seam.co/docs/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Set a key to `null` or to an empty string to remove that key from the custom metadata.
             /// </summary>
             [JsonPropertyName("custom_metadata")]
             public object? CustomMetadata { get; init; }
@@ -355,13 +367,13 @@ namespace Seam.Routes
             public List<string>? ExcludedProviders { get; init; }
 
             /// <summary>
-            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://docs.seam.co/api/devices/list_device_providers) with the desired `provider_category` filter.
+            /// Specifies the category of providers that you want to include. To list all providers within a category, use [`/devices/list_device_providers`](https://www.seam.co/docs/api/devices/list_device_providers) with the desired `provider_category` filter.
             /// </summary>
             [JsonPropertyName("provider_category")]
             public CreateRequest.ProviderCategoryEnum? ProviderCategory { get; init; }
 
             /// <summary>
-            /// Indicates whether Seam should finish syncing all devices in a newly-connected account before completing the associated Connect Webview. See also: [Customize the Behavior Settings of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
+            /// Indicates whether Seam should finish syncing all devices in a newly-connected account before completing the associated Connect Webview. See also: [Customize the Behavior Settings of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-behavior-settings-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("wait_for_device_creation")]
             public bool? WaitForDeviceCreation { get; init; }
@@ -377,13 +389,13 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        /// Creates a new [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews).
         ///
         /// To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
         ///
         /// You should make a new `connect_webview` for each unique login request. Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
         ///
-        /// See also: [Connect Webview Process](https://docs.seam.co/core-concepts/connect-webviews/connect-webview-process).
+        /// See also: [Connect Webview Process](https://www.seam.co/docs/core-concepts/connect-webviews/connect-webview-process).
         /// </summary>
         public async Task<ConnectWebview> CreateAsync(
             CreateRequest? request = null,
@@ -415,7 +427,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        /// Deletes a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews).
         ///
         /// You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.
         /// </summary>
@@ -456,7 +468,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+        /// Returns a specified [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews).
         ///
         /// Unless you&apos;re using a `custom_redirect_url`, you should poll a newly-created `connect_webview` to find out if the user has signed in or to get details about what devices they&apos;ve connected.
         /// </summary>
@@ -483,7 +495,7 @@ namespace Seam.Routes
         public sealed record ListRequest
         {
             /// <summary>
-            /// Custom metadata pairs by which you want to [filter Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Returns Connect Webviews with `custom_metadata` that contains all of the provided key:value pairs. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
+            /// Custom metadata pairs by which you want to [filter Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/filtering-connect-webviews-by-custom-metadata). Returns Connect Webviews with `custom_metadata` that contains all of the provided key:value pairs. Key names cannot contain a period (.). Specify `null` to match a key that is unset. A key given an empty string is omitted from the filter.
             /// </summary>
             [JsonPropertyName("custom_metadata_has")]
             public object? CustomMetadataHas { get; init; }
@@ -535,7 +547,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews).
+        /// Returns a list of all [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews).
         /// </summary>
         public async Task<List<ConnectWebview>> ListAsync(
             ListRequest? request = null,

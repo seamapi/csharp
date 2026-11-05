@@ -37,7 +37,7 @@ namespace Seam.Models
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// Optional [custom metadata](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device) for the phone.
+        /// Optional [custom metadata](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device) for the phone.
         /// </summary>
         [JsonPropertyName("custom_metadata")]
         public object CustomMetadata { get; init; } = default!;

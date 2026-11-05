@@ -252,6 +252,14 @@ namespace Seam.Models
             typeof(AccessMethodWarningsPulledBackupAccessCode)
         )]
         [SeamUnionVariant("delay_in_issuing", typeof(AccessMethodWarningsDelayInIssuing))]
+        [SeamUnionVariant(
+            "user_identity_missing_email_address",
+            typeof(AccessMethodWarningsUserIdentityMissingEmailAddress)
+        )]
+        [SeamUnionVariant(
+            "user_identity_missing_phone_number",
+            typeof(AccessMethodWarningsUserIdentityMissingPhoneNumber)
+        )]
         [SeamUnionFallback(typeof(AccessMethodWarningsUnrecognized))]
         public abstract record AccessMethodWarnings
         {
@@ -299,6 +307,20 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "delay_in_issuing";
+        }
+
+        public sealed record AccessMethodWarningsUserIdentityMissingEmailAddress
+            : AccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "user_identity_missing_email_address";
+        }
+
+        public sealed record AccessMethodWarningsUserIdentityMissingPhoneNumber
+            : AccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "user_identity_missing_phone_number";
         }
 
         public sealed record AccessMethodWarningsUnrecognized
@@ -356,7 +378,7 @@ namespace Seam.Models
         public string DisplayStatus { get; init; } = default!;
 
         /// <summary>
-        /// Errors associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// Errors associated with the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<AccessMethodErrors> Errors { get; init; } = default!;
@@ -410,13 +432,13 @@ namespace Seam.Models
         public AccessMethod.ModeEnum Mode { get; init; } = default!;
 
         /// <summary>
-        /// Pending mutations for the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
+        /// Pending mutations for the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant). Indicates operations that are in progress.
         /// </summary>
         [JsonPropertyName("pending_mutations")]
         public List<AccessMethodPendingMutations> PendingMutations { get; init; } = default!;
 
         /// <summary>
-        /// Warnings associated with the [access method](https://docs.seam.co/use-cases/granting-access/creating-an-access-grant).
+        /// Warnings associated with the [access method](https://www.seam.co/docs/use-cases/granting-access/creating-an-access-grant).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<AccessMethodWarnings> Warnings { get; init; } = default!;

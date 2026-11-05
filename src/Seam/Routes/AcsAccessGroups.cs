@@ -50,7 +50,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Adds a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) to a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Adds a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) to a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task AddUserAsync(
             AddUserRequest request,
@@ -80,7 +80,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Deletes a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -119,7 +119,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<AcsAccessGroup> GetAsync(
             GetRequest request,
@@ -178,7 +178,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [access groups](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access groups](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsAccessGroup>> ListAsync(
             ListRequest? request = null,
@@ -219,7 +219,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all accessible entrances for a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all accessible entrances for a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request,
@@ -260,7 +260,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [access system users](https://docs.seam.co/low-level-apis/access-systems/user-management) in an [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Returns a list of all [access system users](https://www.seam.co/docs/low-level-apis/access-systems/user-management) in an [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task<List<AcsUser>> ListUsersAsync(
             ListUsersRequest request,
@@ -304,7 +304,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Removes a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) from a specified [access group](https://docs.seam.co/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
+        /// Removes a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) from a specified [access group](https://www.seam.co/docs/low-level-apis/access-systems/user-management/assigning-users-to-access-groups).
         /// </summary>
         public async Task RemoveUserAsync(
             RemoveUserRequest request,

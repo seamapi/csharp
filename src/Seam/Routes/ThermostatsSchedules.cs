@@ -31,7 +31,7 @@ namespace Seam.Routes
         public sealed record CreateRequest
         {
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the new thermostat schedule.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the new thermostat schedule.
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public required string ClimatePresetKey { get; init; }
@@ -49,13 +49,13 @@ namespace Seam.Routes
             public required string EndsAt { get; init; }
 
             /// <summary>
-            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the new schedule is active. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the new schedule is active. See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
             /// </summary>
             [JsonPropertyName("is_override_allowed")]
             public bool? IsOverrideAllowed { get; init; }
 
             /// <summary>
-            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
             /// </summary>
             [JsonPropertyName("max_override_period_minutes")]
             public Optional<int> MaxOverridePeriodMinutes { get; init; }
@@ -83,7 +83,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Creates a new [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<ThermostatSchedule> CreateAsync(
             CreateRequest request,
@@ -115,7 +115,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Deletes a [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -154,7 +154,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// Returns a specified [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         public async Task<ThermostatSchedule> GetAsync(
             GetRequest request,
@@ -201,7 +201,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [thermostat schedules](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Returns a list of all [thermostat schedules](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<List<ThermostatSchedule>> ListAsync(
             ListRequest request,
@@ -226,7 +226,7 @@ namespace Seam.Routes
         public sealed record UpdateRequest
         {
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the thermostat schedule.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the thermostat schedule.
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public string? ClimatePresetKey { get; init; }
@@ -238,13 +238,13 @@ namespace Seam.Routes
             public string? EndsAt { get; init; }
 
             /// <summary>
-            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the schedule is active. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings while the schedule is active. See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
             /// </summary>
             [JsonPropertyName("is_override_allowed")]
             public bool? IsOverrideAllowed { get; init; }
 
             /// <summary>
-            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// Number of minutes for which a person at the thermostat or using the API can change the thermostat&apos;s settings after the activation of the scheduled climate preset. See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
             /// </summary>
             [JsonPropertyName("max_override_period_minutes")]
             public Optional<int> MaxOverridePeriodMinutes { get; init; }
@@ -269,7 +269,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a specified [thermostat schedule](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// Updates a specified [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,

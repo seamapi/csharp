@@ -57,13 +57,13 @@ namespace Seam.Routes
             public Optional<string> ConnectPartnerName { get; init; }
 
             /// <summary>
-            /// [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) customizations for the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews) customizations for the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("connect_webview_customization")]
             public CreateRequestConnectWebviewCustomization? ConnectWebviewCustomization { get; init; }
 
             /// <summary>
-            /// Indicates whether the new workspace is a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+            /// Indicates whether the new workspace is a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
             /// </summary>
             [JsonPropertyName("is_sandbox")]
             public bool? IsSandbox { get; init; }
@@ -75,7 +75,7 @@ namespace Seam.Routes
             public required string Name { get; init; }
 
             /// <summary>
-            /// ID of the organization to associate with the new workspace.
+            /// ID of the organization to associate with the new workspace. If omitted, the new workspace is associated with the organization that you administer, if you administer exactly one. If you administer no organization, Seam creates one for you and associates the new workspace with it.
             /// </summary>
             [JsonPropertyName("organization_id")]
             public string? OrganizationId { get; init; }
@@ -102,7 +102,7 @@ namespace Seam.Routes
         public sealed record CreateRequestConnectWebviewCustomization
         {
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum LogoShapeEnum
@@ -118,25 +118,25 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("logo_shape")]
             public Optional<CreateRequestConnectWebviewCustomization.LogoShapeEnum> LogoShape { get; init; }
 
             /// <summary>
-            /// Primary button color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("primary_button_color")]
             public Optional<string> PrimaryButtonColor { get; init; }
 
             /// <summary>
-            /// Primary button text color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button text color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("primary_button_text_color")]
             public Optional<string> PrimaryButtonTextColor { get; init; }
 
             /// <summary>
-            /// Success message for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Success message for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the new workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("success_message")]
             public Optional<string> SuccessMessage { get; init; }
@@ -152,7 +152,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Creates a new [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         public async Task<Workspace> CreateAsync(
             CreateRequest request,
@@ -186,7 +186,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<Workspace> GetAsync(
             GetRequest? request = null,
@@ -220,7 +220,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of [workspaces](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Returns a list of [workspaces](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task<List<Workspace>> ListAsync(
             ListRequest? request = null,
@@ -254,7 +254,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Resets the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
+        /// Resets the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) associated with the authentication value. Note that this endpoint is only available for sandbox workspaces.
         /// </summary>
         public async Task<ActionAttempt> ResetSandboxAsync(
             ResetSandboxRequest? request = null,
@@ -294,7 +294,7 @@ namespace Seam.Routes
             public string? ConnectPartnerName { get; init; }
 
             /// <summary>
-            /// [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews) customizations for the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews) customizations for the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("connect_webview_customization")]
             public UpdateRequestConnectWebviewCustomization? ConnectWebviewCustomization { get; init; }
@@ -327,7 +327,7 @@ namespace Seam.Routes
         public sealed record UpdateRequestConnectWebviewCustomization
         {
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum LogoShapeEnum
@@ -343,32 +343,32 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("logo_shape")]
             public Optional<UpdateRequestConnectWebviewCustomization.LogoShapeEnum> LogoShape { get; init; }
 
             /// <summary>
-            /// Primary button color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("primary_button_color")]
             public Optional<string> PrimaryButtonColor { get; init; }
 
             /// <summary>
-            /// Primary button text color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Primary button text color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("primary_button_text_color")]
             public Optional<string> PrimaryButtonTextColor { get; init; }
 
             /// <summary>
-            /// Success message for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+            /// Success message for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
             /// </summary>
             [JsonPropertyName("success_message")]
             public Optional<string> SuccessMessage { get; init; }
         }
 
         /// <summary>
-        /// Updates the [workspace](https://docs.seam.co/core-concepts/workspaces) associated with the authentication value.
+        /// Updates the [workspace](https://www.seam.co/docs/core-concepts/workspaces) associated with the authentication value.
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest? request = null,

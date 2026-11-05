@@ -433,7 +433,7 @@ namespace Seam.Models
         public string? EndsAt { get; init; }
 
         /// <summary>
-        /// Errors associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Errors associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<UnmanagedAccessGrantErrors> Errors { get; init; } = default!;
@@ -487,7 +487,7 @@ namespace Seam.Models
         public string? UserIdentityId { get; init; }
 
         /// <summary>
-        /// Warnings associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Warnings associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<UnmanagedAccessGrantWarnings> Warnings { get; init; } = default!;

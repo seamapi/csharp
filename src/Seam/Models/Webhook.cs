@@ -10,24 +10,24 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents a [webhook](https://docs.seam.co/developer-tools/webhooks) that enables you to receive notifications of events. When you create a webhook, specify the endpoint URL at which you want to receive events and the set of event types that you want to receive.
+    /// Represents a [webhook](https://www.seam.co/docs/developer-tools/webhooks) that enables you to receive notifications of events. When you create a webhook, specify the endpoint URL at which you want to receive events and the set of event types that you want to receive.
     /// </summary>
     public sealed record Webhook
     {
         /// <summary>
-        /// Types of events that the [webhook](https://docs.seam.co/developer-tools/webhooks) should receive.
+        /// Types of events that the [webhook](https://www.seam.co/docs/developer-tools/webhooks) should receive.
         /// </summary>
         [JsonPropertyName("event_types")]
         public List<string>? EventTypes { get; init; }
 
         /// <summary>
-        /// Secret associated with the [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Secret associated with the [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         [JsonPropertyName("secret")]
         public string? Secret { get; init; }
 
         /// <summary>
-        /// URL for the [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// URL for the [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         [JsonPropertyName("url")]
         public string Url { get; init; } = default!;

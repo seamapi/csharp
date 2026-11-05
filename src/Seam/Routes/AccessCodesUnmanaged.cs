@@ -37,7 +37,7 @@ namespace Seam.Routes
             public required string AccessCodeId { get; init; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
             /// </summary>
             [JsonPropertyName("allow_external_modification")]
             public bool? AllowExternalModification { get; init; }
@@ -49,14 +49,14 @@ namespace Seam.Routes
             public bool? Force { get; init; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the access code is allowed.
             /// </summary>
             [JsonPropertyName("is_external_modification_allowed")]
             public bool? IsExternalModificationAllowed { get; init; }
         }
 
         /// <summary>
-        /// Converts an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Converts an [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes) to an [access code managed through Seam](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
         /// An unmanaged access code has a limited set of operations that you can perform on it. Once you convert an unmanaged access code to a managed access code, the full set of access code operations and lifecycle events becomes available for it.
         ///
@@ -90,7 +90,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes an [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// Deletes an [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -151,7 +151,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// Returns a specified [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
         ///
         /// You must specify either `access_code_id` or both `device_id` and `code`.
         /// </summary>
@@ -225,7 +225,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [unmanaged access codes](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// Returns a list of all [unmanaged access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
         /// </summary>
         public async Task<List<UnmanagedAccessCode>> ListAsync(
             ListRequest request,
@@ -289,7 +289,7 @@ namespace Seam.Routes
             public required string AccessCodeId { get; init; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
             /// </summary>
             [JsonPropertyName("allow_external_modification")]
             public bool? AllowExternalModification { get; init; }
@@ -301,7 +301,7 @@ namespace Seam.Routes
             public bool? Force { get; init; }
 
             /// <summary>
-            /// Indicates whether [external modification](https://docs.seam.co/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
+            /// Indicates whether [external modification](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes#external-modification) of the code is allowed.
             /// </summary>
             [JsonPropertyName("is_external_modification_allowed")]
             public bool? IsExternalModificationAllowed { get; init; }
@@ -311,7 +311,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a specified [unmanaged access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+        /// Updates a specified [unmanaged access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,

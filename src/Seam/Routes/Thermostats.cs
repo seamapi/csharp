@@ -62,7 +62,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Activates a specified [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Activates a specified [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<ActionAttempt> ActivateClimatePresetAsync(
             ActivateClimatePresetRequest request,
@@ -91,18 +91,68 @@ namespace Seam.Routes
         }
 
         /// <summary>
+        /// Request parameters for Activate the Weekly Program.
+        /// </summary>
+        public sealed record ActivateWeeklyProgramRequest
+        {
+            /// <summary>
+            /// ID of the thermostat device that you want to return to its weekly program.
+            /// </summary>
+            [JsonPropertyName("device_id")]
+            public required string DeviceId { get; init; }
+        }
+
+        public sealed record ActivateWeeklyProgramResponse
+        {
+            /// <summary>
+            /// OK
+            /// </summary>
+            [JsonPropertyName("action_attempt")]
+            public ActionAttempt? ActionAttempt { get; init; }
+        }
+
+        /// <summary>
+        /// Returns a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats) to its [weekly program](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-programs), the schedule that is configured on the device itself, releasing any hold that Seam has set. Seam stops managing the thermostat&apos;s climate until you [activate a climate preset](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings), make a direct climate setting change, or one of the thermostat&apos;s [scheduled](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) presets reaches its activation time.
+        /// </summary>
+        public async Task<ActionAttempt> ActivateWeeklyProgramAsync(
+            ActivateWeeklyProgramRequest request,
+            ActionAttemptWait? waitForActionAttempt = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var response = await _transport
+                .SendAsync<ActivateWeeklyProgramResponse>(
+                    HttpMethod.Post,
+                    "/thermostats/activate_weekly_program",
+                    request,
+                    "action_attempt",
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
+            var actionAttempt = response.Read(r => r.ActionAttempt);
+            return await ActionAttemptResolver
+                .ResolveAsync(
+                    actionAttempt,
+                    _transport,
+                    waitForActionAttempt ?? _waitForActionAttemptDefault,
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Request parameters for Set to Cool Mode.
         /// </summary>
         public sealed record CoolRequest
         {
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -124,7 +174,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a specified [thermostat](https://docs.seam.co/capability-guides/thermostats) to [cool mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings).
+        /// Sets a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats) to [cool mode](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings).
         /// </summary>
         public async Task<ActionAttempt> CoolAsync(
             CoolRequest request,
@@ -186,7 +236,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+            /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum FanModeSettingEnum
@@ -205,7 +255,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+            /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum HvacModeSettingEnum
@@ -230,7 +280,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Unique key to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+            /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public required string ClimatePresetKey { get; init; }
@@ -242,13 +292,13 @@ namespace Seam.Routes
             public CreateClimatePresetRequest.ClimatePresetModeEnum? ClimatePresetMode { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -266,25 +316,25 @@ namespace Seam.Routes
             public CreateClimatePresetRequestEcobeeMetadata? EcobeeMetadata { get; init; }
 
             /// <summary>
-            /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+            /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
             /// </summary>
             [JsonPropertyName("fan_mode_setting")]
             public CreateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
 
             /// <summary>
-            /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+            /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
             /// </summary>
             [JsonPropertyName("hvac_mode_setting")]
             public CreateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; init; }
@@ -297,7 +347,7 @@ namespace Seam.Routes
             public bool? ManualOverrideAllowed { get; init; }
 
             /// <summary>
-            /// User-friendly name to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+            /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
             /// </summary>
             [JsonPropertyName("name")]
             public Optional<string> Name { get; init; }
@@ -341,7 +391,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Creates a [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task CreateClimatePresetAsync(
             CreateClimatePresetRequest request,
@@ -377,7 +427,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a specified [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Deletes a specified [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task DeleteClimatePresetAsync(
             DeleteClimatePresetRequest request,
@@ -406,13 +456,13 @@ namespace Seam.Routes
             public required string DeviceId { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
@@ -428,7 +478,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a specified [thermostat](https://docs.seam.co/capability-guides/thermostats) to [heat mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings).
+        /// Sets a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats) to [heat mode](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings).
         /// </summary>
         public async Task<ActionAttempt> HeatAsync(
             HeatRequest request,
@@ -462,13 +512,13 @@ namespace Seam.Routes
         public sealed record HeatCoolRequest
         {
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -480,13 +530,13 @@ namespace Seam.Routes
             public required string DeviceId { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
@@ -502,7 +552,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a specified [thermostat](https://docs.seam.co/capability-guides/thermostats) to [heat-cool (&quot;auto&quot;) mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings).
+        /// Sets a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats) to [heat-cool (&quot;auto&quot;) mode](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings).
         /// </summary>
         public async Task<ActionAttempt> HeatCoolAsync(
             HeatCoolRequest request,
@@ -666,7 +716,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [thermostats](https://docs.seam.co/capability-guides/thermostats).
+        /// Returns a list of all [thermostats](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<List<Device>> ListAsync(
             ListRequest? request = null,
@@ -707,7 +757,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a specified [thermostat](https://docs.seam.co/capability-guides/thermostats) to [&quot;off&quot; mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings).
+        /// Sets a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats) to [&quot;off&quot; mode](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings).
         /// </summary>
         public async Task<ActionAttempt> OffAsync(
             OffRequest request,
@@ -754,7 +804,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a specified [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) as the [&quot;fallback&quot;](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets/setting-the-fallback-climate-preset) preset for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Sets a specified [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) as the [&quot;fallback&quot;](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets/setting-the-fallback-climate-preset) preset for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task SetFallbackClimatePresetAsync(
             SetFallbackClimatePresetRequest request,
@@ -796,7 +846,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// [Fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) that you want to set for the thermostat.
+            /// [Fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) that you want to set for the thermostat.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum FanModeSettingEnum
@@ -828,7 +878,7 @@ namespace Seam.Routes
             public SetFanModeRequest.FanModeEnum? FanMode { get; init; }
 
             /// <summary>
-            /// [Fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) that you want to set for the thermostat.
+            /// [Fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) that you want to set for the thermostat.
             /// </summary>
             [JsonPropertyName("fan_mode_setting")]
             public SetFanModeRequest.FanModeSettingEnum? FanModeSetting { get; init; }
@@ -844,7 +894,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets the [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Sets the [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<ActionAttempt> SetFanModeAsync(
             SetFanModeRequest request,
@@ -900,13 +950,13 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Cooling set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
+            /// [Cooling set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `cooling_set_point` parameters.
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -918,13 +968,13 @@ namespace Seam.Routes
             public required string DeviceId { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// [Heating set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
+            /// [Heating set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to set for the thermostat. You must set one of the `heating_set_point` parameters.
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
@@ -943,7 +993,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Sets the [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task<ActionAttempt> SetHvacModeAsync(
             SetHvacModeRequest request,
@@ -1008,7 +1058,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Sets a [temperature threshold](https://docs.seam.co/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) for a specified thermostat. Seam emits a `thermostat.temperature_threshold_exceeded` event and adds a warning on a thermostat if it reports a temperature outside the threshold range.
+        /// Sets a [temperature threshold](https://www.seam.co/docs/capability-guides/thermostats/setting-and-monitoring-temperature-thresholds) for a specified thermostat. Seam emits a `thermostat.temperature_threshold_exceeded` event and adds a warning on a thermostat if it reports a temperature outside the threshold range.
         /// </summary>
         public async Task SetTemperatureThresholdAsync(
             SetTemperatureThresholdRequest request,
@@ -1059,7 +1109,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+            /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum FanModeSettingEnum
@@ -1078,7 +1128,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+            /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum HvacModeSettingEnum
@@ -1103,7 +1153,7 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Unique key to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+            /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public required string ClimatePresetKey { get; init; }
@@ -1115,13 +1165,13 @@ namespace Seam.Routes
             public UpdateClimatePresetRequest.ClimatePresetModeEnum? ClimatePresetMode { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -1139,38 +1189,38 @@ namespace Seam.Routes
             public UpdateClimatePresetRequestEcobeeMetadata? EcobeeMetadata { get; init; }
 
             /// <summary>
-            /// Desired [fan mode setting](https://docs.seam.co/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
+            /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
             /// </summary>
             [JsonPropertyName("fan_mode_setting")]
             public UpdateClimatePresetRequest.FanModeSettingEnum? FanModeSetting { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
+            /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
 
             /// <summary>
-            /// Desired [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
+            /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
             /// </summary>
             [JsonPropertyName("hvac_mode_setting")]
             public UpdateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; init; }
 
             /// <summary>
-            /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+            /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
             /// </summary>
             [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
             [JsonPropertyName("manual_override_allowed")]
             public bool? ManualOverrideAllowed { get; init; }
 
             /// <summary>
-            /// User-friendly name to identify the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets).
+            /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
             /// </summary>
             [JsonPropertyName("name")]
             public Optional<string> Name { get; init; }
@@ -1214,7 +1264,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a specified [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/capability-guides/thermostats).
+        /// Updates a specified [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://www.seam.co/docs/capability-guides/thermostats).
         /// </summary>
         public async Task UpdateClimatePresetAsync(
             UpdateClimatePresetRequest request,

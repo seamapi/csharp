@@ -50,7 +50,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Assigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Assigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) to a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task AssignAsync(
             AssignRequest request,
@@ -108,7 +108,7 @@ namespace Seam.Routes
             public string? AcsUserId { get; init; }
 
             /// <summary>
-            /// Set of IDs of the [entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) for which the new credential grants access.
+            /// Set of IDs of the [entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) for which the new credential grants access.
             /// </summary>
             [JsonPropertyName("allowed_acs_entrance_ids")]
             public List<string>? AllowedAcsEntranceIds { get; init; }
@@ -120,7 +120,7 @@ namespace Seam.Routes
             public CreateRequestAssaAbloyVostioMetadata? AssaAbloyVostioMetadata { get; init; }
 
             /// <summary>
-            /// Access (PIN) code for the new credential. There may be manufacturer-specific code restrictions. For details, see the applicable [device or system integration guide](https://docs.seam.co/device-and-system-integration-guides).
+            /// Access (PIN) code for the new credential. There may be manufacturer-specific code restrictions. For details, see the applicable [device or system integration guide](https://www.seam.co/docs/device-and-system-integration-guides).
             /// </summary>
             [JsonPropertyName("code")]
             public string? Code { get; init; }
@@ -138,7 +138,7 @@ namespace Seam.Routes
             public string? EndsAt { get; init; }
 
             /// <summary>
-            /// Indicates whether the new credential is a [multi-phone sync credential](https://docs.seam.co/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
+            /// Indicates whether the new credential is a [multi-phone sync credential](https://www.seam.co/docs/capability-guides/mobile-access/issuing-mobile-credentials-from-an-access-control-system#what-are-multi-phone-sync-credentials).
             /// </summary>
             [JsonPropertyName("is_multi_phone_sync_credential")]
             public bool? IsMultiPhoneSyncCredential { get; init; }
@@ -186,7 +186,7 @@ namespace Seam.Routes
         public sealed record CreateRequestSaltoSpaceMetadata
         {
             /// <summary>
-            /// Indicates whether to assign a first, new card to a user. See also [Programming Salto Space Card-based Credentials](https://docs.seam.co/device-and-system-integration-guides/salto-proaccess-space-access-system/programming-salto-space-card-based-credentials).
+            /// Indicates whether to assign a first, new card to a user. See also [Programming Salto Space Card-based Credentials](https://www.seam.co/docs/device-and-system-integration-guides/salto-proaccess-space-access-system/programming-salto-space-card-based-credentials).
             /// </summary>
             [JsonPropertyName("assign_new_key")]
             public bool? AssignNewKey { get; init; }
@@ -246,7 +246,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [credential](https://docs.seam.co/low-level-apis/managing-credentials) for a specified [ACS user](https://docs.seam.co/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://docs.seam.co/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
+        /// Creates a new [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) for a specified [ACS user](https://www.seam.co/docs/low-level-apis/access-systems/user-management). For granting access, we recommend [Access Grants](https://www.seam.co/docs/use-cases/granting-access) instead: they create and manage the underlying credentials for you, across access systems and standalone smart locks alike. Use this low-level endpoint only when you need direct control over an individual ACS credential.
         /// </summary>
         public async Task<AcsCredential> CreateAsync(
             CreateRequest request,
@@ -278,7 +278,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Deletes a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -312,7 +312,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<AcsCredential> GetAsync(
             GetRequest request,
@@ -401,7 +401,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task<List<AcsCredential>> ListAsync(
             ListRequest? request = null,
@@ -480,7 +480,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [entrances](https://docs.seam.co/api/acs/entrances) to which a [credential](https://docs.seam.co/api/acs/credentials) grants access.
+        /// Returns a list of all [entrances](https://www.seam.co/docs/api/acs/entrances/object) to which a [credential](https://www.seam.co/docs/api/acs/credentials/object) grants access.
         /// </summary>
         public async Task<List<AcsEntrance>> ListAccessibleEntrancesAsync(
             ListAccessibleEntrancesRequest request,
@@ -524,7 +524,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Unassigns a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management).
+        /// Unassigns a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) from a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>
         public async Task UnassignAsync(
             UnassignRequest request,
@@ -566,7 +566,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates the code and ends at date and time for a specified [credential](https://docs.seam.co/low-level-apis/access-systems/managing-credentials).
+        /// Updates the code and ends at date and time for a specified [credential](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,

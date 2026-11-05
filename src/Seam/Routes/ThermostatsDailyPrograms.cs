@@ -52,7 +52,7 @@ namespace Seam.Routes
         public sealed record CreateRequestPeriods
         {
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public string? ClimatePresetKey { get; init; }
@@ -150,7 +150,7 @@ namespace Seam.Routes
         public sealed record UpdateRequestPeriods
         {
             /// <summary>
-            /// Key of the [climate preset](https://docs.seam.co/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
+            /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to activate at the `starts_at_time`.
             /// </summary>
             [JsonPropertyName("climate_preset_key")]
             public string? ClimatePresetKey { get; init; }

@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews).
+    /// Represents a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews).
     ///
     /// Connect Webviews are fully-embedded client-side components that you add to your app. Your users interact with your embedded Connect Webviews to link their IoT device or system accounts to Seam. That is, Connect Webviews walk your users through the process of logging in to their device or system accounts. Seam handles all the authentication steps, and—once your user has completed the authorization through your app—you can access and control their devices or systems using the Seam API.
     ///
@@ -95,7 +95,7 @@ namespace Seam.Models
             default!;
 
         /// <summary>
-        /// List of accepted [provider keys](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// List of accepted [provider keys](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("accepted_providers")]
         public List<string> AcceptedProviders { get; init; } = default!;
@@ -113,7 +113,7 @@ namespace Seam.Models
         public string? AuthorizedAt { get; init; }
 
         /// <summary>
-        /// Indicates whether Seam should [import all new devices](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#automatically_manage_new_devices) for the connected account to make these devices available for use and management by the Seam API.
+        /// Indicates whether Seam should [import all new devices](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#automatically_manage_new_devices) for the connected account to make these devices available for use and management by the Seam API.
         /// </summary>
         [JsonPropertyName("automatically_manage_new_devices")]
         public bool AutomaticallyManageNewDevices { get; init; } = default!;
@@ -137,7 +137,7 @@ namespace Seam.Models
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://docs.seam.co/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://docs.seam.co/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://docs.seam.co/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
+        /// Set of key:value pairs. Adding custom metadata to a resource, such as a [Connect Webview](https://www.seam.co/docs/core-concepts/connect-webviews/attaching-custom-data-to-the-connect-webview), [connected account](https://www.seam.co/docs/core-concepts/connected-accounts/adding-custom-metadata-to-a-connected-account), or [device](https://www.seam.co/docs/core-concepts/devices/adding-custom-metadata-to-a-device), enables you to store custom information, like customer details or internal IDs from your application. Keys set to `null` or to an empty string are omitted.
         /// </summary>
         [JsonPropertyName("custom_metadata")]
         public object CustomMetadata { get; init; } = default!;
@@ -173,7 +173,7 @@ namespace Seam.Models
         public bool LoginSuccessful { get; init; } = default!;
 
         /// <summary>
-        /// Selected provider of the Connect Webview, one of the [provider keys](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
+        /// Selected provider of the Connect Webview, one of the [provider keys](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-brands-to-display-in-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("selected_provider")]
         public string? SelectedProvider { get; init; }
@@ -191,7 +191,7 @@ namespace Seam.Models
         public string Url { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether Seam should [finish syncing all devices](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#wait_for_device_creation) in a newly-connected account before completing the associated Connect Webview.
+        /// Indicates whether Seam should [finish syncing all devices](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#wait_for_device_creation) in a newly-connected account before completing the associated Connect Webview.
         /// </summary>
         [JsonPropertyName("wait_for_device_creation")]
         public bool WaitForDeviceCreation { get; init; } = default!;

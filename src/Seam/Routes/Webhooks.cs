@@ -53,7 +53,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Creates a new [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> CreateAsync(
             CreateRequest request,
@@ -85,7 +85,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Deletes a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -119,7 +119,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Gets a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Gets a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<Webhook> GetAsync(
             GetRequest request,
@@ -153,7 +153,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [webhooks](https://docs.seam.co/developer-tools/webhooks).
+        /// Returns a list of all [webhooks](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task<List<Webhook>> ListAsync(
             ListRequest? request = null,
@@ -191,7 +191,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a specified [webhook](https://docs.seam.co/developer-tools/webhooks).
+        /// Updates a specified [webhook](https://www.seam.co/docs/developer-tools/webhooks).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,

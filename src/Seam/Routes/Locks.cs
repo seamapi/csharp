@@ -59,7 +59,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Configures the auto-lock setting for a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Configures the auto-lock setting for a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<ActionAttempt> ConfigureAutoLockAsync(
             ConfigureAutoLockRequest request,
@@ -126,7 +126,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [lock](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a specified [lock](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         [Obsolete("Use `/devices/get` instead.")]
         public async Task<Device> GetAsync(
@@ -394,77 +394,83 @@ namespace Seam.Routes
                 [EnumMember(Value = "linear")]
                 Linear = 9,
 
-                [EnumMember(Value = "lockly")]
-                Lockly = 10,
-
                 [EnumMember(Value = "kwikset")]
-                Kwikset = 11,
+                Kwikset = 10,
 
                 [EnumMember(Value = "nuki")]
-                Nuki = 12,
+                Nuki = 11,
 
                 [EnumMember(Value = "salto")]
-                Salto = 13,
+                Salto = 12,
 
                 [EnumMember(Value = "schlage")]
-                Schlage = 14,
+                Schlage = 13,
 
                 [EnumMember(Value = "seam")]
-                Seam = 15,
+                Seam = 14,
 
                 [EnumMember(Value = "wyze")]
-                Wyze = 16,
+                Wyze = 15,
 
                 [EnumMember(Value = "yale")]
-                Yale = 17,
+                Yale = 16,
 
                 [EnumMember(Value = "two_n")]
-                TwoN = 18,
+                TwoN = 17,
 
                 [EnumMember(Value = "controlbyweb")]
-                Controlbyweb = 19,
+                Controlbyweb = 18,
 
                 [EnumMember(Value = "ttlock")]
-                Ttlock = 20,
+                Ttlock = 19,
 
                 [EnumMember(Value = "igloohome")]
-                Igloohome = 21,
+                Igloohome = 20,
 
                 [EnumMember(Value = "four_suites")]
-                FourSuites = 22,
-
-                [EnumMember(Value = "dormakaba_oracode")]
-                DormakabaOracode = 23,
+                FourSuites = 21,
 
                 [EnumMember(Value = "tedee")]
-                Tedee = 24,
+                Tedee = 22,
 
                 [EnumMember(Value = "keyincode")]
-                Keyincode = 25,
+                Keyincode = 23,
 
                 [EnumMember(Value = "akiles")]
-                Akiles = 26,
+                Akiles = 24,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 27,
+                Aqara = 25,
+
+                [EnumMember(Value = "eufy")]
+                Eufy = 26,
+
+                [EnumMember(Value = "dormakaba_oracode")]
+                DormakabaOracode = 27,
+
+                [EnumMember(Value = "dormakaba_oracode_iho")]
+                DormakabaOracodeIho = 28,
 
                 [EnumMember(Value = "korelock")]
-                Korelock = 28,
+                Korelock = 29,
+
+                [EnumMember(Value = "lockly")]
+                Lockly = 30,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 29,
+                Smartthings = 31,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 30,
+                Ultraloq = 32,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 31,
+                Omnitec = 33,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 32,
+                Kisi = 34,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 33,
+                Yacan = 35,
             }
 
             /// <summary>
@@ -514,7 +520,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [locks](https://docs.seam.co/low-level-apis/smart-locks).
+        /// Returns a list of all [locks](https://www.seam.co/docs/low-level-apis/smart-locks).
         /// </summary>
         public async Task<List<Device>> ListAsync(
             ListRequest? request = null,
@@ -555,7 +561,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Locks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Locks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> LockDoorAsync(
             LockDoorRequest request,
@@ -605,7 +611,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Unlocks a [lock](https://docs.seam.co/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://docs.seam.co/low-level-apis/smart-locks/lock-and-unlock).
+        /// Unlocks a [lock](https://www.seam.co/docs/low-level-apis/smart-locks). See also [Locking and Unlocking Smart Locks](https://www.seam.co/docs/low-level-apis/smart-locks/lock-and-unlock).
         /// </summary>
         public async Task<ActionAttempt> UnlockDoorAsync(
             UnlockDoorRequest request,

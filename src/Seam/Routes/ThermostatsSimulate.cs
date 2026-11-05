@@ -53,13 +53,13 @@ namespace Seam.Routes
             }
 
             /// <summary>
-            /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `cooling_set_point_celsius` or `cooling_set_point_fahrenheit`.
+            /// Cooling [set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `cooling_set_point_celsius` or `cooling_set_point_fahrenheit`.
             /// </summary>
             [JsonPropertyName("cooling_set_point_celsius")]
             public float? CoolingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Cooling [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `cooling_set_point_fahrenheit` or `cooling_set_point_celsius`.
+            /// Cooling [set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `cooling_set_point_fahrenheit` or `cooling_set_point_celsius`.
             /// </summary>
             [JsonPropertyName("cooling_set_point_fahrenheit")]
             public float? CoolingSetPointFahrenheit { get; init; }
@@ -71,13 +71,13 @@ namespace Seam.Routes
             public required string DeviceId { get; init; }
 
             /// <summary>
-            /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `heating_set_point_celsius` or `heating_set_point_fahrenheit`.
+            /// Heating [set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °C that you want to simulate. You must set `heating_set_point_celsius` or `heating_set_point_fahrenheit`.
             /// </summary>
             [JsonPropertyName("heating_set_point_celsius")]
             public float? HeatingSetPointCelsius { get; init; }
 
             /// <summary>
-            /// Heating [set point](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `heating_set_point_fahrenheit` or `heating_set_point_celsius`.
+            /// Heating [set point](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points) in °F that you want to simulate. You must set `heating_set_point_fahrenheit` or `heating_set_point_celsius`.
             /// </summary>
             [JsonPropertyName("heating_set_point_fahrenheit")]
             public float? HeatingSetPointFahrenheit { get; init; }
@@ -90,7 +90,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Simulates having adjusted the [HVAC mode](https://docs.seam.co/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://docs.seam.co/capability-guides/thermostats). Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// Simulates having adjusted the [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) for a [thermostat](https://www.seam.co/docs/capability-guides/thermostats). Only applicable for [sandbox devices](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://www.seam.co/docs/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
         /// </summary>
         public async Task HvacModeAdjustedAsync(
             HvacModeAdjustedRequest request,
@@ -132,7 +132,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Simulates a [thermostat](https://docs.seam.co/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://docs.seam.co/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
+        /// Simulates a [thermostat](https://www.seam.co/docs/capability-guides/thermostats) reaching a specified temperature. Only applicable for [sandbox devices](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces). See also [Testing Your Thermostat App with Simulate Endpoints](https://www.seam.co/docs/capability-guides/thermostats/testing-your-thermostat-app-with-simulate-endpoints).
         /// </summary>
         public async Task TemperatureReachedAsync(
             TemperatureReachedRequest request,

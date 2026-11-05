@@ -47,7 +47,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [action attempt](https://docs.seam.co/core-concepts/action-attempts).
+        /// Returns a specified [action attempt](https://www.seam.co/docs/core-concepts/action-attempts).
         /// </summary>
         public async Task<ActionAttempt> GetAsync(
             GetRequest request,
@@ -121,7 +121,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of the [action attempts](https://docs.seam.co/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// Returns a list of the [action attempts](https://www.seam.co/docs/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
         /// </summary>
         public async Task<List<ActionAttempt>> ListAsync(
             ListRequest? request = null,

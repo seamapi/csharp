@@ -55,7 +55,7 @@ namespace Seam.Routes
             public float? NoiseThresholdDecibels { get; init; }
 
             /// <summary>
-            /// Noise level in Noiseaware Noise Risk Score (NRS) for the new noise threshold. This parameter is only relevant for [Noiseaware sensors](https://docs.seam.co/device-and-system-integration-guides/noiseaware-sensors).
+            /// Noise level in Noiseaware Noise Risk Score (NRS) for the new noise threshold. This parameter is only relevant for [Noiseaware sensors](https://www.seam.co/docs/device-and-system-integration-guides/noiseaware-sensors).
             /// </summary>
             [JsonPropertyName("noise_threshold_nrs")]
             public float? NoiseThresholdNrs { get; init; }
@@ -77,7 +77,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Creates a new [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
+        /// Creates a new [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors). Thresholds represent the limits of noise tolerated at a property, which can be customized for each hour of the day. Each device has its own default thresholds, but you can use the Seam API to modify them.
         /// </summary>
         public async Task<NoiseThreshold> CreateAsync(
             CreateRequest request,
@@ -115,7 +115,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Deletes a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Deletes a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) from a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task DeleteAsync(
             DeleteRequest request,
@@ -154,7 +154,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a specified [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<NoiseThreshold> GetAsync(
             GetRequest request,
@@ -195,7 +195,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [noise thresholds](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Returns a list of all [noise thresholds](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task<List<NoiseThreshold>> ListAsync(
             ListRequest request,
@@ -250,7 +250,7 @@ namespace Seam.Routes
             public required string NoiseThresholdId { get; init; }
 
             /// <summary>
-            /// Noise level in Noiseaware Noise Risk Score (NRS) for the noise threshold. This parameter is only relevant for [Noiseaware sensors](https://docs.seam.co/device-and-system-integration-guides/noiseaware-sensors).
+            /// Noise level in Noiseaware Noise Risk Score (NRS) for the noise threshold. This parameter is only relevant for [Noiseaware sensors](https://www.seam.co/docs/device-and-system-integration-guides/noiseaware-sensors).
             /// </summary>
             [JsonPropertyName("noise_threshold_nrs")]
             public float? NoiseThresholdNrs { get; init; }
@@ -263,7 +263,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Updates a [noise threshold](https://docs.seam.co/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://docs.seam.co/capability-guides/noise-sensors).
+        /// Updates a [noise threshold](https://www.seam.co/docs/capability-guides/noise-sensors/configure-noise-threshold-settings) for a [noise sensor](https://www.seam.co/docs/capability-guides/noise-sensors).
         /// </summary>
         public async Task UpdateAsync(
             UpdateRequest request,
@@ -272,7 +272,7 @@ namespace Seam.Routes
         {
             await _transport
                 .SendAsync(
-                    HttpMethod.Put,
+                    HttpMethod.Patch,
                     "/noise_sensors/noise_thresholds/update",
                     request,
                     cancellationToken

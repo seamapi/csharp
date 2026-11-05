@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents an [unmanaged smart lock access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
+    /// Represents an [unmanaged smart lock access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes/migrating-existing-access-codes).
     ///
     /// An access code is a code used for a keypad or pinpad device. Unlike physical keys, which can easily be lost or duplicated, PIN codes can be customized, tracked, and altered on the fly.
     ///
@@ -20,7 +20,7 @@ namespace Seam.Models
     ///
     /// Not all providers support unmanaged access codes. The following providers do not support unmanaged access codes:
     ///
-    /// - [Kwikset](https://docs.seam.co/device-and-system-integration-guides/kwikset-locks)
+    /// - [Kwikset](https://www.seam.co/docs/device-and-system-integration-guides/kwikset-locks)
     /// </summary>
     public sealed record UnmanagedAccessCode
     {
@@ -56,11 +56,8 @@ namespace Seam.Models
             typeof(UnmanagedAccessCodeErrorsCodeConstraintsViolated)
         )]
         [SeamUnionVariant("failed_to_issue", typeof(UnmanagedAccessCodeErrorsFailedToIssue))]
-        [SeamUnionVariant(
-            "failed_to_apply_mutations",
-            typeof(UnmanagedAccessCodeErrorsFailedToApplyMutations)
-        )]
-        [SeamUnionVariant("failed_to_expire", typeof(UnmanagedAccessCodeErrorsFailedToExpire))]
+        [SeamUnionVariant("failed_to_update", typeof(UnmanagedAccessCodeErrorsFailedToUpdate))]
+        [SeamUnionVariant("failed_to_delete", typeof(UnmanagedAccessCodeErrorsFailedToDelete))]
         [SeamUnionVariant(
             "account_disconnected",
             typeof(UnmanagedAccessCodeErrorsAccountDisconnected)
@@ -350,11 +347,10 @@ namespace Seam.Models
             public bool IsAccessCodeError { get; init; } = default!;
         }
 
-        public sealed record UnmanagedAccessCodeErrorsFailedToApplyMutations
-            : UnmanagedAccessCodeErrors
+        public sealed record UnmanagedAccessCodeErrorsFailedToUpdate : UnmanagedAccessCodeErrors
         {
             [JsonPropertyName("error_code")]
-            public override string ErrorCode { get; } = "failed_to_apply_mutations";
+            public override string ErrorCode { get; } = "failed_to_update";
 
             /// <summary>
             /// Date and time at which Seam created the error.
@@ -369,10 +365,10 @@ namespace Seam.Models
             public bool IsAccessCodeError { get; init; } = default!;
         }
 
-        public sealed record UnmanagedAccessCodeErrorsFailedToExpire : UnmanagedAccessCodeErrors
+        public sealed record UnmanagedAccessCodeErrorsFailedToDelete : UnmanagedAccessCodeErrors
         {
             [JsonPropertyName("error_code")]
-            public override string ErrorCode { get; } = "failed_to_expire";
+            public override string ErrorCode { get; } = "failed_to_delete";
 
             /// <summary>
             /// Date and time at which Seam created the error.
@@ -400,7 +396,7 @@ namespace Seam.Models
             public string CreatedAt { get; init; } = default!;
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [JsonPropertyName("is_connected_account_error")]
             public bool IsConnectedAccountError { get; init; } = default!;
@@ -425,7 +421,7 @@ namespace Seam.Models
             public string CreatedAt { get; init; } = default!;
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [JsonPropertyName("is_connected_account_error")]
             public bool IsConnectedAccountError { get; init; } = default!;
@@ -450,7 +446,7 @@ namespace Seam.Models
             public string CreatedAt { get; init; } = default!;
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [JsonPropertyName("is_connected_account_error")]
             public bool IsConnectedAccountError { get; init; } = default!;
@@ -475,7 +471,7 @@ namespace Seam.Models
             public string CreatedAt { get; init; } = default!;
 
             /// <summary>
-            /// Indicates that the error is a [connected account](https://docs.seam.co/api/connected_accounts) error.
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
             /// </summary>
             [JsonPropertyName("is_connected_account_error")]
             public bool IsConnectedAccountError { get; init; } = default!;
@@ -666,7 +662,7 @@ namespace Seam.Models
             public string CreatedAt { get; init; } = default!;
 
             /// <summary>
-            /// Indicates whether the error is related to [Seam Bridge](https://docs.seam.co/capability-guides/seam-bridge).
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
             /// </summary>
             [JsonPropertyName("is_bridge_error")]
             public bool? IsBridgeError { get; init; }
@@ -745,10 +741,6 @@ namespace Seam.Models
             typeof(UnmanagedAccessCodeWarningsDelayInRemovingFromDevice)
         )]
         [SeamUnionVariant("delay_in_issuing", typeof(UnmanagedAccessCodeWarningsDelayInIssuing))]
-        [SeamUnionVariant(
-            "delay_in_applying_mutations",
-            typeof(UnmanagedAccessCodeWarningsDelayInApplyingMutations)
-        )]
         [SeamUnionVariant(
             "third_party_integration_detected",
             typeof(UnmanagedAccessCodeWarningsThirdPartyIntegrationDetected)
@@ -880,13 +872,6 @@ namespace Seam.Models
             public override string WarningCode { get; } = "delay_in_issuing";
         }
 
-        public sealed record UnmanagedAccessCodeWarningsDelayInApplyingMutations
-            : UnmanagedAccessCodeWarnings
-        {
-            [JsonPropertyName("warning_code")]
-            public override string WarningCode { get; } = "delay_in_applying_mutations";
-        }
-
         public sealed record UnmanagedAccessCodeWarningsThirdPartyIntegrationDetected
             : UnmanagedAccessCodeWarnings
         {
@@ -978,6 +963,12 @@ namespace Seam.Models
         public string DeviceId { get; init; } = default!;
 
         /// <summary>
+        /// Human-readable label for the code&apos;s state: `Active` or `Not active`, based on whether the code is set on the device. For display only. The wording is not stable and is not an enumeration — never compare against or branch on it.
+        /// </summary>
+        [JsonPropertyName("display_status")]
+        public string DisplayStatus { get; init; } = default!;
+
+        /// <summary>
         /// Metadata for a dormakaba Oracode unmanaged access code. Only present for unmanaged access codes from dormakaba Oracode devices.
         /// </summary>
         [JsonPropertyName("dormakaba_oracode_metadata")]
@@ -990,7 +981,7 @@ namespace Seam.Models
         public string? EndsAt { get; init; }
 
         /// <summary>
-        /// Errors associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Errors associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<UnmanagedAccessCodeErrors> Errors { get; init; } = default!;
@@ -1016,6 +1007,7 @@ namespace Seam.Models
         /// <summary>
         /// Current status of the access code within the operational lifecycle. `set` indicates that the code is active and operational. `unset` indicates that the code exists on the provider but is not usable on the device.
         /// </summary>
+        [Obsolete("Use `display_status` to show a person the code's state.")]
         [JsonPropertyName("status")]
         public UnmanagedAccessCode.StatusEnum Status { get; init; } = default!;
 
@@ -1026,7 +1018,7 @@ namespace Seam.Models
         public UnmanagedAccessCode.TypeEnum Type { get; init; } = default!;
 
         /// <summary>
-        /// Warnings associated with the [access code](https://docs.seam.co/low-level-apis/smart-locks/access-codes).
+        /// Warnings associated with the [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<UnmanagedAccessCodeWarnings> Warnings { get; init; } = default!;

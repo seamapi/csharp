@@ -47,7 +47,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<AcsEntrance> GetAsync(
             GetRequest request,
@@ -91,7 +91,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Grants a specified [access system user](https://docs.seam.co/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Grants a specified [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management) access to a specified [access system entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task GrantAccessAsync(
             GrantAccessRequest request,
@@ -194,7 +194,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [access system entrances](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [access system entrances](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsEntrance>> ListAsync(
             ListRequest? request = null,
@@ -292,7 +292,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all [credentials](https://docs.seam.co/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details).
+        /// Returns a list of all [credentials](https://www.seam.co/docs/low-level-apis/access-systems/managing-credentials) with access to a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details).
         /// </summary>
         public async Task<List<AcsCredential>> ListCredentialsWithAccessAsync(
             ListCredentialsWithAccessRequest request,
@@ -339,7 +339,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Remotely unlocks a specified [entrance](https://docs.seam.co/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
+        /// Remotely unlocks a specified [entrance](https://www.seam.co/docs/low-level-apis/access-systems/retrieving-entrance-details) using a cloud_key credential. Returns an action attempt that tracks the progress of the unlock operation.
         /// </summary>
         public async Task<ActionAttempt> UnlockAsync(
             UnlockRequest request,

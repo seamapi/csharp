@@ -10,19 +10,19 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents a Seam [workspace](https://docs.seam.co/core-concepts/workspaces). A workspace is a top-level entity that encompasses all other resources below it, such as devices, connected accounts, and Connect Webviews. Seam provides two types of workspaces. A [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) is a special type of workspace designed for testing code. Sandbox workspaces offer test device accounts and virtual devices that you can connect and control. This ability to work with virtual devices is quite handy because it removes the need to own physical devices from multiple brands. To connect real devices and systems to Seam, use a [production workspace](https://docs.seam.co/core-concepts/workspaces#production-workspaces).
+    /// Represents a Seam [workspace](https://www.seam.co/docs/core-concepts/workspaces). A workspace is a top-level entity that encompasses all other resources below it, such as devices, connected accounts, and Connect Webviews. Seam provides two types of workspaces. A [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) is a special type of workspace designed for testing code. Sandbox workspaces offer test device accounts and virtual devices that you can connect and control. This ability to work with virtual devices is quite handy because it removes the need to own physical devices from multiple brands. To connect real devices and systems to Seam, use a [production workspace](https://www.seam.co/docs/core-concepts/workspaces#production-workspaces).
     /// </summary>
     public sealed record Workspace
     {
         /// <summary>
-        /// Company name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Company name associated with the [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         [Obsolete("Use `connect_partner_name` instead.")]
         [JsonPropertyName("company_name")]
         public string CompanyName { get; init; } = default!;
 
         /// <summary>
-        /// Seam Connect partner name associated with the [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Seam Connect partner name associated with the [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         [JsonPropertyName("connect_partner_name")]
         public string? ConnectPartnerName { get; init; }
@@ -38,19 +38,19 @@ namespace Seam.Models
         public bool IsPublishableKeyAuthEnabled { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether the workspace is a [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces).
+        /// Indicates whether the workspace is a [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces).
         /// </summary>
         [JsonPropertyName("is_sandbox")]
         public bool IsSandbox { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether the [sandbox workspace](https://docs.seam.co/core-concepts/workspaces#sandbox-workspaces) is suspended. Seam suspends sandbox workspaces that have not been accessed in 14 days.
+        /// Indicates whether the [sandbox workspace](https://www.seam.co/docs/core-concepts/workspaces#sandbox-workspaces) is suspended. Seam suspends sandbox workspaces that have not been accessed in 14 days.
         /// </summary>
         [JsonPropertyName("is_suspended")]
         public bool IsSuspended { get; init; } = default!;
 
         /// <summary>
-        /// Name of the [workspace](https://docs.seam.co/core-concepts/workspaces).
+        /// Name of the [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; init; } = default!;
@@ -62,7 +62,7 @@ namespace Seam.Models
         public string? OrganizationId { get; init; }
 
         /// <summary>
-        /// Publishable key for the [workspace](https://docs.seam.co/core-concepts/workspaces). This key is used to identify the workspace in client-side applications.
+        /// Publishable key for the [workspace](https://www.seam.co/docs/core-concepts/workspaces). This key is used to identify the workspace in client-side applications.
         /// </summary>
         [JsonPropertyName("publishable_key")]
         public string? PublishableKey { get; init; }
@@ -77,7 +77,7 @@ namespace Seam.Models
     public sealed record WorkspaceConnectWebviewCustomization
     {
         /// <summary>
-        /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonConverter(typeof(SeamStringEnumConverter))]
         public enum LogoShapeEnum
@@ -93,31 +93,31 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// URL of the inviter logo for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// URL of the inviter logo for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("inviter_logo_url")]
         public string? InviterLogoUrl { get; init; }
 
         /// <summary>
-        /// Logo shape for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// Logo shape for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("logo_shape")]
         public WorkspaceConnectWebviewCustomization.LogoShapeEnum? LogoShape { get; init; }
 
         /// <summary>
-        /// Primary button color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// Primary button color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("primary_button_color")]
         public string? PrimaryButtonColor { get; init; }
 
         /// <summary>
-        /// Primary button text color for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// Primary button text color for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("primary_button_text_color")]
         public string? PrimaryButtonTextColor { get; init; }
 
         /// <summary>
-        /// Success message for [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
+        /// Success message for [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) in the workspace. See also [Customize the Look and Feel of Your Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews/customizing-connect-webviews#customize-the-look-and-feel-of-your-connect-webviews).
         /// </summary>
         [JsonPropertyName("success_message")]
         public string? SuccessMessage { get; init; }

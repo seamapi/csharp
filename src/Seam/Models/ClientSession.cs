@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 namespace Seam.Models
 {
     /// <summary>
-    /// Represents a [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens). If you want to restrict your users&apos; access to their own devices, use client sessions.
+    /// Represents a [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens). If you want to restrict your users&apos; access to their own devices, use client sessions.
     ///
     /// You create each client session with a custom `user_identifier_key`. Normally, the `user_identifier_key` is a user ID that your application provides.
     ///
@@ -18,7 +18,7 @@ namespace Seam.Models
     ///
     /// A client session has a token that you can use with the Seam JavaScript SDK to make requests from the client (browser) directly to the Seam API. The token restricts the user&apos;s access to only the devices that they own.
     ///
-    /// See also [Get Started with React](https://docs.seam.co/ui-components/overview/getting-started-with-seam-components/get-started-with-react-components-and-client-session-tokens).
+    /// See also [Get Started with React](https://www.seam.co/docs/ui-components/overview/getting-started-with-seam-components/get-started-with-react-components-and-client-session-tokens).
     /// </summary>
     public sealed record ClientSession
     {
@@ -29,61 +29,61 @@ namespace Seam.Models
         public string ClientSessionId { get; init; } = default!;
 
         /// <summary>
-        /// IDs of the [Connect Webviews](https://docs.seam.co/core-concepts/connect-webviews) associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// IDs of the [Connect Webviews](https://www.seam.co/docs/core-concepts/connect-webviews) associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("connect_webview_ids")]
         public List<string> ConnectWebviewIds { get; init; } = default!;
 
         /// <summary>
-        /// IDs of the [connected accounts](https://docs.seam.co/core-concepts/connected-accounts) associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("connected_account_ids")]
         public List<string> ConnectedAccountIds { get; init; } = default!;
 
         /// <summary>
-        /// Date and time at which the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) was created.
+        /// Date and time at which the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) was created.
         /// </summary>
         [JsonPropertyName("created_at")]
         public string CreatedAt { get; init; } = default!;
 
         /// <summary>
-        /// Customer key associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Customer key associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("customer_key")]
         public string? CustomerKey { get; init; }
 
         /// <summary>
-        /// Number of devices associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Number of devices associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("device_count")]
         public float DeviceCount { get; init; } = default!;
 
         /// <summary>
-        /// Date and time at which the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens) expires.
+        /// Date and time at which the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens) expires.
         /// </summary>
         [JsonPropertyName("expires_at")]
         public string ExpiresAt { get; init; } = default!;
 
         /// <summary>
-        /// Client session token associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Client session token associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("token")]
         public string Token { get; init; } = default!;
 
         /// <summary>
-        /// Your user ID for the user associated with the [client session](https://docs.seam.co/core-concepts/authentication/client-session-tokens).
+        /// Your user ID for the user associated with the [client session](https://www.seam.co/docs/core-concepts/authentication/client-session-tokens).
         /// </summary>
         [JsonPropertyName("user_identifier_key")]
         public string? UserIdentifierKey { get; init; }
 
         /// <summary>
-        /// ID of the [user identity](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
+        /// ID of the [user identity](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
         /// </summary>
         [JsonPropertyName("user_identity_id")]
         public string? UserIdentityId { get; init; }
 
         /// <summary>
-        /// IDs of the [user identities](https://docs.seam.co/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
+        /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
         /// </summary>
         [Obsolete("Use `user_identity_id` instead.")]
         [JsonPropertyName("user_identity_ids")]

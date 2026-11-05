@@ -103,7 +103,7 @@ export const routes = (
     const client = ensureClient(segments)
 
     for (const endpoint of route.endpoints) {
-      client.routes.push(buildRoute(endpoint, modelTypes))
+      client.routes.push(buildRoute(endpoint, modelTypes, client.className))
     }
   }
 

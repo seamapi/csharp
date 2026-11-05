@@ -429,7 +429,7 @@ namespace Seam.Models
         public string DisplayName { get; init; } = default!;
 
         /// <summary>
-        /// Human-readable sentence answering whether the user can currently get in, for example `Awaiting encoding` on an access method or `Upcoming` here. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `starts_at`, `ends_at`, `errors`, and the access methods&apos; own fields.
+        /// Human-readable sentence answering whether the user can currently get in, for example `Active`, `Awaiting issuance`, or `Upcoming`. For display only. The wording is not stable and is not an enumeration — it may change at any time, so never compare against or branch on it. To make decisions, read `starts_at`, `ends_at`, `errors`, and the access methods&apos; own fields.
         /// </summary>
         [JsonPropertyName("display_status")]
         public string DisplayStatus { get; init; } = default!;
@@ -441,7 +441,7 @@ namespace Seam.Models
         public string? EndsAt { get; init; }
 
         /// <summary>
-        /// Errors associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Errors associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [JsonPropertyName("errors")]
         public List<AccessGrantErrors> Errors { get; init; } = default!;
@@ -500,7 +500,7 @@ namespace Seam.Models
         public string UserIdentityId { get; init; } = default!;
 
         /// <summary>
-        /// Warnings associated with the [access grant](https://docs.seam.co/use-cases/granting-access).
+        /// Warnings associated with the [access grant](https://www.seam.co/docs/use-cases/granting-access).
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<AccessGrantWarnings> Warnings { get; init; } = default!;
