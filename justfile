@@ -4,12 +4,12 @@ build:
 
 # Run the tests
 test framework="":
-    dotnet test ./Seam.sln {{ if framework == "" { "" } else { "--framework " + framework } }}
+    dotnet test ./Seam.sln --settings coverlet.runsettings {{ if framework == "" { "" } else { "--framework " + framework } }}
 
 # Lint
 lint:
-    dotnet csharpier --check ./src ./test
+    dotnet csharpier --check --include-generated ./src ./test
 
 # Format
 format:
-    dotnet csharpier ./src ./test
+    dotnet csharpier --include-generated ./src ./test

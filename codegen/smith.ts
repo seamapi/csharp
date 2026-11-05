@@ -4,17 +4,23 @@ import { fileURLToPath } from 'node:url'
 import layouts from '@metalsmith/layouts'
 import { blueprint, getHandlebarsPartials } from '@seamapi/smith'
 import * as types from '@seamapi/types/connect'
+import { deleteAsync } from 'del'
 import Metalsmith from 'metalsmith'
 
-import { csharp, helpers } from './lib/index.js'
+import { helpers, routes } from './lib/index.js'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 
+// The generated directories are deleted before every build so files no longer
+// produced by the blueprint never linger. Handwritten runtime source lives
+// outside these directories.
+await deleteAsync(['./src/Seam/Routes', './src/Seam/Models'])
+
 const partials = await getHandlebarsPartials(`${rootDir}/layouts/partials`)
 
-// The destination is the repository root, so cleaning is left disabled to avoid
-// deleting checked-in package source. Generated files no longer produced by the
-// blueprint are pruned by removing them from version control.
+// The destination is the repository root, so Metalsmith cleaning stays
+// disabled to avoid deleting checked-in package source; the delete above
+// prunes the generated directories instead.
 //
 // `omitUndocumented` excludes undocumented routes, endpoints, resources, and
 // properties from the blueprint so the generated SDK contains only the public
@@ -24,7 +30,7 @@ Metalsmith(rootDir)
   .destination('../')
   .clean(false)
   .use(blueprint({ types, omitUndocumented: true }))
-  .use(csharp)
+  .use(routes)
   .use(
     layouts({
       default: 'default.hbs',

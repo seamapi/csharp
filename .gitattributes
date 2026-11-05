@@ -1,9 +1,4 @@
 # Code generated from the blueprint by the codegen.
 
-src/Seam/Api/** linguist-generated
-src/Seam/Model/** linguist-generated
-
-# Static, schema-independent sources kept alongside the generated code.
-
-src/Seam/Model/AsbtractModelSchema.cs -linguist-generated
-src/Seam/Model/SafeStringEnumConverter.cs -linguist-generated
+src/Seam/Routes/** linguist-generated
+src/Seam/Models/** linguist-generated

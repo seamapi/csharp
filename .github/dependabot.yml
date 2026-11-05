@@ -14,6 +14,10 @@ updates:
       - dependency-name: '*'
         update-types:
           - 'version-update:semver-major'
+      # Pinned exact for the duration of the v2 beta so the daily bump does
+      # not regenerate the SDK against a moving API spec. Restore the caret
+      # range and drop this ignore at GA.
+      - dependency-name: '@seamapi/types'
     groups:
       seam:
         patterns:

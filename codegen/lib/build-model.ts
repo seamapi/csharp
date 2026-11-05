@@ -2,25 +2,36 @@
 //
 // Consumes the normalized @seamapi/blueprint and produces the plain data model
 // in class-model.ts. This file decides *what* classes, enums, unions,
-// properties, and routes exist, their names, order, types, and nullability. All
-// string serialization lives in the Handlebars layouts.
+// properties, and routes exist, their names, order, types, and nullability.
 //
 // The builder depends only on the blueprint. It never reads the OpenAPI spec:
 // the blueprint already resolves int vs. float (Number.isInt), enum members,
 // inline objects, discriminated unions, and endpoint request/response shapes.
+//
+// Nullability model:
+//
+// - Response models deserialize leniently: no property is `required`, and a
+//   property that may be absent or null gets a nullable C# type. A property
+//   the schema guarantees keeps its non-nullable type with a `default!`
+//   initializer, since the wire value is what satisfies it.
+// - Request parameters enforce the schema locally: a required parameter is a
+//   C# `required` member, an optional one is nullable (null means omitted),
+//   and a nullable one is `Optional<T>` so an explicit JSON null
+//   (`Null.Value`) is distinct from omission.
 
 import type {
   ActionAttempt,
+  ActionAttemptStatus,
   Endpoint,
+  EnumProperty,
   EventResource,
   Parameter,
   Property,
   Resource,
 } from '@seamapi/blueprint'
-import { camelCase, pascalCase, snakeCase } from 'change-case'
+import { pascalCase, snakeCase } from 'change-case'
 
 import type {
-  CsApiFile,
   CsClass,
   CsEnum,
   CsModelFile,
@@ -29,37 +40,9 @@ import type {
   CsRoute,
   CsUnion,
 } from './class-model.js'
-import { GLOBAL_NAMESPACE } from './constants.js'
-
-const MODEL_NAMESPACE = [...GLOBAL_NAMESPACE, 'Model']
-
-// C# reserved identifiers cannot be used verbatim as camelCase parameter or
-// local names. `override` is renamed and `event` is suffixed to keep the
-// generated argument names legal.
-const reservedKeywordMap: Record<string, string> = { override: 'mustOverride' }
-const RESERVED_TOKENS = ['event']
-
-const applyReserved = (token: string): string =>
-  RESERVED_TOKENS.includes(token) ? `${token}_` : token
-
-const camelIdentifier = (name: string): string =>
-  applyReserved(reservedKeywordMap[camelCase(name)] ?? camelCase(name))
 
 const withNullable = (type: string, nullable: boolean): string =>
   nullable ? `${type}?` : type
-
-const dataContractName = (
-  className: string,
-  resourceType: 'response' | 'request' | 'model',
-  namespace?: string[],
-): string =>
-  [
-    ...(namespace != null && namespace.length > 0
-      ? [camelCase(namespace.join('_'))]
-      : []),
-    camelCase(className),
-    resourceType,
-  ].join('_')
 
 const safeWrapEnumValue = (value: string): string => {
   if (!value) return 'empty'
@@ -99,7 +82,7 @@ interface Field {
   description: string
   deprecationMessage?: string
   isRequired: boolean
-  nullable: boolean
+  isNullable: boolean
   kind: Kind
 }
 
@@ -118,6 +101,7 @@ interface Variant {
   fields: Field[]
   description?: string
   deprecationMessage?: string
+  buildAsUnion?: (subName: string, omitNames: Set<string>) => CsUnion
 }
 
 const normalizeEnumValues = (
@@ -185,10 +169,8 @@ const normalizeItemKind = (property: Property): Kind => {
 }
 
 const normalizeProperty = (property: Property): Field => {
-  // Response models deserialize leniently: `IsRequired` stays false so a
-  // payload that omits a field (as real responses and partial fixtures do)
-  // never throws. `isOptional` and `isNullable` instead widen the C# type to
-  // nullable, so a value that may be absent or null is representable.
+  // Model properties: `isRequired` stays false so deserialization is lenient;
+  // `isNullable` widens the C# type when the schema allows absence or null.
   const base = {
     name: property.name,
     description: property.description,
@@ -196,7 +178,7 @@ const normalizeProperty = (property: Property): Field => {
       ? { deprecationMessage: property.deprecationMessage || 'Deprecated.' }
       : {}),
     isRequired: false,
-    nullable: property.isNullable || property.isOptional,
+    isNullable: property.isNullable || property.isOptional,
   }
   switch (property.format) {
     case 'string':
@@ -275,7 +257,6 @@ const normalizeParameterItemKind = (parameter: Parameter): Kind => {
 }
 
 const normalizeParameter = (parameter: Parameter): Field => {
-  // Endpoint parameters carry `isRequired`; optional parameters become nullable.
   const base = {
     name: parameter.name,
     description: parameter.description,
@@ -283,7 +264,7 @@ const normalizeParameter = (parameter: Parameter): Field => {
       ? { deprecationMessage: parameter.deprecationMessage || 'Deprecated.' }
       : {}),
     isRequired: parameter.isRequired,
-    nullable: !parameter.isRequired,
+    isNullable: parameter.isNullable,
   }
   switch (parameter.format) {
     case 'string':
@@ -323,13 +304,19 @@ const normalizeParameter = (parameter: Parameter): Field => {
 }
 
 interface BuildClassOptions {
+  // Requests enforce the schema locally (required members, Optional<T> for
+  // nullable parameters); models deserialize leniently.
   resourceType: 'response' | 'request' | 'model'
-  namespace?: string[] | undefined
   // When set, the class is a discriminated-union subclass: the discriminator
   // property is emitted as a get-only override with a constant value.
-  discriminator?: { name: string; value: string; base: string }
-  // Property names lifted onto the union's abstract base; emitted as overrides.
-  overrideNames?: Set<string> | undefined
+  discriminator?: {
+    name: string
+    value: string
+    base: string
+    declareProperty?: boolean
+  }
+  // Field names declared concretely on the union base; omitted from subclasses.
+  omitNames?: Set<string> | undefined
   documentation?: string
   obsoleteMessage?: string
 }
@@ -341,6 +328,12 @@ interface BuiltClass {
   properties: CsProperty[]
 }
 
+// Whether a C# type needs a `default!` initializer to satisfy non-nullable
+// analysis when the wire value is what actually assigns it. Value types are
+// self-satisfying but `default!` is harmless and uniform.
+const lenientInitializer = (type: string): string | undefined =>
+  type.endsWith('?') ? undefined : 'default!'
+
 const buildClass = (
   className: string,
   fields: Field[],
@@ -348,9 +341,8 @@ const buildClass = (
 ): BuiltClass => {
   const {
     resourceType,
-    namespace,
     discriminator,
-    overrideNames,
+    omitNames,
     documentation,
     obsoleteMessage,
   } = options
@@ -363,15 +355,16 @@ const buildClass = (
     nestedByKey.set(key, value)
   }
 
-  const csType = (
+  // The core (non-nullable) C# type of a field, declaring any nested enum,
+  // union, or sibling class it needs.
+  const coreType = (
     kind: Kind,
     fieldName: string,
-    nullable: boolean,
     documentation?: string,
   ): string => {
     switch (kind.t) {
       case 'prim':
-        return withNullable(kind.cs, nullable)
+        return kind.cs
       case 'ref':
         return kind.cs
       case 'enum': {
@@ -380,79 +373,86 @@ const buildClass = (
           ...(documentation != null ? { documentation } : {}),
         }
         setNested(csEnum.name, { enum: csEnum })
-        return withNullable(`${className}.${csEnum.name}`, nullable)
+        return `${className}.${csEnum.name}`
       }
       case 'object': {
         const childName = pascalCase(className + pascalCase(fieldName))
         const built = buildClass(childName, kind.fields, {
-          resourceType: 'model',
-          namespace,
+          resourceType: resourceType === 'request' ? 'request' : 'model',
         })
         siblings.push(built.main, ...built.siblings)
-        return withNullable(childName, nullable)
+        return childName
       }
       case 'list':
-        return withNullable(
-          `List<${csType(kind.item, fieldName, false, documentation)}>`,
-          nullable,
-        )
+        return `List<${coreType(kind.item, fieldName, documentation)}>`
       case 'union': {
         const unionName = pascalCase(className + pascalCase(fieldName))
         const union = buildUnion(unionName, kind.discriminator, kind.variants, {
           resourceType,
-          namespace,
         })
         setNested(unionName, { union })
-        return withNullable(unionName, nullable)
+        return unionName
       }
     }
   }
 
-  const overrideProperty = (name: string, value: string): CsProperty => ({
-    pascalName: pascalCase(name),
-    camelName: camelIdentifier(name),
-    snakeName: snakeCase(name),
-    type: 'string',
-    isRequired: true,
-    isOverride: true,
-    getOnly: true,
-    initializer: `"${value}"`,
-  })
+  const mapField = (field: Field): CsProperty => {
+    const core = coreType(field.kind, field.name, field.description)
 
-  const mapField = (field: Field): CsProperty => ({
-    pascalName: pascalCase(field.name),
-    camelName: camelIdentifier(field.name),
-    snakeName: snakeCase(field.name),
-    type: csType(field.kind, field.name, field.nullable, field.description),
-    isRequired: field.isRequired,
-    isOverride: overrideNames?.has(field.name) ?? false,
-    getOnly: false,
-    documentation: field.description,
-    ...(field.deprecationMessage != null
-      ? { obsoleteMessage: field.deprecationMessage }
-      : {}),
-  })
+    let type: string
+    let isRequired = false
+    let initializer: string | undefined
+
+    if (resourceType === 'request') {
+      // Optionality composes with nullability rather than replacing it: an
+      // optional parameter is omitted by leaving it null (or unset), while
+      // only a nullable parameter accepts an explicit Null.Value.
+      type = field.isNullable ? `Optional<${core}>` : core
+      isRequired = field.isRequired
+      if (!field.isRequired && !field.isNullable) {
+        type = withNullable(type, true)
+      }
+    } else {
+      type = withNullable(core, field.isNullable)
+      initializer = lenientInitializer(type)
+    }
+
+    return {
+      pascalName: pascalCase(field.name),
+      snakeName: snakeCase(field.name),
+      type,
+      isRequired,
+      isOverride: false,
+      getOnly: false,
+      ...(initializer != null ? { initializer } : {}),
+      documentation: field.description,
+      ...(field.deprecationMessage != null
+        ? { obsoleteMessage: field.deprecationMessage }
+        : {}),
+    }
+  }
 
   const properties: CsProperty[] = []
-  let emittedDiscriminator = false
   for (const field of fields) {
-    if (discriminator != null && field.name === discriminator.name) {
-      properties.push(overrideProperty(discriminator.name, discriminator.value))
-      emittedDiscriminator = true
-      continue
-    }
+    if (field.name === discriminator?.name) continue
+    if (omitNames?.has(field.name) ?? false) continue
     properties.push(mapField(field))
   }
-  if (discriminator != null && !emittedDiscriminator) {
-    properties.unshift(
-      overrideProperty(discriminator.name, discriminator.value),
-    )
+  if (discriminator != null && (discriminator.declareProperty ?? true)) {
+    properties.unshift({
+      pascalName: pascalCase(discriminator.name),
+      snakeName: snakeCase(discriminator.name),
+      type: 'string',
+      isRequired: false,
+      isOverride: true,
+      getOnly: true,
+      initializer: `"${discriminator.value}"`,
+    })
   }
 
   const main: CsClass = {
     kind: 'class',
     className,
-    dataContractName: dataContractName(className, resourceType, namespace),
     ...(discriminator != null ? { baseClass: discriminator.base } : {}),
     nested,
     properties,
@@ -463,29 +463,53 @@ const buildClass = (
   return { main, siblings, properties }
 }
 
+interface BuildUnionOptions {
+  resourceType: 'response' | 'request' | 'model'
+  // Field names removed from every variant in favor of `extraBaseProps`
+  // declared on the base with a shared type, e.g. the action attempt
+  // status contract the runtime resolver depends on.
+  omitFieldNames?: string[]
+  extraBaseProps?: CsProperty[]
+  baseClass?: string
+  inheritsDiscriminator?: boolean
+  leadingBaseProps?: CsProperty[]
+  documentation?: string
+  obsoleteMessage?: string
+}
+
 const buildUnion = (
   className: string,
   discriminator: string,
   variants: Variant[],
-  options: {
-    resourceType: 'response' | 'request' | 'model'
-    namespace?: string[] | undefined
-  },
+  options: BuildUnionOptions,
 ): CsUnion => {
-  const { resourceType, namespace } = options
+  const {
+    resourceType,
+    omitFieldNames = [],
+    extraBaseProps = [],
+    baseClass,
+    inheritsDiscriminator,
+    leadingBaseProps = [],
+    documentation,
+    obsoleteMessage,
+  } = options
+  const omitted = new Set(omitFieldNames)
 
-  // Lift properties shared by every variant onto the abstract base so consumers
-  // can read them polymorphically without downcasting. Only primitive-typed
+  // Lift properties shared by every variant onto the base so consumers can
+  // read them polymorphically without downcasting. Only primitive-typed
   // properties with an identical resolved C# type across all variants qualify
   // (enum/object/list types are owned by a specific subclass and cannot be
-  // shared). The discriminator is lifted separately as a get-only override.
+  // shared). Lifted properties are declared concretely on the base and
+  // omitted from the subclasses, which inherit them.
   const primType = (field: Field): string | null =>
-    field.kind.t === 'prim' ? withNullable(field.kind.cs, field.nullable) : null
+    field.kind.t === 'prim'
+      ? withNullable(field.kind.cs, field.isNullable)
+      : null
 
   const byName = new Map<string, Field[]>()
   for (const variant of variants) {
     for (const field of variant.fields) {
-      if (field.name === discriminator) continue
+      if (field.name === discriminator || omitted.has(field.name)) continue
       byName.set(field.name, [...(byName.get(field.name) ?? []), field])
     }
   }
@@ -499,22 +523,55 @@ const buildUnion = (
         byName.get(field.name)?.every((f) => primType(f) === type)
       )
     })
-  const overrideNames = new Set(liftedFields.map((f) => f.name))
+  const omitNames = new Set([
+    ...liftedFields.map((f) => f.name),
+    ...omitFieldNames,
+  ])
 
-  const subclasses: CsClass[] = []
+  const baseProps: CsProperty[] = [
+    ...leadingBaseProps,
+    ...liftedFields.map((field): CsProperty => {
+      const type = primType(field) as string
+      return {
+        pascalName: pascalCase(field.name),
+        snakeName: snakeCase(field.name),
+        type,
+        isRequired: false,
+        isOverride: false,
+        getOnly: false,
+        ...(lenientInitializer(type) != null
+          ? { initializer: lenientInitializer(type) as string }
+          : {}),
+        documentation: field.description,
+        ...(field.deprecationMessage != null
+          ? { obsoleteMessage: field.deprecationMessage }
+          : {}),
+      }
+    }),
+    ...extraBaseProps,
+  ]
+
+  const subclasses: Array<CsClass | CsUnion> = []
   const known: Array<[string, string]> = []
 
   for (const variant of variants) {
     const subName = pascalCase(className + pascalCase(variant.value))
+    if (variant.buildAsUnion != null) {
+      subclasses.push(
+        variant.buildAsUnion(subName, new Set([...omitNames, discriminator])),
+      )
+      known.push([subName, variant.value])
+      continue
+    }
     const built = buildClass(subName, variant.fields, {
       resourceType,
-      namespace,
       discriminator: {
         name: discriminator,
         value: variant.value,
         base: className,
+        ...(inheritsDiscriminator ? { declareProperty: false } : {}),
       },
-      overrideNames,
+      omitNames,
       ...(variant.description != null
         ? { documentation: variant.description }
         : {}),
@@ -527,44 +584,32 @@ const buildUnion = (
   }
 
   const unrecognizedTypeName = `${className}Unrecognized`
-  const fallback = buildClass(
-    unrecognizedTypeName,
-    // The fallback carries the lifted properties so it satisfies the abstract
-    // base; they are optional since an unrecognized payload may omit them.
-    liftedFields.map((field) => ({ ...field, isRequired: false })),
-    {
-      resourceType,
-      namespace,
-      discriminator: {
-        name: discriminator,
-        value: 'unrecognized',
-        base: className,
-      },
-      overrideNames,
+  const fallback = buildClass(unrecognizedTypeName, [], {
+    resourceType,
+    discriminator: {
+      name: discriminator,
+      value: 'unrecognized',
+      base: className,
+      ...(inheritsDiscriminator ? { declareProperty: false } : {}),
     },
-  )
-  subclasses.push(fallback.main, ...fallback.siblings)
+  })
+  subclasses.push({ ...fallback.main, isUnrecognizedFallback: true })
 
-  // The KnownSubType attribute order is the reverse of subclass definition order.
-  const knownSubTypes = [...known]
-    .reverse()
-    .map(([typeName, value]) => ({ typeName, value }))
+  const knownSubTypes = known.map(([typeName, value]) => ({ typeName, value }))
 
   return {
     kind: 'union',
     className,
+    ...(baseClass != null ? { baseClass } : {}),
     discriminatorSnake: discriminator,
+    discriminatorPascal: pascalCase(discriminator),
+    ...(inheritsDiscriminator ? { inheritsDiscriminator } : {}),
     knownSubTypes,
     unrecognizedTypeName,
-    abstractProps: [
-      { type: 'string', pascalName: pascalCase(discriminator), getOnly: true },
-      ...liftedFields.map((field) => ({
-        type: primType(field) as string,
-        pascalName: pascalCase(field.name),
-        getOnly: false,
-      })),
-    ],
+    baseProps,
     subclasses,
+    ...(documentation != null ? { documentation } : {}),
+    ...(obsoleteMessage != null ? { obsoleteMessage } : {}),
   }
 }
 
@@ -574,7 +619,6 @@ export const buildModelFile = (
   const name = pascalCase(resource.resourceType)
   const built = buildClass(name, resource.properties.map(normalizeProperty), {
     resourceType: 'model',
-    namespace: MODEL_NAMESPACE,
     documentation: resource.description,
     ...(resource.isDeprecated
       ? { obsoleteMessage: resource.deprecationMessage || 'Deprecated.' }
@@ -583,41 +627,129 @@ export const buildModelFile = (
   return { name, file: { decls: [built.main, ...built.siblings] } }
 }
 
-const buildUnionModelFile = (
-  name: string,
-  discriminator: string,
-  variants: Variant[],
-): { name: string; file: CsModelFile } => {
-  const union = buildUnion(name, discriminator, variants, {
-    resourceType: 'model',
-    namespace: MODEL_NAMESPACE,
-  })
-  return { name, file: { decls: [union] } }
+const actionAttemptRuntimeTypes: Record<string, string> = {
+  error: 'ActionAttemptError',
 }
+
+const normalizeActionAttemptField = (property: Property): Field => {
+  const runtimeType = actionAttemptRuntimeTypes[property.name]
+  const field = normalizeProperty(property)
+  if (runtimeType == null) return field
+  return { ...field, kind: { t: 'ref', cs: runtimeType } }
+}
+
+const findActionAttemptStatusProperty = (
+  actionAttempt: ActionAttempt,
+): EnumProperty | undefined =>
+  actionAttempt.properties.find(
+    (property): property is EnumProperty =>
+      property.name === 'status' && property.format === 'enum',
+  )
+
+const buildActionAttemptStatusUnion = (
+  actionAttempt: ActionAttempt,
+  statusProperty: EnumProperty,
+  subName: string,
+  omitNames: Set<string>,
+): CsUnion =>
+  buildUnion(
+    subName,
+    statusProperty.name,
+    statusProperty.values.map(({ name }) => {
+      const status = name as ActionAttemptStatus
+      return {
+        value: status,
+        fields: actionAttempt.properties.flatMap((property) => {
+          if (property === statusProperty || omitNames.has(property.name)) {
+            return []
+          }
+          const statuses = property.actionAttemptStatuses
+          if (statuses != null && !statuses.includes(status)) return []
+          return [normalizeActionAttemptField(property)]
+        }),
+      }
+    }),
+    {
+      resourceType: 'model',
+      baseClass: 'ActionAttempt',
+      inheritsDiscriminator: true,
+      leadingBaseProps: [
+        {
+          pascalName: 'ActionType',
+          snakeName: 'action_type',
+          type: 'string',
+          isRequired: false,
+          isOverride: true,
+          getOnly: true,
+          initializer: `"${actionAttempt.actionAttemptType}"`,
+        },
+      ],
+      documentation: actionAttempt.description,
+      ...(actionAttempt.isDeprecated
+        ? {
+            obsoleteMessage: actionAttempt.deprecationMessage || 'Deprecated.',
+          }
+        : {}),
+    },
+  )
 
 export const buildActionAttemptFile = (
   actionAttempts: ActionAttempt[],
-): { name: string; file: CsModelFile } =>
-  buildUnionModelFile(
+): { name: string; file: CsModelFile } => {
+  // The status of every action attempt shares one wire shape, so it is
+  // declared once on the base with the runtime-owned ActionAttemptStatus type
+  // the action attempt resolver depends on.
+  const union = buildUnion(
     'ActionAttempt',
     'action_type',
-    actionAttempts.map((actionAttempt) => ({
-      value: actionAttempt.actionAttemptType,
-      fields: actionAttempt.properties.map(normalizeProperty),
-      description: actionAttempt.description,
-      ...(actionAttempt.isDeprecated
-        ? {
-            deprecationMessage:
-              actionAttempt.deprecationMessage || 'Deprecated.',
-          }
-        : {}),
-    })),
+    actionAttempts.map((actionAttempt) => {
+      const statusProperty = findActionAttemptStatusProperty(actionAttempt)
+      return {
+        value: actionAttempt.actionAttemptType,
+        fields: actionAttempt.properties.map(normalizeActionAttemptField),
+        description: actionAttempt.description,
+        ...(actionAttempt.isDeprecated
+          ? {
+              deprecationMessage:
+                actionAttempt.deprecationMessage || 'Deprecated.',
+            }
+          : {}),
+        ...(statusProperty == null
+          ? {}
+          : {
+              buildAsUnion: (subName: string, omitNames: Set<string>) =>
+                buildActionAttemptStatusUnion(
+                  actionAttempt,
+                  statusProperty,
+                  subName,
+                  omitNames,
+                ),
+            }),
+      }
+    }),
+    {
+      resourceType: 'model',
+      omitFieldNames: ['status'],
+      extraBaseProps: [
+        {
+          pascalName: 'Status',
+          snakeName: 'status',
+          type: 'ActionAttemptStatus',
+          isRequired: false,
+          isOverride: false,
+          getOnly: false,
+          documentation: 'The status of the action attempt.',
+        },
+      ],
+    },
   )
+  return { name: 'ActionAttempt', file: { decls: [union] } }
+}
 
 export const buildEventFile = (
   events: EventResource[],
-): { name: string; file: CsModelFile } =>
-  buildUnionModelFile(
+): { name: string; file: CsModelFile } => {
+  const union = buildUnion(
     'Event',
     'event_type',
     events.map((event) => ({
@@ -628,31 +760,35 @@ export const buildEventFile = (
         ? { deprecationMessage: event.deprecationMessage || 'Deprecated.' }
         : {}),
     })),
+    { resourceType: 'model' },
   )
+  return { name: 'Event', file: { decls: [union] } }
+}
 
 // Resolves the model type for a resource reference. A reference to a type that
 // is not a generated model (e.g. an undocumented resource, which the blueprint
-// reports as `unknown`) falls back to the untyped `object`. The batch
-// find-anything endpoint is keyed by its response key, which is a model.
+// reports as `unknown`) has no class to deserialize into, so the endpoint is
+// generated as returning void. The batch find-anything endpoint is keyed by
+// its response key, which is a model.
 const resolveModel = (
   resourceType: string,
   responseKey: string,
   modelTypes: Set<string>,
-): string => {
+): string | undefined => {
   if (modelTypes.has(resourceType)) return pascalCase(resourceType)
   if (modelTypes.has(responseKey)) return pascalCase(responseKey)
-  return 'object'
+  return undefined
 }
 
 // The C# type for an endpoint's return value, and the resource property name it
 // is unwrapped from in the response body.
-// A model named like the API class that returns it (e.g. Media from the Media
-// API) is shadowed by that class inside Seam.Api, so it is fully qualified.
 const responseReturn = (
   response: Endpoint['response'],
   modelTypes: Set<string>,
-  apiClassName: string,
-): { returnType: string; returnProp: string } | undefined => {
+  routeClassName: string,
+):
+  | { returnType: string; returnProp: string; model: string; isList: boolean }
+  | undefined => {
   if (response.responseType === 'void') return undefined
   const returnProp = pascalCase(response.responseKey)
   const resolvedModel = resolveModel(
@@ -660,101 +796,136 @@ const responseReturn = (
     response.responseKey,
     modelTypes,
   )
+  if (resolvedModel == null) return undefined
   const model =
-    resolvedModel === apiClassName
-      ? `Seam.Model.${resolvedModel}`
+    resolvedModel === routeClassName
+      ? `Seam.Models.${resolvedModel}`
       : resolvedModel
-  const returnType =
-    response.responseType === 'resource_list' ? `List<${model}>` : model
-  return { returnType, returnProp }
+  const isList = response.responseType === 'resource_list'
+  const returnType = isList ? `List<${model}>` : model
+  return { returnType, returnProp, model, isList }
 }
 
-export const buildApiFile = (
-  className: string,
-  endpoints: Endpoint[],
+// The C# condition under which a request property counts as not given, for
+// the require-any-of validation of "at least one parameter" endpoints.
+const paginationParameterNames = new Set(['limit', 'page_cursor'])
+
+const notGivenCondition = (property: CsProperty): string =>
+  property.type.startsWith('Optional<')
+    ? `!${property.pascalName}.IsSet`
+    : `${property.pascalName} == null`
+
+export const buildRoute = (
+  endpoint: Endpoint,
   modelTypes: Set<string>,
-): CsApiFile => {
-  const routes: CsRoute[] = endpoints.map((endpoint) => {
-    const methodName = pascalCase(endpoint.name)
-    const httpMethod = pascalCase(endpoint.request.preferredMethod)
+  routeClassName: string,
+): CsRoute => {
+  const methodName = pascalCase(endpoint.name)
+  const httpMethod = pascalCase(endpoint.request.preferredMethod)
 
-    const request = buildClass(
-      pascalCase(`${endpoint.name}_request`),
-      endpoint.request.parameters.map(normalizeParameter),
-      {
-        resourceType: 'request',
-        documentation: `Request parameters for ${endpoint.title}.`,
-        ...(endpoint.isDeprecated
-          ? { obsoleteMessage: endpoint.deprecationMessage || 'Deprecated.' }
-          : {}),
-      },
-    )
-
-    const routeDocumentation = {
-      documentation: endpoint.description,
+  const request = buildClass(
+    pascalCase(`${endpoint.name}_request`),
+    endpoint.request.parameters.map(normalizeParameter),
+    {
+      resourceType: 'request',
+      documentation: `Request parameters for ${endpoint.title}.`,
       ...(endpoint.isDeprecated
         ? { obsoleteMessage: endpoint.deprecationMessage || 'Deprecated.' }
         : {}),
+    },
+  )
+
+  // An endpoint that requires parameters without any individual parameter
+  // being required needs at least one of them, checked locally before the
+  // request is sent.
+  const requiresAnyParameter =
+    endpoint.request.hasRequiredParameters &&
+    endpoint.request.parameters.every((parameter) => !parameter.isRequired)
+  const atLeastOneProperties = request.properties.filter(
+    (property) => !paginationParameterNames.has(property.snakeName),
+  )
+  if (requiresAnyParameter && atLeastOneProperties.length > 0) {
+    request.main.requireAnyOf = {
+      path: endpoint.path,
+      conditions: atLeastOneProperties.map(notGivenCondition),
     }
+  }
 
-    const returned = responseReturn(
-      endpoint.response,
-      modelTypes,
-      pascalCase(className),
-    )
-    const isVoid = returned == null
+  // The request object is only optional when the endpoint requires nothing.
+  const requestOptional = !endpoint.request.hasRequiredParameters
 
-    if (isVoid) {
-      return {
-        methodName,
-        path: endpoint.path,
-        httpMethod,
-        request: request.main,
-        requestSiblings: request.siblings,
-        responseSiblings: [],
-        responseTypeArg: 'object',
-        isVoid: true,
-        params: request.properties,
-        ...routeDocumentation,
-      }
-    }
+  const routeDocumentation = {
+    documentation: endpoint.description,
+    ...(endpoint.isDeprecated
+      ? { obsoleteMessage: endpoint.deprecationMessage || 'Deprecated.' }
+      : {}),
+  }
 
-    const { returnType, returnProp } = returned
-    const responseKey = (endpoint.response as { responseKey: string })
-      .responseKey
-    const responseClassName = pascalCase(`${endpoint.name}_response`)
-    const response = buildClass(
-      responseClassName,
-      [
-        {
-          name: responseKey,
-          description: endpoint.response.description,
-          isRequired: false,
-          nullable: false,
-          kind: { t: 'ref', cs: returnType },
-        },
-      ],
-      { resourceType: 'response' },
-    )
+  const returned = responseReturn(endpoint.response, modelTypes, routeClassName)
 
+  if (returned == null) {
     return {
       methodName,
       path: endpoint.path,
       httpMethod,
       request: request.main,
       requestSiblings: request.siblings,
-      response: response.main,
-      responseSiblings: response.siblings,
-      responseTypeArg: responseClassName,
-      returnProp,
-      returnType,
-      isVoid: false,
-      params: request.properties,
+      responseSiblings: [],
+      isVoid: true,
+      usesActionAttempt: false,
+      usesPagination: false,
+      requestOptional,
       ...routeDocumentation,
     }
+  }
+
+  const { returnType, returnProp, model, isList } = returned
+  const responseKey = (endpoint.response as { responseKey: string }).responseKey
+  const usesActionAttempt = model === 'ActionAttempt' && !isList
+  const usesPagination = endpoint.hasPagination && isList
+
+  const responseClassName = pascalCase(`${endpoint.name}_response`)
+  const responseFields: Field[] = [
+    {
+      name: responseKey,
+      description: endpoint.response.description,
+      isRequired: false,
+      isNullable: true,
+      kind: { t: 'ref', cs: returnType },
+    },
+    ...(usesPagination
+      ? [
+          {
+            name: 'pagination',
+            description: 'The pagination metadata for the page of results.',
+            isRequired: false,
+            isNullable: true,
+            kind: { t: 'ref', cs: 'Pagination' } as Kind,
+          },
+        ]
+      : []),
+  ]
+  const response = buildClass(responseClassName, responseFields, {
+    resourceType: 'response',
   })
 
-  return { className: pascalCase(className), routes }
+  return {
+    methodName,
+    path: endpoint.path,
+    httpMethod,
+    request: request.main,
+    requestSiblings: request.siblings,
+    response: response.main,
+    responseSiblings: response.siblings,
+    responseTypeArg: responseClassName,
+    returnProp,
+    returnKey: snakeCase(responseKey),
+    returnType,
+    isVoid: false,
+    usesActionAttempt,
+    usesPagination,
+    ...(usesPagination ? { pageItemType: model } : {}),
+    requestOptional,
+    ...routeDocumentation,
+  }
 }
-
-export { GLOBAL_NAMESPACE }
