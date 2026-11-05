@@ -164,13 +164,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/workspaces/create",
                     request,
+                    "workspace",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Workspace
-                ?? throw new HttpRequestException(
-                    "Seam returned no workspace for /workspaces/create"
-                );
+            return response.Read(r => r.Workspace);
         }
 
         /// <summary>
@@ -200,11 +198,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/workspaces/get",
                     request,
+                    "workspace",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Workspace
-                ?? throw new HttpRequestException("Seam returned no workspace for /workspaces/get");
+            return response.Read(r => r.Workspace);
         }
 
         /// <summary>
@@ -234,13 +232,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/workspaces/list",
                     request,
+                    "workspaces",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.Workspaces
-                ?? throw new HttpRequestException(
-                    "Seam returned no workspaces for /workspaces/list"
-                );
+            return response.Read(r => r.Workspaces);
         }
 
         /// <summary>
@@ -271,14 +267,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/workspaces/reset_sandbox",
                     request,
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var actionAttempt =
-                response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    "Seam returned no action_attempt for /workspaces/reset_sandbox"
-                );
+            var actionAttempt = response.Read(r => r.ActionAttempt);
             return await ActionAttemptResolver
                 .ResolveAsync(
                     actionAttempt,

@@ -395,13 +395,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/connect_webviews/create",
                     request,
+                    "connect_webview",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ConnectWebview
-                ?? throw new HttpRequestException(
-                    "Seam returned no connect_webview for /connect_webviews/create"
-                );
+            return response.Read(r => r.ConnectWebview);
         }
 
         /// <summary>
@@ -472,13 +470,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connect_webviews/get",
                     request,
+                    "connect_webview",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ConnectWebview
-                ?? throw new HttpRequestException(
-                    "Seam returned no connect_webview for /connect_webviews/get"
-                );
+            return response.Read(r => r.ConnectWebview);
         }
 
         /// <summary>
@@ -551,13 +547,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connect_webviews/list",
                     request,
+                    "connect_webviews",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ConnectWebviews
-                ?? throw new HttpRequestException(
-                    "Seam returned no connect_webviews for /connect_webviews/list"
-                );
+            return response.Read(r => r.ConnectWebviews);
         }
 
         /// <summary>Fetches one page of /connect_webviews/list with its pagination metadata.</summary>
@@ -571,20 +565,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connect_webviews/list",
                     request,
+                    "connect_webviews",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.ConnectWebviews
-                ?? throw new HttpRequestException(
-                    "Seam returned no connect_webviews for /connect_webviews/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /connect_webviews/list"
-                );
-            return new SeamPage<ConnectWebview>(items, pagination);
+            return new SeamPage<ConnectWebview>(
+                response.Read(r => r.ConnectWebviews),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /connect_webviews/list.</summary>

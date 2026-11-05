@@ -113,13 +113,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connected_accounts/get",
                     request,
+                    "connected_account",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ConnectedAccount
-                ?? throw new HttpRequestException(
-                    "Seam returned no connected_account for /connected_accounts/get"
-                );
+            return response.Read(r => r.ConnectedAccount);
         }
 
         /// <summary>
@@ -198,13 +196,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connected_accounts/list",
                     request,
+                    "connected_accounts",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.ConnectedAccounts
-                ?? throw new HttpRequestException(
-                    "Seam returned no connected_accounts for /connected_accounts/list"
-                );
+            return response.Read(r => r.ConnectedAccounts);
         }
 
         /// <summary>Fetches one page of /connected_accounts/list with its pagination metadata.</summary>
@@ -218,20 +214,14 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/connected_accounts/list",
                     request,
+                    "connected_accounts",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            var items =
-                response.ConnectedAccounts
-                ?? throw new HttpRequestException(
-                    "Seam returned no connected_accounts for /connected_accounts/list"
-                );
-            var pagination =
-                response.Pagination
-                ?? throw new HttpRequestException(
-                    "Seam returned no pagination for /connected_accounts/list"
-                );
-            return new SeamPage<ConnectedAccount>(items, pagination);
+            return new SeamPage<ConnectedAccount>(
+                response.Read(r => r.ConnectedAccounts),
+                response.Read("pagination", r => r.Pagination)
+            );
         }
 
         /// <summary>Creates a paginator over /connected_accounts/list.</summary>

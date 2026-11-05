@@ -67,14 +67,12 @@ namespace Seam
                     HttpMethod.Get,
                     "/action_attempts/get",
                     new GetActionAttemptRequest { ActionAttemptId = actionAttemptId },
+                    "action_attempt",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
 
-            return response.ActionAttempt
-                ?? throw new HttpRequestException(
-                    $"Seam returned no action attempt for {actionAttemptId}"
-                );
+            return response.Read(r => r.ActionAttempt);
         }
 
         private sealed record GetActionAttemptRequest

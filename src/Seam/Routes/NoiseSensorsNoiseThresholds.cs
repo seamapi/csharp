@@ -89,13 +89,11 @@ namespace Seam.Routes
                     HttpMethod.Post,
                     "/noise_sensors/noise_thresholds/create",
                     request,
+                    "noise_threshold",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.NoiseThreshold
-                ?? throw new HttpRequestException(
-                    "Seam returned no noise_threshold for /noise_sensors/noise_thresholds/create"
-                );
+            return response.Read(r => r.NoiseThreshold);
         }
 
         /// <summary>
@@ -168,13 +166,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/noise_sensors/noise_thresholds/get",
                     request,
+                    "noise_threshold",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.NoiseThreshold
-                ?? throw new HttpRequestException(
-                    "Seam returned no noise_threshold for /noise_sensors/noise_thresholds/get"
-                );
+            return response.Read(r => r.NoiseThreshold);
         }
 
         /// <summary>
@@ -211,13 +207,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/noise_sensors/noise_thresholds/list",
                     request,
+                    "noise_thresholds",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.NoiseThresholds
-                ?? throw new HttpRequestException(
-                    "Seam returned no noise_thresholds for /noise_sensors/noise_thresholds/list"
-                );
+            return response.Read(r => r.NoiseThresholds);
         }
 
         /// <summary>

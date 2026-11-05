@@ -131,13 +131,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/access_groups/get",
                     request,
+                    "acs_access_group",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsAccessGroup
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_access_group for /acs/access_groups/get"
-                );
+            return response.Read(r => r.AcsAccessGroup);
         }
 
         /// <summary>
@@ -192,13 +190,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/access_groups/list",
                     request,
+                    "acs_access_groups",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsAccessGroups
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_access_groups for /acs/access_groups/list"
-                );
+            return response.Read(r => r.AcsAccessGroups);
         }
 
         /// <summary>
@@ -235,13 +231,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/access_groups/list_accessible_entrances",
                     request,
+                    "acs_entrances",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsEntrances
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_entrances for /acs/access_groups/list_accessible_entrances"
-                );
+            return response.Read(r => r.AcsEntrances);
         }
 
         /// <summary>
@@ -278,13 +272,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/acs/access_groups/list_users",
                     request,
+                    "acs_users",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AcsUsers
-                ?? throw new HttpRequestException(
-                    "Seam returned no acs_users for /acs/access_groups/list_users"
-                );
+            return response.Read(r => r.AcsUsers);
         }
 
         /// <summary>

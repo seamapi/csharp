@@ -59,13 +59,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/unmanaged/get",
                     request,
+                    "access_method",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessMethod
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_method for /access_methods/unmanaged/get"
-                );
+            return response.Read(r => r.AccessMethod);
         }
 
         /// <summary>
@@ -120,13 +118,11 @@ namespace Seam.Routes
                     HttpMethod.Get,
                     "/access_methods/unmanaged/list",
                     request,
+                    "access_methods",
                     cancellationToken
                 )
                 .ConfigureAwait(false);
-            return response.AccessMethods
-                ?? throw new HttpRequestException(
-                    "Seam returned no access_methods for /access_methods/unmanaged/list"
-                );
+            return response.Read(r => r.AccessMethods);
         }
     }
 }
