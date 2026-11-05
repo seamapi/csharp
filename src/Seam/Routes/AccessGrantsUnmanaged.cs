@@ -84,6 +84,12 @@ namespace Seam.Routes
             public string? AcsSystemId { get; init; }
 
             /// <summary>
+            /// Customer key for which you want to list unmanaged Access Grants.
+            /// </summary>
+            [JsonPropertyName("customer_key")]
+            public string? CustomerKey { get; init; }
+
+            /// <summary>
             /// Numerical limit on the number of unmanaged access grants to return.
             /// </summary>
             [JsonPropertyName("limit")]

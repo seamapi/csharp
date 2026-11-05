@@ -17,6 +17,7 @@ namespace Seam.Models
         [JsonConverter(typeof(SeamUnionConverter))]
         [SeamUnion("error_code")]
         [SeamUnionVariant("failed_to_issue", typeof(AccessMethodErrorsFailedToIssue))]
+        [SeamUnionVariant("access_not_provisioned", typeof(AccessMethodErrorsAccessNotProvisioned))]
         [SeamUnionFallback(typeof(AccessMethodErrorsUnrecognized))]
         public abstract record AccessMethodErrors
         {
@@ -40,6 +41,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "failed_to_issue";
+        }
+
+        public sealed record AccessMethodErrorsAccessNotProvisioned : AccessMethodErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "access_not_provisioned";
         }
 
         public sealed record AccessMethodErrorsUnrecognized
@@ -86,6 +93,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "updating_access_times",
             typeof(AccessMethodPendingMutationsUpdatingAccessTimes)
+        )]
+        [SeamUnionVariant(
+            "waiting_for_access_on_acs_system",
+            typeof(AccessMethodPendingMutationsWaitingForAccessOnAcsSystem)
         )]
         [SeamUnionFallback(typeof(AccessMethodPendingMutationsUnrecognized))]
         public abstract record AccessMethodPendingMutations
@@ -231,6 +242,13 @@ namespace Seam.Models
             public string? StartsAt { get; init; }
         }
 
+        public sealed record AccessMethodPendingMutationsWaitingForAccessOnAcsSystem
+            : AccessMethodPendingMutations
+        {
+            [JsonPropertyName("mutation_code")]
+            public override string MutationCode { get; } = "waiting_for_access_on_acs_system";
+        }
+
         public sealed record AccessMethodPendingMutationsUnrecognized
             : AccessMethodPendingMutations,
                 ISeamUnrecognizedVariant
@@ -260,6 +278,11 @@ namespace Seam.Models
             "user_identity_missing_phone_number",
             typeof(AccessMethodWarningsUserIdentityMissingPhoneNumber)
         )]
+        [SeamUnionVariant(
+            "requested_code_unavailable",
+            typeof(AccessMethodWarningsRequestedCodeUnavailable)
+        )]
+        [SeamUnionVariant("schedule_rounded_up", typeof(AccessMethodWarningsScheduleRoundedUp))]
         [SeamUnionFallback(typeof(AccessMethodWarningsUnrecognized))]
         public abstract record AccessMethodWarnings
         {
@@ -321,6 +344,30 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "user_identity_missing_phone_number";
+        }
+
+        public sealed record AccessMethodWarningsRequestedCodeUnavailable : AccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "requested_code_unavailable";
+
+            /// <summary>
+            /// The PIN code that was assigned instead.
+            /// </summary>
+            [JsonPropertyName("new_code")]
+            public string NewCode { get; init; } = default!;
+
+            /// <summary>
+            /// The originally requested PIN code that could not be used.
+            /// </summary>
+            [JsonPropertyName("original_code")]
+            public string OriginalCode { get; init; } = default!;
+        }
+
+        public sealed record AccessMethodWarningsScheduleRoundedUp : AccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "schedule_rounded_up";
         }
 
         public sealed record AccessMethodWarningsUnrecognized
@@ -414,7 +461,7 @@ namespace Seam.Models
         public bool? IsReadyForAssignment { get; init; }
 
         /// <summary>
-        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// Indicates whether the access method is ready to be encoded. This is true when the card has not yet been issued and the access system has received all the access the card needs. While it is false, `pending_mutations` contains `waiting_for_access_on_acs_system`.
         /// </summary>
         [JsonPropertyName("is_ready_for_encoding")]
         public bool? IsReadyForEncoding { get; init; }

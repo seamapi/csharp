@@ -17,6 +17,10 @@ namespace Seam.Models
         [JsonConverter(typeof(SeamUnionConverter))]
         [SeamUnion("error_code")]
         [SeamUnionVariant("failed_to_issue", typeof(UnmanagedAccessMethodErrorsFailedToIssue))]
+        [SeamUnionVariant(
+            "access_not_provisioned",
+            typeof(UnmanagedAccessMethodErrorsAccessNotProvisioned)
+        )]
         [SeamUnionFallback(typeof(UnmanagedAccessMethodErrorsUnrecognized))]
         public abstract record UnmanagedAccessMethodErrors
         {
@@ -40,6 +44,13 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "failed_to_issue";
+        }
+
+        public sealed record UnmanagedAccessMethodErrorsAccessNotProvisioned
+            : UnmanagedAccessMethodErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "access_not_provisioned";
         }
 
         public sealed record UnmanagedAccessMethodErrorsUnrecognized
@@ -89,6 +100,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "updating_access_times",
             typeof(UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes)
+        )]
+        [SeamUnionVariant(
+            "waiting_for_access_on_acs_system",
+            typeof(UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem)
         )]
         [SeamUnionFallback(typeof(UnmanagedAccessMethodPendingMutationsUnrecognized))]
         public abstract record UnmanagedAccessMethodPendingMutations
@@ -238,6 +253,13 @@ namespace Seam.Models
             public string? StartsAt { get; init; }
         }
 
+        public sealed record UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem
+            : UnmanagedAccessMethodPendingMutations
+        {
+            [JsonPropertyName("mutation_code")]
+            public override string MutationCode { get; } = "waiting_for_access_on_acs_system";
+        }
+
         public sealed record UnmanagedAccessMethodPendingMutationsUnrecognized
             : UnmanagedAccessMethodPendingMutations,
                 ISeamUnrecognizedVariant
@@ -269,6 +291,14 @@ namespace Seam.Models
         [SeamUnionVariant(
             "user_identity_missing_phone_number",
             typeof(UnmanagedAccessMethodWarningsUserIdentityMissingPhoneNumber)
+        )]
+        [SeamUnionVariant(
+            "requested_code_unavailable",
+            typeof(UnmanagedAccessMethodWarningsRequestedCodeUnavailable)
+        )]
+        [SeamUnionVariant(
+            "schedule_rounded_up",
+            typeof(UnmanagedAccessMethodWarningsScheduleRoundedUp)
         )]
         [SeamUnionFallback(typeof(UnmanagedAccessMethodWarningsUnrecognized))]
         public abstract record UnmanagedAccessMethodWarnings
@@ -335,6 +365,32 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "user_identity_missing_phone_number";
+        }
+
+        public sealed record UnmanagedAccessMethodWarningsRequestedCodeUnavailable
+            : UnmanagedAccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "requested_code_unavailable";
+
+            /// <summary>
+            /// The PIN code that was assigned instead.
+            /// </summary>
+            [JsonPropertyName("new_code")]
+            public string NewCode { get; init; } = default!;
+
+            /// <summary>
+            /// The originally requested PIN code that could not be used.
+            /// </summary>
+            [JsonPropertyName("original_code")]
+            public string OriginalCode { get; init; } = default!;
+        }
+
+        public sealed record UnmanagedAccessMethodWarningsScheduleRoundedUp
+            : UnmanagedAccessMethodWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "schedule_rounded_up";
         }
 
         public sealed record UnmanagedAccessMethodWarningsUnrecognized
@@ -410,7 +466,7 @@ namespace Seam.Models
         public bool? IsReadyForAssignment { get; init; }
 
         /// <summary>
-        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// Indicates whether the access method is ready to be encoded. This is true when the card has not yet been issued and the access system has received all the access the card needs. While it is false, `pending_mutations` contains `waiting_for_access_on_acs_system`.
         /// </summary>
         [JsonPropertyName("is_ready_for_encoding")]
         public bool? IsReadyForEncoding { get; init; }

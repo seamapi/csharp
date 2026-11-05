@@ -20,6 +20,7 @@ namespace Seam.Models
             "cannot_create_requested_access_methods",
             typeof(AccessGrantErrorsCannotCreateRequestedAccessMethods)
         )]
+        [SeamUnionVariant("access_not_provisioned", typeof(AccessGrantErrorsAccessNotProvisioned))]
         [SeamUnionFallback(typeof(AccessGrantErrorsUnrecognized))]
         public abstract record AccessGrantErrors
         {
@@ -49,6 +50,12 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("missing_device_ids")]
             public List<string>? MissingDeviceIds { get; init; }
+        }
+
+        public sealed record AccessGrantErrorsAccessNotProvisioned : AccessGrantErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "access_not_provisioned";
         }
 
         public sealed record AccessGrantErrorsUnrecognized
@@ -223,6 +230,7 @@ namespace Seam.Models
             "device_time_constraints_violated",
             typeof(AccessGrantWarningsDeviceTimeConstraintsViolated)
         )]
+        [SeamUnionVariant("access_revoked", typeof(AccessGrantWarningsAccessRevoked))]
         [SeamUnionFallback(typeof(AccessGrantWarningsUnrecognized))]
         public abstract record AccessGrantWarnings
         {
@@ -269,16 +277,30 @@ namespace Seam.Models
         public sealed record AccessGrantWarningsOverprovisionedAccessFailedDevices
         {
             /// <summary>
+            /// Reason the access code could not be revoked.
+            /// </summary>
+            [JsonConverter(typeof(SeamStringEnumConverter))]
+            public enum ErrorCodeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "offline_access_code_not_revocable")]
+                OfflineAccessCodeNotRevocable = 1,
+            }
+
+            /// <summary>
             /// Device whose access code could not be revoked.
             /// </summary>
             [JsonPropertyName("device_id")]
             public string DeviceId { get; init; } = default!;
 
             /// <summary>
-            /// Reason the access code could not be revoked (e.g. `offline_access_code_not_revocable`).
+            /// Reason the access code could not be revoked.
             /// </summary>
             [JsonPropertyName("error_code")]
-            public string ErrorCode { get; init; } = default!;
+            public AccessGrantWarningsOverprovisionedAccessFailedDevices.ErrorCodeEnum ErrorCode { get; init; } =
+                default!;
 
             /// <summary>
             /// Human-readable description of why revocation failed.
@@ -305,10 +327,16 @@ namespace Seam.Models
             public override string WarningCode { get; } = "requested_code_unavailable";
 
             /// <summary>
-            /// ID of the device where the requested code was unavailable.
+            /// ID of the access method whose requested code was unavailable. Present when an access system, such as Salto KS, assigned a different code.
+            /// </summary>
+            [JsonPropertyName("access_method_id")]
+            public string? AccessMethodId { get; init; }
+
+            /// <summary>
+            /// ID of the device where the requested code was unavailable. Present when the code was set directly on a device.
             /// </summary>
             [JsonPropertyName("device_id")]
-            public string DeviceId { get; init; } = default!;
+            public string? DeviceId { get; init; }
 
             /// <summary>
             /// The new PIN code that was assigned instead.
@@ -372,6 +400,18 @@ namespace Seam.Models
             [JsonPropertyName("reason")]
             public AccessGrantWarningsDeviceTimeConstraintsViolated.ReasonEnum Reason { get; init; } =
                 default!;
+        }
+
+        public sealed record AccessGrantWarningsAccessRevoked : AccessGrantWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "access_revoked";
+
+            /// <summary>
+            /// ID of the access method whose access was revoked.
+            /// </summary>
+            [JsonPropertyName("access_method_id")]
+            public string AccessMethodId { get; init; } = default!;
         }
 
         public sealed record AccessGrantWarningsUnrecognized

@@ -144,50 +144,59 @@ namespace Seam.Models
             [EnumMember(Value = "aqara_lock")]
             AqaraLock = 31,
 
+            [EnumMember(Value = "eufy_lock")]
+            EufyLock = 32,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 32,
+            KeynestKey = 33,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 33,
+            NoiseawareActivityZone = 34,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 34,
+            MinutSensor = 35,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 35,
+            EcobeeThermostat = 36,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 36,
+            NestThermostat = 37,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 37,
+            HoneywellResideoThermostat = 38,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 38,
+            TadoThermostat = 39,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 39,
+            SensiThermostat = 40,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 40,
+            SmartthingsThermostat = 41,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 41,
+            IosPhone = 42,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 42,
+            AndroidPhone = 43,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 43,
+            RingCamera = 44,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 44,
+            TapoCamera = 45,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 45,
+            ArloCamera = 46,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 46,
+            ReolinkCamera = 47,
+
+            [EnumMember(Value = "unifi_protect_camera")]
+            UnifiProtectCamera = 48,
+
+            [EnumMember(Value = "sonos_speaker")]
+            SonosSpeaker = 49,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -529,6 +538,10 @@ namespace Seam.Models
         )]
         [SeamUnionVariant("unreliable_online_status", typeof(DeviceWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(DeviceWarningsMaxAccessCodesReached))]
+        [SeamUnionVariant(
+            "cloud_recording_not_enabled",
+            typeof(DeviceWarningsCloudRecordingNotEnabled)
+        )]
         [SeamUnionFallback(typeof(DeviceWarningsUnrecognized))]
         public abstract record DeviceWarnings
         {
@@ -730,6 +743,12 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("max_active_access_code_count")]
             public int MaxActiveAccessCodeCount { get; init; } = default!;
+        }
+
+        public sealed record DeviceWarningsCloudRecordingNotEnabled : DeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "cloud_recording_not_enabled";
         }
 
         public sealed record DeviceWarningsUnrecognized : DeviceWarnings, ISeamUnrecognizedVariant
@@ -1330,6 +1349,12 @@ namespace Seam.Models
         public DevicePropertiesEcobeeMetadata? EcobeeMetadata { get; init; }
 
         /// <summary>
+        /// Metadata for a Eufy device.
+        /// </summary>
+        [JsonPropertyName("eufy_metadata")]
+        public DevicePropertiesEufyMetadata? EufyMetadata { get; init; }
+
+        /// <summary>
         /// Metadata for a 4SUITES device.
         /// </summary>
         [JsonPropertyName("four_suites_metadata")]
@@ -1503,6 +1528,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("ultraloq_metadata")]
         public DevicePropertiesUltraloqMetadata? UltraloqMetadata { get; init; }
+
+        /// <summary>
+        /// Metadata for a UniFi Protect camera.
+        /// </summary>
+        [JsonPropertyName("unifi_protect_metadata")]
+        public DevicePropertiesUnifiProtectMetadata? UnifiProtectMetadata { get; init; }
 
         /// <summary>
         /// Metadata for an ASSA ABLOY Visionline system.
@@ -2354,6 +2385,18 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("ecobee_device_id")]
         public string? EcobeeDeviceId { get; init; }
+    }
+
+    public sealed record DevicePropertiesEufyMetadata
+    {
+        [JsonPropertyName("device_id")]
+        public string? DeviceId { get; init; }
+
+        [JsonPropertyName("device_name")]
+        public string? DeviceName { get; init; }
+
+        [JsonPropertyName("model")]
+        public string? Model { get; init; }
     }
 
     public sealed record DevicePropertiesFourSuitesMetadata
@@ -3222,7 +3265,7 @@ namespace Seam.Models
         public string? DeviceName { get; init; }
 
         /// <summary>
-        /// Set to true when the device does not support the /dual-setpoints API endpoint.
+        /// Deprecated. Seam no longer sets this field.
         /// </summary>
         [JsonPropertyName("dual_setpoints_not_supported")]
         public bool? DualSetpointsNotSupported { get; init; }
@@ -3264,16 +3307,58 @@ namespace Seam.Models
     public sealed record DevicePropertiesTadoMetadata
     {
         /// <summary>
-        /// Device type for a tado° device.
+        /// Serial numbers of all tado° devices in the zone.
+        /// </summary>
+        [JsonPropertyName("device_serial_numbers")]
+        public List<string>? DeviceSerialNumbers { get; init; }
+
+        /// <summary>
+        /// Device type of the main tado° device in the zone, such as `RU02`, `VA02` or `WR02`.
         /// </summary>
         [JsonPropertyName("device_type")]
         public string? DeviceType { get; init; }
 
         /// <summary>
-        /// Serial number for a tado° device.
+        /// Generation of the tado° home, such as `PRE_LINE_X`.
+        /// </summary>
+        [JsonPropertyName("home_generation")]
+        public string? HomeGeneration { get; init; }
+
+        /// <summary>
+        /// ID of the tado° home.
+        /// </summary>
+        [JsonPropertyName("home_id")]
+        public string? HomeId { get; init; }
+
+        /// <summary>
+        /// Name of the tado° home.
+        /// </summary>
+        [JsonPropertyName("home_name")]
+        public string? HomeName { get; init; }
+
+        /// <summary>
+        /// Serial number of the main tado° device in the zone, such as its wall thermostat or Smart AC Control.
         /// </summary>
         [JsonPropertyName("serial_no")]
         public string? SerialNo { get; init; }
+
+        /// <summary>
+        /// ID of the tado° zone within its home.
+        /// </summary>
+        [JsonPropertyName("zone_id")]
+        public string? ZoneId { get; init; }
+
+        /// <summary>
+        /// Name of the tado° zone.
+        /// </summary>
+        [JsonPropertyName("zone_name")]
+        public string? ZoneName { get; init; }
+
+        /// <summary>
+        /// Type of the tado° zone: `HEATING` or `AIR_CONDITIONING`.
+        /// </summary>
+        [JsonPropertyName("zone_type")]
+        public string? ZoneType { get; init; }
     }
 
     public sealed record DevicePropertiesTapoMetadata
@@ -3487,6 +3572,45 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("time_zone")]
         public string? TimeZone { get; init; }
+    }
+
+    public sealed record DevicePropertiesUnifiProtectMetadata
+    {
+        /// <summary>
+        /// Camera ID reported by UniFi Protect.
+        /// </summary>
+        [JsonPropertyName("camera_id")]
+        public string? CameraId { get; init; }
+
+        /// <summary>
+        /// Camera name reported by UniFi Protect.
+        /// </summary>
+        [JsonPropertyName("camera_name")]
+        public string? CameraName { get; init; }
+
+        /// <summary>
+        /// Whether the camera has a microphone.
+        /// </summary>
+        [JsonPropertyName("has_mic")]
+        public bool? HasMic { get; init; }
+
+        /// <summary>
+        /// MAC address reported by the UniFi Protect camera.
+        /// </summary>
+        [JsonPropertyName("mac")]
+        public string? Mac { get; init; }
+
+        /// <summary>
+        /// Model reported by the UniFi Protect camera.
+        /// </summary>
+        [JsonPropertyName("model")]
+        public string? Model { get; init; }
+
+        /// <summary>
+        /// Name of the UniFi Protect console that manages the camera.
+        /// </summary>
+        [JsonPropertyName("nvr_name")]
+        public string? NvrName { get; init; }
     }
 
     public sealed record DevicePropertiesVisionlineMetadata

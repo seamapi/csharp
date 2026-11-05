@@ -53,6 +53,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "camera")]
                 Camera = 5,
+
+                [EnumMember(Value = "speaker")]
+                Speaker = 6,
             }
 
             /// <summary>
@@ -244,41 +247,50 @@ namespace Seam.Routes
                 [EnumMember(Value = "reolink")]
                 Reolink = 60,
 
+                [EnumMember(Value = "unifi_protect")]
+                UnifiProtect = 61,
+
                 [EnumMember(Value = "ical")]
-                Ical = 61,
+                Ical = 62,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 62,
+                Lodgify = 63,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 63,
+                Hostaway = 64,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 64,
+                Guesty = 65,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 65,
+                AcuityScheduling = 66,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 66,
+                Omnitec = 67,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 67,
+                Kisi = 68,
 
                 [EnumMember(Value = "aqara")]
-                Aqara = 68,
+                Aqara = 69,
+
+                [EnumMember(Value = "eufy")]
+                Eufy = 70,
+
+                [EnumMember(Value = "sonos")]
+                Sonos = 71,
 
                 [EnumMember(Value = "yale_access")]
-                YaleAccess = 69,
+                YaleAccess = 72,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 70,
+                HidCm = 73,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 71,
+                GoogleNest = 74,
 
                 [EnumMember(Value = "slack")]
-                Slack = 72,
+                Slack = 75,
             }
 
             /// <summary>

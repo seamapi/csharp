@@ -112,6 +112,7 @@ namespace Seam.Models
             "requested_code_unavailable",
             typeof(AcsCredentialWarningsRequestedCodeUnavailable)
         )]
+        [SeamUnionVariant("schedule_rounded_up", typeof(AcsCredentialWarningsScheduleRoundedUp))]
         [SeamUnionFallback(typeof(AcsCredentialWarningsUnrecognized))]
         public abstract record AcsCredentialWarnings
         {
@@ -184,6 +185,12 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("original_code")]
             public string OriginalCode { get; init; } = default!;
+        }
+
+        public sealed record AcsCredentialWarningsScheduleRoundedUp : AcsCredentialWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "schedule_rounded_up";
         }
 
         public sealed record AcsCredentialWarningsUnrecognized

@@ -144,50 +144,59 @@ namespace Seam.Models
             [EnumMember(Value = "aqara_lock")]
             AqaraLock = 31,
 
+            [EnumMember(Value = "eufy_lock")]
+            EufyLock = 32,
+
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 32,
+            KeynestKey = 33,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 33,
+            NoiseawareActivityZone = 34,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 34,
+            MinutSensor = 35,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 35,
+            EcobeeThermostat = 36,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 36,
+            NestThermostat = 37,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 37,
+            HoneywellResideoThermostat = 38,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 38,
+            TadoThermostat = 39,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 39,
+            SensiThermostat = 40,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 40,
+            SmartthingsThermostat = 41,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 41,
+            IosPhone = 42,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 42,
+            AndroidPhone = 43,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 43,
+            RingCamera = 44,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 44,
+            TapoCamera = 45,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 45,
+            ArloCamera = 46,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 46,
+            ReolinkCamera = 47,
+
+            [EnumMember(Value = "unifi_protect_camera")]
+            UnifiProtectCamera = 48,
+
+            [EnumMember(Value = "sonos_speaker")]
+            SonosSpeaker = 49,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -556,6 +565,10 @@ namespace Seam.Models
             "max_access_codes_reached",
             typeof(UnmanagedDeviceWarningsMaxAccessCodesReached)
         )]
+        [SeamUnionVariant(
+            "cloud_recording_not_enabled",
+            typeof(UnmanagedDeviceWarningsCloudRecordingNotEnabled)
+        )]
         [SeamUnionFallback(typeof(UnmanagedDeviceWarningsUnrecognized))]
         public abstract record UnmanagedDeviceWarnings
         {
@@ -774,6 +787,13 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("max_active_access_code_count")]
             public int MaxActiveAccessCodeCount { get; init; } = default!;
+        }
+
+        public sealed record UnmanagedDeviceWarningsCloudRecordingNotEnabled
+            : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "cloud_recording_not_enabled";
         }
 
         public sealed record UnmanagedDeviceWarningsUnrecognized

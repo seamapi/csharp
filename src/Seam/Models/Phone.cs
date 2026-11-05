@@ -30,6 +30,565 @@ namespace Seam.Models
             AndroidPhone = 2,
         }
 
+        [JsonConverter(typeof(SeamUnionConverter))]
+        [SeamUnion("error_code")]
+        [SeamUnionVariant("account_disconnected", typeof(PhoneErrorsAccountDisconnected))]
+        [SeamUnionVariant(
+            "salto_ks_subscription_limit_exceeded",
+            typeof(PhoneErrorsSaltoKsSubscriptionLimitExceeded)
+        )]
+        [SeamUnionVariant("insufficient_permissions", typeof(PhoneErrorsInsufficientPermissions))]
+        [SeamUnionVariant(
+            "dormakaba_sites_disconnected",
+            typeof(PhoneErrorsDormakabaSitesDisconnected)
+        )]
+        [SeamUnionVariant("device_offline", typeof(PhoneErrorsDeviceOffline))]
+        [SeamUnionVariant("device_removed", typeof(PhoneErrorsDeviceRemoved))]
+        [SeamUnionVariant("hub_disconnected", typeof(PhoneErrorsHubDisconnected))]
+        [SeamUnionVariant("device_disconnected", typeof(PhoneErrorsDeviceDisconnected))]
+        [SeamUnionVariant(
+            "empty_backup_access_code_pool",
+            typeof(PhoneErrorsEmptyBackupAccessCodePool)
+        )]
+        [SeamUnionVariant("august_lock_not_authorized", typeof(PhoneErrorsAugustLockNotAuthorized))]
+        [SeamUnionVariant(
+            "missing_device_credentials",
+            typeof(PhoneErrorsMissingDeviceCredentials)
+        )]
+        [SeamUnionVariant("auxiliary_heat_running", typeof(PhoneErrorsAuxiliaryHeatRunning))]
+        [SeamUnionVariant("subscription_required", typeof(PhoneErrorsSubscriptionRequired))]
+        [SeamUnionVariant("bridge_disconnected", typeof(PhoneErrorsBridgeDisconnected))]
+        [SeamUnionFallback(typeof(PhoneErrorsUnrecognized))]
+        public abstract record PhoneErrors
+        {
+            /// <summary>The value of the <c>error_code</c> discriminator.</summary>
+            public abstract string ErrorCode { get; }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [JsonPropertyName("message")]
+            public string Message { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsAccountDisconnected : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "account_disconnected";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
+            /// </summary>
+            [JsonPropertyName("is_connected_account_error")]
+            public bool IsConnectedAccountError { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsSaltoKsSubscriptionLimitExceeded : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "salto_ks_subscription_limit_exceeded";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
+            /// </summary>
+            [JsonPropertyName("is_connected_account_error")]
+            public bool IsConnectedAccountError { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsInsufficientPermissions : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "insufficient_permissions";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
+            /// </summary>
+            [JsonPropertyName("is_connected_account_error")]
+            public bool IsConnectedAccountError { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsDormakabaSitesDisconnected : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "dormakaba_sites_disconnected";
+
+            /// <summary>
+            /// Indicates that the error is a [connected account](https://www.seam.co/docs/api/connected_accounts/object) error.
+            /// </summary>
+            [JsonPropertyName("is_connected_account_error")]
+            public bool IsConnectedAccountError { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is not a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsDeviceOffline : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "device_offline";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsDeviceRemoved : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "device_removed";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsHubDisconnected : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "hub_disconnected";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsDeviceDisconnected : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "device_disconnected";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsEmptyBackupAccessCodePool : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "empty_backup_access_code_pool";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsAugustLockNotAuthorized : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "august_lock_not_authorized";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsMissingDeviceCredentials : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "missing_device_credentials";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsAuxiliaryHeatRunning : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "auxiliary_heat_running";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsSubscriptionRequired : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "subscription_required";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record PhoneErrorsBridgeDisconnected : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "bridge_disconnected";
+
+            /// <summary>
+            /// Indicates whether the error is related to [Seam Bridge](https://www.seam.co/docs/capability-guides/seam-bridge).
+            /// </summary>
+            [JsonPropertyName("is_bridge_error")]
+            public bool? IsBridgeError { get; init; }
+
+            /// <summary>
+            /// Indicates whether the error is related specifically to the connected account.
+            /// </summary>
+            [JsonPropertyName("is_connected_account_error")]
+            public bool? IsConnectedAccountError { get; init; }
+        }
+
+        public sealed record PhoneErrorsUnrecognized : PhoneErrors, ISeamUnrecognizedVariant
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+            [JsonIgnore]
+            public JsonElement RawJson { get; set; }
+        }
+
+        [JsonConverter(typeof(SeamUnionConverter))]
+        [SeamUnion("warning_code")]
+        [SeamUnionVariant(
+            "partial_backup_access_code_pool",
+            typeof(PhoneWarningsPartialBackupAccessCodePool)
+        )]
+        [SeamUnionVariant("many_active_backup_codes", typeof(PhoneWarningsManyActiveBackupCodes))]
+        [SeamUnionVariant(
+            "third_party_integration_detected",
+            typeof(PhoneWarningsThirdPartyIntegrationDetected)
+        )]
+        [SeamUnionVariant(
+            "ttlock_lock_gateway_unlocking_not_enabled",
+            typeof(PhoneWarningsTtlockLockGatewayUnlockingNotEnabled)
+        )]
+        [SeamUnionVariant(
+            "ttlock_weak_gateway_signal",
+            typeof(PhoneWarningsTtlockWeakGatewaySignal)
+        )]
+        [SeamUnionVariant("power_saving_mode", typeof(PhoneWarningsPowerSavingMode))]
+        [SeamUnionVariant(
+            "temperature_threshold_exceeded",
+            typeof(PhoneWarningsTemperatureThresholdExceeded)
+        )]
+        [SeamUnionVariant(
+            "device_communication_degraded",
+            typeof(PhoneWarningsDeviceCommunicationDegraded)
+        )]
+        [SeamUnionVariant(
+            "scheduled_maintenance_window",
+            typeof(PhoneWarningsScheduledMaintenanceWindow)
+        )]
+        [SeamUnionVariant(
+            "device_has_flaky_connection",
+            typeof(PhoneWarningsDeviceHasFlakyConnection)
+        )]
+        [SeamUnionVariant("salto_ks_office_mode", typeof(PhoneWarningsSaltoKsOfficeMode))]
+        [SeamUnionVariant("salto_ks_privacy_mode", typeof(PhoneWarningsSaltoKsPrivacyMode))]
+        [SeamUnionVariant("privacy_mode", typeof(PhoneWarningsPrivacyMode))]
+        [SeamUnionVariant(
+            "salto_ks_subscription_limit_almost_reached",
+            typeof(PhoneWarningsSaltoKsSubscriptionLimitAlmostReached)
+        )]
+        [SeamUnionVariant(
+            "salto_ks_lock_access_code_support_removed",
+            typeof(PhoneWarningsSaltoKsLockAccessCodeSupportRemoved)
+        )]
+        [SeamUnionVariant("unknown_issue_with_phone", typeof(PhoneWarningsUnknownIssueWithPhone))]
+        [SeamUnionVariant(
+            "lockly_time_zone_not_configured",
+            typeof(PhoneWarningsLocklyTimeZoneNotConfigured)
+        )]
+        [SeamUnionVariant(
+            "ultraloq_time_zone_unknown",
+            typeof(PhoneWarningsUltraloqTimeZoneUnknown)
+        )]
+        [SeamUnionVariant("time_zone_unknown", typeof(PhoneWarningsTimeZoneUnknown))]
+        [SeamUnionVariant("time_zone_mismatch", typeof(PhoneWarningsTimeZoneMismatch))]
+        [SeamUnionVariant(
+            "two_n_device_missing_timezone",
+            typeof(PhoneWarningsTwoNDeviceMissingTimezone)
+        )]
+        [SeamUnionVariant(
+            "hub_required_for_additional_capabilities",
+            typeof(PhoneWarningsHubRequiredForAdditionalCapabilities)
+        )]
+        [SeamUnionVariant("provider_issue", typeof(PhoneWarningsProviderIssue))]
+        [SeamUnionVariant(
+            "keynest_unsupported_locker",
+            typeof(PhoneWarningsKeynestUnsupportedLocker)
+        )]
+        [SeamUnionVariant(
+            "accessory_keypad_setup_required",
+            typeof(PhoneWarningsAccessoryKeypadSetupRequired)
+        )]
+        [SeamUnionVariant(
+            "accessory_keypad_low_battery",
+            typeof(PhoneWarningsAccessoryKeypadLowBattery)
+        )]
+        [SeamUnionVariant("unreliable_online_status", typeof(PhoneWarningsUnreliableOnlineStatus))]
+        [SeamUnionVariant("max_access_codes_reached", typeof(PhoneWarningsMaxAccessCodesReached))]
+        [SeamUnionVariant(
+            "cloud_recording_not_enabled",
+            typeof(PhoneWarningsCloudRecordingNotEnabled)
+        )]
+        [SeamUnionFallback(typeof(PhoneWarningsUnrecognized))]
+        public abstract record PhoneWarnings
+        {
+            /// <summary>The value of the <c>warning_code</c> discriminator.</summary>
+            public abstract string WarningCode { get; }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [JsonPropertyName("message")]
+            public string Message { get; init; } = default!;
+        }
+
+        public sealed record PhoneWarningsPartialBackupAccessCodePool : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "partial_backup_access_code_pool";
+        }
+
+        public sealed record PhoneWarningsManyActiveBackupCodes : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "many_active_backup_codes";
+        }
+
+        public sealed record PhoneWarningsThirdPartyIntegrationDetected : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "third_party_integration_detected";
+        }
+
+        public sealed record PhoneWarningsTtlockLockGatewayUnlockingNotEnabled : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "ttlock_lock_gateway_unlocking_not_enabled";
+        }
+
+        public sealed record PhoneWarningsTtlockWeakGatewaySignal : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "ttlock_weak_gateway_signal";
+        }
+
+        public sealed record PhoneWarningsPowerSavingMode : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "power_saving_mode";
+        }
+
+        public sealed record PhoneWarningsTemperatureThresholdExceeded : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "temperature_threshold_exceeded";
+        }
+
+        public sealed record PhoneWarningsDeviceCommunicationDegraded : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "device_communication_degraded";
+        }
+
+        public sealed record PhoneWarningsScheduledMaintenanceWindow : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "scheduled_maintenance_window";
+        }
+
+        public sealed record PhoneWarningsDeviceHasFlakyConnection : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "device_has_flaky_connection";
+        }
+
+        public sealed record PhoneWarningsSaltoKsOfficeMode : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "salto_ks_office_mode";
+        }
+
+        public sealed record PhoneWarningsSaltoKsPrivacyMode : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "salto_ks_privacy_mode";
+        }
+
+        public sealed record PhoneWarningsPrivacyMode : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "privacy_mode";
+        }
+
+        public sealed record PhoneWarningsSaltoKsSubscriptionLimitAlmostReached : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "salto_ks_subscription_limit_almost_reached";
+        }
+
+        public sealed record PhoneWarningsSaltoKsLockAccessCodeSupportRemoved : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "salto_ks_lock_access_code_support_removed";
+        }
+
+        public sealed record PhoneWarningsUnknownIssueWithPhone : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "unknown_issue_with_phone";
+        }
+
+        public sealed record PhoneWarningsLocklyTimeZoneNotConfigured : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "lockly_time_zone_not_configured";
+        }
+
+        public sealed record PhoneWarningsUltraloqTimeZoneUnknown : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "ultraloq_time_zone_unknown";
+        }
+
+        public sealed record PhoneWarningsTimeZoneUnknown : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "time_zone_unknown";
+        }
+
+        public sealed record PhoneWarningsTimeZoneMismatch : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "time_zone_mismatch";
+        }
+
+        public sealed record PhoneWarningsTwoNDeviceMissingTimezone : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "two_n_device_missing_timezone";
+        }
+
+        public sealed record PhoneWarningsHubRequiredForAdditionalCapabilities : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "hub_required_for_additional_capabilities";
+        }
+
+        public sealed record PhoneWarningsProviderIssue : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "provider_issue";
+        }
+
+        public sealed record PhoneWarningsKeynestUnsupportedLocker : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "keynest_unsupported_locker";
+        }
+
+        public sealed record PhoneWarningsAccessoryKeypadSetupRequired : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "accessory_keypad_setup_required";
+        }
+
+        public sealed record PhoneWarningsAccessoryKeypadLowBattery : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "accessory_keypad_low_battery";
+        }
+
+        public sealed record PhoneWarningsUnreliableOnlineStatus : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "unreliable_online_status";
+        }
+
+        public sealed record PhoneWarningsMaxAccessCodesReached : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "max_access_codes_reached";
+
+            /// <summary>
+            /// Number of active access codes on the device when the warning was set.
+            /// </summary>
+            [JsonPropertyName("active_access_code_count")]
+            public int ActiveAccessCodeCount { get; init; } = default!;
+
+            /// <summary>
+            /// Maximum number of active access codes supported by the device.
+            /// </summary>
+            [JsonPropertyName("max_active_access_code_count")]
+            public int MaxActiveAccessCodeCount { get; init; } = default!;
+        }
+
+        public sealed record PhoneWarningsCloudRecordingNotEnabled : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "cloud_recording_not_enabled";
+        }
+
+        public sealed record PhoneWarningsUnrecognized : PhoneWarnings, ISeamUnrecognizedVariant
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "unrecognized";
+
+            /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+            [JsonIgnore]
+            public JsonElement RawJson { get; set; }
+        }
+
         /// <summary>
         /// Date and time at which the phone was created.
         /// </summary>
@@ -61,7 +620,7 @@ namespace Seam.Models
         public string DisplayName { get; init; } = default!;
 
         /// <summary>
-        /// Errors associated with the phone.
+        /// Array of errors associated with the device. Each error object within the array contains two fields: `error_code` and `message`. `error_code` is a string that uniquely identifies the type of error, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the error, offering insights into the issue and potentially how to rectify it.
         /// </summary>
         [JsonPropertyName("errors")]
         public List<PhoneErrors> Errors { get; init; } = default!;
@@ -79,7 +638,7 @@ namespace Seam.Models
         public PhoneProperties Properties { get; init; } = default!;
 
         /// <summary>
-        /// Warnings associated with the phone.
+        /// Array of warnings associated with the device. Each warning object within the array contains two fields: `warning_code` and `message`. `warning_code` is a string that uniquely identifies the type of warning, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the warning, offering insights into the issue and potentially how to rectify it.
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<PhoneWarnings> Warnings { get; init; } = default!;
@@ -89,27 +648,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("workspace_id")]
         public string WorkspaceId { get; init; } = default!;
-    }
-
-    public sealed record PhoneErrors
-    {
-        /// <summary>
-        /// Date and time at which Seam created the error.
-        /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; init; } = default!;
-
-        /// <summary>
-        /// Unique identifier of the type of error.
-        /// </summary>
-        [JsonPropertyName("error_code")]
-        public string ErrorCode { get; init; } = default!;
-
-        /// <summary>
-        /// Detailed description of the error.
-        /// </summary>
-        [JsonPropertyName("message")]
-        public string Message { get; init; } = default!;
     }
 
     public sealed record PhoneProperties
@@ -164,26 +702,5 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("has_active_phone")]
         public bool? HasActivePhone { get; init; }
-    }
-
-    public sealed record PhoneWarnings
-    {
-        /// <summary>
-        /// Date and time at which Seam created the warning.
-        /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; init; } = default!;
-
-        /// <summary>
-        /// Detailed description of the warning.
-        /// </summary>
-        [JsonPropertyName("message")]
-        public string Message { get; init; } = default!;
-
-        /// <summary>
-        /// Unique identifier of the type of warning.
-        /// </summary>
-        [JsonPropertyName("warning_code")]
-        public string WarningCode { get; init; } = default!;
     }
 }

@@ -253,6 +253,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "aqara_lock")]
                 AqaraLock = 31,
+
+                [EnumMember(Value = "eufy_lock")]
+                EufyLock = 32,
             }
 
             /// <summary>
@@ -356,6 +359,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "aqara_lock")]
                 AqaraLock = 31,
+
+                [EnumMember(Value = "eufy_lock")]
+                EufyLock = 32,
             }
 
             /// <summary>

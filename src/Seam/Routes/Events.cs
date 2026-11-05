@@ -66,7 +66,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place.
+        /// Returns a specified event. This endpoint returns the same event that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to retrieve an event that already took place. Events older than 90 days are not returned.
         /// </summary>
         public async Task<Event> GetAsync(
             GetRequest request,
@@ -874,7 +874,7 @@ namespace Seam.Routes
             public string? AcsUserId { get; init; }
 
             /// <summary>
-            /// Lower and upper timestamps to define an exclusive interval containing the events that you want to list. You must include `since` or `between`.
+            /// Lower and upper timestamps to define an exclusive interval containing the events that you want to list. You must include `since` or `between`. Only events from the last 90 days are returned, so a lower timestamp older than 90 days is treated as 90 days ago.
             /// </summary>
             [JsonPropertyName("between")]
             public List<string>? Between { get; init; }
@@ -934,7 +934,7 @@ namespace Seam.Routes
             public float? Limit { get; init; }
 
             /// <summary>
-            /// Timestamp to indicate the beginning generation time for the events that you want to list. You must include `since` or `between`.
+            /// Timestamp to indicate the beginning generation time for the events that you want to list. You must include `since` or `between`. Only events from the last 90 days are returned, so a `since` older than 90 days is treated as 90 days ago.
             /// </summary>
             [JsonPropertyName("since")]
             public string? Since { get; init; }
@@ -1012,7 +1012,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place.
+        /// Returns a list of all events. This endpoint returns the same events that would be sent to a [webhook](https://www.seam.co/docs/developer-tools/webhooks), but it enables you to filter or see events that already took place. Only events from the last 90 days are returned.
         /// </summary>
         public async Task<List<Event>> ListAsync(
             ListRequest request,
