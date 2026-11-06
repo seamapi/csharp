@@ -759,6 +759,7 @@ namespace Seam.Api
                 string? accessGrantId = default,
                 string? accessGrantKey = default,
                 string? acsEntranceId = default,
+                string? customerKey = default,
                 string? deviceId = default,
                 int? limit = default,
                 string? pageCursor = default,
@@ -769,6 +770,7 @@ namespace Seam.Api
                 AccessGrantId = accessGrantId;
                 AccessGrantKey = accessGrantKey;
                 AcsEntranceId = acsEntranceId;
+                CustomerKey = customerKey;
                 DeviceId = deviceId;
                 Limit = limit;
                 PageCursor = pageCursor;
@@ -798,6 +800,12 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "acs_entrance_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsEntranceId { get; set; }
+
+            /// <summary>
+            /// Customer key for which you want to list access methods.
+            /// </summary>
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             /// <summary>
             /// ID of the device by which to filter the returned access methods. Must be combined with `access_grant_id`, `access_grant_key`, or `acs_entrance_id`.
@@ -901,6 +909,7 @@ namespace Seam.Api
             string? accessGrantId = default,
             string? accessGrantKey = default,
             string? acsEntranceId = default,
+            string? customerKey = default,
             string? deviceId = default,
             int? limit = default,
             string? pageCursor = default,
@@ -913,6 +922,7 @@ namespace Seam.Api
                     accessGrantId: accessGrantId,
                     accessGrantKey: accessGrantKey,
                     acsEntranceId: acsEntranceId,
+                    customerKey: customerKey,
                     deviceId: deviceId,
                     limit: limit,
                     pageCursor: pageCursor,
@@ -941,6 +951,7 @@ namespace Seam.Api
             string? accessGrantId = default,
             string? accessGrantKey = default,
             string? acsEntranceId = default,
+            string? customerKey = default,
             string? deviceId = default,
             int? limit = default,
             string? pageCursor = default,
@@ -954,6 +965,7 @@ namespace Seam.Api
                         accessGrantId: accessGrantId,
                         accessGrantKey: accessGrantKey,
                         acsEntranceId: acsEntranceId,
+                        customerKey: customerKey,
                         deviceId: deviceId,
                         limit: limit,
                         pageCursor: pageCursor,

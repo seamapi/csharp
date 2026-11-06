@@ -575,6 +575,9 @@ namespace Seam.Api
 
                 [EnumMember(Value = "camera")]
                 Camera = 5,
+
+                [EnumMember(Value = "speaker")]
+                Speaker = 6,
             }
 
             /// <summary>

@@ -1988,6 +1988,10 @@ namespace Seam.Model
             "unknown_issue_with_access_code"
         )]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod),
+            "device_unreachable_for_extended_period"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessCodeWarningsBeingDeleted),
             "being_deleted"
         )]
@@ -2702,6 +2706,73 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(
+            Name = "seamModel_unmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod_model"
+        )]
+        public class UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod
+            : UnmanagedAccessCodeWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod() { }
+
+            public UnmanagedAccessCodeWarningsDeviceUnreachableForExtendedPeriod(
+                string? createdAt = default,
+                string deviceUnreachableSince = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                DeviceUnreachableSince = deviceUnreachableSince;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string? CreatedAt { get; set; }
+
+            /// <summary>
+            /// Date and time since which Seam has been unable to reach the device.
+            /// </summary>
+            [DataMember(
+                Name = "device_unreachable_since",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string DeviceUnreachableSince { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "device_unreachable_for_extended_period";
 
             public override string ToString()
             {

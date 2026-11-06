@@ -159,6 +159,7 @@ namespace Seam.Api
 
             public CreateRequest(
                 List<string>? acsSystemIds = default,
+                string? customerKey = default,
                 string? emailAddress = default,
                 string? fullName = default,
                 string? phoneNumber = default,
@@ -166,6 +167,7 @@ namespace Seam.Api
             )
             {
                 AcsSystemIds = acsSystemIds;
+                CustomerKey = customerKey;
                 EmailAddress = emailAddress;
                 FullName = fullName;
                 PhoneNumber = phoneNumber;
@@ -177,6 +179,12 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "acs_system_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? AcsSystemIds { get; set; }
+
+            /// <summary>
+            /// Customer key of the customer that owns the new user identity. Set it when the user identity will be used in access grants created through that customer&apos;s client session or Customer Portal.
+            /// </summary>
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             /// <summary>
             /// Unique email address for the new user identity.
@@ -277,6 +285,7 @@ namespace Seam.Api
         /// </summary>
         public UserIdentity Create(
             List<string>? acsSystemIds = default,
+            string? customerKey = default,
             string? emailAddress = default,
             string? fullName = default,
             string? phoneNumber = default,
@@ -286,6 +295,7 @@ namespace Seam.Api
             return Create(
                 new CreateRequest(
                     acsSystemIds: acsSystemIds,
+                    customerKey: customerKey,
                     emailAddress: emailAddress,
                     fullName: fullName,
                     phoneNumber: phoneNumber,
@@ -313,6 +323,7 @@ namespace Seam.Api
         /// </summary>
         public async Task<UserIdentity> CreateAsync(
             List<string>? acsSystemIds = default,
+            string? customerKey = default,
             string? emailAddress = default,
             string? fullName = default,
             string? phoneNumber = default,
@@ -323,6 +334,7 @@ namespace Seam.Api
                 await CreateAsync(
                     new CreateRequest(
                         acsSystemIds: acsSystemIds,
+                        customerKey: customerKey,
                         emailAddress: emailAddress,
                         fullName: fullName,
                         phoneNumber: phoneNumber,
@@ -811,6 +823,7 @@ namespace Seam.Api
             public ListRequest(
                 string? createdBefore = default,
                 string? credentialManagerAcsSystemId = default,
+                string? customerKey = default,
                 int? limit = default,
                 string? pageCursor = default,
                 string? search = default,
@@ -819,6 +832,7 @@ namespace Seam.Api
             {
                 CreatedBefore = createdBefore;
                 CredentialManagerAcsSystemId = credentialManagerAcsSystemId;
+                CustomerKey = customerKey;
                 Limit = limit;
                 PageCursor = pageCursor;
                 Search = search;
@@ -840,6 +854,12 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public string? CredentialManagerAcsSystemId { get; set; }
+
+            /// <summary>
+            /// Customer key for which you want to list user identities.
+            /// </summary>
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             /// <summary>
             /// Maximum number of records to return per page.
@@ -941,6 +961,7 @@ namespace Seam.Api
         public List<UserIdentity> List(
             string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
+            string? customerKey = default,
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
@@ -951,6 +972,7 @@ namespace Seam.Api
                 new ListRequest(
                     createdBefore: createdBefore,
                     credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                    customerKey: customerKey,
                     limit: limit,
                     pageCursor: pageCursor,
                     search: search,
@@ -977,6 +999,7 @@ namespace Seam.Api
         public async Task<List<UserIdentity>> ListAsync(
             string? createdBefore = default,
             string? credentialManagerAcsSystemId = default,
+            string? customerKey = default,
             int? limit = default,
             string? pageCursor = default,
             string? search = default,
@@ -988,6 +1011,7 @@ namespace Seam.Api
                     new ListRequest(
                         createdBefore: createdBefore,
                         credentialManagerAcsSystemId: credentialManagerAcsSystemId,
+                        customerKey: customerKey,
                         limit: limit,
                         pageCursor: pageCursor,
                         search: search,

@@ -57,6 +57,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodErrorsAccessNotProvisioned),
+            "access_not_provisioned"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessMethodErrorsFailedToIssue),
             "failed_to_issue"
         )]
@@ -96,6 +100,58 @@ namespace Seam.Model
 
             [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
             public override string ErrorCode { get; } = "failed_to_issue";
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessMethodErrorsAccessNotProvisioned_model")]
+        public class UnmanagedAccessMethodErrorsAccessNotProvisioned : UnmanagedAccessMethodErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessMethodErrorsAccessNotProvisioned() { }
+
+            public UnmanagedAccessMethodErrorsAccessNotProvisioned(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "access_not_provisioned";
 
             /// <summary>
             /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
@@ -199,6 +255,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "mutation_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodPendingMutationsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem),
+            "waiting_for_access_on_acs_system"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessMethodPendingMutationsUpdatingAccessTimes),
             "updating_access_times"
@@ -695,6 +755,61 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem_model"
+        )]
+        public class UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem
+            : UnmanagedAccessMethodPendingMutations
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem() { }
+
+            public UnmanagedAccessMethodPendingMutationsWaitingForAccessOnAcsSystem(
+                string createdAt = default,
+                string message = default,
+                string mutationCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                MutationCode = mutationCode;
+            }
+
+            /// <summary>
+            /// Date and time at which the mutation was created.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the mutation.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "mutation_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string MutationCode { get; } = "waiting_for_access_on_acs_system";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_unmanagedAccessMethodPendingMutationsUnrecognized_model")]
         public class UnmanagedAccessMethodPendingMutationsUnrecognized
             : UnmanagedAccessMethodPendingMutations
@@ -750,6 +865,14 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessMethodWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodWarningsScheduleRoundedUp),
+            "schedule_rounded_up"
+        )]
+        [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessMethodWarningsRequestedCodeUnavailable),
+            "requested_code_unavailable"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessMethodWarningsUserIdentityMissingPhoneNumber),
             "user_identity_missing_phone_number"
@@ -1117,6 +1240,129 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(
+            Name = "seamModel_unmanagedAccessMethodWarningsRequestedCodeUnavailable_model"
+        )]
+        public class UnmanagedAccessMethodWarningsRequestedCodeUnavailable
+            : UnmanagedAccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessMethodWarningsRequestedCodeUnavailable() { }
+
+            public UnmanagedAccessMethodWarningsRequestedCodeUnavailable(
+                string createdAt = default,
+                string message = default,
+                string newCode = default,
+                string originalCode = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                NewCode = newCode;
+                OriginalCode = originalCode;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            /// <summary>
+            /// The PIN code that was assigned instead.
+            /// </summary>
+            [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+            public string NewCode { get; set; }
+
+            /// <summary>
+            /// The originally requested PIN code that could not be used.
+            /// </summary>
+            [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+            public string OriginalCode { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "requested_code_unavailable";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsScheduleRoundedUp_model")]
+        public class UnmanagedAccessMethodWarningsScheduleRoundedUp : UnmanagedAccessMethodWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessMethodWarningsScheduleRoundedUp() { }
+
+            public UnmanagedAccessMethodWarningsScheduleRoundedUp(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "schedule_rounded_up";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_unmanagedAccessMethodWarningsUnrecognized_model")]
         public class UnmanagedAccessMethodWarningsUnrecognized : UnmanagedAccessMethodWarnings
         {
@@ -1230,7 +1476,7 @@ namespace Seam.Model
         public bool? IsReadyForAssignment { get; set; }
 
         /// <summary>
-        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// Indicates whether the access method is ready to be encoded. This is true when the card has not yet been issued and the access system has received all the access the card needs. While it is false, `pending_mutations` contains `waiting_for_access_on_acs_system`.
         /// </summary>
         [DataMember(Name = "is_ready_for_encoding", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsReadyForEncoding { get; set; }

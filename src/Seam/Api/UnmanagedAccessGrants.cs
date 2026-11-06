@@ -150,6 +150,7 @@ namespace Seam.Api
             public ListRequest(
                 string? acsEntranceId = default,
                 string? acsSystemId = default,
+                string? customerKey = default,
                 float? limit = default,
                 string? pageCursor = default,
                 string? reservationKey = default,
@@ -158,6 +159,7 @@ namespace Seam.Api
             {
                 AcsEntranceId = acsEntranceId;
                 AcsSystemId = acsSystemId;
+                CustomerKey = customerKey;
                 Limit = limit;
                 PageCursor = pageCursor;
                 ReservationKey = reservationKey;
@@ -175,6 +177,12 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "acs_system_id", IsRequired = false, EmitDefaultValue = false)]
             public string? AcsSystemId { get; set; }
+
+            /// <summary>
+            /// Customer key for which you want to list unmanaged Access Grants.
+            /// </summary>
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
 
             /// <summary>
             /// Numerical limit on the number of unmanaged access grants to return.
@@ -276,6 +284,7 @@ namespace Seam.Api
         public List<UnmanagedAccessGrant> List(
             string? acsEntranceId = default,
             string? acsSystemId = default,
+            string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
             string? reservationKey = default,
@@ -286,6 +295,7 @@ namespace Seam.Api
                 new ListRequest(
                     acsEntranceId: acsEntranceId,
                     acsSystemId: acsSystemId,
+                    customerKey: customerKey,
                     limit: limit,
                     pageCursor: pageCursor,
                     reservationKey: reservationKey,
@@ -314,6 +324,7 @@ namespace Seam.Api
         public async Task<List<UnmanagedAccessGrant>> ListAsync(
             string? acsEntranceId = default,
             string? acsSystemId = default,
+            string? customerKey = default,
             float? limit = default,
             string? pageCursor = default,
             string? reservationKey = default,
@@ -325,6 +336,7 @@ namespace Seam.Api
                     new ListRequest(
                         acsEntranceId: acsEntranceId,
                         acsSystemId: acsSystemId,
+                        customerKey: customerKey,
                         limit: limit,
                         pageCursor: pageCursor,
                         reservationKey: reservationKey,

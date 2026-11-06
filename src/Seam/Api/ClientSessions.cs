@@ -834,6 +834,9 @@ namespace Seam.Api
             public ListRequest(
                 string? clientSessionId = default,
                 string? connectWebviewId = default,
+                string? customerKey = default,
+                int? limit = default,
+                string? pageCursor = default,
                 string? userIdentifierKey = default,
                 string? userIdentityId = default,
                 bool? withoutUserIdentifierKey = default
@@ -841,6 +844,9 @@ namespace Seam.Api
             {
                 ClientSessionId = clientSessionId;
                 ConnectWebviewId = connectWebviewId;
+                CustomerKey = customerKey;
+                Limit = limit;
+                PageCursor = pageCursor;
                 UserIdentifierKey = userIdentifierKey;
                 UserIdentityId = userIdentityId;
                 WithoutUserIdentifierKey = withoutUserIdentifierKey;
@@ -857,6 +863,24 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "connect_webview_id", IsRequired = false, EmitDefaultValue = false)]
             public string? ConnectWebviewId { get; set; }
+
+            /// <summary>
+            /// Customer key for which you want to list client sessions.
+            /// </summary>
+            [DataMember(Name = "customer_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? CustomerKey { get; set; }
+
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
+            [DataMember(Name = "limit", IsRequired = false, EmitDefaultValue = false)]
+            public int? Limit { get; set; }
+
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
+            [DataMember(Name = "page_cursor", IsRequired = false, EmitDefaultValue = false)]
+            public string? PageCursor { get; set; }
 
             /// <summary>
             /// Your user ID for the user by which you want to filter client sessions.
@@ -956,6 +980,9 @@ namespace Seam.Api
         public List<ClientSession> List(
             string? clientSessionId = default,
             string? connectWebviewId = default,
+            string? customerKey = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default,
             string? userIdentityId = default,
             bool? withoutUserIdentifierKey = default
@@ -965,6 +992,9 @@ namespace Seam.Api
                 new ListRequest(
                     clientSessionId: clientSessionId,
                     connectWebviewId: connectWebviewId,
+                    customerKey: customerKey,
+                    limit: limit,
+                    pageCursor: pageCursor,
                     userIdentifierKey: userIdentifierKey,
                     userIdentityId: userIdentityId,
                     withoutUserIdentifierKey: withoutUserIdentifierKey
@@ -990,6 +1020,9 @@ namespace Seam.Api
         public async Task<List<ClientSession>> ListAsync(
             string? clientSessionId = default,
             string? connectWebviewId = default,
+            string? customerKey = default,
+            int? limit = default,
+            string? pageCursor = default,
             string? userIdentifierKey = default,
             string? userIdentityId = default,
             bool? withoutUserIdentifierKey = default
@@ -1000,6 +1033,9 @@ namespace Seam.Api
                     new ListRequest(
                         clientSessionId: clientSessionId,
                         connectWebviewId: connectWebviewId,
+                        customerKey: customerKey,
+                        limit: limit,
+                        pageCursor: pageCursor,
                         userIdentifierKey: userIdentifierKey,
                         userIdentityId: userIdentityId,
                         withoutUserIdentifierKey: withoutUserIdentifierKey

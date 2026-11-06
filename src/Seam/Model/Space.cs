@@ -28,6 +28,7 @@ namespace Seam.Model
             string name = default,
             string spaceId = default,
             string? spaceKey = default,
+            List<SpaceWarnings> warnings = default,
             string workspaceId = default
         )
         {
@@ -41,7 +42,190 @@ namespace Seam.Model
             Name = name;
             SpaceId = spaceId;
             SpaceKey = spaceKey;
+            Warnings = warnings;
             WorkspaceId = workspaceId;
+        }
+
+        [JsonConverter(typeof(JsonSubtypes), "warning_code")]
+        [JsonSubtypes.FallBackSubType(typeof(SpaceWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(SpaceWarningsNoiseSensorConfigurationMismatch),
+            "noise_sensor_configuration_mismatch"
+        )]
+        [JsonSubtypes.KnownSubType(typeof(SpaceWarningsBeingDeleted), "being_deleted")]
+        public abstract class SpaceWarnings
+        {
+            public abstract string WarningCode { get; }
+
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_spaceWarningsBeingDeleted_model")]
+        public class SpaceWarningsBeingDeleted : SpaceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected SpaceWarningsBeingDeleted() { }
+
+            public SpaceWarningsBeingDeleted(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "being_deleted";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_spaceWarningsNoiseSensorConfigurationMismatch_model")]
+        public class SpaceWarningsNoiseSensorConfigurationMismatch : SpaceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected SpaceWarningsNoiseSensorConfigurationMismatch() { }
+
+            public SpaceWarningsNoiseSensorConfigurationMismatch(
+                string createdAt = default,
+                List<string> deviceIds = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                DeviceIds = deviceIds;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// IDs of the noise sensors in the space that Seam could not bring in line with the noise sensor automation.
+            /// </summary>
+            [DataMember(Name = "device_ids", IsRequired = false, EmitDefaultValue = false)]
+            public List<string> DeviceIds { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "noise_sensor_configuration_mismatch";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_spaceWarningsUnrecognized_model")]
+        public class SpaceWarningsUnrecognized : SpaceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected SpaceWarningsUnrecognized() { }
+
+            public SpaceWarningsUnrecognized(
+                string warningCode = default,
+                string createdAt = default,
+                string message = default
+            )
+            {
+                WarningCode = warningCode;
+                CreatedAt = createdAt;
+                Message = message;
+            }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "unrecognized";
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
         }
 
         /// <summary>
@@ -103,6 +287,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "space_key", IsRequired = false, EmitDefaultValue = false)]
         public string? SpaceKey { get; set; }
+
+        /// <summary>
+        /// Warnings associated with the space.
+        /// </summary>
+        [DataMember(Name = "warnings", IsRequired = false, EmitDefaultValue = false)]
+        public List<SpaceWarnings> Warnings { get; set; }
 
         /// <summary>
         /// ID of the workspace associated with the space.
