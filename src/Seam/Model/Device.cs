@@ -131,7 +131,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Type of the device.
+        /// Type of the device. The `august_lock` and `yale_lock` values are deprecated. Use `yale_access_lock` in place of `august_lock`, and `yale_access_lock` or `yale_home_lock` in place of `yale_lock`.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum DeviceTypeEnum
@@ -190,92 +190,110 @@ namespace Seam.Model
             [EnumMember(Value = "yale_lock")]
             YaleLock = 17,
 
+            [EnumMember(Value = "yale_access_lock")]
+            YaleAccessLock = 18,
+
+            [EnumMember(Value = "yale_home_lock")]
+            YaleHomeLock = 19,
+
+            [EnumMember(Value = "yale_connect_lock")]
+            YaleConnectLock = 20,
+
             [EnumMember(Value = "two_n_intercom")]
-            TwoNIntercom = 18,
+            TwoNIntercom = 21,
 
             [EnumMember(Value = "controlbyweb_device")]
-            ControlbywebDevice = 19,
+            ControlbywebDevice = 22,
 
             [EnumMember(Value = "ttlock_lock")]
-            TtlockLock = 20,
+            TtlockLock = 23,
 
             [EnumMember(Value = "igloohome_lock")]
-            IgloohomeLock = 21,
+            IgloohomeLock = 24,
 
             [EnumMember(Value = "four_suites_door")]
-            FourSuitesDoor = 22,
+            FourSuitesDoor = 25,
 
             [EnumMember(Value = "dormakaba_oracode_door")]
-            DormakabaOracodeDoor = 23,
+            DormakabaOracodeDoor = 26,
 
             [EnumMember(Value = "tedee_lock")]
-            TedeeLock = 24,
+            TedeeLock = 27,
 
             [EnumMember(Value = "akiles_lock")]
-            AkilesLock = 25,
+            AkilesLock = 28,
 
             [EnumMember(Value = "ultraloq_lock")]
-            UltraloqLock = 26,
+            UltraloqLock = 29,
 
             [EnumMember(Value = "yacan_lock")]
-            YacanLock = 27,
+            YacanLock = 30,
 
             [EnumMember(Value = "keyincode_lock")]
-            KeyincodeLock = 28,
+            KeyincodeLock = 31,
 
             [EnumMember(Value = "omnitec_lock")]
-            OmnitecLock = 29,
+            OmnitecLock = 32,
 
             [EnumMember(Value = "kisi_lock")]
-            KisiLock = 30,
+            KisiLock = 33,
 
             [EnumMember(Value = "aqara_lock")]
-            AqaraLock = 31,
+            AqaraLock = 34,
+
+            [EnumMember(Value = "eufy_lock")]
+            EufyLock = 35,
 
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 32,
+            KeynestKey = 36,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 33,
+            NoiseawareActivityZone = 37,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 34,
+            MinutSensor = 38,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 35,
+            EcobeeThermostat = 39,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 36,
+            NestThermostat = 40,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 37,
+            HoneywellResideoThermostat = 41,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 38,
+            TadoThermostat = 42,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 39,
+            SensiThermostat = 43,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 40,
+            SmartthingsThermostat = 44,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 41,
+            IosPhone = 45,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 42,
+            AndroidPhone = 46,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 43,
+            RingCamera = 47,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 44,
+            TapoCamera = 48,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 45,
+            ArloCamera = 49,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 46,
+            ReolinkCamera = 50,
+
+            [EnumMember(Value = "unifi_protect_camera")]
+            UnifiProtectCamera = 51,
+
+            [EnumMember(Value = "sonos_speaker")]
+            SonosSpeaker = 52,
         }
 
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
@@ -1283,6 +1301,10 @@ namespace Seam.Model
 
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(DeviceWarningsUnrecognized))]
+        [JsonSubtypes.KnownSubType(
+            typeof(DeviceWarningsCloudRecordingNotEnabled),
+            "cloud_recording_not_enabled"
+        )]
         [JsonSubtypes.KnownSubType(
             typeof(DeviceWarningsMaxAccessCodesReached),
             "max_access_codes_reached"
@@ -2872,6 +2894,58 @@ namespace Seam.Model
             }
         }
 
+        [DataContract(Name = "seamModel_deviceWarningsCloudRecordingNotEnabled_model")]
+        public class DeviceWarningsCloudRecordingNotEnabled : DeviceWarnings
+        {
+            [JsonConstructorAttribute]
+            protected DeviceWarningsCloudRecordingNotEnabled() { }
+
+            public DeviceWarningsCloudRecordingNotEnabled(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "cloud_recording_not_enabled";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [DataContract(Name = "seamModel_deviceWarningsUnrecognized_model")]
         public class DeviceWarningsUnrecognized : DeviceWarnings
         {
@@ -3083,7 +3157,7 @@ namespace Seam.Model
         public bool? CanSimulateRemoval { get; set; }
 
         /// <summary>
-        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// Indicates whether the camera can stream live video through a camera live view session. `false` while the camera is offline.
         /// </summary>
         [DataMember(Name = "can_stream_live_video", IsRequired = false, EmitDefaultValue = false)]
         public bool? CanStreamLiveVideo { get; set; }
@@ -3143,7 +3217,7 @@ namespace Seam.Model
         public DeviceDeviceProvider? DeviceProvider { get; set; }
 
         /// <summary>
-        /// Type of the device.
+        /// Type of the device. The `august_lock` and `yale_lock` values are deprecated. Use `yale_access_lock` in place of `august_lock`, and `yale_access_lock` or `yale_home_lock` in place of `yale_lock`.
         /// </summary>
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
         public Device.DeviceTypeEnum DeviceType { get; set; }
@@ -3444,6 +3518,7 @@ namespace Seam.Model
             DevicePropertiesDormakabaOracodeIhoMetadata? dormakabaOracodeIhoMetadata = default,
             DevicePropertiesDormakabaOracodeMetadata? dormakabaOracodeMetadata = default,
             DevicePropertiesEcobeeMetadata? ecobeeMetadata = default,
+            DevicePropertiesEufyMetadata? eufyMetadata = default,
             DevicePropertiesFourSuitesMetadata? fourSuitesMetadata = default,
             DevicePropertiesGenieMetadata? genieMetadata = default,
             DevicePropertiesHoneywellResideoMetadata? honeywellResideoMetadata = default,
@@ -3473,9 +3548,11 @@ namespace Seam.Model
             DevicePropertiesTtlockMetadata? ttlockMetadata = default,
             DevicePropertiesTwoNMetadata? twoNMetadata = default,
             DevicePropertiesUltraloqMetadata? ultraloqMetadata = default,
+            DevicePropertiesUnifiProtectMetadata? unifiProtectMetadata = default,
             DevicePropertiesVisionlineMetadata? visionlineMetadata = default,
             DevicePropertiesWyzeMetadata? wyzeMetadata = default,
             DevicePropertiesYacanMetadata? yacanMetadata = default,
+            DevicePropertiesYaleConnectMetadata? yaleConnectMetadata = default,
             float? autoLockDelaySeconds = default,
             bool? autoLockEnabled = default,
             bool? backupAccessCodePoolEnabled = default,
@@ -3557,6 +3634,7 @@ namespace Seam.Model
             DormakabaOracodeIhoMetadata = dormakabaOracodeIhoMetadata;
             DormakabaOracodeMetadata = dormakabaOracodeMetadata;
             EcobeeMetadata = ecobeeMetadata;
+            EufyMetadata = eufyMetadata;
             FourSuitesMetadata = fourSuitesMetadata;
             GenieMetadata = genieMetadata;
             HoneywellResideoMetadata = honeywellResideoMetadata;
@@ -3586,9 +3664,11 @@ namespace Seam.Model
             TtlockMetadata = ttlockMetadata;
             TwoNMetadata = twoNMetadata;
             UltraloqMetadata = ultraloqMetadata;
+            UnifiProtectMetadata = unifiProtectMetadata;
             VisionlineMetadata = visionlineMetadata;
             WyzeMetadata = wyzeMetadata;
             YacanMetadata = yacanMetadata;
+            YaleConnectMetadata = yaleConnectMetadata;
             AutoLockDelaySeconds = autoLockDelaySeconds;
             AutoLockEnabled = autoLockEnabled;
             BackupAccessCodePoolEnabled = backupAccessCodePoolEnabled;
@@ -3953,6 +4033,12 @@ namespace Seam.Model
         public DevicePropertiesEcobeeMetadata? EcobeeMetadata { get; set; }
 
         /// <summary>
+        /// Metadata for a Eufy device.
+        /// </summary>
+        [DataMember(Name = "eufy_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesEufyMetadata? EufyMetadata { get; set; }
+
+        /// <summary>
         /// Metadata for a 4SUITES device.
         /// </summary>
         [DataMember(Name = "four_suites_metadata", IsRequired = false, EmitDefaultValue = false)]
@@ -4132,6 +4218,12 @@ namespace Seam.Model
         public DevicePropertiesUltraloqMetadata? UltraloqMetadata { get; set; }
 
         /// <summary>
+        /// Metadata for a UniFi Protect camera.
+        /// </summary>
+        [DataMember(Name = "unifi_protect_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesUnifiProtectMetadata? UnifiProtectMetadata { get; set; }
+
+        /// <summary>
         /// Metadata for an ASSA ABLOY Visionline system.
         /// </summary>
         [DataMember(Name = "visionline_metadata", IsRequired = false, EmitDefaultValue = false)]
@@ -4148,6 +4240,12 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "yacan_metadata", IsRequired = false, EmitDefaultValue = false)]
         public DevicePropertiesYacanMetadata? YacanMetadata { get; set; }
+
+        /// <summary>
+        /// Metadata for a Yale Connect lock.
+        /// </summary>
+        [DataMember(Name = "yale_connect_metadata", IsRequired = false, EmitDefaultValue = false)]
+        public DevicePropertiesYaleConnectMetadata? YaleConnectMetadata { get; set; }
 
         /// <summary>
         /// The delay in seconds before the lock automatically locks after being unlocked.
@@ -5884,6 +5982,52 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "ecobee_device_id", IsRequired = false, EmitDefaultValue = false)]
         public string? EcobeeDeviceId { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesEufyMetadata_model")]
+    public class DevicePropertiesEufyMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesEufyMetadata() { }
+
+        public DevicePropertiesEufyMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? model = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            Model = model;
+        }
+
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
 
         public override string ToString()
         {
@@ -7818,7 +7962,7 @@ namespace Seam.Model
         public string? DeviceName { get; set; }
 
         /// <summary>
-        /// Set to true when the device does not support the /dual-setpoints API endpoint.
+        /// Deprecated. Seam no longer sets this field.
         /// </summary>
         [DataMember(
             Name = "dual_setpoints_not_supported",
@@ -7923,25 +8067,81 @@ namespace Seam.Model
         protected DevicePropertiesTadoMetadata() { }
 
         public DevicePropertiesTadoMetadata(
+            List<string>? deviceSerialNumbers = default,
             string? deviceType = default,
-            string? serialNo = default
+            string? homeGeneration = default,
+            string? homeId = default,
+            string? homeName = default,
+            string? serialNo = default,
+            string? zoneId = default,
+            string? zoneName = default,
+            string? zoneType = default
         )
         {
+            DeviceSerialNumbers = deviceSerialNumbers;
             DeviceType = deviceType;
+            HomeGeneration = homeGeneration;
+            HomeId = homeId;
+            HomeName = homeName;
             SerialNo = serialNo;
+            ZoneId = zoneId;
+            ZoneName = zoneName;
+            ZoneType = zoneType;
         }
 
         /// <summary>
-        /// Device type for a tado° device.
+        /// Serial numbers of all tado° devices in the zone.
+        /// </summary>
+        [DataMember(Name = "device_serial_numbers", IsRequired = false, EmitDefaultValue = false)]
+        public List<string>? DeviceSerialNumbers { get; set; }
+
+        /// <summary>
+        /// Device type of the main tado° device in the zone, such as `RU02`, `VA02` or `WR02`.
         /// </summary>
         [DataMember(Name = "device_type", IsRequired = false, EmitDefaultValue = false)]
         public string? DeviceType { get; set; }
 
         /// <summary>
-        /// Serial number for a tado° device.
+        /// Generation of the tado° home, such as `PRE_LINE_X`.
+        /// </summary>
+        [DataMember(Name = "home_generation", IsRequired = false, EmitDefaultValue = false)]
+        public string? HomeGeneration { get; set; }
+
+        /// <summary>
+        /// ID of the tado° home.
+        /// </summary>
+        [DataMember(Name = "home_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? HomeId { get; set; }
+
+        /// <summary>
+        /// Name of the tado° home.
+        /// </summary>
+        [DataMember(Name = "home_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? HomeName { get; set; }
+
+        /// <summary>
+        /// Serial number of the main tado° device in the zone, such as its wall thermostat or Smart AC Control.
         /// </summary>
         [DataMember(Name = "serial_no", IsRequired = false, EmitDefaultValue = false)]
         public string? SerialNo { get; set; }
+
+        /// <summary>
+        /// ID of the tado° zone within its home.
+        /// </summary>
+        [DataMember(Name = "zone_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? ZoneId { get; set; }
+
+        /// <summary>
+        /// Name of the tado° zone.
+        /// </summary>
+        [DataMember(Name = "zone_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? ZoneName { get; set; }
+
+        /// <summary>
+        /// Type of the tado° zone: `HEATING` or `AIR_CONDITIONING`.
+        /// </summary>
+        [DataMember(Name = "zone_type", IsRequired = false, EmitDefaultValue = false)]
+        public string? ZoneType { get; set; }
 
         public override string ToString()
         {
@@ -8437,6 +8637,85 @@ namespace Seam.Model
         }
     }
 
+    [DataContract(Name = "seamModel_devicePropertiesUnifiProtectMetadata_model")]
+    public class DevicePropertiesUnifiProtectMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesUnifiProtectMetadata() { }
+
+        public DevicePropertiesUnifiProtectMetadata(
+            string? cameraId = default,
+            string? cameraName = default,
+            bool? hasMic = default,
+            string? mac = default,
+            string? model = default,
+            string? nvrName = default
+        )
+        {
+            CameraId = cameraId;
+            CameraName = cameraName;
+            HasMic = hasMic;
+            Mac = mac;
+            Model = model;
+            NvrName = nvrName;
+        }
+
+        /// <summary>
+        /// Camera ID reported by UniFi Protect.
+        /// </summary>
+        [DataMember(Name = "camera_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? CameraId { get; set; }
+
+        /// <summary>
+        /// Camera name reported by UniFi Protect.
+        /// </summary>
+        [DataMember(Name = "camera_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? CameraName { get; set; }
+
+        /// <summary>
+        /// Whether the camera has a microphone.
+        /// </summary>
+        [DataMember(Name = "has_mic", IsRequired = false, EmitDefaultValue = false)]
+        public bool? HasMic { get; set; }
+
+        /// <summary>
+        /// MAC address reported by the UniFi Protect camera.
+        /// </summary>
+        [DataMember(Name = "mac", IsRequired = false, EmitDefaultValue = false)]
+        public string? Mac { get; set; }
+
+        /// <summary>
+        /// Model reported by the UniFi Protect camera.
+        /// </summary>
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
+
+        /// <summary>
+        /// Name of the UniFi Protect console that manages the camera.
+        /// </summary>
+        [DataMember(Name = "nvr_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? NvrName { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
     [DataContract(Name = "seamModel_devicePropertiesVisionlineMetadata_model")]
     public class DevicePropertiesVisionlineMetadata
     {
@@ -8611,6 +8890,85 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "serial_number", IsRequired = false, EmitDefaultValue = false)]
         public string? SerialNumber { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_devicePropertiesYaleConnectMetadata_model")]
+    public class DevicePropertiesYaleConnectMetadata
+    {
+        [JsonConstructorAttribute]
+        protected DevicePropertiesYaleConnectMetadata() { }
+
+        public DevicePropertiesYaleConnectMetadata(
+            string? deviceId = default,
+            string? deviceName = default,
+            string? firmwareVersion = default,
+            string? homeName = default,
+            string? model = default,
+            string? timeZoneDescription = default
+        )
+        {
+            DeviceId = deviceId;
+            DeviceName = deviceName;
+            FirmwareVersion = firmwareVersion;
+            HomeName = homeName;
+            Model = model;
+            TimeZoneDescription = timeZoneDescription;
+        }
+
+        /// <summary>
+        /// Device ID for a Yale Connect lock.
+        /// </summary>
+        [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceId { get; set; }
+
+        /// <summary>
+        /// Device name for a Yale Connect lock.
+        /// </summary>
+        [DataMember(Name = "device_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? DeviceName { get; set; }
+
+        /// <summary>
+        /// Firmware version reported by the Yale Connect lock.
+        /// </summary>
+        [DataMember(Name = "firmware_version", IsRequired = false, EmitDefaultValue = false)]
+        public string? FirmwareVersion { get; set; }
+
+        /// <summary>
+        /// Name of the Yale Connect home that contains the lock.
+        /// </summary>
+        [DataMember(Name = "home_name", IsRequired = false, EmitDefaultValue = false)]
+        public string? HomeName { get; set; }
+
+        /// <summary>
+        /// Model reported by the Yale Connect lock.
+        /// </summary>
+        [DataMember(Name = "model", IsRequired = false, EmitDefaultValue = false)]
+        public string? Model { get; set; }
+
+        /// <summary>
+        /// Time zone of the Yale Connect home, as Yale reports it.
+        /// </summary>
+        [DataMember(Name = "time_zone_description", IsRequired = false, EmitDefaultValue = false)]
+        public string? TimeZoneDescription { get; set; }
 
         public override string ToString()
         {

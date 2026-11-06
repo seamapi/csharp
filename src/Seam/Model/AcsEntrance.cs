@@ -74,6 +74,124 @@ namespace Seam.Model
             Warnings = warnings;
         }
 
+        [JsonConverter(typeof(JsonSubtypes), "error_code")]
+        [JsonSubtypes.FallBackSubType(typeof(AcsEntranceErrorsUnrecognized))]
+        [JsonSubtypes.KnownSubType(typeof(AcsEntranceErrorsEntranceRemoved), "entrance_removed")]
+        public abstract class AcsEntranceErrors
+        {
+            public abstract string ErrorCode { get; }
+
+            public abstract string CreatedAt { get; set; }
+
+            public abstract string Message { get; set; }
+
+            public abstract override string ToString();
+        }
+
+        [DataContract(Name = "seamModel_acsEntranceErrorsEntranceRemoved_model")]
+        public class AcsEntranceErrorsEntranceRemoved : AcsEntranceErrors
+        {
+            [JsonConstructorAttribute]
+            protected AcsEntranceErrorsEntranceRemoved() { }
+
+            public AcsEntranceErrorsEntranceRemoved(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "entrance_removed";
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsEntranceErrorsUnrecognized_model")]
+        public class AcsEntranceErrorsUnrecognized : AcsEntranceErrors
+        {
+            [JsonConstructorAttribute]
+            protected AcsEntranceErrorsUnrecognized() { }
+
+            public AcsEntranceErrorsUnrecognized(
+                string errorCode = default,
+                string createdAt = default,
+                string message = default
+            )
+            {
+                ErrorCode = errorCode;
+                CreatedAt = createdAt;
+                Message = message;
+            }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsEntranceWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(typeof(AcsEntranceWarningsPrivacyMode), "privacy_mode")]
@@ -1013,61 +1131,6 @@ namespace Seam.Model
         /// </summary>
         [DataMember(Name = "access_point_profile", IsRequired = false, EmitDefaultValue = false)]
         public string? AccessPointProfile { get; set; }
-
-        public override string ToString()
-        {
-            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
-
-            StringWriter stringWriter = new StringWriter(
-                new StringBuilder(256),
-                System.Globalization.CultureInfo.InvariantCulture
-            );
-            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.IndentChar = ' ';
-                jsonTextWriter.Indentation = 2;
-                jsonTextWriter.Formatting = Formatting.Indented;
-                jsonSerializer.Serialize(jsonTextWriter, this, null);
-            }
-
-            return stringWriter.ToString();
-        }
-    }
-
-    [DataContract(Name = "seamModel_acsEntranceErrors_model")]
-    public class AcsEntranceErrors
-    {
-        [JsonConstructorAttribute]
-        protected AcsEntranceErrors() { }
-
-        public AcsEntranceErrors(
-            string createdAt = default,
-            string errorCode = default,
-            string message = default
-        )
-        {
-            CreatedAt = createdAt;
-            ErrorCode = errorCode;
-            Message = message;
-        }
-
-        /// <summary>
-        /// Date and time at which Seam created the error.
-        /// </summary>
-        [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
-        public string CreatedAt { get; set; }
-
-        /// <summary>
-        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
-        /// </summary>
-        [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-        public string ErrorCode { get; set; }
-
-        /// <summary>
-        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
-        /// </summary>
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
 
         public override string ToString()
         {

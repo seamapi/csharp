@@ -57,6 +57,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "error_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantErrorsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantErrorsAccessNotProvisioned),
+            "access_not_provisioned"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessGrantErrorsCannotCreateRequestedAccessMethods),
             "cannot_create_requested_access_methods"
         )]
@@ -113,6 +117,58 @@ namespace Seam.Model
             /// </summary>
             [DataMember(Name = "missing_device_ids", IsRequired = false, EmitDefaultValue = false)]
             public List<string>? MissingDeviceIds { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantErrorsAccessNotProvisioned_model")]
+        public class UnmanagedAccessGrantErrorsAccessNotProvisioned : UnmanagedAccessGrantErrors
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantErrorsAccessNotProvisioned() { }
+
+            public UnmanagedAccessGrantErrorsAccessNotProvisioned(
+                string createdAt = default,
+                string errorCode = default,
+                string message = default
+            )
+            {
+                CreatedAt = createdAt;
+                ErrorCode = errorCode;
+                Message = message;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            [DataMember(Name = "error_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string ErrorCode { get; } = "access_not_provisioned";
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
 
             public override string ToString()
             {
@@ -599,6 +655,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(UnmanagedAccessGrantWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(UnmanagedAccessGrantWarningsAccessRevoked),
+            "access_revoked"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(UnmanagedAccessGrantWarningsDeviceTimeConstraintsViolated),
             "device_time_constraints_violated"
         )]
@@ -814,7 +874,8 @@ namespace Seam.Model
 
             public UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices(
                 string deviceId = default,
-                string errorCode = default,
+                UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices.ErrorCodeEnum errorCode =
+                    default,
                 string message = default
             )
             {
@@ -824,16 +885,29 @@ namespace Seam.Model
             }
 
             /// <summary>
+            /// Reason the access code could not be revoked.
+            /// </summary>
+            [JsonConverter(typeof(SafeStringEnumConverter))]
+            public enum ErrorCodeEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "offline_access_code_not_revocable")]
+                OfflineAccessCodeNotRevocable = 1,
+            }
+
+            /// <summary>
             /// Device whose access code could not be revoked.
             /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
             public string DeviceId { get; set; }
 
             /// <summary>
-            /// Reason the access code could not be revoked (e.g. `offline_access_code_not_revocable`).
+            /// Reason the access code could not be revoked.
             /// </summary>
             [DataMember(Name = "error_code", IsRequired = false, EmitDefaultValue = false)]
-            public string ErrorCode { get; set; }
+            public UnmanagedAccessGrantWarningsOverprovisionedAccessFailedDevices.ErrorCodeEnum ErrorCode { get; set; }
 
             /// <summary>
             /// Human-readable description of why revocation failed.
@@ -931,14 +1005,16 @@ namespace Seam.Model
             protected UnmanagedAccessGrantWarningsRequestedCodeUnavailable() { }
 
             public UnmanagedAccessGrantWarningsRequestedCodeUnavailable(
+                string? accessMethodId = default,
                 string createdAt = default,
-                string deviceId = default,
+                string? deviceId = default,
                 string message = default,
                 string newCode = default,
                 string originalCode = default,
                 string warningCode = default
             )
             {
+                AccessMethodId = accessMethodId;
                 CreatedAt = createdAt;
                 DeviceId = deviceId;
                 Message = message;
@@ -948,16 +1024,22 @@ namespace Seam.Model
             }
 
             /// <summary>
+            /// ID of the access method whose requested code was unavailable. Present when an access system, such as Salto KS, assigned a different code.
+            /// </summary>
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string? AccessMethodId { get; set; }
+
+            /// <summary>
             /// Date and time at which Seam created the warning.
             /// </summary>
             [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
             public override string CreatedAt { get; set; }
 
             /// <summary>
-            /// ID of the device where the requested code was unavailable.
+            /// ID of the device where the requested code was unavailable. Present when the code was set directly on a device.
             /// </summary>
             [DataMember(Name = "device_id", IsRequired = false, EmitDefaultValue = false)]
-            public string DeviceId { get; set; }
+            public string? DeviceId { get; set; }
 
             /// <summary>
             /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
@@ -1133,6 +1215,66 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "device_time_constraints_violated";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_unmanagedAccessGrantWarningsAccessRevoked_model")]
+        public class UnmanagedAccessGrantWarningsAccessRevoked : UnmanagedAccessGrantWarnings
+        {
+            [JsonConstructorAttribute]
+            protected UnmanagedAccessGrantWarningsAccessRevoked() { }
+
+            public UnmanagedAccessGrantWarningsAccessRevoked(
+                string accessMethodId = default,
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                AccessMethodId = accessMethodId;
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// ID of the access method whose access was revoked.
+            /// </summary>
+            [DataMember(Name = "access_method_id", IsRequired = false, EmitDefaultValue = false)]
+            public string AccessMethodId { get; set; }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "access_revoked";
 
             public override string ToString()
             {

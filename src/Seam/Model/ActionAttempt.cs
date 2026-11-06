@@ -17,6 +17,10 @@ namespace Seam.Model
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptDeleteAccessCode), "DELETE_ACCESS_CODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptCreateAccessCode), "CREATE_ACCESS_CODE")]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptSyncAccessCodes), "SYNC_ACCESS_CODES")]
+    [JsonSubtypes.KnownSubType(
+        typeof(ActionAttemptConvertAccessCodeToManaged),
+        "CONVERT_ACCESS_CODE_TO_MANAGED"
+    )]
     [JsonSubtypes.KnownSubType(typeof(ActionAttemptConfigureAutoLock), "CONFIGURE_AUTO_LOCK")]
     [JsonSubtypes.KnownSubType(
         typeof(ActionAttemptPushThermostatPrograms),
@@ -1545,6 +1549,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -2524,6 +2531,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -3427,6 +3437,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -3780,7 +3793,7 @@ namespace Seam.Model
         public bool? IsReadyForAssignment { get; set; }
 
         /// <summary>
-        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// Indicates whether the access method is ready to be encoded. This is true when the card has not yet been issued and the access system has received all the access the card needs. While it is false, `pending_mutations` contains `waiting_for_access_on_acs_system`.
         /// </summary>
         [DataMember(Name = "is_ready_for_encoding", IsRequired = false, EmitDefaultValue = false)]
         public bool? IsReadyForEncoding { get; set; }
@@ -3863,6 +3876,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "failed_to_issue")]
             FailedToIssue = 1,
+
+            [EnumMember(Value = "access_not_provisioned")]
+            AccessNotProvisioned = 2,
         }
 
         /// <summary>
@@ -3911,11 +3927,11 @@ namespace Seam.Model
 
         public ActionAttemptAssignCredentialResultPendingMutations(
             string createdAt = default,
-            ActionAttemptAssignCredentialResultPendingMutationsFrom from = default,
+            ActionAttemptAssignCredentialResultPendingMutationsFrom? from = default,
             string message = default,
             ActionAttemptAssignCredentialResultPendingMutations.MutationCodeEnum mutationCode =
                 default,
-            ActionAttemptAssignCredentialResultPendingMutationsTo to = default
+            ActionAttemptAssignCredentialResultPendingMutationsTo? to = default
         )
         {
             CreatedAt = createdAt;
@@ -3926,7 +3942,7 @@ namespace Seam.Model
         }
 
         /// <summary>
-        /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
+        /// Mutation code to indicate that the access system has not yet received all the access this card needs, so the card is not ready to be encoded.
         /// </summary>
         [JsonConverter(typeof(SafeStringEnumConverter))]
         public enum MutationCodeEnum
@@ -3942,6 +3958,9 @@ namespace Seam.Model
 
             [EnumMember(Value = "updating_access_times")]
             UpdatingAccessTimes = 3,
+
+            [EnumMember(Value = "waiting_for_access_on_acs_system")]
+            WaitingForAccessOnAcsSystem = 4,
         }
 
         /// <summary>
@@ -3954,7 +3973,7 @@ namespace Seam.Model
         /// Previous access time configuration.
         /// </summary>
         [DataMember(Name = "from", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptAssignCredentialResultPendingMutationsFrom From { get; set; }
+        public ActionAttemptAssignCredentialResultPendingMutationsFrom? From { get; set; }
 
         /// <summary>
         /// Detailed description of the mutation.
@@ -3963,7 +3982,7 @@ namespace Seam.Model
         public string Message { get; set; }
 
         /// <summary>
-        /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
+        /// Mutation code to indicate that the access system has not yet received all the access this card needs, so the card is not ready to be encoded.
         /// </summary>
         [DataMember(Name = "mutation_code", IsRequired = false, EmitDefaultValue = false)]
         public ActionAttemptAssignCredentialResultPendingMutations.MutationCodeEnum MutationCode { get; set; }
@@ -3972,7 +3991,7 @@ namespace Seam.Model
         /// New access time configuration.
         /// </summary>
         [DataMember(Name = "to", IsRequired = false, EmitDefaultValue = false)]
-        public ActionAttemptAssignCredentialResultPendingMutationsTo To { get; set; }
+        public ActionAttemptAssignCredentialResultPendingMutationsTo? To { get; set; }
 
         public override string ToString()
         {
@@ -4098,13 +4117,17 @@ namespace Seam.Model
             string createdAt = default,
             string message = default,
             ActionAttemptAssignCredentialResultWarnings.WarningCodeEnum warningCode = default,
-            string? originalAccessMethodId = default
+            string? originalAccessMethodId = default,
+            string? newCode = default,
+            string? originalCode = default
         )
         {
             CreatedAt = createdAt;
             Message = message;
             WarningCode = warningCode;
             OriginalAccessMethodId = originalAccessMethodId;
+            NewCode = newCode;
+            OriginalCode = originalCode;
         }
 
         /// <summary>
@@ -4133,6 +4156,12 @@ namespace Seam.Model
 
             [EnumMember(Value = "user_identity_missing_phone_number")]
             UserIdentityMissingPhoneNumber = 6,
+
+            [EnumMember(Value = "requested_code_unavailable")]
+            RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -4162,6 +4191,18 @@ namespace Seam.Model
             EmitDefaultValue = false
         )]
         public string? OriginalAccessMethodId { get; set; }
+
+        /// <summary>
+        /// The PIN code that was assigned instead.
+        /// </summary>
+        [DataMember(Name = "new_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? NewCode { get; set; }
+
+        /// <summary>
+        /// The originally requested PIN code that could not be used.
+        /// </summary>
+        [DataMember(Name = "original_code", IsRequired = false, EmitDefaultValue = false)]
+        public string? OriginalCode { get; set; }
 
         public override string ToString()
         {
@@ -5566,6 +5607,163 @@ namespace Seam.Model
     {
         [JsonConstructorAttribute]
         public ActionAttemptConfigureAutoLockResult() { }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Converting an unmanaged access code to managed is pending.
+    /// </summary>
+    [DataContract(Name = "seamModel_actionAttemptConvertAccessCodeToManaged_model")]
+    public class ActionAttemptConvertAccessCodeToManaged : ActionAttempt
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptConvertAccessCodeToManaged() { }
+
+        public ActionAttemptConvertAccessCodeToManaged(
+            string actionAttemptId = default,
+            string actionType = default,
+            ActionAttemptConvertAccessCodeToManagedError error = default,
+            ActionAttemptConvertAccessCodeToManagedResult result = default,
+            ActionAttemptConvertAccessCodeToManaged.StatusEnum status = default
+        )
+        {
+            ActionAttemptId = actionAttemptId;
+            ActionType = actionType;
+            Error = error;
+            Result = result;
+            Status = status;
+        }
+
+        [JsonConverter(typeof(SafeStringEnumConverter))]
+        public enum StatusEnum
+        {
+            [EnumMember(Value = "unrecognized")]
+            Unrecognized = 0,
+
+            [EnumMember(Value = "success")]
+            Success = 1,
+
+            [EnumMember(Value = "pending")]
+            Pending = 2,
+
+            [EnumMember(Value = "error")]
+            Error = 3,
+        }
+
+        /// <summary>
+        /// ID of the action attempt.
+        /// </summary>
+        [DataMember(Name = "action_attempt_id", IsRequired = false, EmitDefaultValue = false)]
+        public override string ActionAttemptId { get; set; }
+
+        [DataMember(Name = "action_type", IsRequired = true, EmitDefaultValue = false)]
+        public override string ActionType { get; } = "CONVERT_ACCESS_CODE_TO_MANAGED";
+
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [DataMember(Name = "error", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptConvertAccessCodeToManagedError Error { get; set; }
+
+        /// <summary>
+        /// Result of the action.
+        /// </summary>
+        [DataMember(Name = "result", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptConvertAccessCodeToManagedResult Result { get; set; }
+
+        [DataMember(Name = "status", IsRequired = false, EmitDefaultValue = false)]
+        public ActionAttemptConvertAccessCodeToManaged.StatusEnum Status { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptConvertAccessCodeToManagedError_model")]
+    public class ActionAttemptConvertAccessCodeToManagedError
+    {
+        [JsonConstructorAttribute]
+        protected ActionAttemptConvertAccessCodeToManagedError() { }
+
+        public ActionAttemptConvertAccessCodeToManagedError(
+            string message = default,
+            string type = default
+        )
+        {
+            Message = message;
+            Type = type;
+        }
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Type of the error.
+        /// </summary>
+        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
+        public string Type { get; set; }
+
+        public override string ToString()
+        {
+            JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+            StringWriter stringWriter = new StringWriter(
+                new StringBuilder(256),
+                System.Globalization.CultureInfo.InvariantCulture
+            );
+            using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+            {
+                jsonTextWriter.IndentChar = ' ';
+                jsonTextWriter.Indentation = 2;
+                jsonTextWriter.Formatting = Formatting.Indented;
+                jsonSerializer.Serialize(jsonTextWriter, this, null);
+            }
+
+            return stringWriter.ToString();
+        }
+    }
+
+    [DataContract(Name = "seamModel_actionAttemptConvertAccessCodeToManagedResult_model")]
+    public class ActionAttemptConvertAccessCodeToManagedResult
+    {
+        [JsonConstructorAttribute]
+        public ActionAttemptConvertAccessCodeToManagedResult() { }
 
         public override string ToString()
         {

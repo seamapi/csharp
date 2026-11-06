@@ -150,6 +150,9 @@ namespace Seam.Api
             )]
             public bool? ExcludeLocalePicker { get; set; }
 
+            /// <summary>
+            /// Features to include in the portal. Settings you omit use the portal&apos;s customization profile, then the Seam default. Settings you pass take precedence over the customization profile&apos;s, so changing the profile doesn&apos;t change them.
+            /// </summary>
             [DataMember(Name = "features", IsRequired = false, EmitDefaultValue = false)]
             public CreatePortalRequestFeatures? Features { get; set; }
 
@@ -215,9 +218,11 @@ namespace Seam.Api
                 List<CreatePortalRequestCustomerDataBuildings>? buildings = default,
                 List<CreatePortalRequestCustomerDataCommonAreas>? commonAreas = default,
                 string? customerKey = default,
+                string? customizationProfileId = default,
                 List<CreatePortalRequestCustomerDataFacilities>? facilities = default,
                 List<CreatePortalRequestCustomerDataGuests>? guests = default,
                 List<CreatePortalRequestCustomerDataListings>? listings = default,
+                float? lowBatteryAlertThreshold = default,
                 List<CreatePortalRequestCustomerDataProperties>? properties = default,
                 List<CreatePortalRequestCustomerDataPropertyListings>? propertyListings = default,
                 List<CreatePortalRequestCustomerDataReservations>? reservations = default,
@@ -237,9 +242,11 @@ namespace Seam.Api
                 Buildings = buildings;
                 CommonAreas = commonAreas;
                 CustomerKey = customerKey;
+                CustomizationProfileId = customizationProfileId;
                 Facilities = facilities;
                 Guests = guests;
                 Listings = listings;
+                LowBatteryAlertThreshold = lowBatteryAlertThreshold;
                 Properties = properties;
                 PropertyListings = propertyListings;
                 Reservations = reservations;
@@ -285,6 +292,16 @@ namespace Seam.Api
             public string? CustomerKey { get; set; }
 
             /// <summary>
+            /// ID of the customization profile to use for this customer. Access grants that automations create for this customer use this profile. Pass `null` to remove the customer&apos;s customization profile.
+            /// </summary>
+            [DataMember(
+                Name = "customization_profile_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? CustomizationProfileId { get; set; }
+
+            /// <summary>
             /// List of gym or fitness facilities.
             /// </summary>
             [DataMember(Name = "facilities", IsRequired = false, EmitDefaultValue = false)]
@@ -301,6 +318,16 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "listings", IsRequired = false, EmitDefaultValue = false)]
             public List<CreatePortalRequestCustomerDataListings>? Listings { get; set; }
+
+            /// <summary>
+            /// Battery level, from 0 to 1, at or below which `device.low_battery` events fire for this customer&apos;s devices. Overrides the workspace and device defaults. Pass `null` to remove the customer&apos;s override.
+            /// </summary>
+            [DataMember(
+                Name = "low_battery_alert_threshold",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? LowBatteryAlertThreshold { get; set; }
 
             /// <summary>
             /// List of short-term rental properties.
@@ -490,7 +517,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -665,7 +692,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -1131,6 +1158,8 @@ namespace Seam.Api
                 List<string>? roomKeys = default,
                 List<string>? spaceKeys = default,
                 string? startsAt = default,
+                List<CreatePortalRequestCustomerDataReservationsSubReservations>? subReservations =
+                    default,
                 string? tenantKey = default,
                 List<string>? unitKeys = default,
                 string? userIdentityKey = default,
@@ -1152,6 +1181,7 @@ namespace Seam.Api
                 RoomKeys = roomKeys;
                 SpaceKeys = spaceKeys;
                 StartsAt = startsAt;
+                SubReservations = subReservations;
                 TenantKey = tenantKey;
                 UnitKeys = unitKeys;
                 UserIdentityKey = userIdentityKey;
@@ -1207,7 +1237,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -1247,6 +1277,203 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
+
+            /// <summary>
+            /// Parts of the reservation that each get their own access, for example one per room. Each sub-reservation inherits the reservation&apos;s name, times, preferred code, guest and custom metadata unless it sets its own, and must set its own location keys. A reservation with sub-reservations must not set location keys itself. Sending this list replaces the reservation&apos;s sub-reservations: any not included are removed, and an empty list removes all of them. Omitting it leaves existing sub-reservations unchanged.
+            /// </summary>
+            [DataMember(Name = "sub_reservations", IsRequired = false, EmitDefaultValue = false)]
+            public List<CreatePortalRequestCustomerDataReservationsSubReservations>? SubReservations { get; set; }
+
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? TenantKey { get; set; }
+
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UnitKeys { get; set; }
+
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "createPortalRequestCustomerDataReservationsSubReservations_model")]
+        public class CreatePortalRequestCustomerDataReservationsSubReservations
+        {
+            [JsonConstructorAttribute]
+            protected CreatePortalRequestCustomerDataReservationsSubReservations() { }
+
+            public CreatePortalRequestCustomerDataReservationsSubReservations(
+                List<string>? buildingKeys = default,
+                List<string>? commonAreaKeys = default,
+                object? customMetadata = default,
+                string? endsAt = default,
+                List<string>? facilityKeys = default,
+                string? guestKey = default,
+                bool? isPrimary = default,
+                List<string>? listingKeys = default,
+                string? name = default,
+                string? preferredCode = default,
+                List<string>? propertyKeys = default,
+                string? residentKey = default,
+                List<string>? roomKeys = default,
+                List<string>? spaceKeys = default,
+                string? startsAt = default,
+                string? subReservationKey = default,
+                string? tenantKey = default,
+                List<string>? unitKeys = default,
+                string? userIdentityKey = default,
+                string? userKey = default
+            )
+            {
+                BuildingKeys = buildingKeys;
+                CommonAreaKeys = commonAreaKeys;
+                CustomMetadata = customMetadata;
+                EndsAt = endsAt;
+                FacilityKeys = facilityKeys;
+                GuestKey = guestKey;
+                IsPrimary = isPrimary;
+                ListingKeys = listingKeys;
+                Name = name;
+                PreferredCode = preferredCode;
+                PropertyKeys = propertyKeys;
+                ResidentKey = residentKey;
+                RoomKeys = roomKeys;
+                SpaceKeys = spaceKeys;
+                StartsAt = startsAt;
+                SubReservationKey = subReservationKey;
+                TenantKey = tenantKey;
+                UnitKeys = unitKeys;
+                UserIdentityKey = userIdentityKey;
+                UserKey = userKey;
+            }
+
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? BuildingKeys { get; set; }
+
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CommonAreaKeys { get; set; }
+
+            /// <summary>
+            /// Set key:value pairs for filtering sub-reservations by custom criteria. Merged over the reservation&apos;s custom metadata. Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// </summary>
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
+
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? FacilityKeys { get; set; }
+
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? GuestKey { get; set; }
+
+            /// <summary>
+            /// Whether this is the reservation&apos;s primary sub-reservation, for example the room the guest stays in. Only the primary sub-reservation passes the guest&apos;s phone number to access systems that require a phone number to be unique per user. At most one sub-reservation of a reservation can be primary. If none is, the first sub-reservation in the list is primary.
+            /// </summary>
+            [DataMember(Name = "is_primary", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsPrimary { get; set; }
+
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ListingKeys { get; set; }
+
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
+            /// </summary>
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
+
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? PropertyKeys { get; set; }
+
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResidentKey { get; set; }
+
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? RoomKeys { get; set; }
+
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceKeys { get; set; }
+
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            /// <summary>
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
+            /// </summary>
+            [DataMember(Name = "sub_reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SubReservationKey { get; set; }
 
             /// <summary>
             /// Tenant key associated with the access grant.
@@ -2262,12 +2489,18 @@ namespace Seam.Api
                 bool? allowAccessAutomationRuleCustomization = default,
                 bool? allowClimateAutomationRuleCustomization = default,
                 bool? allowInstantKeyCustomization = default,
+                bool? allowNotificationCustomization = default,
+                bool? allowSensorAutomationRuleCustomization = default,
+                bool? allowSoundAutomationRuleCustomization = default,
                 bool? exclude = default
             )
             {
                 AllowAccessAutomationRuleCustomization = allowAccessAutomationRuleCustomization;
                 AllowClimateAutomationRuleCustomization = allowClimateAutomationRuleCustomization;
                 AllowInstantKeyCustomization = allowInstantKeyCustomization;
+                AllowNotificationCustomization = allowNotificationCustomization;
+                AllowSensorAutomationRuleCustomization = allowSensorAutomationRuleCustomization;
+                AllowSoundAutomationRuleCustomization = allowSoundAutomationRuleCustomization;
                 Exclude = exclude;
             }
 
@@ -2300,6 +2533,36 @@ namespace Seam.Api
                 EmitDefaultValue = false
             )]
             public bool? AllowInstantKeyCustomization { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize their notification settings, such as the low-battery alert threshold.
+            /// </summary>
+            [DataMember(
+                Name = "allow_notification_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowNotificationCustomization { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the sensor automation rules for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "allow_sensor_automation_rule_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowSensorAutomationRuleCustomization { get; set; }
+
+            /// <summary>
+            /// Indicates whether the customer can customize the sound automation rules for their properties.
+            /// </summary>
+            [DataMember(
+                Name = "allow_sound_automation_rule_customization",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? AllowSoundAutomationRuleCustomization { get; set; }
 
             /// <summary>
             /// Whether to exclude this feature from the portal.
@@ -2393,6 +2656,7 @@ namespace Seam.Api
                     default,
                 CreatePortalRequestFeaturesManageEvents? events = default,
                 bool? exclude = default,
+                bool? excludeDeviceManagement = default,
                 bool? excludeReservationManagement = default,
                 bool? excludeReservationTechnicalDetails = default,
                 bool? excludeStaffManagement = default
@@ -2401,6 +2665,7 @@ namespace Seam.Api
                 DeviceManagementConfirmation = deviceManagementConfirmation;
                 Events = events;
                 Exclude = exclude;
+                ExcludeDeviceManagement = excludeDeviceManagement;
                 ExcludeReservationManagement = excludeReservationManagement;
                 ExcludeReservationTechnicalDetails = excludeReservationTechnicalDetails;
                 ExcludeStaffManagement = excludeStaffManagement;
@@ -2427,6 +2692,16 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "exclude", IsRequired = false, EmitDefaultValue = false)]
             public bool? Exclude { get; set; }
+
+            /// <summary>
+            /// Indicates whether to prevent the customer from converting their devices between managed and unmanaged. Managed devices are billed.
+            /// </summary>
+            [DataMember(
+                Name = "exclude_device_management",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public bool? ExcludeDeviceManagement { get; set; }
 
             /// <summary>
             /// Indicates whether the customer can manage reservations for their properties.
@@ -3132,6 +3407,7 @@ namespace Seam.Api
         /// <summary>
         /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
         /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// Space keys also match spaces created directly with a `space_key` (for example, through `/spaces/create`).
         /// </summary>
         public void DeleteData(DeleteDataRequest request)
         {
@@ -3143,6 +3419,7 @@ namespace Seam.Api
         /// <summary>
         /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
         /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// Space keys also match spaces created directly with a `space_key` (for example, through `/spaces/create`).
         /// </summary>
         public void DeleteData(
             List<string>? accessGrantKeys = default,
@@ -3194,6 +3471,7 @@ namespace Seam.Api
         /// <summary>
         /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
         /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// Space keys also match spaces created directly with a `space_key` (for example, through `/spaces/create`).
         /// </summary>
         public async Task DeleteDataAsync(DeleteDataRequest request)
         {
@@ -3205,6 +3483,7 @@ namespace Seam.Api
         /// <summary>
         /// Deletes customer data including resources like spaces, properties, rooms, users, etc.
         /// This will delete the partner resources and any related Seam resources (user identities, access grants, spaces).
+        /// Space keys also match spaces created directly with a `space_key` (for example, through `/spaces/create`).
         /// </summary>
         public async Task DeleteDataAsync(
             List<string>? accessGrantKeys = default,
@@ -3268,9 +3547,11 @@ namespace Seam.Api
                 List<PushDataRequestBuildings>? buildings = default,
                 List<PushDataRequestCommonAreas>? commonAreas = default,
                 string customerKey = default,
+                string? customizationProfileId = default,
                 List<PushDataRequestFacilities>? facilities = default,
                 List<PushDataRequestGuests>? guests = default,
                 List<PushDataRequestListings>? listings = default,
+                float? lowBatteryAlertThreshold = default,
                 List<PushDataRequestProperties>? properties = default,
                 List<PushDataRequestPropertyListings>? propertyListings = default,
                 List<PushDataRequestReservations>? reservations = default,
@@ -3290,9 +3571,11 @@ namespace Seam.Api
                 Buildings = buildings;
                 CommonAreas = commonAreas;
                 CustomerKey = customerKey;
+                CustomizationProfileId = customizationProfileId;
                 Facilities = facilities;
                 Guests = guests;
                 Listings = listings;
+                LowBatteryAlertThreshold = lowBatteryAlertThreshold;
                 Properties = properties;
                 PropertyListings = propertyListings;
                 Reservations = reservations;
@@ -3338,6 +3621,16 @@ namespace Seam.Api
             public string CustomerKey { get; set; }
 
             /// <summary>
+            /// ID of the customization profile to use for this customer. Access grants that automations create for this customer use this profile. Pass `null` to remove the customer&apos;s customization profile.
+            /// </summary>
+            [DataMember(
+                Name = "customization_profile_id",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public string? CustomizationProfileId { get; set; }
+
+            /// <summary>
             /// List of gym or fitness facilities.
             /// </summary>
             [DataMember(Name = "facilities", IsRequired = false, EmitDefaultValue = false)]
@@ -3354,6 +3647,16 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "listings", IsRequired = false, EmitDefaultValue = false)]
             public List<PushDataRequestListings>? Listings { get; set; }
+
+            /// <summary>
+            /// Battery level, from 0 to 1, at or below which `device.low_battery` events fire for this customer&apos;s devices. Overrides the workspace and device defaults. Pass `null` to remove the customer&apos;s override.
+            /// </summary>
+            [DataMember(
+                Name = "low_battery_alert_threshold",
+                IsRequired = false,
+                EmitDefaultValue = false
+            )]
+            public float? LowBatteryAlertThreshold { get; set; }
 
             /// <summary>
             /// List of short-term rental properties.
@@ -3543,7 +3846,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -3718,7 +4021,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -4172,6 +4475,7 @@ namespace Seam.Api
                 List<string>? roomKeys = default,
                 List<string>? spaceKeys = default,
                 string? startsAt = default,
+                List<PushDataRequestReservationsSubReservations>? subReservations = default,
                 string? tenantKey = default,
                 List<string>? unitKeys = default,
                 string? userIdentityKey = default,
@@ -4193,6 +4497,7 @@ namespace Seam.Api
                 RoomKeys = roomKeys;
                 SpaceKeys = spaceKeys;
                 StartsAt = startsAt;
+                SubReservations = subReservations;
                 TenantKey = tenantKey;
                 UnitKeys = unitKeys;
                 UserIdentityKey = userIdentityKey;
@@ -4248,7 +4553,7 @@ namespace Seam.Api
             public string? Name { get; set; }
 
             /// <summary>
-            /// Preferred PIN code to use when creating access for this reservation.
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
             /// </summary>
             [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
             public string? PreferredCode { get; set; }
@@ -4288,6 +4593,203 @@ namespace Seam.Api
             /// </summary>
             [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
             public string? StartsAt { get; set; }
+
+            /// <summary>
+            /// Parts of the reservation that each get their own access, for example one per room. Each sub-reservation inherits the reservation&apos;s name, times, preferred code, guest and custom metadata unless it sets its own, and must set its own location keys. A reservation with sub-reservations must not set location keys itself. Sending this list replaces the reservation&apos;s sub-reservations: any not included are removed, and an empty list removes all of them. Omitting it leaves existing sub-reservations unchanged.
+            /// </summary>
+            [DataMember(Name = "sub_reservations", IsRequired = false, EmitDefaultValue = false)]
+            public List<PushDataRequestReservationsSubReservations>? SubReservations { get; set; }
+
+            /// <summary>
+            /// Tenant key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "tenant_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? TenantKey { get; set; }
+
+            /// <summary>
+            /// Unit keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "unit_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? UnitKeys { get; set; }
+
+            /// <summary>
+            /// User identity key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "user_identity_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserIdentityKey { get; set; }
+
+            /// <summary>
+            /// User key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "user_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? UserKey { get; set; }
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "pushDataRequestReservationsSubReservations_model")]
+        public class PushDataRequestReservationsSubReservations
+        {
+            [JsonConstructorAttribute]
+            protected PushDataRequestReservationsSubReservations() { }
+
+            public PushDataRequestReservationsSubReservations(
+                List<string>? buildingKeys = default,
+                List<string>? commonAreaKeys = default,
+                object? customMetadata = default,
+                string? endsAt = default,
+                List<string>? facilityKeys = default,
+                string? guestKey = default,
+                bool? isPrimary = default,
+                List<string>? listingKeys = default,
+                string? name = default,
+                string? preferredCode = default,
+                List<string>? propertyKeys = default,
+                string? residentKey = default,
+                List<string>? roomKeys = default,
+                List<string>? spaceKeys = default,
+                string? startsAt = default,
+                string? subReservationKey = default,
+                string? tenantKey = default,
+                List<string>? unitKeys = default,
+                string? userIdentityKey = default,
+                string? userKey = default
+            )
+            {
+                BuildingKeys = buildingKeys;
+                CommonAreaKeys = commonAreaKeys;
+                CustomMetadata = customMetadata;
+                EndsAt = endsAt;
+                FacilityKeys = facilityKeys;
+                GuestKey = guestKey;
+                IsPrimary = isPrimary;
+                ListingKeys = listingKeys;
+                Name = name;
+                PreferredCode = preferredCode;
+                PropertyKeys = propertyKeys;
+                ResidentKey = residentKey;
+                RoomKeys = roomKeys;
+                SpaceKeys = spaceKeys;
+                StartsAt = startsAt;
+                SubReservationKey = subReservationKey;
+                TenantKey = tenantKey;
+                UnitKeys = unitKeys;
+                UserIdentityKey = userIdentityKey;
+                UserKey = userKey;
+            }
+
+            /// <summary>
+            /// Building keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "building_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? BuildingKeys { get; set; }
+
+            /// <summary>
+            /// Common area keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "common_area_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? CommonAreaKeys { get; set; }
+
+            /// <summary>
+            /// Set key:value pairs for filtering sub-reservations by custom criteria. Merged over the reservation&apos;s custom metadata. Set a key to `null` or to an empty string to remove that key from the custom metadata.
+            /// </summary>
+            [DataMember(Name = "custom_metadata", IsRequired = false, EmitDefaultValue = false)]
+            public object? CustomMetadata { get; set; }
+
+            /// <summary>
+            /// Ending date and time for the access grant.
+            /// </summary>
+            [DataMember(Name = "ends_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? EndsAt { get; set; }
+
+            /// <summary>
+            /// Facility keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "facility_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? FacilityKeys { get; set; }
+
+            /// <summary>
+            /// Guest key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "guest_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? GuestKey { get; set; }
+
+            /// <summary>
+            /// Whether this is the reservation&apos;s primary sub-reservation, for example the room the guest stays in. Only the primary sub-reservation passes the guest&apos;s phone number to access systems that require a phone number to be unique per user. At most one sub-reservation of a reservation can be primary. If none is, the first sub-reservation in the list is primary.
+            /// </summary>
+            [DataMember(Name = "is_primary", IsRequired = false, EmitDefaultValue = false)]
+            public bool? IsPrimary { get; set; }
+
+            /// <summary>
+            /// Listing keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "listing_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? ListingKeys { get; set; }
+
+            /// <summary>
+            /// Your name for this access grant resource.
+            /// </summary>
+            [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
+            public string? Name { get; set; }
+
+            /// <summary>
+            /// Preferred PIN code to use when creating access for this reservation. Set to `null` to remove a previously set preferred code, so that access falls back to an automatically generated code. Omitting this field keeps any previously set preferred code.
+            /// </summary>
+            [DataMember(Name = "preferred_code", IsRequired = false, EmitDefaultValue = false)]
+            public string? PreferredCode { get; set; }
+
+            /// <summary>
+            /// Property keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "property_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? PropertyKeys { get; set; }
+
+            /// <summary>
+            /// Resident key associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "resident_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? ResidentKey { get; set; }
+
+            /// <summary>
+            /// Room keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "room_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? RoomKeys { get; set; }
+
+            /// <summary>
+            /// Space keys associated with the access grant.
+            /// </summary>
+            [DataMember(Name = "space_keys", IsRequired = false, EmitDefaultValue = false)]
+            public List<string>? SpaceKeys { get; set; }
+
+            /// <summary>
+            /// Starting date and time for the access grant.
+            /// </summary>
+            [DataMember(Name = "starts_at", IsRequired = false, EmitDefaultValue = false)]
+            public string? StartsAt { get; set; }
+
+            /// <summary>
+            /// Your identifier for the sub-reservation. Must be unique across all your reservations and sub-reservations, and stay with the same reservation.
+            /// </summary>
+            [DataMember(Name = "sub_reservation_key", IsRequired = false, EmitDefaultValue = false)]
+            public string? SubReservationKey { get; set; }
 
             /// <summary>
             /// Tenant key associated with the access grant.
@@ -5102,9 +5604,11 @@ namespace Seam.Api
             List<PushDataRequestBuildings>? buildings = default,
             List<PushDataRequestCommonAreas>? commonAreas = default,
             string customerKey = default,
+            string? customizationProfileId = default,
             List<PushDataRequestFacilities>? facilities = default,
             List<PushDataRequestGuests>? guests = default,
             List<PushDataRequestListings>? listings = default,
+            float? lowBatteryAlertThreshold = default,
             List<PushDataRequestProperties>? properties = default,
             List<PushDataRequestPropertyListings>? propertyListings = default,
             List<PushDataRequestReservations>? reservations = default,
@@ -5126,9 +5630,11 @@ namespace Seam.Api
                     buildings: buildings,
                     commonAreas: commonAreas,
                     customerKey: customerKey,
+                    customizationProfileId: customizationProfileId,
                     facilities: facilities,
                     guests: guests,
                     listings: listings,
+                    lowBatteryAlertThreshold: lowBatteryAlertThreshold,
                     properties: properties,
                     propertyListings: propertyListings,
                     reservations: reservations,
@@ -5164,9 +5670,11 @@ namespace Seam.Api
             List<PushDataRequestBuildings>? buildings = default,
             List<PushDataRequestCommonAreas>? commonAreas = default,
             string customerKey = default,
+            string? customizationProfileId = default,
             List<PushDataRequestFacilities>? facilities = default,
             List<PushDataRequestGuests>? guests = default,
             List<PushDataRequestListings>? listings = default,
+            float? lowBatteryAlertThreshold = default,
             List<PushDataRequestProperties>? properties = default,
             List<PushDataRequestPropertyListings>? propertyListings = default,
             List<PushDataRequestReservations>? reservations = default,
@@ -5188,9 +5696,11 @@ namespace Seam.Api
                     buildings: buildings,
                     commonAreas: commonAreas,
                     customerKey: customerKey,
+                    customizationProfileId: customizationProfileId,
                     facilities: facilities,
                     guests: guests,
                     listings: listings,
+                    lowBatteryAlertThreshold: lowBatteryAlertThreshold,
                     properties: properties,
                     propertyListings: propertyListings,
                     reservations: reservations,

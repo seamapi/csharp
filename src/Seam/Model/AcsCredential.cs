@@ -163,6 +163,10 @@ namespace Seam.Model
         [JsonConverter(typeof(JsonSubtypes), "warning_code")]
         [JsonSubtypes.FallBackSubType(typeof(AcsCredentialWarningsUnrecognized))]
         [JsonSubtypes.KnownSubType(
+            typeof(AcsCredentialWarningsScheduleRoundedUp),
+            "schedule_rounded_up"
+        )]
+        [JsonSubtypes.KnownSubType(
             typeof(AcsCredentialWarningsRequestedCodeUnavailable),
             "requested_code_unavailable"
         )]
@@ -557,6 +561,58 @@ namespace Seam.Model
 
             [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
             public override string WarningCode { get; } = "requested_code_unavailable";
+
+            public override string ToString()
+            {
+                JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(null);
+
+                StringWriter stringWriter = new StringWriter(
+                    new StringBuilder(256),
+                    System.Globalization.CultureInfo.InvariantCulture
+                );
+                using (JsonTextWriter jsonTextWriter = new JsonTextWriter(stringWriter))
+                {
+                    jsonTextWriter.IndentChar = ' ';
+                    jsonTextWriter.Indentation = 2;
+                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonSerializer.Serialize(jsonTextWriter, this, null);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
+        [DataContract(Name = "seamModel_acsCredentialWarningsScheduleRoundedUp_model")]
+        public class AcsCredentialWarningsScheduleRoundedUp : AcsCredentialWarnings
+        {
+            [JsonConstructorAttribute]
+            protected AcsCredentialWarningsScheduleRoundedUp() { }
+
+            public AcsCredentialWarningsScheduleRoundedUp(
+                string createdAt = default,
+                string message = default,
+                string warningCode = default
+            )
+            {
+                CreatedAt = createdAt;
+                Message = message;
+                WarningCode = warningCode;
+            }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [DataMember(Name = "created_at", IsRequired = false, EmitDefaultValue = false)]
+            public override string CreatedAt { get; set; }
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+            public override string Message { get; set; }
+
+            [DataMember(Name = "warning_code", IsRequired = true, EmitDefaultValue = false)]
+            public override string WarningCode { get; } = "schedule_rounded_up";
 
             public override string ToString()
             {
