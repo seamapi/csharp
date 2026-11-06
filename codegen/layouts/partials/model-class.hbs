@@ -25,12 +25,10 @@ public JsonElement RawJson { get; set; }
 
 internal void Validate()
 {
-if ({{#each requireAnyOf.conditions}}{{this}}{{#unless @last}} && {{/unless}}{{/each}})
-{
-throw new ArgumentException(
-"At least one parameter is required for {{requireAnyOf.path}}"
+RequestParameters.RequireAtLeastOne(
+"{{requireAnyOf.path}}",
+!({{#each requireAnyOf.conditions}}{{this}}{{#unless @last}} && {{/unless}}{{/each}})
 );
-}
 }
 {{/if}}
 }
