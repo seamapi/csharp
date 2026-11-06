@@ -418,12 +418,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessCodeId == null && Code == null && DeviceId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_codes/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_codes/get",
+                    !(AccessCodeId == null && Code == null && DeviceId == null)
+                );
             }
         }
 
@@ -465,25 +463,25 @@ namespace Seam.Routes
         public sealed record ListRequest
         {
             /// <summary>
-            /// IDs of the access codes that you want to retrieve. Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+            /// IDs of the access codes that you want to retrieve.
             /// </summary>
             [JsonPropertyName("access_code_ids")]
             public List<string>? AccessCodeIds { get; init; }
 
             /// <summary>
-            /// ID of the access grant for which you want to list access codes. Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+            /// ID of the access grant for which you want to list access codes.
             /// </summary>
             [JsonPropertyName("access_grant_id")]
             public string? AccessGrantId { get; init; }
 
             /// <summary>
-            /// Key of the access grant for which you want to list access codes. Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+            /// Key of the access grant for which you want to list access codes.
             /// </summary>
             [JsonPropertyName("access_grant_key")]
             public string? AccessGrantKey { get; init; }
 
             /// <summary>
-            /// ID of the access method for which you want to list access codes. Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+            /// ID of the access method for which you want to list access codes.
             /// </summary>
             [JsonPropertyName("access_method_id")]
             public string? AccessMethodId { get; init; }
@@ -495,7 +493,7 @@ namespace Seam.Routes
             public string? CustomerKey { get; init; }
 
             /// <summary>
-            /// ID of the device for which you want to list access codes. Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+            /// ID of the device for which you want to list access codes.
             /// </summary>
             [JsonPropertyName("device_id")]
             public string? DeviceId { get; init; }
@@ -523,25 +521,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("user_identifier_key")]
             public string? UserIdentifierKey { get; init; }
-
-            internal void Validate()
-            {
-                if (
-                    AccessCodeIds == null
-                    && AccessGrantId == null
-                    && AccessGrantKey == null
-                    && AccessMethodId == null
-                    && CustomerKey == null
-                    && DeviceId == null
-                    && Search == null
-                    && UserIdentifierKey == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_codes/list"
-                    );
-                }
-            }
         }
 
         public sealed record ListResponse
@@ -562,14 +541,13 @@ namespace Seam.Routes
         /// <summary>
         /// Returns a list of all [access codes](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes).
         ///
-        /// Specify `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`.
+        /// Without `device_id`, `access_code_ids`, `access_method_id`, `access_grant_id`, or `access_grant_key`, returns access codes across the workspace, or across the customer when `customer_key` is set. Use `limit` and `page_cursor` to page through them.
         /// </summary>
         public async Task<List<AccessCode>> ListAsync(
-            ListRequest request,
+            ListRequest? request = null,
             CancellationToken cancellationToken = default
         )
         {
-            request.Validate();
             var response = await _transport
                 .SendAsync<ListResponse>(
                     HttpMethod.Get,
@@ -584,11 +562,10 @@ namespace Seam.Routes
 
         /// <summary>Fetches one page of /access_codes/list with its pagination metadata.</summary>
         public async Task<SeamPage<AccessCode>> ListPageAsync(
-            ListRequest request,
+            ListRequest? request = null,
             CancellationToken cancellationToken = default
         )
         {
-            request.Validate();
             var response = await _transport
                 .SendAsync<ListResponse>(
                     HttpMethod.Get,
@@ -605,12 +582,17 @@ namespace Seam.Routes
         }
 
         /// <summary>Creates a paginator over /access_codes/list.</summary>
-        public SeamPaginator<AccessCode> ListPager(ListRequest request)
+        public SeamPaginator<AccessCode> ListPager(ListRequest? request = null)
         {
             return new SeamPaginator<AccessCode>(
                 (pageCursor, cancellationToken) =>
                     ListPageAsync(
-                        pageCursor == null ? request : request with { PageCursor = pageCursor },
+                        pageCursor == null
+                            ? request
+                            : (request ?? new ListRequest()) with
+                            {
+                                PageCursor = pageCursor,
+                            },
                         cancellationToken
                     )
             );

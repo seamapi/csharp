@@ -29,6 +29,10 @@ namespace Seam.Models
     )]
     [SeamUnionVariant("PUSH_THERMOSTAT_PROGRAMS", typeof(ActionAttemptPushThermostatPrograms))]
     [SeamUnionVariant("CONFIGURE_AUTO_LOCK", typeof(ActionAttemptConfigureAutoLock))]
+    [SeamUnionVariant(
+        "CONVERT_ACCESS_CODE_TO_MANAGED",
+        typeof(ActionAttemptConvertAccessCodeToManaged)
+    )]
     [SeamUnionVariant("SYNC_ACCESS_CODES", typeof(ActionAttemptSyncAccessCodes))]
     [SeamUnionVariant("CREATE_ACCESS_CODE", typeof(ActionAttemptCreateAccessCode))]
     [SeamUnionVariant("DELETE_ACCESS_CODE", typeof(ActionAttemptDeleteAccessCode))]
@@ -749,6 +753,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -1268,6 +1275,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -1759,6 +1769,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "requested_code_unavailable")]
             RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -1940,7 +1953,7 @@ namespace Seam.Models
         public bool? IsReadyForAssignment { get; init; }
 
         /// <summary>
-        /// Indicates whether the access method is ready to be encoded. This is true when the credential has been created and the card has not yet been issued.
+        /// Indicates whether the access method is ready to be encoded. This is true when the card has not yet been issued and the access system has received all the access the card needs. While it is false, `pending_mutations` contains `waiting_for_access_on_acs_system`.
         /// </summary>
         [JsonPropertyName("is_ready_for_encoding")]
         public bool? IsReadyForEncoding { get; init; }
@@ -1991,6 +2004,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "failed_to_issue")]
             FailedToIssue = 1,
+
+            [EnumMember(Value = "access_not_provisioned")]
+            AccessNotProvisioned = 2,
         }
 
         /// <summary>
@@ -2016,7 +2032,7 @@ namespace Seam.Models
     public sealed record ActionAttemptAssignCredentialSuccessResultPendingMutations
     {
         /// <summary>
-        /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
+        /// Mutation code to indicate that the access system has not yet received all the access this card needs, so the card is not ready to be encoded.
         /// </summary>
         [JsonConverter(typeof(SeamStringEnumConverter))]
         public enum MutationCodeEnum
@@ -2032,6 +2048,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "updating_access_times")]
             UpdatingAccessTimes = 3,
+
+            [EnumMember(Value = "waiting_for_access_on_acs_system")]
+            WaitingForAccessOnAcsSystem = 4,
         }
 
         /// <summary>
@@ -2044,8 +2063,7 @@ namespace Seam.Models
         /// Previous access time configuration.
         /// </summary>
         [JsonPropertyName("from")]
-        public ActionAttemptAssignCredentialSuccessResultPendingMutationsFrom From { get; init; } =
-            default!;
+        public ActionAttemptAssignCredentialSuccessResultPendingMutationsFrom? From { get; init; }
 
         /// <summary>
         /// Detailed description of the mutation.
@@ -2054,7 +2072,7 @@ namespace Seam.Models
         public string Message { get; init; } = default!;
 
         /// <summary>
-        /// Mutation code to indicate that Seam is in the process of updating the access times for this access method.
+        /// Mutation code to indicate that the access system has not yet received all the access this card needs, so the card is not ready to be encoded.
         /// </summary>
         [JsonPropertyName("mutation_code")]
         public ActionAttemptAssignCredentialSuccessResultPendingMutations.MutationCodeEnum MutationCode { get; init; } =
@@ -2064,8 +2082,7 @@ namespace Seam.Models
         /// New access time configuration.
         /// </summary>
         [JsonPropertyName("to")]
-        public ActionAttemptAssignCredentialSuccessResultPendingMutationsTo To { get; init; } =
-            default!;
+        public ActionAttemptAssignCredentialSuccessResultPendingMutationsTo? To { get; init; }
     }
 
     public sealed record ActionAttemptAssignCredentialSuccessResultPendingMutationsFrom
@@ -2126,6 +2143,12 @@ namespace Seam.Models
 
             [EnumMember(Value = "user_identity_missing_phone_number")]
             UserIdentityMissingPhoneNumber = 6,
+
+            [EnumMember(Value = "requested_code_unavailable")]
+            RequestedCodeUnavailable = 7,
+
+            [EnumMember(Value = "schedule_rounded_up")]
+            ScheduleRoundedUp = 8,
         }
 
         /// <summary>
@@ -2152,6 +2175,18 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("original_access_method_id")]
         public string? OriginalAccessMethodId { get; init; }
+
+        /// <summary>
+        /// The PIN code that was assigned instead.
+        /// </summary>
+        [JsonPropertyName("new_code")]
+        public string? NewCode { get; init; }
+
+        /// <summary>
+        /// The originally requested PIN code that could not be used.
+        /// </summary>
+        [JsonPropertyName("original_code")]
+        public string? OriginalCode { get; init; }
     }
 
     public sealed record ActionAttemptAssignCredentialPending : ActionAttemptAssignCredential { }
@@ -2597,6 +2632,56 @@ namespace Seam.Models
 
     public sealed record ActionAttemptConfigureAutoLockUnrecognized
         : ActionAttemptConfigureAutoLock,
+            ISeamUnrecognizedVariant
+    {
+        /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+        [JsonIgnore]
+        public JsonElement RawJson { get; set; }
+    }
+
+    /// <summary>
+    /// Converting an unmanaged access code to managed is pending.
+    /// </summary>
+    [JsonConverter(typeof(SeamUnionConverter))]
+    [SeamUnion("status")]
+    [SeamUnionVariant("success", typeof(ActionAttemptConvertAccessCodeToManagedSuccess))]
+    [SeamUnionVariant("pending", typeof(ActionAttemptConvertAccessCodeToManagedPending))]
+    [SeamUnionVariant("error", typeof(ActionAttemptConvertAccessCodeToManagedError))]
+    [SeamUnionFallback(typeof(ActionAttemptConvertAccessCodeToManagedUnrecognized))]
+    public abstract record ActionAttemptConvertAccessCodeToManaged : ActionAttempt
+    {
+        [JsonPropertyName("action_type")]
+        public override string ActionType { get; } = "CONVERT_ACCESS_CODE_TO_MANAGED";
+    }
+
+    public sealed record ActionAttemptConvertAccessCodeToManagedSuccess
+        : ActionAttemptConvertAccessCodeToManaged
+    {
+        /// <summary>
+        /// Result of the action.
+        /// </summary>
+        [JsonPropertyName("result")]
+        public ActionAttemptConvertAccessCodeToManagedSuccessResult Result { get; init; } =
+            default!;
+    }
+
+    public sealed record ActionAttemptConvertAccessCodeToManagedSuccessResult { }
+
+    public sealed record ActionAttemptConvertAccessCodeToManagedPending
+        : ActionAttemptConvertAccessCodeToManaged { }
+
+    public sealed record ActionAttemptConvertAccessCodeToManagedError
+        : ActionAttemptConvertAccessCodeToManaged
+    {
+        /// <summary>
+        /// Error associated with the action.
+        /// </summary>
+        [JsonPropertyName("error")]
+        public ActionAttemptError Error { get; init; } = default!;
+    }
+
+    public sealed record ActionAttemptConvertAccessCodeToManagedUnrecognized
+        : ActionAttemptConvertAccessCodeToManaged,
             ISeamUnrecognizedVariant
     {
         /// <summary>The complete raw JSON of the unrecognized payload.</summary>

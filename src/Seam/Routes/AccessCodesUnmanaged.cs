@@ -132,12 +132,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessCodeId == null && Code == null && DeviceId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_codes/unmanaged/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_codes/unmanaged/get",
+                    !(AccessCodeId == null && Code == null && DeviceId == null)
+                );
             }
         }
 

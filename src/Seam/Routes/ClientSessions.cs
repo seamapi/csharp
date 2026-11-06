@@ -297,19 +297,17 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    ClientSessionId == null
-                    && ConnectWebviewIds == null
-                    && ConnectedAccountIds == null
-                    && UserIdentifierKey == null
-                    && UserIdentityId == null
-                    && UserIdentityIds == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /client_sessions/grant_access"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/client_sessions/grant_access",
+                    !(
+                        ClientSessionId == null
+                        && ConnectWebviewIds == null
+                        && ConnectedAccountIds == null
+                        && UserIdentifierKey == null
+                        && UserIdentityId == null
+                        && UserIdentityIds == null
+                    )
+                );
             }
         }
 
@@ -350,6 +348,24 @@ namespace Seam.Routes
             public Optional<string> ConnectWebviewId { get; init; }
 
             /// <summary>
+            /// Customer key for which you want to list client sessions.
+            /// </summary>
+            [JsonPropertyName("customer_key")]
+            public string? CustomerKey { get; init; }
+
+            /// <summary>
+            /// Maximum number of records to return per page.
+            /// </summary>
+            [JsonPropertyName("limit")]
+            public int? Limit { get; init; }
+
+            /// <summary>
+            /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
+            /// </summary>
+            [JsonPropertyName("page_cursor")]
+            public Optional<string> PageCursor { get; init; }
+
+            /// <summary>
             /// Your user ID for the user by which you want to filter client sessions.
             /// </summary>
             [JsonPropertyName("user_identifier_key")]
@@ -375,6 +391,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("client_sessions")]
             public List<ClientSession>? ClientSessions { get; init; }
+
+            /// <summary>
+            /// The pagination metadata for the page of results.
+            /// </summary>
+            [JsonPropertyName("pagination")]
+            public Pagination? Pagination { get; init; }
         }
 
         /// <summary>
@@ -395,6 +417,44 @@ namespace Seam.Routes
                 )
                 .ConfigureAwait(false);
             return response.Read(r => r.ClientSessions);
+        }
+
+        /// <summary>Fetches one page of /client_sessions/list with its pagination metadata.</summary>
+        public async Task<SeamPage<ClientSession>> ListPageAsync(
+            ListRequest? request = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var response = await _transport
+                .SendAsync<ListResponse>(
+                    HttpMethod.Get,
+                    "/client_sessions/list",
+                    request,
+                    "client_sessions",
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
+            return new SeamPage<ClientSession>(
+                response.Read(r => r.ClientSessions),
+                response.Read("pagination", r => r.Pagination)
+            );
+        }
+
+        /// <summary>Creates a paginator over /client_sessions/list.</summary>
+        public SeamPaginator<ClientSession> ListPager(ListRequest? request = null)
+        {
+            return new SeamPaginator<ClientSession>(
+                (pageCursor, cancellationToken) =>
+                    ListPageAsync(
+                        pageCursor == null
+                            ? request
+                            : (request ?? new ListRequest()) with
+                            {
+                                PageCursor = pageCursor,
+                            },
+                        cancellationToken
+                    )
+            );
         }
 
         /// <summary>

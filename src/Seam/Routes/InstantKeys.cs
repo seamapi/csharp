@@ -69,12 +69,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (InstantKeyId == null && InstantKeyUrl == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /instant_keys/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/instant_keys/get",
+                    !(InstantKeyId == null && InstantKeyUrl == null)
+                );
             }
         }
 

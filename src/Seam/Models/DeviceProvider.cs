@@ -53,176 +53,194 @@ namespace Seam.Models
             [EnumMember(Value = "yale")]
             Yale = 11,
 
+            [EnumMember(Value = "yale_access")]
+            YaleAccess = 12,
+
+            [EnumMember(Value = "yale_home")]
+            YaleHome = 13,
+
             [EnumMember(Value = "genie")]
-            Genie = 12,
+            Genie = 14,
 
             [EnumMember(Value = "doorking")]
-            Doorking = 13,
+            Doorking = 15,
 
             [EnumMember(Value = "salto")]
-            Salto = 14,
+            Salto = 16,
 
             [EnumMember(Value = "salto_ks")]
-            SaltoKs = 15,
+            SaltoKs = 17,
 
             [EnumMember(Value = "salto_ks_accept")]
-            SaltoKsAccept = 16,
+            SaltoKsAccept = 18,
 
             [EnumMember(Value = "lockly")]
-            Lockly = 17,
+            Lockly = 19,
 
             [EnumMember(Value = "ttlock")]
-            Ttlock = 18,
+            Ttlock = 20,
 
             [EnumMember(Value = "linear")]
-            Linear = 19,
+            Linear = 21,
 
             [EnumMember(Value = "noiseaware")]
-            Noiseaware = 20,
+            Noiseaware = 22,
 
             [EnumMember(Value = "nuki")]
-            Nuki = 21,
+            Nuki = 23,
 
             [EnumMember(Value = "igloo")]
-            Igloo = 22,
+            Igloo = 24,
 
             [EnumMember(Value = "kwikset")]
-            Kwikset = 23,
+            Kwikset = 25,
 
             [EnumMember(Value = "minut")]
-            Minut = 24,
+            Minut = 26,
 
             [EnumMember(Value = "my_2n")]
-            My_2n = 25,
+            My_2n = 27,
 
             [EnumMember(Value = "controlbyweb")]
-            Controlbyweb = 26,
+            Controlbyweb = 28,
 
             [EnumMember(Value = "nest")]
-            Nest = 27,
+            Nest = 29,
 
             [EnumMember(Value = "igloohome")]
-            Igloohome = 28,
+            Igloohome = 30,
 
             [EnumMember(Value = "ecobee")]
-            Ecobee = 29,
+            Ecobee = 31,
 
             [EnumMember(Value = "four_suites")]
-            FourSuites = 30,
+            FourSuites = 32,
 
             [EnumMember(Value = "dormakaba_oracode")]
-            DormakabaOracode = 31,
+            DormakabaOracode = 33,
 
             [EnumMember(Value = "dormakaba_oracode_iho")]
-            DormakabaOracodeIho = 32,
+            DormakabaOracodeIho = 34,
 
             [EnumMember(Value = "pti")]
-            Pti = 33,
+            Pti = 35,
 
             [EnumMember(Value = "wyze")]
-            Wyze = 34,
+            Wyze = 36,
 
             [EnumMember(Value = "seam_passport")]
-            SeamPassport = 35,
+            SeamPassport = 37,
 
             [EnumMember(Value = "visionline")]
-            Visionline = 36,
+            Visionline = 38,
 
             [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 37,
+            AssaAbloyCredentialService = 39,
 
             [EnumMember(Value = "tedee")]
-            Tedee = 38,
+            Tedee = 40,
 
             [EnumMember(Value = "honeywell_resideo")]
-            HoneywellResideo = 39,
+            HoneywellResideo = 41,
 
             [EnumMember(Value = "first_alert")]
-            FirstAlert = 40,
+            FirstAlert = 42,
 
             [EnumMember(Value = "latch")]
-            Latch = 41,
+            Latch = 43,
 
             [EnumMember(Value = "akiles")]
-            Akiles = 42,
+            Akiles = 44,
 
             [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 43,
+            AssaAbloyVostio = 45,
 
             [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 44,
+            AssaAbloyVostioCredentialService = 46,
 
             [EnumMember(Value = "tado")]
-            Tado = 45,
+            Tado = 47,
 
             [EnumMember(Value = "salto_space")]
-            SaltoSpace = 46,
+            SaltoSpace = 48,
 
             [EnumMember(Value = "sensi")]
-            Sensi = 47,
+            Sensi = 49,
 
             [EnumMember(Value = "keynest")]
-            Keynest = 48,
+            Keynest = 50,
 
             [EnumMember(Value = "korelock")]
-            Korelock = 49,
+            Korelock = 51,
 
             [EnumMember(Value = "keyincode")]
-            Keyincode = 50,
+            Keyincode = 52,
 
             [EnumMember(Value = "dormakaba_ambiance")]
-            DormakabaAmbiance = 51,
+            DormakabaAmbiance = 53,
 
             [EnumMember(Value = "ultraloq")]
-            Ultraloq = 52,
+            Ultraloq = 54,
 
             [EnumMember(Value = "yacan")]
-            Yacan = 53,
+            Yacan = 55,
 
             [EnumMember(Value = "dusaw")]
-            Dusaw = 54,
+            Dusaw = 56,
 
             [EnumMember(Value = "sifely")]
-            Sifely = 55,
+            Sifely = 57,
 
             [EnumMember(Value = "thirty_three_lock")]
-            ThirtyThreeLock = 56,
+            ThirtyThreeLock = 58,
 
             [EnumMember(Value = "ring")]
-            Ring = 57,
+            Ring = 59,
 
             [EnumMember(Value = "tapo")]
-            Tapo = 58,
+            Tapo = 60,
 
             [EnumMember(Value = "arlo")]
-            Arlo = 59,
+            Arlo = 61,
 
             [EnumMember(Value = "reolink")]
-            Reolink = 60,
+            Reolink = 62,
+
+            [EnumMember(Value = "unifi_protect")]
+            UnifiProtect = 63,
+
+            [EnumMember(Value = "yale_connect")]
+            YaleConnect = 64,
 
             [EnumMember(Value = "ical")]
-            Ical = 61,
+            Ical = 65,
 
             [EnumMember(Value = "lodgify")]
-            Lodgify = 62,
+            Lodgify = 66,
 
             [EnumMember(Value = "hostaway")]
-            Hostaway = 63,
+            Hostaway = 67,
 
             [EnumMember(Value = "guesty")]
-            Guesty = 64,
+            Guesty = 68,
 
             [EnumMember(Value = "acuity_scheduling")]
-            AcuityScheduling = 65,
+            AcuityScheduling = 69,
 
             [EnumMember(Value = "omnitec")]
-            Omnitec = 66,
+            Omnitec = 70,
 
             [EnumMember(Value = "kisi")]
-            Kisi = 67,
+            Kisi = 71,
 
             [EnumMember(Value = "aqara")]
-            Aqara = 68,
+            Aqara = 72,
+
+            [EnumMember(Value = "eufy")]
+            Eufy = 73,
+
+            [EnumMember(Value = "sonos")]
+            Sonos = 74,
         }
 
         /// <summary>
@@ -374,7 +392,7 @@ namespace Seam.Models
         public bool? CanSimulateRemoval { get; init; }
 
         /// <summary>
-        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// Indicates whether the camera can stream live video through a camera live view session. `false` while the camera is offline.
         /// </summary>
         [JsonPropertyName("can_stream_live_video")]
         public bool? CanStreamLiveVideo { get; init; }

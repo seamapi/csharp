@@ -43,7 +43,7 @@ namespace Seam.Models
         }
 
         /// <summary>
-        /// Type of the device.
+        /// Type of the device. The `august_lock` and `yale_lock` values are deprecated. Use `yale_access_lock` in place of `august_lock`, and `yale_access_lock` or `yale_home_lock` in place of `yale_lock`.
         /// </summary>
         [JsonConverter(typeof(SeamStringEnumConverter))]
         public enum DeviceTypeEnum
@@ -102,92 +102,110 @@ namespace Seam.Models
             [EnumMember(Value = "yale_lock")]
             YaleLock = 17,
 
+            [EnumMember(Value = "yale_access_lock")]
+            YaleAccessLock = 18,
+
+            [EnumMember(Value = "yale_home_lock")]
+            YaleHomeLock = 19,
+
+            [EnumMember(Value = "yale_connect_lock")]
+            YaleConnectLock = 20,
+
             [EnumMember(Value = "two_n_intercom")]
-            TwoNIntercom = 18,
+            TwoNIntercom = 21,
 
             [EnumMember(Value = "controlbyweb_device")]
-            ControlbywebDevice = 19,
+            ControlbywebDevice = 22,
 
             [EnumMember(Value = "ttlock_lock")]
-            TtlockLock = 20,
+            TtlockLock = 23,
 
             [EnumMember(Value = "igloohome_lock")]
-            IgloohomeLock = 21,
+            IgloohomeLock = 24,
 
             [EnumMember(Value = "four_suites_door")]
-            FourSuitesDoor = 22,
+            FourSuitesDoor = 25,
 
             [EnumMember(Value = "dormakaba_oracode_door")]
-            DormakabaOracodeDoor = 23,
+            DormakabaOracodeDoor = 26,
 
             [EnumMember(Value = "tedee_lock")]
-            TedeeLock = 24,
+            TedeeLock = 27,
 
             [EnumMember(Value = "akiles_lock")]
-            AkilesLock = 25,
+            AkilesLock = 28,
 
             [EnumMember(Value = "ultraloq_lock")]
-            UltraloqLock = 26,
+            UltraloqLock = 29,
 
             [EnumMember(Value = "yacan_lock")]
-            YacanLock = 27,
+            YacanLock = 30,
 
             [EnumMember(Value = "keyincode_lock")]
-            KeyincodeLock = 28,
+            KeyincodeLock = 31,
 
             [EnumMember(Value = "omnitec_lock")]
-            OmnitecLock = 29,
+            OmnitecLock = 32,
 
             [EnumMember(Value = "kisi_lock")]
-            KisiLock = 30,
+            KisiLock = 33,
 
             [EnumMember(Value = "aqara_lock")]
-            AqaraLock = 31,
+            AqaraLock = 34,
+
+            [EnumMember(Value = "eufy_lock")]
+            EufyLock = 35,
 
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 32,
+            KeynestKey = 36,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 33,
+            NoiseawareActivityZone = 37,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 34,
+            MinutSensor = 38,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 35,
+            EcobeeThermostat = 39,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 36,
+            NestThermostat = 40,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 37,
+            HoneywellResideoThermostat = 41,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 38,
+            TadoThermostat = 42,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 39,
+            SensiThermostat = 43,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 40,
+            SmartthingsThermostat = 44,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 41,
+            IosPhone = 45,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 42,
+            AndroidPhone = 46,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 43,
+            RingCamera = 47,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 44,
+            TapoCamera = 48,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 45,
+            ArloCamera = 49,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 46,
+            ReolinkCamera = 50,
+
+            [EnumMember(Value = "unifi_protect_camera")]
+            UnifiProtectCamera = 51,
+
+            [EnumMember(Value = "sonos_speaker")]
+            SonosSpeaker = 52,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -556,6 +574,10 @@ namespace Seam.Models
             "max_access_codes_reached",
             typeof(UnmanagedDeviceWarningsMaxAccessCodesReached)
         )]
+        [SeamUnionVariant(
+            "cloud_recording_not_enabled",
+            typeof(UnmanagedDeviceWarningsCloudRecordingNotEnabled)
+        )]
         [SeamUnionFallback(typeof(UnmanagedDeviceWarningsUnrecognized))]
         public abstract record UnmanagedDeviceWarnings
         {
@@ -776,6 +798,13 @@ namespace Seam.Models
             public int MaxActiveAccessCodeCount { get; init; } = default!;
         }
 
+        public sealed record UnmanagedDeviceWarningsCloudRecordingNotEnabled
+            : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "cloud_recording_not_enabled";
+        }
+
         public sealed record UnmanagedDeviceWarningsUnrecognized
             : UnmanagedDeviceWarnings,
                 ISeamUnrecognizedVariant
@@ -903,7 +932,7 @@ namespace Seam.Models
         public bool? CanSimulateRemoval { get; init; }
 
         /// <summary>
-        /// Indicates whether the camera supports streaming live video through a camera live view session.
+        /// Indicates whether the camera can stream live video through a camera live view session. `false` while the camera is offline.
         /// </summary>
         [JsonPropertyName("can_stream_live_video")]
         public bool? CanStreamLiveVideo { get; init; }
@@ -952,7 +981,7 @@ namespace Seam.Models
         public string DeviceId { get; init; } = default!;
 
         /// <summary>
-        /// Type of the device.
+        /// Type of the device. The `august_lock` and `yale_lock` values are deprecated. Use `yale_access_lock` in place of `august_lock`, and `yale_access_lock` or `yale_home_lock` in place of `yale_lock`.
         /// </summary>
         [JsonPropertyName("device_type")]
         public UnmanagedDevice.DeviceTypeEnum DeviceType { get; init; } = default!;

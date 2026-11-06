@@ -81,12 +81,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (ConnectedAccountId == null && Email == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /connected_accounts/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/connected_accounts/get",
+                    !(ConnectedAccountId == null && Email == null)
+                );
             }
         }
 
@@ -294,6 +292,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "camera")]
                 Camera = 5,
+
+                [EnumMember(Value = "speaker")]
+                Speaker = 6,
             }
 
             /// <summary>

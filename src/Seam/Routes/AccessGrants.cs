@@ -277,12 +277,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessGrantId == null && AccessGrantKey == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_grants/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_grants/get",
+                    !(AccessGrantId == null && AccessGrantKey == null)
+                );
             }
         }
 
@@ -403,17 +401,15 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    AccessGrantIds == null
-                    && AccessGrantKeys == null
-                    && Exclude == null
-                    && Include == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_grants/get_related"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_grants/get_related",
+                    !(
+                        AccessGrantIds == null
+                        && AccessGrantKeys == null
+                        && Exclude == null
+                        && Include == null
+                    )
+                );
             }
         }
 
@@ -735,18 +731,16 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    AccessGrantId == null
-                    && AccessGrantKey == null
-                    && !EndsAt.IsSet
-                    && !Name.IsSet
-                    && StartsAt == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_grants/update"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_grants/update",
+                    !(
+                        AccessGrantId == null
+                        && AccessGrantKey == null
+                        && !EndsAt.IsSet
+                        && !Name.IsSet
+                        && StartsAt == null
+                    )
+                );
             }
         }
 

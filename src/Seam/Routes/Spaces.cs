@@ -268,12 +268,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (SpaceId == null && SpaceKey == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /spaces/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/spaces/get",
+                    !(SpaceId == null && SpaceKey == null)
+                );
             }
         }
 
@@ -382,12 +380,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (Exclude == null && Include == null && SpaceIds == null && SpaceKeys == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /spaces/get_related"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/spaces/get_related",
+                    !(Exclude == null && Include == null && SpaceIds == null && SpaceKeys == null)
+                );
             }
         }
 

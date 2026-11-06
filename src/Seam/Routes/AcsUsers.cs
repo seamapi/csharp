@@ -182,12 +182,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/delete"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/delete",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -230,12 +228,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/get",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -421,12 +417,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/list_accessible_entrances"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/list_accessible_entrances",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -527,12 +521,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/revoke_access_to_all_entrances"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/revoke_access_to_all_entrances",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -580,12 +572,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/suspend"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/suspend",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -628,12 +618,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/unsuspend"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/unsuspend",
+                    !(AcsSystemId == null && AcsUserId == null && UserIdentityId == null)
+                );
             }
         }
 
@@ -710,22 +698,20 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    !AccessSchedule.IsSet
-                    && AcsSystemId == null
-                    && AcsUserId == null
-                    && Email == null
-                    && EmailAddress == null
-                    && FullName == null
-                    && HidAcsSystemId == null
-                    && PhoneNumber == null
-                    && UserIdentityId == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /acs/users/update"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/acs/users/update",
+                    !(
+                        !AccessSchedule.IsSet
+                        && AcsSystemId == null
+                        && AcsUserId == null
+                        && Email == null
+                        && EmailAddress == null
+                        && FullName == null
+                        && HidAcsSystemId == null
+                        && PhoneNumber == null
+                        && UserIdentityId == null
+                    )
+                );
             }
         }
 

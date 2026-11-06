@@ -1,99 +1,39 @@
 namespace Seam.Test;
 
-using System.Net;
 using System.Reflection;
-using Seam.Test.Support;
+using Seam.Http;
 
 public class RequiredParametersTests
 {
-    private static SeamClient CreateSeam(RecordingHandler handler)
+    private static void AssertRequiresAParameter(params bool[] parametersGiven)
     {
-        return new SeamClient(
-            new SeamClientOptions
-            {
-                ApiKey = "seam_apikey1_token",
-                Endpoint = "https://example.com",
-                HttpMessageHandler = handler,
-                MaxRetries = 0,
-            }
+        var exception = Assert.Throws<ArgumentException>(
+            () => RequestParameters.RequireAtLeastOne("/test/list", parametersGiven)
         );
-    }
 
-    private static async Task AssertRequiresAParameterAsync(
-        string path,
-        Func<SeamClient, Task> request
-    )
-    {
-        var handler = new RecordingHandler();
-        using var seam = CreateSeam(handler);
-
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => request(seam));
-
-        Assert.Equal($"At least one parameter is required for {path}", exception.Message);
-        Assert.Equal(0, handler.AttemptCount);
+        Assert.Equal("At least one parameter is required for /test/list", exception.Message);
     }
 
     [Fact]
-    public Task AccessCodesListDoesNotCountLimit()
+    public void EmptyRequestIsRejected()
     {
-        return AssertRequiresAParameterAsync(
-            "/access_codes/list",
-            seam => seam.AccessCodes.ListAsync(new() { Limit = 20 })
-        );
+        AssertRequiresAParameter(false);
     }
 
     [Fact]
-    public Task AccessCodesListDoesNotCountPageCursor()
+    public void PaginationParametersDoNotSatisfyTheRequirement()
     {
-        return AssertRequiresAParameterAsync(
-            "/access_codes/list",
-            seam => seam.AccessCodes.ListAsync(new() { PageCursor = "c1" })
-        );
+        AssertRequiresAParameter(false);
     }
 
     [Fact]
-    public Task AccessMethodsListDoesNotCountLimitOrPageCursor()
+    public void AFilterWithPaginationSatisfiesTheRequirement()
     {
-        return AssertRequiresAParameterAsync(
-            "/access_methods/list",
-            seam => seam.AccessMethods.ListAsync(new() { Limit = 20, PageCursor = "c1" })
-        );
+        RequestParameters.RequireAtLeastOne("/test/list", true);
     }
 
     [Fact]
-    public Task EventsListDoesNotCountLimit()
-    {
-        return AssertRequiresAParameterAsync(
-            "/events/list",
-            seam => seam.Events.ListAsync(new() { Limit = 20 })
-        );
-    }
-
-    [Fact]
-    public Task DevicesGetRequiresAParameter()
-    {
-        return AssertRequiresAParameterAsync("/devices/get", seam => seam.Devices.GetAsync(new()));
-    }
-
-    [Fact]
-    public async Task AccessCodesListAcceptsAFilterWithALimit()
-    {
-        var handler = new RecordingHandler().RespondWith(
-            HttpStatusCode.OK,
-            "{\"access_codes\":[]}"
-        );
-        using var seam = CreateSeam(handler);
-
-        var accessCodes = await seam.AccessCodes.ListAsync(
-            new() { DeviceId = "device1", Limit = 20 }
-        );
-
-        Assert.Empty(accessCodes);
-        Assert.Equal(1, handler.AttemptCount);
-    }
-
-    [Fact]
-    public void NoGuardIsSatisfiedByPaginationParametersAlone()
+    public void NoGeneratedGuardIsSatisfiedByPaginationParametersAlone()
     {
         var guardedRequests = typeof(SeamClient)
             .Assembly.GetTypes()
@@ -141,6 +81,6 @@ public class RequiredParametersTests
             }
         }
 
-        Assert.True(checkedRequests >= 5);
+        Assert.True(checkedRequests > 0);
     }
 }

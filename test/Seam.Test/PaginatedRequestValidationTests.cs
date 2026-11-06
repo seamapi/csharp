@@ -1,55 +1,71 @@
 namespace Seam.Test;
 
-using Seam.Test.Support;
+using Seam.Http;
 
 public class PaginatedRequestValidationTests
 {
-    private static SeamClient CreateSeam(RecordingHandler handler)
+    private static (SeamPaginator<object> Paginator, Func<int> FetchCount) CreatePaginator()
     {
-        return new SeamClient(
-            new SeamClientOptions
+        var fetchCount = 0;
+        var paginator = new SeamPaginator<object>(
+            (_, _) =>
             {
-                ApiKey = "seam_apikey1_token",
-                Endpoint = "https://example.com",
-                HttpMessageHandler = handler,
-                MaxRetries = 0,
+                RequestParameters.RequireAtLeastOne("/test/list", false);
+                fetchCount++;
+                return Task.FromResult(
+                    new SeamPage<object>([], new Pagination { HasNextPage = false })
+                );
             }
         );
+
+        return (paginator, () => fetchCount);
     }
 
-    private static async Task AssertValidatesBeforeSendingAsync(Func<SeamClient, Task> request)
+    private static async Task AssertValidatesBeforeFetchingAsync(
+        Func<SeamPaginator<object>, Task> request
+    )
     {
-        var handler = new RecordingHandler();
-        using var seam = CreateSeam(handler);
+        var (paginator, fetchCount) = CreatePaginator();
 
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => request(seam));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => request(paginator));
 
-        Assert.Equal(
-            "At least one parameter is required for /access_codes/list",
-            exception.Message
-        );
-        Assert.Equal(0, handler.AttemptCount);
-    }
-
-    [Fact]
-    public Task PageMethodValidatesTheRequest()
-    {
-        return AssertValidatesBeforeSendingAsync(seam => seam.AccessCodes.ListPageAsync(new()));
+        Assert.Equal("At least one parameter is required for /test/list", exception.Message);
+        Assert.Equal(0, fetchCount());
     }
 
     [Fact]
     public Task FirstPageValidatesTheRequest()
     {
-        return AssertValidatesBeforeSendingAsync(seam =>
-            seam.AccessCodes.ListPager(new()).FirstPageAsync()
-        );
+        return AssertValidatesBeforeFetchingAsync(paginator => paginator.FirstPageAsync());
+    }
+
+    [Fact]
+    public Task NextPageValidatesTheRequest()
+    {
+        return AssertValidatesBeforeFetchingAsync(paginator => paginator.NextPageAsync("c1"));
     }
 
     [Fact]
     public Task FlattenToListValidatesTheRequest()
     {
-        return AssertValidatesBeforeSendingAsync(seam =>
-            seam.AccessCodes.ListPager(new()).FlattenToListAsync()
-        );
+        return AssertValidatesBeforeFetchingAsync(paginator => paginator.FlattenToListAsync());
+    }
+
+    [Fact]
+    public Task FlattenValidatesTheRequest()
+    {
+        return AssertValidatesBeforeFetchingAsync(async paginator =>
+        {
+            await foreach (var _ in paginator.Flatten()) { }
+        });
+    }
+
+    [Fact]
+    public Task PagesValidatesTheRequest()
+    {
+        return AssertValidatesBeforeFetchingAsync(async paginator =>
+        {
+            await foreach (var _ in paginator.Pages()) { }
+        });
     }
 }

@@ -17,6 +17,46 @@ namespace Seam.Models
     public sealed record AcsEntrance
     {
         [JsonConverter(typeof(SeamUnionConverter))]
+        [SeamUnion("error_code")]
+        [SeamUnionVariant("entrance_removed", typeof(AcsEntranceErrorsEntranceRemoved))]
+        [SeamUnionFallback(typeof(AcsEntranceErrorsUnrecognized))]
+        public abstract record AcsEntranceErrors
+        {
+            /// <summary>The value of the <c>error_code</c> discriminator.</summary>
+            public abstract string ErrorCode { get; }
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [JsonPropertyName("message")]
+            public string Message { get; init; } = default!;
+        }
+
+        public sealed record AcsEntranceErrorsEntranceRemoved : AcsEntranceErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "entrance_removed";
+        }
+
+        public sealed record AcsEntranceErrorsUnrecognized
+            : AcsEntranceErrors,
+                ISeamUnrecognizedVariant
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "unrecognized";
+
+            /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+            [JsonIgnore]
+            public JsonElement RawJson { get; set; }
+        }
+
+        [JsonConverter(typeof(SeamUnionConverter))]
         [SeamUnion("warning_code")]
         [SeamUnionVariant(
             "salto_ks_entrance_access_code_support_removed",
@@ -422,27 +462,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("access_point_profile")]
         public string? AccessPointProfile { get; init; }
-    }
-
-    public sealed record AcsEntranceErrors
-    {
-        /// <summary>
-        /// Date and time at which Seam created the error.
-        /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; init; } = default!;
-
-        /// <summary>
-        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
-        /// </summary>
-        [JsonPropertyName("error_code")]
-        public string ErrorCode { get; init; } = default!;
-
-        /// <summary>
-        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
-        /// </summary>
-        [JsonPropertyName("message")]
-        public string Message { get; init; } = default!;
     }
 
     public sealed record AcsEntranceHotekMetadata

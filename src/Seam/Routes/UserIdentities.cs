@@ -86,6 +86,12 @@ namespace Seam.Routes
             public List<string>? AcsSystemIds { get; init; }
 
             /// <summary>
+            /// Customer key of the customer that owns the new user identity. Set it when the user identity will be used in access grants created through that customer&apos;s client session or Customer Portal.
+            /// </summary>
+            [JsonPropertyName("customer_key")]
+            public string? CustomerKey { get; init; }
+
+            /// <summary>
             /// Unique email address for the new user identity.
             /// </summary>
             [JsonPropertyName("email_address")]
@@ -230,12 +236,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (UserIdentityId == null && UserIdentityKey == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /user_identities/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/user_identities/get",
+                    !(UserIdentityId == null && UserIdentityKey == null)
+                );
             }
         }
 
@@ -321,6 +325,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("credential_manager_acs_system_id")]
             public string? CredentialManagerAcsSystemId { get; init; }
+
+            /// <summary>
+            /// Customer key for which you want to list user identities.
+            /// </summary>
+            [JsonPropertyName("customer_key")]
+            public string? CustomerKey { get; init; }
 
             /// <summary>
             /// Maximum number of records to return per page.
@@ -615,17 +625,15 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    MergedUserIdentityIds == null
-                    && MergedUserIdentityKeys == null
-                    && UserIdentityId == null
-                    && UserIdentityKey == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /user_identities/merge"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/user_identities/merge",
+                    !(
+                        MergedUserIdentityIds == null
+                        && MergedUserIdentityKeys == null
+                        && UserIdentityId == null
+                        && UserIdentityKey == null
+                    )
+                );
             }
         }
 
