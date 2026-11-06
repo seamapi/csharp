@@ -107,12 +107,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (DeviceId == null && Name == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /locks/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/locks/get",
+                    !(DeviceId == null && Name == null)
+                );
             }
         }
 

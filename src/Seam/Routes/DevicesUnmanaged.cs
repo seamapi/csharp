@@ -44,12 +44,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (DeviceId == null && Name == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /devices/unmanaged/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/devices/unmanaged/get",
+                    !(DeviceId == null && Name == null)
+                );
             }
         }
 

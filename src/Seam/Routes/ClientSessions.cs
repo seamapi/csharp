@@ -297,19 +297,17 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    ClientSessionId == null
-                    && ConnectWebviewIds == null
-                    && ConnectedAccountIds == null
-                    && UserIdentifierKey == null
-                    && UserIdentityId == null
-                    && UserIdentityIds == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /client_sessions/grant_access"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/client_sessions/grant_access",
+                    !(
+                        ClientSessionId == null
+                        && ConnectWebviewIds == null
+                        && ConnectedAccountIds == null
+                        && UserIdentifierKey == null
+                        && UserIdentityId == null
+                        && UserIdentityIds == null
+                    )
+                );
             }
         }
 

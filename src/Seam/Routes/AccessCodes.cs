@@ -418,12 +418,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessCodeId == null && Code == null && DeviceId == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_codes/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_codes/get",
+                    !(AccessCodeId == null && Code == null && DeviceId == null)
+                );
             }
         }
 

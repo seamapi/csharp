@@ -236,12 +236,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (UserIdentityId == null && UserIdentityKey == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /user_identities/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/user_identities/get",
+                    !(UserIdentityId == null && UserIdentityKey == null)
+                );
             }
         }
 
@@ -627,17 +625,15 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    MergedUserIdentityIds == null
-                    && MergedUserIdentityKeys == null
-                    && UserIdentityId == null
-                    && UserIdentityKey == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /user_identities/merge"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/user_identities/merge",
+                    !(
+                        MergedUserIdentityIds == null
+                        && MergedUserIdentityKeys == null
+                        && UserIdentityId == null
+                        && UserIdentityKey == null
+                    )
+                );
             }
         }
 

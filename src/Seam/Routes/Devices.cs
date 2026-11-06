@@ -47,12 +47,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (DeviceId == null && Name == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /devices/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/devices/get",
+                    !(DeviceId == null && Name == null)
+                );
             }
         }
 

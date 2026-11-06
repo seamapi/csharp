@@ -47,12 +47,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (DeviceId == null && EventId == null && EventType == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /events/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/events/get",
+                    !(DeviceId == null && EventId == null && EventType == null)
+                );
             }
         }
 
@@ -965,40 +963,38 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    AccessCodeId == null
-                    && AccessCodeIds == null
-                    && AccessGrantId == null
-                    && AccessGrantIds == null
-                    && AccessMethodId == null
-                    && AccessMethodIds == null
-                    && AcsAccessGroupId == null
-                    && AcsCredentialId == null
-                    && AcsEncoderId == null
-                    && AcsEntranceId == null
-                    && AcsSystemId == null
-                    && AcsSystemIds == null
-                    && AcsUserId == null
-                    && Between == null
-                    && ConnectWebviewId == null
-                    && ConnectedAccountId == null
-                    && CustomerKey == null
-                    && DeviceId == null
-                    && DeviceIds == null
-                    && EventIds == null
-                    && EventType == null
-                    && EventTypes == null
-                    && Since == null
-                    && SpaceId == null
-                    && SpaceIds == null
-                    && UnstableOffset == null
-                    && UserIdentityId == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /events/list"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/events/list",
+                    !(
+                        AccessCodeId == null
+                        && AccessCodeIds == null
+                        && AccessGrantId == null
+                        && AccessGrantIds == null
+                        && AccessMethodId == null
+                        && AccessMethodIds == null
+                        && AcsAccessGroupId == null
+                        && AcsCredentialId == null
+                        && AcsEncoderId == null
+                        && AcsEntranceId == null
+                        && AcsSystemId == null
+                        && AcsSystemIds == null
+                        && AcsUserId == null
+                        && Between == null
+                        && ConnectWebviewId == null
+                        && ConnectedAccountId == null
+                        && CustomerKey == null
+                        && DeviceId == null
+                        && DeviceIds == null
+                        && EventIds == null
+                        && EventType == null
+                        && EventTypes == null
+                        && Since == null
+                        && SpaceId == null
+                        && SpaceIds == null
+                        && UnstableOffset == null
+                        && UserIdentityId == null
+                    )
+                );
             }
         }
 

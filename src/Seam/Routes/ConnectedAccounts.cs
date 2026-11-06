@@ -81,12 +81,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (ConnectedAccountId == null && Email == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /connected_accounts/get"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/connected_accounts/get",
+                    !(ConnectedAccountId == null && Email == null)
+                );
             }
         }
 

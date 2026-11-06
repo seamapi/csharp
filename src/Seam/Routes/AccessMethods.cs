@@ -109,12 +109,10 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (AccessGrantId == null && AccessMethodId == null && ReservationKey == null)
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_methods/delete"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_methods/delete",
+                    !(AccessGrantId == null && AccessMethodId == null && ReservationKey == null)
+                );
             }
         }
 
@@ -399,20 +397,18 @@ namespace Seam.Routes
 
             internal void Validate()
             {
-                if (
-                    AccessCodeId == null
-                    && AccessGrantId == null
-                    && AccessGrantKey == null
-                    && AcsEntranceId == null
-                    && CustomerKey == null
-                    && DeviceId == null
-                    && SpaceId == null
-                )
-                {
-                    throw new ArgumentException(
-                        "At least one parameter is required for /access_methods/list"
-                    );
-                }
+                RequestParameters.RequireAtLeastOne(
+                    "/access_methods/list",
+                    !(
+                        AccessCodeId == null
+                        && AccessGrantId == null
+                        && AccessGrantKey == null
+                        && AcsEntranceId == null
+                        && CustomerKey == null
+                        && DeviceId == null
+                        && SpaceId == null
+                    )
+                );
             }
         }
 
