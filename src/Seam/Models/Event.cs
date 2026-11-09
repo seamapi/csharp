@@ -211,6 +211,9 @@ namespace Seam.Models
     [SeamUnionVariant("lock.locked", typeof(EventLockLocked))]
     [SeamUnionVariant("lock.unlocked", typeof(EventLockUnlocked))]
     [SeamUnionVariant("lock.access_denied", typeof(EventLockAccessDenied))]
+    [SeamUnionVariant("lock.jammed", typeof(EventLockJammed))]
+    [SeamUnionVariant("lock.door_opened", typeof(EventLockDoorOpened))]
+    [SeamUnionVariant("lock.door_closed", typeof(EventLockDoorClosed))]
     [SeamUnionVariant(
         "thermostat.climate_preset_activated",
         typeof(EventThermostatClimatePresetActivated)
@@ -5644,6 +5647,123 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("reason_code")]
         public EventLockAccessDeniedReason.ReasonCodeEnum ReasonCode { get; init; } = default!;
+    }
+
+    /// <summary>
+    /// The [lock](https://www.seam.co/docs/low-level-apis/smart-locks) reported that its bolt is jammed.
+    /// </summary>
+    public sealed record EventLockJammed : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } = "lock.jammed";
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
+        [JsonPropertyName("customer_key")]
+        public string? CustomerKey { get; init; }
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
+    }
+
+    /// <summary>
+    /// The door sensor of the [lock](https://www.seam.co/docs/low-level-apis/smart-locks) reported that the door was opened.
+    /// </summary>
+    public sealed record EventLockDoorOpened : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } = "lock.door_opened";
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
+        [JsonPropertyName("customer_key")]
+        public string? CustomerKey { get; init; }
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
+    }
+
+    /// <summary>
+    /// The door sensor of the [lock](https://www.seam.co/docs/low-level-apis/smart-locks) reported that the door was closed.
+    /// </summary>
+    public sealed record EventLockDoorClosed : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } = "lock.door_closed";
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
+        [JsonPropertyName("customer_key")]
+        public string? CustomerKey { get; init; }
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
     }
 
     /// <summary>

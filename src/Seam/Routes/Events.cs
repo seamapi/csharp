@@ -398,47 +398,56 @@ namespace Seam.Routes
                 [EnumMember(Value = "lock.access_denied")]
                 LockAccessDenied = 100,
 
+                [EnumMember(Value = "lock.jammed")]
+                LockJammed = 101,
+
+                [EnumMember(Value = "lock.door_opened")]
+                LockDoorOpened = 102,
+
+                [EnumMember(Value = "lock.door_closed")]
+                LockDoorClosed = 103,
+
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 101,
+                ThermostatClimatePresetActivated = 104,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 102,
+                ThermostatManuallyAdjusted = 105,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 103,
+                ThermostatTemperatureThresholdExceeded = 106,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 104,
+                ThermostatTemperatureThresholdNoLongerExceeded = 107,
 
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
-                ThermostatTemperatureReachedSetPoint = 105,
+                ThermostatTemperatureReachedSetPoint = 108,
 
                 [EnumMember(Value = "thermostat.temperature_changed")]
-                ThermostatTemperatureChanged = 106,
+                ThermostatTemperatureChanged = 109,
 
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 107,
+                DeviceNameChanged = 110,
 
                 [EnumMember(Value = "camera.activated")]
-                CameraActivated = 108,
+                CameraActivated = 111,
 
                 [EnumMember(Value = "device.doorbell_rang")]
-                DeviceDoorbellRang = 109,
+                DeviceDoorbellRang = 112,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 110,
+                EnrollmentAutomationDeleted = 113,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 111,
+                PhoneDeactivated = 114,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 112,
+                SpaceDeviceMembershipChanged = 115,
 
                 [EnumMember(Value = "space.created")]
-                SpaceCreated = 113,
+                SpaceCreated = 116,
 
                 [EnumMember(Value = "space.deleted")]
-                SpaceDeleted = 114,
+                SpaceDeleted = 117,
             }
 
             /// <summary>
@@ -750,47 +759,56 @@ namespace Seam.Routes
                 [EnumMember(Value = "lock.access_denied")]
                 LockAccessDenied = 100,
 
+                [EnumMember(Value = "lock.jammed")]
+                LockJammed = 101,
+
+                [EnumMember(Value = "lock.door_opened")]
+                LockDoorOpened = 102,
+
+                [EnumMember(Value = "lock.door_closed")]
+                LockDoorClosed = 103,
+
                 [EnumMember(Value = "thermostat.climate_preset_activated")]
-                ThermostatClimatePresetActivated = 101,
+                ThermostatClimatePresetActivated = 104,
 
                 [EnumMember(Value = "thermostat.manually_adjusted")]
-                ThermostatManuallyAdjusted = 102,
+                ThermostatManuallyAdjusted = 105,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_exceeded")]
-                ThermostatTemperatureThresholdExceeded = 103,
+                ThermostatTemperatureThresholdExceeded = 106,
 
                 [EnumMember(Value = "thermostat.temperature_threshold_no_longer_exceeded")]
-                ThermostatTemperatureThresholdNoLongerExceeded = 104,
+                ThermostatTemperatureThresholdNoLongerExceeded = 107,
 
                 [EnumMember(Value = "thermostat.temperature_reached_set_point")]
-                ThermostatTemperatureReachedSetPoint = 105,
+                ThermostatTemperatureReachedSetPoint = 108,
 
                 [EnumMember(Value = "thermostat.temperature_changed")]
-                ThermostatTemperatureChanged = 106,
+                ThermostatTemperatureChanged = 109,
 
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 107,
+                DeviceNameChanged = 110,
 
                 [EnumMember(Value = "camera.activated")]
-                CameraActivated = 108,
+                CameraActivated = 111,
 
                 [EnumMember(Value = "device.doorbell_rang")]
-                DeviceDoorbellRang = 109,
+                DeviceDoorbellRang = 112,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 110,
+                EnrollmentAutomationDeleted = 113,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 111,
+                PhoneDeactivated = 114,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 112,
+                SpaceDeviceMembershipChanged = 115,
 
                 [EnumMember(Value = "space.created")]
-                SpaceCreated = 113,
+                SpaceCreated = 116,
 
                 [EnumMember(Value = "space.deleted")]
-                SpaceDeleted = 114,
+                SpaceDeleted = 117,
             }
 
             /// <summary>
