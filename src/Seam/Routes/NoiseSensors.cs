@@ -85,6 +85,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "noiseaware")]
                 Noiseaware = 2,
+
+                [EnumMember(Value = "alertify")]
+                Alertify = 3,
             }
 
             /// <summary>

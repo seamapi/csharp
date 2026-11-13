@@ -102,12 +102,6 @@ namespace Seam.Routes
             public string? CustomizationProfileId { get; init; }
 
             /// <summary>
-            /// Deep link target resource for initial redirect. When set, the portal will navigate directly to the specified resource.
-            /// </summary>
-            [JsonPropertyName("deep_link")]
-            public CreatePortalRequestDeepLink? DeepLink { get; init; }
-
-            /// <summary>
             /// Whether to exclude the option to select a locale within the portal UI.
             /// </summary>
             [JsonPropertyName("exclude_locale_picker")]
@@ -1249,37 +1243,6 @@ namespace Seam.Routes
             public string? Value { get; init; }
         }
 
-        public sealed record CreatePortalRequestDeepLink
-        {
-            [JsonConverter(typeof(SeamStringEnumConverter))]
-            public enum ResourceTypeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "reservation")]
-                Reservation = 1,
-
-                [EnumMember(Value = "space")]
-                Space = 2,
-
-                [EnumMember(Value = "device")]
-                Device = 3,
-
-                [EnumMember(Value = "acs_entrance")]
-                AcsEntrance = 4,
-            }
-
-            [JsonPropertyName("resource_id")]
-            public string? ResourceId { get; init; }
-
-            [JsonPropertyName("resource_key")]
-            public string? ResourceKey { get; init; }
-
-            [JsonPropertyName("resource_type")]
-            public CreatePortalRequestDeepLink.ResourceTypeEnum? ResourceType { get; init; }
-        }
-
         public sealed record CreatePortalRequestFeatures
         {
             /// <summary>
@@ -1323,6 +1286,12 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("allow_access_automation_rule_customization")]
             public bool? AllowAccessAutomationRuleCustomization { get; init; }
+
+            /// <summary>
+            /// Indicates whether the customer can move a connected account to a new Seam Bridge when its current bridge is disconnected.
+            /// </summary>
+            [JsonPropertyName("allow_bridge_replacement")]
+            public bool? AllowBridgeReplacement { get; init; }
 
             /// <summary>
             /// Indicates whether the customer can customize the climate automation rules for their properties.
