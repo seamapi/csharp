@@ -32,10 +32,10 @@
   },
   "packageManager": "npm@11.19.0",
   "devDependencies": {
-    "@seamapi/blueprint": "^1.13.2",
-    "@seamapi/fake-seam-connect": "2.0.6",
+    "@seamapi/blueprint": "^1.13.3",
+    "@seamapi/fake-seam-connect": "2.0.8",
     "@seamapi/smith": "^1.2.0",
-    "@seamapi/types": "1.1181.0",
+    "@seamapi/types": "1.1198.0",
     "change-case": "^5.4.4",
     "del": "^8.0.0",
     "execa": "^10.0.1",
