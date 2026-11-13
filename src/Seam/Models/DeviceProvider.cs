@@ -212,35 +212,41 @@ namespace Seam.Models
             [EnumMember(Value = "yale_connect")]
             YaleConnect = 64,
 
+            [EnumMember(Value = "alertify")]
+            Alertify = 65,
+
             [EnumMember(Value = "ical")]
-            Ical = 65,
+            Ical = 66,
 
             [EnumMember(Value = "lodgify")]
-            Lodgify = 66,
+            Lodgify = 67,
 
             [EnumMember(Value = "hostaway")]
-            Hostaway = 67,
+            Hostaway = 68,
 
             [EnumMember(Value = "guesty")]
-            Guesty = 68,
+            Guesty = 69,
 
             [EnumMember(Value = "acuity_scheduling")]
-            AcuityScheduling = 69,
+            AcuityScheduling = 70,
 
             [EnumMember(Value = "omnitec")]
-            Omnitec = 70,
+            Omnitec = 71,
 
             [EnumMember(Value = "kisi")]
-            Kisi = 71,
+            Kisi = 72,
 
             [EnumMember(Value = "aqara")]
-            Aqara = 72,
+            Aqara = 73,
 
             [EnumMember(Value = "eufy")]
-            Eufy = 73,
+            Eufy = 74,
 
             [EnumMember(Value = "sonos")]
-            Sonos = 74,
+            Sonos = 75,
+
+            [EnumMember(Value = "hayward_omnilogic")]
+            HaywardOmnilogic = 76,
         }
 
         /// <summary>

@@ -653,6 +653,12 @@ namespace Seam.Routes
             public List<string>? DeviceIds { get; init; }
 
             /// <summary>
+            /// Geographic coordinates of the space. Pass null to clear them. Seam keeps this value until the connected PMS reports different coordinates for the space.
+            /// </summary>
+            [JsonPropertyName("geolocation")]
+            public Optional<UpdateRequestGeolocation> Geolocation { get; init; }
+
+            /// <summary>
             /// Name of the space.
             /// </summary>
             [JsonPropertyName("name")]
@@ -696,6 +702,21 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("time_zone")]
             public Optional<string> TimeZone { get; init; }
+        }
+
+        public sealed record UpdateRequestGeolocation
+        {
+            /// <summary>
+            /// Latitude of the space, in decimal degrees.
+            /// </summary>
+            [JsonPropertyName("latitude")]
+            public float? Latitude { get; init; }
+
+            /// <summary>
+            /// Longitude of the space, in decimal degrees.
+            /// </summary>
+            [JsonPropertyName("longitude")]
+            public float? Longitude { get; init; }
         }
 
         public sealed record UpdateResponse
