@@ -254,6 +254,15 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "sonos_speaker")]
                 SonosSpeaker = 52,
+
+                [EnumMember(Value = "alertify_sensor")]
+                AlertifySensor = 53,
+
+                [EnumMember(Value = "hayward_pool_system")]
+                HaywardPoolSystem = 54,
+
+                [EnumMember(Value = "hayward_pool")]
+                HaywardPool = 55,
             }
 
             /// <summary>
@@ -420,6 +429,15 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "sonos_speaker")]
                 SonosSpeaker = 52,
+
+                [EnumMember(Value = "alertify_sensor")]
+                AlertifySensor = 53,
+
+                [EnumMember(Value = "hayward_pool_system")]
+                HaywardPoolSystem = 54,
+
+                [EnumMember(Value = "hayward_pool")]
+                HaywardPool = 55,
             }
 
             /// <summary>
@@ -584,35 +602,41 @@ namespace Seam.Routes
                 [EnumMember(Value = "yale_connect")]
                 YaleConnect = 51,
 
+                [EnumMember(Value = "alertify")]
+                Alertify = 52,
+
                 [EnumMember(Value = "ical")]
-                Ical = 52,
+                Ical = 53,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 53,
+                Lodgify = 54,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 54,
+                Hostaway = 55,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 55,
+                Guesty = 56,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 56,
+                AcuityScheduling = 57,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 57,
+                Omnitec = 58,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 58,
+                Kisi = 59,
 
                 [EnumMember(Value = "slack")]
-                Slack = 59,
+                Slack = 60,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 60,
+                Yacan = 61,
 
                 [EnumMember(Value = "sonos")]
-                Sonos = 61,
+                Sonos = 62,
+
+                [EnumMember(Value = "hayward_omnilogic")]
+                HaywardOmnilogic = 63,
             }
 
             /// <summary>

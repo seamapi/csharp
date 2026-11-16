@@ -40,6 +40,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "phone")]
             Phone = 6,
+
+            [EnumMember(Value = "pool")]
+            Pool = 7,
         }
 
         /// <summary>
@@ -206,6 +209,15 @@ namespace Seam.Models
 
             [EnumMember(Value = "sonos_speaker")]
             SonosSpeaker = 52,
+
+            [EnumMember(Value = "alertify_sensor")]
+            AlertifySensor = 53,
+
+            [EnumMember(Value = "hayward_pool_system")]
+            HaywardPoolSystem = 54,
+
+            [EnumMember(Value = "hayward_pool")]
+            HaywardPool = 55,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -532,6 +544,7 @@ namespace Seam.Models
             "hub_required_for_additional_capabilities",
             typeof(DeviceWarningsHubRequiredForAdditionalCapabilities)
         )]
+        [SeamUnionVariant("service_mode", typeof(DeviceWarningsServiceMode))]
         [SeamUnionVariant("provider_issue", typeof(DeviceWarningsProviderIssue))]
         [SeamUnionVariant(
             "keynest_unsupported_locker",
@@ -547,6 +560,10 @@ namespace Seam.Models
         )]
         [SeamUnionVariant("unreliable_online_status", typeof(DeviceWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(DeviceWarningsMaxAccessCodesReached))]
+        [SeamUnionVariant(
+            "subscription_required_for_additional_capabilities",
+            typeof(DeviceWarningsSubscriptionRequiredForAdditionalCapabilities)
+        )]
         [SeamUnionVariant(
             "cloud_recording_not_enabled",
             typeof(DeviceWarningsCloudRecordingNotEnabled)
@@ -706,6 +723,12 @@ namespace Seam.Models
                 "hub_required_for_additional_capabilities";
         }
 
+        public sealed record DeviceWarningsServiceMode : DeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "service_mode";
+        }
+
         public sealed record DeviceWarningsProviderIssue : DeviceWarnings
         {
             [JsonPropertyName("warning_code")]
@@ -754,6 +777,14 @@ namespace Seam.Models
             public int MaxActiveAccessCodeCount { get; init; } = default!;
         }
 
+        public sealed record DeviceWarningsSubscriptionRequiredForAdditionalCapabilities
+            : DeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "subscription_required_for_additional_capabilities";
+        }
+
         public sealed record DeviceWarningsCloudRecordingNotEnabled : DeviceWarnings
         {
             [JsonPropertyName("warning_code")]
@@ -769,6 +800,12 @@ namespace Seam.Models
             [JsonIgnore]
             public JsonElement RawJson { get; set; }
         }
+
+        /// <summary>
+        /// Air quality index, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("air_quality_index")]
+        public float? AirQualityIndex { get; init; }
 
         /// <summary>
         /// Indicates whether the thermostat can be returned to its weekly program, the schedule that is configured on the device itself, releasing any hold that Seam has set.
@@ -910,6 +947,18 @@ namespace Seam.Models
             default!;
 
         /// <summary>
+        /// Carbon dioxide concentration in parts per million, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("co2_ppm")]
+        public float? Co2Ppm { get; init; }
+
+        /// <summary>
+        /// Carbon monoxide concentration in parts per million, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("co_ppm")]
+        public float? CoPpm { get; init; }
+
+        /// <summary>
         /// Unique identifier for the account associated with the device.
         /// </summary>
         [JsonPropertyName("connected_account_id")]
@@ -964,10 +1013,28 @@ namespace Seam.Models
         public List<DeviceErrors> Errors { get; init; } = default!;
 
         /// <summary>
+        /// Estimated number of occupants detected by the device.
+        /// </summary>
+        [JsonPropertyName("estimated_occupant_count")]
+        public float? EstimatedOccupantCount { get; init; }
+
+        /// <summary>
         /// Indicates whether Seam manages the device. See also [Managed and Unmanaged Devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         [JsonPropertyName("is_managed")]
         public bool IsManaged { get; init; } = default!;
+
+        /// <summary>
+        /// Indicates whether the device detects occupancy.
+        /// </summary>
+        [JsonPropertyName("is_occupancy_detected")]
+        public bool? IsOccupancyDetected { get; init; }
+
+        /// <summary>
+        /// Indicates whether the device detects smoking, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("is_smoking_detected")]
+        public bool? IsSmokingDetected { get; init; }
 
         /// <summary>
         /// Location information for the device.
@@ -976,22 +1043,64 @@ namespace Seam.Models
         public DeviceLocation? Location { get; init; }
 
         /// <summary>
+        /// Mold risk level as reported by the device, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("mold_risk_level")]
+        public string? MoldRiskLevel { get; init; }
+
+        /// <summary>
+        /// Additional sensors of the same kind on the device, each with a stable `sensor_name`. Present only when the device has more than one sensor of a kind or no single main sensor.
+        /// </summary>
+        [JsonPropertyName("named_sensors")]
+        public List<DeviceNamedSensors>? NamedSensors { get; init; }
+
+        /// <summary>
         /// Optional nickname to describe the device, settable through Seam.
         /// </summary>
         [JsonPropertyName("nickname")]
         public string? Nickname { get; init; }
 
         /// <summary>
+        /// Noise level in decibels, if the device measures noise.
+        /// </summary>
+        [JsonPropertyName("noise_level_decibels")]
+        public float? NoiseLevelDecibels { get; init; }
+
+        /// <summary>
+        /// Noise level as a Noise Risk Score (NRS), if the device reports one.
+        /// </summary>
+        [JsonPropertyName("noise_level_nrs")]
+        public float? NoiseLevelNrs { get; init; }
+
+        /// <summary>
         /// Properties of the device.
         /// </summary>
         [JsonPropertyName("properties")]
-        public DeviceProperties Properties { get; init; } = default!;
+        public DeviceProperties? Properties { get; init; }
+
+        /// <summary>
+        /// Relative humidity, as a value between 0 and 1, inclusive, if the device measures humidity.
+        /// </summary>
+        [JsonPropertyName("relative_humidity")]
+        public float? RelativeHumidity { get; init; }
 
         /// <summary>
         /// IDs of the spaces the device is in.
         /// </summary>
         [JsonPropertyName("space_ids")]
         public List<string> SpaceIds { get; init; } = default!;
+
+        /// <summary>
+        /// Temperature in °C, if the device measures temperature.
+        /// </summary>
+        [JsonPropertyName("temperature_celsius")]
+        public float? TemperatureCelsius { get; init; }
+
+        /// <summary>
+        /// Temperature in °F, if the device measures temperature.
+        /// </summary>
+        [JsonPropertyName("temperature_fahrenheit")]
+        public float? TemperatureFahrenheit { get; init; }
 
         /// <summary>
         /// Array of warnings associated with the device. Each warning object within the array contains two fields: `warning_code` and `message`. `warning_code` is a string that uniquely identifies the type of warning, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the warning, offering insights into the issue and potentially how to rectify it.
@@ -1080,6 +1189,93 @@ namespace Seam.Models
         [Obsolete("Use `time_zone` instead.")]
         [JsonPropertyName("timezone")]
         public string? Timezone { get; init; }
+    }
+
+    public sealed record DeviceNamedSensors
+    {
+        /// <summary>
+        /// Air quality index, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("air_quality_index")]
+        public float? AirQualityIndex { get; init; }
+
+        /// <summary>
+        /// Carbon dioxide concentration in parts per million, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("co2_ppm")]
+        public float? Co2Ppm { get; init; }
+
+        /// <summary>
+        /// Carbon monoxide concentration in parts per million, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("co_ppm")]
+        public float? CoPpm { get; init; }
+
+        /// <summary>
+        /// Display name of the sensor. Defaults to `sensor_name`.
+        /// </summary>
+        [JsonPropertyName("display_name")]
+        public string DisplayName { get; init; } = default!;
+
+        /// <summary>
+        /// Estimated number of occupants detected by the device.
+        /// </summary>
+        [JsonPropertyName("estimated_occupant_count")]
+        public float? EstimatedOccupantCount { get; init; }
+
+        /// <summary>
+        /// Indicates whether the device detects occupancy.
+        /// </summary>
+        [JsonPropertyName("is_occupancy_detected")]
+        public bool? IsOccupancyDetected { get; init; }
+
+        /// <summary>
+        /// Indicates whether the device detects smoking, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("is_smoking_detected")]
+        public bool? IsSmokingDetected { get; init; }
+
+        /// <summary>
+        /// Mold risk level as reported by the device, if the device measures it.
+        /// </summary>
+        [JsonPropertyName("mold_risk_level")]
+        public string? MoldRiskLevel { get; init; }
+
+        /// <summary>
+        /// Noise level in decibels, if the device measures noise.
+        /// </summary>
+        [JsonPropertyName("noise_level_decibels")]
+        public float? NoiseLevelDecibels { get; init; }
+
+        /// <summary>
+        /// Noise level as a Noise Risk Score (NRS), if the device reports one.
+        /// </summary>
+        [JsonPropertyName("noise_level_nrs")]
+        public float? NoiseLevelNrs { get; init; }
+
+        /// <summary>
+        /// Relative humidity, as a value between 0 and 1, inclusive, if the device measures humidity.
+        /// </summary>
+        [JsonPropertyName("relative_humidity")]
+        public float? RelativeHumidity { get; init; }
+
+        /// <summary>
+        /// Stable, hardware-defined name of the sensor, such as a port number.
+        /// </summary>
+        [JsonPropertyName("sensor_name")]
+        public string SensorName { get; init; } = default!;
+
+        /// <summary>
+        /// Temperature in °C, if the device measures temperature.
+        /// </summary>
+        [JsonPropertyName("temperature_celsius")]
+        public float? TemperatureCelsius { get; init; }
+
+        /// <summary>
+        /// Temperature in °F, if the device measures temperature.
+        /// </summary>
+        [JsonPropertyName("temperature_fahrenheit")]
+        public float? TemperatureFahrenheit { get; init; }
     }
 
     public sealed record DeviceProperties

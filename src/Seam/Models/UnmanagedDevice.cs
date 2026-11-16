@@ -40,6 +40,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "phone")]
             Phone = 6,
+
+            [EnumMember(Value = "pool")]
+            Pool = 7,
         }
 
         /// <summary>
@@ -206,6 +209,15 @@ namespace Seam.Models
 
             [EnumMember(Value = "sonos_speaker")]
             SonosSpeaker = 52,
+
+            [EnumMember(Value = "alertify_sensor")]
+            AlertifySensor = 53,
+
+            [EnumMember(Value = "hayward_pool_system")]
+            HaywardPoolSystem = 54,
+
+            [EnumMember(Value = "hayward_pool")]
+            HaywardPool = 55,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -553,6 +565,7 @@ namespace Seam.Models
             "hub_required_for_additional_capabilities",
             typeof(UnmanagedDeviceWarningsHubRequiredForAdditionalCapabilities)
         )]
+        [SeamUnionVariant("service_mode", typeof(UnmanagedDeviceWarningsServiceMode))]
         [SeamUnionVariant("provider_issue", typeof(UnmanagedDeviceWarningsProviderIssue))]
         [SeamUnionVariant(
             "keynest_unsupported_locker",
@@ -573,6 +586,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "max_access_codes_reached",
             typeof(UnmanagedDeviceWarningsMaxAccessCodesReached)
+        )]
+        [SeamUnionVariant(
+            "subscription_required_for_additional_capabilities",
+            typeof(UnmanagedDeviceWarningsSubscriptionRequiredForAdditionalCapabilities)
         )]
         [SeamUnionVariant(
             "cloud_recording_not_enabled",
@@ -747,6 +764,12 @@ namespace Seam.Models
                 "hub_required_for_additional_capabilities";
         }
 
+        public sealed record UnmanagedDeviceWarningsServiceMode : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "service_mode";
+        }
+
         public sealed record UnmanagedDeviceWarningsProviderIssue : UnmanagedDeviceWarnings
         {
             [JsonPropertyName("warning_code")]
@@ -796,6 +819,14 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("max_active_access_code_count")]
             public int MaxActiveAccessCodeCount { get; init; } = default!;
+        }
+
+        public sealed record UnmanagedDeviceWarningsSubscriptionRequiredForAdditionalCapabilities
+            : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "subscription_required_for_additional_capabilities";
         }
 
         public sealed record UnmanagedDeviceWarningsCloudRecordingNotEnabled
@@ -1014,7 +1045,7 @@ namespace Seam.Models
         /// properties of the device.
         /// </summary>
         [JsonPropertyName("properties")]
-        public UnmanagedDeviceProperties Properties { get; init; } = default!;
+        public UnmanagedDeviceProperties? Properties { get; init; }
 
         /// <summary>
         /// Array of warnings associated with the device. Each warning object within the array contains two fields: `warning_code` and `message`. `warning_code` is a string that uniquely identifies the type of warning, enabling quick recognition and categorization of the issue. `message` provides a more detailed description of the warning, offering insights into the issue and potentially how to rectify it.

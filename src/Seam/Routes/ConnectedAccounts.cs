@@ -295,6 +295,9 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "speaker")]
                 Speaker = 6,
+
+                [EnumMember(Value = "pool")]
+                Pool = 7,
             }
 
             /// <summary>

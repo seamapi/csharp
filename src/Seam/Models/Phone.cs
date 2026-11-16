@@ -351,6 +351,7 @@ namespace Seam.Models
             "hub_required_for_additional_capabilities",
             typeof(PhoneWarningsHubRequiredForAdditionalCapabilities)
         )]
+        [SeamUnionVariant("service_mode", typeof(PhoneWarningsServiceMode))]
         [SeamUnionVariant("provider_issue", typeof(PhoneWarningsProviderIssue))]
         [SeamUnionVariant(
             "keynest_unsupported_locker",
@@ -366,6 +367,10 @@ namespace Seam.Models
         )]
         [SeamUnionVariant("unreliable_online_status", typeof(PhoneWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(PhoneWarningsMaxAccessCodesReached))]
+        [SeamUnionVariant(
+            "subscription_required_for_additional_capabilities",
+            typeof(PhoneWarningsSubscriptionRequiredForAdditionalCapabilities)
+        )]
         [SeamUnionVariant(
             "cloud_recording_not_enabled",
             typeof(PhoneWarningsCloudRecordingNotEnabled)
@@ -525,6 +530,12 @@ namespace Seam.Models
                 "hub_required_for_additional_capabilities";
         }
 
+        public sealed record PhoneWarningsServiceMode : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "service_mode";
+        }
+
         public sealed record PhoneWarningsProviderIssue : PhoneWarnings
         {
             [JsonPropertyName("warning_code")]
@@ -571,6 +582,14 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("max_active_access_code_count")]
             public int MaxActiveAccessCodeCount { get; init; } = default!;
+        }
+
+        public sealed record PhoneWarningsSubscriptionRequiredForAdditionalCapabilities
+            : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } =
+                "subscription_required_for_additional_capabilities";
         }
 
         public sealed record PhoneWarningsCloudRecordingNotEnabled : PhoneWarnings

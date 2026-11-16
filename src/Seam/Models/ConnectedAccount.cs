@@ -40,6 +40,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "speaker")]
             Speaker = 6,
+
+            [EnumMember(Value = "pool")]
+            Pool = 7,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]

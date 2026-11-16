@@ -272,6 +272,10 @@ namespace Seam.Models
             typeof(AcsSystemWarningsSaltoKsSubscriptionLimitAlmostReached)
         )]
         [SeamUnionVariant(
+            "salto_ks_custom_pins_not_supported",
+            typeof(AcsSystemWarningsSaltoKsCustomPinsNotSupported)
+        )]
+        [SeamUnionVariant(
             "time_zone_does_not_match_location",
             typeof(AcsSystemWarningsTimeZoneDoesNotMatchLocation)
         )]
@@ -305,6 +309,12 @@ namespace Seam.Models
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } =
                 "salto_ks_subscription_limit_almost_reached";
+        }
+
+        public sealed record AcsSystemWarningsSaltoKsCustomPinsNotSupported : AcsSystemWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "salto_ks_custom_pins_not_supported";
         }
 
         public sealed record AcsSystemWarningsTimeZoneDoesNotMatchLocation : AcsSystemWarnings
