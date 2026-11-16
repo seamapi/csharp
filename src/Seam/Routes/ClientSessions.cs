@@ -71,13 +71,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("user_identity_id")]
             public string? UserIdentityId { get; init; }
-
-            /// <summary>
-            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
-            /// </summary>
-            [Obsolete("Use `user_identity_id` instead.")]
-            [JsonPropertyName("user_identity_ids")]
-            public List<string>? UserIdentityIds { get; init; }
         }
 
         public sealed record CreateResponse
@@ -215,13 +208,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("user_identity_id")]
             public string? UserIdentityId { get; init; }
-
-            /// <summary>
-            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
-            /// </summary>
-            [Obsolete("Use `user_identity_id`.")]
-            [JsonPropertyName("user_identity_ids")]
-            public List<string>? UserIdentityIds { get; init; }
         }
 
         public sealed record GetOrCreateResponse
@@ -288,13 +274,6 @@ namespace Seam.Routes
             [JsonPropertyName("user_identity_id")]
             public string? UserIdentityId { get; init; }
 
-            /// <summary>
-            /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) that you want to associate with the client session.
-            /// </summary>
-            [Obsolete("Use `user_identity_id`.")]
-            [JsonPropertyName("user_identity_ids")]
-            public List<string>? UserIdentityIds { get; init; }
-
             internal void Validate()
             {
                 RequestParameters.RequireAtLeastOne(
@@ -305,7 +284,6 @@ namespace Seam.Routes
                         && ConnectedAccountIds == null
                         && UserIdentifierKey == null
                         && UserIdentityId == null
-                        && UserIdentityIds == null
                     )
                 );
             }

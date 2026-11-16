@@ -207,64 +207,6 @@ namespace Seam.Models
             AkilesOrganization = 17,
         }
 
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum SystemTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "pti_site")]
-            PtiSite = 1,
-
-            [EnumMember(Value = "avigilon_alta_org")]
-            AvigilonAltaOrg = 2,
-
-            [EnumMember(Value = "salto_ks_site")]
-            SaltoKsSite = 3,
-
-            [EnumMember(Value = "salto_space_system")]
-            SaltoSpaceSystem = 4,
-
-            [EnumMember(Value = "brivo_account")]
-            BrivoAccount = 5,
-
-            [EnumMember(Value = "hid_credential_manager_organization")]
-            HidCredentialManagerOrganization = 6,
-
-            [EnumMember(Value = "visionline_system")]
-            VisionlineSystem = 7,
-
-            [EnumMember(Value = "assa_abloy_credential_service")]
-            AssaAbloyCredentialService = 8,
-
-            [EnumMember(Value = "latch_building")]
-            LatchBuilding = 9,
-
-            [EnumMember(Value = "dormakaba_community_site")]
-            DormakabaCommunitySite = 10,
-
-            [EnumMember(Value = "dormakaba_ambiance_site")]
-            DormakabaAmbianceSite = 11,
-
-            [EnumMember(Value = "legic_connect_credential_service")]
-            LegicConnectCredentialService = 12,
-
-            [EnumMember(Value = "assa_abloy_vostio")]
-            AssaAbloyVostio = 13,
-
-            [EnumMember(Value = "assa_abloy_vostio_credential_service")]
-            AssaAbloyVostioCredentialService = 14,
-
-            [EnumMember(Value = "hotek_site")]
-            HotekSite = 15,
-
-            [EnumMember(Value = "kisi_organization")]
-            KisiOrganization = 16,
-
-            [EnumMember(Value = "akiles_organization")]
-            AkilesOrganization = 17,
-        }
-
         [JsonConverter(typeof(SeamUnionConverter))]
         [SeamUnion("warning_code")]
         [SeamUnionVariant(
@@ -321,10 +263,6 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "time_zone_does_not_match_location";
-
-            [Obsolete("this field is deprecated.")]
-            [JsonPropertyName("misconfigured_acs_entrance_ids")]
-            public List<string>? MisconfiguredAcsEntranceIds { get; init; }
         }
 
         public sealed record AcsSystemWarningsSetupRequired : AcsSystemWarnings
@@ -374,13 +312,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("connected_account_id")]
         public string ConnectedAccountId { get; init; } = default!;
-
-        /// <summary>
-        /// IDs of the [connected accounts](https://www.seam.co/docs/core-concepts/connected-accounts) associated with the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).
-        /// </summary>
-        [Obsolete("Use `connected_account_id`.")]
-        [JsonPropertyName("connected_account_ids")]
-        public List<string> ConnectedAccountIds { get; init; } = default!;
 
         /// <summary>
         /// Date and time at which the [access control system](https://www.seam.co/docs/low-level-apis/access-systems) was created.
@@ -441,14 +372,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; init; } = default!;
-
-        [Obsolete("Use `external_type`.")]
-        [JsonPropertyName("system_type")]
-        public AcsSystem.SystemTypeEnum? SystemType { get; init; }
-
-        [Obsolete("Use `external_type_display_name`.")]
-        [JsonPropertyName("system_type_display_name")]
-        public string? SystemTypeDisplayName { get; init; }
 
         /// <summary>
         /// Visionline-specific metadata for the [access control system](https://www.seam.co/docs/low-level-apis/access-systems).

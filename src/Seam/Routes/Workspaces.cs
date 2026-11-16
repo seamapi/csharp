@@ -30,26 +30,6 @@ namespace Seam.Routes
         /// </summary>
         public sealed record CreateRequest
         {
-            [JsonConverter(typeof(SeamStringEnumConverter))]
-            public enum WebviewLogoShapeEnum
-            {
-                [EnumMember(Value = "unrecognized")]
-                Unrecognized = 0,
-
-                [EnumMember(Value = "circle")]
-                Circle = 1,
-
-                [EnumMember(Value = "square")]
-                Square = 2,
-            }
-
-            /// <summary>
-            /// Company name for the new workspace.
-            /// </summary>
-            [Obsolete("Use `connect_partner_name` instead.")]
-            [JsonPropertyName("company_name")]
-            public string? CompanyName { get; init; }
-
             /// <summary>
             /// Connect partner name for the new workspace.
             /// </summary>
@@ -79,24 +59,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("organization_id")]
             public string? OrganizationId { get; init; }
-
-            [Obsolete("Use `connect_webview_customization.webview_logo_shape` instead.")]
-            [JsonPropertyName("webview_logo_shape")]
-            public CreateRequest.WebviewLogoShapeEnum? WebviewLogoShape { get; init; }
-
-            [Obsolete("Use `connect_webview_customization.webview_primary_button_color` instead.")]
-            [JsonPropertyName("webview_primary_button_color")]
-            public string? WebviewPrimaryButtonColor { get; init; }
-
-            [Obsolete(
-                "Use `connect_webview_customization.webview_primary_button_text_color` instead."
-            )]
-            [JsonPropertyName("webview_primary_button_text_color")]
-            public string? WebviewPrimaryButtonTextColor { get; init; }
-
-            [Obsolete("Use `connect_webview_customization.webview_success_message` instead.")]
-            [JsonPropertyName("webview_success_message")]
-            public string? WebviewSuccessMessage { get; init; }
         }
 
         public sealed record CreateRequestConnectWebviewCustomization

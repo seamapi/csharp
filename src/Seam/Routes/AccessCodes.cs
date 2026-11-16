@@ -150,10 +150,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("use_backup_access_code_pool")]
             public bool? UseBackupAccessCodePool { get; init; }
-
-            [Obsolete("Use `is_offline_access_code` instead.")]
-            [JsonPropertyName("use_offline_access_code")]
-            public bool? UseOfflineAccessCode { get; init; }
         }
 
         public sealed record CreateResponse

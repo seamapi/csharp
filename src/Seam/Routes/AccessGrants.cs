@@ -63,14 +63,6 @@ namespace Seam.Routes
             [JsonPropertyName("ends_at")]
             public Optional<string> EndsAt { get; init; }
 
-            [Obsolete("Create a space first, then reference it using `space_ids`.")]
-            [JsonPropertyName("location")]
-            public CreateRequestLocation? Location { get; init; }
-
-            [Obsolete("Use `space_ids`.")]
-            [JsonPropertyName("location_ids")]
-            public List<string>? LocationIds { get; init; }
-
             /// <summary>
             /// Name for the access grant.
             /// </summary>
@@ -115,23 +107,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("user_identity_id")]
             public string? UserIdentityId { get; init; }
-        }
-
-        public sealed record CreateRequestLocation
-        {
-            [Obsolete("Use `acs_entrance_ids` at the top level.")]
-            [JsonPropertyName("acs_entrance_ids")]
-            public List<string>? AcsEntranceIds { get; init; }
-
-            [Obsolete("Use `device_ids` at the top level.")]
-            [JsonPropertyName("device_ids")]
-            public List<string>? DeviceIds { get; init; }
-
-            /// <summary>
-            /// Name of the location.
-            /// </summary>
-            [JsonPropertyName("name")]
-            public string? Name { get; init; }
         }
 
         public sealed record CreateRequestRequestedAccessMethods
@@ -495,10 +470,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("limit")]
             public float? Limit { get; init; }
-
-            [Obsolete("Use `space_id`.")]
-            [JsonPropertyName("location_id")]
-            public string? LocationId { get; init; }
 
             /// <summary>
             /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.

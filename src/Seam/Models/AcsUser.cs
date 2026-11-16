@@ -590,10 +590,6 @@ namespace Seam.Models
         [JsonPropertyName("display_name")]
         public string DisplayName { get; init; } = default!;
 
-        [Obsolete("use email_address.")]
-        [JsonPropertyName("email")]
-        public string? Email { get; init; }
-
         /// <summary>
         /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
         /// </summary>

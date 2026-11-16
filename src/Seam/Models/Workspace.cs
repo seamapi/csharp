@@ -15,13 +15,6 @@ namespace Seam.Models
     public sealed record Workspace
     {
         /// <summary>
-        /// Company name associated with the [workspace](https://www.seam.co/docs/core-concepts/workspaces).
-        /// </summary>
-        [Obsolete("Use `connect_partner_name` instead.")]
-        [JsonPropertyName("company_name")]
-        public string CompanyName { get; init; } = default!;
-
-        /// <summary>
         /// Seam Connect partner name associated with the [workspace](https://www.seam.co/docs/core-concepts/workspaces).
         /// </summary>
         [JsonPropertyName("connect_partner_name")]

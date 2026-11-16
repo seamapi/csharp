@@ -427,49 +427,9 @@ namespace Seam.Models
         public string? TimeZone { get; init; }
 
         /// <summary>
-        /// User identifier associated with the connected account.
-        /// </summary>
-        [Obsolete("Use `display_name` instead.")]
-        [JsonPropertyName("user_identifier")]
-        public ConnectedAccountUserIdentifier? UserIdentifier { get; init; }
-
-        /// <summary>
         /// Warnings associated with the connected account.
         /// </summary>
         [JsonPropertyName("warnings")]
         public List<ConnectedAccountWarnings> Warnings { get; init; } = default!;
-    }
-
-    public sealed record ConnectedAccountUserIdentifier
-    {
-        /// <summary>
-        /// API URL for the user identifier associated with the connected account.
-        /// </summary>
-        [JsonPropertyName("api_url")]
-        public string? ApiUrl { get; init; }
-
-        /// <summary>
-        /// Email address of the user identifier associated with the connected account.
-        /// </summary>
-        [JsonPropertyName("email")]
-        public string? Email { get; init; }
-
-        /// <summary>
-        /// Indicates whether the user identifier associated with the connected account is exclusive.
-        /// </summary>
-        [JsonPropertyName("exclusive")]
-        public bool? Exclusive { get; init; }
-
-        /// <summary>
-        /// Phone number of the user identifier associated with the connected account.
-        /// </summary>
-        [JsonPropertyName("phone")]
-        public string? Phone { get; init; }
-
-        /// <summary>
-        /// Username of the user identifier associated with the connected account.
-        /// </summary>
-        [JsonPropertyName("username")]
-        public string? Username { get; init; }
     }
 }

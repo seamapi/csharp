@@ -156,68 +156,74 @@ namespace Seam.Models
             [EnumMember(Value = "aqara_lock")]
             AqaraLock = 34,
 
+            [EnumMember(Value = "tuya_lock")]
+            TuyaLock = 35,
+
             [EnumMember(Value = "eufy_lock")]
-            EufyLock = 35,
+            EufyLock = 36,
 
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 36,
+            KeynestKey = 37,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 37,
+            NoiseawareActivityZone = 38,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 38,
+            MinutSensor = 39,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 39,
+            EcobeeThermostat = 40,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 40,
+            NestThermostat = 41,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 41,
+            HoneywellResideoThermostat = 42,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 42,
+            TadoThermostat = 43,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 43,
+            SensiThermostat = 44,
+
+            [EnumMember(Value = "sensibo_thermostat")]
+            SensiboThermostat = 45,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 44,
+            SmartthingsThermostat = 46,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 45,
+            IosPhone = 47,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 46,
+            AndroidPhone = 48,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 47,
+            RingCamera = 49,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 48,
+            TapoCamera = 50,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 49,
+            ArloCamera = 51,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 50,
+            ReolinkCamera = 52,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 51,
+            UnifiProtectCamera = 53,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 52,
+            SonosSpeaker = 54,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 53,
+            AlertifySensor = 55,
 
-            [EnumMember(Value = "hayward_pool_system")]
-            HaywardPoolSystem = 54,
+            [EnumMember(Value = "hayward_pool_controller")]
+            HaywardPoolController = 56,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 55,
+            HaywardPool = 57,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -1182,13 +1188,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("time_zone")]
         public string? TimeZone { get; init; }
-
-        /// <summary>
-        /// Time zone of the device location.
-        /// </summary>
-        [Obsolete("Use `time_zone` instead.")]
-        [JsonPropertyName("timezone")]
-        public string? Timezone { get; init; }
     }
 
     public sealed record DeviceNamedSensors
@@ -1352,22 +1351,6 @@ namespace Seam.Models
             Eco = 5,
         }
 
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum FanModeSettingEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "auto")]
-            Auto = 1,
-
-            [EnumMember(Value = "on")]
-            On = 2,
-
-            [EnumMember(Value = "circulate")]
-            Circulate = 3,
-        }
-
         /// <summary>
         /// Accessory keypad properties and state.
         /// </summary>
@@ -1442,38 +1425,16 @@ namespace Seam.Models
         public float? NoiseLevelDecibels { get; init; }
 
         /// <summary>
-        /// Indicates whether it is currently possible to use offline access codes for the device.
-        /// </summary>
-        [Obsolete("use device.can_program_offline_access_codes")]
-        [JsonPropertyName("offline_access_codes_enabled")]
-        public bool? OfflineAccessCodesEnabled { get; init; }
-
-        /// <summary>
         /// Indicates whether the device is online.
         /// </summary>
         [JsonPropertyName("online")]
         public bool Online { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether it is currently possible to use online access codes for the device.
-        /// </summary>
-        [Obsolete("use device.can_program_online_access_codes")]
-        [JsonPropertyName("online_access_codes_enabled")]
-        public bool? OnlineAccessCodesEnabled { get; init; }
-
-        /// <summary>
         /// Serial number of the device.
         /// </summary>
         [JsonPropertyName("serial_number")]
         public string? SerialNumber { get; init; }
-
-        [Obsolete("use device.properties.model.can_connect_accessory_keypad")]
-        [JsonPropertyName("supports_accessory_keypad")]
-        public bool? SupportsAccessoryKeypad { get; init; }
-
-        [Obsolete("use offline_access_codes_enabled")]
-        [JsonPropertyName("supports_offline_access_codes")]
-        public bool? SupportsOfflineAccessCodes { get; init; }
 
         /// <summary>
         /// ASSA ABLOY Credential Service metadata for the phone.
@@ -1668,13 +1629,6 @@ namespace Seam.Models
         public DevicePropertiesSaltoKsMetadata? SaltoKsMetadata { get; init; }
 
         /// <summary>
-        /// Metada for a Salto device.
-        /// </summary>
-        [Obsolete("Use `salto_ks_metadata` instead.")]
-        [JsonPropertyName("salto_metadata")]
-        public DevicePropertiesSaltoMetadata? SaltoMetadata { get; init; }
-
-        /// <summary>
         /// Metadata for a Schlage device.
         /// </summary>
         [JsonPropertyName("schlage_metadata")]
@@ -1691,6 +1645,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("sensi_metadata")]
         public DevicePropertiesSensiMetadata? SensiMetadata { get; init; }
+
+        /// <summary>
+        /// Metadata for a Sensibo device.
+        /// </summary>
+        [JsonPropertyName("sensibo_metadata")]
+        public DevicePropertiesSensiboMetadata? SensiboMetadata { get; init; }
 
         /// <summary>
         /// Metadata for a SmartThings device.
@@ -1721,6 +1681,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("ttlock_metadata")]
         public DevicePropertiesTtlockMetadata? TtlockMetadata { get; init; }
+
+        /// <summary>
+        /// Metadata for a Tuya device.
+        /// </summary>
+        [JsonPropertyName("tuya_metadata")]
+        public DevicePropertiesTuyaMetadata? TuyaMetadata { get; init; }
 
         /// <summary>
         /// Metadata for a 2N device.
@@ -1803,6 +1769,7 @@ namespace Seam.Models
         /// <summary>
         /// Keypad battery status.
         /// </summary>
+        [Obsolete("Use `accessory_keypad.battery` instead.")]
         [JsonPropertyName("keypad_battery")]
         public DevicePropertiesKeypadBattery? KeypadBattery { get; init; }
 
@@ -1843,13 +1810,6 @@ namespace Seam.Models
         public bool? SupportsBackupAccessCodePool { get; init; }
 
         /// <summary>
-        /// Active [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
-        /// </summary>
-        [Obsolete("Use `active_thermostat_schedule_id` with `/thermostats/schedules/get` instead.")]
-        [JsonPropertyName("active_thermostat_schedule")]
-        public DevicePropertiesActiveThermostatSchedule? ActiveThermostatSchedule { get; init; }
-
-        /// <summary>
         /// ID of the active [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
         [JsonPropertyName("active_thermostat_schedule_id")]
@@ -1885,19 +1845,11 @@ namespace Seam.Models
         [JsonPropertyName("current_climate_setting")]
         public DevicePropertiesCurrentClimateSetting? CurrentClimateSetting { get; init; }
 
-        [Obsolete("use fallback_climate_preset_key to specify a fallback climate preset instead.")]
-        [JsonPropertyName("default_climate_setting")]
-        public DevicePropertiesDefaultClimateSetting? DefaultClimateSetting { get; init; }
-
         /// <summary>
         /// Key of the [fallback climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets/setting-the-fallback-climate-preset) for the thermostat.
         /// </summary>
         [JsonPropertyName("fallback_climate_preset_key")]
         public string? FallbackClimatePresetKey { get; init; }
-
-        [Obsolete("Use `current_climate_setting.fan_mode_setting` instead.")]
-        [JsonPropertyName("fan_mode_setting")]
-        public DeviceProperties.FanModeSettingEnum? FanModeSetting { get; init; }
 
         /// <summary>
         /// Indicates whether the connected HVAC system is currently cooling, as reported by the thermostat.
@@ -2107,10 +2059,6 @@ namespace Seam.Models
 
     public sealed record DevicePropertiesModel
     {
-        [Obsolete("use device.properties.model.can_connect_accessory_keypad")]
-        [JsonPropertyName("accessory_keypad_supported")]
-        public bool? AccessoryKeypadSupported { get; init; }
-
         /// <summary>
         /// Indicates whether the device can connect a accessory keypad.
         /// </summary>
@@ -2134,14 +2082,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("manufacturer_display_name")]
         public string ManufacturerDisplayName { get; init; } = default!;
-
-        [Obsolete("use device.can_program_offline_access_codes.")]
-        [JsonPropertyName("offline_access_codes_supported")]
-        public bool? OfflineAccessCodesSupported { get; init; }
-
-        [Obsolete("use device.can_program_online_access_codes.")]
-        [JsonPropertyName("online_access_codes_supported")]
-        public bool? OnlineAccessCodesSupported { get; init; }
     }
 
     public sealed record DevicePropertiesAssaAbloyCredentialServiceMetadata
@@ -2505,13 +2445,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("predefined_time_slots")]
         public List<DevicePropertiesDormakabaOracodeMetadataPredefinedTimeSlots>? PredefinedTimeSlots { get; init; }
-
-        /// <summary>
-        /// Site ID for a dormakaba Oracode device.
-        /// </summary>
-        [Obsolete("Previously marked as \"@DEPRECATED.\"")]
-        [JsonPropertyName("site_id")]
-        public float? SiteId { get; init; }
 
         /// <summary>
         /// Site name for a dormakaba Oracode device.
@@ -3352,57 +3285,6 @@ namespace Seam.Models
         public string? SiteName { get; init; }
     }
 
-    public sealed record DevicePropertiesSaltoMetadata
-    {
-        /// <summary>
-        /// Battery level for a Salto device.
-        /// </summary>
-        [JsonPropertyName("battery_level")]
-        public string? BatteryLevel { get; init; }
-
-        /// <summary>
-        /// Customer reference for a Salto device.
-        /// </summary>
-        [JsonPropertyName("customer_reference")]
-        public string? CustomerReference { get; init; }
-
-        /// <summary>
-        /// Lock ID for a Salto device.
-        /// </summary>
-        [JsonPropertyName("lock_id")]
-        public string? LockId { get; init; }
-
-        /// <summary>
-        /// Lock type for a Salto device.
-        /// </summary>
-        [JsonPropertyName("lock_type")]
-        public string? LockType { get; init; }
-
-        /// <summary>
-        /// Locked state for a Salto device.
-        /// </summary>
-        [JsonPropertyName("locked_state")]
-        public string? LockedState { get; init; }
-
-        /// <summary>
-        /// Model for a Salto device.
-        /// </summary>
-        [JsonPropertyName("model")]
-        public string? Model { get; init; }
-
-        /// <summary>
-        /// Site ID for the Salto KS site to which the device belongs.
-        /// </summary>
-        [JsonPropertyName("site_id")]
-        public string? SiteId { get; init; }
-
-        /// <summary>
-        /// Site name for the Salto KS site to which the device belongs.
-        /// </summary>
-        [JsonPropertyName("site_name")]
-        public string? SiteName { get; init; }
-    }
-
     public sealed record DevicePropertiesSchlageMetadata
     {
         /// <summary>
@@ -3476,16 +3358,55 @@ namespace Seam.Models
         public string? DeviceName { get; init; }
 
         /// <summary>
-        /// Deprecated. Seam no longer sets this field.
-        /// </summary>
-        [JsonPropertyName("dual_setpoints_not_supported")]
-        public bool? DualSetpointsNotSupported { get; init; }
-
-        /// <summary>
         /// Product type for a Sensi device.
         /// </summary>
         [JsonPropertyName("product_type")]
         public string? ProductType { get; init; }
+    }
+
+    public sealed record DevicePropertiesSensiboMetadata
+    {
+        /// <summary>
+        /// Firmware version of the Sensibo device.
+        /// </summary>
+        [JsonPropertyName("firmware_version")]
+        public string? FirmwareVersion { get; init; }
+
+        /// <summary>
+        /// MAC address of the Sensibo device.
+        /// </summary>
+        [JsonPropertyName("mac_address")]
+        public string? MacAddress { get; init; }
+
+        /// <summary>
+        /// ID of the Sensibo device, which Sensibo calls a pod.
+        /// </summary>
+        [JsonPropertyName("pod_id")]
+        public string? PodId { get; init; }
+
+        /// <summary>
+        /// Product model of the Sensibo device, such as `skyv2` or `air`.
+        /// </summary>
+        [JsonPropertyName("product_model")]
+        public string? ProductModel { get; init; }
+
+        /// <summary>
+        /// Name of the room that the Sensibo device is in.
+        /// </summary>
+        [JsonPropertyName("room_name")]
+        public string? RoomName { get; init; }
+
+        /// <summary>
+        /// Serial number of the Sensibo device.
+        /// </summary>
+        [JsonPropertyName("serial_number")]
+        public string? SerialNumber { get; init; }
+
+        /// <summary>
+        /// Temperature unit that the Sensibo device displays: `C` or `F`.
+        /// </summary>
+        [JsonPropertyName("temperature_unit")]
+        public string? TemperatureUnit { get; init; }
     }
 
     public sealed record DevicePropertiesSmartthingsMetadata
@@ -3741,6 +3662,51 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("wireless_keypad_name")]
         public string? WirelessKeypadName { get; init; }
+    }
+
+    public sealed record DevicePropertiesTuyaMetadata
+    {
+        /// <summary>
+        /// Tuya product category code for the device (e.g. ms).
+        /// </summary>
+        [JsonPropertyName("category")]
+        public string? Category { get; init; }
+
+        /// <summary>
+        /// Device ID for a Tuya device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string? DeviceId { get; init; }
+
+        /// <summary>
+        /// Device name for a Tuya device.
+        /// </summary>
+        [JsonPropertyName("device_name")]
+        public string? DeviceName { get; init; }
+
+        /// <summary>
+        /// Model reported for a Tuya device.
+        /// </summary>
+        [JsonPropertyName("model")]
+        public string? Model { get; init; }
+
+        /// <summary>
+        /// Tuya product ID for the device.
+        /// </summary>
+        [JsonPropertyName("product_id")]
+        public string? ProductId { get; init; }
+
+        /// <summary>
+        /// Tuya product name for the device.
+        /// </summary>
+        [JsonPropertyName("product_name")]
+        public string? ProductName { get; init; }
+
+        /// <summary>
+        /// Time zone reported for a Tuya device (e.g. +08:00).
+        /// </summary>
+        [JsonPropertyName("time_zone")]
+        public string? TimeZone { get; init; }
     }
 
     public sealed record DevicePropertiesTwoNMetadata
@@ -4171,97 +4137,6 @@ namespace Seam.Models
         public string StartTime { get; init; } = default!;
     }
 
-    public sealed record DevicePropertiesActiveThermostatSchedule
-    {
-        /// <summary>
-        /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
-        /// </summary>
-        [JsonPropertyName("climate_preset_key")]
-        public string ClimatePresetKey { get; init; } = default!;
-
-        /// <summary>
-        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) was created.
-        /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; init; } = default!;
-
-        /// <summary>
-        /// ID of the desired [thermostat](https://www.seam.co/docs/capability-guides/thermostats) device.
-        /// </summary>
-        [JsonPropertyName("device_id")]
-        public string DeviceId { get; init; } = default!;
-
-        /// <summary>
-        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        /// </summary>
-        [JsonPropertyName("ends_at")]
-        public string EndsAt { get; init; } = default!;
-
-        /// <summary>
-        /// Errors associated with the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
-        /// </summary>
-        [JsonPropertyName("errors")]
-        public List<DevicePropertiesActiveThermostatScheduleErrors> Errors { get; init; } =
-            default!;
-
-        /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings after the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts.
-        /// </summary>
-        [JsonPropertyName("is_override_allowed")]
-        public bool? IsOverrideAllowed { get; init; }
-
-        /// <summary>
-        /// Number of minutes for which a person at the thermostat can change the thermostat&apos;s settings after the activation of the scheduled [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets). See also [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
-        /// </summary>
-        [JsonPropertyName("max_override_period_minutes")]
-        public int? MaxOverridePeriodMinutes { get; init; }
-
-        /// <summary>
-        /// User-friendly name to identify the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
-        /// </summary>
-        [JsonPropertyName("name")]
-        public string? Name { get; init; }
-
-        /// <summary>
-        /// Date and time at which the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        /// </summary>
-        [JsonPropertyName("starts_at")]
-        public string StartsAt { get; init; } = default!;
-
-        /// <summary>
-        /// ID of the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
-        /// </summary>
-        [JsonPropertyName("thermostat_schedule_id")]
-        public string ThermostatScheduleId { get; init; } = default!;
-
-        /// <summary>
-        /// ID of the workspace that contains the thermostat schedule.
-        /// </summary>
-        [JsonPropertyName("workspace_id")]
-        public string WorkspaceId { get; init; } = default!;
-    }
-
-    public sealed record DevicePropertiesActiveThermostatScheduleErrors
-    {
-        /// <summary>
-        /// Date and time at which Seam created the error.
-        /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; init; } = default!;
-
-        /// <summary>
-        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
-        /// </summary>
-        [JsonPropertyName("error_code")]
-        public string ErrorCode { get; init; } = default!;
-
-        /// <summary>
-        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
-        /// </summary>
-        [JsonPropertyName("message")]
-        public string Message { get; init; } = default!;
-    }
-
     public sealed record DevicePropertiesAvailableClimatePresets
     {
         /// <summary>
@@ -4413,13 +4288,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("hvac_mode_setting")]
         public DevicePropertiesAvailableClimatePresets.HvacModeSettingEnum? HvacModeSetting { get; init; }
-
-        /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
-        /// </summary>
-        [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
-        [JsonPropertyName("manual_override_allowed")]
-        public bool ManualOverrideAllowed { get; init; } = default!;
 
         /// <summary>
         /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
@@ -4618,13 +4486,6 @@ namespace Seam.Models
         public DevicePropertiesCurrentClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; init; }
 
         /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
-        /// </summary>
-        [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
-        [JsonPropertyName("manual_override_allowed")]
-        public bool? ManualOverrideAllowed { get; init; }
-
-        /// <summary>
         /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
         /// </summary>
         [JsonPropertyName("name")]
@@ -4666,209 +4527,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("owner")]
         public DevicePropertiesCurrentClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; init; }
-    }
-
-    public sealed record DevicePropertiesDefaultClimateSetting
-    {
-        /// <summary>
-        /// The climate preset mode for the thermostat, based on the available climate preset modes reported by the device.
-        /// </summary>
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum ClimatePresetModeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "home")]
-            Home = 1,
-
-            [EnumMember(Value = "away")]
-            Away = 2,
-
-            [EnumMember(Value = "wake")]
-            Wake = 3,
-
-            [EnumMember(Value = "sleep")]
-            Sleep = 4,
-
-            [EnumMember(Value = "occupied")]
-            Occupied = 5,
-
-            [EnumMember(Value = "unoccupied")]
-            Unoccupied = 6,
-        }
-
-        /// <summary>
-        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
-        /// </summary>
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum FanModeSettingEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "auto")]
-            Auto = 1,
-
-            [EnumMember(Value = "on")]
-            On = 2,
-
-            [EnumMember(Value = "circulate")]
-            Circulate = 3,
-        }
-
-        /// <summary>
-        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
-        /// </summary>
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum HvacModeSettingEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "off")]
-            Off = 1,
-
-            [EnumMember(Value = "heat")]
-            Heat = 2,
-
-            [EnumMember(Value = "cool")]
-            Cool = 3,
-
-            [EnumMember(Value = "heat_cool")]
-            HeatCool = 4,
-
-            [EnumMember(Value = "eco")]
-            Eco = 5,
-        }
-
-        /// <summary>
-        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted.
-        /// </summary>
-        [JsonPropertyName("can_delete")]
-        public bool? CanDelete { get; init; }
-
-        /// <summary>
-        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited.
-        /// </summary>
-        [JsonPropertyName("can_edit")]
-        public bool? CanEdit { get; init; }
-
-        /// <summary>
-        /// Indicates whether the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) key can be programmed in a thermostat daily program.
-        /// </summary>
-        [JsonPropertyName("can_use_with_thermostat_daily_programs")]
-        public bool? CanUseWithThermostatDailyPrograms { get; init; }
-
-        /// <summary>
-        /// Unique key to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
-        /// </summary>
-        [JsonPropertyName("climate_preset_key")]
-        public string? ClimatePresetKey { get; init; }
-
-        /// <summary>
-        /// The climate preset mode for the thermostat, based on the available climate preset modes reported by the device.
-        /// </summary>
-        [JsonPropertyName("climate_preset_mode")]
-        public DevicePropertiesDefaultClimateSetting.ClimatePresetModeEnum? ClimatePresetMode { get; init; }
-
-        /// <summary>
-        /// Temperature to which the thermostat should cool (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
-        /// </summary>
-        [JsonPropertyName("cooling_set_point_celsius")]
-        public float? CoolingSetPointCelsius { get; init; }
-
-        /// <summary>
-        /// Temperature to which the thermostat should cool (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
-        /// </summary>
-        [JsonPropertyName("cooling_set_point_fahrenheit")]
-        public float? CoolingSetPointFahrenheit { get; init; }
-
-        /// <summary>
-        /// Display name for the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
-        /// </summary>
-        [JsonPropertyName("display_name")]
-        public string? DisplayName { get; init; }
-
-        /// <summary>
-        /// Metadata specific to the Ecobee climate, if applicable.
-        /// </summary>
-        [JsonPropertyName("ecobee_metadata")]
-        public DevicePropertiesDefaultClimateSettingEcobeeMetadata? EcobeeMetadata { get; init; }
-
-        /// <summary>
-        /// Desired [fan mode setting](https://www.seam.co/docs/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`.
-        /// </summary>
-        [JsonPropertyName("fan_mode_setting")]
-        public DevicePropertiesDefaultClimateSetting.FanModeSettingEnum? FanModeSetting { get; init; }
-
-        /// <summary>
-        /// Temperature to which the thermostat should heat (in °C). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
-        /// </summary>
-        [JsonPropertyName("heating_set_point_celsius")]
-        public float? HeatingSetPointCelsius { get; init; }
-
-        /// <summary>
-        /// Temperature to which the thermostat should heat (in °F). See also [Set Points](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/set-points).
-        /// </summary>
-        [JsonPropertyName("heating_set_point_fahrenheit")]
-        public float? HeatingSetPointFahrenheit { get; init; }
-
-        /// <summary>
-        /// Desired [HVAC mode](https://www.seam.co/docs/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`.
-        /// </summary>
-        [JsonPropertyName("hvac_mode_setting")]
-        public DevicePropertiesDefaultClimateSetting.HvacModeSettingEnum? HvacModeSetting { get; init; }
-
-        /// <summary>
-        /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
-        /// </summary>
-        [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
-        [JsonPropertyName("manual_override_allowed")]
-        public bool? ManualOverrideAllowed { get; init; }
-
-        /// <summary>
-        /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
-        /// </summary>
-        [JsonPropertyName("name")]
-        public string? Name { get; init; }
-    }
-
-    public sealed record DevicePropertiesDefaultClimateSettingEcobeeMetadata
-    {
-        /// <summary>
-        /// Indicates whether the climate preset is owned by the user or the system.
-        /// </summary>
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum OwnerEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "user")]
-            User = 1,
-
-            [EnumMember(Value = "system")]
-            System = 2,
-        }
-
-        /// <summary>
-        /// Reference to the Ecobee climate, if applicable.
-        /// </summary>
-        [JsonPropertyName("climate_ref")]
-        public string? ClimateRef { get; init; }
-
-        /// <summary>
-        /// Indicates if the climate preset is optimized by Ecobee.
-        /// </summary>
-        [JsonPropertyName("is_optimized")]
-        public bool? IsOptimized { get; init; }
-
-        /// <summary>
-        /// Indicates whether the climate preset is owned by the user or the system.
-        /// </summary>
-        [JsonPropertyName("owner")]
-        public DevicePropertiesDefaultClimateSettingEcobeeMetadata.OwnerEnum? Owner { get; init; }
     }
 
     public sealed record DevicePropertiesTemperatureThreshold

@@ -106,10 +106,6 @@ namespace Seam.Models
     [SeamUnionVariant("client_session.deleted", typeof(EventClientSessionDeleted))]
     [SeamUnionVariant("connected_account.connected", typeof(EventConnectedAccountConnected))]
     [SeamUnionVariant("connected_account.created", typeof(EventConnectedAccountCreated))]
-    [SeamUnionVariant(
-        "connected_account.successful_login",
-        typeof(EventConnectedAccountSuccessfulLogin)
-    )]
     [SeamUnionVariant("connected_account.disconnected", typeof(EventConnectedAccountDisconnected))]
     [SeamUnionVariant(
         "connected_account.completed_first_sync",
@@ -3109,34 +3105,6 @@ namespace Seam.Models
     }
 
     /// <summary>
-    /// A connected account had a successful login using a Connect Webview.
-    /// </summary>
-    [Obsolete("Use `connect_webview.login_succeeded`.")]
-    public sealed record EventConnectedAccountSuccessfulLogin : Event
-    {
-        [JsonPropertyName("event_type")]
-        public override string EventType { get; } = "connected_account.successful_login";
-
-        /// <summary>
-        /// ID of the Connect Webview associated with the event.
-        /// </summary>
-        [JsonPropertyName("connect_webview_id")]
-        public string ConnectWebviewId { get; init; } = default!;
-
-        /// <summary>
-        /// Custom metadata of the connected account, present when connected_account_id is provided.
-        /// </summary>
-        [JsonPropertyName("connected_account_custom_metadata")]
-        public object? ConnectedAccountCustomMetadata { get; init; }
-
-        /// <summary>
-        /// ID of the affected connected account.
-        /// </summary>
-        [JsonPropertyName("connected_account_id")]
-        public string ConnectedAccountId { get; init; } = default!;
-    }
-
-    /// <summary>
     /// A connected account was disconnected.
     /// </summary>
     public sealed record EventConnectedAccountDisconnected : Event
@@ -4321,15 +4289,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("accessory_keypad_battery_level")]
         public float? AccessoryKeypadBatteryLevel { get; init; }
-
-        /// <summary>
-        /// Number in the range 0 to 1.0 indicating the level of the battery whose drop triggered this event.
-        /// </summary>
-        [Obsolete(
-            "Use device_battery_level and accessory_keypad_battery_level, which distinguish the device's own battery from a paired accessory keypad's battery."
-        )]
-        [JsonPropertyName("battery_level")]
-        public float BatteryLevel { get; init; } = default!;
 
         /// <summary>
         /// Custom metadata of the connected account, present when connected_account_id is provided.

@@ -155,10 +155,6 @@ namespace Seam.Routes
             [JsonPropertyName("limit")]
             public int? Limit { get; init; }
 
-            [Obsolete("Use `space_id`.")]
-            [JsonPropertyName("location_id")]
-            public Optional<string> LocationId { get; init; }
-
             /// <summary>
             /// Identifies the specific page of results to return, obtained from the previous page&apos;s `next_page_cursor`.
             /// </summary>

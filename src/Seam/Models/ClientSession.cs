@@ -83,13 +83,6 @@ namespace Seam.Models
         public string? UserIdentityId { get; init; }
 
         /// <summary>
-        /// IDs of the [user identities](https://www.seam.co/docs/capability-guides/mobile-access/managing-mobile-app-user-accounts-with-user-identities#what-is-a-user-identity) associated with the client session.
-        /// </summary>
-        [Obsolete("Use `user_identity_id` instead.")]
-        [JsonPropertyName("user_identity_ids")]
-        public List<string> UserIdentityIds { get; init; } = default!;
-
-        /// <summary>
         /// ID of the workspace associated with the client session.
         /// </summary>
         [JsonPropertyName("workspace_id")]
