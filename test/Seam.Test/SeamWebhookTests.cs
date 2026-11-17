@@ -37,15 +37,13 @@ public class SeamWebhookTests
         };
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void OmittedOrNullSecretReadsEnvironment(bool passNull)
+    [Fact]
+    public void OmittedSecretReadsEnvironment()
     {
         using var env = new EnvGuard();
         env.Set("SEAM_WEBHOOK_SECRET", Secret);
 
-        var webhook = passNull ? new SeamWebhook(null) : new SeamWebhook();
+        var webhook = new SeamWebhook();
         var seamEvent = webhook.Verify(Payload, SignedHeaders(Payload));
 
         Assert.Equal("device.connected", seamEvent.EventType);
@@ -73,16 +71,17 @@ public class SeamWebhookTests
 
         var exception = Assert.Throws<InvalidOperationException>(() => new SeamWebhook());
         Assert.Contains("SEAM_WEBHOOK_SECRET", exception.Message);
-        Assert.Throws<InvalidOperationException>(() => new SeamWebhook(null));
     }
 
-    [Fact]
-    public void ExplicitEmptySecretDoesNotFallBackToEnvironment()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void ExplicitNullOrEmptySecretDoesNotFallBackToEnvironment(string? secret)
     {
         using var env = new EnvGuard();
         env.Set("SEAM_WEBHOOK_SECRET", Secret);
 
-        Assert.Throws<InvalidOperationException>(() => new SeamWebhook(""));
+        Assert.Throws<InvalidOperationException>(() => new SeamWebhook(secret!));
     }
 
     [Theory]

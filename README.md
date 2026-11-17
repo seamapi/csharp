@@ -261,10 +261,10 @@ if (seamEvent is Seam.Models.EventDeviceConnected connected)
     Console.WriteLine(connected.DeviceId);
 ```
 
-Omitting the secret (or passing `null`) reads `SEAM_WEBHOOK_SECRET` when
+Omitting the secret reads `SEAM_WEBHOOK_SECRET` when
 the helper is constructed. Pass `new SeamWebhook("whsec_...")` to override
 the environment. A missing or empty secret raises `InvalidOperationException`
-at construction; an explicit empty string never falls back to the environment.
+at construction; explicit null or empty strings never fall back to the environment.
 Svix also rejects secrets that decode to an empty signing key.
 
 Verification failures raise Svix's `WebhookVerificationException`: treat the

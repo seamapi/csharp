@@ -20,16 +20,24 @@ namespace Seam
     {
         private readonly Svix.Webhook _webhook;
 
+        /// <summary>
+        /// Reads SEAM_WEBHOOK_SECRET at construction time.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// When the environment secret is missing or empty.
+        /// </exception>
+        public SeamWebhook()
+            : this(Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET") ?? "") { }
+
         /// <param name="secret">
-        /// The webhook secret from the Seam Console. When omitted or null, reads
-        /// SEAM_WEBHOOK_SECRET at construction time. An explicit empty string never falls back.
+        /// The webhook secret from the Seam Console. Null and empty strings never fall back
+        /// to SEAM_WEBHOOK_SECRET.
         /// </param>
         /// <exception cref="InvalidOperationException">
         /// When the secret is missing or empty.
         /// </exception>
-        public SeamWebhook(string? secret = null)
+        public SeamWebhook(string secret)
         {
-            secret ??= Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET");
             if (string.IsNullOrEmpty(secret))
             {
                 throw new InvalidOperationException(
