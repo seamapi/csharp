@@ -340,13 +340,6 @@ namespace Seam.Routes
             public CreateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; init; }
 
             /// <summary>
-            /// Indicates whether a person at the thermostat or using the API can change the thermostat&apos;s settings.
-            /// </summary>
-            [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
-            [JsonPropertyName("manual_override_allowed")]
-            public bool? ManualOverrideAllowed { get; init; }
-
-            /// <summary>
             /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).
             /// </summary>
             [JsonPropertyName("name")]
@@ -609,8 +602,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensi_thermostat")]
                 SensiThermostat = 5,
 
+                [EnumMember(Value = "sensibo_thermostat")]
+                SensiboThermostat = 6,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 6,
+                SmartthingsThermostat = 7,
             }
 
             /// <summary>
@@ -637,8 +633,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensi_thermostat")]
                 SensiThermostat = 5,
 
+                [EnumMember(Value = "sensibo_thermostat")]
+                SensiboThermostat = 6,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 6,
+                SmartthingsThermostat = 7,
             }
 
             /// <summary>
@@ -662,11 +661,14 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensi")]
                 Sensi = 4,
 
+                [EnumMember(Value = "sensibo")]
+                Sensibo = 5,
+
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 5,
+                Smartthings = 6,
 
                 [EnumMember(Value = "tado")]
-                Tado = 6,
+                Tado = 7,
             }
 
             /// <summary>
@@ -1211,13 +1213,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("hvac_mode_setting")]
             public UpdateClimatePresetRequest.HvacModeSettingEnum? HvacModeSetting { get; init; }
-
-            /// <summary>
-            /// Indicates whether a person at the thermostat can change the thermostat&apos;s settings. See [Specifying Manual Override Permissions](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
-            /// </summary>
-            [Obsolete("Use 'thermostat_schedule.is_override_allowed'")]
-            [JsonPropertyName("manual_override_allowed")]
-            public bool? ManualOverrideAllowed { get; init; }
 
             /// <summary>
             /// User-friendly name to identify the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets).

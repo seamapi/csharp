@@ -18,43 +18,6 @@ namespace Seam.Models
     /// </summary>
     public sealed record AcsAccessGroup
     {
-        [JsonConverter(typeof(SeamStringEnumConverter))]
-        public enum AccessGroupTypeEnum
-        {
-            [EnumMember(Value = "unrecognized")]
-            Unrecognized = 0,
-
-            [EnumMember(Value = "pti_unit")]
-            PtiUnit = 1,
-
-            [EnumMember(Value = "pti_access_level")]
-            PtiAccessLevel = 2,
-
-            [EnumMember(Value = "salto_ks_access_group")]
-            SaltoKsAccessGroup = 3,
-
-            [EnumMember(Value = "brivo_group")]
-            BrivoGroup = 4,
-
-            [EnumMember(Value = "salto_space_group")]
-            SaltoSpaceGroup = 5,
-
-            [EnumMember(Value = "dormakaba_community_access_group")]
-            DormakabaCommunityAccessGroup = 6,
-
-            [EnumMember(Value = "dormakaba_ambiance_access_group")]
-            DormakabaAmbianceAccessGroup = 7,
-
-            [EnumMember(Value = "avigilon_alta_group")]
-            AvigilonAltaGroup = 8,
-
-            [EnumMember(Value = "kisi_access_group")]
-            KisiAccessGroup = 9,
-
-            [EnumMember(Value = "akiles_member_group")]
-            AkilesMemberGroup = 10,
-        }
-
         [JsonConverter(typeof(SeamUnionConverter))]
         [SeamUnion("error_code")]
         [SeamUnionVariant(
@@ -419,14 +382,6 @@ namespace Seam.Models
             [JsonIgnore]
             public JsonElement RawJson { get; set; }
         }
-
-        [Obsolete("Use `external_type`.")]
-        [JsonPropertyName("access_group_type")]
-        public AcsAccessGroup.AccessGroupTypeEnum AccessGroupType { get; init; } = default!;
-
-        [Obsolete("Use `external_type_display_name`.")]
-        [JsonPropertyName("access_group_type_display_name")]
-        public string AccessGroupTypeDisplayName { get; init; } = default!;
 
         /// <summary>
         /// `starts_at` and `ends_at` timestamps for the access group&apos;s access.

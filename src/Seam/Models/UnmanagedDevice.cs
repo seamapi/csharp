@@ -156,68 +156,74 @@ namespace Seam.Models
             [EnumMember(Value = "aqara_lock")]
             AqaraLock = 34,
 
+            [EnumMember(Value = "tuya_lock")]
+            TuyaLock = 35,
+
             [EnumMember(Value = "eufy_lock")]
-            EufyLock = 35,
+            EufyLock = 36,
 
             [EnumMember(Value = "keynest_key")]
-            KeynestKey = 36,
+            KeynestKey = 37,
 
             [EnumMember(Value = "noiseaware_activity_zone")]
-            NoiseawareActivityZone = 37,
+            NoiseawareActivityZone = 38,
 
             [EnumMember(Value = "minut_sensor")]
-            MinutSensor = 38,
+            MinutSensor = 39,
 
             [EnumMember(Value = "ecobee_thermostat")]
-            EcobeeThermostat = 39,
+            EcobeeThermostat = 40,
 
             [EnumMember(Value = "nest_thermostat")]
-            NestThermostat = 40,
+            NestThermostat = 41,
 
             [EnumMember(Value = "honeywell_resideo_thermostat")]
-            HoneywellResideoThermostat = 41,
+            HoneywellResideoThermostat = 42,
 
             [EnumMember(Value = "tado_thermostat")]
-            TadoThermostat = 42,
+            TadoThermostat = 43,
 
             [EnumMember(Value = "sensi_thermostat")]
-            SensiThermostat = 43,
+            SensiThermostat = 44,
+
+            [EnumMember(Value = "sensibo_thermostat")]
+            SensiboThermostat = 45,
 
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 44,
+            SmartthingsThermostat = 46,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 45,
+            IosPhone = 47,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 46,
+            AndroidPhone = 48,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 47,
+            RingCamera = 49,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 48,
+            TapoCamera = 50,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 49,
+            ArloCamera = 51,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 50,
+            ReolinkCamera = 52,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 51,
+            UnifiProtectCamera = 53,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 52,
+            SonosSpeaker = 54,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 53,
+            AlertifySensor = 55,
 
-            [EnumMember(Value = "hayward_pool_system")]
-            HaywardPoolSystem = 54,
+            [EnumMember(Value = "hayward_pool_controller")]
+            HaywardPoolController = 56,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 55,
+            HaywardPool = 57,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -1079,13 +1085,6 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("time_zone")]
         public string? TimeZone { get; init; }
-
-        /// <summary>
-        /// Time zone of the device location.
-        /// </summary>
-        [Obsolete("Use `time_zone` instead.")]
-        [JsonPropertyName("timezone")]
-        public string? Timezone { get; init; }
     }
 
     public sealed record UnmanagedDeviceProperties
@@ -1140,24 +1139,10 @@ namespace Seam.Models
         public string Name { get; init; } = default!;
 
         /// <summary>
-        /// Indicates whether it is currently possible to use offline access codes for the device.
-        /// </summary>
-        [Obsolete("use device.can_program_offline_access_codes")]
-        [JsonPropertyName("offline_access_codes_enabled")]
-        public bool? OfflineAccessCodesEnabled { get; init; }
-
-        /// <summary>
         /// Indicates whether the device is online.
         /// </summary>
         [JsonPropertyName("online")]
         public bool Online { get; init; } = default!;
-
-        /// <summary>
-        /// Indicates whether it is currently possible to use online access codes for the device.
-        /// </summary>
-        [Obsolete("use device.can_program_online_access_codes")]
-        [JsonPropertyName("online_access_codes_enabled")]
-        public bool? OnlineAccessCodesEnabled { get; init; }
     }
 
     public sealed record UnmanagedDevicePropertiesAccessoryKeypad
@@ -1220,10 +1205,6 @@ namespace Seam.Models
 
     public sealed record UnmanagedDevicePropertiesModel
     {
-        [Obsolete("use device.properties.model.can_connect_accessory_keypad")]
-        [JsonPropertyName("accessory_keypad_supported")]
-        public bool? AccessoryKeypadSupported { get; init; }
-
         /// <summary>
         /// Indicates whether the device can connect a accessory keypad.
         /// </summary>
@@ -1247,13 +1228,5 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("manufacturer_display_name")]
         public string ManufacturerDisplayName { get; init; } = default!;
-
-        [Obsolete("use device.can_program_offline_access_codes.")]
-        [JsonPropertyName("offline_access_codes_supported")]
-        public bool? OfflineAccessCodesSupported { get; init; }
-
-        [Obsolete("use device.can_program_online_access_codes.")]
-        [JsonPropertyName("online_access_codes_supported")]
-        public bool? OnlineAccessCodesSupported { get; init; }
     }
 }

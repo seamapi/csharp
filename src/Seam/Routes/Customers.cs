@@ -1264,15 +1264,6 @@ namespace Seam.Routes
             public CreatePortalRequestFeaturesManage? Manage { get; init; }
 
             /// <summary>
-            /// Configuration for the manage devices feature.
-            /// ---
-            /// deprecated: Use `manage` instead.
-            /// ---
-            /// </summary>
-            [JsonPropertyName("manage_devices")]
-            public CreatePortalRequestFeaturesManageDevices? ManageDevices { get; init; }
-
-            /// <summary>
             /// Configuration for the organize feature.
             /// </summary>
             [JsonPropertyName("organize")]
@@ -1436,15 +1427,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("default_events")]
             public List<string>? DefaultEvents { get; init; }
-        }
-
-        public sealed record CreatePortalRequestFeaturesManageDevices
-        {
-            /// <summary>
-            /// Whether to exclude this feature from the portal.
-            /// </summary>
-            [JsonPropertyName("exclude")]
-            public bool? Exclude { get; init; }
         }
 
         public sealed record CreatePortalRequestFeaturesOrganize

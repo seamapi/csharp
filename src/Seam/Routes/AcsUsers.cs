@@ -84,10 +84,6 @@ namespace Seam.Routes
             [JsonPropertyName("acs_system_id")]
             public required string AcsSystemId { get; init; }
 
-            [Obsolete("use email_address.")]
-            [JsonPropertyName("email")]
-            public string? Email { get; init; }
-
             /// <summary>
             /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
             /// </summary>
@@ -662,10 +658,6 @@ namespace Seam.Routes
             [JsonPropertyName("acs_user_id")]
             public string? AcsUserId { get; init; }
 
-            [Obsolete("use email_address.")]
-            [JsonPropertyName("email")]
-            public string? Email { get; init; }
-
             /// <summary>
             /// Email address of the [access system user](https://www.seam.co/docs/low-level-apis/access-systems/user-management).
             /// </summary>
@@ -704,7 +696,6 @@ namespace Seam.Routes
                         !AccessSchedule.IsSet
                         && AcsSystemId == null
                         && AcsUserId == null
-                        && Email == null
                         && EmailAddress == null
                         && FullName == null
                         && HidAcsSystemId == null

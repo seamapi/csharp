@@ -483,10 +483,6 @@ namespace Seam.Models
         [JsonPropertyName("errors")]
         public List<UnmanagedAccessGrantErrors> Errors { get; init; } = default!;
 
-        [Obsolete("Use `space_ids`.")]
-        [JsonPropertyName("location_ids")]
-        public List<string> LocationIds { get; init; } = default!;
-
         /// <summary>
         /// Name of the Access Grant. If not provided, the display name will be computed.
         /// </summary>

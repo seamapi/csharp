@@ -202,68 +202,74 @@ namespace Seam.Routes
                 [EnumMember(Value = "aqara_lock")]
                 AqaraLock = 34,
 
+                [EnumMember(Value = "tuya_lock")]
+                TuyaLock = 35,
+
                 [EnumMember(Value = "eufy_lock")]
-                EufyLock = 35,
+                EufyLock = 36,
 
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 36,
+                KeynestKey = 37,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 37,
+                NoiseawareActivityZone = 38,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 38,
+                MinutSensor = 39,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 39,
+                EcobeeThermostat = 40,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 40,
+                NestThermostat = 41,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 41,
+                HoneywellResideoThermostat = 42,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 42,
+                TadoThermostat = 43,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 43,
+                SensiThermostat = 44,
+
+                [EnumMember(Value = "sensibo_thermostat")]
+                SensiboThermostat = 45,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 44,
+                SmartthingsThermostat = 46,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 45,
+                IosPhone = 47,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 46,
+                AndroidPhone = 48,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 47,
+                RingCamera = 49,
 
                 [EnumMember(Value = "tapo_camera")]
-                TapoCamera = 48,
+                TapoCamera = 50,
 
                 [EnumMember(Value = "arlo_camera")]
-                ArloCamera = 49,
+                ArloCamera = 51,
 
                 [EnumMember(Value = "reolink_camera")]
-                ReolinkCamera = 50,
+                ReolinkCamera = 52,
 
                 [EnumMember(Value = "unifi_protect_camera")]
-                UnifiProtectCamera = 51,
+                UnifiProtectCamera = 53,
 
                 [EnumMember(Value = "sonos_speaker")]
-                SonosSpeaker = 52,
+                SonosSpeaker = 54,
 
                 [EnumMember(Value = "alertify_sensor")]
-                AlertifySensor = 53,
+                AlertifySensor = 55,
 
-                [EnumMember(Value = "hayward_pool_system")]
-                HaywardPoolSystem = 54,
+                [EnumMember(Value = "hayward_pool_controller")]
+                HaywardPoolController = 56,
 
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 55,
+                HaywardPool = 57,
             }
 
             /// <summary>
@@ -377,68 +383,74 @@ namespace Seam.Routes
                 [EnumMember(Value = "aqara_lock")]
                 AqaraLock = 34,
 
+                [EnumMember(Value = "tuya_lock")]
+                TuyaLock = 35,
+
                 [EnumMember(Value = "eufy_lock")]
-                EufyLock = 35,
+                EufyLock = 36,
 
                 [EnumMember(Value = "keynest_key")]
-                KeynestKey = 36,
+                KeynestKey = 37,
 
                 [EnumMember(Value = "noiseaware_activity_zone")]
-                NoiseawareActivityZone = 37,
+                NoiseawareActivityZone = 38,
 
                 [EnumMember(Value = "minut_sensor")]
-                MinutSensor = 38,
+                MinutSensor = 39,
 
                 [EnumMember(Value = "ecobee_thermostat")]
-                EcobeeThermostat = 39,
+                EcobeeThermostat = 40,
 
                 [EnumMember(Value = "nest_thermostat")]
-                NestThermostat = 40,
+                NestThermostat = 41,
 
                 [EnumMember(Value = "honeywell_resideo_thermostat")]
-                HoneywellResideoThermostat = 41,
+                HoneywellResideoThermostat = 42,
 
                 [EnumMember(Value = "tado_thermostat")]
-                TadoThermostat = 42,
+                TadoThermostat = 43,
 
                 [EnumMember(Value = "sensi_thermostat")]
-                SensiThermostat = 43,
+                SensiThermostat = 44,
+
+                [EnumMember(Value = "sensibo_thermostat")]
+                SensiboThermostat = 45,
 
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 44,
+                SmartthingsThermostat = 46,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 45,
+                IosPhone = 47,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 46,
+                AndroidPhone = 48,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 47,
+                RingCamera = 49,
 
                 [EnumMember(Value = "tapo_camera")]
-                TapoCamera = 48,
+                TapoCamera = 50,
 
                 [EnumMember(Value = "arlo_camera")]
-                ArloCamera = 49,
+                ArloCamera = 51,
 
                 [EnumMember(Value = "reolink_camera")]
-                ReolinkCamera = 50,
+                ReolinkCamera = 52,
 
                 [EnumMember(Value = "unifi_protect_camera")]
-                UnifiProtectCamera = 51,
+                UnifiProtectCamera = 53,
 
                 [EnumMember(Value = "sonos_speaker")]
-                SonosSpeaker = 52,
+                SonosSpeaker = 54,
 
                 [EnumMember(Value = "alertify_sensor")]
-                AlertifySensor = 53,
+                AlertifySensor = 55,
 
-                [EnumMember(Value = "hayward_pool_system")]
-                HaywardPoolSystem = 54,
+                [EnumMember(Value = "hayward_pool_controller")]
+                HaywardPoolController = 56,
 
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 55,
+                HaywardPool = 57,
             }
 
             /// <summary>
@@ -576,68 +588,74 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensi")]
                 Sensi = 42,
 
+                [EnumMember(Value = "sensibo")]
+                Sensibo = 43,
+
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 43,
+                Smartthings = 44,
 
                 [EnumMember(Value = "tado")]
-                Tado = 44,
+                Tado = 45,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 45,
+                Ultraloq = 46,
 
                 [EnumMember(Value = "ring")]
-                Ring = 46,
+                Ring = 47,
 
                 [EnumMember(Value = "tapo")]
-                Tapo = 47,
+                Tapo = 48,
 
                 [EnumMember(Value = "arlo")]
-                Arlo = 48,
+                Arlo = 49,
 
                 [EnumMember(Value = "reolink")]
-                Reolink = 49,
+                Reolink = 50,
 
                 [EnumMember(Value = "unifi_protect")]
-                UnifiProtect = 50,
+                UnifiProtect = 51,
 
                 [EnumMember(Value = "yale_connect")]
-                YaleConnect = 51,
+                YaleConnect = 52,
 
                 [EnumMember(Value = "alertify")]
-                Alertify = 52,
+                Alertify = 53,
 
                 [EnumMember(Value = "ical")]
-                Ical = 53,
+                Ical = 54,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 54,
+                Lodgify = 55,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 55,
+                Hostaway = 56,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 56,
+                Guesty = 57,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 57,
+                AcuityScheduling = 58,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 58,
+                Omnitec = 59,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 59,
+                Kisi = 60,
 
                 [EnumMember(Value = "slack")]
-                Slack = 60,
+                Slack = 61,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 61,
+                Yacan = 62,
 
                 [EnumMember(Value = "sonos")]
-                Sonos = 62,
+                Sonos = 63,
 
                 [EnumMember(Value = "hayward_omnilogic")]
-                HaywardOmnilogic = 63,
+                HaywardOmnilogic = 64,
+
+                [EnumMember(Value = "tuya")]
+                Tuya = 65,
             }
 
             /// <summary>
@@ -723,10 +741,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("space_id")]
             public string? SpaceId { get; init; }
-
-            [Obsolete("Use `space_id`.")]
-            [JsonPropertyName("unstable_location_id")]
-            public Optional<string> UnstableLocationId { get; init; }
 
             /// <summary>
             /// Your own internal user ID for the user for which you want to list devices.
