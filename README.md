@@ -253,13 +253,19 @@ await seam.Devices.UpdateAsync(new()
 Verify and parse incoming Seam webhook events with `SeamWebhook`:
 
 ```csharp
-var webhook = new SeamWebhook(Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET")!);
+var webhook = new SeamWebhook(); // Reads SEAM_WEBHOOK_SECRET.
 
 var seamEvent = webhook.Verify(requestBody, requestHeaders);
 
 if (seamEvent is Seam.Models.EventDeviceConnected connected)
     Console.WriteLine(connected.DeviceId);
 ```
+
+Omitting the secret (or passing `null`) reads `SEAM_WEBHOOK_SECRET` when
+the helper is constructed. Pass `new SeamWebhook("whsec_...")` to override
+the environment. A missing or empty secret raises `InvalidOperationException`
+at construction; an explicit empty string never falls back to the environment.
+Svix also rejects secrets that decode to an empty signing key.
 
 Verification failures raise Svix's `WebhookVerificationException`: treat the
 payload as forged and respond with an error status so Svix retries. A payload

@@ -3,6 +3,7 @@ namespace Seam.Test;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Seam.Test.Support;
 using Svix.Exceptions;
 
 public class SeamWebhookTests
@@ -34,6 +35,81 @@ public class SeamWebhookTests
             ["svix-timestamp"] = timestamp,
             ["svix-signature"] = $"v1,{signature}",
         };
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void OmittedOrNullSecretReadsEnvironment(bool passNull)
+    {
+        using var env = new EnvGuard();
+        env.Set("SEAM_WEBHOOK_SECRET", Secret);
+
+        var webhook = passNull ? new SeamWebhook(null) : new SeamWebhook();
+        var seamEvent = webhook.Verify(Payload, SignedHeaders(Payload));
+
+        Assert.Equal("device.connected", seamEvent.EventType);
+    }
+
+    [Fact]
+    public void ExplicitSecretOverridesEnvironment()
+    {
+        using var env = new EnvGuard();
+        env.Set("SEAM_WEBHOOK_SECRET", "whsec_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=");
+
+        var seamEvent = new SeamWebhook(Secret).Verify(Payload, SignedHeaders(Payload));
+
+        Assert.Equal("device.connected", seamEvent.EventType);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void MissingOrEmptyEnvironmentSecretIsRejected(string? secret)
+    {
+        using var env = new EnvGuard();
+        if (secret is not null)
+            env.Set("SEAM_WEBHOOK_SECRET", secret);
+
+        var exception = Assert.Throws<InvalidOperationException>(() => new SeamWebhook());
+        Assert.Contains("SEAM_WEBHOOK_SECRET", exception.Message);
+        Assert.Throws<InvalidOperationException>(() => new SeamWebhook(null));
+    }
+
+    [Fact]
+    public void ExplicitEmptySecretDoesNotFallBackToEnvironment()
+    {
+        using var env = new EnvGuard();
+        env.Set("SEAM_WEBHOOK_SECRET", Secret);
+
+        Assert.Throws<InvalidOperationException>(() => new SeamWebhook(""));
+    }
+
+    [Theory]
+    [InlineData("whsec_")]
+    [InlineData("whsec_   ")]
+    [InlineData("   ")]
+    public void EnvironmentSecretWithEmptyDecodedKeyIsRejected(string secret)
+    {
+        using var env = new EnvGuard();
+        env.Set("SEAM_WEBHOOK_SECRET", secret);
+
+        Assert.Throws<EmptyWebhookSecretException>(() => new SeamWebhook());
+    }
+
+    [Fact]
+    public void EachConstructionReadsCurrentEnvironment()
+    {
+        using var env = new EnvGuard();
+        env.Set("SEAM_WEBHOOK_SECRET", Secret);
+        var first = new SeamWebhook();
+
+        env.Set("SEAM_WEBHOOK_SECRET", "whsec_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=");
+        var second = new SeamWebhook();
+        var headers = SignedHeaders(Payload);
+
+        Assert.Equal("device.connected", first.Verify(Payload, headers).EventType);
+        Assert.Throws<WebhookVerificationException>(() => second.Verify(Payload, headers));
     }
 
     [Fact]

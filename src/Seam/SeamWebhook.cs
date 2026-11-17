@@ -12,7 +12,7 @@ namespace Seam
     /// by the API. Verification failures raise
     /// <see cref="Svix.Exceptions.WebhookVerificationException"/>.
     /// <code>
-    /// var webhook = new SeamWebhook(Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET")!);
+    /// var webhook = new SeamWebhook(); // Reads SEAM_WEBHOOK_SECRET.
     /// var seamEvent = webhook.Verify(requestBody, requestHeaders);
     /// </code>
     /// </remarks>
@@ -20,9 +20,23 @@ namespace Seam
     {
         private readonly Svix.Webhook _webhook;
 
-        /// <param name="secret">The webhook secret from the Seam Console.</param>
-        public SeamWebhook(string secret)
+        /// <param name="secret">
+        /// The webhook secret from the Seam Console. When omitted or null, reads
+        /// SEAM_WEBHOOK_SECRET at construction time. An explicit empty string never falls back.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// When the secret is missing or empty.
+        /// </exception>
+        public SeamWebhook(string? secret = null)
         {
+            secret ??= Environment.GetEnvironmentVariable("SEAM_WEBHOOK_SECRET");
+            if (string.IsNullOrEmpty(secret))
+            {
+                throw new InvalidOperationException(
+                    "Provide a webhook secret or set SEAM_WEBHOOK_SECRET to a non-empty value."
+                );
+            }
+
             _webhook = new Svix.Webhook(secret);
         }
 

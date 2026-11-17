@@ -12,6 +12,7 @@ public sealed class EnvGuard : IDisposable
         "SEAM_PERSONAL_ACCESS_TOKEN",
         "SEAM_WORKSPACE_ID",
         "SEAM_ENDPOINT",
+        "SEAM_WEBHOOK_SECRET",
     };
 
     private readonly Dictionary<string, string?> _saved = new();
