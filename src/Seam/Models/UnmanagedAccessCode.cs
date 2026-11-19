@@ -980,7 +980,7 @@ namespace Seam.Models
         public string DeviceId { get; init; } = default!;
 
         /// <summary>
-        /// Human-readable label for the code&apos;s state: `Active` or `Not active`, based on whether the code is set on the device. For display only. The wording is not stable and is not an enumeration — never compare against or branch on it.
+        /// Human-readable label for the code&apos;s state: `Active` or `Not active`, based on whether the code is set on the device, or `Deleting` while the code is being removed from the device. For display only. The wording is not stable and is not an enumeration — never compare against or branch on it.
         /// </summary>
         [JsonPropertyName("display_status")]
         public string DisplayStatus { get; init; } = default!;
