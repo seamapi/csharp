@@ -3385,10 +3385,16 @@ namespace Seam.Models
         public string? PodId { get; init; }
 
         /// <summary>
-        /// Product model of the Sensibo device, such as `skyv2` or `air`.
+        /// Product model of the Sensibo device, such as `skyv2` or `skyplus`.
         /// </summary>
         [JsonPropertyName("product_model")]
         public string? ProductModel { get; init; }
+
+        /// <summary>
+        /// Product name of the Sensibo device, such as `Sensibo Sky` or `Sensibo Air`.
+        /// </summary>
+        [JsonPropertyName("product_name")]
+        public string? ProductName { get; init; }
 
         /// <summary>
         /// Name of the room that the Sensibo device is in.
