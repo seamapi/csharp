@@ -189,41 +189,44 @@ namespace Seam.Models
             [EnumMember(Value = "sensibo_thermostat")]
             SensiboThermostat = 45,
 
+            [EnumMember(Value = "cielo_thermostat")]
+            CieloThermostat = 46,
+
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 46,
+            SmartthingsThermostat = 47,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 47,
+            IosPhone = 48,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 48,
+            AndroidPhone = 49,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 49,
+            RingCamera = 50,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 50,
+            TapoCamera = 51,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 51,
+            ArloCamera = 52,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 52,
+            ReolinkCamera = 53,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 53,
+            UnifiProtectCamera = 54,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 54,
+            SonosSpeaker = 55,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 55,
+            AlertifySensor = 56,
 
             [EnumMember(Value = "hayward_pool_controller")]
-            HaywardPoolController = 56,
+            HaywardPoolController = 57,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 57,
+            HaywardPool = 58,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]

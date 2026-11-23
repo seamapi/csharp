@@ -170,89 +170,92 @@ namespace Seam.Models
             [EnumMember(Value = "sensibo")]
             Sensibo = 50,
 
+            [EnumMember(Value = "cielo")]
+            Cielo = 51,
+
             [EnumMember(Value = "keynest")]
-            Keynest = 51,
+            Keynest = 52,
 
             [EnumMember(Value = "korelock")]
-            Korelock = 52,
+            Korelock = 53,
 
             [EnumMember(Value = "keyincode")]
-            Keyincode = 53,
+            Keyincode = 54,
 
             [EnumMember(Value = "dormakaba_ambiance")]
-            DormakabaAmbiance = 54,
+            DormakabaAmbiance = 55,
 
             [EnumMember(Value = "ultraloq")]
-            Ultraloq = 55,
+            Ultraloq = 56,
 
             [EnumMember(Value = "yacan")]
-            Yacan = 56,
+            Yacan = 57,
 
             [EnumMember(Value = "dusaw")]
-            Dusaw = 57,
+            Dusaw = 58,
 
             [EnumMember(Value = "sifely")]
-            Sifely = 58,
+            Sifely = 59,
 
             [EnumMember(Value = "thirty_three_lock")]
-            ThirtyThreeLock = 59,
+            ThirtyThreeLock = 60,
 
             [EnumMember(Value = "ring")]
-            Ring = 60,
+            Ring = 61,
 
             [EnumMember(Value = "tapo")]
-            Tapo = 61,
+            Tapo = 62,
 
             [EnumMember(Value = "arlo")]
-            Arlo = 62,
+            Arlo = 63,
 
             [EnumMember(Value = "reolink")]
-            Reolink = 63,
+            Reolink = 64,
 
             [EnumMember(Value = "unifi_protect")]
-            UnifiProtect = 64,
+            UnifiProtect = 65,
 
             [EnumMember(Value = "yale_connect")]
-            YaleConnect = 65,
+            YaleConnect = 66,
 
             [EnumMember(Value = "alertify")]
-            Alertify = 66,
+            Alertify = 67,
 
             [EnumMember(Value = "ical")]
-            Ical = 67,
+            Ical = 68,
 
             [EnumMember(Value = "lodgify")]
-            Lodgify = 68,
+            Lodgify = 69,
 
             [EnumMember(Value = "hostaway")]
-            Hostaway = 69,
+            Hostaway = 70,
 
             [EnumMember(Value = "guesty")]
-            Guesty = 70,
+            Guesty = 71,
 
             [EnumMember(Value = "acuity_scheduling")]
-            AcuityScheduling = 71,
+            AcuityScheduling = 72,
 
             [EnumMember(Value = "omnitec")]
-            Omnitec = 72,
+            Omnitec = 73,
 
             [EnumMember(Value = "kisi")]
-            Kisi = 73,
+            Kisi = 74,
 
             [EnumMember(Value = "aqara")]
-            Aqara = 74,
+            Aqara = 75,
 
             [EnumMember(Value = "eufy")]
-            Eufy = 75,
+            Eufy = 76,
 
             [EnumMember(Value = "sonos")]
-            Sonos = 76,
+            Sonos = 77,
 
             [EnumMember(Value = "hayward_omnilogic")]
-            HaywardOmnilogic = 77,
+            HaywardOmnilogic = 78,
 
             [EnumMember(Value = "tuya")]
-            Tuya = 78,
+            Tuya = 79,
         }
 
         /// <summary>

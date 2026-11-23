@@ -189,41 +189,44 @@ namespace Seam.Models
             [EnumMember(Value = "sensibo_thermostat")]
             SensiboThermostat = 45,
 
+            [EnumMember(Value = "cielo_thermostat")]
+            CieloThermostat = 46,
+
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 46,
+            SmartthingsThermostat = 47,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 47,
+            IosPhone = 48,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 48,
+            AndroidPhone = 49,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 49,
+            RingCamera = 50,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 50,
+            TapoCamera = 51,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 51,
+            ArloCamera = 52,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 52,
+            ReolinkCamera = 53,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 53,
+            UnifiProtectCamera = 54,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 54,
+            SonosSpeaker = 55,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 55,
+            AlertifySensor = 56,
 
             [EnumMember(Value = "hayward_pool_controller")]
-            HaywardPoolController = 56,
+            HaywardPoolController = 57,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 57,
+            HaywardPool = 58,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -1491,6 +1494,12 @@ namespace Seam.Models
         public DevicePropertiesBrivoMetadata? BrivoMetadata { get; init; }
 
         /// <summary>
+        /// Metadata for a Cielo device.
+        /// </summary>
+        [JsonPropertyName("cielo_metadata")]
+        public DevicePropertiesCieloMetadata? CieloMetadata { get; init; }
+
+        /// <summary>
         /// Metadata for a ControlByWeb device.
         /// </summary>
         [JsonPropertyName("controlbyweb_metadata")]
@@ -2340,6 +2349,39 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("device_name")]
         public string? DeviceName { get; init; }
+    }
+
+    public sealed record DevicePropertiesCieloMetadata
+    {
+        /// <summary>
+        /// ID of the air conditioner or heat pump model that the Cielo device is set up to control.
+        /// </summary>
+        [JsonPropertyName("appliance_id")]
+        public string? ApplianceId { get; init; }
+
+        /// <summary>
+        /// Device type that Cielo reports, such as `Thermostat` for a Cielo thermostat.
+        /// </summary>
+        [JsonPropertyName("cielo_device_type")]
+        public string? CieloDeviceType { get; init; }
+
+        /// <summary>
+        /// Name of the device in the Cielo Home app.
+        /// </summary>
+        [JsonPropertyName("device_name")]
+        public string? DeviceName { get; init; }
+
+        /// <summary>
+        /// MAC address of the Cielo device.
+        /// </summary>
+        [JsonPropertyName("mac_address")]
+        public string? MacAddress { get; init; }
+
+        /// <summary>
+        /// Temperature unit that the Cielo device displays: `C` or `F`.
+        /// </summary>
+        [JsonPropertyName("temperature_unit")]
+        public string? TemperatureUnit { get; init; }
     }
 
     public sealed record DevicePropertiesControlbywebMetadata

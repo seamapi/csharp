@@ -251,7 +251,7 @@ namespace Seam.Models
         /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
         /// </summary>
         [JsonPropertyName("event_description")]
-        public string? EventDescription { get; init; }
+        public string EventDescription { get; init; } = default!;
 
         /// <summary>
         /// ID of the event.
@@ -3909,6 +3909,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "device_disconnected")]
             DeviceDisconnected = 3,
+
+            [EnumMember(Value = "bridge_disconnected")]
+            BridgeDisconnected = 4,
         }
 
         [JsonPropertyName("event_type")]
@@ -4083,6 +4086,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "device_disconnected")]
             DeviceDisconnected = 3,
+
+            [EnumMember(Value = "bridge_disconnected")]
+            BridgeDisconnected = 4,
         }
 
         [JsonPropertyName("event_type")]
@@ -4274,6 +4280,18 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("device_id")]
         public string DeviceId { get; init; } = default!;
+
+        /// <summary>
+        /// Whether the device casing was tampered with at the time of the event. Omitted when the provider did not report this state.
+        /// </summary>
+        [JsonPropertyName("is_casing_tampered_with")]
+        public bool? IsCasingTamperedWith { get; init; }
+
+        /// <summary>
+        /// Whether the device was detached from its mounting plate at the time of the event. Omitted when the provider did not report this state.
+        /// </summary>
+        [JsonPropertyName("is_detached_from_mounting_plate")]
+        public bool? IsDetachedFromMountingPlate { get; init; }
     }
 
     /// <summary>
