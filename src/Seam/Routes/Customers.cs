@@ -1303,6 +1303,12 @@ namespace Seam.Routes
             public bool? AllowNotificationCustomization { get; init; }
 
             /// <summary>
+            /// Indicates whether the customer can customize the pool heating automation rules for their properties.
+            /// </summary>
+            [JsonPropertyName("allow_pool_automation_rule_customization")]
+            public bool? AllowPoolAutomationRuleCustomization { get; init; }
+
+            /// <summary>
             /// Indicates whether the customer can customize the sensor automation rules for their properties.
             /// </summary>
             [JsonPropertyName("allow_sensor_automation_rule_customization")]

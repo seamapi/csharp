@@ -75,6 +75,7 @@ namespace Seam.Models
             "august_lock_not_authorized",
             typeof(AccessCodeErrorsAugustLockNotAuthorized)
         )]
+        [SeamUnionVariant("low_battery", typeof(AccessCodeErrorsLowBattery))]
         [SeamUnionVariant(
             "missing_device_credentials",
             typeof(AccessCodeErrorsMissingDeviceCredentials)
@@ -558,6 +559,24 @@ namespace Seam.Models
             public bool IsDeviceError { get; init; } = default!;
         }
 
+        public sealed record AccessCodeErrorsLowBattery : AccessCodeErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "low_battery";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
         public sealed record AccessCodeErrorsMissingDeviceCredentials : AccessCodeErrors
         {
             [JsonPropertyName("error_code")]
@@ -704,6 +723,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("mutation_code")]
             public override string MutationCode { get; } = "deleting";
+
+            /// <summary>
+            /// Indicates whether the access code may still unlock the device while Seam removes it, based on the last state Seam observed. `false` means the device has already stopped accepting the code, for example, because a natively scheduled code passed its `ends_at`, and only cleanup remains.
+            /// </summary>
+            [JsonPropertyName("is_code_usable")]
+            public bool IsCodeUsable { get; init; } = default!;
         }
 
         public sealed record AccessCodePendingMutationsUpdatingCode : AccessCodePendingMutations

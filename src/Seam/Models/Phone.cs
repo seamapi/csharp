@@ -51,6 +51,7 @@ namespace Seam.Models
             typeof(PhoneErrorsEmptyBackupAccessCodePool)
         )]
         [SeamUnionVariant("august_lock_not_authorized", typeof(PhoneErrorsAugustLockNotAuthorized))]
+        [SeamUnionVariant("low_battery", typeof(PhoneErrorsLowBattery))]
         [SeamUnionVariant(
             "missing_device_credentials",
             typeof(PhoneErrorsMissingDeviceCredentials)
@@ -221,6 +222,18 @@ namespace Seam.Models
             public bool IsDeviceError { get; init; } = default!;
         }
 
+        public sealed record PhoneErrorsLowBattery : PhoneErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "low_battery";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
         public sealed record PhoneErrorsMissingDeviceCredentials : PhoneErrors
         {
             [JsonPropertyName("error_code")]
@@ -364,6 +377,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "accessory_keypad_low_battery",
             typeof(PhoneWarningsAccessoryKeypadLowBattery)
+        )]
+        [SeamUnionVariant(
+            "battery_replacement_recommended",
+            typeof(PhoneWarningsBatteryReplacementRecommended)
         )]
         [SeamUnionVariant("unreliable_online_status", typeof(PhoneWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(PhoneWarningsMaxAccessCodesReached))]
@@ -558,6 +575,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "accessory_keypad_low_battery";
+        }
+
+        public sealed record PhoneWarningsBatteryReplacementRecommended : PhoneWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "battery_replacement_recommended";
         }
 
         public sealed record PhoneWarningsUnreliableOnlineStatus : PhoneWarnings

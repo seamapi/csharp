@@ -89,6 +89,7 @@ namespace Seam.Models
             "august_lock_not_authorized",
             typeof(UnmanagedAccessCodeErrorsAugustLockNotAuthorized)
         )]
+        [SeamUnionVariant("low_battery", typeof(UnmanagedAccessCodeErrorsLowBattery))]
         [SeamUnionVariant(
             "missing_device_credentials",
             typeof(UnmanagedAccessCodeErrorsMissingDeviceCredentials)
@@ -579,6 +580,24 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "august_lock_not_authorized";
+
+            /// <summary>
+            /// Date and time at which Seam created the error.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
+        public sealed record UnmanagedAccessCodeErrorsLowBattery : UnmanagedAccessCodeErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "low_battery";
 
             /// <summary>
             /// Date and time at which Seam created the error.

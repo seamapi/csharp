@@ -87,6 +87,9 @@ namespace Seam.Routes
         /// <summary>
         /// Request parameters for Delete an Access Method.
         /// </summary>
+        [Obsolete(
+            "Access methods are managed by their access grant. Some workflows still need this endpoint today; access grant routes will replace it for them soon."
+        )]
         public sealed record DeleteRequest
         {
             /// <summary>
@@ -119,6 +122,9 @@ namespace Seam.Routes
         /// <summary>
         /// Deletes an access method.
         /// </summary>
+        [Obsolete(
+            "Access methods are managed by their access grant. Some workflows still need this endpoint today; access grant routes will replace it for them soon."
+        )]
         public async Task DeleteAsync(
             DeleteRequest request,
             CancellationToken cancellationToken = default

@@ -425,29 +425,38 @@ namespace Seam.Routes
                 [EnumMember(Value = "thermostat.temperature_changed")]
                 ThermostatTemperatureChanged = 109,
 
+                [EnumMember(Value = "pool.temperature_changed")]
+                PoolTemperatureChanged = 110,
+
+                [EnumMember(Value = "pool.temperature_reached_set_point")]
+                PoolTemperatureReachedSetPoint = 111,
+
+                [EnumMember(Value = "pool.manually_adjusted")]
+                PoolManuallyAdjusted = 112,
+
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 110,
+                DeviceNameChanged = 113,
 
                 [EnumMember(Value = "camera.activated")]
-                CameraActivated = 111,
+                CameraActivated = 114,
 
                 [EnumMember(Value = "device.doorbell_rang")]
-                DeviceDoorbellRang = 112,
+                DeviceDoorbellRang = 115,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 113,
+                EnrollmentAutomationDeleted = 116,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 114,
+                PhoneDeactivated = 117,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 115,
+                SpaceDeviceMembershipChanged = 118,
 
                 [EnumMember(Value = "space.created")]
-                SpaceCreated = 116,
+                SpaceCreated = 119,
 
                 [EnumMember(Value = "space.deleted")]
-                SpaceDeleted = 117,
+                SpaceDeleted = 120,
             }
 
             /// <summary>
@@ -786,29 +795,38 @@ namespace Seam.Routes
                 [EnumMember(Value = "thermostat.temperature_changed")]
                 ThermostatTemperatureChanged = 109,
 
+                [EnumMember(Value = "pool.temperature_changed")]
+                PoolTemperatureChanged = 110,
+
+                [EnumMember(Value = "pool.temperature_reached_set_point")]
+                PoolTemperatureReachedSetPoint = 111,
+
+                [EnumMember(Value = "pool.manually_adjusted")]
+                PoolManuallyAdjusted = 112,
+
                 [EnumMember(Value = "device.name_changed")]
-                DeviceNameChanged = 110,
+                DeviceNameChanged = 113,
 
                 [EnumMember(Value = "camera.activated")]
-                CameraActivated = 111,
+                CameraActivated = 114,
 
                 [EnumMember(Value = "device.doorbell_rang")]
-                DeviceDoorbellRang = 112,
+                DeviceDoorbellRang = 115,
 
                 [EnumMember(Value = "enrollment_automation.deleted")]
-                EnrollmentAutomationDeleted = 113,
+                EnrollmentAutomationDeleted = 116,
 
                 [EnumMember(Value = "phone.deactivated")]
-                PhoneDeactivated = 114,
+                PhoneDeactivated = 117,
 
                 [EnumMember(Value = "space.device_membership_changed")]
-                SpaceDeviceMembershipChanged = 115,
+                SpaceDeviceMembershipChanged = 118,
 
                 [EnumMember(Value = "space.created")]
-                SpaceCreated = 116,
+                SpaceCreated = 119,
 
                 [EnumMember(Value = "space.deleted")]
-                SpaceDeleted = 117,
+                SpaceDeleted = 120,
             }
 
             /// <summary>

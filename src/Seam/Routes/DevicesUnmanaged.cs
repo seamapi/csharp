@@ -234,41 +234,44 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensibo_thermostat")]
                 SensiboThermostat = 45,
 
+                [EnumMember(Value = "cielo_thermostat")]
+                CieloThermostat = 46,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 46,
+                SmartthingsThermostat = 47,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 47,
+                IosPhone = 48,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 48,
+                AndroidPhone = 49,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 49,
+                RingCamera = 50,
 
                 [EnumMember(Value = "tapo_camera")]
-                TapoCamera = 50,
+                TapoCamera = 51,
 
                 [EnumMember(Value = "arlo_camera")]
-                ArloCamera = 51,
+                ArloCamera = 52,
 
                 [EnumMember(Value = "reolink_camera")]
-                ReolinkCamera = 52,
+                ReolinkCamera = 53,
 
                 [EnumMember(Value = "unifi_protect_camera")]
-                UnifiProtectCamera = 53,
+                UnifiProtectCamera = 54,
 
                 [EnumMember(Value = "sonos_speaker")]
-                SonosSpeaker = 54,
+                SonosSpeaker = 55,
 
                 [EnumMember(Value = "alertify_sensor")]
-                AlertifySensor = 55,
+                AlertifySensor = 56,
 
                 [EnumMember(Value = "hayward_pool_controller")]
-                HaywardPoolController = 56,
+                HaywardPoolController = 57,
 
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 57,
+                HaywardPool = 58,
             }
 
             /// <summary>
@@ -415,41 +418,44 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensibo_thermostat")]
                 SensiboThermostat = 45,
 
+                [EnumMember(Value = "cielo_thermostat")]
+                CieloThermostat = 46,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 46,
+                SmartthingsThermostat = 47,
 
                 [EnumMember(Value = "ios_phone")]
-                IosPhone = 47,
+                IosPhone = 48,
 
                 [EnumMember(Value = "android_phone")]
-                AndroidPhone = 48,
+                AndroidPhone = 49,
 
                 [EnumMember(Value = "ring_camera")]
-                RingCamera = 49,
+                RingCamera = 50,
 
                 [EnumMember(Value = "tapo_camera")]
-                TapoCamera = 50,
+                TapoCamera = 51,
 
                 [EnumMember(Value = "arlo_camera")]
-                ArloCamera = 51,
+                ArloCamera = 52,
 
                 [EnumMember(Value = "reolink_camera")]
-                ReolinkCamera = 52,
+                ReolinkCamera = 53,
 
                 [EnumMember(Value = "unifi_protect_camera")]
-                UnifiProtectCamera = 53,
+                UnifiProtectCamera = 54,
 
                 [EnumMember(Value = "sonos_speaker")]
-                SonosSpeaker = 54,
+                SonosSpeaker = 55,
 
                 [EnumMember(Value = "alertify_sensor")]
-                AlertifySensor = 55,
+                AlertifySensor = 56,
 
                 [EnumMember(Value = "hayward_pool_controller")]
-                HaywardPoolController = 56,
+                HaywardPoolController = 57,
 
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 57,
+                HaywardPool = 58,
             }
 
             /// <summary>
@@ -578,83 +584,86 @@ namespace Seam.Routes
                 [EnumMember(Value = "minut")]
                 Minut = 39,
 
+                [EnumMember(Value = "cielo")]
+                Cielo = 40,
+
                 [EnumMember(Value = "nest")]
-                Nest = 40,
+                Nest = 41,
 
                 [EnumMember(Value = "noiseaware")]
-                Noiseaware = 41,
+                Noiseaware = 42,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 42,
+                Sensi = 43,
 
                 [EnumMember(Value = "sensibo")]
-                Sensibo = 43,
+                Sensibo = 44,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 44,
+                Smartthings = 45,
 
                 [EnumMember(Value = "tado")]
-                Tado = 45,
+                Tado = 46,
 
                 [EnumMember(Value = "ultraloq")]
-                Ultraloq = 46,
+                Ultraloq = 47,
 
                 [EnumMember(Value = "ring")]
-                Ring = 47,
+                Ring = 48,
 
                 [EnumMember(Value = "tapo")]
-                Tapo = 48,
+                Tapo = 49,
 
                 [EnumMember(Value = "arlo")]
-                Arlo = 49,
+                Arlo = 50,
 
                 [EnumMember(Value = "reolink")]
-                Reolink = 50,
+                Reolink = 51,
 
                 [EnumMember(Value = "unifi_protect")]
-                UnifiProtect = 51,
+                UnifiProtect = 52,
 
                 [EnumMember(Value = "yale_connect")]
-                YaleConnect = 52,
+                YaleConnect = 53,
 
                 [EnumMember(Value = "alertify")]
-                Alertify = 53,
+                Alertify = 54,
 
                 [EnumMember(Value = "ical")]
-                Ical = 54,
+                Ical = 55,
 
                 [EnumMember(Value = "lodgify")]
-                Lodgify = 55,
+                Lodgify = 56,
 
                 [EnumMember(Value = "hostaway")]
-                Hostaway = 56,
+                Hostaway = 57,
 
                 [EnumMember(Value = "guesty")]
-                Guesty = 57,
+                Guesty = 58,
 
                 [EnumMember(Value = "acuity_scheduling")]
-                AcuityScheduling = 58,
+                AcuityScheduling = 59,
 
                 [EnumMember(Value = "omnitec")]
-                Omnitec = 59,
+                Omnitec = 60,
 
                 [EnumMember(Value = "kisi")]
-                Kisi = 60,
+                Kisi = 61,
 
                 [EnumMember(Value = "slack")]
-                Slack = 61,
+                Slack = 62,
 
                 [EnumMember(Value = "yacan")]
-                Yacan = 62,
+                Yacan = 63,
 
                 [EnumMember(Value = "sonos")]
-                Sonos = 63,
+                Sonos = 64,
 
                 [EnumMember(Value = "hayward_omnilogic")]
-                HaywardOmnilogic = 64,
+                HaywardOmnilogic = 65,
 
                 [EnumMember(Value = "tuya")]
-                Tuya = 65,
+                Tuya = 66,
             }
 
             /// <summary>
