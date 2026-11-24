@@ -28,6 +28,7 @@ namespace Seam.Models
         "access_code.failed_to_set_on_device",
         typeof(EventAccessCodeFailedToSetOnDevice)
     )]
+    [SeamUnionVariant("access_code.failed_to_delete", typeof(EventAccessCodeFailedToDelete))]
     [SeamUnionVariant("access_code.deleted", typeof(EventAccessCodeDeleted))]
     [SeamUnionVariant(
         "access_code.delay_in_removing_from_device",
@@ -251,7 +252,7 @@ namespace Seam.Models
         /// Human-readable description of the event. Persisted when the event is created (so the creating code, including a provider, can supply a tailored description) and otherwise derived from the event.
         /// </summary>
         [JsonPropertyName("event_description")]
-        public string? EventDescription { get; init; }
+        public string EventDescription { get; init; } = default!;
 
         /// <summary>
         /// ID of the event.
@@ -1239,6 +1240,213 @@ namespace Seam.Models
     }
 
     public sealed record EventAccessCodeFailedToSetOnDeviceDeviceWarnings
+    {
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("warning_code")]
+        public string WarningCode { get; init; } = default!;
+    }
+
+    /// <summary>
+    /// Seam was unable to remove an [access code](https://www.seam.co/docs/low-level-apis/smart-locks/access-codes) from the device in time after it was deleted or its `ends_at` passed, so the recipient may still be able to unlock the device. Seam keeps trying to delete it, and the accompanying `failed_to_delete` error clears automatically once the access code is no longer usable on the device.
+    /// </summary>
+    public sealed record EventAccessCodeFailedToDelete : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } = "access_code.failed_to_delete";
+
+        /// <summary>
+        /// Errors associated with the access code.
+        /// </summary>
+        [JsonPropertyName("access_code_errors")]
+        public List<EventAccessCodeFailedToDeleteAccessCodeErrors> AccessCodeErrors { get; init; } =
+            default!;
+
+        /// <summary>
+        /// ID of the affected access code.
+        /// </summary>
+        [JsonPropertyName("access_code_id")]
+        public string AccessCodeId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the access code.
+        /// </summary>
+        [JsonPropertyName("access_code_warnings")]
+        public List<EventAccessCodeFailedToDeleteAccessCodeWarnings> AccessCodeWarnings { get; init; } =
+            default!;
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
+        [JsonPropertyName("connected_account_errors")]
+        public List<EventAccessCodeFailedToDeleteConnectedAccountErrors> ConnectedAccountErrors { get; init; } =
+            default!;
+
+        /// <summary>
+        /// ID of the connected account associated with the affected access code.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
+        [JsonPropertyName("connected_account_warnings")]
+        public List<EventAccessCodeFailedToDeleteConnectedAccountWarnings> ConnectedAccountWarnings { get; init; } =
+            default!;
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
+        [JsonPropertyName("device_errors")]
+        public List<EventAccessCodeFailedToDeleteDeviceErrors> DeviceErrors { get; init; } =
+            default!;
+
+        /// <summary>
+        /// ID of the device associated with the affected access code.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
+        [JsonPropertyName("device_warnings")]
+        public List<EventAccessCodeFailedToDeleteDeviceWarnings> DeviceWarnings { get; init; } =
+            default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteAccessCodeErrors
+    {
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("error_code")]
+        public string ErrorCode { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteAccessCodeWarnings
+    {
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("warning_code")]
+        public string WarningCode { get; init; } = default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteConnectedAccountErrors
+    {
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("error_code")]
+        public string ErrorCode { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteConnectedAccountWarnings
+    {
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("warning_code")]
+        public string WarningCode { get; init; } = default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteDeviceErrors
+    {
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("error_code")]
+        public string ErrorCode { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+    }
+
+    public sealed record EventAccessCodeFailedToDeleteDeviceWarnings
     {
         /// <summary>
         /// Date and time at which Seam created the warning.
@@ -3909,6 +4117,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "device_disconnected")]
             DeviceDisconnected = 3,
+
+            [EnumMember(Value = "bridge_disconnected")]
+            BridgeDisconnected = 4,
         }
 
         [JsonPropertyName("event_type")]
@@ -4083,6 +4294,9 @@ namespace Seam.Models
 
             [EnumMember(Value = "device_disconnected")]
             DeviceDisconnected = 3,
+
+            [EnumMember(Value = "bridge_disconnected")]
+            BridgeDisconnected = 4,
         }
 
         [JsonPropertyName("event_type")]
@@ -4274,6 +4488,18 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("device_id")]
         public string DeviceId { get; init; } = default!;
+
+        /// <summary>
+        /// Whether the device casing was tampered with at the time of the event. Omitted when the provider did not report this state.
+        /// </summary>
+        [JsonPropertyName("is_casing_tampered_with")]
+        public bool? IsCasingTamperedWith { get; init; }
+
+        /// <summary>
+        /// Whether the device was detached from its mounting plate at the time of the event. Omitted when the provider did not report this state.
+        /// </summary>
+        [JsonPropertyName("is_detached_from_mounting_plate")]
+        public bool? IsDetachedFromMountingPlate { get; init; }
     }
 
     /// <summary>

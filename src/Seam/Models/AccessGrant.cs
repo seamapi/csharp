@@ -231,6 +231,7 @@ namespace Seam.Models
             typeof(AccessGrantWarningsDeviceTimeConstraintsViolated)
         )]
         [SeamUnionVariant("access_revoked", typeof(AccessGrantWarningsAccessRevoked))]
+        [SeamUnionVariant("mobile_key_withheld", typeof(AccessGrantWarningsMobileKeyWithheld))]
         [SeamUnionFallback(typeof(AccessGrantWarningsUnrecognized))]
         public abstract record AccessGrantWarnings
         {
@@ -412,6 +413,12 @@ namespace Seam.Models
             /// </summary>
             [JsonPropertyName("access_method_id")]
             public string AccessMethodId { get; init; } = default!;
+        }
+
+        public sealed record AccessGrantWarningsMobileKeyWithheld : AccessGrantWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "mobile_key_withheld";
         }
 
         public sealed record AccessGrantWarningsUnrecognized

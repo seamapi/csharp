@@ -189,41 +189,44 @@ namespace Seam.Models
             [EnumMember(Value = "sensibo_thermostat")]
             SensiboThermostat = 45,
 
+            [EnumMember(Value = "cielo_thermostat")]
+            CieloThermostat = 46,
+
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 46,
+            SmartthingsThermostat = 47,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 47,
+            IosPhone = 48,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 48,
+            AndroidPhone = 49,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 49,
+            RingCamera = 50,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 50,
+            TapoCamera = 51,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 51,
+            ArloCamera = 52,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 52,
+            ReolinkCamera = 53,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 53,
+            UnifiProtectCamera = 54,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 54,
+            SonosSpeaker = 55,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 55,
+            AlertifySensor = 56,
 
             [EnumMember(Value = "hayward_pool_controller")]
-            HaywardPoolController = 56,
+            HaywardPoolController = 57,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 57,
+            HaywardPool = 58,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -253,6 +256,7 @@ namespace Seam.Models
             "august_lock_not_authorized",
             typeof(UnmanagedDeviceErrorsAugustLockNotAuthorized)
         )]
+        [SeamUnionVariant("low_battery", typeof(UnmanagedDeviceErrorsLowBattery))]
         [SeamUnionVariant(
             "missing_device_credentials",
             typeof(UnmanagedDeviceErrorsMissingDeviceCredentials)
@@ -430,6 +434,18 @@ namespace Seam.Models
             public bool IsDeviceError { get; init; } = default!;
         }
 
+        public sealed record UnmanagedDeviceErrorsLowBattery : UnmanagedDeviceErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "low_battery";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
         public sealed record UnmanagedDeviceErrorsMissingDeviceCredentials : UnmanagedDeviceErrors
         {
             [JsonPropertyName("error_code")]
@@ -584,6 +600,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "accessory_keypad_low_battery",
             typeof(UnmanagedDeviceWarningsAccessoryKeypadLowBattery)
+        )]
+        [SeamUnionVariant(
+            "battery_replacement_recommended",
+            typeof(UnmanagedDeviceWarningsBatteryReplacementRecommended)
         )]
         [SeamUnionVariant(
             "unreliable_online_status",
@@ -801,6 +821,13 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "accessory_keypad_low_battery";
+        }
+
+        public sealed record UnmanagedDeviceWarningsBatteryReplacementRecommended
+            : UnmanagedDeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "battery_replacement_recommended";
         }
 
         public sealed record UnmanagedDeviceWarningsUnreliableOnlineStatus : UnmanagedDeviceWarnings
@@ -1040,6 +1067,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("is_managed")]
         public bool IsManaged { get; init; } = default!;
+
+        /// <summary>
+        /// Indicates whether the device is online.
+        /// </summary>
+        [JsonPropertyName("is_online")]
+        public bool IsOnline { get; init; } = default!;
 
         /// <summary>
         /// Location information for the device.

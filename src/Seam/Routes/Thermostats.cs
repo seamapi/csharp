@@ -605,8 +605,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensibo_thermostat")]
                 SensiboThermostat = 6,
 
+                [EnumMember(Value = "cielo_thermostat")]
+                CieloThermostat = 7,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 7,
+                SmartthingsThermostat = 8,
             }
 
             /// <summary>
@@ -636,8 +639,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "sensibo_thermostat")]
                 SensiboThermostat = 6,
 
+                [EnumMember(Value = "cielo_thermostat")]
+                CieloThermostat = 7,
+
                 [EnumMember(Value = "smartthings_thermostat")]
-                SmartthingsThermostat = 7,
+                SmartthingsThermostat = 8,
             }
 
             /// <summary>
@@ -655,20 +661,23 @@ namespace Seam.Routes
                 [EnumMember(Value = "honeywell_resideo")]
                 HoneywellResideo = 2,
 
+                [EnumMember(Value = "cielo")]
+                Cielo = 3,
+
                 [EnumMember(Value = "nest")]
-                Nest = 3,
+                Nest = 4,
 
                 [EnumMember(Value = "sensi")]
-                Sensi = 4,
+                Sensi = 5,
 
                 [EnumMember(Value = "sensibo")]
-                Sensibo = 5,
+                Sensibo = 6,
 
                 [EnumMember(Value = "smartthings")]
-                Smartthings = 6,
+                Smartthings = 7,
 
                 [EnumMember(Value = "tado")]
-                Tado = 7,
+                Tado = 8,
             }
 
             /// <summary>

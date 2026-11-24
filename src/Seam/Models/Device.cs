@@ -189,41 +189,44 @@ namespace Seam.Models
             [EnumMember(Value = "sensibo_thermostat")]
             SensiboThermostat = 45,
 
+            [EnumMember(Value = "cielo_thermostat")]
+            CieloThermostat = 46,
+
             [EnumMember(Value = "smartthings_thermostat")]
-            SmartthingsThermostat = 46,
+            SmartthingsThermostat = 47,
 
             [EnumMember(Value = "ios_phone")]
-            IosPhone = 47,
+            IosPhone = 48,
 
             [EnumMember(Value = "android_phone")]
-            AndroidPhone = 48,
+            AndroidPhone = 49,
 
             [EnumMember(Value = "ring_camera")]
-            RingCamera = 49,
+            RingCamera = 50,
 
             [EnumMember(Value = "tapo_camera")]
-            TapoCamera = 50,
+            TapoCamera = 51,
 
             [EnumMember(Value = "arlo_camera")]
-            ArloCamera = 51,
+            ArloCamera = 52,
 
             [EnumMember(Value = "reolink_camera")]
-            ReolinkCamera = 52,
+            ReolinkCamera = 53,
 
             [EnumMember(Value = "unifi_protect_camera")]
-            UnifiProtectCamera = 53,
+            UnifiProtectCamera = 54,
 
             [EnumMember(Value = "sonos_speaker")]
-            SonosSpeaker = 54,
+            SonosSpeaker = 55,
 
             [EnumMember(Value = "alertify_sensor")]
-            AlertifySensor = 55,
+            AlertifySensor = 56,
 
             [EnumMember(Value = "hayward_pool_controller")]
-            HaywardPoolController = 56,
+            HaywardPoolController = 57,
 
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 57,
+            HaywardPool = 58,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -250,6 +253,7 @@ namespace Seam.Models
             "august_lock_not_authorized",
             typeof(DeviceErrorsAugustLockNotAuthorized)
         )]
+        [SeamUnionVariant("low_battery", typeof(DeviceErrorsLowBattery))]
         [SeamUnionVariant(
             "missing_device_credentials",
             typeof(DeviceErrorsMissingDeviceCredentials)
@@ -420,6 +424,18 @@ namespace Seam.Models
             public bool IsDeviceError { get; init; } = default!;
         }
 
+        public sealed record DeviceErrorsLowBattery : DeviceErrors
+        {
+            [JsonPropertyName("error_code")]
+            public override string ErrorCode { get; } = "low_battery";
+
+            /// <summary>
+            /// Indicates that the error is a device error.
+            /// </summary>
+            [JsonPropertyName("is_device_error")]
+            public bool IsDeviceError { get; init; } = default!;
+        }
+
         public sealed record DeviceErrorsMissingDeviceCredentials : DeviceErrors
         {
             [JsonPropertyName("error_code")]
@@ -563,6 +579,10 @@ namespace Seam.Models
         [SeamUnionVariant(
             "accessory_keypad_low_battery",
             typeof(DeviceWarningsAccessoryKeypadLowBattery)
+        )]
+        [SeamUnionVariant(
+            "battery_replacement_recommended",
+            typeof(DeviceWarningsBatteryReplacementRecommended)
         )]
         [SeamUnionVariant("unreliable_online_status", typeof(DeviceWarningsUnreliableOnlineStatus))]
         [SeamUnionVariant("max_access_codes_reached", typeof(DeviceWarningsMaxAccessCodesReached))]
@@ -757,6 +777,12 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "accessory_keypad_low_battery";
+        }
+
+        public sealed record DeviceWarningsBatteryReplacementRecommended : DeviceWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "battery_replacement_recommended";
         }
 
         public sealed record DeviceWarningsUnreliableOnlineStatus : DeviceWarnings
@@ -1025,6 +1051,18 @@ namespace Seam.Models
         public float? EstimatedOccupantCount { get; init; }
 
         /// <summary>
+        /// Indicates whether the device was last reported as having its casing opened or tampered with. Omitted when the provider reports no casing state, including when the device does not support casing tamper detection. This is independent of `is_detached_from_mounting_plate`.
+        /// </summary>
+        [JsonPropertyName("is_casing_tampered_with")]
+        public bool? IsCasingTamperedWith { get; init; }
+
+        /// <summary>
+        /// Indicates whether the device was last reported as detached from its mounting plate. Omitted when Seam has no accepted observation, including when the device does not support mounting plate detection, reports an unknown status, or is offline. This is the last accepted provider observation, not a guarantee of current hardware state; check `is_online` before acting on it.
+        /// </summary>
+        [JsonPropertyName("is_detached_from_mounting_plate")]
+        public bool? IsDetachedFromMountingPlate { get; init; }
+
+        /// <summary>
         /// Indicates whether Seam manages the device. See also [Managed and Unmanaged Devices](https://www.seam.co/docs/core-concepts/devices/managed-and-unmanaged-devices).
         /// </summary>
         [JsonPropertyName("is_managed")]
@@ -1035,6 +1073,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("is_occupancy_detected")]
         public bool? IsOccupancyDetected { get; init; }
+
+        /// <summary>
+        /// Indicates whether the device is online.
+        /// </summary>
+        [JsonPropertyName("is_online")]
+        public bool IsOnline { get; init; } = default!;
 
         /// <summary>
         /// Indicates whether the device detects smoking, if the device measures it.
@@ -1489,6 +1533,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("brivo_metadata")]
         public DevicePropertiesBrivoMetadata? BrivoMetadata { get; init; }
+
+        /// <summary>
+        /// Metadata for a Cielo device.
+        /// </summary>
+        [JsonPropertyName("cielo_metadata")]
+        public DevicePropertiesCieloMetadata? CieloMetadata { get; init; }
 
         /// <summary>
         /// Metadata for a ControlByWeb device.
@@ -2340,6 +2390,39 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("device_name")]
         public string? DeviceName { get; init; }
+    }
+
+    public sealed record DevicePropertiesCieloMetadata
+    {
+        /// <summary>
+        /// ID of the air conditioner or heat pump model that the Cielo device is set up to control.
+        /// </summary>
+        [JsonPropertyName("appliance_id")]
+        public string? ApplianceId { get; init; }
+
+        /// <summary>
+        /// Device type that Cielo reports, such as `Thermostat` for a Cielo thermostat.
+        /// </summary>
+        [JsonPropertyName("cielo_device_type")]
+        public string? CieloDeviceType { get; init; }
+
+        /// <summary>
+        /// Name of the device in the Cielo Home app.
+        /// </summary>
+        [JsonPropertyName("device_name")]
+        public string? DeviceName { get; init; }
+
+        /// <summary>
+        /// MAC address of the Cielo device.
+        /// </summary>
+        [JsonPropertyName("mac_address")]
+        public string? MacAddress { get; init; }
+
+        /// <summary>
+        /// Temperature unit that the Cielo device displays: `C` or `F`.
+        /// </summary>
+        [JsonPropertyName("temperature_unit")]
+        public string? TemperatureUnit { get; init; }
     }
 
     public sealed record DevicePropertiesControlbywebMetadata
