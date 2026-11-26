@@ -229,7 +229,7 @@ namespace Seam.Models
             : UnmanagedAccessCodeErrors
         {
             /// <summary>
-            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device.
+            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device. `deactivated` means the code is still on the device but was disabled or suspended.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum ChangeTypeEnum
@@ -242,13 +242,16 @@ namespace Seam.Models
 
                 [EnumMember(Value = "removed")]
                 Removed = 2,
+
+                [EnumMember(Value = "deactivated")]
+                Deactivated = 3,
             }
 
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "conflicting_external_modification";
 
             /// <summary>
-            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device.
+            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device. `deactivated` means the code is still on the device but was disabled or suspended.
             /// </summary>
             [JsonPropertyName("change_type")]
             public UnmanagedAccessCodeErrorsConflictingExternalModification.ChangeTypeEnum? ChangeType { get; init; }
@@ -823,7 +826,7 @@ namespace Seam.Models
             : UnmanagedAccessCodeWarnings
         {
             /// <summary>
-            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device.
+            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device. `deactivated` means the code is still on the device but was disabled or suspended.
             /// </summary>
             [JsonConverter(typeof(SeamStringEnumConverter))]
             public enum ChangeTypeEnum
@@ -836,13 +839,16 @@ namespace Seam.Models
 
                 [EnumMember(Value = "removed")]
                 Removed = 2,
+
+                [EnumMember(Value = "deactivated")]
+                Deactivated = 3,
             }
 
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "external_modification_in_effect";
 
             /// <summary>
-            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device.
+            /// Indicates the type of external modification. `modified` means the code&apos;s PIN or schedule was changed. `removed` means the code was deleted from the device. `deactivated` means the code is still on the device but was disabled or suspended.
             /// </summary>
             [JsonPropertyName("change_type")]
             public UnmanagedAccessCodeWarningsExternalModificationInEffect.ChangeTypeEnum? ChangeType { get; init; }

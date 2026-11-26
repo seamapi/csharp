@@ -14,6 +14,50 @@ namespace Seam.Models
     /// </summary>
     public sealed record ThermostatSchedule
     {
+        [JsonConverter(typeof(SeamUnionConverter))]
+        [SeamUnion("warning_code")]
+        [SeamUnionVariant(
+            "climate_preset_activation_may_fail",
+            typeof(ThermostatScheduleWarningsClimatePresetActivationMayFail)
+        )]
+        [SeamUnionFallback(typeof(ThermostatScheduleWarningsUnrecognized))]
+        public abstract record ThermostatScheduleWarnings
+        {
+            /// <summary>The value of the <c>warning_code</c> discriminator.</summary>
+            public abstract string WarningCode { get; }
+
+            /// <summary>
+            /// Date and time at which Seam created the warning.
+            /// </summary>
+            [JsonPropertyName("created_at")]
+            public string CreatedAt { get; init; } = default!;
+
+            /// <summary>
+            /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+            /// </summary>
+            [JsonPropertyName("message")]
+            public string Message { get; init; } = default!;
+        }
+
+        public sealed record ThermostatScheduleWarningsClimatePresetActivationMayFail
+            : ThermostatScheduleWarnings
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "climate_preset_activation_may_fail";
+        }
+
+        public sealed record ThermostatScheduleWarningsUnrecognized
+            : ThermostatScheduleWarnings,
+                ISeamUnrecognizedVariant
+        {
+            [JsonPropertyName("warning_code")]
+            public override string WarningCode { get; } = "unrecognized";
+
+            /// <summary>The complete raw JSON of the unrecognized payload.</summary>
+            [JsonIgnore]
+            public JsonElement RawJson { get; set; }
+        }
+
         /// <summary>
         /// Key of the [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) to use for the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
         /// </summary>
@@ -73,6 +117,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("thermostat_schedule_id")]
         public string ThermostatScheduleId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules).
+        /// </summary>
+        [JsonPropertyName("warnings")]
+        public List<ThermostatScheduleWarnings> Warnings { get; init; } = default!;
 
         /// <summary>
         /// ID of the workspace that contains the thermostat schedule.

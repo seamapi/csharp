@@ -304,17 +304,20 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_omnilogic")]
                 HaywardOmnilogic = 78,
 
+                [EnumMember(Value = "jandy_iaqualink")]
+                JandyIaqualink = 79,
+
                 [EnumMember(Value = "tuya")]
-                Tuya = 79,
+                Tuya = 80,
 
                 [EnumMember(Value = "hid_cm")]
-                HidCm = 80,
+                HidCm = 81,
 
                 [EnumMember(Value = "google_nest")]
-                GoogleNest = 81,
+                GoogleNest = 82,
 
                 [EnumMember(Value = "slack")]
-                Slack = 82,
+                Slack = 83,
             }
 
             /// <summary>

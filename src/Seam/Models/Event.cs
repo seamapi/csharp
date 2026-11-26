@@ -163,6 +163,7 @@ namespace Seam.Models
     [SeamUnionVariant("device.disconnected", typeof(EventDeviceDisconnected))]
     [SeamUnionVariant("device.unmanaged.disconnected", typeof(EventDeviceUnmanagedDisconnected))]
     [SeamUnionVariant("device.tampered", typeof(EventDeviceTampered))]
+    [SeamUnionVariant("sensor.smoking_detected", typeof(EventSensorSmokingDetected))]
     [SeamUnionVariant("device.low_battery", typeof(EventDeviceLowBattery))]
     [SeamUnionVariant("device.battery_status_changed", typeof(EventDeviceBatteryStatusChanged))]
     [SeamUnionVariant("device.removed", typeof(EventDeviceRemoved))]
@@ -216,6 +217,10 @@ namespace Seam.Models
         typeof(EventThermostatClimatePresetActivated)
     )]
     [SeamUnionVariant("thermostat.manually_adjusted", typeof(EventThermostatManuallyAdjusted))]
+    [SeamUnionVariant(
+        "thermostat_schedule.climate_preset_activation_may_fail",
+        typeof(EventThermostatScheduleClimatePresetActivationMayFail)
+    )]
     [SeamUnionVariant(
         "thermostat.temperature_threshold_exceeded",
         typeof(EventThermostatTemperatureThresholdExceeded)
@@ -1500,6 +1505,12 @@ namespace Seam.Models
         public string ConnectedAccountId { get; init; } = default!;
 
         /// <summary>
+        /// Human-readable description of the deletion and its source.
+        /// </summary>
+        [JsonPropertyName("description")]
+        public string? Description { get; init; }
+
+        /// <summary>
         /// Custom metadata of the device, present when device_id is provided.
         /// </summary>
         [JsonPropertyName("device_custom_metadata")]
@@ -2643,6 +2654,12 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("access_method_id")]
         public string AccessMethodId { get; init; } = default!;
+
+        /// <summary>
+        /// IDs of the access codes that were still set on a device when the access method was deleted. Access may still be possible with these codes until Seam removes them from the device. Each access code keeps its own deletion lifecycle, so watch it for `access_code.deleted` or `access_code.failed_to_delete`. Only present when at least one access code was still set on a device.
+        /// </summary>
+        [JsonPropertyName("failed_to_delete_access_code_ids")]
+        public List<string>? FailedToDeleteAccessCodeIds { get; init; }
     }
 
     /// <summary>
@@ -4503,6 +4520,45 @@ namespace Seam.Models
     }
 
     /// <summary>
+    /// A sensor reported smoking. Emitted once when `is_smoking_detected` becomes true. No event is emitted when it returns to false; re-read the device for the current value.
+    /// </summary>
+    public sealed record EventSensorSmokingDetected : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } = "sensor.smoking_detected";
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
+        [JsonPropertyName("customer_key")]
+        public string? CustomerKey { get; init; }
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
+    }
+
+    /// <summary>
     /// A device battery level dropped below the low threshold.
     /// </summary>
     public sealed record EventDeviceLowBattery : Event
@@ -6147,6 +6203,176 @@ namespace Seam.Models
         /// </summary>
         [JsonPropertyName("method")]
         public EventThermostatManuallyAdjusted.MethodEnum Method { get; init; } = default!;
+    }
+
+    /// <summary>
+    /// A [thermostat](https://www.seam.co/docs/capability-guides/thermostats) may fail to activate a [climate preset](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-climate-presets) when a [thermostat schedule](https://www.seam.co/docs/capability-guides/thermostats/creating-and-managing-thermostat-schedules) starts or ends, because the thermostat was offline shortly before the scheduled time. While the thermostat stays offline, the thermostat schedule carries a `climate_preset_activation_may_fail` warning until the scheduled time.
+    /// </summary>
+    public sealed record EventThermostatScheduleClimatePresetActivationMayFail : Event
+    {
+        [JsonPropertyName("event_type")]
+        public override string EventType { get; } =
+            "thermostat_schedule.climate_preset_activation_may_fail";
+
+        /// <summary>
+        /// Custom metadata of the connected account, present when connected_account_id is provided.
+        /// </summary>
+        [JsonPropertyName("connected_account_custom_metadata")]
+        public object? ConnectedAccountCustomMetadata { get; init; }
+
+        /// <summary>
+        /// Errors associated with the connected account.
+        /// </summary>
+        [JsonPropertyName("connected_account_errors")]
+        public List<EventThermostatScheduleClimatePresetActivationMayFailConnectedAccountErrors> ConnectedAccountErrors { get; init; } =
+            default!;
+
+        /// <summary>
+        /// ID of the connected account associated with the event.
+        /// </summary>
+        [JsonPropertyName("connected_account_id")]
+        public string ConnectedAccountId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the connected account.
+        /// </summary>
+        [JsonPropertyName("connected_account_warnings")]
+        public List<EventThermostatScheduleClimatePresetActivationMayFailConnectedAccountWarnings> ConnectedAccountWarnings { get; init; } =
+            default!;
+
+        /// <summary>
+        /// The customer key associated with the device, if any.
+        /// </summary>
+        [JsonPropertyName("customer_key")]
+        public string? CustomerKey { get; init; }
+
+        /// <summary>
+        /// Custom metadata of the device, present when device_id is provided.
+        /// </summary>
+        [JsonPropertyName("device_custom_metadata")]
+        public object? DeviceCustomMetadata { get; init; }
+
+        /// <summary>
+        /// Errors associated with the device.
+        /// </summary>
+        [JsonPropertyName("device_errors")]
+        public List<EventThermostatScheduleClimatePresetActivationMayFailDeviceErrors> DeviceErrors { get; init; } =
+            default!;
+
+        /// <summary>
+        /// ID of the affected device.
+        /// </summary>
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; init; } = default!;
+
+        /// <summary>
+        /// Warnings associated with the device.
+        /// </summary>
+        [JsonPropertyName("device_warnings")]
+        public List<EventThermostatScheduleClimatePresetActivationMayFailDeviceWarnings> DeviceWarnings { get; init; } =
+            default!;
+
+        /// <summary>
+        /// Date and time at which the thermostat schedule ends, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// </summary>
+        [JsonPropertyName("thermostat_schedule_ends_at")]
+        public string ThermostatScheduleEndsAt { get; init; } = default!;
+
+        /// <summary>
+        /// ID of the thermostat schedule whose climate preset activation may fail.
+        /// </summary>
+        [JsonPropertyName("thermostat_schedule_id")]
+        public string ThermostatScheduleId { get; init; } = default!;
+
+        /// <summary>
+        /// Date and time at which the thermostat schedule starts, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        /// </summary>
+        [JsonPropertyName("thermostat_schedule_starts_at")]
+        public string ThermostatScheduleStartsAt { get; init; } = default!;
+    }
+
+    public sealed record EventThermostatScheduleClimatePresetActivationMayFailConnectedAccountErrors
+    {
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("error_code")]
+        public string ErrorCode { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+    }
+
+    public sealed record EventThermostatScheduleClimatePresetActivationMayFailConnectedAccountWarnings
+    {
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("warning_code")]
+        public string WarningCode { get; init; } = default!;
+    }
+
+    public sealed record EventThermostatScheduleClimatePresetActivationMayFailDeviceErrors
+    {
+        /// <summary>
+        /// Date and time at which Seam created the error.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of error. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("error_code")]
+        public string ErrorCode { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the error. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+    }
+
+    public sealed record EventThermostatScheduleClimatePresetActivationMayFailDeviceWarnings
+    {
+        /// <summary>
+        /// Date and time at which Seam created the warning.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
+        /// Detailed description of the warning. Provides insights into the issue and potentially how to rectify it.
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; init; } = default!;
+
+        /// <summary>
+        /// Unique identifier of the type of warning. Enables quick recognition and categorization of the issue.
+        /// </summary>
+        [JsonPropertyName("warning_code")]
+        public string WarningCode { get; init; } = default!;
     }
 
     /// <summary>

@@ -270,8 +270,14 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_pool_controller")]
                 HaywardPoolController = 57,
 
+                [EnumMember(Value = "jandy_pool_controller")]
+                JandyPoolController = 58,
+
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 58,
+                HaywardPool = 59,
+
+                [EnumMember(Value = "jandy_pool")]
+                JandyPool = 60,
             }
 
             /// <summary>
@@ -454,8 +460,14 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_pool_controller")]
                 HaywardPoolController = 57,
 
+                [EnumMember(Value = "jandy_pool_controller")]
+                JandyPoolController = 58,
+
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 58,
+                HaywardPool = 59,
+
+                [EnumMember(Value = "jandy_pool")]
+                JandyPool = 60,
             }
 
             /// <summary>
@@ -662,8 +674,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_omnilogic")]
                 HaywardOmnilogic = 65,
 
+                [EnumMember(Value = "jandy_iaqualink")]
+                JandyIaqualink = 66,
+
                 [EnumMember(Value = "tuya")]
-                Tuya = 66,
+                Tuya = 67,
             }
 
             /// <summary>

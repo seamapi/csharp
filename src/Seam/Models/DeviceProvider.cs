@@ -254,8 +254,11 @@ namespace Seam.Models
             [EnumMember(Value = "hayward_omnilogic")]
             HaywardOmnilogic = 78,
 
+            [EnumMember(Value = "jandy_iaqualink")]
+            JandyIaqualink = 79,
+
             [EnumMember(Value = "tuya")]
-            Tuya = 79,
+            Tuya = 80,
         }
 
         /// <summary>

@@ -225,8 +225,14 @@ namespace Seam.Models
             [EnumMember(Value = "hayward_pool_controller")]
             HaywardPoolController = 57,
 
+            [EnumMember(Value = "jandy_pool_controller")]
+            JandyPoolController = 58,
+
             [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 58,
+            HaywardPool = 59,
+
+            [EnumMember(Value = "jandy_pool")]
+            JandyPool = 60,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -1093,10 +1099,16 @@ namespace Seam.Models
         public DeviceLocation? Location { get; init; }
 
         /// <summary>
-        /// Mold risk level as reported by the device, if the device measures it.
+        /// Display wording for the current mold risk, as reported by the provider or derived by Seam. The values are not stable and are only for display; use mold_risk_index for logic.
         /// </summary>
-        [JsonPropertyName("mold_risk_level")]
-        public string? MoldRiskLevel { get; init; }
+        [JsonPropertyName("mold_display_risk")]
+        public string? MoldDisplayRisk { get; init; }
+
+        /// <summary>
+        /// Mold risk index from 0 (no risk) to 1 (high risk), if the device measures it. Seam defines this scale and maps each provider onto it: 0 = low, 0.5 = medium, 1 = high for providers that report levels.
+        /// </summary>
+        [JsonPropertyName("mold_risk_index")]
+        public float? MoldRiskIndex { get; init; }
 
         /// <summary>
         /// Additional sensors of the same kind on the device, each with a stable `sensor_name`. Present only when the device has more than one sensor of a kind or no single main sensor.
@@ -1279,10 +1291,16 @@ namespace Seam.Models
         public bool? IsSmokingDetected { get; init; }
 
         /// <summary>
-        /// Mold risk level as reported by the device, if the device measures it.
+        /// Display wording for the current mold risk, as reported by the provider or derived by Seam. The values are not stable and are only for display; use mold_risk_index for logic.
         /// </summary>
-        [JsonPropertyName("mold_risk_level")]
-        public string? MoldRiskLevel { get; init; }
+        [JsonPropertyName("mold_display_risk")]
+        public string? MoldDisplayRisk { get; init; }
+
+        /// <summary>
+        /// Mold risk index from 0 (no risk) to 1 (high risk), if the device measures it. Seam defines this scale and maps each provider onto it: 0 = low, 0.5 = medium, 1 = high for providers that report levels.
+        /// </summary>
+        [JsonPropertyName("mold_risk_index")]
+        public float? MoldRiskIndex { get; init; }
 
         /// <summary>
         /// Noise level in decibels, if the device measures noise.
