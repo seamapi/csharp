@@ -81,10 +81,119 @@ namespace Seam.Routes
         public sealed record ListRequest
         {
             /// <summary>
+            /// Types of the action attempts that you want to list, such as `LOCK_DOOR` and `UNLOCK_DOOR`.
+            /// </summary>
+            [JsonConverter(typeof(SeamStringEnumConverter))]
+            public enum ActionTypesEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "LOCK_DOOR")]
+                LockDoor = 1,
+
+                [EnumMember(Value = "UNLOCK_DOOR")]
+                UnlockDoor = 2,
+
+                [EnumMember(Value = "SCAN_CREDENTIAL")]
+                ScanCredential = 3,
+
+                [EnumMember(Value = "ENCODE_CREDENTIAL")]
+                EncodeCredential = 4,
+
+                [EnumMember(Value = "SCAN_TO_ASSIGN_CREDENTIAL")]
+                ScanToAssignCredential = 5,
+
+                [EnumMember(Value = "ASSIGN_CREDENTIAL")]
+                AssignCredential = 6,
+
+                [EnumMember(Value = "RESET_SANDBOX_WORKSPACE")]
+                ResetSandboxWorkspace = 7,
+
+                [EnumMember(Value = "SET_FAN_MODE")]
+                SetFanMode = 8,
+
+                [EnumMember(Value = "SET_HVAC_MODE")]
+                SetHvacMode = 9,
+
+                [EnumMember(Value = "ACTIVATE_CLIMATE_PRESET")]
+                ActivateClimatePreset = 10,
+
+                [EnumMember(Value = "ACTIVATE_WEEKLY_PROGRAM")]
+                ActivateWeeklyProgram = 11,
+
+                [EnumMember(Value = "SIMULATE_KEYPAD_CODE_ENTRY")]
+                SimulateKeypadCodeEntry = 12,
+
+                [EnumMember(Value = "SIMULATE_MANUAL_LOCK_VIA_KEYPAD")]
+                SimulateManualLockViaKeypad = 13,
+
+                [EnumMember(Value = "PUSH_THERMOSTAT_PROGRAMS")]
+                PushThermostatPrograms = 14,
+
+                [EnumMember(Value = "CONFIGURE_AUTO_LOCK")]
+                ConfigureAutoLock = 15,
+
+                [EnumMember(Value = "CONVERT_ACCESS_CODE_TO_MANAGED")]
+                ConvertAccessCodeToManaged = 16,
+
+                [EnumMember(Value = "SET_SPEAKER_VOLUME")]
+                SetSpeakerVolume = 17,
+
+                [EnumMember(Value = "SET_SPEAKER_MUTE")]
+                SetSpeakerMute = 18,
+
+                [EnumMember(Value = "PAUSE_SPEAKER_PLAYBACK")]
+                PauseSpeakerPlayback = 19,
+
+                [EnumMember(Value = "RESUME_SPEAKER_PLAYBACK")]
+                ResumeSpeakerPlayback = 20,
+
+                [EnumMember(Value = "PLAY_SPEAKER_CHIME")]
+                PlaySpeakerChime = 21,
+
+                [EnumMember(Value = "PLAY_SPEAKER_FAVORITE")]
+                PlaySpeakerFavorite = 22,
+
+                [EnumMember(Value = "PLAY_SPEAKER_AUDIO_CLIP")]
+                PlaySpeakerAudioClip = 23,
+
+                [EnumMember(Value = "SET_TEMPERATURE_CONTROLLER_MODE")]
+                SetTemperatureControllerMode = 24,
+
+                [EnumMember(Value = "SYNC_ACCESS_CODES")]
+                SyncAccessCodes = 25,
+
+                [EnumMember(Value = "CREATE_ACCESS_CODE")]
+                CreateAccessCode = 26,
+
+                [EnumMember(Value = "DELETE_ACCESS_CODE")]
+                DeleteAccessCode = 27,
+
+                [EnumMember(Value = "UPDATE_ACCESS_CODE")]
+                UpdateAccessCode = 28,
+
+                [EnumMember(Value = "CREATE_NOISE_THRESHOLD")]
+                CreateNoiseThreshold = 29,
+
+                [EnumMember(Value = "DELETE_NOISE_THRESHOLD")]
+                DeleteNoiseThreshold = 30,
+
+                [EnumMember(Value = "UPDATE_NOISE_THRESHOLD")]
+                UpdateNoiseThreshold = 31,
+            }
+
+            /// <summary>
             /// IDs of the action attempts that you want to retrieve.
             /// </summary>
             [JsonPropertyName("action_attempt_ids")]
             public List<string>? ActionAttemptIds { get; init; }
+
+            /// <summary>
+            /// Types of the action attempts that you want to list, such as `LOCK_DOOR` and `UNLOCK_DOOR`.
+            /// </summary>
+            [JsonPropertyName("action_types")]
+            public List<ListRequest.ActionTypesEnum>? ActionTypes { get; init; }
 
             /// <summary>
             /// ID of the device to filter action attempts by.
@@ -121,7 +230,7 @@ namespace Seam.Routes
         }
 
         /// <summary>
-        /// Returns a list of the [action attempts](https://www.seam.co/docs/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s.
+        /// Returns a list of the [action attempts](https://www.seam.co/docs/core-concepts/action-attempts) that you specify as an array of `action_attempt_id`s or by `device_id`, newest first.
         /// </summary>
         public async Task<List<ActionAttempt>> ListAsync(
             ListRequest? request = null,

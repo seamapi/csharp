@@ -271,8 +271,14 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_pool_controller")]
                 HaywardPoolController = 57,
 
+                [EnumMember(Value = "jandy_pool_controller")]
+                JandyPoolController = 58,
+
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 58,
+                HaywardPool = 59,
+
+                [EnumMember(Value = "jandy_pool")]
+                JandyPool = 60,
             }
 
             /// <summary>
@@ -455,8 +461,162 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_pool_controller")]
                 HaywardPoolController = 57,
 
+                [EnumMember(Value = "jandy_pool_controller")]
+                JandyPoolController = 58,
+
                 [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 58,
+                HaywardPool = 59,
+
+                [EnumMember(Value = "jandy_pool")]
+                JandyPool = 60,
+            }
+
+            /// <summary>
+            /// Array of error and warning codes. Returns devices that have at least one error or warning with any of these codes.
+            /// </summary>
+            [JsonConverter(typeof(SeamStringEnumConverter))]
+            public enum HasErrorOrWarningCodesEnum
+            {
+                [EnumMember(Value = "unrecognized")]
+                Unrecognized = 0,
+
+                [EnumMember(Value = "device_offline")]
+                DeviceOffline = 1,
+
+                [EnumMember(Value = "device_removed")]
+                DeviceRemoved = 2,
+
+                [EnumMember(Value = "hub_disconnected")]
+                HubDisconnected = 3,
+
+                [EnumMember(Value = "device_disconnected")]
+                DeviceDisconnected = 4,
+
+                [EnumMember(Value = "account_disconnected")]
+                AccountDisconnected = 5,
+
+                [EnumMember(Value = "empty_backup_access_code_pool")]
+                EmptyBackupAccessCodePool = 6,
+
+                [EnumMember(Value = "august_lock_not_authorized")]
+                AugustLockNotAuthorized = 7,
+
+                [EnumMember(Value = "low_battery")]
+                LowBattery = 8,
+
+                [EnumMember(Value = "salto_ks_subscription_limit_exceeded")]
+                SaltoKsSubscriptionLimitExceeded = 9,
+
+                [EnumMember(Value = "insufficient_permissions")]
+                InsufficientPermissions = 10,
+
+                [EnumMember(Value = "dormakaba_sites_disconnected")]
+                DormakabaSitesDisconnected = 11,
+
+                [EnumMember(Value = "missing_device_credentials")]
+                MissingDeviceCredentials = 12,
+
+                [EnumMember(Value = "auxiliary_heat_running")]
+                AuxiliaryHeatRunning = 13,
+
+                [EnumMember(Value = "subscription_required")]
+                SubscriptionRequired = 14,
+
+                [EnumMember(Value = "bridge_disconnected")]
+                BridgeDisconnected = 15,
+
+                [EnumMember(Value = "partial_backup_access_code_pool")]
+                PartialBackupAccessCodePool = 16,
+
+                [EnumMember(Value = "many_active_backup_codes")]
+                ManyActiveBackupCodes = 17,
+
+                [EnumMember(Value = "device_has_flaky_connection")]
+                DeviceHasFlakyConnection = 18,
+
+                [EnumMember(Value = "third_party_integration_detected")]
+                ThirdPartyIntegrationDetected = 19,
+
+                [EnumMember(Value = "ttlock_lock_gateway_unlocking_not_enabled")]
+                TtlockLockGatewayUnlockingNotEnabled = 20,
+
+                [EnumMember(Value = "ttlock_weak_gateway_signal")]
+                TtlockWeakGatewaySignal = 21,
+
+                [EnumMember(Value = "power_saving_mode")]
+                PowerSavingMode = 22,
+
+                [EnumMember(Value = "temperature_threshold_exceeded")]
+                TemperatureThresholdExceeded = 23,
+
+                [EnumMember(Value = "device_communication_degraded")]
+                DeviceCommunicationDegraded = 24,
+
+                [EnumMember(Value = "scheduled_maintenance_window")]
+                ScheduledMaintenanceWindow = 25,
+
+                [EnumMember(Value = "salto_ks_office_mode")]
+                SaltoKsOfficeMode = 26,
+
+                [EnumMember(Value = "salto_ks_privacy_mode")]
+                SaltoKsPrivacyMode = 27,
+
+                [EnumMember(Value = "privacy_mode")]
+                PrivacyMode = 28,
+
+                [EnumMember(Value = "salto_ks_subscription_limit_almost_reached")]
+                SaltoKsSubscriptionLimitAlmostReached = 29,
+
+                [EnumMember(Value = "salto_ks_lock_access_code_support_removed")]
+                SaltoKsLockAccessCodeSupportRemoved = 30,
+
+                [EnumMember(Value = "unknown_issue_with_phone")]
+                UnknownIssueWithPhone = 31,
+
+                [EnumMember(Value = "lockly_time_zone_not_configured")]
+                LocklyTimeZoneNotConfigured = 32,
+
+                [EnumMember(Value = "ultraloq_time_zone_unknown")]
+                UltraloqTimeZoneUnknown = 33,
+
+                [EnumMember(Value = "time_zone_unknown")]
+                TimeZoneUnknown = 34,
+
+                [EnumMember(Value = "time_zone_mismatch")]
+                TimeZoneMismatch = 35,
+
+                [EnumMember(Value = "two_n_device_missing_timezone")]
+                TwoNDeviceMissingTimezone = 36,
+
+                [EnumMember(Value = "hub_required_for_additional_capabilities")]
+                HubRequiredForAdditionalCapabilities = 37,
+
+                [EnumMember(Value = "service_mode")]
+                ServiceMode = 38,
+
+                [EnumMember(Value = "provider_issue")]
+                ProviderIssue = 39,
+
+                [EnumMember(Value = "keynest_unsupported_locker")]
+                KeynestUnsupportedLocker = 40,
+
+                [EnumMember(Value = "accessory_keypad_setup_required")]
+                AccessoryKeypadSetupRequired = 41,
+
+                [EnumMember(Value = "accessory_keypad_low_battery")]
+                AccessoryKeypadLowBattery = 42,
+
+                [EnumMember(Value = "battery_replacement_recommended")]
+                BatteryReplacementRecommended = 43,
+
+                [EnumMember(Value = "unreliable_online_status")]
+                UnreliableOnlineStatus = 44,
+
+                [EnumMember(Value = "max_access_codes_reached")]
+                MaxAccessCodesReached = 45,
+
+                [EnumMember(Value = "subscription_required_for_additional_capabilities")]
+                SubscriptionRequiredForAdditionalCapabilities = 46,
             }
 
             /// <summary>
@@ -663,8 +823,11 @@ namespace Seam.Routes
                 [EnumMember(Value = "hayward_omnilogic")]
                 HaywardOmnilogic = 65,
 
+                [EnumMember(Value = "jandy_iaqualink")]
+                JandyIaqualink = 66,
+
                 [EnumMember(Value = "tuya")]
-                Tuya = 66,
+                Tuya = 67,
             }
 
             /// <summary>
@@ -720,6 +883,18 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("device_types")]
             public List<ListRequest.DeviceTypesEnum>? DeviceTypes { get; init; }
+
+            /// <summary>
+            /// Array of error and warning codes. Returns devices that have at least one error or warning with any of these codes.
+            /// </summary>
+            [JsonPropertyName("has_error_or_warning_codes")]
+            public List<ListRequest.HasErrorOrWarningCodesEnum>? HasErrorOrWarningCodes { get; init; }
+
+            /// <summary>
+            /// Filters devices by whether they have any errors or warnings. Specify `true` to list only devices with at least one error or warning, or `false` to list only devices with none.
+            /// </summary>
+            [JsonPropertyName("has_errors_or_warnings")]
+            public bool? HasErrorsOrWarnings { get; init; }
 
             /// <summary>
             /// Numerical limit on the number of devices to return.

@@ -53,6 +53,12 @@ namespace Seam.Models
         public string ActionAttemptId { get; init; } = default!;
 
         /// <summary>
+        /// Date and time at which the action attempt was created.
+        /// </summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; init; } = default!;
+
+        /// <summary>
         /// The status of the action attempt.
         /// </summary>
         [JsonPropertyName("status")]
