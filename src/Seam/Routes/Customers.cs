@@ -249,12 +249,6 @@ namespace Seam.Routes
             public List<CreatePortalRequestCustomerDataSpaces>? Spaces { get; init; }
 
             /// <summary>
-            /// List of staff members.
-            /// </summary>
-            [JsonPropertyName("staff_members")]
-            public List<CreatePortalRequestCustomerDataStaffMembers>? StaffMembers { get; init; }
-
-            /// <summary>
             /// List of tenants.
             /// </summary>
             [JsonPropertyName("tenants")]
@@ -1020,93 +1014,6 @@ namespace Seam.Routes
             public float? Longitude { get; init; }
         }
 
-        public sealed record CreatePortalRequestCustomerDataStaffMembers
-        {
-            /// <summary>
-            /// List of unique identifiers for the buildings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("building_keys")]
-            public List<string>? BuildingKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the common areas the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("common_area_keys")]
-            public List<string>? CommonAreaKeys { get; init; }
-
-            /// <summary>
-            /// Email address associated with the user identity.
-            /// </summary>
-            [JsonPropertyName("email_address")]
-            public string? EmailAddress { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the facilities the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("facility_keys")]
-            public List<string>? FacilityKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the listings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("listing_keys")]
-            public List<string>? ListingKeys { get; init; }
-
-            /// <summary>
-            /// Your display name for this user identity resource.
-            /// </summary>
-            [JsonPropertyName("name")]
-            public string? Name { get; init; }
-
-            /// <summary>
-            /// Phone number associated with the user identity.
-            /// </summary>
-            [JsonPropertyName("phone_number")]
-            public string? PhoneNumber { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the properties the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("property_keys")]
-            public List<string>? PropertyKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the property listings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("property_listing_keys")]
-            public List<string>? PropertyListingKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the rooms the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("room_keys")]
-            public List<string>? RoomKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the sites the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("site_keys")]
-            public List<string>? SiteKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the spaces the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("space_keys")]
-            public List<string>? SpaceKeys { get; init; }
-
-            /// <summary>
-            /// Your unique identifier for the staff.
-            /// </summary>
-            [JsonPropertyName("staff_member_key")]
-            public string? StaffMemberKey { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the units the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("unit_keys")]
-            public List<string>? UnitKeys { get; init; }
-        }
-
         public sealed record CreatePortalRequestCustomerDataTenants
         {
             /// <summary>
@@ -1762,12 +1669,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("spaces")]
             public List<PushDataRequestSpaces>? Spaces { get; init; }
-
-            /// <summary>
-            /// List of staff members.
-            /// </summary>
-            [JsonPropertyName("staff_members")]
-            public List<PushDataRequestStaffMembers>? StaffMembers { get; init; }
 
             /// <summary>
             /// List of tenants.
@@ -2533,93 +2434,6 @@ namespace Seam.Routes
             /// </summary>
             [JsonPropertyName("longitude")]
             public float? Longitude { get; init; }
-        }
-
-        public sealed record PushDataRequestStaffMembers
-        {
-            /// <summary>
-            /// List of unique identifiers for the buildings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("building_keys")]
-            public List<string>? BuildingKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the common areas the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("common_area_keys")]
-            public List<string>? CommonAreaKeys { get; init; }
-
-            /// <summary>
-            /// Email address associated with the user identity.
-            /// </summary>
-            [JsonPropertyName("email_address")]
-            public string? EmailAddress { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the facilities the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("facility_keys")]
-            public List<string>? FacilityKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the listings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("listing_keys")]
-            public List<string>? ListingKeys { get; init; }
-
-            /// <summary>
-            /// Your display name for this user identity resource.
-            /// </summary>
-            [JsonPropertyName("name")]
-            public string? Name { get; init; }
-
-            /// <summary>
-            /// Phone number associated with the user identity.
-            /// </summary>
-            [JsonPropertyName("phone_number")]
-            public string? PhoneNumber { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the properties the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("property_keys")]
-            public List<string>? PropertyKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the property listings the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("property_listing_keys")]
-            public List<string>? PropertyListingKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the rooms the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("room_keys")]
-            public List<string>? RoomKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the sites the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("site_keys")]
-            public List<string>? SiteKeys { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the spaces the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("space_keys")]
-            public List<string>? SpaceKeys { get; init; }
-
-            /// <summary>
-            /// Your unique identifier for the staff.
-            /// </summary>
-            [JsonPropertyName("staff_member_key")]
-            public string? StaffMemberKey { get; init; }
-
-            /// <summary>
-            /// List of unique identifiers for the units the staff member is associated with.
-            /// </summary>
-            [JsonPropertyName("unit_keys")]
-            public List<string>? UnitKeys { get; init; }
         }
 
         public sealed record PushDataRequestTenants

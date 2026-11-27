@@ -267,18 +267,6 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "alertify_sensor")]
                 AlertifySensor = 56,
-
-                [EnumMember(Value = "hayward_pool_controller")]
-                HaywardPoolController = 57,
-
-                [EnumMember(Value = "jandy_pool_controller")]
-                JandyPoolController = 58,
-
-                [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 59,
-
-                [EnumMember(Value = "jandy_pool")]
-                JandyPool = 60,
             }
 
             /// <summary>
@@ -457,18 +445,6 @@ namespace Seam.Routes
 
                 [EnumMember(Value = "alertify_sensor")]
                 AlertifySensor = 56,
-
-                [EnumMember(Value = "hayward_pool_controller")]
-                HaywardPoolController = 57,
-
-                [EnumMember(Value = "jandy_pool_controller")]
-                JandyPoolController = 58,
-
-                [EnumMember(Value = "hayward_pool")]
-                HaywardPool = 59,
-
-                [EnumMember(Value = "jandy_pool")]
-                JandyPool = 60,
             }
 
             /// <summary>

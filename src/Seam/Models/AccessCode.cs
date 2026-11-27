@@ -47,8 +47,6 @@ namespace Seam.Models
             "code_constraints_violated",
             typeof(AccessCodeErrorsCodeConstraintsViolated)
         )]
-        [SeamUnionVariant("failed_to_issue", typeof(AccessCodeErrorsFailedToIssue))]
-        [SeamUnionVariant("failed_to_update", typeof(AccessCodeErrorsFailedToUpdate))]
         [SeamUnionVariant("failed_to_delete", typeof(AccessCodeErrorsFailedToDelete))]
         [SeamUnionVariant("account_disconnected", typeof(AccessCodeErrorsAccountDisconnected))]
         [SeamUnionVariant(
@@ -290,42 +288,6 @@ namespace Seam.Models
         {
             [JsonPropertyName("error_code")]
             public override string ErrorCode { get; } = "code_constraints_violated";
-
-            /// <summary>
-            /// Date and time at which Seam created the error.
-            /// </summary>
-            [JsonPropertyName("created_at")]
-            public string? CreatedAt { get; init; }
-
-            /// <summary>
-            /// Indicates that this is an access code error.
-            /// </summary>
-            [JsonPropertyName("is_access_code_error")]
-            public bool IsAccessCodeError { get; init; } = default!;
-        }
-
-        public sealed record AccessCodeErrorsFailedToIssue : AccessCodeErrors
-        {
-            [JsonPropertyName("error_code")]
-            public override string ErrorCode { get; } = "failed_to_issue";
-
-            /// <summary>
-            /// Date and time at which Seam created the error.
-            /// </summary>
-            [JsonPropertyName("created_at")]
-            public string? CreatedAt { get; init; }
-
-            /// <summary>
-            /// Indicates that this is an access code error.
-            /// </summary>
-            [JsonPropertyName("is_access_code_error")]
-            public bool IsAccessCodeError { get; init; } = default!;
-        }
-
-        public sealed record AccessCodeErrorsFailedToUpdate : AccessCodeErrors
-        {
-            [JsonPropertyName("error_code")]
-            public override string ErrorCode { get; } = "failed_to_update";
 
             /// <summary>
             /// Date and time at which Seam created the error.
@@ -930,7 +892,6 @@ namespace Seam.Models
             "delay_in_removing_from_device",
             typeof(AccessCodeWarningsDelayInRemovingFromDevice)
         )]
-        [SeamUnionVariant("delay_in_issuing", typeof(AccessCodeWarningsDelayInIssuing))]
         [SeamUnionVariant(
             "third_party_integration_detected",
             typeof(AccessCodeWarningsThirdPartyIntegrationDetected)
@@ -1057,12 +1018,6 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "delay_in_removing_from_device";
-        }
-
-        public sealed record AccessCodeWarningsDelayInIssuing : AccessCodeWarnings
-        {
-            [JsonPropertyName("warning_code")]
-            public override string WarningCode { get; } = "delay_in_issuing";
         }
 
         public sealed record AccessCodeWarningsThirdPartyIntegrationDetected : AccessCodeWarnings
