@@ -364,7 +364,6 @@ namespace Seam.Models
             "hub_required_for_additional_capabilities",
             typeof(PhoneWarningsHubRequiredForAdditionalCapabilities)
         )]
-        [SeamUnionVariant("service_mode", typeof(PhoneWarningsServiceMode))]
         [SeamUnionVariant("provider_issue", typeof(PhoneWarningsProviderIssue))]
         [SeamUnionVariant(
             "keynest_unsupported_locker",
@@ -545,12 +544,6 @@ namespace Seam.Models
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } =
                 "hub_required_for_additional_capabilities";
-        }
-
-        public sealed record PhoneWarningsServiceMode : PhoneWarnings
-        {
-            [JsonPropertyName("warning_code")]
-            public override string WarningCode { get; } = "service_mode";
         }
 
         public sealed record PhoneWarningsProviderIssue : PhoneWarnings

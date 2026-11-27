@@ -221,18 +221,6 @@ namespace Seam.Models
 
             [EnumMember(Value = "alertify_sensor")]
             AlertifySensor = 56,
-
-            [EnumMember(Value = "hayward_pool_controller")]
-            HaywardPoolController = 57,
-
-            [EnumMember(Value = "jandy_pool_controller")]
-            JandyPoolController = 58,
-
-            [EnumMember(Value = "hayward_pool")]
-            HaywardPool = 59,
-
-            [EnumMember(Value = "jandy_pool")]
-            JandyPool = 60,
         }
 
         [JsonConverter(typeof(SeamUnionConverter))]
@@ -572,7 +560,6 @@ namespace Seam.Models
             "hub_required_for_additional_capabilities",
             typeof(DeviceWarningsHubRequiredForAdditionalCapabilities)
         )]
-        [SeamUnionVariant("service_mode", typeof(DeviceWarningsServiceMode))]
         [SeamUnionVariant("provider_issue", typeof(DeviceWarningsProviderIssue))]
         [SeamUnionVariant(
             "keynest_unsupported_locker",
@@ -753,12 +740,6 @@ namespace Seam.Models
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } =
                 "hub_required_for_additional_capabilities";
-        }
-
-        public sealed record DeviceWarningsServiceMode : DeviceWarnings
-        {
-            [JsonPropertyName("warning_code")]
-            public override string WarningCode { get; } = "service_mode";
         }
 
         public sealed record DeviceWarningsProviderIssue : DeviceWarnings

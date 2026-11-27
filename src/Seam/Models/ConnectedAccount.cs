@@ -196,10 +196,6 @@ namespace Seam.Models
             typeof(ConnectedAccountWarningsProviderServiceUnavailable)
         )]
         [SeamUnionVariant("setup_required", typeof(ConnectedAccountWarningsSetupRequired))]
-        [SeamUnionVariant(
-            "dormakaba_sites_unapproved",
-            typeof(ConnectedAccountWarningsDormakabaSitesUnapproved)
-        )]
         [SeamUnionFallback(typeof(ConnectedAccountWarningsUnrecognized))]
         public abstract record ConnectedAccountWarnings
         {
@@ -308,13 +304,6 @@ namespace Seam.Models
         {
             [JsonPropertyName("warning_code")]
             public override string WarningCode { get; } = "setup_required";
-        }
-
-        public sealed record ConnectedAccountWarningsDormakabaSitesUnapproved
-            : ConnectedAccountWarnings
-        {
-            [JsonPropertyName("warning_code")]
-            public override string WarningCode { get; } = "dormakaba_sites_unapproved";
         }
 
         public sealed record ConnectedAccountWarningsUnrecognized
